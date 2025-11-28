@@ -1,124 +1,134 @@
 import 'package:flutter/material.dart';
-import '../app_design_theme.dart';
-import '../surface_style.dart';
+import 'package:ui_kit_library/ui_kit.dart';
 
 class BrutalDesignTheme extends AppDesignTheme {
-  // Default to Light
-  const BrutalDesignTheme() : this.light();
+  // 私有建構子，用於接收所有屬性，並可以被 Factory 呼叫
+  const BrutalDesignTheme._({
+    required super.surfaceBase,
+    required super.surfaceElevated,
+    required super.surfaceHighlight,
+    required super.typography,
+    required super.animation,
+    required super.spacingFactor,
+  });
 
-  const BrutalDesignTheme.light()
-      : super(
-          surfaceBase: const SurfaceStyle(
-            backgroundColor: Colors.white,
-            borderColor: Colors.black,
-            borderWidth: 3.0,
-            borderRadius: 0.0,
-            shadows: [
-              BoxShadow(
-                color: Colors.black,
-                blurRadius: 0,
-                offset: Offset(4, 4),
-              )
-            ],
-            blurStrength: 0.0,
-            contentColor: Colors.black,
-          ),
-          surfaceElevated: const SurfaceStyle(
-            backgroundColor: Color(0xFFFFDE59), // Neo-Brutal Yellow
-            borderColor: Colors.black,
-            borderWidth: 3.0,
-            borderRadius: 0.0,
-            shadows: [
-              BoxShadow(
-                color: Colors.black,
-                blurRadius: 0,
-                offset: Offset(8, 8),
-              )
-            ],
-            blurStrength: 0.0,
-            contentColor: Colors.black,
-          ),
-          surfaceHighlight: const SurfaceStyle(
-            backgroundColor: Color(0xFFFF5757), // Neo-Brutal Red
-            borderColor: Colors.black,
-            borderWidth: 3.0,
-            borderRadius: 4.0,
-            shadows: [
-              BoxShadow(
-                color: Colors.black,
-                blurRadius: 0,
-                offset: Offset(2, 2),
-              )
-            ],
-            blurStrength: 0.0,
-            contentColor: Colors.white,
-          ),
-          typography: const TypographySpec(
-            bodyFontFamily: 'Courier',
-            displayFontFamily: 'Courier',
-          ),
-          animation: const AnimationSpec(
-            duration: Duration(milliseconds: 150),
-            curve: Curves.elasticOut,
-          ),
-          spacingFactor: 1.5,
-        );
+  factory BrutalDesignTheme.light([ColorScheme? scheme]) {
+    scheme ??= AppTheme.defaultLightScheme;
+    return BrutalDesignTheme._(
+      surfaceBase: SurfaceStyle(
+        backgroundColor: scheme.surface, // 使用 ColorScheme 的 surface
+        borderColor: scheme.onSurface,
+        borderWidth: 3.0,
+        borderRadius: 0.0,
+        shadows: [
+          BoxShadow(
+            color: scheme.onSurface, // 使用 ColorScheme 的 onSurface 作為陰影
+            blurRadius: 0,
+            offset: const Offset(4, 4),
+          )
+        ],
+        blurStrength: 0.0,
+        contentColor: scheme.onSurface,
+      ),
+      surfaceElevated: SurfaceStyle(
+        backgroundColor: scheme.primaryContainer, // 使用 ColorScheme 的 primaryContainer
+        borderColor: scheme.onSurface,
+        borderWidth: 3.0,
+        borderRadius: 0.0,
+        shadows: [
+          BoxShadow(
+            color: scheme.onSurface,
+            blurRadius: 0,
+            offset: const Offset(8, 8),
+          )
+        ],
+        blurStrength: 0.0,
+        contentColor: scheme.onPrimaryContainer,
+      ),
+      surfaceHighlight: SurfaceStyle(
+        backgroundColor: scheme.error, // 使用 ColorScheme 的 error
+        borderColor: scheme.onSurface,
+        borderWidth: 3.0,
+        borderRadius: 4.0,
+        shadows: [
+          BoxShadow(
+            color: scheme.onSurface,
+            blurRadius: 0,
+            offset: const Offset(2, 2),
+          )
+        ],
+        blurStrength: 0.0,
+        contentColor: scheme.onError,
+      ),
+      typography: const TypographySpec(
+        bodyFontFamily: 'Courier',
+        displayFontFamily: 'Courier',
+      ),
+      animation: const AnimationSpec(
+        duration: Duration(milliseconds: 150),
+        curve: Curves.elasticOut,
+      ),
+      spacingFactor: 1.5,
+    );
+  }
 
-  const BrutalDesignTheme.dark()
-      : super(
-          surfaceBase: const SurfaceStyle(
-            backgroundColor: Colors.black,
-            borderColor: Colors.white,
-            borderWidth: 3.0,
-            borderRadius: 0.0,
-            shadows: [
-              BoxShadow(
-                color: Colors.white, // White shadow on black
-                blurRadius: 0,
-                offset: Offset(4, 4),
-              )
-            ],
-            blurStrength: 0.0,
-            contentColor: Colors.white,
-          ),
-          surfaceElevated: const SurfaceStyle(
-            backgroundColor: Color(0xFF4A148C), // Deep Purple for dark mode elevated
-            borderColor: Colors.white,
-            borderWidth: 3.0,
-            borderRadius: 0.0,
-            shadows: [
-              BoxShadow(
-                color: Colors.white,
-                blurRadius: 0,
-                offset: Offset(8, 8),
-              )
-            ],
-            blurStrength: 0.0,
-            contentColor: Colors.white,
-          ),
-          surfaceHighlight: const SurfaceStyle(
-            backgroundColor: Color(0xFF00E676), // Neon Green for highlight
-            borderColor: Colors.white,
-            borderWidth: 3.0,
-            borderRadius: 4.0,
-            shadows: [
-              BoxShadow(
-                color: Colors.white,
-                blurRadius: 0,
-                offset: Offset(2, 2),
-              )
-            ],
-            blurStrength: 0.0,
-            contentColor: Colors.black, // Black text on Neon Green
-          ),
-          typography: const TypographySpec(
-            bodyFontFamily: 'Courier',
-            displayFontFamily: 'Courier',
-          ),
-          animation: const AnimationSpec(
-            duration: Duration(milliseconds: 150),
-            curve: Curves.elasticOut,
-          ),
-          spacingFactor: 1.5,
-        );
+  factory BrutalDesignTheme.dark([ColorScheme? scheme]) {
+    scheme ??= AppTheme.defaultDarkScheme;
+    return BrutalDesignTheme._(
+      surfaceBase: SurfaceStyle(
+        backgroundColor: scheme.surface,
+        borderColor: scheme.onSurface,
+        borderWidth: 3.0,
+        borderRadius: 0.0,
+        shadows: [
+          BoxShadow(
+            color: scheme.onSurface,
+            blurRadius: 0,
+            offset: const Offset(4, 4),
+          )
+        ],
+        blurStrength: 0.0,
+        contentColor: scheme.onSurface,
+      ),
+      surfaceElevated: SurfaceStyle(
+        backgroundColor: scheme.primaryContainer, // 使用 ColorScheme 的 primaryContainer
+        borderColor: scheme.onSurface,
+        borderWidth: 3.0,
+        borderRadius: 0.0,
+        shadows: [
+          BoxShadow(
+            color: scheme.onSurface,
+            blurRadius: 0,
+            offset: const Offset(8, 8),
+          )
+        ],
+        blurStrength: 0.0,
+        contentColor: scheme.onPrimaryContainer,
+      ),
+      surfaceHighlight: SurfaceStyle(
+        backgroundColor: scheme.error, // 使用 ColorScheme 的 error
+        borderColor: scheme.onSurface,
+        borderWidth: 3.0,
+        borderRadius: 4.0,
+        shadows: [
+          BoxShadow(
+            color: scheme.onSurface,
+            blurRadius: 0,
+            offset: const Offset(2, 2),
+          )
+        ],
+        blurStrength: 0.0,
+        contentColor: scheme.onError,
+      ),
+      typography: const TypographySpec(
+        bodyFontFamily: 'Courier',
+        displayFontFamily: 'Courier',
+      ),
+      animation: const AnimationSpec(
+        duration: Duration(milliseconds: 150),
+        curve: Curves.elasticOut,
+      ),
+      spacingFactor: 1.5,
+    );
+  }
 }

@@ -21,8 +21,6 @@ import 'package:widgetbook_workspace/stories/layouts/app_page_view.stories.dart'
     as _widgetbook_workspace_stories_layouts_app_page_view_stories;
 import 'package:widgetbook_workspace/stories/molecules/cards/app_card.stories.dart'
     as _widgetbook_workspace_stories_molecules_cards_app_card_stories;
-import 'package:widgetbook_workspace/stories/molecules/cards/liquid_glass_card.stories.dart'
-    as _widgetbook_workspace_stories_molecules_cards_liquid_glass_card_stories;
 import 'package:widgetbook_workspace/stories/molecules/dialogs/app_dialog.stories.dart'
     as _widgetbook_workspace_stories_molecules_dialogs_app_dialog_stories;
 
@@ -155,17 +153,6 @@ final directories = <_widgetbook.WidgetbookNode>[
                 builder:
                     _widgetbook_workspace_stories_molecules_cards_app_card_stories
                         .buildAppCard,
-              )
-            ],
-          ),
-          _widgetbook.WidgetbookComponent(
-            name: 'LiquidGlassCard',
-            useCases: [
-              _widgetbook.WidgetbookUseCase(
-                name: 'Playground',
-                builder:
-                    _widgetbook_workspace_stories_molecules_cards_liquid_glass_card_stories
-                        .buildLiquidGlassCard,
               )
             ],
           ),

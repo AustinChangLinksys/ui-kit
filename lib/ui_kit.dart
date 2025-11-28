@@ -36,8 +36,6 @@ export 'src/atoms/surfaces/app_surface.dart'; // 👈 新增：通用表面
 // Molecules (分子元件)
 // 包含：卡片、列表項
 // -----------------------------------------------------------------------------
-export 'src/molecules/cards/liquid_glass_card.dart'; // Deprecated
-export 'src/molecules/dialogs/liquid_glass_dialog.dart'; // Deprecated
 export 'src/molecules/cards/app_card.dart'; // 👈 新增：通用卡片
 export 'src/molecules/dialogs/app_dialog.dart'; // 👈 新增：通用對話框
 

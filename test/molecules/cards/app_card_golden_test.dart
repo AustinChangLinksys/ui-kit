@@ -2,10 +2,6 @@ import 'package:alchemist/alchemist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_kit_library/ui_kit.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/styles/glass_design_theme.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/styles/brutal_design_theme.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/styles/flat_design_theme.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/styles/neumorphic_design_theme.dart';
 
 void main() {
   group('AppCard Golden Tests', () {
@@ -18,7 +14,7 @@ void main() {
           GoldenTestScenario(
             name: 'Glass Light',
             child: Theme(
-              data: ThemeData(extensions: const [GlassDesignTheme.light()]),
+              data: ThemeData(extensions: [GlassDesignTheme.light()]),
               child: const AppCard(
                 width: 100,
                 height: 100,
@@ -29,7 +25,7 @@ void main() {
           GoldenTestScenario(
             name: 'Glass Dark',
             child: Theme(
-              data: ThemeData(extensions: const [GlassDesignTheme.dark()]),
+              data: ThemeData(extensions: [GlassDesignTheme.dark()]),
               child: const AppCard(
                 width: 100,
                 height: 100,
@@ -41,7 +37,7 @@ void main() {
           GoldenTestScenario(
             name: 'Brutal Light',
             child: Theme(
-              data: ThemeData(extensions: const [BrutalDesignTheme.light()]),
+              data: ThemeData(extensions: [BrutalDesignTheme.light()]),
               child: const AppCard(
                 width: 100,
                 height: 100,
@@ -52,7 +48,7 @@ void main() {
           GoldenTestScenario(
             name: 'Brutal Dark',
             child: Theme(
-              data: ThemeData(extensions: const [BrutalDesignTheme.dark()]),
+              data: ThemeData(extensions: [BrutalDesignTheme.dark()]),
               child: const AppCard(
                 width: 100,
                 height: 100,
@@ -64,7 +60,7 @@ void main() {
           GoldenTestScenario(
             name: 'Flat Light',
             child: Theme(
-              data: ThemeData(extensions: const [FlatDesignTheme.light()]),
+              data: ThemeData(extensions: [FlatDesignTheme.light()]),
               child: const AppCard(
                 width: 100,
                 height: 100,
@@ -75,7 +71,7 @@ void main() {
           GoldenTestScenario(
             name: 'Flat Dark',
             child: Theme(
-              data: ThemeData(extensions: const [FlatDesignTheme.dark()]),
+              data: ThemeData(extensions: [FlatDesignTheme.dark()]),
               child: const AppCard(
                 width: 100,
                 height: 100,
@@ -87,7 +83,7 @@ void main() {
           GoldenTestScenario(
             name: 'Neumorphic Light',
             child: Theme(
-              data: ThemeData(extensions: const [NeumorphicDesignTheme.light()]),
+              data: ThemeData(extensions: [NeumorphicDesignTheme.light()]),
               child: const AppCard(
                 width: 100,
                 height: 100,
@@ -98,7 +94,7 @@ void main() {
           GoldenTestScenario(
             name: 'Neumorphic Dark',
             child: Theme(
-              data: ThemeData(extensions: const [NeumorphicDesignTheme.dark()]),
+              data: ThemeData(extensions: [NeumorphicDesignTheme.dark()]),
               child: const AppCard(
                 width: 100,
                 height: 100,

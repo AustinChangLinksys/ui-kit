@@ -28,14 +28,15 @@ Widget buildAppIcon(BuildContext context) {
 
   // 2. 只有在 true 時才讀取顏色列表 (這裡就不需要 null 選項了)
   final customColor = isCustomColor
-      ? context.knobs.list<Color>(
+      ? context.knobs.object.dropdown<Color>(
           label: 'Color Value',
           options: [
             Colors.blue,
             Colors.red,
             const Color(0xFF0870EA),
           ],
-          labelBuilder: (value) => 'Color ${value.value.toRadixString(16)}',
+          labelBuilder: (value) =>
+              'Color ${value.toARGB32().toRadixString(16)}',
           initialOption: Colors.blue,
         )
       : null;
