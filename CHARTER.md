@@ -1,152 +1,188 @@
+Here is the merged **Version 2.0.0** of the Charter in English.
+
+I have integrated the **Architectural Core Principles (IoC & DDS)** and the **Expansion Protocols** into the existing structure to create a cohesive document.
+
+***
+
 # 📜 Flutter UI Component Library Charter (ui_kit)
 
-**版本**：1.0.0
-**生效日期**：2025-11-27
-**適用範圍**：所有 UI Library 的貢獻者與維護者
+**Version**: 2.0.0
+**Effective Date**: 2025-11-28
+**Scope**: All contributors and maintainers of the UI Library
 
 ---
 
-## 1. 願景與定位 (Vision & Scope)
-本函式庫旨在提供一套 **高內聚 (High Cohesion)、無業務邏輯 (Logic-Free)、樣式驅動 (Theme-Driven)** 的 UI 元件集。它是應用程式視覺呈現的 **單一真理來源 (Single Source of Truth)**。
+## 1. Vision & Scope
+This library aims to provide a **High Cohesion, Logic-Free, Theme-Driven** set of UI components. It serves as the **Single Source of Truth** for the application's visual presentation, supporting **Multi-Paradigm Visual Styles** (e.g., Glassmorphism, Neo-Brutalism).
 
-*   **Scope (範疇)**：基礎原子元件 (Atoms)、複合元件 (Molecules)、樣式定義 (Theming)、圖示資產 (Assets)、基礎佈局邏輯 (Layout)。
-*   **Out of Scope (非範疇)**：API 連線、狀態管理 (Bloc/Provider)、路由邏輯 (Routing)、業務資料模型 (Data Models)。
-
----
-
-## 2. 架構邊界 (Architectural Boundaries)
-
-### 2.1 實體隔離
-*   本函式庫必須作為一個 **獨立的 Dart Package** 存在，物理上強制解耦。
-
-### 2.2 依賴潔癖 (Dependency Hygiene)
-*   ❌ **禁止 (Forbidden)**：嚴禁依賴含有業務邏輯或後端連線的套件，如 `bloc`, `provider`, `riverpod`, `http`, `dio`, `firebase`, `shared_preferences`。
-*   ✅ **允許 (Allowed)**：僅限 UI 與工具類套件，如 `flutter`, `intl` (格式化), `vector_math`, `google_fonts`, `flutter_svg`, `rive`, `theme_tailor`, `flutter_animate`, `flutter_gen`。
-
-### 2.3 目錄結構 (Directory Structure)
-採用 **Atomic Design** 變體結構：
-*   `src/foundation/`: 基礎樣式 (Colors, Type, Spacing)。
-*   `src/atoms/`: 不可拆分的最小單位 (Button, Icon, Badge)。
-*   `src/molecules/`: 簡單組合 (ListTile, InputField)。
-*   `src/organisms/`: 複雜區塊 (AppBar, ProductCard)。
-*   `src/layout/`: 響應式佈局輔助工具。
+* **Scope**: Atomic components (Atoms), composite components (Molecules), theme definitions (Theming), icon assets (Assets), and basic layout logic (Layout).
+* **Out of Scope**: API connectivity, state management (Bloc/Provider), routing logic (Routing), and business data models (Data Models).
 
 ---
 
-## 3. 樣式與主題 (Theming & Styling)
+## 2. Architectural Boundaries
 
-### 3.1 Token 優先原則 (Token-First Design)
-*   **禁止硬編碼**：UI 元件內部嚴禁出現 `Color(0xFF...)`、`Colors.red` 或寫死的 `TextStyle`。
-*   **存取規範**：所有樣式必須透過 `Theme.of(context)` 存取，以確保支援動態換色。
+### 2.1 Physical Isolation
+* The library must exist as an **independent Dart Package**, physically enforced to decouple it from the main app.
 
-### 3.2 語意化擴充 (Semantic Architecture)
-*   **命名意圖**：`ThemeExtension` 變數必須描述「用途」（如 `success`, `critical`, `surfaceContainer`），**禁止**描述「外觀」（如 `green`, `orange`）。
-*   **擴充機制**：當標準 Material 3 ColorScheme 不足時，必須透過繼承 `ThemeExtension` 擴充。
+### 2.2 Dependency Hygiene
+* ❌ **Forbidden**: Dependencies containing business logic or backend connectivity are strictly prohibited (e.g., `bloc`, `provider`, `riverpod`, `http`, `dio`, `firebase`, `shared_preferences`).
+* ✅ **Allowed**: UI and utility packages only (e.g., `flutter`, `intl`, `vector_math`, `google_fonts`, `flutter_svg`, `rive`, `theme_tailor`, `flutter_animate`, `flutter_gen`).
 
-### 3.3 自動化與工具 (Automation)
-*   **Theme Tailor**：必須使用 **`theme_tailor`** 套件生成 `ThemeExtension`，禁止手寫 `copyWith` 與 `lerp`，以降低維護錯誤。
-
-### 3.4 動態主題工廠 (Dynamic Theme Factory)
-*   不提供寫死的 `ThemeData` 常數。必須提供 Factory 方法（如 `AppTheme.create({Color? seed})`），允許主程式注入 Seed Color 以支援動態取色 (Dynamic Color)。
-
-### 3.5 文字排版 (Typography)
-*   遵循 **DRY 原則**，建立統一的 `BaseTextStyle` 來管理 `fontFamily` 與 `package` 路徑，禁止在個別樣式中重複定義字體參數。
+### 2.3 Directory Structure
+Adopts a variation of **Atomic Design**:
+* `src/foundation/`: Base styles (Theme Contracts, Specs, Colors, Typography).
+* `src/atoms/`: Indivisible minimal units (AppSurface, Button, Icon).
+* `src/molecules/`: Simple combinations (ListTile, InputField, Toggles).
+* `src/organisms/`: Complex blocks (AppBar, ProductCard).
+* `src/layout/`: Responsive layout helpers.
 
 ---
 
-## 4. 元件設計原則 (Component Design)
+## 3. Architectural Core Principles (New)
 
-### 4.1 Dumb Components (笨元件)
-*   元件僅透過 **Constructor** 接收資料，透過 **Callback** (`VoidCallback`, `ValueChanged`) 傳遞事件。
-*   元件內部不應持有任何業務狀態，僅可持有 UI 暫態 (如 ScrollOffset, AnimationController)。
+To maintain long-term maintainability and support multi-style switching, all development must adhere to the following philosophies.
 
-### 4.2 組合優於繼承 (Composition over Inheritance)
-*   善用 **Slots (插槽)** 模式，預留 `child`, `leading`, `trailing`, `content` 參數。
-*   避免創造 `MyRedButton`，應創造 `MyButton(style: MyButtonStyle.danger())`。
+### 3.1 Inversion of Control (IoC)
+* **Definition**: Components must not determine their own specific appearance, nor should they inquire about the identity of the current theme. Control is inverted to the **Theme**.
+* **Practice**:
+    * **Ask "How", not "Who"**: Components ask the Theme "How should I look?" (e.g., color, shape), never "Who are you?" (e.g., "Are you Brutal style?").
+    * **Theme as Configuration**: `AppDesignTheme` acts as a rendering configuration file containing all visual parameters.
 
----
-
-## 5. 資產管理 (Assets Management)
-
-### 5.1 存取規範
-*   **強型別存取**：嚴禁使用字串路徑。必須使用 **`flutter_gen`** 生成的物件 (如 `MyAssets.icons.home`) 進行存取，確保 Package 路徑正確。
-
-### 5.2 格式規範
-*   **圖示 (Icons)**：使用 **SVG** 格式。檔案內應移除顏色屬性 (`fill`)，由外部 `IconTheme` 控制。
-*   **產品圖 (Product Images)**：優先使用 **WebP** 格式以平衡畫質與體積。
-*   **深色模式適配**：
-    *   單色圖示：使用 `ColorFilter` 改變顏色。
-    *   擬真產品圖：禁止換色。需使用 `ColorFiltered` 疊加半透明黑色遮罩 (Dimming) 降低亮度，避免刺眼。
+### 3.2 Data-Driven Strategy (DDS)
+* **Definition**: Eliminate hard-coded logic branches when handling structural or behavioral differences between styles. Use data structures (Specs) instead.
+* **Practice**:
+    * **Spec over Logic**: Instead of writing `if/else` or `switch` statements for style differences, define a **Spec** or **Enum** in the Theme (e.g., `ToggleStyle`, `InteractionSpec`).
+    * **Renderer Pattern**: Components render content based on data within the Spec. Adding a new style involves injecting new data, not modifying component code.
 
 ---
 
-## 6. 動畫技術選型 (Animation Strategy)
+## 4. Theming & Styling
 
-### 6.1 技術收斂
-*   **Level 1 (微互動)**：使用 **`flutter_animate`** 或原生 Code 實作 UI 轉場。
-*   **Level 2 (狀態驅動)**：複雜狀態圖示（如路由器燈號、連線流程）統一使用 **Rive (.riv)**。
-*   **禁令**：基於檔案體積與維護成本考量，本專案 **不引入 Lottie**。
+### 4.1 The Contract: AppDesignTheme
+* **Single Source of Truth**: `AppDesignTheme` is the sole source for the visual language. All visual properties (colors, radii, animation curves, spacing factors) must be retrieved from here.
+* **Token-First**: Hardcoding `Color(0xFF...)` or `Colors.red` inside components is strictly prohibited.
 
-### 6.2 Rive 規範
-*   必須善用 **State Machine (狀態機)** 將多種狀態封裝於單一檔案，減少資源碎片化。
-*   必須導出為二進位 `.riv` 格式。
+### 4.2 Config Separation
+* **AppPalette**: Brand colors and the base palette should be defined in `AppPalette` (Config) and injected via the `AppTheme` Factory. The Theme implementation layer is responsible for "logic mapping," not "defining color values."
 
----
+### 4.3 Semantic Architecture
+* **Intent Naming**: `ThemeExtension` variables must describe "usage" (e.g., `success`, `surfaceContainer`), **NOT** "appearance" (e.g., `green`, `orange`).
 
-## 7. 佈局與響應式 (Layout & Responsiveness)
+### 4.4 Automation
+* **Theme Tailor**: Must use **`theme_tailor`** to generate `ThemeExtension` classes. Hand-writing `copyWith` and `lerp` is prohibited to prevent maintenance errors and ensure smooth animations.
 
-### 7.1 無全域狀態 (No Singletons)
-*   **嚴禁** 使用 Singleton 儲存螢幕尺寸或計算結果。所有佈局計算必須依賴 `BuildContext` 與 `MediaQuery`。
-
-### 7.2 配置集中化
-*   斷點 (Breakpoints)、欄數 (Columns)、間距 (Gutters) 必須定義於 **ThemeExtension** (`AppLayout`) 中，而非散落在 Widget 裡。
-
-### 7.3 開發體驗
-*   提供 `BuildContext` Extension Methods (如 `context.col(6)`, `context.isDesktop`) 簡化呼叫邏輯。
+### 4.5 Typography
+* Follow the **DRY Principle**. Create a unified `BaseTextStyle` to manage `fontFamily` and package paths. Do not repeat font parameters in individual styles.
 
 ---
 
-## 8. 無障礙與輔助功能 (Accessibility)
+## 5. Component Design & Primitives
 
-### 8.1 語意標籤
-*   所有自定義互動元件必須包裹 `Semantics` Widget，並宣告正確的 `label`, `value`, `onTap` 屬性。
+### 5.1 The Primitive: AppSurface
+* **Mandatory Usage**: All containers possessing visual background, borders, shadows, blur, or interaction effects **MUST** use `AppSurface` as the root or child node.
+* **No Native Containers**: Business components must not directly use Flutter's native `Container` + `BoxDecoration` for visual styling.
 
-### 8.2 觸控目標
-*   行動裝置的可點擊區域至少需為 **44x44 (iOS)** 或 **48x48 (Android)** 邏輯像素。
+### 5.2 Dumb Components
+* Components receive data via **Constructor** and pass events via **Callback** (`VoidCallback`, `ValueChanged`).
+* Components must not hold business state, only UI transient state (e.g., ScrollOffset).
 
----
-
-## 9. 國際化潔癖 (Internationalization)
-
-### 9.1 無字串政策
-*   Library 內部 **嚴禁包含硬編碼的顯示文字**。所有 Label 必須透過參數由外部傳入。
-
-### 9.2 RTL 支援
-*   佈局屬性必須使用 `Directionality` 安全的寫法（如 `EdgeInsetsDirectional.start` 取代 `EdgeInsets.left`）。
+### 5.3 Composition over Inheritance
+* Use the **Slots Pattern** (e.g., `child`, `leading`, `trailing`, `content`).
+* Avoid `MyRedButton`; prefer `MyButton(style: MyButtonStyle.danger())`.
 
 ---
 
-## 10. 效能優化 (Performance)
+## 6. Expansion Protocols (New)
 
-*   **重繪邊界**：頻繁變動的元件（如 Loading）必須包裹 `RepaintBoundary`。
-*   **昂貴操作**：謹慎使用 `Opacity` (改用 `FadeTransition`) 與 `BackdropFilter`。
+### 6.1 Component Expansion Protocol
+When developing new UI components:
+1.  **Composition First**: Prioritize using `AppSurface`.
+2.  **No Runtime Type Checks**: Code **MUST NOT** contain checks like `if (theme is BrutalDesignTheme)`.
+3.  **Renderer Separation**: Complex drawing logic (e.g., specific Toggle icons) **MUST** be extracted into an independent **Renderer Widget** (e.g., `ToggleContentRenderer`), driven by the Theme Spec.
+
+### 6.2 Style Expansion Protocol
+When introducing a new design language (e.g., Neumorphic):
+1.  **Zero-Touch Policy**: Adding a new style **MUST NOT** require modifying the source code of existing components.
+2.  **Full Compliance**: New styles must fully implement `AppDesignTheme`. Unsupported features (e.g., Blur in Brutalism) must provide **Graceful Degradation** (e.g., `blurStrength: 0.0`).
+3.  **Semantic Consistency**: Strictly adhere to `SurfaceVariant` semantics (Base/Elevated/Highlight).
 
 ---
 
-## 11. 版本控制 (Versioning)
+## 7. Assets Management
 
-*   **語意化版本**：嚴格遵守 **SemVer (X.Y.Z)**。Breaking Change 必須升級主版號 (X)。
-*   **棄用策略**：移除 API 前需標記 ` @Deprecated` 並保留至少一個次版號的過渡期。
+### 7.1 Access Control
+* **Strong Typing**: String paths are prohibited. Use objects generated by **`flutter_gen`** (e.g., `MyAssets.icons.home`).
+
+### 7.2 Formats
+* **Icons**: Use **SVG**. Remove color attributes (`fill`) within the file; control color via `IconTheme`.
+* **Product Images**: Prefer **WebP**.
+* **Dark Mode**: Use `ColorFilter` for icons. For product images, use `ColorFiltered` with a semi-transparent black overlay (Dimming).
 
 ---
 
-## 12. 品質保證與測試 (QA & Testing)
+## 8. Animation Strategy
 
-### 12.1 Widgetbook (元件型錄)
-*   **強制性**：所有公開元件必須在 Widgetbook 中註冊 UseCase，並配置 Knobs 供設計師檢核。
+### 8.1 Technology Selection
+* **Level 1 (Micro-interactions)**: Use **`flutter_animate`** or native code.
+* **Level 2 (State-Driven)**: Complex state icons use **Rive (.riv)**.
+* **Prohibited**: **Lottie** is not used due to file size and maintenance costs.
 
-### 12.2 黃金檔測試 (Golden Tests)
-*   **測試矩陣**：核心元件必須包含截圖測試，並覆蓋以下維度：
-    *   **Theme**: Light Mode / Dark Mode。
-    *   **Text Scale**: **Standard (1.0)** / **Accessibility (1.5)**。
-*   **零溢出標準**：在 1.5x 字體縮放下，測試截圖不得出現溢出警告 (Yellow/Black stripes)，且文字不得遮擋關鍵操作區。
+### 8.2 Rive Standards
+* Use **State Machines** to encapsulate multiple states in a single file. Export as binary `.riv`.
+
+---
+
+## 9. Layout & Responsiveness
+
+### 9.1 No Global State
+* **Strictly Prohibited**: Using Singletons to store screen size. All layout calculations must rely on `BuildContext` and `MediaQuery`.
+
+### 9.2 Centralized Config
+* Breakpoints, Columns, and Gutters must be defined in **ThemeExtension** (`AppLayout`), not scattered across Widgets.
+
+---
+
+## 10. Accessibility & Internationalization
+
+### 10.1 A11y
+* Interactive components must wrap `Semantics` and declare correct `label`, `value`, and `onTap`.
+* Touch targets must be at least **44x44 (iOS)** or **48x48 (Android)**.
+
+### 10.2 i18n
+* **No String Policy**: The library **MUST NOT** contain hardcoded display text. All labels must be passed from the outside.
+* **RTL Support**: Use `Directionality`-safe properties (e.g., `EdgeInsetsDirectional.start`).
+
+---
+
+## 11. Performance
+
+* **Repaint Boundary**: Wrap frequently changing components (e.g., Loaders) in `RepaintBoundary`.
+* **Expensive Operations**: Use `Opacity` and `BackdropFilter` sparingly.
+
+---
+
+## 12. Quality Assurance & Testing
+
+### 12.1 Widgetbook
+* **Mandatory**: All public components must have a UseCase in Widgetbook with configurable Knobs.
+* **Visual Verification**: Before submission, components must be verified by switching through all Design Languages (Glass, Brutal, etc.) to ensure no breakage.
+
+### 12.2 Golden Tests
+* **Test Matrix**: Core components must include screenshot tests covering:
+    * **Theme**: Light / Dark.
+    * **Styles**: Glass / Brutal / Flat.
+    * **Text Scale**: Standard (1.0) / Accessibility (1.5).
+* **Zero Overflow**: At 1.5x text scale, screenshots must not show overflow warnings, and text must not obscure critical operation areas.
+
+---
+
+## Appendix: Code Review Checklist
+
+Reviewers shall inspect code based on the following:
+
+- [ ] **Architecture**: Is `AppSurface` used instead of `Container`?
+- [ ] **IoC/DDS**: Are `runtimeType` checks avoided? Is divergent logic moved to Theme Specs?
+- [ ] **Completeness**: Is a Widgetbook Story added covering all interaction states?
+- [ ] **Semantics**: Are `SurfaceVariant` and `spacingFactor` used correctly?
+- [ ] **Verification**: Has the component been visually verified across all Design Languages?

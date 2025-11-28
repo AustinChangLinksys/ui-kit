@@ -1,175 +1,201 @@
-<!--
-Sync Impact Report:
-  Version change: 1.0.0 -> 1.1.0
-  List of modified principles: 3.3 Automation & Tooling
-  Added sections: None
-  Removed sections: None
-  Templates requiring updates:
-    - .specify/templates/plan-template.md: ⚠ pending
-    - .specify/templates/spec-template.md: ⚠ pending
-    - .specify/templates/tasks-template.md: ⚠ pending
-    - .specify/commands/speckit.analyze.toml: ⚠ pending
-    - .specify/commands/speckit.checklist.toml: ⚠ pending
-    - .specify/commands/speckit.clarify.toml: ⚠ pending
-    - .specify/commands/speckit.constitution.toml: ⚠ pending
-    - .specify/commands/speckit.implement.toml: ⚠ pending
-    - .specify/commands/speckit.plan.toml: ⚠ pending
-    - .specify/commands/speckit.specify.toml: ⚠ pending
-    - .specify/commands/speckit.tasks.toml: ⚠ pending
-    - .specify/commands/speckit.taskstoissues.toml: ⚠ pending
-  Follow-up TODOs: None
--->
-# Project Constitution: UI Kit
+# 📜 Flutter UI Component Library Charter (ui_kit)
 
-This document outlines the core principles, architectural guidelines, and quality standards for the UI Kit library.
+**Version**: 2.0.0
+**Effective Date**: 2025-11-28
+**Scope**: All contributors and maintainers of the UI Library
+
+---
 
 ## 1. Vision & Scope
-This library aims to provide a set of High Cohesion, Logic-Free, and Theme-Driven UI components. It serves as the Single Source of Truth for the application's visual presentation.
+This library aims to provide a **High Cohesion, Logic-Free, Theme-Driven** set of UI components. It serves as the **Single Source of Truth** for the application's visual presentation, supporting **Multi-Paradigm Visual Styles** (e.g., Glassmorphism, Neo-Brutalism).
 
-Scope: Atomic components (Atoms), Composite components (Molecules), Style definitions (Theming), Icon assets (Assets), and Basic layout logic (Layout).
+* **Scope**: Atomic components (Atoms), composite components (Molecules), theme definitions (Theming), icon assets (Assets), and basic layout logic (Layout).
+* **Out of Scope**: API connectivity, state management (Bloc/Provider), routing logic (Routing), and business data models (Data Models).
 
-Out of Scope: API connectivity, State Management (Bloc/Provider), Routing logic, and Business Data Models.
+---
 
 ## 2. Architectural Boundaries
+
 ### 2.1 Physical Isolation
-This library must exist as an Independent Dart Package to enforce physical decoupling.
+* The library must exist as an **independent Dart Package**, physically enforced to decouple it from the main app.
 
 ### 2.2 Dependency Hygiene
-❌ Forbidden: It is strictly forbidden to depend on packages containing business logic or backend connectivity, such as bloc, provider, riverpod, http, dio, firebase, or shared_preferences.
-
-✅ Allowed: UI and utility packages only, such as flutter, intl (formatting), vector_math, google_fonts, flutter_svg, rive, theme_tailor, flutter_animate, and flutter_gen.
+* ❌ **Forbidden**: Dependencies containing business logic or backend connectivity are strictly prohibited (e.g., `bloc`, `provider`, `riverpod`, `http`, `dio`, `firebase`, `shared_preferences`).
+* ✅ **Allowed**: UI and utility packages only (e.g., `flutter`, `intl`, `vector_math`, `google_fonts`, `flutter_svg`, `rive`, `theme_tailor`, `flutter_animate`, `flutter_gen`).
 
 ### 2.3 Directory Structure
-Adopts a variant of Atomic Design:
+Adopts a variation of **Atomic Design**:
+* `src/foundation/`: Base styles (Theme Contracts, Specs, Colors, Typography).
+* `src/atoms/`: Indivisible minimal units (AppSurface, Button, Icon).
+* `src/molecules/`: Simple combinations (ListTile, InputField, Toggles).
+* `src/organisms/`: Complex blocks (AppBar, ProductCard).
+* `src/layout/`: Responsive layout helpers.
 
-src/foundation/: Base styles (Colors, Typography, Spacing).
+---
 
-src/atoms/: Indivisible units (Button, Icon, Badge).
+## 3. Architectural Core Principles
 
-src/molecules/: Simple compositions (ListTile, InputField).
+To maintain long-term maintainability and support multi-style switching, all development must adhere to the following philosophies.
 
-src/organisms/: Complex sections (AppBar, ProductCard).
+### 3.1 Inversion of Control (IoC)
+* **Definition**: Components must not determine their own specific appearance, nor should they inquire about the identity of the current theme. Control is inverted to the **Theme**.
+* **Practice**:
+    * **Ask "How", not "Who"**: Components ask the Theme "How should I look?" (e.g., color, shape), never "Who are you?" (e.g., "Are you Brutal style?").
+    * **Theme as Configuration**: `AppDesignTheme` acts as a rendering configuration file containing all visual parameters.
 
-src/layout/: Responsive layout utilities.
+### 3.2 Data-Driven Strategy (DDS)
+* **Definition**: Eliminate hard-coded logic branches when handling structural or behavioral differences between styles. Use data structures (Specs) instead.
+* **Practice**:
+    * **Spec over Logic**: Instead of writing `if/else` or `switch` statements for style differences, define a **Spec** or **Enum** in the Theme (e.g., `ToggleStyle`, `InteractionSpec`).
+    * **Renderer Pattern**: Components render content based on data within the Spec. Adding a new style involves injecting new data, not modifying component code.
 
-## 3. Theming & Styling
-### 3.1 Token-First Design
-No Hardcoding: It is strictly forbidden to use Color(0xFF...), Colors.red, or hardcoded TextStyle within UI components.
+---
 
-Access Pattern: All styles must be accessed via Theme.of(context) to ensure Dynamic Color support.
+## 4. Theming & Styling
 
-### 3.2 Semantic Architecture
-Intent over Appearance: ThemeExtension variables must describe "usage" (e.g., success, critical, surfaceContainer) and must not describe "appearance" (e.g., green, orange).
+### 4.1 The Contract: AppDesignTheme
+* **Single Source of Truth**: `AppDesignTheme` is the sole source for the visual language. All visual properties (colors, radii, animation curves, spacing factors) must be retrieved from here.
+* **Token-First**: Hardcoding `Color(0xFF...)` or `Colors.red` inside components is strictly prohibited.
 
-Extension Mechanism: When the standard Material 3 ColorScheme is insufficient, extend it by inheriting from ThemeExtension.
+### 4.2 Config Separation
+* **AppPalette**: Brand colors and the base palette should be defined in `AppPalette` (Config) and injected via the `AppTheme` Factory. The Theme implementation layer is responsible for "logic mapping," not "defining color values."
 
-### 3.3 Automation & Tooling
-Theme Tailor: The theme_tailor package must be used to generate ThemeExtension classes. The `@TailorMixin` annotation (replacing the deprecated `@Tailor`) must be used for automatic generation. Handwritten copyWith and lerp methods are prohibited to reduce maintenance errors.
+### 4.3 Semantic Architecture
+* **Intent Naming**: `ThemeExtension` variables must describe "usage" (e.g., `success`, `surfaceContainer`), **NOT** "appearance" (e.g., `green`, `orange`).
 
-### 3.4 Dynamic Theme Factory
-Static ThemeData constants are prohibited. A Factory method (e.g., AppTheme.create({Color? seed})) must be provided to allow the main application to inject a Seed Color for Dynamic Color support.
+### 4.4 Automation & Tooling
+* **Theme Tailor**: The `theme_tailor` package must be used to generate `ThemeExtension` classes.
+* **Annotation**: The **`@TailorMixin`** annotation (replacing the deprecated `@Tailor`) must be used for automatic generation.
+* **Prohibition**: Hand-writing `copyWith` and `lerp` methods is prohibited to reduce maintenance errors.
 
-### 3.5 Typography
-Follow the DRY Principle. Establish a unified BaseTextStyle to manage fontFamily and package paths. Repeating font parameters in individual styles is prohibited.
+### 4.5 Typography
+* Follow the **DRY Principle**. Create a unified `BaseTextStyle` to manage `fontFamily` and package paths. Do not repeat font parameters in individual styles.
 
-## 4. Component Design
-### 4.1 Dumb Components
-Components receive data solely via the Constructor and pass events via Callbacks (VoidCallback, ValueChanged).
+---
 
-Components must not hold any business state; only UI transient state (e.g., ScrollOffset, AnimationController) is allowed.
+## 5. Component Design & Primitives
 
-### 4.2 Composition over Inheritance
-Utilize the Slots Pattern by reserving parameters like child, leading, trailing, and content.
+### 5.1 The Primitive: AppSurface
+* **Mandatory Usage**: All containers possessing visual background, borders, shadows, blur, or interaction effects **MUST** use `AppSurface` as the root or child node.
+* **No Native Containers**: Business components must not directly use Flutter's native `Container` + `BoxDecoration` for visual styling.
 
-Avoid creating sub-classes like MyRedButton; instead, use style objects, e.g., MyButton(style: MyButtonStyle.danger()).
+### 5.2 Dumb Components
+* Components receive data via **Constructor** and pass events via **Callback** (`VoidCallback`, `ValueChanged`).
+* Components must not hold business state, only UI transient state (e.g., ScrollOffset).
 
-## 5. Assets Management
-### 5.1 Access Standards
-Strong Typing: String paths are strictly forbidden. Access must be done via objects generated by flutter_gen (e.g., MyAssets.icons.home) to ensure correct Package paths.
+### 5.3 Composition over Inheritance
+* Use the **Slots Pattern** (e.g., `child`, `leading`, `trailing`, `content`).
+* Avoid `MyRedButton`; prefer `MyButton(style: MyButtonStyle.danger())`.
 
-### 5.2 Formatting Standards
-Icons: Use SVG format. Color attributes (fill) must be removed from the file and controlled externally via IconTheme.
+---
 
-Product Images: Prioritize WebP format to balance quality and file size.
+## 6. Expansion Protocols
 
-Dark Mode Adaptation:
+### 6.1 Component Expansion Protocol
+When developing new UI components:
+1.  **Composition First**: Prioritize using `AppSurface`.
+2.  **No Runtime Type Checks**: Code **MUST NOT** contain checks like `if (theme is BrutalDesignTheme)`.
+3.  **Renderer Separation**: Complex drawing logic (e.g., specific Toggle icons) **MUST** be extracted into an independent **Renderer Widget** (e.g., `ToggleContentRenderer`), driven by the Theme Spec.
 
-Monochrome Icons: Use ColorFilter to change colors.
+### 6.2 Style Expansion Protocol
+When introducing a new design language (e.g., Neumorphic):
+1.  **Zero-Touch Policy**: Adding a new style **MUST NOT** require modifying the source code of existing components.
+2.  **Full Compliance**: New styles must fully implement `AppDesignTheme`. Unsupported features (e.g., Blur in Brutalism) must provide **Graceful Degradation** (e.g., `blurStrength: 0.0`).
+3.  **Semantic Consistency**: Strictly adhere to `SurfaceVariant` semantics (Base/Elevated/Highlight).
 
-Photorealistic Product Images: Color swapping is prohibited. Use ColorFiltered to apply a semi-transparent black overlay (Dimming) to reduce brightness and avoid glare.
+---
 
-## 6. Animation Strategy
-### 6.1 Technology Stack
-Level 1 (Micro-interactions): Use flutter_animate or native Code for UI transitions.
+## 7. Assets Management
 
-Level 2 (State-Driven): Complex state icons (e.g., router lights, connection flows) must use Rive (.riv).
+### 7.1 Access Control
+* **Strong Typing**: String paths are prohibited. Use objects generated by **`flutter_gen`** (e.g., `MyAssets.icons.home`).
 
-Prohibition: Due to file size and maintenance costs, Lottie is not used in this project.
+### 7.2 Formats
+* **Icons**: Use **SVG**. Remove color attributes (`fill`) within the file; control color via `IconTheme`.
+* **Product Images**: Prefer **WebP**.
+* **Dark Mode**: Use `ColorFilter` for icons. For product images, use `ColorFiltered` with a semi-transparent black overlay (Dimming).
 
-### 6.2 Rive Standards
-Must utilize State Machines to encapsulate multiple states within a single file, reducing resource fragmentation.
+---
 
-Must be exported in the binary .riv format.
+## 8. Animation Strategy
 
-## 7. Layout & Responsiveness
-### 7.1 No Singletons
-Strictly Forbidden: Do not use Singletons to store screen dimensions or calculation results. All layout calculations must rely on BuildContext and MediaQuery.
+### 8.1 Technology Selection
+* **Level 1 (Micro-interactions)**: Use **`flutter_animate`** or native code.
+* **Level 2 (State-Driven)**: Complex state icons use **Rive (.riv)**.
+* **Prohibited**: **Lottie** is not used due to file size and maintenance costs.
 
-### 7.2 Centralized Configuration
-Breakpoints, Columns, and Gutters must be defined in ThemeExtension (AppLayout) rather than scattered across Widgets.
+### 8.2 Rive Standards
+* Use **State Machines** to encapsulate multiple states in a single file. Export as binary `.riv`.
 
-### 7.3 Developer Experience
-Provide BuildContext Extension Methods (e.g., context.col(6), context.isDesktop) to simplify call logic.
+---
 
-## 8. Accessibility (a11y)
-### 8.1 Semantics
-All custom interactive components must be wrapped in a Semantics Widget with correctly declared label, value, and onTap properties.
+## 9. Layout & Responsiveness
 
-### 8.2 Touch Targets
-Clickable areas on mobile devices must be at least 44x44 (iOS) or 48x48 (Android) logical pixels.
+### 9.1 No Global State
+* **Strictly Prohibited**: Using Singletons to store screen size. All layout calculations must rely on `BuildContext` and `MediaQuery`.
 
-## 9. Internationalization (i18n)
-### 9.1 No-String Policy
-The library must not contain hardcoded display text. All labels must be passed in via parameters from the outside.
+### 9.2 Centralized Config
+* Breakpoints, Columns, and Gutters must be defined in **ThemeExtension** (`AppLayout`), not scattered across Widgets.
 
-### 9.2 RTL Support
-Layout properties must use Directionality-safe syntax (e.g., use EdgeInsetsDirectional.start instead of EdgeInsets.left).
+---
 
-## 10. Performance
-Repaint Boundary: Frequently changing components (e.g., Loading spinners) must be wrapped in RepaintBoundary.
+## 10. Accessibility & Internationalization
 
-Expensive Operations: Use Opacity cautiously (prefer FadeTransition) and limit the use of BackdropFilter.
+### 10.1 A11y
+* Interactive components must wrap `Semantics` and declare correct `label`, `value`, and `onTap`.
+* Touch targets must be at least **44x44 (iOS)** or **48x48 (Android)**.
 
-## 11. Versioning
-Semantic Versioning: Strictly adhere to SemVer (X.Y.Z). Breaking Changes require a Major version (X) bump.
+### 10.2 i18n
+* **No String Policy**: The library **MUST NOT** contain hardcoded display text. All labels must be passed from the outside.
+* **RTL Support**: Use `Directionality`-safe properties (e.g., `EdgeInsetsDirectional.start`).
 
-Deprecation Policy: Mark APIs with @Deprecated before removal and retain them for at least one Minor version transition period.
+---
+
+## 11. Performance
+
+* **Repaint Boundary**: Wrap frequently changing components (e.g., Loaders) in `RepaintBoundary`.
+* **Expensive Operations**: Use `Opacity` and `BackdropFilter` sparingly.
+
+---
 
 ## 12. Quality Assurance & Testing
+
 ### 12.1 Widgetbook
-Mandatory: All public components must have registered UseCases in Widgetbook with Knobs configured for designer review.
+* **Mandatory**: All public components must have a UseCase in Widgetbook with configurable Knobs.
+* **Visual Verification**: Before submission, components must be verified by switching through all Design Languages (Glass, Brutal, etc.) to ensure no breakage.
 
 ### 12.2 Golden Tests
-Testing Matrix: Core components must include screenshot tests covering the following dimensions:
+* **Test Matrix**: Core components must include screenshot tests covering:
+    * **Theme**: Light / Dark.
+    * **Styles**: Glass / Brutal / Flat.
+    * **Text Scale**: Standard (1.0) / Accessibility (1.5).
+* **Zero Overflow**: At 1.5x text scale, screenshots must not show overflow warnings, and text must not obscure critical operation areas.
 
-Theme: Light Mode / Dark Mode.
-
-Text Scale: Standard (1.0) / Accessibility (1.5).
-
-Zero Overflow Standard: Under 1.5x text scaling, test screenshots must not show overflow warnings (Yellow/Black stripes), and text must not obscure critical operation areas.
+---
 
 ## 13. Governance
+
 ### 13.1 Constitution Version
-1.1.0
+2.0.0
 
 ### 13.2 Ratification Date
-2025-11-27
+2025-11-28
 
-### 13.3 Last Amended Date
-2025-11-27
-
-### 13.4 Amendment Procedure
+### 13.3 Amendment Procedure
 Amendments to this constitution require a consensus among core maintainers. Proposed changes must be thoroughly documented, reviewed, and approved before being incorporated. Minor clarifications and typo fixes may be applied by any maintainer.
 
-### 13.5 Compliance Review
+### 13.4 Compliance Review
 Adherence to these principles will be reviewed periodically during code reviews, architectural discussions, and sprint retrospectives. Non-compliance must be addressed and resolved promptly.
+
+---
+
+## Appendix: Code Review Checklist
+
+Reviewers shall inspect code based on the following:
+
+- [ ] **Architecture**: Is `AppSurface` used instead of `Container`?
+- [ ] **IoC/DDS**: Are `runtimeType` checks avoided? Is divergent logic moved to Theme Specs?
+- [ ] **Automation**: Is `@TailorMixin` used for the theme class?
+- [ ] **Completeness**: Is a Widgetbook Story added covering all interaction states?
+- [ ] **Semantics**: Are `SurfaceVariant` and `spacingFactor` used correctly?
+- [ ] **Verification**: Has the component been visually verified across all Design Languages?
