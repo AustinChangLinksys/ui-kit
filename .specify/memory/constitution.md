@@ -1,8 +1,8 @@
 <!--
 Sync Impact Report:
-  Version change: None -> 1.0.0
-  List of modified principles: All (initial creation/major overhaul)
-  Added sections: All (initial creation/major overhaul)
+  Version change: 1.0.0 -> 1.1.0
+  List of modified principles: 3.3 Automation & Tooling
+  Added sections: None
   Removed sections: None
   Templates requiring updates:
     - .specify/templates/plan-template.md: ⚠ pending
@@ -64,7 +64,7 @@ Intent over Appearance: ThemeExtension variables must describe "usage" (e.g., su
 Extension Mechanism: When the standard Material 3 ColorScheme is insufficient, extend it by inheriting from ThemeExtension.
 
 ### 3.3 Automation & Tooling
-Theme Tailor: The theme_tailor package must be used to generate ThemeExtension classes. Handwritten copyWith and lerp methods are prohibited to reduce maintenance errors.
+Theme Tailor: The theme_tailor package must be used to generate ThemeExtension classes. The `@TailorMixin` annotation (replacing the deprecated `@Tailor`) must be used for automatic generation. Handwritten copyWith and lerp methods are prohibited to reduce maintenance errors.
 
 ### 3.4 Dynamic Theme Factory
 Static ThemeData constants are prohibited. A Factory method (e.g., AppTheme.create({Color? seed})) must be provided to allow the main application to inject a Seed Color for Dynamic Color support.
@@ -160,7 +160,7 @@ Zero Overflow Standard: Under 1.5x text scaling, test screenshots must not show 
 
 ## 13. Governance
 ### 13.1 Constitution Version
-1.0.0
+1.1.0
 
 ### 13.2 Ratification Date
 2025-11-27
