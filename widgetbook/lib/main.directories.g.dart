@@ -15,12 +15,14 @@ import 'package:widgetbook_workspace/stories/atoms/assets.stories.dart'
     as _widgetbook_workspace_stories_atoms_assets_stories;
 import 'package:widgetbook_workspace/stories/atoms/loading/app_skeleton.stories.dart'
     as _widgetbook_workspace_stories_atoms_loading_app_skeleton_stories;
+import 'package:widgetbook_workspace/stories/atoms/surfaces/app_surface.stories.dart'
+    as _widgetbook_workspace_stories_atoms_surfaces_app_surface_stories;
 import 'package:widgetbook_workspace/stories/layouts/app_page_view.stories.dart'
     as _widgetbook_workspace_stories_layouts_app_page_view_stories;
-import 'package:widgetbook_workspace/stories/molecules/cards/liquid_glass_card.stories.dart'
-    as _widgetbook_workspace_stories_molecules_cards_liquid_glass_card_stories;
-import 'package:widgetbook_workspace/stories/molecules/dialogs/liquid_glass_dialog.stories.dart'
-    as _widgetbook_workspace_stories_molecules_dialogs_liquid_glass_dialog_stories;
+import 'package:widgetbook_workspace/stories/molecules/cards/app_card.stories.dart'
+    as _widgetbook_workspace_stories_molecules_cards_app_card_stories;
+import 'package:widgetbook_workspace/stories/molecules/dialogs/app_dialog.stories.dart'
+    as _widgetbook_workspace_stories_molecules_dialogs_app_dialog_stories;
 
 final directories = <_widgetbook.WidgetbookNode>[
   _widgetbook.WidgetbookFolder(
@@ -98,6 +100,28 @@ final directories = <_widgetbook.WidgetbookNode>[
           )
         ],
       ),
+      _widgetbook.WidgetbookFolder(
+        name: 'surfaces',
+        children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'AppSurface',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Interactive',
+                builder:
+                    _widgetbook_workspace_stories_atoms_surfaces_app_surface_stories
+                        .buildAppSurfaceInteractive,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Variants',
+                builder:
+                    _widgetbook_workspace_stories_atoms_surfaces_app_surface_stories
+                        .buildAppSurfaceVariants,
+              ),
+            ],
+          )
+        ],
+      ),
     ],
   ),
   _widgetbook.WidgetbookFolder(
@@ -122,35 +146,35 @@ final directories = <_widgetbook.WidgetbookNode>[
         name: 'cards',
         children: [
           _widgetbook.WidgetbookComponent(
-            name: 'LiquidGlassCard',
+            name: 'AppCard',
             useCases: [
               _widgetbook.WidgetbookUseCase(
-                name: 'Playground',
+                name: 'Standard',
                 builder:
-                    _widgetbook_workspace_stories_molecules_cards_liquid_glass_card_stories
-                        .buildLiquidGlassCard,
+                    _widgetbook_workspace_stories_molecules_cards_app_card_stories
+                        .buildAppCard,
               )
             ],
-          )
+          ),
         ],
       ),
       _widgetbook.WidgetbookFolder(
         name: 'dialogs',
         children: [
           _widgetbook.WidgetbookComponent(
-            name: 'LiquidGlassDialog',
+            name: 'AppDialog',
             useCases: [
               _widgetbook.WidgetbookUseCase(
-                name: 'Alert Dialog (Popup)',
+                name: 'Dialog Demo (Popup)',
                 builder:
-                    _widgetbook_workspace_stories_molecules_dialogs_liquid_glass_dialog_stories
-                        .buildLiquidGlassDialogPopup,
+                    _widgetbook_workspace_stories_molecules_dialogs_app_dialog_stories
+                        .buildAppDialogPopup,
               ),
               _widgetbook.WidgetbookUseCase(
-                name: 'Alert Dialog Style',
+                name: 'Standard Dialog',
                 builder:
-                    _widgetbook_workspace_stories_molecules_dialogs_liquid_glass_dialog_stories
-                        .buildLiquidGlassDialogAlert,
+                    _widgetbook_workspace_stories_molecules_dialogs_app_dialog_stories
+                        .buildAppDialog,
               ),
             ],
           )

@@ -38,7 +38,7 @@ class GridDebugOverlay extends StatelessWidget {
                 if (margin > 0)
                   Container(
                     width: margin,
-                    color: Colors.green.withOpacity(0.2),
+                    color: Colors.green.withValues(alpha: 0.2),
                   ),
 
                 // B. Grid 區域
@@ -49,12 +49,12 @@ class GridDebugOverlay extends StatelessWidget {
                       final isColumn = index % 2 == 0;
                       if (isColumn) {
                         return Expanded(
-                          child: Container(color: Colors.red.withOpacity(0.1)),
+                          child: Container(color: Colors.red.withValues(alpha: 0.1)),
                         );
                       } else {
                         return SizedBox(
                           width: gutter,
-                          child: Container(color: Colors.cyan.withOpacity(0.2)),
+                          child: Container(color: Colors.cyan.withValues(alpha: 0.2)),
                         );
                       }
                     }),
@@ -65,7 +65,7 @@ class GridDebugOverlay extends StatelessWidget {
                 if (margin > 0)
                   Container(
                     width: margin,
-                    color: Colors.green.withOpacity(0.2),
+                    color: Colors.green.withValues(alpha: 0.2),
                   ),
               ],
             ),

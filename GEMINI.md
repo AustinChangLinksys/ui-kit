@@ -3,6 +3,7 @@
 Auto-generated from all feature plans. Last updated: 2025-11-27
 
 ## Active Technologies
+- Dart 3.8+ (Utilizing Records, Patterns, Class Modifiers) + `flutter`, `theme_tailor_annotation`, `equatable` (002-unified-design-system)
 
 - Dart (SDK >=3.2.0 <4.0.0), Flutter (SDK >=3.22.0) + `flutter`, `intl`, `google_fonts`, `vector_math`, `flutter_svg`, `rive`, `flutter_animate`, `theme_tailor_annotation`, `build_runner`, `theme_tailor`, `flutter_gen_runner`, `widgetbook`, `widgetbook_annotation`, `widgetbook_generator`. (001-ui-kit-init)
 
@@ -22,6 +23,8 @@ tests/
 Dart (SDK >=3.2.0 <4.0.0), Flutter (SDK >=3.22.0): Follow standard conventions
 
 ## Recent Changes
+- 002-unified-design-system: Added Dart 3.8+ (Utilizing Records, Patterns, Class Modifiers) + `flutter`, `theme_tailor_annotation`, `equatable`
+- 002-unified-design-system: Added Dart 3.8+ (Utilizing Records, Patterns, Class Modifiers) + `flutter`, `theme_tailor_annotation`, `equatable`
 
 - 001-ui-kit-init: Added Dart (SDK >=3.2.0 <4.0.0), Flutter (SDK >=3.22.0) + `flutter`, `intl`, `google_fonts`, `vector_math`, `flutter_svg`, `rive`, `flutter_animate`, `theme_tailor_annotation`, `build_runner`, `theme_tailor`, `flutter_gen_runner`, `widgetbook`, `widgetbook_annotation`, `widgetbook_generator`.
 

@@ -29,14 +29,15 @@ Widget buildAppPageView(BuildContext context) {
         // =====================================================================
         // 策略 1: 響應式跨度 (Grid Span Logic)
         // =====================================================================
-        _SectionHeader(
+        const _SectionHeader(
             title: '1. Responsive Span Logic', subtitle: 'context.colWidth(4)'),
 
         Container(
           decoration: BoxDecoration(
-            color: Colors.blue.withOpacity(0.1),
+            color: Colors.blue.withValues(alpha: 0.1),
             border: Border.symmetric(
-                horizontal: BorderSide(color: Colors.blue.withOpacity(0.3))),
+                horizontal:
+                    BorderSide(color: Colors.blue.withValues(alpha: 0.3))),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,12 +66,12 @@ Widget buildAppPageView(BuildContext context) {
                       SizedBox(width: context.layout.gutter),
                       _GridDemoBox(
                           width: context.colWidth(4),
-                          color: Colors.blue.withOpacity(0.6),
+                          color: Colors.blue.withValues(alpha: 0.6),
                           label: 'Span 4'),
                       SizedBox(width: context.layout.gutter),
                       _GridDemoBox(
                           width: context.colWidth(4),
-                          color: Colors.blue.withOpacity(0.4),
+                          color: Colors.blue.withValues(alpha: 0.4),
                           label: 'Span 4'),
                     ],
                   );
@@ -96,14 +97,15 @@ Widget buildAppPageView(BuildContext context) {
         // =====================================================================
         // 策略 2: 固定數量均分 (Fixed Split Logic)
         // =====================================================================
-        _SectionHeader(
+        const _SectionHeader(
             title: '2. Fixed Split Logic', subtitle: 'context.split(4)'),
 
         Container(
           decoration: BoxDecoration(
-            color: Colors.green.withOpacity(0.1),
+            color: Colors.green.withValues(alpha: 0.1),
             border: Border.symmetric(
-                horizontal: BorderSide(color: Colors.green.withOpacity(0.3))),
+                horizontal:
+                    BorderSide(color: Colors.green.withValues(alpha: 0.3))),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -173,7 +175,8 @@ class _GridDemoBox extends StatelessWidget {
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.white.withOpacity(0.5), width: 2),
+        border:
+            Border.all(color: Colors.white.withValues(alpha: 0.5), width: 2),
       ),
       child: Center(
         child: Text(
