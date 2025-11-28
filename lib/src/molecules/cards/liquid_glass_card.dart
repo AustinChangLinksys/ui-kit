@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ui_kit_library/src/foundation/theme/glass_theme.dart';
 
 
+@Deprecated('Use AppCard instead')
 class LiquidGlassStyle {
   final double? width;
   final double? height;
@@ -25,6 +26,7 @@ class LiquidGlassStyle {
   });
 }
 
+@Deprecated('Use AppCard instead')
 class LiquidGlassCard extends StatelessWidget {
   final Widget child;
   final LiquidGlassStyle? style; // 改為可選

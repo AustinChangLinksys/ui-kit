@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../cards/liquid_glass_card.dart'; // 重用我們的卡片
 
+@Deprecated('Use AppDialog instead')
 class LiquidGlassDialog extends StatelessWidget {
   final Widget? title;
   final Widget content;
