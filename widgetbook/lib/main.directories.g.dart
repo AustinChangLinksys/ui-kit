@@ -23,6 +23,8 @@ import 'package:widgetbook_workspace/stories/molecules/cards/app_card.stories.da
     as _widgetbook_workspace_stories_molecules_cards_app_card_stories;
 import 'package:widgetbook_workspace/stories/molecules/dialogs/app_dialog.stories.dart'
     as _widgetbook_workspace_stories_molecules_dialogs_app_dialog_stories;
+import 'package:widgetbook_workspace/stories/molecules/toggles/app_switch.stories.dart'
+    as _widgetbook_workspace_stories_molecules_toggles_app_switch_stories;
 
 final directories = <_widgetbook.WidgetbookNode>[
   _widgetbook.WidgetbookFolder(
@@ -155,7 +157,7 @@ final directories = <_widgetbook.WidgetbookNode>[
                         .buildAppCard,
               )
             ],
-          ),
+          )
         ],
       ),
       _widgetbook.WidgetbookFolder(
@@ -175,6 +177,28 @@ final directories = <_widgetbook.WidgetbookNode>[
                 builder:
                     _widgetbook_workspace_stories_molecules_dialogs_app_dialog_stories
                         .buildAppDialog,
+              ),
+            ],
+          )
+        ],
+      ),
+      _widgetbook.WidgetbookFolder(
+        name: 'toggles',
+        children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'AppSwitch',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'All States',
+                builder:
+                    _widgetbook_workspace_stories_molecules_toggles_app_switch_stories
+                        .appSwitchStates,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Interactive Playground',
+                builder:
+                    _widgetbook_workspace_stories_molecules_toggles_app_switch_stories
+                        .interactiveAppSwitch,
               ),
             ],
           )

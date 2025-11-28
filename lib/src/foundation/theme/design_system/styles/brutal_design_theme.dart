@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/toggle_style.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
 class BrutalDesignTheme extends AppDesignTheme {
@@ -7,6 +8,7 @@ class BrutalDesignTheme extends AppDesignTheme {
     required super.surfaceBase,
     required super.surfaceElevated,
     required super.surfaceHighlight,
+    required super.toggleStyle,
     required super.typography,
     required super.animation,
     required super.spacingFactor,
@@ -59,6 +61,12 @@ class BrutalDesignTheme extends AppDesignTheme {
         ],
         blurStrength: 0.0,
         contentColor: scheme.onError,
+      ),
+      toggleStyle: const ToggleStyle(
+        activeType: ToggleContentType.text,
+        inactiveType: ToggleContentType.text,
+        activeText: 'I',
+        inactiveText: 'O',
       ),
       typography: const TypographySpec(
         bodyFontFamily: 'Courier',
@@ -119,6 +127,12 @@ class BrutalDesignTheme extends AppDesignTheme {
         ],
         blurStrength: 0.0,
         contentColor: scheme.onError,
+      ),
+      toggleStyle: const ToggleStyle(
+        activeType: ToggleContentType.text,
+        inactiveType: ToggleContentType.text,
+        activeText: 'I',
+        inactiveText: 'O',
       ),
       typography: const TypographySpec(
         bodyFontFamily: 'Courier',

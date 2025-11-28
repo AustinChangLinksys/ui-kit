@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/toggle_style.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
 class FlatDesignTheme extends AppDesignTheme {
@@ -6,6 +7,7 @@ class FlatDesignTheme extends AppDesignTheme {
     required super.surfaceBase,
     required super.surfaceElevated,
     required super.surfaceHighlight,
+    required super.toggleStyle,
     required super.typography,
     required super.animation,
     required super.spacingFactor,
@@ -46,6 +48,11 @@ class FlatDesignTheme extends AppDesignTheme {
         shadows: const [],
         blurStrength: 0.0,
         contentColor: scheme.primary,
+      ),
+      toggleStyle: const ToggleStyle(
+        activeType: ToggleContentType.icon,
+        inactiveType: ToggleContentType.none, // 關閉時什麼都不顯示
+        activeIcon: Icons.check,
       ),
       typography: const TypographySpec(
         bodyFontFamily: 'Roboto',
@@ -94,6 +101,11 @@ class FlatDesignTheme extends AppDesignTheme {
         shadows: const [],
         blurStrength: 0.0,
         contentColor: scheme.primary,
+      ),
+      toggleStyle: const ToggleStyle(
+        activeType: ToggleContentType.icon,
+        inactiveType: ToggleContentType.none, // 關閉時什麼都不顯示
+        activeIcon: Icons.check,
       ),
       typography: const TypographySpec(
         bodyFontFamily: 'Roboto',

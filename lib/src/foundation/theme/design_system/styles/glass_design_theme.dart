@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/toggle_style.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
 class GlassDesignTheme extends AppDesignTheme {
@@ -10,6 +11,7 @@ class GlassDesignTheme extends AppDesignTheme {
     required super.typography,
     required super.animation,
     required super.spacingFactor,
+    required super.toggleStyle,
   });
 
   factory GlassDesignTheme.light([ColorScheme? scheme]) {
@@ -71,6 +73,10 @@ class GlassDesignTheme extends AppDesignTheme {
         ],
         blurStrength: 10.0,
         contentColor: scheme.onSurface,
+      ),
+      toggleStyle: const ToggleStyle(
+        activeType: ToggleContentType.grip, // 特殊圖形
+        inactiveType: ToggleContentType.grip,
       ),
       typography: const TypographySpec(),
       animation: const AnimationSpec(
@@ -140,6 +146,10 @@ class GlassDesignTheme extends AppDesignTheme {
         ],
         blurStrength: 10.0,
         contentColor: scheme.onSurface,
+      ),
+      toggleStyle: const ToggleStyle(
+        activeType: ToggleContentType.grip, // 特殊圖形
+        inactiveType: ToggleContentType.grip,
       ),
       typography: const TypographySpec(),
       animation: const AnimationSpec(

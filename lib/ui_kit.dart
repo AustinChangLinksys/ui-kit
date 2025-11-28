@@ -38,6 +38,7 @@ export 'src/atoms/surfaces/app_surface.dart'; // 👈 新增：通用表面
 // -----------------------------------------------------------------------------
 export 'src/molecules/cards/app_card.dart'; // 👈 新增：通用卡片
 export 'src/molecules/dialogs/app_dialog.dart'; // 👈 新增：通用對話框
+export 'src/molecules/toggles/app_switch.dart';
 
 // Layout
 export 'src/layout/layout_extensions.dart';

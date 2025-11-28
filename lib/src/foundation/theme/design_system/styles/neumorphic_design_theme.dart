@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/toggle_style.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
 class NeumorphicDesignTheme extends AppDesignTheme {
@@ -10,6 +11,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
     required super.typography,
     required super.animation,
     required super.spacingFactor,
+    required super.toggleStyle,
   });
 
   // Default to Light, providing a default ColorScheme
@@ -50,14 +52,14 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         borderRadius: 20.0,
         shadows: [
           BoxShadow(
-            color:
-                Color.alphaBlend(Colors.white.withValues(alpha: 0.7), scheme.surface),
+            color: Color.alphaBlend(
+                Colors.white.withValues(alpha: 0.7), scheme.surface),
             offset: const Offset(-8, -8),
             blurRadius: 16,
           ),
           BoxShadow(
-            color:
-                Color.alphaBlend(Colors.black.withValues(alpha: 0.3), scheme.surface),
+            color: Color.alphaBlend(
+                Colors.black.withValues(alpha: 0.3), scheme.surface),
             offset: const Offset(8, 8),
             blurRadius: 16,
           ),
@@ -84,6 +86,11 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         ],
         blurStrength: 0.0,
         contentColor: highlightBorderColor,
+      ),
+      toggleStyle: const ToggleStyle(
+        activeType: ToggleContentType.dot, // 使用凹槽圓點
+        inactiveType: ToggleContentType.dot,
+        // Neumorphism 通常不依賴文字或 Icon，而是依賴物理凹凸感
       ),
       typography: const TypographySpec(
         bodyFontFamily: 'Nunito',
@@ -140,8 +147,8 @@ class NeumorphicDesignTheme extends AppDesignTheme {
             blurRadius: 16,
           ),
           BoxShadow(
-            color:
-                Color.alphaBlend(Colors.black.withValues(alpha: 0.8), scheme.surface),
+            color: Color.alphaBlend(
+                Colors.black.withValues(alpha: 0.8), scheme.surface),
             offset: const Offset(8, 8),
             blurRadius: 16,
           ),
@@ -168,6 +175,11 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         ],
         blurStrength: 0.0,
         contentColor: darkHighlightBorderColor,
+      ),
+      toggleStyle: const ToggleStyle(
+        activeType: ToggleContentType.dot, // 使用凹槽圓點
+        inactiveType: ToggleContentType.dot,
+        // Neumorphism 通常不依賴文字或 Icon，而是依賴物理凹凸感
       ),
       typography: const TypographySpec(
         bodyFontFamily: 'Nunito',
