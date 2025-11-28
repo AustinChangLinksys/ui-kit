@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:theme_tailor_annotation/theme_tailor_annotation.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/skeleton_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/toggle_style.dart';
 import 'surface_style.dart';
 
@@ -12,6 +13,11 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
   // Toggle Styles
   @override
   final ToggleStyle toggleStyle;
+
+  // Skeleton Styles
+  @override
+  final SkeletonStyle skeletonStyle;
+
   // Surface Styles (Containers)
   @override
   final SurfaceStyle surfaceBase;
@@ -33,6 +39,7 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
     required this.surfaceElevated,
     required this.surfaceHighlight,
     required this.toggleStyle,
+    required this.skeletonStyle,
     required this.typography,
     required this.animation,
     required this.spacingFactor,

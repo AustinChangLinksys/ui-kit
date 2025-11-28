@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../foundation/gen/assets.gen.dart'; // 引入 flutter_gen
+import '../../foundation/gen/assets.gen.dart'; // Import flutter_gen
 
 class ThemeAwareImage extends StatelessWidget {
   final AssetGenImage lightImage;
@@ -19,14 +19,14 @@ class ThemeAwareImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 判斷亮度
+    // Determine brightness
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    // 選擇圖片
+    // Select image
     final targetImage = isDark ? darkImage : lightImage;
 
-    // 渲染
-    // flutter_gen 的 image() 方法回傳的是 Image Widget
+    // Render
+    // flutter_gen's image() method returns an Image Widget
     return targetImage.image(
       width: width,
       height: height,

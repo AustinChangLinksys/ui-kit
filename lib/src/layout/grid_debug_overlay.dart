@@ -5,7 +5,7 @@ class GridDebugOverlay extends StatelessWidget {
   final Widget child;
   final bool visible;
 
-  /// 是否顯示左右邊距 (通常跟隨 AppPageView 的設定)
+  /// Whether to show left and right margins (usually follows AppPageView's settings)
   final bool useMargins;
 
   const GridDebugOverlay({
@@ -22,8 +22,8 @@ class GridDebugOverlay extends StatelessWidget {
     final cols = context.currentMaxColumns;
     final gutter = context.layout.gutter;
 
-    // 關鍵邏輯：如果不使用 Margin，則將視覺上的 Margin 寬度歸零
-    // 這樣紅色的 Column 就會自動 Expanded 填滿兩側
+    // Key logic: If margins are not used, the visual margin width is set to zero
+    // This way, the red Column will automatically expand to fill both sides
     final margin = useMargins ? context.pageMargin : 0.0;
 
     return Stack(
@@ -34,14 +34,14 @@ class GridDebugOverlay extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // A. 左側 Margin
+                // A. Left Margin
                 if (margin > 0)
                   Container(
                     width: margin,
                     color: Colors.green.withValues(alpha: 0.2),
                   ),
 
-                // B. Grid 區域
+                // B. Grid Area
                 Expanded(
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -61,7 +61,7 @@ class GridDebugOverlay extends StatelessWidget {
                   ),
                 ),
 
-                // C. 右側 Margin
+                // C. Right Margin
                 if (margin > 0)
                   Container(
                     width: margin,

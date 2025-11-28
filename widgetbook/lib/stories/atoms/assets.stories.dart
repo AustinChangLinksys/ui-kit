@@ -70,7 +70,7 @@ Widget buildProductImage(BuildContext context) {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // 放在一個有背景色的容器中，方便觀察對比
+          // Placed in a container with a background color for easy comparison
           Container(
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
@@ -78,7 +78,7 @@ Widget buildProductImage(BuildContext context) {
               borderRadius: BorderRadius.circular(16),
             ),
             child: ProductImage(
-              // ⚠️ 請替換為你實際的圖片 (例如 Assets.images.router)
+              // ⚠️ Please replace with your actual image (e.g., Assets.images.router)
               image: Assets.images.devices.routerMx6200,
               width: context.knobs.double.slider(
                 label: 'Width',
@@ -109,9 +109,9 @@ Widget buildThemeAwareSvg(BuildContext context) {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ThemeAwareSvg(
-          // ⚠️ 請替換為兩張不同的 SVG 以測試切換效果
-          lightSvg: Assets.images.imgWiredMoveNodes, // 淺色模式圖
-          darkSvg: Assets.images.imgWiredMoveNodes, // 深色模式圖
+          // ⚠️ Please replace with two different SVGs to test the switching effect
+          lightSvg: Assets.images.imgWiredMoveNodes, // Light mode image
+          darkSvg: Assets.images.imgWiredMoveNodes, // Dark mode image
           width: 150,
           height: 150,
         ),
@@ -135,9 +135,9 @@ Widget buildThemeAwareImage(BuildContext context) {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ThemeAwareImage(
-          // ⚠️ 請替換為兩張不同的 PNG 以測試切換效果 (例如 Banner)
+          // ⚠️ Please replace with two different PNGs to test the switching effect (e.g., Banner)
           lightImage: Assets.images.speedtestPowered,
-          darkImage: Assets.images.speedtestPowered, // 這裡放 dark version
+          darkImage: Assets.images.speedtestPowered, // Place dark version here
           width: 200,
         ),
         const SizedBox(height: 16),

@@ -1,52 +1,52 @@
 import 'package:flutter/material.dart';
-import 'layout_extensions.dart'; // 引入我們寫好的數學邏輯
-import 'grid_debug_overlay.dart'; // 引入除錯網格
+import 'layout_extensions.dart'; // Import our math logic
+import 'grid_debug_overlay.dart'; // Import debug grid
 
-/// 一個標準化的頁面容器，整合了響應式網格系統 (Grid System)。
+/// A standardized page container that integrates a responsive grid system.
 ///
-/// 功能特色：
-/// - 自動處理響應式邊距 (Page Margins)
-/// - 整合下拉刷新 (Pull-to-Refresh)
-/// - 整合捲動視圖 (Scroll View)
-/// - 提供除錯網格 (Debug Overlay)
-/// - 完整的 Scaffold 支援 (AppBar, FAB, BottomNav)
+/// Features:
+/// - Automatically handles responsive page margins
+/// - Integrates pull-to-refresh
+/// - Integrates scroll view
+/// - Provides debug overlay
+/// - Full Scaffold support (AppBar, FAB, BottomNav)
 class AppPageView extends StatelessWidget {
-  /// 頁面主要內容
+  /// Page main content
   final Widget child;
 
-  /// AppBar (選填)
+  /// AppBar (optional)
   final PreferredSizeWidget? appBar;
 
-  /// 背景色 (預設使用 Theme.colorScheme.surface)
+  /// Background color (defaults to Theme.colorScheme.surface)
   final Color? backgroundColor;
 
-  /// 是否可捲動 (預設 false)
-  /// 若為 true，內容會被 SingleChildScrollView 包裹
+  /// Whether it is scrollable (defaults to false)
+  /// If true, content will be wrapped in a SingleChildScrollView
   final bool scrollable;
 
-  /// 捲動控制器 (僅在 scrollable=true 時有效)
+  /// Scroll controller (only effective when scrollable=true)
   final ScrollController? scrollController;
 
-  /// 下拉刷新 callback (選填)
-  /// 若提供此 callback，會自動啟用 RefreshIndicator
+  /// Pull-to-refresh callback (optional)
+  /// If this callback is provided, RefreshIndicator will be automatically enabled
   final Future<void> Function()? onRefresh;
 
-  /// 額外的 Padding
-  /// 這是疊加在 Grid Margin 之上的。例如：你需要 Grid Margin + 額外 16px
+  /// Additional Padding
+  /// This is layered on top of the Grid Margin. For example: you need Grid Margin + an additional 16px
   final EdgeInsets? padding;
 
-  /// 是否套用響應式 Grid Margin (預設 true)
-  /// - true: 內容會被內縮，對齊網格系統。
-  /// - false: 內容會貼齊螢幕邊緣 (適合全版地圖、圖片或自定義佈局)。
+  /// Whether to apply responsive Grid Margin (defaults to true)
+  /// - true: Content will be inset and aligned with the grid system.
+  /// - false: Content will align with the screen edges (suitable for full-width maps, images, or custom layouts).
   final bool useContentPadding;
 
-  /// 是否顯示除錯網格 (通常由外部變數控制，如 Environment.isDebug)
+  /// Whether to show the debug grid (usually controlled by external variables, such as Environment.isDebug)
   final bool showGridOverlay;
 
-  /// SafeArea 設定 (預設全開)
+  /// SafeArea settings (all enabled by default)
   final ({bool left, bool top, bool right, bool bottom}) enableSafeArea;
 
-  // --- Scaffold 相關屬性 ---
+  // --- Scaffold related properties ---
   final Widget? bottomNavigationBar;
   final Widget? bottomSheet;
   final Widget? floatingActionButton;
@@ -74,11 +74,11 @@ class AppPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 1. 建立內容層 (Content Layer)
+    // 1. Create content layer
     Widget content = child;
 
-    // A. 套用 Grid Margin (響應式邊距)
-    // 這是 Grid System 的核心：(總寬 - Margin) = 內容區
+    // A. Apply Grid Margin (responsive margins)
+    // This is the core of the Grid System: (total width - margin) = content area
     if (useContentPadding) {
       content = Padding(
         padding: EdgeInsets.symmetric(horizontal: context.pageMargin),
@@ -86,20 +86,20 @@ class AppPageView extends StatelessWidget {
       );
     }
 
-    // B. 套用額外 Padding
+    // B. Apply additional Padding
     if (padding != null) {
       content = Padding(padding: padding!, child: content);
     }
 
-    // C. 處理捲動行為 (Scrolling)
+    // C. Handle scrolling behavior
     if (scrollable) {
       content = SingleChildScrollView(
         controller: scrollController,
-        // AlwaysScrollable 確保內容少時也能觸發下拉刷新，且符合物理特性
+        // AlwaysScrollable ensures that pull-to-refresh can be triggered even with less content, and conforms to physical properties
         physics: const AlwaysScrollableScrollPhysics(),
         child: ConstrainedBox(
-          // 確保內容區域至少撐滿「可視高度」
-          // 這對於像 "Footer" 這種需要置底的 UI 來說非常重要
+          // Ensure that the content area at least fills the "visible height"
+          // This is very important for UI like "Footer" that needs to be at the bottom
           constraints: BoxConstraints(
             minHeight: _calculateMinHeight(context),
           ),
@@ -108,7 +108,7 @@ class AppPageView extends StatelessWidget {
       );
     }
 
-    // D. 處理下拉刷新 (Pull-to-Refresh)
+    // D. Handle pull-to-refresh
     if (onRefresh != null) {
       content = RefreshIndicator(
         onRefresh: onRefresh!,
@@ -116,17 +116,17 @@ class AppPageView extends StatelessWidget {
       );
     }
 
-    // E. 疊加除錯網格 (Debug Overlay)
-    // 我們將它包在最外層 (但在 SafeArea 內)，確保網格正確覆蓋在內容上
+    // E. Overlay debug grid
+    // We wrap it in the outermost layer (but inside SafeArea) to ensure the grid correctly covers the content
     content = GridDebugOverlay(
       visible: showGridOverlay,
-      // 關鍵：將 padding 狀態傳遞給 Overlay，讓它知道是否要繪製綠色 Margin
+      // Key: Pass the padding status to the Overlay so it knows whether to draw the green Margin
       useMargins: useContentPadding,
       child: content,
     );
 
-    // 2. 構建 SafeArea
-    // 根據設定決定是否包裹 SafeArea
+    // 2. Construct SafeArea
+    // Decide whether to wrap SafeArea based on settings
     if (enableSafeArea.left ||
         enableSafeArea.top ||
         enableSafeArea.right ||
@@ -140,11 +140,11 @@ class AppPageView extends StatelessWidget {
       );
     }
 
-    // 3. 最終組裝 (Scaffold)
+    // 3. Final assembly (Scaffold)
     return PageLayoutScope(
       useContentPadding: useContentPadding,
       child: Scaffold(
-        backgroundColor: backgroundColor, // 若為 null，Scaffold 會自動取 Theme.colorScheme.surface
+        backgroundColor: backgroundColor, // If null, Scaffold automatically takes Theme.colorScheme.surface
         appBar: appBar,
         body: content,
         bottomNavigationBar: bottomNavigationBar,
@@ -156,14 +156,14 @@ class AppPageView extends StatelessWidget {
     );
   }
 
-  /// 計算內容區域的最小高度
-  /// (螢幕高 - AppBar高 - StatusBar高)
+  /// Calculate the minimum height of the content area
+  /// (Screen height - AppBar height - StatusBar height)
   double _calculateMinHeight(BuildContext context) {
     final double screenHeight = MediaQuery.sizeOf(context).height;
     final double appBarHeight = appBar?.preferredSize.height ?? 0;
     final double topPadding = MediaQuery.paddingOf(context).top;
 
-    // 如果有 BottomNavBar 也要扣掉，這裡暫時做簡單計算
+    // If there is a BottomNavBar, it should also be deducted. Here, a simple calculation is temporarily performed.
     return screenHeight - appBarHeight - topPadding;
   }
 }

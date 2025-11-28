@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/skeleton_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/toggle_style.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
 class NeumorphicDesignTheme extends AppDesignTheme {
-  // 私有建構子，用於接收所有屬性
   NeumorphicDesignTheme._({
     required super.surfaceBase,
     required super.surfaceElevated,
@@ -12,12 +12,13 @@ class NeumorphicDesignTheme extends AppDesignTheme {
     required super.animation,
     required super.spacingFactor,
     required super.toggleStyle,
+    required super.skeletonStyle,
   });
 
   // Default to Light, providing a default ColorScheme
   factory NeumorphicDesignTheme.light([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultLightScheme;
-    final lightBaseColor = scheme.surface; // E0E5EC
+    final lightBaseColor = scheme.surface;
     final lightShadow = Color.alphaBlend(
         Colors.white.withValues(alpha: 0.5), scheme.surface); // White shadow
     final darkShadow = Color.alphaBlend(
@@ -91,6 +92,12 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         activeType: ToggleContentType.dot, // 使用凹槽圓點
         inactiveType: ToggleContentType.dot,
         // Neumorphism 通常不依賴文字或 Icon，而是依賴物理凹凸感
+      ),
+      skeletonStyle: SkeletonStyle(
+        baseColor: scheme.surface,
+        highlightColor: scheme.surface.withValues(alpha: 0.9), // 微變亮
+        animationType: SkeletonAnimationType.pulse,
+        borderRadius: 12.0,
       ),
       typography: const TypographySpec(
         bodyFontFamily: 'Nunito',
@@ -180,6 +187,12 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         activeType: ToggleContentType.dot, // 使用凹槽圓點
         inactiveType: ToggleContentType.dot,
         // Neumorphism 通常不依賴文字或 Icon，而是依賴物理凹凸感
+      ),
+      skeletonStyle: SkeletonStyle(
+        baseColor: scheme.surface,
+        highlightColor: scheme.surface.withValues(alpha: 0.8),
+        animationType: SkeletonAnimationType.pulse,
+        borderRadius: 12.0,
       ),
       typography: const TypographySpec(
         bodyFontFamily: 'Nunito',

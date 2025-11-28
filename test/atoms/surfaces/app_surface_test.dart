@@ -6,8 +6,8 @@ import 'package:ui_kit_library/src/foundation/theme/design_system/styles/brutal_
 
 void main() {
   testWidgets('AppSurface renders with Glass theme', (tester) async {
-    final glassTheme = GlassDesignTheme.light(); // 取得 GlassDesignTheme 實例
-    final expectedColor = glassTheme.surfaceBase.backgroundColor; // 從實例中取得預期的顏色
+    final glassTheme = GlassDesignTheme.light(); // Get GlassDesignTheme instance
+    final expectedColor = glassTheme.surfaceBase.backgroundColor; // Get expected color from instance
 
     await tester.pumpWidget(
       MaterialApp(
@@ -23,13 +23,13 @@ void main() {
     expect(find.text('Glass'), findsOneWidget);
     final container = tester.widget<AnimatedContainer>(find.byType(AnimatedContainer));
     final decoration = container.decoration as BoxDecoration;
-    expect(decoration.color, expectedColor); // 使用從主題實例中取得的顏色來進行比較 // Glass base color
+    expect(decoration.color, expectedColor); // Compare with color obtained from theme instance // Glass base color
   });
 
   testWidgets('AppSurface renders with Brutal theme', (tester) async {
-    final brutalTheme = BrutalDesignTheme.light(); // 取得 BrutalDesignTheme 實例
-    final expectedColor = brutalTheme.surfaceBase.backgroundColor; // 從實例中取得預期的顏色
-    final expectedBorderWidth = brutalTheme.surfaceBase.borderWidth; // 從實例中取得預期的邊框寬度
+    final brutalTheme = BrutalDesignTheme.light(); // Get BrutalDesignTheme instance
+    final expectedColor = brutalTheme.surfaceBase.backgroundColor; // Get expected color from instance
+    final expectedBorderWidth = brutalTheme.surfaceBase.borderWidth; // Get expected border width from instance
 
     await tester.pumpWidget(
       MaterialApp(
@@ -45,7 +45,7 @@ void main() {
     expect(find.text('Brutal'), findsOneWidget);
     final container = tester.widget<AnimatedContainer>(find.byType(AnimatedContainer));
     final decoration = container.decoration as BoxDecoration;
-    expect(decoration.color, expectedColor); // 使用從主題實例中取得的顏色來進行比較
-    expect(decoration.border?.top.width, expectedBorderWidth); // 使用從主題實例中取得的邊框寬度來進行比較
+    expect(decoration.color, expectedColor); // Compare with color obtained from theme instance
+    expect(decoration.border?.top.width, expectedBorderWidth); // Compare with border width obtained from theme instance
   });
 }

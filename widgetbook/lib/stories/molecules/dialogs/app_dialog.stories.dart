@@ -42,7 +42,7 @@ Widget buildAppDialog(BuildContext context) {
   type: AppDialog,
 )
 Widget buildAppDialogPopup(BuildContext context) {
-  // 1. 捕捉當前 Context 的 Theme
+  // 1. Capture the current Context's Theme
   final theme = Theme.of(context);
   
   // Knobs

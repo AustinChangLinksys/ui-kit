@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/skeleton_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/toggle_style.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
 class GlassDesignTheme extends AppDesignTheme {
-  // 私有建構子，用於 Factory 方法呼叫
   const GlassDesignTheme._({
     required super.surfaceBase,
     required super.surfaceElevated,
@@ -12,76 +12,110 @@ class GlassDesignTheme extends AppDesignTheme {
     required super.animation,
     required super.spacingFactor,
     required super.toggleStyle,
+    required super.skeletonStyle,
   });
 
+  // --- Light Mode (Liquid Water) ---
   factory GlassDesignTheme.light([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultLightScheme;
-    const tintOpacity = 0.05;
-    final baseColor = Color.alphaBlend(
-      scheme.primary.withValues(alpha: tintOpacity),
-      scheme.surface.withValues(alpha: 0.1),
-    );
-    final borderColor = scheme.outlineVariant.withValues(alpha: 0.3);
-    final shadowColor = scheme.shadow.withValues(alpha: 0.1);
+    final glassBaseColor = scheme.surface.withValues(alpha: 0.02);
 
     return GlassDesignTheme._(
       surfaceBase: SurfaceStyle(
-        backgroundColor: baseColor,
-        borderColor: borderColor,
-        borderWidth: 1.0,
+        backgroundColor: glassBaseColor,
+        borderColor: Colors.white.withValues(alpha: 0.5),
+        borderWidth: 1.5,
         borderRadius: 24.0,
         shadows: [
           BoxShadow(
-            color: shadowColor,
+            color: scheme.primary.withValues(alpha: 0.05),
             blurRadius: 20,
-            spreadRadius: 2,
             offset: const Offset(0, 10),
-          )
-        ],
-        blurStrength: 15.0,
-        contentColor: scheme.onSurface,
-      ),
-      surfaceElevated: SurfaceStyle(
-        backgroundColor: Color.alphaBlend(
-            scheme.primary.withValues(alpha: tintOpacity + 0.05), baseColor),
-        borderColor: borderColor,
-        borderWidth: 1.0,
-        borderRadius: 24.0,
-        shadows: [
-          BoxShadow(
-            color: shadowColor.withValues(alpha: shadowColor.a + 0.1),
-            blurRadius: 30,
-            spreadRadius: 4,
-            offset: const Offset(0, 15),
+            spreadRadius: -5,
           )
         ],
         blurStrength: 25.0,
         contentColor: scheme.onSurface,
       ),
+      surfaceElevated: SurfaceStyle(
+        backgroundColor: Colors.white.withValues(alpha: 0.1),
+        borderColor: Colors.white.withValues(alpha: 0.6),
+        borderWidth: 1.5,
+        borderRadius: 24.0,
+        shadows: [
+          BoxShadow(
+            color: scheme.shadow.withValues(alpha: 0.1),
+            blurRadius: 30,
+            offset: const Offset(0, 15),
+          )
+        ],
+        blurStrength: 35.0,
+        contentColor: scheme.onSurface,
+      ),
       surfaceHighlight: SurfaceStyle(
-        backgroundColor: Color.alphaBlend(
-            scheme.primary.withValues(alpha: tintOpacity + 0.1), baseColor),
-        borderColor: scheme.primary.withValues(alpha: 0.5),
+        backgroundColor: scheme.primary.withValues(alpha: 0.1), // 淡色液體
+        borderColor: scheme.primary.withValues(alpha: 0.3),
         borderWidth: 1.5,
         borderRadius: 16.0,
         shadows: [
           BoxShadow(
-            color: shadowColor,
-            blurRadius: 10,
-            offset: const Offset(0, 4),
+            color: scheme.primary.withValues(alpha: 0.15),
+            blurRadius: 15,
+            spreadRadius: 2,
           )
         ],
-        blurStrength: 10.0,
-        contentColor: scheme.onSurface,
+        blurStrength: 15.0,
+        contentColor: scheme.primary,
       ),
-      toggleStyle: const ToggleStyle(
-        activeType: ToggleContentType.grip, // 特殊圖形
+      skeletonStyle: SkeletonStyle(
+        baseColor: scheme.primary.withValues(alpha: 0.02),
+        highlightColor: scheme.primary.withValues(alpha: 0.12),
+        animationType: SkeletonAnimationType.pulse,
+        borderRadius: 24.0,
+      ),
+      toggleStyle: ToggleStyle(
+        activeType: ToggleContentType.grip,
         inactiveType: ToggleContentType.grip,
+        activeTrackStyle: SurfaceStyle(
+          backgroundColor: scheme.primary.withValues(alpha: 0.5),
+          borderColor: Colors.white.withValues(alpha: 0.2),
+          borderWidth: 0,
+          borderRadius: 99.0,
+          shadows: [
+            BoxShadow(
+                color: scheme.primary.withValues(alpha: 0.3), blurRadius: 12)
+          ],
+          blurStrength: 15.0,
+          contentColor: Colors.white,
+        ),
+        inactiveTrackStyle: SurfaceStyle(
+          backgroundColor: Colors.grey.withValues(alpha: 0.1),
+          borderColor: Colors.white.withValues(alpha: 0.3),
+          borderWidth: 1.0,
+          borderRadius: 99.0,
+          shadows: const [],
+          blurStrength: 10.0,
+          contentColor: scheme.onSurface.withValues(alpha: 0.5),
+        ),
+        thumbStyle: SurfaceStyle(
+          backgroundColor: Colors.white.withValues(alpha: 0.9),
+          borderColor: Colors.white,
+          borderWidth: 0.0,
+          borderRadius: 99.0,
+          shadows: [
+            BoxShadow(
+                color: Colors.black.withValues(alpha: 0.1),
+                blurRadius: 4,
+                offset: const Offset(0, 2))
+          ],
+          blurStrength: 5.0,
+          contentColor: scheme.primary,
+        ),
       ),
       typography: const TypographySpec(),
       animation: const AnimationSpec(
-        duration: Duration(milliseconds: 400),
-        curve: Curves.easeInOut,
+        duration: Duration(milliseconds: 500), // 液體流動比較慢
+        curve: Curves.easeInOutCubic,
       ),
       spacingFactor: 1.0,
     );
@@ -89,72 +123,92 @@ class GlassDesignTheme extends AppDesignTheme {
 
   factory GlassDesignTheme.dark([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultDarkScheme;
-    const tintOpacity = 0.1;
-    final baseColor = Color.alphaBlend(
-      scheme.primary.withValues(alpha: tintOpacity),
-      scheme.surface.withValues(alpha: 0.5),
-    );
-    final borderColor = scheme.outlineVariant.withValues(alpha: 0.3);
-    final shadowColor = scheme.shadow.withValues(alpha: 0.3);
-
     return GlassDesignTheme._(
       surfaceBase: SurfaceStyle(
-        backgroundColor: baseColor,
-        borderColor: borderColor,
+        backgroundColor: Colors.black.withValues(alpha: 0.2),
+        borderColor: Colors.white.withValues(alpha: 0.1),
         borderWidth: 1.0,
         borderRadius: 24.0,
         shadows: [
-          BoxShadow(
-            color: shadowColor,
-            blurRadius: 20,
-            spreadRadius: 2,
-            offset: const Offset(0, 10),
-          )
-        ],
-        blurStrength: 15.0,
-        contentColor: scheme.onSurface,
-      ),
-      surfaceElevated: SurfaceStyle(
-        backgroundColor: Color.alphaBlend(
-            scheme.primary.withValues(alpha: tintOpacity + 0.05), baseColor),
-        borderColor: borderColor,
-        borderWidth: 1.0,
-        borderRadius: 24.0,
-        shadows: [
-          BoxShadow(
-            color: shadowColor.withValues(alpha: shadowColor.a + 0.1),
-            blurRadius: 30,
-            spreadRadius: 4,
-            offset: const Offset(0, 15),
-          )
+          BoxShadow(color: Colors.black.withValues(alpha: 0.3), blurRadius: 24)
         ],
         blurStrength: 25.0,
         contentColor: scheme.onSurface,
       ),
+      surfaceElevated: SurfaceStyle(
+        backgroundColor: Colors.white.withValues(alpha: 0.05),
+        borderColor: Colors.white.withValues(alpha: 0.2),
+        borderWidth: 1.0,
+        borderRadius: 24.0,
+        shadows: [
+          BoxShadow(color: Colors.black.withValues(alpha: 0.5), blurRadius: 32)
+        ],
+        blurStrength: 35.0,
+        contentColor: scheme.onSurface,
+      ),
       surfaceHighlight: SurfaceStyle(
-        backgroundColor: Color.alphaBlend(
-            scheme.primary.withValues(alpha: tintOpacity + 0.1), baseColor),
-        borderColor: scheme.primary.withValues(alpha: 0.5),
+        backgroundColor: scheme.primary.withValues(alpha: 0.2),
+        borderColor: scheme.primary.withValues(alpha: 0.4),
         borderWidth: 1.5,
         borderRadius: 16.0,
         shadows: [
           BoxShadow(
-            color: shadowColor.withValues(alpha: shadowColor.a + 0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          )
+              color: scheme.primary.withValues(alpha: 0.2),
+              blurRadius: 16,
+              spreadRadius: 2)
         ],
-        blurStrength: 10.0,
-        contentColor: scheme.onSurface,
+        blurStrength: 20.0,
+        contentColor: scheme.onPrimary,
       ),
-      toggleStyle: const ToggleStyle(
-        activeType: ToggleContentType.grip, // 特殊圖形
+      skeletonStyle: SkeletonStyle(
+        baseColor: scheme.primary.withValues(alpha: 0.05),
+        highlightColor: scheme.primary.withValues(alpha: 0.2),
+        animationType: SkeletonAnimationType.pulse,
+        borderRadius: 24.0,
+      ),
+      toggleStyle: ToggleStyle(
+        activeType: ToggleContentType.grip,
         inactiveType: ToggleContentType.grip,
+        activeTrackStyle: SurfaceStyle(
+          backgroundColor: scheme.primary.withValues(alpha: 0.4),
+          borderColor: Colors.white.withValues(alpha: 0.1),
+          borderWidth: 0,
+          borderRadius: 99.0,
+          shadows: [
+            BoxShadow(
+                color: scheme.primary.withValues(alpha: 0.2), blurRadius: 12)
+          ],
+          blurStrength: 10.0,
+          contentColor: Colors.white,
+        ),
+        inactiveTrackStyle: SurfaceStyle(
+          backgroundColor: Colors.white.withValues(alpha: 0.05),
+          borderColor: Colors.white.withValues(alpha: 0.1),
+          borderWidth: 1.0,
+          borderRadius: 99.0,
+          shadows: const [],
+          blurStrength: 10.0,
+          contentColor: scheme.onSurface.withValues(alpha: 0.5),
+        ),
+        thumbStyle: SurfaceStyle(
+          backgroundColor: Colors.grey.withValues(alpha: 0.9),
+          borderColor: Colors.white.withValues(alpha: 0.2),
+          borderWidth: 0,
+          borderRadius: 99.0,
+          shadows: [
+            BoxShadow(
+                color: Colors.black.withValues(alpha: 0.5),
+                blurRadius: 4,
+                offset: const Offset(0, 2))
+          ],
+          blurStrength: 5.0,
+          contentColor: scheme.primary,
+        ),
       ),
       typography: const TypographySpec(),
       animation: const AnimationSpec(
-        duration: Duration(milliseconds: 400),
-        curve: Curves.easeInOut,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.easeInOutCubic,
       ),
       spacingFactor: 1.0,
     );

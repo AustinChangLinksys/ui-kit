@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../foundation/gen/assets.gen.dart'; // 引入 flutter_gen
+import '../../foundation/gen/assets.gen.dart'; // Import flutter_gen
 
 class ThemeAwareSvg extends StatelessWidget {
   final SvgGenImage lightSvg;
@@ -19,10 +19,10 @@ class ThemeAwareSvg extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 判斷當前是否為深色模式
+    // Determine if current mode is dark mode
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    // 根據模式選擇對應的 SVG 資產
+    // Select the corresponding SVG asset based on the mode
     final targetSvg = isDark ? darkSvg : lightSvg;
 
     return targetSvg.svg(

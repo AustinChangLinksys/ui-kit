@@ -11,6 +11,7 @@ part of 'app_design_theme.dart';
 
 mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
   ToggleStyle get toggleStyle;
+  SkeletonStyle get skeletonStyle;
   SurfaceStyle get surfaceBase;
   SurfaceStyle get surfaceElevated;
   SurfaceStyle get surfaceHighlight;
@@ -21,6 +22,7 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
   @override
   AppDesignTheme copyWith({
     ToggleStyle? toggleStyle,
+    SkeletonStyle? skeletonStyle,
     SurfaceStyle? surfaceBase,
     SurfaceStyle? surfaceElevated,
     SurfaceStyle? surfaceHighlight,
@@ -30,6 +32,7 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
   }) {
     return AppDesignTheme(
       toggleStyle: toggleStyle ?? this.toggleStyle,
+      skeletonStyle: skeletonStyle ?? this.skeletonStyle,
       surfaceBase: surfaceBase ?? this.surfaceBase,
       surfaceElevated: surfaceElevated ?? this.surfaceElevated,
       surfaceHighlight: surfaceHighlight ?? this.surfaceHighlight,
@@ -45,6 +48,7 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
     if (other is! AppDesignTheme) return this as AppDesignTheme;
     return AppDesignTheme(
       toggleStyle: t < 0.5 ? toggleStyle : other.toggleStyle,
+      skeletonStyle: t < 0.5 ? skeletonStyle : other.skeletonStyle,
       surfaceBase: t < 0.5 ? surfaceBase : other.surfaceBase,
       surfaceElevated: t < 0.5 ? surfaceElevated : other.surfaceElevated,
       surfaceHighlight: t < 0.5 ? surfaceHighlight : other.surfaceHighlight,
@@ -61,6 +65,8 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
             other is AppDesignTheme &&
             const DeepCollectionEquality()
                 .equals(toggleStyle, other.toggleStyle) &&
+            const DeepCollectionEquality()
+                .equals(skeletonStyle, other.skeletonStyle) &&
             const DeepCollectionEquality()
                 .equals(surfaceBase, other.surfaceBase) &&
             const DeepCollectionEquality()
@@ -79,6 +85,7 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
     return Object.hash(
       runtimeType.hashCode,
       const DeepCollectionEquality().hash(toggleStyle),
+      const DeepCollectionEquality().hash(skeletonStyle),
       const DeepCollectionEquality().hash(surfaceBase),
       const DeepCollectionEquality().hash(surfaceElevated),
       const DeepCollectionEquality().hash(surfaceHighlight),
@@ -93,6 +100,7 @@ extension AppDesignThemeBuildContextProps on BuildContext {
   AppDesignTheme get appDesignTheme =>
       Theme.of(this).extension<AppDesignTheme>()!;
   ToggleStyle get toggleStyle => appDesignTheme.toggleStyle;
+  SkeletonStyle get skeletonStyle => appDesignTheme.skeletonStyle;
   SurfaceStyle get surfaceBase => appDesignTheme.surfaceBase;
   SurfaceStyle get surfaceElevated => appDesignTheme.surfaceElevated;
   SurfaceStyle get surfaceHighlight => appDesignTheme.surfaceHighlight;

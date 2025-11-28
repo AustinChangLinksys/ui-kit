@@ -2,12 +2,12 @@
 import 'dart:ui';
 
 class AppPalette {
-  AppPalette._(); // 私有建構子，防止實例化
+  AppPalette._(); // Private constructor to prevent instantiation
 
-  // 這是你的 Brand Color (Single Source of Truth)
+  // This is your Brand Color (Single Source of Truth)
   static const Color brandPrimary = Color(0xFF0870EA);
   
-  // 如果有其他固定顏色（例如不隨 Theme 變化的顏色）也可以放這
+  // Other fixed colors (e.g., colors that do not change with Theme) can also be placed here
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
 }

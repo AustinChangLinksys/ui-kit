@@ -5,15 +5,15 @@ import 'package:ui_kit_library/ui_kit.dart';
 typedef DesignThemeBuilder = AppDesignTheme Function(ColorScheme scheme);
 
 class AppTheme {
-  // Light Mode 預設方案
+  // Light Mode default scheme
   static final ColorScheme defaultLightScheme = ColorScheme.fromSeed(
     seedColor: AppPalette.brandPrimary,
     brightness: Brightness.light,
   );
 
-  // Dark Mode 預設方案
+  // Dark Mode default scheme
   static final ColorScheme defaultDarkScheme = ColorScheme.fromSeed(
-    seedColor: AppPalette.brandPrimary, // 使用同一個 Seed
+    seedColor: AppPalette.brandPrimary, // Use the same Seed
     brightness: Brightness.dark,
   );
   
@@ -27,18 +27,18 @@ class AppTheme {
       brightness: brightness,
     );
 
-    // 決定最終的 Design System
+    // Determine the final Design System
     final effectiveDesignSystem = designThemeBuilder?.call(colorScheme) ??
-        GlassDesignTheme.light(colorScheme); // 預設使用 Glass Dynamic
+        GlassDesignTheme.light(colorScheme); // Default to Glass Dynamic
 
     return ThemeData(
       useMaterial3: true,
       brightness: brightness,
       colorScheme: colorScheme,
 
-      // 1. 注入標準文字主題 (讓 AppBar, ListTile 等預設元件字型正確)
+      // 1. Inject standard text theme (to ensure correct font for default widgets like AppBar, ListTile)
       textTheme: appTextTheme.apply(
-        // 確保文字顏色正確對比
+        // Ensure correct text color contrast
         bodyColor: colorScheme.onSurface,
         displayColor: colorScheme.onSurface,
       ),
@@ -47,15 +47,15 @@ class AppTheme {
         // 注入設計系統
         effectiveDesignSystem,
 
-        // 移除舊的 GlassTheme 注入，避免混淆
+        // Remove old GlassTheme injection to avoid confusion
         // brightness == Brightness.light ? GlassTheme.light : GlassTheme.dark,
         
         AppLayout.regular,
 
-        // 2. 注入自定義文字擴充 (bodyExtraSmall)
+        // 2. Inject custom text extension (bodyExtraSmall)
         AppTypography.regular,
 
-        // 注入顏色擴充
+        // Inject color extension
         brightness == Brightness.light ? AppColors.light : AppColors.dark,
       ],
     );

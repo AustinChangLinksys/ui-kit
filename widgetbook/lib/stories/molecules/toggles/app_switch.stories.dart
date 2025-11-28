@@ -4,7 +4,7 @@ import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 
-/// 一個簡單的狀態包裝器，讓 Widgetbook 上的 Switch 可以真的被點擊
+/// A simple state wrapper to make the Switch on Widgetbook truly clickable
 class _SwitchWrapper extends StatefulWidget {
   final bool initialValue;
   final bool isDisabled;

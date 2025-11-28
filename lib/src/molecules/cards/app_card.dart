@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../atoms/surfaces/app_surface.dart';
+import 'package:ui_kit_library/ui_kit.dart';
 
 class AppCard extends StatelessWidget {
   final Widget child;
@@ -19,12 +19,13 @@ class AppCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).extension<AppDesignTheme>()!;
     return AppSurface(
       variant: SurfaceVariant.base,
       onTap: onTap,
       width: width,
       height: height,
-      padding: padding,
+      padding: padding ?? EdgeInsets.all(16.0 * theme.spacingFactor),
       child: child,
     );
   }

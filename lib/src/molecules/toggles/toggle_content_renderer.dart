@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/toggle_style.dart';
 
-/// 專門負責渲染 Toggle 內部圖形的渲染器
+/// Renderer specifically responsible for rendering the internal graphics of a Toggle
 class ToggleContentRenderer extends StatelessWidget {
   final ToggleContentType type;
   final String? text;
@@ -65,8 +65,8 @@ class ToggleContentRenderer extends StatelessWidget {
   }
 }
 
-// --- 私有原子元件 (Private Atoms) ---
-// 這些小零件只跟渲染有關，不應該污染 AppSwitch
+// --- Private Atoms ---
+// These small parts are only related to rendering and should not pollute AppSwitch
 
 class _GripLine extends StatelessWidget {
   final Color color;
@@ -78,7 +78,7 @@ class _GripLine extends StatelessWidget {
       width: 2,
       height: 10,
       decoration: BoxDecoration(
-        color: color.withOpacity(0.5),
+        color: color.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(1),
       ),
     );
@@ -97,15 +97,15 @@ class _ConcaveDot extends StatelessWidget {
         height: 8,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: color.withOpacity(0.1),
+          color: color.withValues(alpha: 0.1),
           boxShadow: [
             BoxShadow(
-              color: Colors.white.withOpacity(0.5),
+              color: Colors.white.withValues(alpha: 0.5),
               offset: const Offset(-1, -1),
               blurRadius: 1,
             ),
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withValues(alpha: 0.1),
               offset: const Offset(1, 1),
               blurRadius: 1,
             ),

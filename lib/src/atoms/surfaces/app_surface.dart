@@ -13,6 +13,8 @@ class AppSurface extends StatelessWidget {
   final double? height;
   final EdgeInsetsGeometry? padding;
   final bool interactive;
+  final SurfaceStyle? style; // ✨ 新增：直接傳入樣式 (優先權最高)
+  final BoxShape shape;
 
   const AppSurface({
     super.key,
@@ -23,23 +25,25 @@ class AppSurface extends StatelessWidget {
     this.height,
     this.padding,
     this.interactive = false,
+    this.shape = BoxShape.rectangle,
+    this.style,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).extension<AppDesignTheme>();
-    
+
     if (theme == null) {
-       return Container(
-         width: width,
-         height: height,
-         padding: padding,
-         child: child,
-       );
+      return Container(
+        width: width,
+        height: height,
+        padding: padding,
+        child: child,
+      );
     }
 
-    final style = _resolveStyle(theme, variant);
-    final effectivePadding = padding ?? EdgeInsets.all(16.0 * theme.spacingFactor);
+    final effectiveStyle = style ?? _resolveStyle(theme, variant);
+    final effectivePadding = padding ?? EdgeInsets.zero;
 
     // Use AnimatedContainer for implicit animations when theme/style changes
     Widget content = AnimatedContainer(
@@ -49,30 +53,35 @@ class AppSurface extends StatelessWidget {
       height: height,
       padding: effectivePadding,
       decoration: BoxDecoration(
-        color: style.backgroundColor,
+        color: effectiveStyle.backgroundColor,
         border: Border.all(
-          color: style.borderColor,
-          width: style.borderWidth,
+          color: effectiveStyle.borderColor,
+          width: effectiveStyle.borderWidth,
         ),
-        borderRadius: BorderRadius.circular(style.borderRadius),
-        boxShadow: style.shadows,
+
+        borderRadius: shape == BoxShape.circle
+            ? null
+            : BorderRadius.circular(effectiveStyle.borderRadius),
+        boxShadow: effectiveStyle.shadows,
+        // ✨ Apply shape
+        shape: shape,
       ),
       child: DefaultTextStyle.merge(
         style: TextStyle(
-          color: style.contentColor,
+          color: effectiveStyle.contentColor,
           fontFamily: theme.typography.bodyFontFamily,
         ),
         child: child,
       ),
     );
 
-    if (style.blurStrength > 0) {
+    if (effectiveStyle.blurStrength > 0) {
       content = ClipRRect(
-        borderRadius: BorderRadius.circular(style.borderRadius),
+        borderRadius: BorderRadius.circular(effectiveStyle.borderRadius),
         child: BackdropFilter(
           filter: ImageFilter.blur(
-            sigmaX: style.blurStrength,
-            sigmaY: style.blurStrength,
+            sigmaX: effectiveStyle.blurStrength,
+            sigmaY: effectiveStyle.blurStrength,
           ),
           child: content,
         ),

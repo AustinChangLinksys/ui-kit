@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import '../../foundation/gen/assets.gen.dart'; // SVG 生成檔
+import '../../foundation/gen/assets.gen.dart'; // SVG generated file
 
 class AppIcon extends StatelessWidget {
-  // 內部變數 (只有其中一個會有值)
+  // Internal variables (only one will have a value)
   final SvgGenImage? _svg;
   final IconData? _fontIcon;
 
   final double size;
   final Color? color;
 
-  // 1. 建構子 A：給 SVG 用的 (維持原樣)
+  // 1. Constructor A: for SVG (keep as is)
   const AppIcon(
     SvgGenImage icon, {
     super.key,
@@ -18,7 +18,7 @@ class AppIcon extends StatelessWidget {
   })  : _svg = icon,
         _fontIcon = null;
 
-  // 2. 建構子 B：給 Icon Font 用的 (新增)
+  // 2. Constructor B: for Icon Font (new)
   const AppIcon.font(
     IconData icon, {
     super.key,
@@ -29,19 +29,19 @@ class AppIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 統一決定顏色 (憲章 5.2：由外部或 Theme 控制)
+    // Unified color determination (Charter 5.2: controlled by external or Theme)
     final iconColor = color ?? IconTheme.of(context).color ?? Colors.black;
 
-    // 分流渲染邏輯
+    // Diversion rendering logic
     if (_fontIcon != null) {
-      // 渲染 Font Icon
+      // Render Font Icon
       return Icon(
         _fontIcon,
         size: size,
-        color: iconColor, // Icon Widget 原生就支援 color
+        color: iconColor, // Icon Widget natively supports color
       );
     } else {
-      // 渲染 SVG (使用之前的邏輯)
+      // Render SVG (using previous logic)
       return _svg!.svg(
         width: size,
         height: size,
