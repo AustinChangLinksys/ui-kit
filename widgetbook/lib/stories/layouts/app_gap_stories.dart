@@ -11,7 +11,7 @@ enum GapSizeVariant { xxs, xs, sm, md, lg, xl, xxl, xxxl, gutter }
   type: AppGap,
 )
 Widget buildInteractiveGap(BuildContext context) {
-  final variant = context.knobs.list<GapSizeVariant>(
+  final variant = context.knobs.object.dropdown<GapSizeVariant>(
     label: 'Size',
     options: GapSizeVariant.values,
     initialOption: GapSizeVariant.md,

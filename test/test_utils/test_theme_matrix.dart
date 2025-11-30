@@ -1,7 +1,7 @@
 // test/test_utils/test_theme_matrix.dart
 
 import 'package:flutter/material.dart';
-import 'package:ui_kit_library/src/foundation/theme/app_theme.dart';
+import 'package:ui_kit_library/src/foundation/theme/tokens/app_theme.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/styles/brutal_design_theme.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/styles/flat_design_theme.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/styles/glass_design_theme.dart';

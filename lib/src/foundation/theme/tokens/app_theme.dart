@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ui_kit_library/src/foundation/theme/app_palette.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/app_design_theme.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/styles/glass_design_theme.dart'; // Default fallback
+import 'package:ui_kit_library/src/foundation/theme/tokens/app_palette.dart';
+import 'package:ui_kit_library/ui_kit.dart'; // Default fallback
 
 // 定義 Builder 類型，方便外部傳入 (例如 Widgetbook)
 typedef DesignThemeBuilder = AppDesignTheme Function(ColorScheme scheme);
@@ -66,9 +65,10 @@ class AppTheme {
       scaffoldBackgroundColor:
           effectiveDesignSystem.surfaceBase.backgroundColor,
 
-      // 設定全域字體 (Optional: 如果你有定義 appTextTheme 可保留，否則用預設)
-      // textTheme: GoogleFonts.interTextTheme().apply(...),
-
+      textTheme: appTextTheme.apply(
+        bodyColor: colorScheme.onSurface,
+        displayColor: colorScheme.onSurface,
+      ),
       // ✨ 關鍵：只注入這一個核心 Extension
       extensions: [
         effectiveDesignSystem,

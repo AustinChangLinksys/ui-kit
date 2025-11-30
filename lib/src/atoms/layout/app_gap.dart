@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:ui_kit_library/src/foundation/theme/app_spacing.dart';
-import '../../foundation/theme/app_theme.dart';
+import 'package:ui_kit_library/src/foundation/theme/tokens/app_spacing.dart';
+import '../../foundation/theme/tokens/app_theme.dart';
 
 class AppGap extends StatelessWidget {
   final double _rawSize;
   final bool _isGutter; // 標記是否為 Gutter
 
   // 基礎建構子 (私有)
-  const AppGap._(this._rawSize, {bool isGutter = false, super.key})
+  const AppGap._(this._rawSize, {bool isGutter = false})
       : _isGutter = isGutter;
 
   // --- Semantic Factories (語義化建構子) ---

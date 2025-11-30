@@ -44,7 +44,7 @@ Widget buildBadgeStates(BuildContext context) {
     child: Center(
       child: Column(
         children: [
-          _Header('Default (Theme Highlight)'),
+          const _Header('Default (Theme Highlight)'),
           Wrap(
             spacing: 16,
             children: [
@@ -54,7 +54,7 @@ Widget buildBadgeStates(BuildContext context) {
             ],
           ),
           const SizedBox(height: 32),
-          _Header('Custom Colors (Tinted)'),
+          const _Header('Custom Colors (Tinted)'),
           Wrap(
             spacing: 16,
             children: [

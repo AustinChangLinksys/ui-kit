@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/layout_spec.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/layout_spec.dart';
 
 extension LayoutContext on BuildContext {
   // 1. Basic access

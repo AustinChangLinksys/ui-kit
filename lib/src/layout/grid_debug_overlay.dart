@@ -20,7 +20,6 @@ class GridDebugOverlay extends StatelessWidget {
     if (!visible) return child;
 
     final cols = context.currentMaxColumns;
-    final gutter = context.layout.gutter;
 
     // Key logic: If margins are not used, the visual margin width is set to zero
     // This way, the red Column will automatically expand to fill both sides

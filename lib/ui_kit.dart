@@ -4,14 +4,12 @@ library ui_kit;
 // Foundation (地基)
 // 包含：主題工廠、佈局設定、顏色定義、文字定義、特殊材質主題
 // -----------------------------------------------------------------------------
-export 'src/foundation/theme/app_theme.dart';
-export 'src/foundation/theme/app_colors.dart';
+export 'src/foundation/theme/tokens/app_theme.dart';
 export 'src/foundation/theme/app_typography.dart';
-export 'src/foundation/theme/glass_theme.dart';
 
 // Unified Design System
 export 'src/foundation/theme/design_system/app_design_theme.dart';
-export 'src/foundation/theme/design_system/surface_style.dart';
+export 'src/foundation/theme/design_system/specs/surface_style.dart';
 export 'src/foundation/theme/design_system/styles/glass_design_theme.dart';
 export 'src/foundation/theme/design_system/styles/brutal_design_theme.dart';
 export 'src/foundation/theme/design_system/styles/flat_design_theme.dart';

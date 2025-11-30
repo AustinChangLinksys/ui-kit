@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../../foundation/theme/design_system/app_design_theme.dart';
-import '../../foundation/theme/design_system/surface_style.dart';
+import '../../foundation/theme/design_system/specs/surface_style.dart';
 
 enum SurfaceVariant { base, elevated, highlight }
 

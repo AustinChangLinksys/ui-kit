@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_kit_library/src/atoms/surfaces/app_surface.dart';
-import 'package:ui_kit_library/src/foundation/theme/app_theme.dart';
+import 'package:ui_kit_library/src/foundation/theme/tokens/app_theme.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/app_design_theme.dart';
 
 class AppSlider extends StatelessWidget {

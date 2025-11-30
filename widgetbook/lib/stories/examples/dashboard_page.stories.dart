@@ -21,7 +21,6 @@ class _DashboardPageState extends State<DashboardPage> {
   int _navIndex = 0;
   bool _wifiEnabled = true;
   double _volume = 0.7;
-  String _searchText = "";
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +36,8 @@ class _DashboardPageState extends State<DashboardPage> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: isDark
-                ? [Color(0xFF1A1F38), Color(0xFF050505)]
-                : [Color(0xFFE0EAFC), Color(0xFFCFDEF3)],
+                ? [const Color(0xFF1A1F38), const Color(0xFF050505)]
+                : [const Color(0xFFE0EAFC), const Color(0xFFCFDEF3)],
           ),
         ),
         child: SafeArea(
@@ -80,7 +79,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       child: AppTextField(
                         hintText: 'Search devices...',
                         prefixIcon: const Icon(Icons.search),
-                        onChanged: (v) => setState(() => _searchText = v),
+                        onChanged: (v) => setState(() {}),
                       ),
                     ),
                     AppGap.sm(),
@@ -133,7 +132,8 @@ class _DashboardPageState extends State<DashboardPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               AppText.subhead('System Status'),
-                              AppBadge(label: 'Healthy', color: Colors.green),
+                              const AppBadge(
+                                  label: 'Healthy', color: Colors.green),
                             ],
                           ),
                           AppGap.md(),
@@ -196,18 +196,18 @@ class _DashboardPageState extends State<DashboardPage> {
                     AppGap.sm(),
 
                     // Device List (Using Cards as Tiles)
-                    _DeviceTile(
+                    const _DeviceTile(
                         name: 'Living Room TV',
                         status: 'Online',
                         isOnline: true),
                     AppGap.sm(),
-                    _DeviceTile(
+                    const _DeviceTile(
                         name: 'Kitchen Hub',
                         status: 'Updating...',
                         isOnline: false,
                         isLoading: true),
                     AppGap.sm(),
-                    _DeviceTile(
+                    const _DeviceTile(
                         name: 'Master Bedroom',
                         status: 'Offline',
                         isOnline: false),
@@ -295,7 +295,8 @@ class _DeviceTile extends StatelessWidget {
               ],
             ),
           ),
-          Icon(Icons.chevron_right, color: theme.onSurface.withOpacity(0.3)),
+          Icon(Icons.chevron_right,
+              color: theme.onSurface.withValues(alpha: 0.3)),
         ],
       ),
     );

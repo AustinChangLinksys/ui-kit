@@ -19,9 +19,9 @@ void main() {
             theme: entry.value,
             width: 100, // Avatar 比較小
             height: 100,
-            child: Row(
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
+              children: [
                 // 1. 標準 Initials (Standard)
                 AppAvatar(
                   initials: 'JD',

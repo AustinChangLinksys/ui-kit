@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/toggle_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/toggle_style.dart';
 
 /// Renderer specifically responsible for rendering the internal graphics of a Toggle
 class ToggleContentRenderer extends StatelessWidget {

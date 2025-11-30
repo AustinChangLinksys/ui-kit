@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ui_kit_library/src/atoms/typography/app_text.dart'; // 引入 AppTextVariant
 import 'package:ui_kit_library/ui_kit.dart'; // 確保引入 copyWith & customBorder
 
 /// 輸入框的視覺變體 (對應 Theme 中的 InputStyle)

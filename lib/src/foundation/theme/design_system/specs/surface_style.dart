@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/interaction_spec.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/interaction_spec.dart';
 
 /// Defines the visual appearance of a container.
 class SurfaceStyle extends Equatable {

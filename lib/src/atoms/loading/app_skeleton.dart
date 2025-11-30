@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/skeleton_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/skeleton_style.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
 /// A theme-aware loading placeholder.

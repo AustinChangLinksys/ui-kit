@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ui_kit_library/src/molecules/navigation/app_navigation_item.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
 class AppNavigationBar extends StatelessWidget {

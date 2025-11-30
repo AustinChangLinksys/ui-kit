@@ -42,26 +42,26 @@ Widget buildInteractiveAvatar(BuildContext context) {
   type: AppAvatar,
 )
 Widget buildAvatarStates(BuildContext context) {
-  return SingleChildScrollView(
-    padding: const EdgeInsets.all(32.0),
+  return const SingleChildScrollView(
+    padding: EdgeInsets.all(32.0),
     child: Center(
       child: Column(
         children: [
           _Header('Sizes'),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: const [
+            children: [
               AppAvatar(initials: 'S', size: 32),
               AppAvatar(initials: 'M', size: 48),
               AppAvatar(initials: 'L', size: 64),
               AppAvatar(initials: 'XL', size: 96),
             ],
           ),
-          const SizedBox(height: 32),
+          SizedBox(height: 32),
           _Header('Image vs Initials'),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: const [
+            children: [
               AppAvatar(
                 initials: 'JD',
                 size: 64,
@@ -93,7 +93,10 @@ class _Header extends StatelessWidget {
         text,
         style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+              color: Theme.of(context)
+                  .colorScheme
+                  .onSurface
+                  .withValues(alpha: 0.6),
             ),
       ),
     );

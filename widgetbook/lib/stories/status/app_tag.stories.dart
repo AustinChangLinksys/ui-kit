@@ -14,7 +14,7 @@ Widget buildInteractiveTag(BuildContext context) {
   );
 
   // Tag 常見場景：分類顏色
-  final colorOption = context.knobs.list<Color?>(
+  final colorOption = context.knobs.object.dropdown<Color?>(
     label: 'Color',
     options: [null, Colors.orange, Colors.purple, Colors.teal],
     labelBuilder: (color) {
@@ -56,7 +56,7 @@ Widget buildTagStates(BuildContext context) {
     child: Center(
       child: Column(
         children: [
-          _Header('Default (Base Style)'),
+          const _Header('Default (Base Style)'),
           Wrap(
             spacing: 8,
             runSpacing: 8,
@@ -67,24 +67,25 @@ Widget buildTagStates(BuildContext context) {
             ],
           ),
           const SizedBox(height: 32),
-          _Header('Colored Tags (Hashtags)'),
-          Wrap(
+          const _Header('Colored Tags (Hashtags)'),
+          const Wrap(
             spacing: 8,
             runSpacing: 8,
             children: [
-              const AppTag(label: '#Bug', color: Colors.red),
-              const AppTag(label: '#Feature', color: Colors.blue),
-              const AppTag(label: '#Documentation', color: Colors.purple),
+              AppTag(label: '#Bug', color: Colors.red),
+              AppTag(label: '#Feature', color: Colors.blue),
+              AppTag(label: '#Documentation', color: Colors.purple),
             ],
           ),
           const SizedBox(height: 32),
-          _Header('Interactive Filters'),
+          const _Header('Interactive Filters'),
           Wrap(
             spacing: 8,
             runSpacing: 8,
             children: [
               AppTag(label: 'Price: Low-High', onTap: () {}),
-              AppTag(label: 'Brand: Apple', color: Colors.black, onDeleted: () {}),
+              AppTag(
+                  label: 'Brand: Apple', color: Colors.black, onDeleted: () {}),
             ],
           ),
         ],
@@ -105,7 +106,10 @@ class _Header extends StatelessWidget {
         text,
         style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+              color: Theme.of(context)
+                  .colorScheme
+                  .onSurface
+                  .withValues(alpha: 0.6),
             ),
       ),
     );

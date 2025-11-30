@@ -22,14 +22,14 @@ Widget buildInteractiveAppButton(BuildContext context) {
   );
 
   // 2. 樣式與尺寸 Knobs
-  final variant = context.knobs.list<SurfaceVariant>(
+  final variant = context.knobs.object.dropdown<SurfaceVariant>(
     label: 'Variant',
     options: SurfaceVariant.values,
     initialOption: SurfaceVariant.highlight,
     labelBuilder: (val) => val.name,
   );
 
-  final size = context.knobs.list<AppButtonSize>(
+  final size = context.knobs.object.dropdown<AppButtonSize>(
     label: 'Size',
     options: AppButtonSize.values,
     initialOption: AppButtonSize.medium,
@@ -75,7 +75,7 @@ Widget buildAppButtonStates(BuildContext context) {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          _Header('Variants'),
+          const _Header('Variants'),
           Wrap(
             spacing: 16,
             runSpacing: 16,
@@ -96,19 +96,19 @@ Widget buildAppButtonStates(BuildContext context) {
             ],
           ),
           const SizedBox(height: 32),
-          _Header('States'),
+          const _Header('States'),
           Wrap(
             spacing: 16,
             runSpacing: 16,
             alignment: WrapAlignment.center,
             children: [
               AppButton(label: 'Enabled', onTap: () {}),
-              AppButton(label: 'Disabled', onTap: null),
+              const AppButton(label: 'Disabled', onTap: null),
               AppButton(label: 'Loading', onTap: () {}, isLoading: true),
             ],
           ),
           const SizedBox(height: 32),
-          _Header('Sizes'),
+          const _Header('Sizes'),
           Wrap(
             spacing: 16,
             runSpacing: 16,
@@ -124,7 +124,7 @@ Widget buildAppButtonStates(BuildContext context) {
             ],
           ),
           const SizedBox(height: 32),
-          _Header('With Icon'),
+          const _Header('With Icon'),
           AppButton(
             label: 'Search',
             icon: const Icon(Icons.search, size: 18),
@@ -143,14 +143,14 @@ Widget buildAppButtonStates(BuildContext context) {
   type: AppIconButton,
 )
 Widget buildInteractiveIconButton(BuildContext context) {
-  final variant = context.knobs.list<SurfaceVariant>(
+  final variant = context.knobs.object.dropdown<SurfaceVariant>(
     label: 'Variant',
     options: SurfaceVariant.values,
     initialOption: SurfaceVariant.base,
     labelBuilder: (val) => val.name,
   );
 
-  final size = context.knobs.list<AppButtonSize>(
+  final size = context.knobs.object.dropdown<AppButtonSize>(
     label: 'Size',
     options: AppButtonSize.values,
     initialOption: AppButtonSize.medium,
@@ -192,7 +192,7 @@ Widget buildIconButtonStates(BuildContext context) {
     child: Center(
       child: Column(
         children: [
-          _Header('Variants'),
+          const _Header('Variants'),
           Wrap(
             spacing: 24,
             children: [
@@ -211,7 +211,7 @@ Widget buildIconButtonStates(BuildContext context) {
             ],
           ),
           const SizedBox(height: 32),
-          _Header('States'),
+          const _Header('States'),
           Wrap(
             spacing: 24,
             children: [
@@ -226,7 +226,7 @@ Widget buildIconButtonStates(BuildContext context) {
             ],
           ),
           const SizedBox(height: 32),
-          _Header('Sizes'),
+          const _Header('Sizes'),
           Wrap(
             spacing: 24,
             crossAxisAlignment: WrapCrossAlignment.center,
@@ -265,7 +265,7 @@ class _Header extends StatelessWidget {
         text,
         style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
             ),
       ),
     );

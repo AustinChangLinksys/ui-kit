@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:theme_tailor_annotation/theme_tailor_annotation.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/app_input_style.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/layout_spec.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/navigation_style.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/skeleton_style.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/toggle_style.dart';
-import 'surface_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/input_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/layout_spec.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/navigation_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/skeleton_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/toggle_style.dart';
+import 'specs/surface_style.dart';
 
 part 'app_design_theme.tailor.dart';
 

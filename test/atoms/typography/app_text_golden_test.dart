@@ -25,7 +25,7 @@ void main() {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // 1. Semantic Factories (語義化捷徑 - 最常用)
-                _SectionHeader('Semantic Aliases'),
+                const _SectionHeader('Semantic Aliases'),
                 AppText.headline('Headline (H3)'),
                 AppText.subhead('Subhead (Subtitle2)'),
                 AppText.body(
@@ -36,7 +36,7 @@ void main() {
                 const Divider(height: 24),
 
                 // 2. Material 3 Standard Levels (標準層級 - 精確控制)
-                _SectionHeader('Material 3 Scale'),
+                const _SectionHeader('Material 3 Scale'),
                 AppText.displaySmall('Display Small'),
                 AppText.headlineSmall('Headline Small'),
                 AppText.titleMedium('Title Medium'),
@@ -46,7 +46,7 @@ void main() {
                 const Divider(height: 24),
 
                 // 3. Custom Extensions (自定義擴充)
-                _SectionHeader('Custom / Overrides'),
+                const _SectionHeader('Custom / Overrides'),
                 AppText.bodyExtraSmall('Body Extra Small (10sp)'),
                 // 測試顏色覆寫
                 AppText.body('Colored Text (Primary)',
@@ -74,7 +74,7 @@ class _SectionHeader extends StatelessWidget {
       child: Text(
         text,
         style: TextStyle(
-          color: Colors.grey.withOpacity(0.5),
+          color: Colors.grey.withValues(alpha: 0.5),
           fontSize: 10,
           fontWeight: FontWeight.bold,
           letterSpacing: 1.5,

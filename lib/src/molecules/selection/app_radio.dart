@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_kit_library/src/atoms/surfaces/app_surface.dart';
-import 'package:ui_kit_library/src/foundation/theme/app_theme.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/toggle_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/tokens/app_theme.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/toggle_style.dart';
 import 'package:ui_kit_library/src/molecules/toggles/toggle_content_renderer.dart';
 
 class AppRadio<T> extends StatelessWidget {

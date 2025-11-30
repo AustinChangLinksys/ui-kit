@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../foundation/theme/app_theme.dart';
-import '../../foundation/theme/design_system/app_design_theme.dart';
+import 'package:ui_kit_library/ui_kit.dart';
 
 /// 完整的文字層級定義 (Material 3 Standard + Custom Extensions)
 enum AppTextVariant {
@@ -95,9 +94,12 @@ extension AppTextVariantX on AppTextVariant {
 
       // ✨ 自定義邏輯：基於 bodySmall 縮小
       case AppTextVariant.bodyExtraSmall:
-        style = textTheme.bodySmall!.copyWith(
-          fontSize: (textTheme.bodySmall!.fontSize ?? 12.0) - 2.0,
-          letterSpacing: 0.5, // 小字增加間距提升可讀性
+        // 先取得定義的樣式
+        final specStyle = AppTypographyExtra.bodyExtraSmall;
+        // 確保顏色跟隨當前的主題 (因為靜態定義通常是黑色的)
+        style = specStyle.copyWith(
+          color: textTheme.bodySmall?.color,
+          fontFamily: textTheme.bodySmall?.fontFamily, // 確保字體家族一致
         );
         break;
     }

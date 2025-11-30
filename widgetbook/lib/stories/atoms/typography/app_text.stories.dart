@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 import 'package:ui_kit_library/ui_kit.dart';
-import 'package:ui_kit_library/src/atoms/typography/app_text.dart';
 
 // --- 1. 定義代理選項 (避免直接在 Knob 中使用 null) ---
 
@@ -72,7 +71,7 @@ Widget buildInteractiveText(BuildContext context) {
   );
 
   // 2. Variant Knob
-  final variant = context.knobs.list<AppTextVariant>(
+  final variant = context.knobs.object.dropdown<AppTextVariant>(
     label: 'Variant',
     options: AppTextVariant.values,
     initialOption: AppTextVariant.bodyMedium,
@@ -80,7 +79,7 @@ Widget buildInteractiveText(BuildContext context) {
   );
 
   // 3. Align Knob
-  final textAlign = context.knobs.list<TextAlign>(
+  final textAlign = context.knobs.object.dropdown<TextAlign>(
     label: 'Align',
     options: [TextAlign.left, TextAlign.center, TextAlign.right],
     initialOption: TextAlign.left,
@@ -89,7 +88,7 @@ Widget buildInteractiveText(BuildContext context) {
 
   // 4. Color Knob (使用代理 Enum)
   // ✨ 修正：使用非 Null 的 Enum，避免 Widgetbook 崩潰
-  final colorOption = context.knobs.list<_ColorOption>(
+  final colorOption = context.knobs.object.dropdown<_ColorOption>(
     label: 'Color Override',
     options: _ColorOption.values,
     initialOption: _ColorOption.themeDefault,
@@ -98,7 +97,7 @@ Widget buildInteractiveText(BuildContext context) {
 
   // 5. Weight Knob (使用代理 Enum)
   // ✨ 修正：使用非 Null 的 Enum
-  final weightOption = context.knobs.list<_FontWeightOption>(
+  final weightOption = context.knobs.object.dropdown<_FontWeightOption>(
     label: 'Font Weight',
     options: _FontWeightOption.values,
     initialOption: _FontWeightOption.themeDefault,
@@ -132,7 +131,7 @@ Widget buildTypographyGallery(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _SectionHeader('Semantic Factories (捷徑)'),
+        const _SectionHeader('Semantic Factories (捷徑)'),
         _DemoRow(
           'AppText.headline(...)',
           AppText.headline('Page Headline'),
@@ -157,7 +156,7 @@ Widget buildTypographyGallery(BuildContext context) {
         const SizedBox(height: 32),
         const Divider(),
         const SizedBox(height: 32),
-        _SectionHeader('Material 3 Scale (標準層級)'),
+        const _SectionHeader('Material 3 Scale (標準層級)'),
         _DemoRow('Display Large', AppText.displayLarge('Display Large')),
         _DemoRow('Display Medium', AppText.displayMedium('Display Medium')),
         _DemoRow('Display Small', AppText.displaySmall('Display Small')),

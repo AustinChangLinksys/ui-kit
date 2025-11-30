@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ui_kit_library/src/atoms/surfaces/app_surface.dart';
-import 'package:ui_kit_library/src/foundation/theme/app_theme.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
 class AppBadge extends StatelessWidget {

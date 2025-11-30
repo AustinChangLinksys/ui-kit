@@ -44,7 +44,7 @@ Widget buildSliderStates(BuildContext context) {
     child: Center(
       child: Column(
         children: [
-          _Header('Continuous'),
+          const _Header('Continuous'),
           AppSlider(value: 0.0, onChanged: (_) {}),
           const SizedBox(height: 16),
           AppSlider(value: 0.5, onChanged: (_) {}),
@@ -52,13 +52,13 @@ Widget buildSliderStates(BuildContext context) {
           AppSlider(value: 1.0, onChanged: (_) {}),
           
           const SizedBox(height: 32),
-          _Header('Discrete (5 Steps)'),
+          const _Header('Discrete (5 Steps)'),
           AppSlider(value: 1, min: 0, max: 5, divisions: 5, onChanged: (_) {}),
           const SizedBox(height: 16),
           AppSlider(value: 2.5, min: 0, max: 5, divisions: 5, onChanged: (_) {}), // 會自動 Snap
           
           const SizedBox(height: 32),
-          _Header('Disabled'),
+          const _Header('Disabled'),
           const AppSlider(value: 0.5, onChanged: null),
         ],
       ),
