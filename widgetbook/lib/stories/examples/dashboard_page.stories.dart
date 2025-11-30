@@ -1,0 +1,303 @@
+import 'package:flutter/material.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
+import 'package:ui_kit_library/ui_kit.dart';
+
+@widgetbook.UseCase(
+  name: 'Dashboard Template',
+  type: AppSurface, // 借用 AppSurface 的分類，或開一個新的 Templates 分類
+)
+Widget buildDashboardStory(BuildContext context) {
+  return const DashboardPage();
+}
+
+class DashboardPage extends StatefulWidget {
+  const DashboardPage({super.key});
+
+  @override
+  State<DashboardPage> createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  int _navIndex = 0;
+  bool _wifiEnabled = true;
+  double _volume = 0.7;
+  String _searchText = "";
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = AppTheme.of(context);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    // 背景容器：為了讓 Glass 效果顯現，我們放一個漸層背景
+    return Scaffold(
+      extendBody: true, // 讓內容延伸到 BottomBar 下方 (Glass 必需)
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: isDark
+                ? [Color(0xFF1A1F38), Color(0xFF050505)]
+                : [Color(0xFFE0EAFC), Color(0xFFCFDEF3)],
+          ),
+        ),
+        child: SafeArea(
+          bottom: false, // 讓列表滑到底部導航欄後面
+          child: Column(
+            children: [
+              // 1. Header Section
+              Padding(
+                padding: EdgeInsets.all(16.0 * theme.spacingFactor),
+                child: Row(
+                  children: [
+                    const AppAvatar(initials: 'AU', size: 48),
+                    AppGap.md(),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppText.headline('Hello, Austin',
+                            color: theme.surfaceBase.contentColor),
+                        AppText.caption('Welcome back to your dashboard'),
+                      ],
+                    ),
+                    const Spacer(),
+                    AppIconButton(
+                      icon: const Icon(Icons.notifications_outlined),
+                      onTap: () {},
+                      variant: SurfaceVariant.base,
+                    ),
+                  ],
+                ),
+              ),
+
+              // 2. Search & Filters
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: 16.0 * theme.spacingFactor),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: AppTextField(
+                        hintText: 'Search devices...',
+                        prefixIcon: const Icon(Icons.search),
+                        onChanged: (v) => setState(() => _searchText = v),
+                      ),
+                    ),
+                    AppGap.sm(),
+                    AppIconButton(
+                      icon: const Icon(Icons.tune),
+                      onTap: () {}, // Filter
+                    ),
+                  ],
+                ),
+              ),
+
+              AppGap.md(),
+
+              // 3. Horizontal Tags
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                padding: EdgeInsets.symmetric(
+                    horizontal: 16.0 * theme.spacingFactor),
+                child: Row(
+                  children: [
+                    AppTag(label: 'All', color: Colors.blue, onTap: () {}),
+                    AppGap.sm(),
+                    AppTag(label: 'Online', color: Colors.green, onTap: () {}),
+                    AppGap.sm(),
+                    AppTag(label: 'Offline', color: Colors.red, onTap: () {}),
+                    AppGap.sm(),
+                    AppTag(label: 'Maintenance', onTap: () {}),
+                  ],
+                ),
+              ),
+
+              AppGap.md(),
+
+              // 4. Main Content (Scrollable)
+              Expanded(
+                child: ListView(
+                  padding: EdgeInsets.fromLTRB(
+                    16 * theme.spacingFactor,
+                    0,
+                    16 * theme.spacingFactor,
+                    100, // 底部留白給 NavigationBar
+                  ),
+                  children: [
+                    // Feature Card (Status)
+                    AppCard(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              AppText.subhead('System Status'),
+                              AppBadge(label: 'Healthy', color: Colors.green),
+                            ],
+                          ),
+                          AppGap.md(),
+                          Row(
+                            children: [
+                              AppText.body('Wi-Fi'),
+                              const Spacer(),
+                              AppSwitch(
+                                value: _wifiEnabled,
+                                onChanged: (v) =>
+                                    setState(() => _wifiEnabled = v),
+                              ),
+                            ],
+                          ),
+                          AppGap.md(),
+                          Row(
+                            children: [
+                              AppText.body('Volume'),
+                              AppGap.md(),
+                              Expanded(
+                                child: AppSlider(
+                                  value: _volume,
+                                  onChanged: (v) => setState(() => _volume = v),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    AppGap.md(),
+                    AppText.subhead('Quick Actions'),
+                    AppGap.sm(),
+
+                    // Action Grid
+                    Row(
+                      children: [
+                        Expanded(
+                          child: AppButton(
+                            label: 'Scan',
+                            icon: const Icon(Icons.qr_code_scanner),
+                            onTap: () {},
+                          ),
+                        ),
+                        AppGap.md(),
+                        Expanded(
+                          child: AppButton(
+                            label: 'Add New',
+                            icon: const Icon(Icons.add),
+                            variant: SurfaceVariant.base,
+                            onTap: () {},
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    AppGap.md(),
+                    AppText.subhead('Recent Devices'),
+                    AppGap.sm(),
+
+                    // Device List (Using Cards as Tiles)
+                    _DeviceTile(
+                        name: 'Living Room TV',
+                        status: 'Online',
+                        isOnline: true),
+                    AppGap.sm(),
+                    _DeviceTile(
+                        name: 'Kitchen Hub',
+                        status: 'Updating...',
+                        isOnline: false,
+                        isLoading: true),
+                    AppGap.sm(),
+                    _DeviceTile(
+                        name: 'Master Bedroom',
+                        status: 'Offline',
+                        isOnline: false),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+
+      // 5. Bottom Navigation
+      bottomNavigationBar: AppNavigationBar(
+        currentIndex: _navIndex,
+        onTap: (i) => setState(() => _navIndex = i),
+        items: const [
+          AppNavigationItem(
+              icon: Icon(Icons.dashboard_outlined),
+              activeIcon: Icon(Icons.dashboard),
+              label: 'Home'),
+          AppNavigationItem(
+              icon: Icon(Icons.devices_outlined),
+              activeIcon: Icon(Icons.devices),
+              label: 'Devices'),
+          AppNavigationItem(
+              icon: Icon(Icons.analytics_outlined),
+              activeIcon: Icon(Icons.analytics),
+              label: 'Stats'),
+          AppNavigationItem(
+              icon: Icon(Icons.person_outline),
+              activeIcon: Icon(Icons.person),
+              label: 'Profile'),
+        ],
+      ),
+    );
+  }
+}
+
+class _DeviceTile extends StatelessWidget {
+  final String name;
+  final String status;
+  final bool isOnline;
+  final bool isLoading;
+
+  const _DeviceTile({
+    required this.name,
+    required this.status,
+    required this.isOnline,
+    this.isLoading = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context).colorScheme;
+
+    return AppCard(
+      padding: const EdgeInsets.all(12),
+      onTap: () {}, // Interactive Card
+      child: Row(
+        children: [
+          AppSurface(
+            width: 40,
+            height: 40,
+            shape: BoxShape.circle,
+            variant: SurfaceVariant.base,
+            child: Center(
+              child: Icon(
+                isOnline ? Icons.wifi : Icons.wifi_off,
+                size: 20,
+                color: isOnline ? theme.primary : theme.outline,
+              ),
+            ),
+          ),
+          AppGap.md(),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppText(name, fontWeight: FontWeight.bold),
+                if (isLoading)
+                  AppSkeleton.text(width: 60, height: 10)
+                else
+                  AppText.caption(status,
+                      color: isOnline ? Colors.green : Colors.grey),
+              ],
+            ),
+          ),
+          Icon(Icons.chevron_right, color: theme.onSurface.withOpacity(0.3)),
+        ],
+      ),
+    );
+  }
+}

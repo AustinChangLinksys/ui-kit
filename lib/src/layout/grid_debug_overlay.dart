@@ -49,12 +49,14 @@ class GridDebugOverlay extends StatelessWidget {
                       final isColumn = index % 2 == 0;
                       if (isColumn) {
                         return Expanded(
-                          child: Container(color: Colors.red.withValues(alpha: 0.1)),
+                          child: Container(
+                              color: Colors.red.withValues(alpha: 0.1)),
                         );
                       } else {
                         return SizedBox(
-                          width: gutter,
-                          child: Container(color: Colors.cyan.withValues(alpha: 0.2)),
+                          width: context.currentGutter,
+                          child: Container(
+                              color: Colors.cyan.withValues(alpha: 0.2)),
                         );
                       }
                     }),

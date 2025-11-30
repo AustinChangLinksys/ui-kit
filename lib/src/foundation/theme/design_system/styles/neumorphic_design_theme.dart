@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ui_kit_library/src/foundation/theme/app_palette.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/app_input_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/interaction_spec.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/layout_spec.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/navigation_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/skeleton_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/toggle_style.dart';
 import 'package:ui_kit_library/ui_kit.dart';
@@ -13,6 +18,10 @@ class NeumorphicDesignTheme extends AppDesignTheme {
     required super.spacingFactor,
     required super.toggleStyle,
     required super.skeletonStyle,
+    required super.buttonHeight,
+    required super.navigationStyle,
+    required super.inputStyle,
+    required super.layoutSpec,
   });
 
   // Default to Light, providing a default ColorScheme
@@ -24,7 +33,8 @@ class NeumorphicDesignTheme extends AppDesignTheme {
     final darkShadow = Color.alphaBlend(
         Colors.black.withValues(alpha: 0.2), scheme.surface); // Black shadow
     final highlightBorderColor = scheme.primary;
-
+    final neuBase = scheme.surface;
+    final neuShadow = AppPalette.neumorphicLightShadow.withValues(alpha: 0.3);
     return NeumorphicDesignTheme._(
       surfaceBase: SurfaceStyle(
         backgroundColor: lightBaseColor,
@@ -87,6 +97,14 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         ],
         blurStrength: 0.0,
         contentColor: highlightBorderColor,
+        interaction: const InteractionSpec(
+          // 極微小的縮放，模擬材質被壓實的感覺
+          pressedScale: 0.98,
+          // 保持實心，不變透明
+          pressedOpacity: 1.0,
+          hoverOpacity: 1.0,
+          pressedOffset: Offset.zero,
+        ),
       ),
       toggleStyle: const ToggleStyle(
         activeType: ToggleContentType.dot, // 使用凹槽圓點
@@ -99,6 +117,63 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         animationType: SkeletonAnimationType.pulse,
         borderRadius: 12.0,
       ),
+      inputStyle: InputStyle(
+        // Outline/Box Style (模擬凹槽)
+        outlineStyle: SurfaceStyle(
+          backgroundColor: neuBase,
+          borderColor: Colors.transparent,
+          contentColor: scheme.onSurface,
+          borderWidth: 0.0,
+          borderRadius: 12.0,
+          // 模擬凹陷效果
+          shadows: [
+            BoxShadow(
+                color: neuShadow, offset: const Offset(2, 2), blurRadius: 4)
+          ],
+          blurStrength: 0.0,
+        ),
+        // Underline Style
+        underlineStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.transparent,
+          contentColor: scheme.onSurface,
+          borderWidth: 0,
+          borderRadius: 0,
+          shadows: const [],
+          blurStrength: 0,
+          customBorder:
+              Border(bottom: BorderSide(color: neuShadow, width: 1.0)),
+        ),
+        // Filled Style
+        filledStyle: SurfaceStyle(
+          backgroundColor: scheme.surfaceContainerHigh,
+          borderColor: Colors.transparent,
+          contentColor: scheme.onSurface,
+          borderWidth: 0,
+          borderRadius: 12.0,
+          shadows: const [],
+          blurStrength: 0,
+        ),
+
+        // 狀態修改器 (Focus)
+        focusModifier: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: scheme.primary,
+          contentColor: scheme.primary,
+          // Focus 時通常要加上發光/凸起陰影
+          shadows: [
+            BoxShadow(
+                color: scheme.primary.withValues(alpha: 0.5), blurRadius: 8)
+          ],
+          blurStrength: 0,
+        ),
+        errorModifier: SurfaceStyle(
+          backgroundColor: scheme.error.withValues(alpha: 0.05),
+          borderColor: scheme.error,
+          contentColor: scheme.error,
+          blurStrength: 0,
+        ),
+      ),
       typography: const TypographySpec(
         bodyFontFamily: 'Nunito',
         displayFontFamily: 'Nunito',
@@ -108,6 +183,25 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         curve: Curves.easeOut,
       ),
       spacingFactor: 1.2,
+      buttonHeight: 52.0,
+      navigationStyle: const NavigationStyle(
+        height: 88.0, // 較高，因為軟塑膠需要更多呼吸空間來呈現光影
+        isFloating: false, // 固定模式 (融合背景)
+        floatingMargin: 0.0,
+        itemSpacing: 12.0,
+      ),
+      layoutSpec: const LayoutSpec(
+        // 為了容納擴散的陰影，邊距不能太小
+        marginMobile: 24.0,
+        marginTablet: 40.0,
+        marginDesktop: 80.0,
+
+        // Gutter 必須大於 (Shadow Blur Radius * 2)，否則陰影會打架
+        // 假設最大 Shadow Blur 是 10，那 Gutter 至少要 20-24
+        gutterMobile: 24.0,
+        gutterTablet: 32.0,
+        gutterDesktop: 40.0,
+      ),
     );
   }
 
@@ -119,6 +213,8 @@ class NeumorphicDesignTheme extends AppDesignTheme {
     final darkDarkShadow = Color.alphaBlend(
         Colors.black.withValues(alpha: 0.6), scheme.surface); // Dark shadow
     final darkHighlightBorderColor = scheme.primary;
+    final neuBase = scheme.surface;
+    final neuShadow = AppPalette.neumorphicLightShadow.withValues(alpha: 0.3);
 
     return NeumorphicDesignTheme._(
       surfaceBase: SurfaceStyle(
@@ -182,6 +278,14 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         ],
         blurStrength: 0.0,
         contentColor: darkHighlightBorderColor,
+        interaction: const InteractionSpec(
+          // 極微小的縮放，模擬材質被壓實的感覺
+          pressedScale: 0.98,
+          // 保持實心，不變透明
+          pressedOpacity: 1.0,
+          hoverOpacity: 1.0,
+          pressedOffset: Offset.zero,
+        ),
       ),
       toggleStyle: const ToggleStyle(
         activeType: ToggleContentType.dot, // 使用凹槽圓點
@@ -194,6 +298,63 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         animationType: SkeletonAnimationType.pulse,
         borderRadius: 12.0,
       ),
+      inputStyle: InputStyle(
+        // Outline/Box Style (模擬凹槽)
+        outlineStyle: SurfaceStyle(
+          backgroundColor: neuBase,
+          borderColor: Colors.transparent,
+          contentColor: scheme.onSurface,
+          borderWidth: 0.0,
+          borderRadius: 12.0,
+          // 模擬凹陷效果
+          shadows: [
+            BoxShadow(
+                color: neuShadow, offset: const Offset(2, 2), blurRadius: 4)
+          ],
+          blurStrength: 0.0,
+        ),
+        // Underline Style
+        underlineStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.transparent,
+          contentColor: scheme.onSurface,
+          borderWidth: 0,
+          borderRadius: 0,
+          shadows: const [],
+          blurStrength: 0,
+          customBorder:
+              Border(bottom: BorderSide(color: neuShadow, width: 1.0)),
+        ),
+        // Filled Style
+        filledStyle: SurfaceStyle(
+          backgroundColor: scheme.surfaceContainerHigh,
+          borderColor: Colors.transparent,
+          contentColor: scheme.onSurface,
+          borderWidth: 0,
+          borderRadius: 12.0,
+          shadows: const [],
+          blurStrength: 0,
+        ),
+
+        // 狀態修改器 (Focus)
+        focusModifier: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: scheme.primary,
+          contentColor: scheme.primary,
+          // Focus 時通常要加上發光/凸起陰影
+          shadows: [
+            BoxShadow(
+                color: scheme.primary.withValues(alpha: 0.5), blurRadius: 8)
+          ],
+          blurStrength: 0,
+        ),
+        errorModifier: SurfaceStyle(
+          backgroundColor: scheme.error.withValues(alpha: 0.05),
+          borderColor: scheme.error,
+          contentColor: scheme.error,
+          blurStrength: 0,
+        ),
+      ),
       typography: const TypographySpec(
         bodyFontFamily: 'Nunito',
         displayFontFamily: 'Nunito',
@@ -203,6 +364,25 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         curve: Curves.easeOut,
       ),
       spacingFactor: 1.2,
+      buttonHeight: 52.0,
+      navigationStyle: const NavigationStyle(
+        height: 88.0, // 較高，因為軟塑膠需要更多呼吸空間來呈現光影
+        isFloating: false, // 固定模式 (融合背景)
+        floatingMargin: 0.0,
+        itemSpacing: 12.0,
+      ),
+      layoutSpec: const LayoutSpec(
+        // 為了容納擴散的陰影，邊距不能太小
+        marginMobile: 24.0,
+        marginTablet: 40.0,
+        marginDesktop: 80.0,
+
+        // Gutter 必須大於 (Shadow Blur Radius * 2)，否則陰影會打架
+        // 假設最大 Shadow Blur 是 10，那 Gutter 至少要 20-24
+        gutterMobile: 24.0,
+        gutterTablet: 32.0,
+        gutterDesktop: 40.0,
+      ),
     );
   }
 }

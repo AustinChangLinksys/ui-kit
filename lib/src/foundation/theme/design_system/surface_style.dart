@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/interaction_spec.dart';
 
 /// Defines the visual appearance of a container.
 class SurfaceStyle extends Equatable {
@@ -10,6 +11,8 @@ class SurfaceStyle extends Equatable {
   final List<BoxShadow> shadows;
   final double blurStrength; // Sigma for BackdropFilter (0 for non-glass)
   final Color contentColor; // Default text/icon color on this surface
+  final InteractionSpec? interaction;
+  final BoxBorder? customBorder;
 
   const SurfaceStyle({
     required this.backgroundColor,
@@ -19,6 +22,8 @@ class SurfaceStyle extends Equatable {
     this.shadows = const [],
     this.blurStrength = 0.0,
     required this.contentColor,
+    this.interaction,
+    this.customBorder,
   });
 
   @override
@@ -30,7 +35,33 @@ class SurfaceStyle extends Equatable {
         shadows,
         blurStrength,
         contentColor,
+        interaction,
+        customBorder,
       ];
+
+  SurfaceStyle copyWith({
+    double? borderRadius,
+    Color? backgroundColor,
+    Color? borderColor,
+    double? borderWidth,
+    List<BoxShadow>? shadows,
+    double? blurStrength,
+    Color? contentColor,
+    InteractionSpec? interaction,
+    BoxBorder? customBorder,
+  }) {
+    return SurfaceStyle(
+      backgroundColor: backgroundColor ?? this.backgroundColor,
+      borderColor: borderColor ?? this.borderColor,
+      borderWidth: borderWidth ?? this.borderWidth,
+      borderRadius: borderRadius ?? this.borderRadius,
+      shadows: shadows ?? this.shadows,
+      blurStrength: blurStrength ?? this.blurStrength,
+      contentColor: contentColor ?? this.contentColor,
+      interaction: interaction ?? this.interaction,
+      customBorder: customBorder ?? this.customBorder,
+    );
+  }
 }
 
 /// Defines motion physics.

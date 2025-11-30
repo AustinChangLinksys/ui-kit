@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/app_input_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/interaction_spec.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/layout_spec.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/navigation_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/skeleton_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/toggle_style.dart';
 import 'package:ui_kit_library/ui_kit.dart';
@@ -13,6 +17,10 @@ class GlassDesignTheme extends AppDesignTheme {
     required super.spacingFactor,
     required super.toggleStyle,
     required super.skeletonStyle,
+    required super.buttonHeight,
+    required super.navigationStyle,
+    required super.inputStyle,
+    required super.layoutSpec,
   });
 
   // --- Light Mode (Liquid Water) ---
@@ -66,6 +74,16 @@ class GlassDesignTheme extends AppDesignTheme {
         ],
         blurStrength: 15.0,
         contentColor: scheme.primary,
+        interaction: const InteractionSpec(
+          // 按下去縮小至 95%，模擬彈性
+          pressedScale: 0.95,
+          // 稍微變透明，模擬光線被擠壓
+          pressedOpacity: 0.8,
+          // 懸停時稍微亮一點
+          hoverOpacity: 0.9,
+          // 玻璃不會位移
+          pressedOffset: Offset.zero,
+        ),
       ),
       skeletonStyle: SkeletonStyle(
         baseColor: scheme.primary.withValues(alpha: 0.02),
@@ -112,12 +130,90 @@ class GlassDesignTheme extends AppDesignTheme {
           contentColor: scheme.primary,
         ),
       ),
+      inputStyle: InputStyle(
+        // Underline Style
+        underlineStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.white.withValues(alpha: 0.3), // Required
+          contentColor: scheme.onSurface, // Required
+          borderWidth: 0,
+          borderRadius: 0,
+          blurStrength: 0,
+          shadows: const [],
+          customBorder: Border(
+              bottom: BorderSide(
+                  color: Colors.white.withValues(alpha: 0.3), width: 1.5)),
+        ),
+        // Outline Style
+        outlineStyle: SurfaceStyle(
+          backgroundColor: Colors.white.withValues(alpha: 0.1),
+          borderColor: Colors.white.withValues(alpha: 0.3),
+          contentColor: scheme.onSurface,
+          borderWidth: 1.0,
+          borderRadius: 8.0,
+          shadows: [
+            BoxShadow(
+                color: scheme.shadow.withValues(alpha: 0.05), blurRadius: 8)
+          ],
+          blurStrength: 10.0,
+        ),
+        // Filled Style
+        filledStyle: SurfaceStyle(
+          backgroundColor: Colors.white.withValues(alpha: 0.05),
+          borderColor: Colors.transparent,
+          contentColor: scheme.onSurface,
+          borderWidth: 0,
+          borderRadius: 8.0,
+          shadows: const [],
+          blurStrength: 0,
+        ),
+
+        // 狀態修改器 (Patch)
+        focusModifier: SurfaceStyle(
+          // 必須提供 required 參數，但我們讓它們保持透明或中性
+          backgroundColor: Colors.transparent,
+          borderColor: scheme.primary.withValues(alpha: 0.6), // 實際修改邊框色
+          contentColor: scheme.onSurface, // 保持文字色
+          // 實際的修改內容
+          shadows: [
+            BoxShadow(
+                color: scheme.primary.withValues(alpha: 0.3), blurRadius: 12)
+          ],
+          blurStrength: 0, // 不改變 Blur
+        ),
+        errorModifier: SurfaceStyle(
+          backgroundColor: scheme.error.withValues(alpha: 0.05), // 錯誤背景色
+          borderColor: scheme.error,
+          contentColor: scheme.error,
+          blurStrength: 0,
+        ),
+      ),
       typography: const TypographySpec(),
       animation: const AnimationSpec(
-        duration: Duration(milliseconds: 500), // 液體流動比較慢
-        curve: Curves.easeInOutCubic,
+        duration: Duration(milliseconds: 500), // 液體流動稍慢
+        // ✨ 確認：使用這種滑順且帶有物理慣性的曲線
+        curve: Curves.fastLinearToSlowEaseIn,
       ),
       spacingFactor: 1.0,
+      buttonHeight: 44.0,
+      navigationStyle: const NavigationStyle(
+        height: 72.0, // 保持
+        isFloating: true, // 必須懸浮
+        // ✨ 微調：加大邊距，讓它更有 "漂浮感"
+        floatingMargin: 24.0,
+        itemSpacing: 16.0,
+      ),
+      layoutSpec: const LayoutSpec(
+        // 稍微寬鬆一點的邊距 (20px)，讓玻璃卡片看起來是浮在背景上的
+        marginMobile: 20.0,
+        marginTablet: 32.0,
+        marginDesktop: 80.0,
+
+        // 適中的 Gutter
+        gutterMobile: 20.0,
+        gutterTablet: 24.0,
+        gutterDesktop: 32.0,
+      ),
     );
   }
 
@@ -159,6 +255,16 @@ class GlassDesignTheme extends AppDesignTheme {
         ],
         blurStrength: 20.0,
         contentColor: scheme.onPrimary,
+        interaction: const InteractionSpec(
+          // 按下去縮小至 95%，模擬彈性
+          pressedScale: 0.95,
+          // 稍微變透明，模擬光線被擠壓
+          pressedOpacity: 0.8,
+          // 懸停時稍微亮一點
+          hoverOpacity: 0.9,
+          // 玻璃不會位移
+          pressedOffset: Offset.zero,
+        ),
       ),
       skeletonStyle: SkeletonStyle(
         baseColor: scheme.primary.withValues(alpha: 0.05),
@@ -205,12 +311,90 @@ class GlassDesignTheme extends AppDesignTheme {
           contentColor: scheme.primary,
         ),
       ),
+      inputStyle: InputStyle(
+        // Underline Style
+        underlineStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.white.withValues(alpha: 0.3), // Required
+          contentColor: scheme.onSurface, // Required
+          borderWidth: 0,
+          borderRadius: 0,
+          blurStrength: 0,
+          shadows: const [],
+          customBorder: Border(
+              bottom: BorderSide(
+                  color: Colors.white.withValues(alpha: 0.3), width: 1.5)),
+        ),
+        // Outline Style
+        outlineStyle: SurfaceStyle(
+          backgroundColor: Colors.white.withValues(alpha: 0.1),
+          borderColor: Colors.white.withValues(alpha: 0.3),
+          contentColor: scheme.onSurface,
+          borderWidth: 1.0,
+          borderRadius: 8.0,
+          shadows: [
+            BoxShadow(
+                color: scheme.shadow.withValues(alpha: 0.05), blurRadius: 8)
+          ],
+          blurStrength: 10.0,
+        ),
+        // Filled Style
+        filledStyle: SurfaceStyle(
+          backgroundColor: Colors.white.withValues(alpha: 0.05),
+          borderColor: Colors.transparent,
+          contentColor: scheme.onSurface,
+          borderWidth: 0,
+          borderRadius: 8.0,
+          shadows: const [],
+          blurStrength: 0,
+        ),
+
+        // 狀態修改器 (Patch)
+        focusModifier: SurfaceStyle(
+          // 必須提供 required 參數，但我們讓它們保持透明或中性
+          backgroundColor: Colors.transparent,
+          borderColor: scheme.primary.withValues(alpha: 0.6), // 實際修改邊框色
+          contentColor: scheme.onSurface, // 保持文字色
+          // 實際的修改內容
+          shadows: [
+            BoxShadow(
+                color: scheme.primary.withValues(alpha: 0.3), blurRadius: 12)
+          ],
+          blurStrength: 0, // 不改變 Blur
+        ),
+        errorModifier: SurfaceStyle(
+          backgroundColor: scheme.error.withValues(alpha: 0.05), // 錯誤背景色
+          borderColor: scheme.error,
+          contentColor: scheme.error,
+          blurStrength: 0,
+        ),
+      ),
       typography: const TypographySpec(),
       animation: const AnimationSpec(
-        duration: Duration(milliseconds: 500),
-        curve: Curves.easeInOutCubic,
+        duration: Duration(milliseconds: 500), // 液體流動稍慢
+        // ✨ 確認：使用這種滑順且帶有物理慣性的曲線
+        curve: Curves.fastLinearToSlowEaseIn,
       ),
       spacingFactor: 1.0,
+      buttonHeight: 44.0,
+      navigationStyle: const NavigationStyle(
+        height: 72.0, // 保持
+        isFloating: true, // 必須懸浮
+        // ✨ 微調：加大邊距，讓它更有 "漂浮感"
+        floatingMargin: 24.0,
+        itemSpacing: 16.0,
+      ),
+      layoutSpec: const LayoutSpec(
+        // 稍微寬鬆一點的邊距 (20px)，讓玻璃卡片看起來是浮在背景上的
+        marginMobile: 20.0,
+        marginTablet: 32.0,
+        marginDesktop: 80.0,
+
+        // 適中的 Gutter
+        gutterMobile: 20.0,
+        gutterTablet: 24.0,
+        gutterDesktop: 32.0,
+      ),
     );
   }
 }
