@@ -13,7 +13,7 @@ class AppSurface extends StatelessWidget {
   final double? height;
   final EdgeInsetsGeometry? padding;
   final bool interactive;
-  final SurfaceStyle? style; // ✨ 新增：直接傳入樣式 (優先權最高)
+  final SurfaceStyle? style; // ✨ New: Directly pass style (highest priority)
   final BoxShape shape;
 
   const AppSurface({

@@ -73,12 +73,9 @@ class BrutalDesignTheme extends AppDesignTheme {
         blurStrength: 0.0,
         contentColor: scheme.onError,
         interaction: const InteractionSpec(
-          // 絕對剛體，不縮小
           pressedScale: 1.0,
-          // 不改變透明度，保持高對比
           pressedOpacity: 1.0,
           hoverOpacity: 1.0,
-          // ✨ 關鍵：按下去往右下位移 (數值通常等於陰影的 offset)
           pressedOffset: Offset(4, 4),
         ),
       ),
@@ -110,10 +107,9 @@ class BrutalDesignTheme extends AppDesignTheme {
           ],
           blurStrength: 0.0,
         ),
-        // Underline Style
         underlineStyle: SurfaceStyle(
           backgroundColor: Colors.transparent,
-          borderColor: scheme.onSurface, // 必須有
+          borderColor: scheme.onSurface,
           contentColor: scheme.onSurface,
           borderWidth: 0,
           borderRadius: 0,
@@ -133,10 +129,9 @@ class BrutalDesignTheme extends AppDesignTheme {
           blurStrength: 0,
         ),
 
-        // 狀態修改器 (Focus Switch)
         focusModifier: SurfaceStyle(
           backgroundColor: Colors.transparent,
-          borderColor: scheme.primary, // 邊框變主色
+          borderColor: scheme.primary,
           contentColor: scheme.primary,
           blurStrength: 0,
         ),
@@ -158,18 +153,16 @@ class BrutalDesignTheme extends AppDesignTheme {
       spacingFactor: 1.5,
       buttonHeight: 56.0,
       navigationStyle: const NavigationStyle(
-        height: 80.0, // 高一點，給予厚重感
-        isFloating: false, // ✨ 關鍵：固定模式 (貼底)
+        height: 80.0,
+        isFloating: false,
         floatingMargin: 0.0,
         itemSpacing: 8.0,
       ),
       layoutSpec: const LayoutSpec(
-        // Brutal 風格通常不貼邊，甚至手機版都會留 24px 的粗邊
         marginMobile: 24.0,
         marginTablet: 48.0,
-        marginDesktop: 120.0, // 桌面版大量留白，強調中心內容
+        marginDesktop: 120.0,
 
-        // 極寬的 Gutter，讓卡片之間完全分離
         gutterMobile: 24.0,
         gutterTablet: 32.0,
         gutterDesktop: 40.0,
@@ -228,12 +221,9 @@ class BrutalDesignTheme extends AppDesignTheme {
         blurStrength: 0.0,
         contentColor: scheme.onError,
         interaction: const InteractionSpec(
-          // 絕對剛體，不縮小
           pressedScale: 1.0,
-          // 不改變透明度，保持高對比
           pressedOpacity: 1.0,
           hoverOpacity: 1.0,
-          // ✨ 關鍵：按下去往右下位移 (數值通常等於陰影的 offset)
           pressedOffset: Offset(4, 4),
         ),
       ),
@@ -265,7 +255,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         // Underline Style
         underlineStyle: SurfaceStyle(
           backgroundColor: Colors.transparent,
-          borderColor: black, // 必須有
+          borderColor: black, 
           contentColor: black,
           borderWidth: 0,
           borderRadius: 0,
@@ -284,10 +274,9 @@ class BrutalDesignTheme extends AppDesignTheme {
           blurStrength: 0,
         ),
 
-        // 狀態修改器 (Focus Switch)
         focusModifier: SurfaceStyle(
           backgroundColor: Colors.transparent,
-          borderColor: scheme.primary, // 邊框變主色
+          borderColor: scheme.primary,
           contentColor: scheme.primary,
           blurStrength: 0,
         ),
@@ -309,18 +298,16 @@ class BrutalDesignTheme extends AppDesignTheme {
       spacingFactor: 1.5,
       buttonHeight: 56.0,
       navigationStyle: const NavigationStyle(
-        height: 80.0, // 高一點，給予厚重感
-        isFloating: false, // ✨ 關鍵：固定模式 (貼底)
+        height: 80.0,
+        isFloating: false,
         floatingMargin: 0.0,
         itemSpacing: 8.0,
       ),
       layoutSpec: const LayoutSpec(
-        // Brutal 風格通常不貼邊，甚至手機版都會留 24px 的粗邊
         marginMobile: 24.0,
         marginTablet: 48.0,
-        marginDesktop: 120.0, // 桌面版大量留白，強調中心內容
+        marginDesktop: 120.0,
 
-        // 極寬的 Gutter，讓卡片之間完全分離
         gutterMobile: 24.0,
         gutterTablet: 32.0,
         gutterDesktop: 40.0,

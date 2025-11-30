@@ -24,59 +24,59 @@ class AppSlider extends StatelessWidget {
     final theme = AppTheme.of(context);
     final isDisabled = onChanged == null;
 
-    // 1. 計算進度 (0.0 - 1.0)
+    // 1. Calculate progress (0.0 - 1.0)
     final range = max - min;
     final fraction = range == 0 ? 0.0 : (value.clamp(min, max) - min) / range;
 
     return LayoutBuilder(
       builder: (context, constraints) {
         final width = constraints.maxWidth;
-        // 尺寸跟隨 Theme 縮放
+        // Dimensions scale with Theme
         final thumbSize = 24.0 * theme.spacingFactor;
         final trackHeight = 6.0 * theme.spacingFactor;
 
-        // Thumb 中心點的可移動寬度
+        // Movable width of Thumb center point
         final trackWidth = width - thumbSize;
 
-        // Thumb 左側位置
+        // Thumb left position
         final thumbLeft = trackWidth * fraction;
 
         return GestureDetector(
-          // 支援點擊軌道跳轉
+          // Supports clicking the track to jump
           onTapUp: isDisabled
               ? null
               : (details) {
                   _handleInput(details.localPosition.dx, trackWidth, thumbSize);
                 },
-          // 支援拖曳 (移除未使用的 onHorizontalDragStart/End)
+          // Supports dragging (removed unused onHorizontalDragStart/End)
           onHorizontalDragUpdate: isDisabled
               ? null
               : (details) {
                   _handleInput(details.localPosition.dx, trackWidth, thumbSize);
                 },
           child: Container(
-            height: thumbSize, // 整體高度由 Thumb 決定
+            height: thumbSize, // Overall height determined by Thumb
             width: width,
-            color: Colors.transparent, // 擴大點擊區域
+            color: Colors.transparent, // Expand click area
             child: Stack(
               alignment: Alignment.centerLeft,
               children: [
-                // 1. Track (背景軌道)
+                // 1. Track (Background Track)
                 AppSurface(
                   variant: SurfaceVariant.base,
                   width: width,
                   height: trackHeight,
                   shape: BoxShape.rectangle,
-                  // 強制膠囊軌道
+                  // Force capsule track
                   style: theme.surfaceBase.copyWith(borderRadius: 99.0),
                   padding: EdgeInsets.zero,
-                  // 如果是離散模式，繪製刻度
+                  // Draw ticks if in discrete mode
                   child: divisions != null
                       ? _buildTicks(theme, width)
                       : const SizedBox.shrink(),
                 ),
 
-                // 2. Fill (進度條 - Highlight)
+                // 2. Fill (Progress Bar - Highlight)
                 AppSurface(
                   variant: SurfaceVariant.highlight,
                   width: thumbLeft + (thumbSize / 2),
@@ -86,7 +86,7 @@ class AppSlider extends StatelessWidget {
                   child: const SizedBox.shrink(),
                 ),
 
-                // 3. Thumb (滑塊 - Elevated)
+                // 3. Thumb (Slider - Elevated)
                 Positioned(
                   left: thumbLeft,
                   child: AppSurface(
@@ -95,8 +95,8 @@ class AppSlider extends StatelessWidget {
                     height: thumbSize,
                     shape: BoxShape.circle,
                     padding: EdgeInsets.zero,
-                    // 雖然拖曳由 parent 處理，但 interactive: true
-                    // 仍可讓 Thumb 在點擊時呈現 Theme 定義的物理效果 (Glow/Scale)
+                    // Although dragging is handled by the parent, interactive: true
+                    // still allows the Thumb to display Theme-defined physical effects (Glow/Scale) when clicked.
                     interactive: true,
                     child: const SizedBox.shrink(),
                   ),
@@ -110,13 +110,13 @@ class AppSlider extends StatelessWidget {
   }
 
   void _handleInput(double dx, double trackWidth, double thumbSize) {
-    // 修正座標：扣除 Thumb 半徑的偏移
+    // Correct coordinates: subtract Thumb radius offset
     final relativeX = dx - (thumbSize / 2);
     double newFraction = (relativeX / trackWidth).clamp(0.0, 1.0);
 
     double newValue = min + (newFraction * (max - min));
 
-    // 處理離散步進 (Snapping)
+    // Handle discrete steps (Snapping)
     if (divisions != null && divisions! > 0) {
       final stepSize = (max - min) / divisions!;
       final steps = (newValue - min) / stepSize;

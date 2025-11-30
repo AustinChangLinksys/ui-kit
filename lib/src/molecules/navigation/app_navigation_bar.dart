@@ -16,30 +16,30 @@ class AppNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 1. 獲取 Theme 與 Spec
+    // 1. Get Theme and Spec
     final theme = Theme.of(context).extension<AppDesignTheme>()!;
     final navSpec = theme.navigationStyle;
 
-    // 2. 決定樣式策略 (DDS)
-    // - Floating (Glass): 使用 Elevated (浮起感)
-    // - Fixed (Brutal): 使用 Base (實心底)
+    // 2. Determine style strategy (DDS)
+    // - Floating (Glass): Use Elevated (floating feel)
+    // - Fixed (Brutal): Use Base (solid bottom)
     final baseStyle =
         navSpec.isFloating ? theme.surfaceElevated : theme.surfaceBase;
 
-    // 3. 微調樣式 (Overrides)
-    // 根據是否浮動，強制覆寫圓角
+    // 3. Fine-tune style (Overrides)
+    // Force override rounded corners based on whether it is floating
     final effectiveStyle = baseStyle.copyWith(
-      // ✨ 微調：如果是 Floating (Liquid)，強制變成膠囊形 (99.0)
-      // 這樣看起來更有 "表面張力" 的感覺，而不是只是圓角矩形
+      // ✨ Fine-tune: If it's Floating (Liquid), force it into a capsule shape (99.0)
+      // This makes it look more like a "surface tension" rather than just a rounded rectangle.
       borderRadius: navSpec.isFloating ? 99.0 : 0.0,
     );
 
-    // 4. 建構核心 Bar (使用 AppSurface)
+    // 4. Construct the core Bar (using AppSurface)
     Widget navBarContent = AppSurface(
       style: effectiveStyle,
       height: navSpec.height,
       width: double.infinity,
-      // 內距：左右稍微留白，讓圖示不要貼邊
+      // Internal padding: slightly leave space on left and right, so icons don't stick to the edge
       padding: EdgeInsets.symmetric(horizontal: theme.spacingFactor * 4),
 
       child: Row(
@@ -48,18 +48,18 @@ class AppNavigationBar extends StatelessWidget {
           final item = items[index];
           final isSelected = index == currentIndex;
 
-          // 顏色邏輯：
-          // - 選中：使用 Highlight 的文字色 (通常是主色)
-          // - 未選中：使用 Base 的文字色並降低不透明度
+          // Color logic:
+          // - Selected: Use Highlight's text color (usually primary color)
+          // - Unselected: Use Base's text color with reduced opacity
           final color = isSelected
               ? theme.surfaceHighlight.contentColor
               : theme.surfaceBase.contentColor.withValues(alpha: 0.6);
 
-          // 使用 Expanded 確保點擊區域平均分配
+          // Use Expanded to ensure click area is evenly distributed
           return Expanded(
             child: GestureDetector(
               onTap: () => onTap(index),
-              behavior: HitTestBehavior.opaque, // 確保空白處也能點擊
+              behavior: HitTestBehavior.opaque, // Ensure blank areas are also clickable
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -67,7 +67,7 @@ class AppNavigationBar extends StatelessWidget {
                   IconTheme(
                     data: IconThemeData(
                       color: color,
-                      size: 24 * theme.spacingFactor, // 支援縮放
+                      size: 24 * theme.spacingFactor, // Support scaling
                     ),
                     child: isSelected && item.activeIcon != null
                         ? item.activeIcon!
@@ -90,27 +90,27 @@ class AppNavigationBar extends StatelessWidget {
       ),
     );
 
-    // 5. 處理佈局模式 (Floating vs Fixed) 與 Safe Area
+    // 5. Handle layout mode (Floating vs Fixed) and Safe Area
     if (navSpec.isFloating) {
       // --- Floating Mode (Glass) ---
-      // 懸浮在 Safe Area 之上，四周有間距
+      // Floats above Safe Area, with spacing around it
       return SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: navSpec.floatingMargin,
-            vertical: navSpec.floatingMargin / 2, // 底部留一點空間
+            vertical: navSpec.floatingMargin / 2, // Leave a little space at the bottom
           ),
           child: navBarContent,
         ),
       );
     } else {
       // --- Fixed Mode (Brutal/Flat) ---
-      // 貼齊底部。為了讓背景色延伸到 Home Indicator 區域，我們通常不包 SafeArea (bottom: true)
-      // 而是讓 Scaffold 來處理，或是把 AppSurface 延伸。
-      // 最通用的做法是：僅內容避開 Safe Area，背景延伸。
+      // Sticks to the bottom. To extend the background color to the Home Indicator area, we usually don't wrap SafeArea (bottom: true)
+      // Instead, let Scaffold handle it, or extend AppSurface.
+      // The most common practice is: only content avoids Safe Area, background extends.
 
-      // 但因為 AppSurface 有邊框/圓角，如果要做到完美的「延伸背景但避開內容」，
-      // 通常建議直接回傳 navBarContent，並由 Scaffold 的 bottomNavigationBar 屬性去處理 Safe Area。
+      // But because AppSurface has borders/rounded corners, to achieve a perfect "extended background but avoid content",
+      // it is usually recommended to directly return navBarContent and let Scaffold's bottomNavigationBar property handle Safe Area.
 
       return SafeArea(
         top: false,

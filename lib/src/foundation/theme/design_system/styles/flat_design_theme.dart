@@ -68,9 +68,7 @@ class FlatDesignTheme extends AppDesignTheme {
         blurStrength: 0.0,
         contentColor: scheme.onPrimary,
         interaction: const InteractionSpec(
-          // 保持原狀
           pressedScale: 1.0,
-          // ✨ 關鍵：顯著降低透明度 (iOS 標準通常是 50%~60%)
           pressedOpacity: 0.6,
           hoverOpacity: 0.9,
           pressedOffset: Offset.zero,
@@ -88,7 +86,7 @@ class FlatDesignTheme extends AppDesignTheme {
           backgroundColor: activeColor,
           borderColor: Colors.transparent,
           borderWidth: 0,
-          borderRadius: 99, // 膠囊形狀
+          borderRadius: 99,
           shadows: const [],
           blurStrength: 0,
           contentColor: scheme.onPrimary,
@@ -162,10 +160,9 @@ class FlatDesignTheme extends AppDesignTheme {
           blurStrength: 0,
         ),
 
-        // 狀態修改器
         focusModifier: SurfaceStyle(
           backgroundColor: Colors.transparent,
-          borderColor: scheme.primary, // 邊框變主色
+          borderColor: scheme.primary,
           contentColor: scheme.primary,
           blurStrength: 0,
         ),
@@ -188,18 +185,15 @@ class FlatDesignTheme extends AppDesignTheme {
       spacingFactor: 1.0,
       buttonHeight: 48.0,
       navigationStyle: const NavigationStyle(
-        height: 64.0, // 標準行動裝置高度 (不含 Safe Area)
-        isFloating: false, // 固定模式
+        height: 64.0,
+        isFloating: false,
         floatingMargin: 0.0,
-        itemSpacing: 0.0, // 平均分配
+        itemSpacing: 0.0,
       ),
       layoutSpec: const LayoutSpec(
-        // 標準手機邊距 (16px)，平板 (24px)，桌面 (32-64px)
         marginMobile: 16.0,
         marginTablet: 24.0,
         marginDesktop: 64.0,
-
-        // 標準欄間距
         gutterMobile: 16.0,
         gutterTablet: 24.0,
         gutterDesktop: 24.0,
@@ -245,9 +239,7 @@ class FlatDesignTheme extends AppDesignTheme {
         blurStrength: 0.0,
         contentColor: scheme.onPrimary,
         interaction: const InteractionSpec(
-          // 保持原狀
           pressedScale: 1.0,
-          // ✨ 關鍵：顯著降低透明度 (iOS 標準通常是 50%~60%)
           pressedOpacity: 0.6,
           hoverOpacity: 0.9,
           pressedOffset: Offset.zero,
@@ -331,10 +323,9 @@ class FlatDesignTheme extends AppDesignTheme {
           blurStrength: 0,
         ),
 
-        // 狀態修改器
         focusModifier: SurfaceStyle(
           backgroundColor: Colors.transparent,
-          borderColor: scheme.primary, // 邊框變主色
+          borderColor: scheme.primary,
           contentColor: scheme.primary,
           blurStrength: 0,
         ),
@@ -356,18 +347,15 @@ class FlatDesignTheme extends AppDesignTheme {
       spacingFactor: 1.0,
       buttonHeight: 48.0,
       navigationStyle: const NavigationStyle(
-        height: 64.0, // 標準行動裝置高度 (不含 Safe Area)
-        isFloating: false, // 固定模式
+        height: 64.0,
+        isFloating: false,
         floatingMargin: 0.0,
-        itemSpacing: 0.0, // 平均分配
+        itemSpacing: 0.0,
       ),
       layoutSpec: const LayoutSpec(
-        // 標準手機邊距 (16px)，平板 (24px)，桌面 (32-64px)
         marginMobile: 16.0,
         marginTablet: 24.0,
         marginDesktop: 64.0,
-
-        // 標準欄間距
         gutterMobile: 16.0,
         gutterTablet: 24.0,
         gutterDesktop: 24.0,

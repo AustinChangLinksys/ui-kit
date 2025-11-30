@@ -57,13 +57,13 @@ extension LayoutContext on BuildContext {
     final gutter = currentGutter;
     final gutterTotal = gutter * (totalCols - 1);
 
-    // 計算可用總寬
+    // Calculate available total width
     final availableContentWidth = screenWidth - marginTotal - gutterTotal;
 
-    // 計算單欄寬
+    // Calculate single column width
     final singleColWidth = availableContentWidth / totalCols;
 
-    // 回傳跨度寬
+    // Return span width
     return (singleColWidth * columnSpan) + (gutter * max(0, columnSpan - 1));
   }
 

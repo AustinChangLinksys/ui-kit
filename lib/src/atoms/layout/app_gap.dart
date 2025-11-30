@@ -5,13 +5,13 @@ import '../../foundation/theme/tokens/app_theme.dart';
 
 class AppGap extends StatelessWidget {
   final double _rawSize;
-  final bool _isGutter; // 標記是否為 Gutter
+  final bool _isGutter; // Mark if it is a Gutter
 
-  // 基礎建構子 (私有)
+  // Base constructor (private)
   const AppGap._(this._rawSize, {bool isGutter = false})
       : _isGutter = isGutter;
 
-  // --- Semantic Factories (語義化建構子) ---
+  // --- Semantic Factories ---
 
   /// 2px * factor
   factory AppGap.xxs() => const AppGap._(AppSpacing.xxs);
@@ -37,8 +37,8 @@ class AppGap extends StatelessWidget {
   /// 48px * factor
   factory AppGap.xxxl() => const AppGap._(AppSpacing.xxxl);
 
-  /// ✨ 響應式 Gutter
-  /// 大小由 Theme.layoutSpec 決定，並隨螢幕寬度自動變化
+  /// ✨ Responsive Gutter
+  /// Size determined by Theme.layoutSpec and automatically changes with screen width
   factory AppGap.gutter() => const AppGap._(0, isGutter: true);
 
   @override
@@ -48,13 +48,13 @@ class AppGap extends StatelessWidget {
     double size;
 
     if (_isGutter) {
-      // 1. Gutter 邏輯：讀取 Theme 中的 LayoutSpec
-      // 這裡需要 MediaQuery 來決定斷點
+      // 1. Gutter logic: read LayoutSpec from Theme
+      // MediaQuery is needed here to determine breakpoints
       final screenWidth = MediaQuery.of(context).size.width;
       size = theme.layoutSpec.gutter(screenWidth);
     } else {
-      // 2. 一般邏輯：基礎尺寸 * Spacing Factor
-      // 這讓 Brutal 模式下的 gap 自動變大
+      // 2. General logic: base size * Spacing Factor
+      // This makes the gap automatically larger in Brutal mode
       size = _rawSize * theme.spacingFactor;
     }
 

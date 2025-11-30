@@ -22,25 +22,25 @@ class AppNavigationRail extends StatelessWidget {
     final theme = Theme.of(context).extension<AppDesignTheme>()!;
     final navSpec = theme.navigationStyle;
 
-    // 1. 決定樣式 (DDS)
+    // 1. Determine style (DDS)
     final baseStyle =
         navSpec.isFloating ? theme.surfaceElevated : theme.surfaceBase;
 
-    // 2. 微調樣式
+    // 2. Fine-tune style
     final effectiveStyle = baseStyle.copyWith(
-      // Floating: 大圓角 (膠囊意象)
-      // Fixed: 直角 (貼邊)
+      // Floating: Large rounded corners (capsule visual)
+      // Fixed: Right angles (edge-aligned)
       borderRadius: navSpec.isFloating ? 99.0 : 0.0,
     );
 
-    // 3. 寬度計算
+    // 3. Width calculation
     final width = 80.0 * theme.spacingFactor;
 
-    // 4. 建構 Rail 本體
+    // 4. Construct the Rail body
     Widget railContent = AppSurface(
       style: effectiveStyle,
       width: width,
-      height: double.infinity, // 佔滿父層給予的高度
+      height: double.infinity, // Occupy parent-given height
       padding: EdgeInsets.symmetric(vertical: theme.spacingFactor * 16),
       child: Column(
         children: [
@@ -50,7 +50,7 @@ class AppNavigationRail extends StatelessWidget {
             SizedBox(height: theme.spacingFactor * 16),
           ],
 
-          // Navigation Items (置中或靠上，這裡選用 Spacer 夾擊使其置中)
+          // Navigation Items (centered or top-aligned, here using Spacers to center them)
           const Spacer(),
           ...List.generate(items.length, (index) {
             final item = items[index];
@@ -73,30 +73,31 @@ class AppNavigationRail extends StatelessWidget {
       ),
     );
 
-    // 5. 處理 Floating 間距與 Safe Area
+    // 5. Handle Floating spacing and Safe Area
     if (navSpec.isFloating) {
       return SafeArea(
         child: Padding(
-          // 懸浮模式：上下左留白，右邊貼齊內容區
+      // --- Floating Mode (Glass) ---
+      // Floats above Safe Area, with spacing around it
           padding: EdgeInsets.fromLTRB(
               navSpec.floatingMargin,
               navSpec.floatingMargin,
-              0, // 右邊通常不留白，直接接內容
+              0, // Right side usually no padding, directly connect to content
               navSpec.floatingMargin),
           child: railContent,
         ),
       );
     } else {
-      // 固定模式：延伸到頂部和底部
+      // Fixed mode: extends to top and bottom
       return SafeArea(
-        right: false, // 不避開右側內容
+        right: false, // Do not avoid content on the right
         child: railContent,
       );
     }
   }
 }
 
-// 私有組件：Rail Item
+// Private component: Rail Item
 class _RailItem extends StatelessWidget {
   final AppNavigationItem item;
   final bool isSelected;
@@ -137,7 +138,7 @@ class _RailItem extends StatelessWidget {
               style: Theme.of(context).textTheme.labelSmall?.copyWith(
                     color: color,
                     fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                    fontSize: 10, // Rail 的文字通常比較小
+                    fontSize: 10, // Rail text is usually smaller
                   ),
               textAlign: TextAlign.center,
             ),

@@ -1,14 +1,14 @@
 import 'package:equatable/equatable.dart';
 import 'surface_style.dart';
 
-/// 定義輸入框的四種基礎變體與狀態修改器。
+/// Defines four basic variants and state modifiers for input fields.
 class InputStyle extends Equatable {
-  // 基礎變體 (由 AppTextField.variant 決定)
+  // Basic variants (determined by AppTextField.variant)
   final SurfaceStyle outlineStyle;
   final SurfaceStyle underlineStyle;
   final SurfaceStyle filledStyle;
 
-  // 狀態修改器 (由 AppTextField 內部狀態決定，Focus 時疊加)
+  // State modifiers (determined by AppTextField internal state, overlaid when Focused)
   final SurfaceStyle focusModifier;
   final SurfaceStyle errorModifier;
 

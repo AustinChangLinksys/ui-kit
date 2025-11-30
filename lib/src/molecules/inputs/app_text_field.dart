@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:ui_kit_library/ui_kit.dart'; // 確保引入 copyWith & customBorder
+import 'package:ui_kit_library/ui_kit.dart'; // Ensure copyWith & customBorder are imported
 
-/// 輸入框的視覺變體 (對應 Theme 中的 InputStyle)
+/// Visual variants of the input box (corresponds to InputStyle in Theme)
 enum AppInputVariant {
-  outline, // 預設：四邊框 (Box)
-  underline, // 只有底線 (Line)
-  filled, // 填充背景無邊框 (Filled Box)
-  none, // 無樣式 (Pure)
+  outline, // Default: Four-sided border (Box)
+  underline, // Only underline (Line)
+  filled, // Filled background without border (Filled Box)
+  none, // No style (Pure)
 }
 
 class AppTextField extends StatefulWidget {
@@ -19,7 +19,7 @@ class AppTextField extends StatefulWidget {
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
     this.variant = AppInputVariant.outline,
-    this.textVariant = AppTextVariant.bodyMedium, // ✨ 新增：控制文字大小
+    this.textVariant = AppTextVariant.bodyMedium, // ✨ New: control text size
     this.prefixIcon,
     this.suffixIcon,
     super.key,
@@ -33,7 +33,7 @@ class AppTextField extends StatefulWidget {
   final bool obscureText;
   final TextInputType keyboardType;
   final AppInputVariant variant;
-  final AppTextVariant textVariant; // 字體語義
+  final AppTextVariant textVariant; // Font semantics
   final Widget? prefixIcon;
   final Widget? suffixIcon;
 
@@ -47,13 +47,13 @@ class _AppTextFieldState extends State<AppTextField> {
   @override
   void initState() {
     super.initState();
-    // IoC: 優先使用外部傳入的 FocusNode
+    // IoC: Prioritize externally passed FocusNode
     _focusNode = widget.focusNode ?? FocusNode();
   }
 
   @override
   void dispose() {
-    // 只有自己建立的 FocusNode 才需要 dispose
+    // Only dispose if FocusNode was created by itself
     if (widget.focusNode == null) {
       _focusNode.dispose();
     }
@@ -66,35 +66,35 @@ class _AppTextFieldState extends State<AppTextField> {
     final scheme = Theme.of(context).colorScheme;
     final hasError = widget.errorText != null;
 
-    // ✨ 關鍵：使用 Extension 解析文字樣式，保持與 AppText 一致
+    // ✨ Key: Use Extension to parse text style, consistent with AppText
     final baseTextStyle = widget.textVariant.resolve(context);
 
     return ListenableBuilder(
       listenable: _focusNode,
       builder: (context, _) {
-        // 1. 基礎樣式解析 (Base Style from Theme Spec)
+        // 1. Base style parsing (Base Style from Theme Spec)
         SurfaceStyle targetStyle = _resolveBaseStyle(theme, widget.variant);
 
-        // 2. 狀態疊加：Focus Modifier (Patch)
+        // 2. State overlay: Focus Modifier (Patch)
         if (_focusNode.hasFocus) {
           final modifier = theme.inputStyle.focusModifier;
           targetStyle = targetStyle.copyWith(
             borderColor: modifier.borderColor,
             backgroundColor: modifier.backgroundColor,
             shadows: modifier.shadows,
-            // 如果 modifier 裡面的 contentColor 是 null，這裡就會保留 base 的顏色
+            // If contentColor in modifier is null, base color will be retained here
             contentColor: modifier.contentColor,
           );
         }
 
-        // 3. 狀態疊加：Error Modifier (High Priority Patch)
+        // 3. State overlay: Error Modifier (High Priority Patch)
         if (hasError) {
           final modifier = theme.inputStyle.errorModifier;
           targetStyle = targetStyle.copyWith(
             borderColor: modifier.borderColor,
             backgroundColor: modifier.backgroundColor,
             contentColor: modifier.contentColor,
-            // 特殊處理：如果是 Underline 模式，也要把底線變紅
+            // Special handling: if in Underline mode, also turn the underline red
             customBorder: widget.variant == AppInputVariant.underline
                 ? Border(
                     bottom: BorderSide(color: modifier.borderColor, width: 2.0))
@@ -109,10 +109,10 @@ class _AppTextFieldState extends State<AppTextField> {
             // --- Input Container ---
             AppSurface(
               style: targetStyle,
-              interactive: true, // 啟用點擊物理回饋
+              interactive: true, // Enable physical feedback on click
               onTap: () => _focusNode.requestFocus(),
 
-              // 佈局：左右留白，上下由 TextField 撐開
+              // Layout: left and right padding, top and bottom expanded by TextField
               padding: EdgeInsets.symmetric(
                 horizontal: theme.spacingFactor * 12,
                 vertical: 0,
@@ -125,7 +125,7 @@ class _AppTextFieldState extends State<AppTextField> {
                     IconTheme(
                       data: IconThemeData(
                         color: targetStyle.contentColor,
-                        // Icon 大小隨文字大小微調 (約 1.2 倍)
+                        // Icon size slightly adjusted with text size (approx. 1.2 times)
                         size: (baseTextStyle.fontSize ?? 14.0) * 1.2,
                       ),
                       child: widget.prefixIcon!,
@@ -142,7 +142,7 @@ class _AppTextFieldState extends State<AppTextField> {
                       obscureText: widget.obscureText,
                       keyboardType: widget.keyboardType,
 
-                      // Style: 繼承 Surface 顏色 + 外部指定的 Typography
+                      // Style: Inherit Surface color + externally specified Typography
                       style: baseTextStyle.copyWith(
                         color: targetStyle.contentColor,
                       ),
@@ -155,13 +155,13 @@ class _AppTextFieldState extends State<AppTextField> {
                           color:
                               targetStyle.contentColor.withValues(alpha: 0.5),
                         ),
-                        // 移除所有原生裝飾，全權交給 AppSurface
+                        // Remove all native decorations, fully delegate to AppSurface
                         border: InputBorder.none,
                         enabledBorder: InputBorder.none,
                         focusedBorder: InputBorder.none,
                         errorBorder: InputBorder.none,
                         disabledBorder: InputBorder.none,
-                        // 垂直置中與高度控制
+                        // Vertical centering and height control
                         contentPadding: EdgeInsets.symmetric(
                           vertical: theme.spacingFactor * 12,
                         ),
@@ -204,7 +204,7 @@ class _AppTextFieldState extends State<AppTextField> {
     );
   }
 
-  /// 根據 Variant 從 Theme.inputStyle 中提取基礎樣式
+  /// Extract basic styles from Theme.inputStyle based on Variant
   SurfaceStyle _resolveBaseStyle(
       AppDesignTheme theme, AppInputVariant variant) {
     switch (variant) {
@@ -215,7 +215,7 @@ class _AppTextFieldState extends State<AppTextField> {
       case AppInputVariant.filled:
         return theme.inputStyle.filledStyle;
       case AppInputVariant.none:
-        // 純淨模式：無背景、無邊框
+        // Pure mode: no background, no border
         return SurfaceStyle(
           backgroundColor: Colors.transparent,
           borderColor: Colors.transparent,

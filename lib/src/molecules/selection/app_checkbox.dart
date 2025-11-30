@@ -16,50 +16,50 @@ class AppCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = AppTheme.of(context); // 使用 helper 獲取
+    final theme = AppTheme.of(context); // Use helper to get
     final isDisabled = onChanged == null;
 
-    // 1. 取得 Theme Spec
+    // 1. Get Theme Spec
     final spec = theme.toggleStyle;
 
-    // 2. 決定基礎樣式 (包含 Fallback 邏輯)
-    // 如果 Spec 沒定義專屬樣式，退回使用全域的 Highlight/Base
+    // 2. Determine base style (including Fallback logic)
+    // If Spec doesn't define a dedicated style, fall back to global Highlight/Base
     final baseStyle = value
         ? (spec.activeTrackStyle ?? theme.surfaceHighlight)
         : (spec.inactiveTrackStyle ?? theme.surfaceBase);
 
-    // 3. 形狀特化 (Topology Override)
-    // Checkbox 的物理特徵是 "微圓角方塊" (Radius ~ 6.0)
-    // 我們使用 copyWith 保留 Theme 的材質 (顏色/陰影)，但強制改變形狀
+    // 3. Shape specialization (Topology Override)
+    // Checkbox's physical characteristic is "slightly rounded square" (Radius ~ 6.0)
+    // We use copyWith to retain the Theme's material (color/shadow), but force change the shape
     final checkboxStyle = baseStyle.copyWith(
       borderRadius: 6.0,
     );
 
     Widget checkbox = AppSurface(
-      // ✨ 正確寫法：直接傳入處理好的 style 物件
+      // ✨ Correct way: Directly pass the processed style object
       style: checkboxStyle,
 
-      // 尺寸建議跟隨 spacingFactor 縮放 (Brutal 模式下會變大)
+      // Recommended size scales with spacingFactor (will be larger in Brutal mode)
       height: 24 * theme.spacingFactor,
       width: 24 * theme.spacingFactor,
 
-      // Checkbox 是矩形 (BoxShape.rectangle)
+      // Checkbox is a rectangle (BoxShape.rectangle)
       shape: BoxShape.rectangle,
 
-      // 互動設定
+      // Interaction settings
       padding: EdgeInsets.zero,
       interactive: !isDisabled,
       onTap: isDisabled ? null : () => onChanged!(!value),
 
-      // ✨ 正確寫法：Renderer 應該是 Dumb 的，由外部告訴它畫什麼
+      // ✨ Correct way: Renderer should be Dumb, told what to draw by external means
       child: Center(
         child: ToggleContentRenderer(
-          // 如果選中：看 Theme 規定要畫 Icon (Flat) 還是 Text (Brutal)
-          // 如果未選中：通常是 None
+          // If selected: depends on Theme whether to draw Icon (Flat) or Text (Brutal)
+          // If unselected: usually None
           type: value ? spec.activeType : spec.inactiveType,
           color: checkboxStyle.contentColor,
-          icon: value ? Icons.check : null, // 強制指定 Checkbox 的語義圖示
-          text: value ? spec.activeText : null, // 支援 Brutal 的文字
+          icon: value ? Icons.check : null, // Force specify Checkbox's semantic icon
+          text: value ? spec.activeText : null, // Support Brutal's text
         ),
       ),
     );

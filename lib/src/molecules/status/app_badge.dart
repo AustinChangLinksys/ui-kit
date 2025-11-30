@@ -12,32 +12,32 @@ class AppBadge extends StatelessWidget {
 
   final String label;
   
-  /// 背景色覆寫 (例如 Status Colors: Error/Success)
-  /// 如果為 null，則使用 Theme 預設的 Highlight 樣式
+  /// Background color override (e.g., Status Colors: Error/Success)
+  /// If null, uses Theme's default Highlight style
   final Color? color;
   
-  /// 文字顏色覆寫 (通常與 color 成對，或自動計算)
+  /// Text color override (usually paired with color, or automatically calculated)
   final Color? textColor;
   
-  /// 如果提供，會顯示刪除圖示並啟用互動
+  /// If provided, a delete icon will be displayed and interaction enabled
   final VoidCallback? onDeleted;
 
   @override
   Widget build(BuildContext context) {
     final theme = AppTheme.of(context);
     
-    // 1. 取得基礎樣式 (Single Source of Truth)
-    // Badge 語義上屬於 Highlight (高亮資訊)
+    // 1. Get base style (Single Source of Truth)
+    // Badge is semantically Highlight (highlighted information)
     final baseStyle = theme.surfaceHighlight;
 
-    // 2. 計算有效樣式 (Effective Style)
-    // 如果有傳入 color，我們使用 copyWith 來覆寫顏色，但保留 Theme 的物理特性 (Blur/Shadow/BorderWidth)
+    // 2. Calculate effective style (Effective Style)
+    // If a color is passed in, we use copyWith to override the color, but retain the Theme's physical properties (Blur/Shadow/BorderWidth)
     SurfaceStyle effectiveStyle = baseStyle;
     
     if (color != null) {
-      // 策略：如果外部傳入特定顏色 (如紅色)，我們模擬 "Tinted" 效果
-      // 背景 = 顏色 10%透明度, 邊框 = 顏色 20%透明度, 內容 = 原色
-      // 這樣在 Glass/Brutal 下都能保持一定的一致性
+      // Strategy: If an external color is passed in (e.g., red), we simulate a "Tinted" effect.
+      // Background = 10% alpha of color, Border = 20% alpha of color, Content = original color
+      // This ensures consistency across Glass/Brutal styles.
       effectiveStyle = baseStyle.copyWith(
         backgroundColor: color!.withValues(alpha: 0.1),
         borderColor: color!.withValues(alpha: 0.2),
@@ -45,8 +45,8 @@ class AppBadge extends StatelessWidget {
       );
     }
 
-    // 3. 強制形狀 (Topology)
-    // Badge 永遠是膠囊形 (Stadium)，所以我們強制覆寫圓角
+    // 3. Force shape (Topology)
+    // Badge is always capsule-shaped (Stadium), so we force override the border radius
     effectiveStyle = effectiveStyle.copyWith(
       borderRadius: 99.0, 
     );
@@ -55,18 +55,18 @@ class AppBadge extends StatelessWidget {
       style: effectiveStyle,
       shape: BoxShape.rectangle, // Badge 是圓角矩形
       
-      // 尺寸設定
-      height: 24.0 * theme.spacingFactor, // 固定高度但隨密度縮放
-      padding: EdgeInsets.zero, // 由內部 Padding 控制
+      // Size settings
+      height: 24.0 * theme.spacingFactor, // Fixed height but scales with density
+      padding: EdgeInsets.zero, // Controlled by internal Padding
       
-      // 互動設定 (只有在可刪除時才 interactive)
+      // Interaction settings (interactive only if deletable)
       interactive: onDeleted != null,
       onTap: onDeleted, 
 
       child: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: 8.0 * theme.spacingFactor,
-          // vertical 由 height 控制居中，這裡設 0 即可，或微調
+          // vertical is controlled by height to center, set to 0 here or fine-tune
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -78,7 +78,7 @@ class AppBadge extends StatelessWidget {
               style: Theme.of(context).textTheme.labelSmall?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: effectiveStyle.contentColor,
-                height: 1.0, // 確保文字垂直居中
+                height: 1.0, // Ensure text is vertically centered
               ),
             ),
             

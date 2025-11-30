@@ -12,7 +12,7 @@ class GridDebugOverlay extends StatelessWidget {
     super.key,
     required this.child,
     this.visible = false,
-    this.useMargins = true, // 預設為 true (標準 Grid)
+    this.useMargins = true, // Default to true (Standard Grid)
   });
 
   @override

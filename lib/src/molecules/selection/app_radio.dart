@@ -31,24 +31,24 @@ class AppRadio<T> extends StatelessWidget {
         ? (spec.activeTrackStyle ?? theme.surfaceHighlight) 
         : (spec.inactiveTrackStyle ?? theme.surfaceBase);
 
-    // 2. Radio 不需要覆寫 borderRadius，因為它會被 AppSurface(shape: Circle) 強制忽略
-    // 所以直接用 baseStyle 即可
+    // 2. Radio does not need to override borderRadius, as it will be forcibly ignored by AppSurface(shape: Circle)
+    // So just use baseStyle.
 
     Widget radio = AppSurface(
       style: baseStyle,
       height: 24 * theme.spacingFactor,
       width: 24 * theme.spacingFactor,
       
-      // ✨ 關鍵：Radio 永遠是圓形
+      // ✨ Key: Radio is always circular
       shape: BoxShape.circle, 
-      // 注意：當 shape 為 circle 時，borderRadius 會被忽略，所以不用傳
+      // Note: When shape is circle, borderRadius will be ignored, so no need to pass it
       
       padding: EdgeInsets.zero,
       interactive: !isDisabled,
       onTap: isDisabled ? null : () => onChanged!(value),
       
       child: Center(
-        // ✨ 重用 Renderer：傳入 dot 類型來畫圓點
+        // ✨ Reuse Renderer: Pass dot type to draw a dot
         child: ToggleContentRenderer(
           type: isSelected ? ToggleContentType.dot : ToggleContentType.none,
           color: baseStyle.contentColor,

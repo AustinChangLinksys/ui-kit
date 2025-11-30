@@ -1,8 +1,8 @@
 library ui_kit;
 
 // -----------------------------------------------------------------------------
-// Foundation (地基)
-// 包含：主題工廠、佈局設定、顏色定義、文字定義、特殊材質主題
+// Foundation
+// Contains: Theme factory, layout settings, color definitions, text definitions, special material themes
 // -----------------------------------------------------------------------------
 export 'src/foundation/theme/tokens/app_theme.dart';
 export 'src/foundation/theme/app_typography.dart';
@@ -21,21 +21,21 @@ export 'src/atoms/images/theme_aware_svg.dart';
 export 'src/atoms/images/theme_aware_image.dart';
 
 // -----------------------------------------------------------------------------
-// Atoms (原子元件)
-// 包含：按鈕、圖示、圖片、標籤
+// Atoms (Atomic Components)
+// Contains: buttons, icons, images, labels
 // -----------------------------------------------------------------------------
 export 'src/atoms/icons/app_icon.dart';
 export 'src/atoms/images/product_image.dart';
 export 'src/atoms/loading/app_skeleton.dart';
-export 'src/atoms/surfaces/app_surface.dart'; // 👈 新增：通用表面
-export 'src/atoms/typography/app_text.dart'; // 👈 新增：通用文字
+export 'src/atoms/surfaces/app_surface.dart';
+export 'src/atoms/typography/app_text.dart';
 export 'src/atoms/layout/app_gap.dart';
 // -----------------------------------------------------------------------------
-// Molecules (分子元件)
-// 包含：卡片、列表項
+// Molecules (Molecular Components)
+// Contains: cards, list items
 // -----------------------------------------------------------------------------
-export 'src/molecules/cards/app_card.dart'; // 👈 新增：通用卡片
-export 'src/molecules/dialogs/app_dialog.dart'; // 👈 新增：通用對話框
+export 'src/molecules/cards/app_card.dart';
+export 'src/molecules/dialogs/app_dialog.dart';
 export 'src/molecules/toggles/app_switch.dart';
 export 'src/molecules/buttons/app_button.dart';
 export 'src/molecules/buttons/app_icon_button.dart';

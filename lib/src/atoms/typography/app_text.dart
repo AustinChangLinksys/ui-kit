@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
-/// 完整的文字層級定義 (Material 3 Standard + Custom Extensions)
+/// Complete text hierarchy definition (Material 3 Standard + Custom Extensions)
 enum AppTextVariant {
   // Display
   displayLarge,
@@ -32,14 +32,14 @@ enum AppTextVariant {
   bodyExtraSmall, // For very small tags or timestamps (e.g. 10sp)
 }
 
-/// ✨ 核心優化：將解析邏輯抽取為 Extension，讓 AppTextField 也能用
+/// ✨ Core optimization: Extract parsing logic as Extension, so AppTextField can also use it
 extension AppTextVariantX on AppTextVariant {
   TextStyle resolve(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    // 使用 extension<AppDesignTheme>() 而不是 of(context) 避免循環依賴或錯誤
+    // Use extension<AppDesignTheme>() instead of of(context) to avoid circular dependencies or errors
     final designTheme = Theme.of(context).extension<AppDesignTheme>();
 
-    // 1. 取得基礎 TextStyle (Material 3 Mapping)
+    // 1. Get base TextStyle (Material 3 Mapping)
     TextStyle style;
     switch (this) {
       case AppTextVariant.displayLarge:
@@ -92,20 +92,20 @@ extension AppTextVariantX on AppTextVariant {
         style = textTheme.bodySmall!;
         break;
 
-      // ✨ 自定義邏輯：基於 bodySmall 縮小
+      // ✨ Custom logic: scale down based on bodySmall
       case AppTextVariant.bodyExtraSmall:
-        // 先取得定義的樣式
+        // First get the defined style
         final specStyle = AppTypographyExtra.bodyExtraSmall;
-        // 確保顏色跟隨當前的主題 (因為靜態定義通常是黑色的)
+        // Ensure color follows current theme (because static definitions are usually black)
         style = specStyle.copyWith(
           color: textTheme.bodySmall?.color,
-          fontFamily: textTheme.bodySmall?.fontFamily, // 確保字體家族一致
+          fontFamily: textTheme.bodySmall?.fontFamily, // Ensure consistent font family
         );
         break;
     }
 
-    // 2. 套用 Design System 的字體覆寫 (Font Family Override)
-    // 判斷是否為展示型標題 (Display ~ HeadlineSmall)
+    // 2. Apply Design System font override (Font Family Override)
+    // Determine if it's a display type heading (Display ~ HeadlineSmall)
     final isDisplay = index <= AppTextVariant.headlineSmall.index;
 
     final fontFamily = isDisplay
@@ -135,15 +135,15 @@ class AppText extends StatelessWidget {
   final TextAlign? textAlign;
   final int? maxLines;
   final TextOverflow? overflow;
-  final FontWeight? fontWeight; // 允許微調粗細
-  final double? height; // 允許微調行高
+  final FontWeight? fontWeight; // Allow fine-tuning of weight
+  final double? height; // Allow fine-tuning of line height
 
 // ==========================================
-  // 🏭 Semantic Factories (語義化捷徑)
-  // 僅開放最常用的 color, textAlign, maxLines
+  // 🏭 Semantic Factories
+  // Only the most commonly used color, textAlign, maxLines are exposed
   // ==========================================
 
-  /// 大標題 (Page Title) -> Headline Medium
+  /// Headline (Page Title) -> Headline Medium
   factory AppText.headline(String data,
           {Color? color,
           TextAlign? textAlign,
@@ -156,7 +156,7 @@ class AppText extends StatelessWidget {
           maxLines: maxLines,
           overflow: overflow);
 
-  /// 副標題 (Section Title) -> Title Medium
+  /// Subtitle (Section Title) -> Title Medium
   factory AppText.subhead(String data,
           {Color? color,
           TextAlign? textAlign,
@@ -169,7 +169,7 @@ class AppText extends StatelessWidget {
           maxLines: maxLines,
           overflow: overflow);
 
-  /// 內文 (Body Text) -> Body Medium
+  /// Body Text -> Body Medium
   factory AppText.body(String data,
           {Color? color,
           TextAlign? textAlign,
@@ -182,7 +182,7 @@ class AppText extends StatelessWidget {
           maxLines: maxLines,
           overflow: overflow);
 
-  /// 說明文字 (Caption) -> Body Small
+  /// Caption -> Body Small
   factory AppText.caption(String data,
           {Color? color,
           TextAlign? textAlign,
@@ -195,7 +195,7 @@ class AppText extends StatelessWidget {
           maxLines: maxLines,
           overflow: overflow);
 
-  /// 微型文字 (Tag / Timestamp) -> Body Extra Small
+  /// Tiny Text (Tag / Timestamp) -> Body Extra Small
   factory AppText.tiny(String data,
           {Color? color,
           TextAlign? textAlign,
@@ -338,12 +338,12 @@ class AppText extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = AppTheme.of(context);
 
-    // ✨ 使用 Extension 解析基礎樣式
+    // ✨ Use Extension to parse base style
     final baseStyle = variant.resolve(context);
 
-    // 疊加顏色與微調
+    // Overlay color and fine-tune
     final effectiveStyle = baseStyle.copyWith(
-      color: color ?? theme.surfaceBase.contentColor, // 預設使用當前 Surface 的內容色
+      color: color ?? theme.surfaceBase.contentColor, // Default to current Surface content color
       fontWeight: fontWeight,
       height: height,
     );

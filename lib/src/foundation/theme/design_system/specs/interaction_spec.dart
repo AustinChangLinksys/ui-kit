@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 
 /// Defines how a surface physically responds to user interaction.
 class InteractionSpec extends Equatable {
-  // 視覺回饋 (Visual Feedback)
+  // Visual Feedback
   final double hoverOpacity;
   final double pressedOpacity;
   
-  // 物理變形 (Physical Deformation)
+  // Physical Deformation
   final double pressedScale; // For Glass (e.g., 0.95)
   final Offset pressedOffset; // For Brutal (e.g., Offset(2, 2))
 

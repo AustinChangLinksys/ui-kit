@@ -61,7 +61,7 @@ class GlassDesignTheme extends AppDesignTheme {
         contentColor: scheme.onSurface,
       ),
       surfaceHighlight: SurfaceStyle(
-        backgroundColor: scheme.primary.withValues(alpha: 0.1), // 淡色液體
+        backgroundColor: scheme.primary.withValues(alpha: 0.1),
         borderColor: scheme.primary.withValues(alpha: 0.3),
         borderWidth: 1.5,
         borderRadius: 16.0,
@@ -75,13 +75,9 @@ class GlassDesignTheme extends AppDesignTheme {
         blurStrength: 15.0,
         contentColor: scheme.primary,
         interaction: const InteractionSpec(
-          // 按下去縮小至 95%，模擬彈性
           pressedScale: 0.95,
-          // 稍微變透明，模擬光線被擠壓
           pressedOpacity: 0.8,
-          // 懸停時稍微亮一點
           hoverOpacity: 0.9,
-          // 玻璃不會位移
           pressedOffset: Offset.zero,
         ),
       ),
@@ -168,21 +164,18 @@ class GlassDesignTheme extends AppDesignTheme {
           blurStrength: 0,
         ),
 
-        // 狀態修改器 (Patch)
         focusModifier: SurfaceStyle(
-          // 必須提供 required 參數，但我們讓它們保持透明或中性
           backgroundColor: Colors.transparent,
-          borderColor: scheme.primary.withValues(alpha: 0.6), // 實際修改邊框色
-          contentColor: scheme.onSurface, // 保持文字色
-          // 實際的修改內容
+          borderColor: scheme.primary.withValues(alpha: 0.6),
+          contentColor: scheme.onSurface,
           shadows: [
             BoxShadow(
                 color: scheme.primary.withValues(alpha: 0.3), blurRadius: 12)
           ],
-          blurStrength: 0, // 不改變 Blur
+          blurStrength: 0,
         ),
         errorModifier: SurfaceStyle(
-          backgroundColor: scheme.error.withValues(alpha: 0.05), // 錯誤背景色
+          backgroundColor: scheme.error.withValues(alpha: 0.05),
           borderColor: scheme.error,
           contentColor: scheme.error,
           blurStrength: 0,
@@ -190,26 +183,21 @@ class GlassDesignTheme extends AppDesignTheme {
       ),
       typography: const TypographySpec(),
       animation: const AnimationSpec(
-        duration: Duration(milliseconds: 500), // 液體流動稍慢
-        // ✨ 確認：使用這種滑順且帶有物理慣性的曲線
+        duration: Duration(milliseconds: 500),
         curve: Curves.fastLinearToSlowEaseIn,
       ),
       spacingFactor: 1.0,
       buttonHeight: 44.0,
       navigationStyle: const NavigationStyle(
-        height: 72.0, // 保持
-        isFloating: true, // 必須懸浮
-        // ✨ 微調：加大邊距，讓它更有 "漂浮感"
+        height: 72.0,
+        isFloating: true,
         floatingMargin: 24.0,
         itemSpacing: 16.0,
       ),
       layoutSpec: const LayoutSpec(
-        // 稍微寬鬆一點的邊距 (20px)，讓玻璃卡片看起來是浮在背景上的
         marginMobile: 20.0,
         marginTablet: 32.0,
         marginDesktop: 80.0,
-
-        // 適中的 Gutter
         gutterMobile: 20.0,
         gutterTablet: 24.0,
         gutterDesktop: 32.0,
@@ -256,13 +244,9 @@ class GlassDesignTheme extends AppDesignTheme {
         blurStrength: 20.0,
         contentColor: scheme.onPrimary,
         interaction: const InteractionSpec(
-          // 按下去縮小至 95%，模擬彈性
           pressedScale: 0.95,
-          // 稍微變透明，模擬光線被擠壓
           pressedOpacity: 0.8,
-          // 懸停時稍微亮一點
           hoverOpacity: 0.9,
-          // 玻璃不會位移
           pressedOffset: Offset.zero,
         ),
       ),
@@ -349,21 +333,18 @@ class GlassDesignTheme extends AppDesignTheme {
           blurStrength: 0,
         ),
 
-        // 狀態修改器 (Patch)
         focusModifier: SurfaceStyle(
-          // 必須提供 required 參數，但我們讓它們保持透明或中性
           backgroundColor: Colors.transparent,
-          borderColor: scheme.primary.withValues(alpha: 0.6), // 實際修改邊框色
-          contentColor: scheme.onSurface, // 保持文字色
-          // 實際的修改內容
+          borderColor: scheme.primary.withValues(alpha: 0.6),
+          contentColor: scheme.onSurface,
           shadows: [
             BoxShadow(
                 color: scheme.primary.withValues(alpha: 0.3), blurRadius: 12)
           ],
-          blurStrength: 0, // 不改變 Blur
+          blurStrength: 0,
         ),
         errorModifier: SurfaceStyle(
-          backgroundColor: scheme.error.withValues(alpha: 0.05), // 錯誤背景色
+          backgroundColor: scheme.error.withValues(alpha: 0.05),
           borderColor: scheme.error,
           contentColor: scheme.error,
           blurStrength: 0,
@@ -371,26 +352,21 @@ class GlassDesignTheme extends AppDesignTheme {
       ),
       typography: const TypographySpec(),
       animation: const AnimationSpec(
-        duration: Duration(milliseconds: 500), // 液體流動稍慢
-        // ✨ 確認：使用這種滑順且帶有物理慣性的曲線
+        duration: Duration(milliseconds: 500),
         curve: Curves.fastLinearToSlowEaseIn,
       ),
       spacingFactor: 1.0,
       buttonHeight: 44.0,
       navigationStyle: const NavigationStyle(
-        height: 72.0, // 保持
-        isFloating: true, // 必須懸浮
-        // ✨ 微調：加大邊距，讓它更有 "漂浮感"
+        height: 72.0,
+        isFloating: true,
         floatingMargin: 24.0,
         itemSpacing: 16.0,
       ),
       layoutSpec: const LayoutSpec(
-        // 稍微寬鬆一點的邊距 (20px)，讓玻璃卡片看起來是浮在背景上的
         marginMobile: 20.0,
         marginTablet: 32.0,
         marginDesktop: 80.0,
-
-        // 適中的 Gutter
         gutterMobile: 20.0,
         gutterTablet: 24.0,
         gutterDesktop: 32.0,

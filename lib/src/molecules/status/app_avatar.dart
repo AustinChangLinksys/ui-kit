@@ -16,23 +16,23 @@ class AppAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 1. 取得 Theme
+    // 1. Get Theme
     final theme = Theme.of(context).extension<AppDesignTheme>()!;
 
     return AppSurface(
-      // 2. 樣式繼承：使用 Base 樣式 (獲得邊框/陰影/Blur)
+      // 2. Style inheritance: Use Base style (to get border/shadow/Blur)
       style: theme.surfaceBase,
       
-      // 3. 幾何形狀：強制圓形
+      // 3. Geometric shape: Force circular
       width: size,
       height: size,
       shape: BoxShape.circle, 
-      // ❌ 修正：當 shape 為 circle 時，不可傳入 borderRadius，AppSurface 內部會處理
-      // borderRadius: ... (移除此行)
+      // ❌ Correction: When shape is circle, borderRadius should not be passed, AppSurface will handle it internally
+      // borderRadius: ... (Remove this line)
       
       padding: EdgeInsets.zero,
       
-      // 4. 內容裁切：確保圖片不會超出圓形邊界
+      // 4. Content clipping: Ensure image does not exceed circular boundary
       child: ClipOval(
         child: imageUrl != null
             ? Image.network(
@@ -40,7 +40,7 @@ class AppAvatar extends StatelessWidget {
                 fit: BoxFit.cover, // Center Crop (Cover)
                 width: size,
                 height: size,
-                // 圖片載入失敗時顯示 Fallback
+                // Show Fallback when image loading fails
                 errorBuilder: (context, error, stackTrace) => _buildFallback(context, theme),
               )
             : _buildFallback(context, theme),
@@ -48,26 +48,26 @@ class AppAvatar extends StatelessWidget {
     );
   }
 
-  // ✨ 修正：加入 BuildContext 參數
+  // ✨ Correction: Add BuildContext parameter
   Widget _buildFallback(BuildContext context, AppDesignTheme theme) {
-    // 使用 Highlight 的顏色 (通常是 Primary Color) 做為基調
+    // Use Highlight color (usually Primary Color) as base tone
     final primaryColor = theme.surfaceHighlight.contentColor;
 
     return Container(
       width: size,
       height: size,
-      // 背景色：極淡的主色調
+      // Background color: extremely light primary tone
       color: primaryColor.withValues(alpha: 0.1),
       alignment: Alignment.center,
       child: Text(
-        // ✨ 修正：加入防呆邏輯
+        // ✨ Correction: Add null safety logic
         initials.isNotEmpty 
             ? initials.substring(0, initials.length.clamp(0, 2)).toUpperCase() 
             : "",
         style: Theme.of(context).textTheme.labelLarge?.copyWith(
-          color: primaryColor, // 文字顏色
+          color: primaryColor, // Text color
           fontWeight: FontWeight.bold,
-          fontSize: size * 0.4, // 字體大小隨 Avatar 尺寸縮放
+          fontSize: size * 0.4, // Font size scales with Avatar size
         ),
       ),
     );

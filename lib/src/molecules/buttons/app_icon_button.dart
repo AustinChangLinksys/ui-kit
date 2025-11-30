@@ -15,7 +15,7 @@ class AppIconButton extends StatelessWidget {
     this.onTap,
     this.isLoading = false,
     this.variant = SurfaceVariant.base, // Standardized naming
-    this.size = AppButtonSize.medium,   // Standardized sizing
+    this.size = AppButtonSize.medium, // Standardized sizing
     this.tooltip,
     super.key,
   });

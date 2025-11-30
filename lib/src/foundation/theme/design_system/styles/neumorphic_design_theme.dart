@@ -98,34 +98,30 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         blurStrength: 0.0,
         contentColor: highlightBorderColor,
         interaction: const InteractionSpec(
-          // 極微小的縮放，模擬材質被壓實的感覺
           pressedScale: 0.98,
-          // 保持實心，不變透明
           pressedOpacity: 1.0,
           hoverOpacity: 1.0,
           pressedOffset: Offset.zero,
         ),
       ),
       toggleStyle: const ToggleStyle(
-        activeType: ToggleContentType.dot, // 使用凹槽圓點
+        activeType: ToggleContentType.dot, // dot
         inactiveType: ToggleContentType.dot,
-        // Neumorphism 通常不依賴文字或 Icon，而是依賴物理凹凸感
       ),
       skeletonStyle: SkeletonStyle(
         baseColor: scheme.surface,
-        highlightColor: scheme.surface.withValues(alpha: 0.9), // 微變亮
+        highlightColor: scheme.surface.withValues(alpha: 0.9),
         animationType: SkeletonAnimationType.pulse,
         borderRadius: 12.0,
       ),
       inputStyle: InputStyle(
-        // Outline/Box Style (模擬凹槽)
+        // outline style
         outlineStyle: SurfaceStyle(
           backgroundColor: neuBase,
           borderColor: Colors.transparent,
           contentColor: scheme.onSurface,
           borderWidth: 0.0,
           borderRadius: 12.0,
-          // 模擬凹陷效果
           shadows: [
             BoxShadow(
                 color: neuShadow, offset: const Offset(2, 2), blurRadius: 4)
@@ -155,12 +151,11 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           blurStrength: 0,
         ),
 
-        // 狀態修改器 (Focus)
+        // focus modifier
         focusModifier: SurfaceStyle(
           backgroundColor: Colors.transparent,
           borderColor: scheme.primary,
           contentColor: scheme.primary,
-          // Focus 時通常要加上發光/凸起陰影
           shadows: [
             BoxShadow(
                 color: scheme.primary.withValues(alpha: 0.5), blurRadius: 8)
@@ -185,19 +180,18 @@ class NeumorphicDesignTheme extends AppDesignTheme {
       spacingFactor: 1.2,
       buttonHeight: 52.0,
       navigationStyle: const NavigationStyle(
-        height: 88.0, // 較高，因為軟塑膠需要更多呼吸空間來呈現光影
-        isFloating: false, // 固定模式 (融合背景)
+        height: 88.0, // height, because soft plastic needs more breathing space to present the shadow
+        isFloating: false, // fixed
         floatingMargin: 0.0,
         itemSpacing: 12.0,
       ),
       layoutSpec: const LayoutSpec(
-        // 為了容納擴散的陰影，邊距不能太小
+        // For diffused shadows, margins cannot be too small
         marginMobile: 24.0,
         marginTablet: 40.0,
         marginDesktop: 80.0,
 
-        // Gutter 必須大於 (Shadow Blur Radius * 2)，否則陰影會打架
-        // 假設最大 Shadow Blur 是 10，那 Gutter 至少要 20-24
+        // gutter must be greater than (Shadow Blur Radius * 2), otherwise shadows will overlap
         gutterMobile: 24.0,
         gutterTablet: 32.0,
         gutterDesktop: 40.0,
@@ -279,18 +273,15 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         blurStrength: 0.0,
         contentColor: darkHighlightBorderColor,
         interaction: const InteractionSpec(
-          // 極微小的縮放，模擬材質被壓實的感覺
           pressedScale: 0.98,
-          // 保持實心，不變透明
           pressedOpacity: 1.0,
           hoverOpacity: 1.0,
           pressedOffset: Offset.zero,
         ),
       ),
       toggleStyle: const ToggleStyle(
-        activeType: ToggleContentType.dot, // 使用凹槽圓點
+        activeType: ToggleContentType.dot, // dot
         inactiveType: ToggleContentType.dot,
-        // Neumorphism 通常不依賴文字或 Icon，而是依賴物理凹凸感
       ),
       skeletonStyle: SkeletonStyle(
         baseColor: scheme.surface,
@@ -299,7 +290,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         borderRadius: 12.0,
       ),
       inputStyle: InputStyle(
-        // Outline/Box Style (模擬凹槽)
+        // outline style
         outlineStyle: SurfaceStyle(
           backgroundColor: neuBase,
           borderColor: Colors.transparent,
@@ -336,12 +327,11 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           blurStrength: 0,
         ),
 
-        // 狀態修改器 (Focus)
+        // focus modifier
         focusModifier: SurfaceStyle(
           backgroundColor: Colors.transparent,
           borderColor: scheme.primary,
           contentColor: scheme.primary,
-          // Focus 時通常要加上發光/凸起陰影
           shadows: [
             BoxShadow(
                 color: scheme.primary.withValues(alpha: 0.5), blurRadius: 8)
@@ -366,19 +356,18 @@ class NeumorphicDesignTheme extends AppDesignTheme {
       spacingFactor: 1.2,
       buttonHeight: 52.0,
       navigationStyle: const NavigationStyle(
-        height: 88.0, // 較高，因為軟塑膠需要更多呼吸空間來呈現光影
-        isFloating: false, // 固定模式 (融合背景)
+        height: 88.0, // height, because soft plastic needs more breathing space to present the shadow
+        isFloating: false, // fixed
         floatingMargin: 0.0,
         itemSpacing: 12.0,
       ),
       layoutSpec: const LayoutSpec(
-        // 為了容納擴散的陰影，邊距不能太小
         marginMobile: 24.0,
         marginTablet: 40.0,
         marginDesktop: 80.0,
 
-        // Gutter 必須大於 (Shadow Blur Radius * 2)，否則陰影會打架
-        // 假設最大 Shadow Blur 是 10，那 Gutter 至少要 20-24
+        // Gutter must be greater than (Shadow Blur Radius * 2), otherwise shadows will overlap
+        // Assuming max Shadow Blur is 10, Gutter should be at least 20-24
         gutterMobile: 24.0,
         gutterTablet: 32.0,
         gutterDesktop: 40.0,

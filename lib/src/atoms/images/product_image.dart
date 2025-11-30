@@ -22,13 +22,13 @@ class ProductImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    // 2. 基礎渲染
+    // 2. Base rendering
     // flutter_gen automatically handles the package parameter, no need to worry about path issues
     Widget content = image.image(
       width: width,
       height: height,
       fit: fit,
-      filterQuality: FilterQuality.medium, // 優化縮放畫質
+      filterQuality: FilterQuality.medium, // Optimize scaling quality
       package: 'ui_kit_library',
     );
 

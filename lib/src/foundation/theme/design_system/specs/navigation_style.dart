@@ -13,16 +13,16 @@ class NavigationStyle {
     this.itemSpacing = 8.0,
   });
 
-  // 選項：如果你堅持要讓高度有動畫過渡，可以手寫一個 lerp
-  // 但通常對於這種結構性變更，我們接受它瞬間切換
+  // Option: if you insist on animating height transitions, you can write a lerp manually
+  // But for this kind of structural change, we usually accept instantaneous switching
   static NavigationStyle lerp(NavigationStyle a, NavigationStyle b, double t) {
     return NavigationStyle(
-      // 數值型別可以過渡
+      // Numeric types can transition
       height: ui.lerpDouble(a.height, b.height, t)!,
       floatingMargin: ui.lerpDouble(a.floatingMargin, b.floatingMargin, t)!,
       itemSpacing: ui.lerpDouble(a.itemSpacing, b.itemSpacing, t)!,
       
-      // 布林值無法過渡，t < 0.5 保持原樣，t >= 0.5 切換
+      // Boolean values cannot transition, t < 0.5 remains unchanged, t >= 0.5 switches
       isFloating: t < 0.5 ? a.isFloating : b.isFloating,
     );
   }
