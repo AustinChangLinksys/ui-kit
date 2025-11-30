@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/app_input_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/interaction_spec.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/layout_spec.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/navigation_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/skeleton_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/toggle_style.dart';
 import 'package:ui_kit_library/ui_kit.dart';
@@ -13,6 +17,10 @@ class FlatDesignTheme extends AppDesignTheme {
     required super.spacingFactor,
     required super.toggleStyle,
     required super.skeletonStyle,
+    required super.buttonHeight,
+    required super.navigationStyle,
+    required super.inputStyle,
+    required super.layoutSpec,
   });
 
   factory FlatDesignTheme.light([ColorScheme? scheme]) {
@@ -23,7 +31,8 @@ class FlatDesignTheme extends AppDesignTheme {
         .surfaceContainerHighest; // Neutral gray, suitable for unselected tracks
     const thumbColor =
         Colors.white; // iOS style Thumb usually remains pure white
-
+    final faintFill = scheme.surfaceContainerHighest;
+    final greyOutline = scheme.outlineVariant;
     return FlatDesignTheme._(
       // --- 1. Global Surface Definition (for Card, Dialog, etc.) ---
       surfaceBase: SurfaceStyle(
@@ -58,6 +67,14 @@ class FlatDesignTheme extends AppDesignTheme {
         shadows: const [],
         blurStrength: 0.0,
         contentColor: scheme.onPrimary,
+        interaction: const InteractionSpec(
+          // 保持原狀
+          pressedScale: 1.0,
+          // ✨ 關鍵：顯著降低透明度 (iOS 標準通常是 50%~60%)
+          pressedOpacity: 0.6,
+          hoverOpacity: 0.9,
+          pressedOffset: Offset.zero,
+        ),
       ),
 
       // --- 2. Toggle Specialization (iOS Style) ---
@@ -111,6 +128,54 @@ class FlatDesignTheme extends AppDesignTheme {
         animationType: SkeletonAnimationType.shimmer,
         borderRadius: 12.0,
       ),
+      inputStyle: InputStyle(
+        // Outline Style
+        outlineStyle: SurfaceStyle(
+          backgroundColor: faintFill,
+          borderColor: greyOutline,
+          contentColor: scheme.onSurface,
+          borderWidth: 1.0,
+          borderRadius: 8.0,
+          shadows: const [],
+          blurStrength: 0.0,
+        ),
+        // Underline Style
+        underlineStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: greyOutline,
+          contentColor: scheme.onSurface,
+          borderWidth: 0,
+          borderRadius: 0,
+          shadows: const [],
+          blurStrength: 0,
+          customBorder:
+              Border(bottom: BorderSide(color: greyOutline, width: 1.0)),
+        ),
+        // Filled Style
+        filledStyle: SurfaceStyle(
+          backgroundColor: faintFill,
+          borderColor: Colors.transparent,
+          contentColor: scheme.onSurface,
+          borderWidth: 0,
+          borderRadius: 8.0,
+          shadows: const [],
+          blurStrength: 0,
+        ),
+
+        // 狀態修改器
+        focusModifier: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: scheme.primary, // 邊框變主色
+          contentColor: scheme.primary,
+          blurStrength: 0,
+        ),
+        errorModifier: SurfaceStyle(
+          backgroundColor: scheme.error.withValues(alpha: 0.05),
+          borderColor: scheme.error,
+          contentColor: scheme.error,
+          blurStrength: 0,
+        ),
+      ),
       // --- 3. Other Global Settings ---
       typography: const TypographySpec(
         bodyFontFamily: 'San Francisco', // or System Default
@@ -121,6 +186,24 @@ class FlatDesignTheme extends AppDesignTheme {
         curve: Curves.easeInOut, // Smooth curve
       ),
       spacingFactor: 1.0,
+      buttonHeight: 48.0,
+      navigationStyle: const NavigationStyle(
+        height: 64.0, // 標準行動裝置高度 (不含 Safe Area)
+        isFloating: false, // 固定模式
+        floatingMargin: 0.0,
+        itemSpacing: 0.0, // 平均分配
+      ),
+      layoutSpec: const LayoutSpec(
+        // 標準手機邊距 (16px)，平板 (24px)，桌面 (32-64px)
+        marginMobile: 16.0,
+        marginTablet: 24.0,
+        marginDesktop: 64.0,
+
+        // 標準欄間距
+        gutterMobile: 16.0,
+        gutterTablet: 24.0,
+        gutterDesktop: 24.0,
+      ),
     );
   }
 
@@ -131,6 +214,8 @@ class FlatDesignTheme extends AppDesignTheme {
     final inactiveColor = scheme.surfaceContainerHighest;
     const thumbColor =
         Colors.white; // Thumb remains white in Dark Mode to maintain contrast
+    final faintFill = scheme.surfaceContainerHighest;
+    final greyOutline = scheme.outlineVariant;
 
     return FlatDesignTheme._(
       surfaceBase: SurfaceStyle(
@@ -159,6 +244,14 @@ class FlatDesignTheme extends AppDesignTheme {
         shadows: const [],
         blurStrength: 0.0,
         contentColor: scheme.onPrimary,
+        interaction: const InteractionSpec(
+          // 保持原狀
+          pressedScale: 1.0,
+          // ✨ 關鍵：顯著降低透明度 (iOS 標準通常是 50%~60%)
+          pressedOpacity: 0.6,
+          hoverOpacity: 0.9,
+          pressedOffset: Offset.zero,
+        ),
       ),
       toggleStyle: ToggleStyle(
         activeType: ToggleContentType.none,
@@ -204,6 +297,54 @@ class FlatDesignTheme extends AppDesignTheme {
         animationType: SkeletonAnimationType.shimmer,
         borderRadius: 12.0,
       ),
+      inputStyle: InputStyle(
+        // Outline Style
+        outlineStyle: SurfaceStyle(
+          backgroundColor: faintFill,
+          borderColor: greyOutline,
+          contentColor: scheme.onSurface,
+          borderWidth: 1.0,
+          borderRadius: 8.0,
+          shadows: const [],
+          blurStrength: 0.0,
+        ),
+        // Underline Style
+        underlineStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: greyOutline,
+          contentColor: scheme.onSurface,
+          borderWidth: 0,
+          borderRadius: 0,
+          shadows: const [],
+          blurStrength: 0,
+          customBorder:
+              Border(bottom: BorderSide(color: greyOutline, width: 1.0)),
+        ),
+        // Filled Style
+        filledStyle: SurfaceStyle(
+          backgroundColor: faintFill,
+          borderColor: Colors.transparent,
+          contentColor: scheme.onSurface,
+          borderWidth: 0,
+          borderRadius: 8.0,
+          shadows: const [],
+          blurStrength: 0,
+        ),
+
+        // 狀態修改器
+        focusModifier: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: scheme.primary, // 邊框變主色
+          contentColor: scheme.primary,
+          blurStrength: 0,
+        ),
+        errorModifier: SurfaceStyle(
+          backgroundColor: scheme.error.withValues(alpha: 0.05),
+          borderColor: scheme.error,
+          contentColor: scheme.error,
+          blurStrength: 0,
+        ),
+      ),
       typography: const TypographySpec(
         bodyFontFamily: 'San Francisco',
         displayFontFamily: 'San Francisco',
@@ -213,6 +354,24 @@ class FlatDesignTheme extends AppDesignTheme {
         curve: Curves.easeInOut,
       ),
       spacingFactor: 1.0,
+      buttonHeight: 48.0,
+      navigationStyle: const NavigationStyle(
+        height: 64.0, // 標準行動裝置高度 (不含 Safe Area)
+        isFloating: false, // 固定模式
+        floatingMargin: 0.0,
+        itemSpacing: 0.0, // 平均分配
+      ),
+      layoutSpec: const LayoutSpec(
+        // 標準手機邊距 (16px)，平板 (24px)，桌面 (32-64px)
+        marginMobile: 16.0,
+        marginTablet: 24.0,
+        marginDesktop: 64.0,
+
+        // 標準欄間距
+        gutterMobile: 16.0,
+        gutterTablet: 24.0,
+        gutterDesktop: 24.0,
+      ),
     );
   }
 }

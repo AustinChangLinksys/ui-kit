@@ -20,6 +20,9 @@ dependencies:
   equatable: ^2.0.5 # Value equality
   # --- Theming Automation ---
   theme_tailor_annotation: ^3.1.1 # 自動生成 ThemeExtension (憲章 3.3)
+  # --- Layout ---
+  gap: ^3.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

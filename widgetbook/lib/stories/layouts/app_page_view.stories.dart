@@ -63,12 +63,12 @@ Widget buildAppPageView(BuildContext context) {
                           width: context.colWidth(4),
                           color: Colors.blue,
                           label: 'Span 4'),
-                      SizedBox(width: context.layout.gutter),
+                      SizedBox(width: context.currentGutter),
                       _GridDemoBox(
                           width: context.colWidth(4),
                           color: Colors.blue.withValues(alpha: 0.6),
                           label: 'Span 4'),
-                      SizedBox(width: context.layout.gutter),
+                      SizedBox(width: context.currentGutter),
                       _GridDemoBox(
                           width: context.colWidth(4),
                           color: Colors.blue.withValues(alpha: 0.4),

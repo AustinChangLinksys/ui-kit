@@ -54,11 +54,11 @@ class AppSurface extends StatelessWidget {
       padding: effectivePadding,
       decoration: BoxDecoration(
         color: effectiveStyle.backgroundColor,
-        border: Border.all(
-          color: effectiveStyle.borderColor,
-          width: effectiveStyle.borderWidth,
-        ),
-
+        border: effectiveStyle.customBorder ??
+            Border.all(
+              color: effectiveStyle.borderColor,
+              width: effectiveStyle.borderWidth,
+            ),
         borderRadius: shape == BoxShape.circle
             ? null
             : BorderRadius.circular(effectiveStyle.borderRadius),
