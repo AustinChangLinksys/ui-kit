@@ -5,11 +5,11 @@ on:
     branches:
       - main # Or master, depends on your main branch
     paths:
-      - 'lib/**' # Only trigger when UI code changes
-      - 'widgetbook/**'
-      - 'pubspec.yaml'
+      - "lib/**" # Only trigger when UI code changes
+      - "widgetbook/**"
+      - "pubspec.yaml"
   workflow_dispatch:
-    
+
 permissions:
   contents: write
 
@@ -23,21 +23,24 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
-          
+          channel: "stable"
+
       - name: Install Dependencies
-        run: flutter pub get
+        run: |
+          flutter pub get
+          cd widgetbook && flutter pub get
 
       # Key: Run Build Runner to generate code (ThemeTailor / Widgetbook Generator)
       - name: Run Build Runner
-        run: dart run build_runner build --delete-conflicting-outputs
+        run: cd widgetbook && dart run build_runner build --delete-conflicting-outputs
 
       - name: Build Web
         # Remember to replace <repo-name> with your project name
-        run: flutter build web -t widgetbook/lib/main.dart --base-href /ui-kit/ --release
-
+        run: |
+          cd widgetbook
+          flutter build web --base-href /ui-kit/ --release
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build/web
+          publish_dir: ./widgetbook/build/web
