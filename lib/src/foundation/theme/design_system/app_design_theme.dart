@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:theme_tailor_annotation/theme_tailor_annotation.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/input_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/layout_spec.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/loader_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/navigation_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/skeleton_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/toast_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/toggle_style.dart';
 import 'specs/surface_style.dart';
 
@@ -20,6 +22,12 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
 
   @override
   final InputStyle inputStyle;
+
+  @override
+  final LoaderStyle loaderStyle;
+
+  @override
+  final ToastStyle toastStyle;
 
   @override
   final SurfaceStyle surfaceBase;
@@ -50,6 +58,8 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
     required this.toggleStyle,
     required this.skeletonStyle,
     required this.inputStyle,
+    required this.loaderStyle,
+    required this.toastStyle,
     required this.typography,
     required this.animation,
     required this.spacingFactor,

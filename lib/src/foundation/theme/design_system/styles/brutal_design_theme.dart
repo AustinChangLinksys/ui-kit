@@ -21,6 +21,8 @@ class BrutalDesignTheme extends AppDesignTheme {
     required super.buttonHeight,
     required super.navigationStyle,
     required super.inputStyle,
+    required super.loaderStyle,
+    required super.toastStyle,
     required super.layoutSpec,
   });
 
@@ -142,9 +144,27 @@ class BrutalDesignTheme extends AppDesignTheme {
           blurStrength: 0,
         ),
       ),
+      loaderStyle: LoaderStyle(
+        color: scheme.onSurface,
+        strokeWidth: 8.0,
+        size: 48.0,
+        period: const Duration(milliseconds: 800),
+      ),
+      toastStyle: ToastStyle(
+        padding: const EdgeInsets.all(16),
+        margin: EdgeInsets.zero,
+        borderRadius: BorderRadius.zero,
+        backgroundColor: scheme.surface,
+        textStyle: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'NeueHaasGrotTextRound',
+            color: scheme.onSurface),
+        displayDuration: const Duration(seconds: 2),
+      ),
       typography: const TypographySpec(
-        bodyFontFamily: 'Courier',
-        displayFontFamily: 'Courier',
+        bodyFontFamily: 'NeueHaasGrotTextRound',
+        displayFontFamily: 'NeueHaasGrotTextRound',        
       ),
       animation: const AnimationSpec(
         duration: Duration(milliseconds: 150),
@@ -286,9 +306,27 @@ class BrutalDesignTheme extends AppDesignTheme {
           blurStrength: 0,
         ),
       ),
+      loaderStyle: LoaderStyle(
+        color: scheme.onSurface,
+        strokeWidth: 8.0,
+        size: 48.0,
+        period: const Duration(milliseconds: 800),
+      ),
+      toastStyle: ToastStyle(
+        padding: const EdgeInsets.all(16),
+        margin: EdgeInsets.zero,
+        borderRadius: BorderRadius.zero,
+        backgroundColor: scheme.surface,
+        textStyle: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'NeueHaasGrotTextRound',
+            color: scheme.onSurface),
+        displayDuration: const Duration(seconds: 2),
+      ),
       typography: const TypographySpec(
-        bodyFontFamily: 'Courier',
-        displayFontFamily: 'Courier',
+        bodyFontFamily: 'NeueHaasGrotTextRound',
+        displayFontFamily: 'NeueHaasGrotTextRound',
       ),
       animation: const AnimationSpec(
         duration: Duration(milliseconds: 150),

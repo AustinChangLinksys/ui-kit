@@ -20,6 +20,8 @@ class FlatDesignTheme extends AppDesignTheme {
     required super.buttonHeight,
     required super.navigationStyle,
     required super.inputStyle,
+    required super.loaderStyle,
+    required super.toastStyle,
     required super.layoutSpec,
   });
 
@@ -39,7 +41,7 @@ class FlatDesignTheme extends AppDesignTheme {
         backgroundColor: scheme.surface,
         borderColor: scheme.outlineVariant, // Use semantic border color
         borderWidth: 1.0,
-        borderRadius: 12.0,
+        borderRadius: 8.0,
         shadows: const [], // Flat style usually has no shadows, or very faint ones
         blurStrength: 0.0,
         contentColor: scheme.onSurface,
@@ -48,7 +50,7 @@ class FlatDesignTheme extends AppDesignTheme {
         backgroundColor: scheme.surfaceContainerLow,
         borderColor: Colors.transparent,
         borderWidth: 0.0,
-        borderRadius: 12.0,
+        borderRadius: 8.0,
         shadows: [
           BoxShadow(
             color: scheme.shadow.withValues(alpha: 0.05),
@@ -63,7 +65,7 @@ class FlatDesignTheme extends AppDesignTheme {
         backgroundColor: activeColor,
         borderColor: Colors.transparent,
         borderWidth: 0.0,
-        borderRadius: 12.0,
+        borderRadius: 8.0,
         shadows: const [],
         blurStrength: 0.0,
         contentColor: scheme.onPrimary,
@@ -124,7 +126,7 @@ class FlatDesignTheme extends AppDesignTheme {
         baseColor: scheme.onSurface.withValues(alpha: 0.08),
         highlightColor: scheme.onSurface.withValues(alpha: 0.2),
         animationType: SkeletonAnimationType.shimmer,
-        borderRadius: 12.0,
+        borderRadius: 8.0,
       ),
       inputStyle: InputStyle(
         // Outline Style
@@ -173,10 +175,27 @@ class FlatDesignTheme extends AppDesignTheme {
           blurStrength: 0,
         ),
       ),
+      loaderStyle: LoaderStyle(
+        color: scheme.primary,
+        strokeWidth: 4.0,
+        size: 32.0,
+        period: const Duration(seconds: 1),
+      ),
+      toastStyle: ToastStyle(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        margin: const EdgeInsets.all(16),
+        borderRadius: BorderRadius.circular(8),
+        backgroundColor: scheme.inverseSurface,
+        textStyle: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.normal,
+            color: scheme.onInverseSurface),
+        displayDuration: const Duration(seconds: 3),
+      ),
       // 3. Other Global Settings
       typography: const TypographySpec(
-        bodyFontFamily: 'San Francisco', // or System Default
-        displayFontFamily: 'San Francisco',
+        bodyFontFamily: 'NeueHaasGrotTextRound',
+        displayFontFamily: 'NeueHaasGrotTextRound',
       ),
       animation: const AnimationSpec(
         duration: Duration(milliseconds: 250),
@@ -216,7 +235,7 @@ class FlatDesignTheme extends AppDesignTheme {
         backgroundColor: scheme.surface,
         borderColor: scheme.outlineVariant,
         borderWidth: 1.0,
-        borderRadius: 12.0,
+        borderRadius: 8.0,
         shadows: const [],
         blurStrength: 0.0,
         contentColor: scheme.onSurface,
@@ -225,7 +244,7 @@ class FlatDesignTheme extends AppDesignTheme {
         backgroundColor: scheme.surfaceContainerLow,
         borderColor: Colors.transparent,
         borderWidth: 0.0,
-        borderRadius: 12.0,
+        borderRadius: 8.0,
         shadows: const [],
         blurStrength: 0.0,
         contentColor: scheme.onSurface,
@@ -234,7 +253,7 @@ class FlatDesignTheme extends AppDesignTheme {
         backgroundColor: activeColor,
         borderColor: Colors.transparent,
         borderWidth: 0.0,
-        borderRadius: 12.0,
+        borderRadius: 8.0,
         shadows: const [],
         blurStrength: 0.0,
         contentColor: scheme.onPrimary,
@@ -287,7 +306,7 @@ class FlatDesignTheme extends AppDesignTheme {
         highlightColor:
             scheme.surfaceContainerHighest.withValues(alpha: 0.5).withBlue(255),
         animationType: SkeletonAnimationType.shimmer,
-        borderRadius: 12.0,
+        borderRadius: 8.0,
       ),
       inputStyle: InputStyle(
         // Outline Style
@@ -336,9 +355,26 @@ class FlatDesignTheme extends AppDesignTheme {
           blurStrength: 0,
         ),
       ),
+      loaderStyle: LoaderStyle(
+        color: scheme.primary,
+        strokeWidth: 4.0,
+        size: 32.0,
+        period: const Duration(seconds: 1),
+      ),
+      toastStyle: ToastStyle(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        margin: const EdgeInsets.all(16),
+        borderRadius: BorderRadius.circular(8),
+        backgroundColor: scheme.inverseSurface,
+        textStyle: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.normal,
+            color: scheme.onInverseSurface),
+        displayDuration: const Duration(seconds: 3),
+      ),
       typography: const TypographySpec(
-        bodyFontFamily: 'San Francisco',
-        displayFontFamily: 'San Francisco',
+        bodyFontFamily: 'NeueHaasGrotTextRound',
+        displayFontFamily: 'NeueHaasGrotTextRound',
       ),
       animation: const AnimationSpec(
         duration: Duration(milliseconds: 250),

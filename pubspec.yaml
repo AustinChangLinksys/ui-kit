@@ -9,17 +9,17 @@ dependencies:
   flutter:
     sdk: flutter
   # --- Foundation ---
-  intl: ^0.19.0 # 格式化
-  google_fonts: ^6.1.0 # 字體管理
-  vector_math: ^2.1.4 # 向量運算
+  intl: ^0.19.0 # Formatting
+  google_fonts: ^6.1.0 # Font management
+  vector_math: ^2.1.4 # Vector math
   # --- UI & Animation ---
-  flutter_svg: ^2.0.9 # SVG 支援 (憲章 5.2)
-  rive: ^0.13.4 # 複雜狀態動畫 (憲章 6.1)
-  flutter_animate: ^4.5.0 # 微互動 (憲章 6.1)
-  shimmer: ^3.0.0 # 骨架載入效果
+  flutter_svg: ^2.0.9 # SVG support (Constitution 5.2)
+  rive: ^0.13.4 # Complex animation (Constitution 6.1)
+  flutter_animate: ^4.5.0 # Micro-interactions (Constitution 6.1)
+  shimmer: ^3.0.0 # Skeleton loading
   equatable: ^2.0.5 # Value equality
   # --- Theming Automation ---
-  theme_tailor_annotation: ^3.1.1 # 自動生成 ThemeExtension (憲章 3.3)
+  theme_tailor_annotation: ^3.1.1 # Automatic generation of ThemeExtension (Constitution 3.3)
   # --- Layout ---
   gap: ^3.0.1
   # --- Portal ---
@@ -31,12 +31,12 @@ dev_dependencies:
   flutter_lints: ^3.0.0
   alchemist: ^0.13.0 # Golden tests
   # --- Generators ---
-  build_runner: ^2.4.8 # 核心生成器
-  theme_tailor: ^3.1.1 # Theme 生成邏輯
-  flutter_gen_runner: ^5.4.0 # Assets 生成邏輯 (憲章 5.1)
-# --- Assets Config (憲章 5.1) ---
+  build_runner: ^2.4.8 # Core generator
+  theme_tailor: ^3.1.1 # Theme generation logic
+  flutter_gen_runner: ^5.4.0 # Assets generation logic (Constitution 5.1)
+# --- Assets Config (Constitution 5.1) ---
 flutter_gen:
-  output: lib/src/foundation/gen/ # 生成檔案位置
+  output: lib/src/foundation/gen/ # Output location
   line_length: 80
   integrations:
     flutter_svg: true
@@ -52,3 +52,16 @@ flutter:
     - assets/anims/
     - assets/fonts/
 
+  fonts:
+    # 1. Main font (Neue Haas Grot)
+    - family: NeueHaasGrotTextRound
+      fonts:
+        - asset: assets/fonts/NeueHaasGrotTextRound-55Roman.otf
+          weight: 400 # Define as standard weight
+        - asset: assets/fonts/NeueHaasGrotTextRound-75Bold.otf
+          weight: 700 # Define as bold
+
+    # 2. Custom icon font (Linksys Icons)
+    - family: LinksysIcons
+      fonts:
+        - asset: assets/fonts/LinksysIcons.otf

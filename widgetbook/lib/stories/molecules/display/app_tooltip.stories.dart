@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_portal/flutter_portal.dart'; // ✨ 必須引入
+import 'package:flutter_portal/flutter_portal.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 import 'package:ui_kit_library/ui_kit.dart';
-import 'package:ui_kit_library/src/molecules/display/app_tooltip.dart';
-import 'package:ui_kit_library/src/atoms/typography/app_text.dart'; // 用於 Rich Content 範例
 
 @widgetbook.UseCase(
   name: 'Interactive Tooltip',
@@ -17,7 +15,7 @@ Widget buildInteractiveTooltip(BuildContext context) {
     initialValue: 'This is a helpful tooltip',
   );
 
-  final position = context.knobs.list<AxisDirection>(
+  final position = context.knobs.object.dropdown<AxisDirection>(
     label: 'Position',
     options: AxisDirection.values,
     initialOption: AxisDirection.up,
