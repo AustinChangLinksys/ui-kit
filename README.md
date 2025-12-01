@@ -92,6 +92,42 @@ flutter test --tags golden
 ```
 *(Note: Ensure you are on the correct platform for golden generation if required)*
 
+## ✨ Widgetbook Stories Overview
+
+Below is a summary of the UI components showcased in our Widgetbook, categorized by their Atomic Design level:
+
+**Atoms (基本元件)**
+-   **AppText**: 展示 `AppText` 的各種排版樣式 (Headline, Body, Caption 等) 與互動屬性。
+-   **AppButton & AppIconButton**: 展示 `AppButton` 與 `AppIconButton` 的各種變體、尺寸與狀態 (Loading, Disabled)。
+-   **AppSkeleton**: 展示 `AppSkeleton` 載入狀態，包含文字、圓形與複雜組件的骨架圖。
+-   **Assets (AppIcon, ProductImage, ThemeAwareSvg)**: 展示 `AppIcon`, `ProductImage`, `ThemeAwareSvg` 等資源元件的顯示與主題切換效果。
+-   **AppSurface**: 展示 `AppSurface` 的不同層級 (Base, Elevated, Highlight) 與互動效果。
+-   **AppGap**: 展示 `AppGap` 的各種間距尺寸 (xxs 到 xxxl) 與 RWD Gutter。
+
+**Molecules (複合元件)**
+-   **AppCard**: 展示 `AppCard` 的標題、內容與互動效果。
+-   **AppSwitch**: 展示 `AppSwitch` 的開關狀態與禁用狀態。
+-   **AppRadio**: 展示 `AppRadio` 單選按鈕群組的互動與狀態。
+-   **AppCheckbox**: 展示 `AppCheckbox` 複選框的互動與狀態。
+-   **AppSlider**: 展示 `AppSlider` 滑桿的連續與分段模式。
+-   **AppDialog**: 展示 `AppDialog` 的標準對話框與彈出式視窗範例。
+
+**Navigation (導航)**
+-   **AppNavigationBar**: 展示 `AppNavigationBar` (底部導航) 的互動切換。
+-   **AppNavigationRail**: 展示 `AppNavigationRail` (側邊導航) 在桌面佈局的應用。
+
+**Status (狀態)**
+-   **AppTag**: 展示 `AppTag` 的標籤樣式、刪除功能與互動效果。
+-   **AppBadge**: 展示 `AppBadge` 的狀態徽章樣式與自定義顏色。
+-   **AppAvatar**: 展示 `AppAvatar` 的圖片與文字縮寫顯示，以及不同尺寸變化。
+
+**Layouts (佈局)**
+-   **AppPageView**: 展示 `AppPageView` 的響應式網格佈局策略 (Span Logic vs Fixed Split)。
+
+**Examples (範例頁面)**
+-   **MockupPage**: 一個完整的 Mockup 頁面，整合了多種 UI 元件以展示實際應用場景。
+-   **DashboardPage**: 一個複雜的 Dashboard 頁面範例，包含 RWD 佈局與多個功能區塊。
+
 ## 📚 Documentation
 
 Detailed specifications and plans can be found in the `specs/` directory:
