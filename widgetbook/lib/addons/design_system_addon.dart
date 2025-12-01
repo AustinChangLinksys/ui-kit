@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
-import 'package:ui_kit_library/ui_kit.dart'; // 引入 AppTheme 等
+import 'package:ui_kit_library/ui_kit.dart'; // Import AppTheme etc.
 
 /// Definition for the settings the addon will manage
 @immutable

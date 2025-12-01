@@ -20,7 +20,6 @@ class _InteractiveRailWrapperState extends State<_InteractiveRailWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    // 模擬 Scaffold Body 佈局
     return Row(
       children: [
         AppNavigationRail(
@@ -45,7 +44,6 @@ class _InteractiveRailWrapperState extends State<_InteractiveRailWrapper> {
           ),
         ),
         
-        // 模擬右側內容區
         Expanded(
           child: Container(
             margin: const EdgeInsets.all(16),

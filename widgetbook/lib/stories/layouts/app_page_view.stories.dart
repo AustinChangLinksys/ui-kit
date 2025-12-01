@@ -27,7 +27,7 @@ Widget buildAppPageView(BuildContext context) {
         const SizedBox(height: 24),
 
         // =====================================================================
-        // 策略 1: 響應式跨度 (Grid Span Logic)
+        // Strategy 1: Responsive Span Logic
         // =====================================================================
         const _SectionHeader(
             title: '1. Responsive Span Logic', subtitle: 'context.colWidth(4)'),
@@ -51,11 +51,11 @@ Widget buildAppPageView(BuildContext context) {
                 ),
               ),
 
-              // 演示列 (無額外 Padding，直接對齊 Grid)
+              // Demo Row (no Padding, directly aligned to Grid)
               Builder(builder: (context) {
                 final maxCols = context.currentMaxColumns;
 
-                // Desktop/Tablet (12 cols) -> 顯示 3 個 (4+4+4)
+                // Desktop/Tablet (12 cols) -> Display 3 (4+4+4)
                 if (maxCols >= 12) {
                   return Row(
                     children: [
@@ -77,7 +77,7 @@ Widget buildAppPageView(BuildContext context) {
                   );
                 }
 
-                // Mobile (4 cols) -> 顯示 1 個 (滿版)
+                // Mobile (4 cols) -> Display 1 (Full)
                 return Row(
                   children: [
                     _GridDemoBox(
@@ -95,7 +95,7 @@ Widget buildAppPageView(BuildContext context) {
         const SizedBox(height: 32),
 
         // =====================================================================
-        // 策略 2: 固定數量均分 (Fixed Split Logic)
+        // Strategy 2: Fixed Split Logic
         // =====================================================================
         const _SectionHeader(
             title: '2. Fixed Split Logic', subtitle: 'context.split(4)'),
@@ -117,7 +117,7 @@ Widget buildAppPageView(BuildContext context) {
                         fontWeight: FontWeight.bold, color: Colors.green)),
               ),
 
-              // 演示列
+              // Demo Row (no Padding, directly aligned to Grid)
               Builder(
                 builder: (context) {
                   return Row(

@@ -3,7 +3,6 @@ import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 import 'package:ui_kit_library/ui_kit.dart';
 
-// 為了 Knob 方便，定義一個 Enum
 enum GapSizeVariant { xxs, xs, sm, md, lg, xl, xxl, xxxl, gutter }
 
 @widgetbook.UseCase(
@@ -26,7 +25,6 @@ Widget buildInteractiveGap(BuildContext context) {
         Container(
             width: 100, height: 50, color: Colors.blue.withValues(alpha: 0.3)),
 
-        // ✨ 動態切換 Gap
         _buildGap(variant),
 
         Container(
@@ -61,8 +59,6 @@ Widget buildGapGallery(BuildContext context) {
     ),
   );
 }
-
-// --- Helpers ---
 
 Widget _buildGap(GapSizeVariant variant) {
   switch (variant) {

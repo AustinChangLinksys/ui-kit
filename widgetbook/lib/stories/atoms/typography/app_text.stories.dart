@@ -3,7 +3,7 @@ import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 import 'package:ui_kit_library/ui_kit.dart';
 
-// --- 1. 定義代理選項 (避免直接在 Knob 中使用 null) ---
+// --- 1. Define proxy options (to avoid using null directly in Knob) ---
 
 enum _ColorOption {
   themeDefault('Default (Theme)'),
@@ -64,7 +64,7 @@ enum _FontWeightOption {
   type: AppText,
 )
 Widget buildInteractiveText(BuildContext context) {
-  // 1. 內容 Knob
+  // 1. Content Knob
   final content = context.knobs.string(
     label: 'Content',
     initialValue: 'The quick brown fox jumps over the lazy dog.',
@@ -86,8 +86,8 @@ Widget buildInteractiveText(BuildContext context) {
     labelBuilder: (val) => val.name,
   );
 
-  // 4. Color Knob (使用代理 Enum)
-  // ✨ 修正：使用非 Null 的 Enum，避免 Widgetbook 崩潰
+  // 4. Color Knob (using proxy Enum)
+  // Fix: Use non-null Enum to prevent Widgetbook crash
   final colorOption = context.knobs.object.dropdown<_ColorOption>(
     label: 'Color Override',
     options: _ColorOption.values,
@@ -95,8 +95,8 @@ Widget buildInteractiveText(BuildContext context) {
     labelBuilder: (val) => val.label,
   );
 
-  // 5. Weight Knob (使用代理 Enum)
-  // ✨ 修正：使用非 Null 的 Enum
+  // 5. Weight Knob (using proxy Enum)
+  // Fix: Use non-null Enum
   final weightOption = context.knobs.object.dropdown<_FontWeightOption>(
     label: 'Font Weight',
     options: _FontWeightOption.values,
@@ -111,7 +111,7 @@ Widget buildInteractiveText(BuildContext context) {
         content,
         variant: variant,
         textAlign: textAlign,
-        // 將 Enum 映射回真正的屬性值
+        // Map Enum back to actual property value
         color: colorOption.resolve(),
         fontWeight: weightOption.resolve(),
       ),
@@ -131,7 +131,7 @@ Widget buildTypographyGallery(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const _SectionHeader('Semantic Factories (捷徑)'),
+        const _SectionHeader('Semantic Factories (shortcuts)'),
         _DemoRow(
           'AppText.headline(...)',
           AppText.headline('Page Headline'),
@@ -156,7 +156,7 @@ Widget buildTypographyGallery(BuildContext context) {
         const SizedBox(height: 32),
         const Divider(),
         const SizedBox(height: 32),
-        const _SectionHeader('Material 3 Scale (標準層級)'),
+        const _SectionHeader('Material 3 Scale (standard levels)'),
         _DemoRow('Display Large', AppText.displayLarge('Display Large')),
         _DemoRow('Display Medium', AppText.displayMedium('Display Medium')),
         _DemoRow('Display Small', AppText.displaySmall('Display Small')),

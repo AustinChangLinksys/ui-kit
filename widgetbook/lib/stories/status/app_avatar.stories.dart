@@ -8,7 +8,6 @@ import 'package:ui_kit_library/ui_kit.dart';
   type: AppAvatar,
 )
 Widget buildInteractiveAvatar(BuildContext context) {
-  // 1. 內容 Knobs
   final initials = context.knobs.string(
     label: 'Initials',
     initialValue: 'JD',
@@ -19,7 +18,6 @@ Widget buildInteractiveAvatar(BuildContext context) {
     initialValue: true,
   );
 
-  // 2. 尺寸 Knob
   final size = context.knobs.double.slider(
     label: 'Size',
     min: 24,
@@ -31,7 +29,6 @@ Widget buildInteractiveAvatar(BuildContext context) {
     child: AppAvatar(
       initials: initials,
       size: size,
-      // 使用假圖測試 Center Crop
       imageUrl: showImage ? 'https://i.pravatar.cc/300' : null,
     ),
   );

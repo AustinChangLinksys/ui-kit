@@ -31,7 +31,6 @@ class _SwitchWrapperState extends State<_SwitchWrapper> {
   Widget build(BuildContext context) {
     return AppSwitch(
       value: _value,
-      // 當 isDisabled 為 true 時，傳入 null 來模擬禁用狀態
       onChanged: widget.isDisabled
           ? null
           : (newValue) => setState(() => _value = newValue),
@@ -41,7 +40,6 @@ class _SwitchWrapperState extends State<_SwitchWrapper> {
 
 @widgetbook.UseCase(name: 'Interactive Playground', type: AppSwitch)
 Widget interactiveAppSwitch(BuildContext context) {
-  // 使用 Knob 來控制是否禁用
   final isDisabled = context.knobs.boolean(
     label: 'Disabled',
     initialValue: false,
@@ -62,7 +60,6 @@ Widget interactiveAppSwitch(BuildContext context) {
 
 @widgetbook.UseCase(name: 'All States', type: AppSwitch)
 Widget appSwitchStates(BuildContext context) {
-  // 靜態展示所有狀態，方便設計師 Review
   return const Center(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,

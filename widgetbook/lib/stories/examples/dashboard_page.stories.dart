@@ -11,7 +11,7 @@ Widget buildDashboardStory(BuildContext context) {
   return const DashboardPage();
 }
 
-/// 模擬的 Dashboard 頁面
+/// Simulated Dashboard Page
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
 
@@ -19,9 +19,9 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = AppTheme.of(context);
 
-    // 使用 SingleChildScrollView 允許捲動
+    // Use SingleChildScrollView to allow scrolling
     return Scaffold(
-      backgroundColor: Colors.transparent, // 讓外層背景透進來
+      backgroundColor: Colors.transparent, // Let outer background pass through
       body: SingleChildScrollView(
         padding: EdgeInsets.all(theme.spacingFactor * 24),
         child: Column(
@@ -32,7 +32,7 @@ class DashboardPage extends StatelessWidget {
             AppGap.xl(),
 
             // 2. Main Content Grid
-            // 在寬螢幕下並排，窄螢幕下垂直排列
+            // On wide screens, display side by side, on narrow screens, display vertically
             LayoutBuilder(builder: (context, constraints) {
               if (constraints.maxWidth > 900) {
                 return Row(

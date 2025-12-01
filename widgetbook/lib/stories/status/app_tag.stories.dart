@@ -13,7 +13,6 @@ Widget buildInteractiveTag(BuildContext context) {
     initialValue: '#Flutter',
   );
 
-  // Tag 常見場景：分類顏色
   final colorOption = context.knobs.object.dropdown<Color?>(
     label: 'Color',
     options: [null, Colors.orange, Colors.purple, Colors.teal],

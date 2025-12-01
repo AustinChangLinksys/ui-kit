@@ -10,7 +10,7 @@ import 'package:ui_kit_library/ui_kit.dart';
 Widget buildInteractiveSlider(BuildContext context) {
   return Center(
     child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40.0), // 留邊距給 Thumb
+      padding: const EdgeInsets.symmetric(horizontal: 40.0), // Leave margin for Thumb
       child: _SliderWrapper(
         initialValue: context.knobs.double.slider(
           label: 'Initial Value',
@@ -18,7 +18,7 @@ Widget buildInteractiveSlider(BuildContext context) {
           max: 100,
           initialValue: 50,
         ),
-        // intOrNull 讓使用者可以切換「連續」與「離散」模式
+        // intOrNull allows user to switch between "continuous" and "discrete" modes
         divisions: context.knobs.intOrNull.slider(
           label: 'Divisions',
           min: 2,
@@ -55,7 +55,7 @@ Widget buildSliderStates(BuildContext context) {
           const _Header('Discrete (5 Steps)'),
           AppSlider(value: 1, min: 0, max: 5, divisions: 5, onChanged: (_) {}),
           const SizedBox(height: 16),
-          AppSlider(value: 2.5, min: 0, max: 5, divisions: 5, onChanged: (_) {}), // 會自動 Snap
+          AppSlider(value: 2.5, min: 0, max: 5, divisions: 5, onChanged: (_) {}), // Will automatically Snap
           
           const SizedBox(height: 32),
           const _Header('Disabled'),
@@ -92,7 +92,7 @@ class _SliderWrapperState extends State<_SliderWrapper> {
     _value = widget.initialValue;
   }
 
-  // 當 Knob 改變時重置數值
+  // Reset value when Knob changes
   @override
   void didUpdateWidget(covariant _SliderWrapper oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -106,7 +106,7 @@ class _SliderWrapperState extends State<_SliderWrapper> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // 顯示當前數值，方便除錯
+        // Display current value for debugging
         Text(
           _value.toStringAsFixed(1),
           style: Theme.of(context).textTheme.labelMedium,

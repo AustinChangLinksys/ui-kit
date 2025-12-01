@@ -19,7 +19,6 @@ Widget buildInteractiveBadge(BuildContext context) {
     initialValue: false,
   );
 
-  // 測試互動 (刪除)
   final showDelete = context.knobs.boolean(
     label: 'Show Delete',
     initialValue: false,
@@ -28,7 +27,7 @@ Widget buildInteractiveBadge(BuildContext context) {
   return Center(
     child: AppBadge(
       label: label,
-      color: useCustomColor ? Colors.red : null, // 使用紅色模擬 Error 狀態
+      color: useCustomColor ? Colors.red : null,
       onDeleted: showDelete ? () {} : null,
     ),
   );

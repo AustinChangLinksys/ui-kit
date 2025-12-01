@@ -10,7 +10,6 @@ import 'package:ui_kit_library/ui_kit.dart';
   type: AppButton,
 )
 Widget buildInteractiveAppButton(BuildContext context) {
-  // 1. 內容 Knobs
   final label = context.knobs.string(
     label: 'Label',
     initialValue: 'Confirm',
@@ -21,7 +20,6 @@ Widget buildInteractiveAppButton(BuildContext context) {
     initialValue: true,
   );
 
-  // 2. 樣式與尺寸 Knobs
   final variant = context.knobs.object.dropdown<SurfaceVariant>(
     label: 'Variant',
     options: SurfaceVariant.values,
@@ -36,7 +34,6 @@ Widget buildInteractiveAppButton(BuildContext context) {
     labelBuilder: (val) => val.name,
   );
 
-  // 3. 狀態 Knobs
   final isLoading = context.knobs.boolean(
     label: 'Is Loading',
     initialValue: false,

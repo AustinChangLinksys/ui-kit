@@ -14,9 +14,9 @@ Widget buildAppSkeletonPlayground(BuildContext context) {
       children: [
         Text('Text Skeletons', style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 16),
-        AppSkeleton.text(width: 150), // 短標題
-        AppSkeleton.text(width: double.infinity), // 長文
-        AppSkeleton.text(width: 200), // 中長文
+        AppSkeleton.text(width: 150), // Short title
+        AppSkeleton.text(width: double.infinity), // Long text
+        AppSkeleton.text(width: 200), // Medium length text
         const SizedBox(height: 32),
 
         Text('Shape Skeletons', style: Theme.of(context).textTheme.titleMedium),
@@ -85,10 +85,10 @@ Widget buildAppSkeletonPlayground(BuildContext context) {
 Widget buildDialogSkeleton(BuildContext context) {
   return Center(
     child: AppDialog(
-      // 模擬標題
+      // Simulate title
       title: AppSkeleton.text(width: 120),
 
-      // 模擬內容區域
+      // Simulate content area
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,12 +97,12 @@ Widget buildDialogSkeleton(BuildContext context) {
           AppSkeleton.text(width: double.infinity),
           AppSkeleton.text(width: 200),
           const SizedBox(height: 16),
-          // 模擬一個輸入框或區塊
+          // Simulate an input box or block
           const AppSkeleton(width: double.infinity, height: 48),
         ],
       ),
 
-      // 模擬按鈕區域
+      // Simulate button area
       actions: [
         AppSkeleton.capsule(width: 80, height: 36),
         const SizedBox(width: 8),

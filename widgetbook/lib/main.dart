@@ -44,18 +44,7 @@ class WidgetbookApp extends StatelessWidget {
           initialScale: 1.0,
         ),
       ],
-// This is the AppThemeWrapper we are going to replace
-// class AppThemeWrapper extends StatelessWidget {
-//   final Widget child;
-//   const AppThemeWrapper({super.key, required this.child});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     // ... previous logic ...
-//   }
-// }
-//
-// Final appBuilder
+      // Final appBuilder
       appBuilder: (context, child) {
         // The Theme is now injected by DesignSystemAddon.buildUseCase
         // The child is already wrapped in a MaterialApp

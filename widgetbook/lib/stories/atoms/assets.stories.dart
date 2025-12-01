@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
-// 1. 引入 UI Library Barrel File
+// 1. Import UI Library Barrel File
 import 'package:ui_kit_library/ui_kit.dart';
 
 // -----------------------------------------------------------------------------
@@ -20,13 +20,13 @@ Widget buildAppIcon(BuildContext context) {
     max: 128,
   );
 
-  // 1. 改用 Boolean 控制是否覆寫
+  // 1. Use Boolean to control override
   final isCustomColor = context.knobs.boolean(
     label: 'Override Color?',
     initialValue: false,
   );
 
-  // 2. 只有在 true 時才讀取顏色列表 (這裡就不需要 null 選項了)
+  // 2. Only read color list when true (no null option needed here)
   final customColor = isCustomColor
       ? context.knobs.object.dropdown<Color>(
           label: 'Color Value',
@@ -46,9 +46,9 @@ Widget buildAppIcon(BuildContext context) {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         AppIcon(
-          Assets.icons.search, // 請確認變數名
+          Assets.icons.search, // Please confirm variable name
           size: size,
-          color: customColor, // 傳入 null 代表跟隨主題
+          color: customColor, // Passing null means following the theme
         ),
         // ...
       ],
