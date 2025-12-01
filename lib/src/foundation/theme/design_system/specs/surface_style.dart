@@ -84,8 +84,8 @@ class TypographySpec extends Equatable {
   final String? displayFontFamily;
 
   const TypographySpec({
-    this.bodyFontFamily,
-    this.displayFontFamily,
+    this.bodyFontFamily = 'NeueHaasGrotTextRound',
+    this.displayFontFamily = 'NeueHaasGrotTextRound',
   });
 
   @override

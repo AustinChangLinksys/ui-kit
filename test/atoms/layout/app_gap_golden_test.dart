@@ -4,46 +4,43 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_kit_library/src/atoms/layout/app_gap.dart';
 import 'package:ui_kit_library/src/atoms/typography/app_text.dart';
 
-import '../../test_utils/test_theme_matrix.dart';
-import '../../test_utils/golden_test_scenarios.dart';
+import '../../test_utils/golden_test_matrix_factory.dart';
+import '../../test_utils/font_loader.dart';
 
 void main() {
+  setUpAll(() async {
+    await loadAppFonts();
+  });
+
   group('AppGap Golden Tests', () {
     goldenTest(
       'AppGap Matrix',
       fileName: 'app_gap_matrix',
-      builder: () => GoldenTestGroup(
-        columns: 2,
-        children: kTestThemeMatrix.entries.map((entry) {
-          return buildSafeScenario(
-            name: entry.key,
-            theme: entry.value,
-            width: 300,
-            height: 400, // Lengthened to accommodate multiple examples
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // 1. Basic spacing test
-                _GapVisualizer(label: 'xxs (2px)', gap: AppGap.xxs()),
-                _GapVisualizer(label: 'xs (4px)', gap: AppGap.xs()),
-                _GapVisualizer(label: 'sm (8px)', gap: AppGap.sm()),
-                _GapVisualizer(
-                    label: 'md (12px)', gap: AppGap.md()), // Standard
-                _GapVisualizer(label: 'lg (16px)', gap: AppGap.lg()),
-                _GapVisualizer(label: 'xl (24px)', gap: AppGap.xl()),
-                _GapVisualizer(label: 'xxl (32px)', gap: AppGap.xxl()),
-                _GapVisualizer(label: 'xxxl (48px)', gap: AppGap.xxxl()),
+      builder: () => buildThemeMatrix(
+        name: 'AppGap',
+        width: 300,
+        height: 400, // Lengthened to accommodate multiple examples
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // 1. Basic spacing test
+            _GapVisualizer(label: 'xxs (2px)', gap: AppGap.xxs()),
+            _GapVisualizer(label: 'xs (4px)', gap: AppGap.xs()),
+            _GapVisualizer(label: 'sm (8px)', gap: AppGap.sm()),
+            _GapVisualizer(
+                label: 'md (12px)', gap: AppGap.md()), // Standard
+            _GapVisualizer(label: 'lg (16px)', gap: AppGap.lg()),
+            _GapVisualizer(label: 'xl (24px)', gap: AppGap.xl()),
+            _GapVisualizer(label: 'xxl (32px)', gap: AppGap.xxl()),
+            _GapVisualizer(label: 'xxxl (48px)', gap: AppGap.xxxl()),
 
-                const Divider(height: 32),
+            const Divider(height: 32),
 
-                // 2. Gutter test (responsive spacing)
-                // The width here is 300 (Mobile), so gutterMobile should be read
-                _GapVisualizer(
-                    label: 'Gutter (Responsive)', gap: AppGap.gutter()),
-              ],
-            ),
-          );
-        }).toList(),
+            // 2. Gutter test (responsive spacing)
+            // The width here is 300 (Mobile), so gutterMobile should be read
+            _GapVisualizer(label: 'Gutter (Responsive)', gap: AppGap.gutter()),
+          ],
+        ),
       ),
     );
   });
@@ -71,7 +68,7 @@ class _GapVisualizer extends StatelessWidget {
           Container(
             width: 20,
             height: 20,
-            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.5),
+            color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
           ),
           // The main subject under test: Gap
           gap,
@@ -79,7 +76,7 @@ class _GapVisualizer extends StatelessWidget {
           Container(
             width: 20,
             height: 20,
-            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.5),
+            color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
           ),
         ],
       ),

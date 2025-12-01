@@ -20,6 +20,8 @@ class GlassDesignTheme extends AppDesignTheme {
     required super.buttonHeight,
     required super.navigationStyle,
     required super.inputStyle,
+    required super.loaderStyle,
+    required super.toastStyle,
     required super.layoutSpec,
   });
 
@@ -75,7 +77,7 @@ class GlassDesignTheme extends AppDesignTheme {
         blurStrength: 15.0,
         contentColor: scheme.primary,
         interaction: const InteractionSpec(
-          pressedScale: 0.95,
+          pressedScale: 0.92,
           pressedOpacity: 0.8,
           hoverOpacity: 0.9,
           pressedOffset: Offset.zero,
@@ -181,6 +183,20 @@ class GlassDesignTheme extends AppDesignTheme {
           blurStrength: 0,
         ),
       ),
+      loaderStyle: LoaderStyle(
+        color: scheme.primary.withValues(alpha: 0.8),
+        strokeWidth: 4.0,
+        size: 32.0,
+        period: const Duration(seconds: 2),
+      ),
+      toastStyle: ToastStyle(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        margin: const EdgeInsets.all(24),
+        borderRadius: BorderRadius.circular(16),
+        backgroundColor: Colors.white.withValues(alpha: 0.6),
+        textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+        displayDuration: const Duration(seconds: 3),
+      ),
       typography: const TypographySpec(),
       animation: const AnimationSpec(
         duration: Duration(milliseconds: 500),
@@ -244,7 +260,7 @@ class GlassDesignTheme extends AppDesignTheme {
         blurStrength: 20.0,
         contentColor: scheme.onPrimary,
         interaction: const InteractionSpec(
-          pressedScale: 0.95,
+          pressedScale: 0.92,
           pressedOpacity: 0.8,
           hoverOpacity: 0.9,
           pressedOffset: Offset.zero,
@@ -349,6 +365,20 @@ class GlassDesignTheme extends AppDesignTheme {
           contentColor: scheme.error,
           blurStrength: 0,
         ),
+      ),
+      loaderStyle: LoaderStyle(
+        color: scheme.primary.withValues(alpha: 0.8),
+        strokeWidth: 4.0,
+        size: 32.0,
+        period: const Duration(seconds: 2),
+      ),
+      toastStyle: ToastStyle(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        margin: const EdgeInsets.all(24),
+        borderRadius: BorderRadius.circular(16),
+        backgroundColor: Colors.black.withValues(alpha: 0.6),
+        textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+        displayDuration: const Duration(seconds: 3),
       ),
       typography: const TypographySpec(),
       animation: const AnimationSpec(

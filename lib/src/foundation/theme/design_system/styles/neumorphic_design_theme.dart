@@ -21,6 +21,8 @@ class NeumorphicDesignTheme extends AppDesignTheme {
     required super.buttonHeight,
     required super.navigationStyle,
     required super.inputStyle,
+    required super.loaderStyle,
+    required super.toastStyle,
     required super.layoutSpec,
   });
 
@@ -169,9 +171,24 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           blurStrength: 0,
         ),
       ),
+      loaderStyle: LoaderStyle(
+        color: scheme.primary,
+        strokeWidth: 6.0,
+        size: 40.0,
+        period: const Duration(milliseconds: 1500),
+      ),
+      toastStyle: ToastStyle(
+        padding: const EdgeInsets.all(20),
+        margin: const EdgeInsets.all(20),
+        borderRadius: BorderRadius.circular(16),
+        backgroundColor: scheme.surface,
+        textStyle: TextStyle(
+            fontSize: 15, fontWeight: FontWeight.w600, color: scheme.onSurface),
+        displayDuration: const Duration(seconds: 3),
+      ),
       typography: const TypographySpec(
-        bodyFontFamily: 'Nunito',
-        displayFontFamily: 'Nunito',
+        bodyFontFamily: 'NeueHaasGrotTextRound',
+        displayFontFamily: 'NeueHaasGrotTextRound',
       ),
       animation: const AnimationSpec(
         duration: Duration(milliseconds: 300),
@@ -180,7 +197,8 @@ class NeumorphicDesignTheme extends AppDesignTheme {
       spacingFactor: 1.2,
       buttonHeight: 52.0,
       navigationStyle: const NavigationStyle(
-        height: 88.0, // height, because soft plastic needs more breathing space to present the shadow
+        height:
+            88.0, // height, because soft plastic needs more breathing space to present the shadow
         isFloating: false,
         floatingMargin: 0.0,
         itemSpacing: 12.0,
@@ -345,9 +363,24 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           blurStrength: 0,
         ),
       ),
+      loaderStyle: LoaderStyle(
+        color: scheme.primary,
+        strokeWidth: 6.0,
+        size: 40.0,
+        period: const Duration(milliseconds: 1500),
+      ),
+      toastStyle: ToastStyle(
+        padding: const EdgeInsets.all(20),
+        margin: const EdgeInsets.all(20),
+        borderRadius: BorderRadius.circular(16),
+        backgroundColor: scheme.surface,
+        textStyle: TextStyle(
+            fontSize: 15, fontWeight: FontWeight.w600, color: scheme.onSurface),
+        displayDuration: const Duration(seconds: 3),
+      ),
       typography: const TypographySpec(
-        bodyFontFamily: 'Nunito',
-        displayFontFamily: 'Nunito',
+        bodyFontFamily: 'NeueHaasGrotTextRound',
+        displayFontFamily: 'NeueHaasGrotTextRound',
       ),
       animation: const AnimationSpec(
         duration: Duration(milliseconds: 300),
@@ -356,7 +389,8 @@ class NeumorphicDesignTheme extends AppDesignTheme {
       spacingFactor: 1.2,
       buttonHeight: 52.0,
       navigationStyle: const NavigationStyle(
-        height: 88.0, // height, because soft plastic needs more breathing space to present the shadow
+        height:
+            88.0, // height, because soft plastic needs more breathing space to present the shadow
         isFloating: false,
         floatingMargin: 0.0,
         itemSpacing: 12.0,

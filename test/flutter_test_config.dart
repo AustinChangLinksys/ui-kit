@@ -1,0 +1,18 @@
+import 'dart:async';
+import 'package:alchemist/alchemist.dart';
+
+Future<void> testExecutable(FutureOr<void> Function() testMain) async {
+  // 設定全域 Alchemist Config
+  return AlchemistConfig.runWithConfig(
+    config: const AlchemistConfig(
+      platformGoldensConfig: PlatformGoldensConfig(
+        enabled: true,
+      ),
+
+      ciGoldensConfig: CiGoldensConfig(
+        enabled: true, 
+      ),
+    ),
+    run: testMain,
+  );
+}

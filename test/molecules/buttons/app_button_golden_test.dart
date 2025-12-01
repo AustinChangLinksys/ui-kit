@@ -2,75 +2,81 @@ import 'package:alchemist/alchemist.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
-import '../../test_utils/test_theme_matrix.dart';
-import '../../test_utils/golden_test_scenarios.dart';
+// 引入測試工具組
+import '../../test_utils/golden_test_matrix_factory.dart'; // ✨ 矩陣工廠
+import '../../test_utils/font_loader.dart'; // ✨ 字體載入
 
 void main() {
+  // 1. 測試前置準備：載入字體
+  setUpAll(() async {
+    await loadAppFonts(); 
+  });
+
   group('AppButton Golden Tests', () {
-    // 1. Standard State (Highlight)
+    
+    // 測試 1: Highlight Variant (Primary)
     goldenTest(
       'AppButton - Highlight',
       fileName: 'app_button_highlight',
-      builder: () => GoldenTestGroup(
-        columns: 2,
-        children: kTestThemeMatrix.entries.map((entry) {
-          return buildSafeScenario(
-            name: entry.key,
-            theme: entry.value,
-            width: 300, // Sufficient width to prevent RenderFlex overflow
-            height: 100,
-            child: AppButton(
-              label: 'Confirm',
-              onTap: () {},
-              variant: SurfaceVariant.highlight,
-            ),
-          );
-        }).toList(),
+      // 使用矩陣工廠自動生成 8 種風格 (4x2)
+      builder: () => buildThemeMatrix(
+        name: 'Highlight',
+        width: 300, // 給予充足寬度防止 Overflow
+        height: 100,
+        child: AppButton(
+          label: 'Confirm',
+          onTap: () {},
+          variant: SurfaceVariant.highlight,
+        ),
       ),
     );
 
-    // 2. Loading State (no more Timeout!)
+    // 測試 2: Base Variant (Secondary)
+    goldenTest(
+      'AppButton - Base',
+      fileName: 'app_button_base',
+      builder: () => buildThemeMatrix(
+        name: 'Base',
+        width: 300,
+        height: 100,
+        child: AppButton(
+          label: 'Cancel',
+          onTap: () {},
+          variant: SurfaceVariant.base,
+        ),
+      ),
+    );
+
+    // 測試 3: Loading State
     goldenTest(
       'AppButton - Loading',
       fileName: 'app_button_loading',
-      builder: () => GoldenTestGroup(
-        columns: 2,
-        children: kTestThemeMatrix.entries.map((entry) {
-          return buildSafeScenario(
-            name: entry.key,
-            theme: entry.value,
-            width: 300,
-            height: 100,
-            // buildSafeScenario defaults to disableAnimation: true
-            // So the Infinite Animation here will be frozen on the first frame, for safe screenshot
-            child: AppButton(
-              label: 'Loading',
-              isLoading: true,
-              onTap: () {},
-            ),
-          );
-        }).toList(),
+      builder: () => buildThemeMatrix(
+        name: 'Loading',
+        width: 300,
+        height: 100,
+        // Matrix Factory 內部呼叫 buildSafeScenario，預設 disableAnimation: true
+        // 這裡會自動凍結動畫，不會 Timeout
+        child: AppButton(
+          label: 'Loading',
+          isLoading: true,
+          onTap: () {},
+        ),
       ),
     );
 
-    // 3. Disabled State
+    // 測試 4: Disabled State
     goldenTest(
       'AppButton - Disabled',
       fileName: 'app_button_disabled',
-      builder: () => GoldenTestGroup(
-        columns: 2,
-        children: kTestThemeMatrix.entries.map((entry) {
-          return buildSafeScenario(
-            name: entry.key,
-            theme: entry.value,
-            width: 300,
-            height: 100,
-            child: const AppButton(
-              label: 'Disabled',
-              onTap: null,
-            ),
-          );
-        }).toList(),
+      builder: () => buildThemeMatrix(
+        name: 'Disabled',
+        width: 300,
+        height: 100,
+        child: const AppButton(
+          label: 'Disabled',
+          onTap: null,
+        ),
       ),
     );
   });

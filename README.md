@@ -108,15 +108,21 @@ Below is the summary of components available in our system:
       - **AppButton**: Supports Size Variants (S/M/L), Loading states, and icon combinations.
       - **AppIconButton**: Enforced 1:1 aspect ratio, shape adapts automatically to theme (Circle/Square).
   - **Forms**:
+      - **AppTextFormField**: Form-integrated input with validation support.
+      - **AppDropdown**: Theme-aware selection menu mimicking text fields.
       - **AppTextField**: Supports Outline, Underline, and Filled variants, plus Focus/Error states.
       - **AppSlider**: Supports continuous sliding and discrete steps (Divisions).
       - **AppSwitch**: Demonstrates the Renderer Pattern (Texture/Text/Icon/Dot).
       - **AppCheckbox / AppRadio**: State-driven selection controls.
-  - **Display**:
+  - **Display & Feedback**:
+      - **AppLoader**: Theme-adaptive loading indicator (Circular/Linear).
+      - **AppToast**: Overlay notification messages (Success/Error/Info/Warning).
       - **AppBadge**: Status badge supporting custom color tinting.
       - **AppTag**: Label component supporting interaction and deletion.
       - **AppAvatar**: Enforced circular avatar supporting image cropping and text fallback.
       - **AppTooltip**: Supports multi-directional positioning and rich content popovers.
+  - **Layout**:
+      - **AppListTile**: Standardized list row with slots for leading/trailing content.
 
 ### Navigation
 

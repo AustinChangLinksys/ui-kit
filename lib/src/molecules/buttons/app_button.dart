@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ui_kit_library/src/atoms/loading/app_skeleton.dart';
-import 'package:ui_kit_library/src/atoms/surfaces/app_surface.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/app_design_theme.dart';
+import 'package:ui_kit_library/ui_kit.dart';
 
 /// Button size variants
 enum AppButtonSize {
-  small,  // 32px
+  small, // 32px
   medium, // 48px (Default)
-  large,  // 56px
+  large, // 56px
 }
 
 class AppButton extends StatelessWidget {
@@ -51,7 +49,7 @@ class AppButton extends StatelessWidget {
         height: height,
         // 4. Buttons need horizontal Padding
         padding: EdgeInsets.symmetric(horizontal: paddingX),
-        
+
         child: Row(
           mainAxisSize: MainAxisSize.min, // Hug Content
           mainAxisAlignment: MainAxisAlignment.center,
@@ -64,10 +62,10 @@ class AppButton extends StatelessWidget {
                 icon!,
                 SizedBox(width: 8 * theme.spacingFactor),
               ],
-              Text(
+              AppText(
                 label,
-                // Adjust font size based on button size
-                style: _resolveTextStyle(context, size),
+                variant: _resolveTextVariant(size),
+                fontWeight: FontWeight.bold,
               ),
             ],
           ],
@@ -80,27 +78,34 @@ class AppButton extends StatelessWidget {
 
   double _resolveHeight(AppButtonSize size) {
     switch (size) {
-      case AppButtonSize.small: return 32.0;
-      case AppButtonSize.medium: return 48.0;
-      case AppButtonSize.large: return 56.0;
+      case AppButtonSize.small:
+        return 32.0;
+      case AppButtonSize.medium:
+        return 48.0;
+      case AppButtonSize.large:
+        return 56.0;
     }
   }
 
   double _resolvePadding(AppButtonSize size) {
     switch (size) {
-      case AppButtonSize.small: return 16.0;
-      case AppButtonSize.medium: return 24.0;
-      case AppButtonSize.large: return 32.0;
+      case AppButtonSize.small:
+        return 16.0;
+      case AppButtonSize.medium:
+        return 24.0;
+      case AppButtonSize.large:
+        return 32.0;
     }
   }
 
-  TextStyle? _resolveTextStyle(BuildContext context, AppButtonSize size) {
-    final textTheme = Theme.of(context).textTheme;
-    // Here we can further mix theme.typography.bodyStyleOverride
+  AppTextVariant _resolveTextVariant(AppButtonSize size) {
     switch (size) {
-      case AppButtonSize.small: return textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold);
-      case AppButtonSize.medium: return textTheme.labelLarge?.copyWith(fontWeight: FontWeight.bold);
-      case AppButtonSize.large: return textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold);
+      case AppButtonSize.small:
+        return AppTextVariant.labelMedium;
+      case AppButtonSize.medium:
+        return AppTextVariant.labelLarge;
+      case AppButtonSize.large:
+        return AppTextVariant.titleMedium;
     }
   }
 }

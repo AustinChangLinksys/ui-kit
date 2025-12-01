@@ -13,6 +13,8 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
   ToggleStyle get toggleStyle;
   SkeletonStyle get skeletonStyle;
   InputStyle get inputStyle;
+  LoaderStyle get loaderStyle;
+  ToastStyle get toastStyle;
   SurfaceStyle get surfaceBase;
   SurfaceStyle get surfaceElevated;
   SurfaceStyle get surfaceHighlight;
@@ -28,6 +30,8 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
     ToggleStyle? toggleStyle,
     SkeletonStyle? skeletonStyle,
     InputStyle? inputStyle,
+    LoaderStyle? loaderStyle,
+    ToastStyle? toastStyle,
     SurfaceStyle? surfaceBase,
     SurfaceStyle? surfaceElevated,
     SurfaceStyle? surfaceHighlight,
@@ -42,6 +46,8 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       toggleStyle: toggleStyle ?? this.toggleStyle,
       skeletonStyle: skeletonStyle ?? this.skeletonStyle,
       inputStyle: inputStyle ?? this.inputStyle,
+      loaderStyle: loaderStyle ?? this.loaderStyle,
+      toastStyle: toastStyle ?? this.toastStyle,
       surfaceBase: surfaceBase ?? this.surfaceBase,
       surfaceElevated: surfaceElevated ?? this.surfaceElevated,
       surfaceHighlight: surfaceHighlight ?? this.surfaceHighlight,
@@ -62,6 +68,8 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       toggleStyle: t < 0.5 ? toggleStyle : other.toggleStyle,
       skeletonStyle: t < 0.5 ? skeletonStyle : other.skeletonStyle,
       inputStyle: t < 0.5 ? inputStyle : other.inputStyle,
+      loaderStyle: loaderStyle.lerp(other.loaderStyle, t),
+      toastStyle: toastStyle.lerp(other.toastStyle, t),
       surfaceBase: t < 0.5 ? surfaceBase : other.surfaceBase,
       surfaceElevated: t < 0.5 ? surfaceElevated : other.surfaceElevated,
       surfaceHighlight: t < 0.5 ? surfaceHighlight : other.surfaceHighlight,
@@ -85,6 +93,10 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
                 .equals(skeletonStyle, other.skeletonStyle) &&
             const DeepCollectionEquality()
                 .equals(inputStyle, other.inputStyle) &&
+            const DeepCollectionEquality()
+                .equals(loaderStyle, other.loaderStyle) &&
+            const DeepCollectionEquality()
+                .equals(toastStyle, other.toastStyle) &&
             const DeepCollectionEquality()
                 .equals(surfaceBase, other.surfaceBase) &&
             const DeepCollectionEquality()
@@ -111,6 +123,8 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       const DeepCollectionEquality().hash(toggleStyle),
       const DeepCollectionEquality().hash(skeletonStyle),
       const DeepCollectionEquality().hash(inputStyle),
+      const DeepCollectionEquality().hash(loaderStyle),
+      const DeepCollectionEquality().hash(toastStyle),
       const DeepCollectionEquality().hash(surfaceBase),
       const DeepCollectionEquality().hash(surfaceElevated),
       const DeepCollectionEquality().hash(surfaceHighlight),
@@ -130,6 +144,8 @@ extension AppDesignThemeBuildContextProps on BuildContext {
   ToggleStyle get toggleStyle => appDesignTheme.toggleStyle;
   SkeletonStyle get skeletonStyle => appDesignTheme.skeletonStyle;
   InputStyle get inputStyle => appDesignTheme.inputStyle;
+  LoaderStyle get loaderStyle => appDesignTheme.loaderStyle;
+  ToastStyle get toastStyle => appDesignTheme.toastStyle;
   SurfaceStyle get surfaceBase => appDesignTheme.surfaceBase;
   SurfaceStyle get surfaceElevated => appDesignTheme.surfaceElevated;
   SurfaceStyle get surfaceHighlight => appDesignTheme.surfaceHighlight;
