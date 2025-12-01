@@ -39,7 +39,7 @@ class AppRadio<T> extends StatelessWidget {
       height: 24 * theme.spacingFactor,
       width: 24 * theme.spacingFactor,
       
-      // ✨ Key: Radio is always circular
+      // Key: Radio is always circular
       shape: BoxShape.circle, 
       // Note: When shape is circle, borderRadius will be ignored, so no need to pass it
       
@@ -48,7 +48,7 @@ class AppRadio<T> extends StatelessWidget {
       onTap: isDisabled ? null : () => onChanged!(value),
       
       child: Center(
-        // ✨ Reuse Renderer: Pass dot type to draw a dot
+        // Reuse Renderer: Pass dot type to draw a dot
         child: ToggleContentRenderer(
           type: isSelected ? ToggleContentType.dot : ToggleContentType.none,
           color: baseStyle.contentColor,

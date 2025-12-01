@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:ui_kit_library/src/foundation/theme/tokens/app_palette.dart';
 import 'package:ui_kit_library/ui_kit.dart'; // Default fallback
 
-// 定義 Builder 類型，方便外部傳入 (例如 Widgetbook)
+// Defines the Builder type for external input (e.g., Widgetbook)
 typedef DesignThemeBuilder = AppDesignTheme Function(ColorScheme scheme);
 
 class AppTheme {
-  // 私有建構子，防止實例化
+  // Private constructor to prevent instantiation
   AppTheme._();
 
-  // --- 1. Default Schemes (基於 AppPalette Token) ---
+  // --- 1. Default Schemes (based on AppPalette Token) ---
 
   static final ColorScheme defaultLightScheme = ColorScheme.fromSeed(
     seedColor: AppPalette.brandPrimary,
@@ -21,7 +21,7 @@ class AppTheme {
     brightness: Brightness.dark,
   );
 
-  // --- 2. Helper: 從 Context 獲取 Design System ---
+  // --- 2. Helper: Get Design System from Context ---
 
   /// Returns the current [AppDesignTheme] from the context.
   static AppDesignTheme of(BuildContext context) {
@@ -37,31 +37,31 @@ class AppTheme {
     return extension;
   }
 
-  // --- 3. Factory: 建立完整的 ThemeData ---
+  // --- 3. Factory: Create complete ThemeData ---
 
   static ThemeData create({
     required Brightness brightness,
-    Color seedColor = AppPalette.brandPrimary, // 允許 Widgetbook 覆蓋 Seed
+    Color seedColor = AppPalette.brandPrimary, // Allow Widgetbook to override Seed
     DesignThemeBuilder? designThemeBuilder,
   }) {
-    // A. 生成基礎 ColorScheme
+    // A. Generate base ColorScheme
     final colorScheme = ColorScheme.fromSeed(
       seedColor: seedColor,
       brightness: brightness,
     );
 
-    // B. 決定要用哪套設計語言 (Glass, Brutal, Flat...)
-    // 預設退回使用 Glass，並注入剛剛生成的 colorScheme
+    // B. Determine which design language to use (Glass, Brutal, Flat...)
+    // Defaults to Glass, and injects the newly generated colorScheme
     final effectiveDesignSystem = designThemeBuilder?.call(colorScheme) ??
         GlassDesignTheme.light(colorScheme);
 
-    // C. 組裝 ThemeData
+    // C. Assemble ThemeData
     return ThemeData(
       useMaterial3: true,
       brightness: brightness,
       colorScheme: colorScheme,
 
-      // 設定背景色，讓 Scaffold 自動適配 Theme 的基底色 (對 Glass/Neu 很重要)
+      // Set background color, allowing Scaffold to automatically adapt to the Theme's base color (important for Glass/Neu)
       scaffoldBackgroundColor:
           effectiveDesignSystem.surfaceBase.backgroundColor,
 
@@ -69,7 +69,7 @@ class AppTheme {
         bodyColor: colorScheme.onSurface,
         displayColor: colorScheme.onSurface,
       ),
-      // ✨ 關鍵：只注入這一個核心 Extension
+      // Key: Only inject this core Extension
       extensions: [
         effectiveDesignSystem,
       ],

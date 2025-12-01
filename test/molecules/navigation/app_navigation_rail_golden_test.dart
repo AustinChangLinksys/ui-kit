@@ -23,19 +23,19 @@ void main() {
           return buildSafeScenario(
             name: entry.key,
             theme: entry.value,
-            width: 150, // 只截取左側 Rail 的部分
-            height: 400, // 高度要夠長才能看到 Header/Footer
-            child: Row( // 模擬 Scaffold body 的 Row 結構
+            width: 150, // Only capture the left part of the Rail
+            height: 400, // Height must be long enough to see Header/Footer
+            child: Row( // Simulate the Row structure of Scaffold body
               children: [
                 AppNavigationRail(
                   items: navItems,
                   currentIndex: 0,
                   onTap: (_) {},
-                  // 測試 Slot
+                  // Test Slot
                   leading: const FlutterLogo(size: 32),
                   trailing: const Icon(Icons.logout, size: 20),
                 ),
-                // 右側留白模擬內容區
+                // Right blank space simulates content area
                 const Expanded(child: SizedBox()),
               ],
             ),

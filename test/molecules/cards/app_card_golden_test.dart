@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
-// 引入共用工具
+// Import shared utilities
 import '../../test_utils/test_theme_matrix.dart';
 import '../../test_utils/golden_test_scenarios.dart';
 

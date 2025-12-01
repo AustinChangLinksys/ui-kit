@@ -30,7 +30,7 @@ class AppSwitch extends StatelessWidget {
     final double thumbSize = 24.0 * effectiveScale;
     final double padding = 4.0 * effectiveScale;
 
-    // 3. ✨ Core Logic: Style Resolution ✨
+    // 3. Core Logic: Style Resolution
     // Prioritize the override style in toggleSpec; if null, use the Theme's global semantic variant
     
     // Resolve Track style
@@ -46,7 +46,7 @@ class AppSwitch extends StatelessWidget {
       child: Opacity(
         opacity: _isEnabled ? 1.0 : 0.5,
         child: AppSurface(
-          // ✨ Here, style is directly injected instead of relying on variant lookup
+          // Here, style is directly injected instead of relying on variant lookup
           // (Prerequisite: AppSurface must support receiving 'style' parameter, see below for details)
           style: currentTrackStyle,
           width: trackWidth,
@@ -61,7 +61,7 @@ class AppSwitch extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.all(padding),
                   child: AppSurface(
-                    // ✨ Thumb also uses the resolved style
+                    // Thumb also uses the resolved style
                     style: currentThumbStyle,
                     width: thumbSize,
                     height: thumbSize,

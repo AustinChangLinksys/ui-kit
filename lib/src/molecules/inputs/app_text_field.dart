@@ -19,7 +19,7 @@ class AppTextField extends StatefulWidget {
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
     this.variant = AppInputVariant.outline,
-    this.textVariant = AppTextVariant.bodyMedium, // ✨ New: control text size
+    this.textVariant = AppTextVariant.bodyMedium, // control text size
     this.prefixIcon,
     this.suffixIcon,
     super.key,
@@ -66,7 +66,7 @@ class _AppTextFieldState extends State<AppTextField> {
     final scheme = Theme.of(context).colorScheme;
     final hasError = widget.errorText != null;
 
-    // ✨ Key: Use Extension to parse text style, consistent with AppText
+    // Key: Use Extension to parse text style, consistent with AppText
     final baseTextStyle = widget.textVariant.resolve(context);
 
     return ListenableBuilder(

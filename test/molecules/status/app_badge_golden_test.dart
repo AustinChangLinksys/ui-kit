@@ -22,18 +22,18 @@ void main() {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // 1. 預設樣式 (Theme Highlight)
+                // 1. Default style (Theme Highlight)
                 const AppBadge(label: 'Beta Feature'),
                 const SizedBox(height: 8),
                 
-                // 2. 自定義顏色 (Custom Tint)
+                // 2. Custom color (Custom Tint)
                 const AppBadge(
                   label: 'Error',
                   color: Colors.red,
                 ),
                 const SizedBox(height: 8),
                 
-                // 3. 帶刪除圖示 (With Icon)
+                // 3. With delete icon (With Icon)
                 AppBadge(
                   label: 'Dismissible',
                   onDeleted: () {},

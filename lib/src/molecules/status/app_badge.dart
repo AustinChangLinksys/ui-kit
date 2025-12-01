@@ -53,7 +53,7 @@ class AppBadge extends StatelessWidget {
 
     return AppSurface(
       style: effectiveStyle,
-      shape: BoxShape.rectangle, // Badge 是圓角矩形
+      shape: BoxShape.rectangle, // Badge is a rounded rectangle
       
       // Size settings
       height: 24.0 * theme.spacingFactor, // Fixed height but scales with density

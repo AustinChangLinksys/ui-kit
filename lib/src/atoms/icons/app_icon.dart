@@ -9,7 +9,7 @@ class AppIcon extends StatelessWidget {
   final double size;
   final Color? color;
 
-  // 1. Constructor A: for SVG (keep as is)
+  // 1. Constructor A: for SVG
   const AppIcon(
     SvgGenImage icon, {
     super.key,
@@ -18,7 +18,7 @@ class AppIcon extends StatelessWidget {
   })  : _svg = icon,
         _fontIcon = null;
 
-  // 2. Constructor B: for Icon Font (new)
+  // 2. Constructor B: for Icon Font
   const AppIcon.font(
     IconData icon, {
     super.key,

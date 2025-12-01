@@ -36,7 +36,7 @@ class AppCheckbox extends StatelessWidget {
     );
 
     Widget checkbox = AppSurface(
-      // ✨ Correct way: Directly pass the processed style object
+      // Correct way: Directly pass the processed style object
       style: checkboxStyle,
 
       // Recommended size scales with spacingFactor (will be larger in Brutal mode)
@@ -51,7 +51,7 @@ class AppCheckbox extends StatelessWidget {
       interactive: !isDisabled,
       onTap: isDisabled ? null : () => onChanged!(!value),
 
-      // ✨ Correct way: Renderer should be Dumb, told what to draw by external means
+      // Correct way: Renderer should be Dumb, told what to draw by external means
       child: Center(
         child: ToggleContentRenderer(
           // If selected: depends on Theme whether to draw Icon (Flat) or Text (Brutal)

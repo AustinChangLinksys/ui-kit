@@ -2,35 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
-// 引入共用矩陣
+// Import shared matrix
 import '../../test_utils/test_theme_matrix.dart';
 
 void main() {
   group('AppSurface Logic Tests', () {
-    // 1. Matrix 驗證：確保 AppSurface 能正確讀取所有定義好的 Theme
+    // 1. Matrix verification: ensure AppSurface correctly reads all defined Themes
     kTestThemeMatrix.forEach((themeName, themeData) {
       testWidgets('AppSurface correctly maps properties from $themeName',
           (tester) async {
-        // 從 ThemeData 中取出 Extension
+        // Extract Extension from ThemeData
         final appTheme = themeData.extension<AppDesignTheme>()!;
         final expectedStyle = appTheme.surfaceBase;
 
-        // 渲染 Widget
+        // Render Widget
         await tester.pumpWidget(
             _buildTestApp(themeData, const AppSurface(child: Text('A'))));
 
-        // 找到底層的 Container
+        // Find the underlying Container
         final container =
             tester.widget<AnimatedContainer>(find.byType(AnimatedContainer));
         final decoration = container.decoration as BoxDecoration;
 
-        // --- 驗證核心屬性映射 ---
+        // --- Verify core property mapping ---
 
-        // 1. 顏色一致性
+        // 1. Color consistency
         expect(decoration.color, expectedStyle.backgroundColor,
             reason: '$themeName: Background color mismatch');
 
-        // 2. 邊框一致性 (如果 Theme 定義了邊框)
+        // 2. Border consistency (if Theme defines border)
         if (expectedStyle.borderWidth > 0) {
           expect(decoration.border?.top.width, expectedStyle.borderWidth,
               reason: '$themeName: Border width mismatch');
@@ -38,27 +38,27 @@ void main() {
               reason: '$themeName: Border color mismatch');
         }
 
-        // 3. 圓角一致性 (預設矩形模式)
-        // 注意：有些主題 (Brutal) 圓角可能為 0
+        // 3. Corner radius consistency (default rectangle mode)
+        // Note: Some themes (Brutal) may have a corner radius of 0
         if (expectedStyle.borderRadius > 0) {
           expect(decoration.borderRadius,
               BorderRadius.circular(expectedStyle.borderRadius),
               reason: '$themeName: Border radius mismatch');
         } else {
-          // 如果是 0，可能是 BorderRadius.zero 或 null (視實作而定)，通常檢查 radius.x
+          // If 0, it could be BorderRadius.zero or null (depending on implementation), usually check radius.x
           expect(
               (decoration.borderRadius as BorderRadius?)?.topLeft.x ?? 0, 0.0);
         }
 
-        // 4. 陰影一致性 (Neumorphic 特別重要)
-        // listEquals 無法直接比較 BoxShadow，這裡簡單檢查長度或第一個元素
+        // 4. Shadow consistency (especially important for Neumorphic)
+        // listEquals cannot directly compare BoxShadow, here simply check the length or the first element
         expect(decoration.boxShadow?.length ?? 0, expectedStyle.shadows.length,
             reason: '$themeName: Shadow count mismatch');
       });
     });
 
-    // 2. 變體切換測試 (Variant Logic)
-    // 只需要選一個代表性的主題來測邏輯即可 (例如第一個)
+    // 2. Variant switching test (Variant Logic)
+    // Just pick a representative theme to test the logic (e.g., the first one)
     testWidgets('AppSurface switches to Highlight variant correctly',
         (tester) async {
       final themeData = kTestThemeMatrix.values.first;
@@ -73,17 +73,17 @@ void main() {
           tester.widget<AnimatedContainer>(find.byType(AnimatedContainer));
       final decoration = container.decoration as BoxDecoration;
 
-      // 驗證它讀取的是 Highlight 而不是 Base
+      // Verify that it reads Highlight and not Base
       expect(decoration.color, appTheme.surfaceHighlight.backgroundColor);
       expect(decoration.color, isNot(appTheme.surfaceBase.backgroundColor));
     });
 
-    // 3. 優先權覆寫測試 (Style Override Logic)
+    // 3. Priority override test (Style Override Logic)
     testWidgets('AppSurface style parameter overrides theme variant',
         (tester) async {
-      final themeData = kTestThemeMatrix.values.first; // 隨便選一個主題
+      final themeData = kTestThemeMatrix.values.first; // Pick any theme
 
-      // 定義一個與任何主題都不同的「紅色風格」
+      // Define a "red style" different from any theme
       const customStyle = SurfaceStyle(
         backgroundColor: Colors.red,
         borderColor: Colors.green,
@@ -97,8 +97,8 @@ void main() {
       await tester.pumpWidget(_buildTestApp(
         themeData,
         const AppSurface(
-          variant: SurfaceVariant.base, // 應該被忽略
-          style: customStyle, // 應該生效
+          variant: SurfaceVariant.base, // Should be ignored
+          style: customStyle, // Should be effective
           child: Text('A'),
         ),
       ));
@@ -107,7 +107,7 @@ void main() {
           tester.widget<AnimatedContainer>(find.byType(AnimatedContainer));
       final decoration = container.decoration as BoxDecoration;
 
-      // 驗證屬性完全來自 customStyle
+      // Verify that the properties are entirely from customStyle
       expect(decoration.color, Colors.red);
       expect(decoration.border?.top.color, Colors.green);
       expect(decoration.border?.top.width, 10.0);
@@ -115,7 +115,7 @@ void main() {
   });
 }
 
-// 輔助函式：注入 Theme
+// Helper function: inject Theme
 Widget _buildTestApp(ThemeData themeData, Widget child) {
   return MaterialApp(
     theme: themeData,

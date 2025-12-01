@@ -12,12 +12,12 @@ void main() {
       goldenTest(
         'TextField - $themeName',
         fileName: 'text_field_${themeName.toLowerCase()}',
-        // 自定義 Pump 行為：模擬點擊以觸發 Focus 狀態
+        // Custom Pump behavior: simulate click to trigger Focus state
         pumpWidget: (tester, widget) async {
           await tester.pumpWidget(widget);
-          // 嘗試找到並點擊第一個 TextField (對應 'Outline Focused' 場景)
-          // 注意：GoldenTestGroup 裡有多個 TextField，這只會 Focus 第一個被找到的
-          // 實務上通常足夠驗證 "Focus 樣式是否存在"
+          // Attempt to find and tap the first TextField (corresponding to 'Outline Focused' scenario)
+          // Note: There are multiple TextFields in GoldenTestGroup, this will only Focus the first one found
+          // In practice, this is usually sufficient to verify "if Focus style exists"
           await tester.tap(find.byType(TextField).first);
           await tester.pumpAndSettle();
         },
@@ -33,7 +33,7 @@ void main() {
               child: const AppTextField(hintText: 'Enter value'),
             ),
 
-            // 2. Focused Outline (會被 pumpWidget 觸發)
+            // 2. Focused Outline (triggered by pumpWidget)
             buildSafeScenario(
               name: 'Outline Focused',
               theme: themeData,
@@ -47,7 +47,7 @@ void main() {
               name: 'Outline Error',
               theme: themeData,
               width: 300,
-              height: 170, // 增加高度顯示錯誤訊息
+              height: 170, // Increase height to display error message
               child: const AppTextField(
                 hintText: 'Required',
                 errorText: 'This field is required.',
@@ -78,7 +78,7 @@ void main() {
               ),
             ),
 
-            // 6. With Icons & Large Text (Typography Test) ✨ 新增
+            // 6. With Icons & Large Text (Typography Test) New
             buildSafeScenario(
               name: 'Title Input w/ Icon',
               theme: themeData,
@@ -86,10 +86,10 @@ void main() {
               height: 150,
               child: const AppTextField(
                 hintText: 'Page Title',
-                // 測試大字體輸入
+                // Test large font input
                 textVariant: AppTextVariant.headlineSmall, 
                 prefixIcon: Icon(Icons.title),
-                // 測試 Underline 配合大標題的效果 (常見設計)
+                // Test Underline with large title effect (common design)
                 variant: AppInputVariant.underline,
               ),
             ),

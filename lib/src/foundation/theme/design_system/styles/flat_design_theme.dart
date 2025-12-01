@@ -34,7 +34,7 @@ class FlatDesignTheme extends AppDesignTheme {
     final faintFill = scheme.surfaceContainerHighest;
     final greyOutline = scheme.outlineVariant;
     return FlatDesignTheme._(
-      // --- 1. Global Surface Definition (for Card, Dialog, etc.) ---
+      // 1. Global Surface Definition (for Card, Dialog, etc.)
       surfaceBase: SurfaceStyle(
         backgroundColor: scheme.surface,
         borderColor: scheme.outlineVariant, // Use semantic border color
@@ -75,7 +75,7 @@ class FlatDesignTheme extends AppDesignTheme {
         ),
       ),
 
-      // --- 2. Toggle Specialization (iOS Style) ---
+      // 2. Toggle Specialization (iOS Style)
       toggleStyle: ToggleStyle(
         // Content settings: iOS style is clean, no Icon or text
         activeType: ToggleContentType.none,
@@ -173,7 +173,7 @@ class FlatDesignTheme extends AppDesignTheme {
           blurStrength: 0,
         ),
       ),
-      // --- 3. Other Global Settings ---
+      // 3. Other Global Settings
       typography: const TypographySpec(
         bodyFontFamily: 'San Francisco', // or System Default
         displayFontFamily: 'San Francisco',

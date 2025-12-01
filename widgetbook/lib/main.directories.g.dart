@@ -11,8 +11,6 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:widgetbook/widgetbook.dart' as _widgetbook;
-import 'package:widgetbook_workspace/stories/examples/dashboard_page.stories.dart'
-    as _widgetbook_workspace_examples_dashboard_page_stories;
 import 'package:widgetbook_workspace/stories/atoms/assets.stories.dart'
     as _widgetbook_workspace_stories_atoms_assets_stories;
 import 'package:widgetbook_workspace/stories/atoms/loading/app_skeleton.stories.dart'
@@ -27,6 +25,10 @@ import 'package:widgetbook_workspace/stories/atoms/surfaces/app_surface.stories.
     as _widgetbook_workspace_stories_atoms_surfaces_app_surface_stories;
 import 'package:widgetbook_workspace/stories/atoms/typography/app_text.stories.dart'
     as _widgetbook_workspace_stories_atoms_typography_app_text_stories;
+import 'package:widgetbook_workspace/stories/examples/dashboard_page.stories.dart'
+    as _widgetbook_workspace_stories_examples_dashboard_page_stories;
+import 'package:widgetbook_workspace/stories/examples/mockup_page.stories.dart'
+    as _widgetbook_workspace_stories_examples_mockup_page_stories;
 import 'package:widgetbook_workspace/stories/layouts/app_gap_stories.dart'
     as _widgetbook_workspace_stories_layouts_app_gap_stories;
 import 'package:widgetbook_workspace/stories/layouts/app_page_view.stories.dart'
@@ -51,6 +53,32 @@ import 'package:widgetbook_workspace/stories/status/app_tag.stories.dart'
     as _widgetbook_workspace_stories_status_app_tag_stories;
 
 final directories = <_widgetbook.WidgetbookNode>[
+  _widgetbook.WidgetbookFolder(
+    name: 'Examples',
+    children: [
+      _widgetbook.WidgetbookComponent(
+        name: 'DashboardPage',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Home Dashboard',
+            builder:
+                _widgetbook_workspace_stories_examples_dashboard_page_stories
+                    .buildDashboardStory,
+          )
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'MockupPage',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Mockup Page',
+            builder: _widgetbook_workspace_stories_examples_mockup_page_stories
+                .buildMockupPageStory,
+          )
+        ],
+      ),
+    ],
+  ),
   _widgetbook.WidgetbookFolder(
     name: 'atoms',
     children: [
@@ -152,11 +180,6 @@ final directories = <_widgetbook.WidgetbookNode>[
           _widgetbook.WidgetbookComponent(
             name: 'AppSurface',
             useCases: [
-              _widgetbook.WidgetbookUseCase(
-                name: 'Dashboard Template',
-                builder: _widgetbook_workspace_examples_dashboard_page_stories
-                    .buildDashboardStory,
-              ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Interactive',
                 builder:

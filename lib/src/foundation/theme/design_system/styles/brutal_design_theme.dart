@@ -252,10 +252,9 @@ class BrutalDesignTheme extends AppDesignTheme {
           ],
           blurStrength: 0.0,
         ),
-        // Underline Style
         underlineStyle: SurfaceStyle(
           backgroundColor: Colors.transparent,
-          borderColor: black, 
+          borderColor: black,
           contentColor: black,
           borderWidth: 0,
           borderRadius: 0,

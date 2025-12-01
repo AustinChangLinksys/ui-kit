@@ -12,20 +12,15 @@ part 'app_design_theme.tailor.dart';
 @TailorMixin()
 class AppDesignTheme extends ThemeExtension<AppDesignTheme>
     with _$AppDesignThemeTailorMixin {
-
-  // Toggle Styles
   @override
   final ToggleStyle toggleStyle;
 
-  // Skeleton Styles
   @override
   final SkeletonStyle skeletonStyle;
 
-  // Input Styles
   @override
   final InputStyle inputStyle;
 
-  // Surface Styles (Containers)
   @override
   final SurfaceStyle surfaceBase;
   @override
@@ -33,7 +28,6 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
   @override
   final SurfaceStyle surfaceHighlight;
 
-  // Specifications
   @override
   final TypographySpec typography;
   @override
@@ -43,11 +37,9 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
   @override
   final LayoutSpec layoutSpec;
 
-  // Sizing
   @override
   final double buttonHeight;
 
-  // Navigation Specs
   @override
   final NavigationStyle navigationStyle;
 

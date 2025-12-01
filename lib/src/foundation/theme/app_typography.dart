@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-// 1. 基礎設定 (保留原有的字體設定)
+// 1. Base settings (retaining original font settings)
 const _packageName = 'ui_kit_library';
 const _fontFamily = 'NeueHaasGrotTextRound';
 const _fontFamilyFallback = [
@@ -17,12 +17,12 @@ const _baseTextStyle = TextStyle(
   fontFamilyFallback: _fontFamilyFallback,
   decoration: TextDecoration.none,
   leadingDistribution: TextLeadingDistribution.even,
-  // 在此定義基礎顏色，通常是黑色或白色，但在 Theme create 時會被 override
+  // Define base color here, typically black or white, but will be overridden when Theme is created
   color: Colors.black,
 );
 
-// 2. 標準 TextTheme (供 AppTheme 使用)
-// 這裡定義了 Design System 的所有標準字級
+// 2. Standard TextTheme (for AppTheme)
+// All standard font sizes of the Design System are defined here
 final appTextTheme = TextTheme(
   displayLarge: _baseTextStyle.copyWith(
     fontWeight: FontWeight.w400,
@@ -116,8 +116,8 @@ final appTextTheme = TextTheme(
   ),
 );
 
-// 3. 定義 v2.0 新增的自定義樣式 (作為靜態常數)
-// 這是為了讓 AppText 可以讀取到精確的數值，而不是用算的
+// 3. Define custom styles added in v2.0 (as static constants)
+// This is to allow AppText to read precise values, rather than calculated ones
 class AppTypographyExtra {
   static final TextStyle bodyExtraSmall = _baseTextStyle.copyWith(
     fontWeight: FontWeight.w400,

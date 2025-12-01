@@ -13,7 +13,7 @@ class AppSurface extends StatelessWidget {
   final double? height;
   final EdgeInsetsGeometry? padding;
   final bool interactive;
-  final SurfaceStyle? style; // ✨ New: Directly pass style (highest priority)
+  final SurfaceStyle? style; // Directly pass style (highest priority)
   final BoxShape shape;
 
   const AppSurface({
@@ -63,7 +63,7 @@ class AppSurface extends StatelessWidget {
             ? null
             : BorderRadius.circular(effectiveStyle.borderRadius),
         boxShadow: effectiveStyle.shadows,
-        // ✨ Apply shape
+        // Apply shape
         shape: shape,
       ),
       child: DefaultTextStyle.merge(

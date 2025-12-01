@@ -17,7 +17,7 @@ void main() {
           return buildSafeScenario(
             name: entry.key,
             theme: entry.value,
-            width: 80, // Icon Button 較小，縮小測試範圍
+            width: 80, // Icon Button is smaller, reducing test scope
             height: 80,
             child: AppIconButton(
               icon: const Icon(Icons.settings),

@@ -8,7 +8,7 @@ import '../../test_utils/golden_test_scenarios.dart';
 void main() {
   group('AppSlider Golden Tests', () {
     
-    // 1. 連續滑動 (Continuous) - 測試 50% 位置
+    // 1. Continuous sliding - test 50% position
     goldenTest(
       'AppSlider - Continuous',
       fileName: 'app_slider_continuous',
@@ -29,7 +29,7 @@ void main() {
       ),
     );
 
-    // 2. 離散步進 (Discrete) - 測試刻度顯示 (Ticks)
+    // 2. Discrete stepping (Discrete) - test tick display (Ticks)
     goldenTest(
       'AppSlider - Discrete',
       fileName: 'app_slider_discrete',
@@ -45,7 +45,7 @@ void main() {
               value: 3,
               min: 0,
               max: 5,
-              divisions: 5, // 應該顯示 6 個刻度點 (0,1,2,3,4,5)
+              divisions: 5, // Should display 6 tick marks (0,1,2,3,4,5)
               onChanged: (_) {},
             ),
           );
@@ -53,7 +53,7 @@ void main() {
       ),
     );
 
-    // 3. 禁用狀態 (Disabled)
+    // 3. Disabled state
     goldenTest(
       'AppSlider - Disabled',
       fileName: 'app_slider_disabled',

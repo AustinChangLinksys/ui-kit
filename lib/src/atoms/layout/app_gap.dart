@@ -37,7 +37,7 @@ class AppGap extends StatelessWidget {
   /// 48px * factor
   factory AppGap.xxxl() => const AppGap._(AppSpacing.xxxl);
 
-  /// ✨ Responsive Gutter
+  /// Responsive Gutter
   /// Size determined by Theme.layoutSpec and automatically changes with screen width
   factory AppGap.gutter() => const AppGap._(0, isGutter: true);
 

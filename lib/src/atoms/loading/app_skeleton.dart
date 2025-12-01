@@ -74,7 +74,7 @@ class AppSkeleton extends StatelessWidget {
     // 2. get border width (from Theme, usually 1.0 or 3.0)
     final borderWidth = theme.surfaceBase.borderWidth;
 
-    // 3. ✨ calculate inner radius
+    // 3. calculate inner radius
     // inner radius = outer radius - border width (to prevent content from drawing under the border or overflow)
     final innerRadius = _subtractRadius(effectiveOuterRadius, borderWidth);
 

@@ -33,7 +33,7 @@ extension LayoutContext on BuildContext {
           );
 
   /// Current page margins
-  /// [Correction] Directly use the margin defined by AppLayout to ensure consistency with DebugOverlay
+  /// Directly use the margin defined by AppLayout to ensure consistency with DebugOverlay
   double get pageMargin {
     // If you need to fine-tune margins for different devices, it is recommended to define marginMobile, marginTablet in AppLayout
     // Here, layout.margin is temporarily used uniformly to ensure alignment
@@ -49,7 +49,7 @@ extension LayoutContext on BuildContext {
   /// Defaults to true (if PageLayoutScope is not found)
   bool get usePageMargins => PageLayoutScope.of(this);
 
-  /// [useMargins] If null, automatically refers to the current [AppPageView] settings
+  /// If null, automatically refers to the current [AppPageView] settings
   double colWidth(int columnSpan, {bool? useMargins}) {
     final effectiveUseMargins = useMargins ?? usePageMargins;
     final totalCols = currentMaxColumns;
@@ -67,8 +67,8 @@ extension LayoutContext on BuildContext {
     return (singleColWidth * columnSpan) + (gutter * max(0, columnSpan - 1));
   }
 
-  /// [Fixed Split] Even distribution calculation
-  /// [useMargins] If null, automatically refers to the current [AppPageView] settings
+  /// Even distribution calculation
+  /// If null, automatically refers to the current [AppPageView] settings
   double split(int count, {bool? useMargins}) {
     final effectiveUseMargins = useMargins ?? usePageMargins;
     final marginTotal = effectiveUseMargins ? pageMargin * 2 : 0.0;

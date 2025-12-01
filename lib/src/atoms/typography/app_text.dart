@@ -28,11 +28,11 @@ enum AppTextVariant {
   bodyMedium, // Default
   bodySmall,
 
-  // ✨ Custom Extensions
+  // Custom Extensions
   bodyExtraSmall, // For very small tags or timestamps (e.g. 10sp)
 }
 
-/// ✨ Core optimization: Extract parsing logic as Extension, so AppTextField can also use it
+/// Core optimization: Extract parsing logic as Extension, so AppTextField can also use it
 extension AppTextVariantX on AppTextVariant {
   TextStyle resolve(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -92,7 +92,7 @@ extension AppTextVariantX on AppTextVariant {
         style = textTheme.bodySmall!;
         break;
 
-      // ✨ Custom logic: scale down based on bodySmall
+      // Custom logic: scale down based on bodySmall
       case AppTextVariant.bodyExtraSmall:
         // First get the defined style
         final specStyle = AppTypographyExtra.bodyExtraSmall;
@@ -139,7 +139,7 @@ class AppText extends StatelessWidget {
   final double? height; // Allow fine-tuning of line height
 
 // ==========================================
-  // 🏭 Semantic Factories
+  // Semantic Factories
   // Only the most commonly used color, textAlign, maxLines are exposed
   // ==========================================
 
@@ -209,7 +209,7 @@ class AppText extends StatelessWidget {
           overflow: overflow);
 
   // ==========================================
-  // 🏭 Material 3 Mapping Factories
+  // Material 3 Mapping Factories
   // ==========================================
 
   factory AppText.displayLarge(String data,
@@ -338,7 +338,7 @@ class AppText extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = AppTheme.of(context);
 
-    // ✨ Use Extension to parse base style
+    // Use Extension to parse base style
     final baseStyle = variant.resolve(context);
 
     // Overlay color and fine-tune

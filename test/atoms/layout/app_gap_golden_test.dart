@@ -19,11 +19,11 @@ void main() {
             name: entry.key,
             theme: entry.value,
             width: 300,
-            height: 400, // 拉長以容納多個範例
+            height: 400, // Lengthened to accommodate multiple examples
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // 1. 基礎間距測試
+                // 1. Basic spacing test
                 _GapVisualizer(label: 'xxs (2px)', gap: AppGap.xxs()),
                 _GapVisualizer(label: 'xs (4px)', gap: AppGap.xs()),
                 _GapVisualizer(label: 'sm (8px)', gap: AppGap.sm()),
@@ -36,8 +36,8 @@ void main() {
 
                 const Divider(height: 32),
 
-                // 2. Gutter 測試 (響應式間距)
-                // 這裡的寬度是 300 (Mobile)，所以應該讀取 gutterMobile
+                // 2. Gutter test (responsive spacing)
+                // The width here is 300 (Mobile), so gutterMobile should be read
                 _GapVisualizer(
                     label: 'Gutter (Responsive)', gap: AppGap.gutter()),
               ],
@@ -49,7 +49,7 @@ void main() {
   });
 }
 
-// 輔助元件：讓 Gap "看得見"
+// Helper widget: makes Gap "visible"
 class _GapVisualizer extends StatelessWidget {
   final String label;
   final Widget gap;
@@ -62,20 +62,20 @@ class _GapVisualizer extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Row(
         children: [
-          // 左側標籤
+          // Left label
           SizedBox(
             width: 120,
             child: AppText.caption(label, color: Colors.grey),
           ),
-          // 視覺化區塊
+          // Visualization block
           Container(
             width: 20,
             height: 20,
             color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.5),
           ),
-          // ✨ 被測試的主角：Gap ✨
+          // The main subject under test: Gap
           gap,
-          // 右側對照區塊
+          // Right comparison block
           Container(
             width: 20,
             height: 20,

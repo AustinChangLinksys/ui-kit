@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
-// 引入矩陣與新的場景建構器
+// Import matrix and new scenario builder
 import '../../test_utils/test_theme_matrix.dart';
-import '../../test_utils/golden_test_scenarios.dart'; // ✨ 新增引用
+import '../../test_utils/golden_test_scenarios.dart'; // New import
 
 void main() {
   group('AppSkeleton Golden Tests', () {
@@ -16,7 +16,7 @@ void main() {
         builder: () => GoldenTestGroup(
           columns: 2,
           children: [
-            // 1. 基礎區塊
+            // 1. Basic block
             buildSafeScenario(
               name: 'Standard Box',
               theme: themeData,
@@ -26,7 +26,7 @@ void main() {
               ),
             ),
 
-            // 2. 文字佔位符
+            // 2. Text placeholder
             buildSafeScenario(
               name: 'Text Line',
               theme: themeData,
@@ -41,14 +41,14 @@ void main() {
               ),
             ),
 
-            // 3. 頭像佔位符
+            // 3. Avatar placeholder
             buildSafeScenario(
               name: 'Circular (Avatar)',
               theme: themeData,
               child: AppSkeleton.circular(size: 48),
             ),
 
-            // 4. 膠囊/按鈕佔位符
+            // 4. Capsule/button placeholder
             buildSafeScenario(
               name: 'Capsule (Chip)',
               theme: themeData,

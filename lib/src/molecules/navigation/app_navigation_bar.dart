@@ -29,7 +29,7 @@ class AppNavigationBar extends StatelessWidget {
     // 3. Fine-tune style (Overrides)
     // Force override rounded corners based on whether it is floating
     final effectiveStyle = baseStyle.copyWith(
-      // ✨ Fine-tune: If it's Floating (Liquid), force it into a capsule shape (99.0)
+      // Fine-tune: If it's Floating (Liquid), force it into a capsule shape (99.0)
       // This makes it look more like a "surface tension" rather than just a rounded rectangle.
       borderRadius: navSpec.isFloating ? 99.0 : 0.0,
     );

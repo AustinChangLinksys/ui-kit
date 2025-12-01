@@ -17,17 +17,17 @@ void main() {
           return buildSafeScenario(
             name: entry.key,
             theme: entry.value,
-            width: 100, // Avatar 比較小
+            width: 100, // Avatar is smaller
             height: 100,
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                // 1. 標準 Initials (Standard)
+                // 1. Standard Initials (Standard)
                 AppAvatar(
                   initials: 'JD',
                   size: 40,
                 ),
-                // 2. 大尺寸 (Large)
+                // 2. Large size (Large)
                 AppAvatar(
                   initials: 'XY',
                   size: 56,

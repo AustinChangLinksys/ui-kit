@@ -181,7 +181,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
       buttonHeight: 52.0,
       navigationStyle: const NavigationStyle(
         height: 88.0, // height, because soft plastic needs more breathing space to present the shadow
-        isFloating: false, // fixed
+        isFloating: false,
         floatingMargin: 0.0,
         itemSpacing: 12.0,
       ),
@@ -191,7 +191,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         marginTablet: 40.0,
         marginDesktop: 80.0,
 
-        // gutter must be greater than (Shadow Blur Radius * 2), otherwise shadows will overlap
+        // Gutter must be greater than (Shadow Blur Radius * 2), otherwise shadows will overlap
         gutterMobile: 24.0,
         gutterTablet: 32.0,
         gutterDesktop: 40.0,
@@ -201,7 +201,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
 
   factory NeumorphicDesignTheme.dark([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultDarkScheme;
-    final darkBaseColor = scheme.surface; // 2D2D2D
+    final darkBaseColor = scheme.surface;
     final darkLightShadow = Color.alphaBlend(
         Colors.white.withValues(alpha: 0.1), scheme.surface); // Light shadow
     final darkDarkShadow = Color.alphaBlend(
@@ -297,7 +297,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           contentColor: scheme.onSurface,
           borderWidth: 0.0,
           borderRadius: 12.0,
-          // 模擬凹陷效果
+          // Simulate concave effect
           shadows: [
             BoxShadow(
                 color: neuShadow, offset: const Offset(2, 2), blurRadius: 4)
@@ -357,7 +357,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
       buttonHeight: 52.0,
       navigationStyle: const NavigationStyle(
         height: 88.0, // height, because soft plastic needs more breathing space to present the shadow
-        isFloating: false, // fixed
+        isFloating: false,
         floatingMargin: 0.0,
         itemSpacing: 12.0,
       ),

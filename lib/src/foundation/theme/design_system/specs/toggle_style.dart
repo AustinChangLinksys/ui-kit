@@ -20,7 +20,7 @@ class ToggleStyle {
   final IconData? activeIcon;
   final IconData? inactiveIcon;
 
-  // ✨ New: Component-specific style override (Optional)
+  // Component-specific style override (Optional)
   // If these are null, AppSwitch will fall back to using the global surfaceBase/Highlight
   final SurfaceStyle? activeTrackStyle; // Track when open
   final SurfaceStyle? inactiveTrackStyle; // Track when closed

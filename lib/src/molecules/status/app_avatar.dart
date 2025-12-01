@@ -27,12 +27,10 @@ class AppAvatar extends StatelessWidget {
       width: size,
       height: size,
       shape: BoxShape.circle, 
-      // ❌ Correction: When shape is circle, borderRadius should not be passed, AppSurface will handle it internally
-      // borderRadius: ... (Remove this line)
+      // 4. Content clipping: Ensure image does not exceed circular boundary
       
       padding: EdgeInsets.zero,
       
-      // 4. Content clipping: Ensure image does not exceed circular boundary
       child: ClipOval(
         child: imageUrl != null
             ? Image.network(
@@ -48,7 +46,6 @@ class AppAvatar extends StatelessWidget {
     );
   }
 
-  // ✨ Correction: Add BuildContext parameter
   Widget _buildFallback(BuildContext context, AppDesignTheme theme) {
     // Use Highlight color (usually Primary Color) as base tone
     final primaryColor = theme.surfaceHighlight.contentColor;
@@ -60,7 +57,7 @@ class AppAvatar extends StatelessWidget {
       color: primaryColor.withValues(alpha: 0.1),
       alignment: Alignment.center,
       child: Text(
-        // ✨ Correction: Add null safety logic
+        // Add null safety logic
         initials.isNotEmpty 
             ? initials.substring(0, initials.length.clamp(0, 2)).toUpperCase() 
             : "",

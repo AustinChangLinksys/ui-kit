@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
-// 引入共用工具
+// Import shared utilities
 import '../../test_utils/test_theme_matrix.dart';
 import '../../test_utils/golden_test_scenarios.dart';
 
@@ -13,7 +13,7 @@ void main() {
       'AppCheckbox Matrix',
       fileName: 'app_checkbox_matrix',
       builder: () => GoldenTestGroup(
-        columns: 3, // 排列: 未選 | 已選 | 禁用
+        columns: 3, // Arrangement: Unchecked | Checked | Disabled
         children: kTestThemeMatrix.entries.map((entry) {
           final themeName = entry.key;
           final themeData = entry.value;

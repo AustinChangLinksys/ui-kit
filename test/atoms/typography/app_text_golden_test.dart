@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_kit_library/src/atoms/typography/app_text.dart';
 
-// 引入共用工具
+// Import shared utilities
 import '../../test_utils/test_theme_matrix.dart';
 import '../../test_utils/golden_test_scenarios.dart';
 
@@ -18,13 +18,13 @@ void main() {
           return buildSafeScenario(
             name: entry.key,
             theme: entry.value,
-            width: 350, // 文字測試需要較寬的空間
-            height: 600, // 高度拉長以容納所有層級
+            width: 350, // Text tests require more width
+            height: 600, // Height extended to accommodate all levels
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // 1. Semantic Factories (語義化捷徑 - 最常用)
+                // 1. Semantic Factories (semantic shortcuts - most common)
                 const _SectionHeader('Semantic Aliases'),
                 AppText.headline('Headline (H3)'),
                 AppText.subhead('Subhead (Subtitle2)'),
@@ -35,7 +35,7 @@ void main() {
 
                 const Divider(height: 24),
 
-                // 2. Material 3 Standard Levels (標準層級 - 精確控制)
+                // 2. Material 3 Standard Levels (standard levels - precise control)
                 const _SectionHeader('Material 3 Scale'),
                 AppText.displaySmall('Display Small'),
                 AppText.headlineSmall('Headline Small'),
@@ -45,13 +45,13 @@ void main() {
 
                 const Divider(height: 24),
 
-                // 3. Custom Extensions (自定義擴充)
+                // 3. Custom Extensions (custom extensions)
                 const _SectionHeader('Custom / Overrides'),
                 AppText.bodyExtraSmall('Body Extra Small (10sp)'),
-                // 測試顏色覆寫
+                // Test color override
                 AppText.body('Colored Text (Primary)',
                     color: entry.value.colorScheme.primary),
-                // 測試粗細覆寫
+                // Test weight override
                 const AppText('Bold Body Text', fontWeight: FontWeight.w900),
               ],
             ),
@@ -62,7 +62,7 @@ void main() {
   });
 }
 
-// 測試用的小標題 Helper
+// Helper for test subtitles
 class _SectionHeader extends StatelessWidget {
   final String text;
   const _SectionHeader(this.text);

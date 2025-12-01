@@ -7,7 +7,7 @@ import '../../test_utils/golden_test_scenarios.dart';
 
 void main() {
   group('AppButton Golden Tests', () {
-    // 1. 標準狀態 (Highlight)
+    // 1. Standard State (Highlight)
     goldenTest(
       'AppButton - Highlight',
       fileName: 'app_button_highlight',
@@ -17,7 +17,7 @@ void main() {
           return buildSafeScenario(
             name: entry.key,
             theme: entry.value,
-            width: 300, // 寬度給足，防止 RenderFlex overflow
+            width: 300, // Sufficient width to prevent RenderFlex overflow
             height: 100,
             child: AppButton(
               label: 'Confirm',
@@ -29,7 +29,7 @@ void main() {
       ),
     );
 
-    // 2. Loading 狀態 (再也不會 Timeout 了!)
+    // 2. Loading State (no more Timeout!)
     goldenTest(
       'AppButton - Loading',
       fileName: 'app_button_loading',
@@ -41,8 +41,8 @@ void main() {
             theme: entry.value,
             width: 300,
             height: 100,
-            // buildSafeScenario 預設 disableAnimation: true
-            // 所以這裡的 Infinite Animation 會被凍結在第一幀，安全截圖
+            // buildSafeScenario defaults to disableAnimation: true
+            // So the Infinite Animation here will be frozen on the first frame, for safe screenshot
             child: AppButton(
               label: 'Loading',
               isLoading: true,
@@ -53,7 +53,7 @@ void main() {
       ),
     );
 
-    // 3. Disabled 狀態
+    // 3. Disabled State
     goldenTest(
       'AppButton - Disabled',
       fileName: 'app_button_disabled',

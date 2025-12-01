@@ -8,11 +8,11 @@ import '../../test_utils/test_theme_matrix.dart';
 import '../../test_utils/golden_test_scenarios.dart';
 
 void main() {
-  // 準備測試數據
+  // Prepare test data
   final navItems = [
     const AppNavigationItem(
       icon: Icon(Icons.home_outlined),
-      activeIcon: Icon(Icons.home), // 測試 activeIcon 替換邏輯
+      activeIcon: Icon(Icons.home), // Test activeIcon replacement logic
       label: 'Home',
     ),
     const AppNavigationItem(
@@ -30,22 +30,22 @@ void main() {
       'AppNavigationBar Theme Matrix',
       fileName: 'app_navigation_bar_matrix',
       builder: () => GoldenTestGroup(
-        // 導航列比較寬，我們用 1 欄排列，方便觀察細節
+        // The navigation bar is wider, we use 1 column for easier observation of details
         columns: 1,
         children: kTestThemeMatrix.entries.map((entry) {
           return buildSafeScenario(
             name: entry.key,
             theme: entry.value,
-            // 模擬手機螢幕寬度 (iPhone SE ~ 11 左右)
+            // Simulate phone screen width (iPhone SE ~ 11)
             width: 375.0,
-            // 高度給足一點，因為 Floating Bar 有 margin
+            // Give enough height, because Floating Bar has margin
             height: 120.0,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.end, // 靠下對齊，模擬真實位置
+              mainAxisAlignment: MainAxisAlignment.end, // Align to bottom, simulate real position
               children: [
                 AppNavigationBar(
                   items: navItems,
-                  currentIndex: 0, // 固定選中第一個，驗證 Active 狀態
+                  currentIndex: 0, // Select the first one, verify Active state
                   onTap: (_) {},
                 ),
               ],

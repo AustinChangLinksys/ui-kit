@@ -3,20 +3,20 @@
 import 'package:alchemist/alchemist.dart';
 import 'package:flutter/material.dart';
 
-/// 專案統一的 Golden Test 場景建構器
+/// Unified Golden Test scenario builder for the project
 ///
-/// 特性：
-/// 1. 強制尺寸限制 (SizedBox) - 防止 Layout Overflow / Infinite Size
-/// 2. 自動注入背景色 (ColoredBox) - 確保 Glass/Neumorphic 可見
-/// 3. 自動注入主題 (Theme)
-/// 4. 預設禁用動畫 (TickerMode) - 防止 Skeleton/Loading 導致 Timeout
+/// Features:
+/// 1. Forced size constraint (SizedBox) - prevents Layout Overflow / Infinite Size
+/// 2. Automatic background color injection (ColoredBox) - ensures Glass/Neumorphic visibility
+/// 3. Automatic theme injection (Theme)
+/// 4. Animation disabled by default (TickerMode) - prevents Skeleton/Loading from causing Timeout
 GoldenTestScenario buildSafeScenario({
   required String name,
   required ThemeData theme,
   required Widget child,
-  double width = 200.0, // 預設給予寬裕的空間
+  double width = 200.0, // Default to ample space
   double height = 100.0,
-  bool disableAnimation = true, // 預設關閉動畫，保證測試穩定
+  bool disableAnimation = true, // Animations disabled by default, ensuring test stability
 }) {
   return GoldenTestScenario(
     name: name,

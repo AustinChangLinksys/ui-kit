@@ -22,19 +22,19 @@ void main() {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // 1. 預設樣式 (Base Style)
+                // 1. Default style (Base Style)
                 const AppTag(label: '#Flutter'),
                 const SizedBox(height: 8),
                 
-                // 2. 自定義顏色 (Custom Tint)
-                // 觀察 Brutal 模式下，橘色 Tag 是否還有黑色粗框
+                // 2. Custom color (Custom Tint)
+                // Observe if orange Tag still has thick black border in Brutal mode
                 const AppTag(
                   label: '#DesignSystem',
                   color: Colors.orange,
                 ),
                 const SizedBox(height: 8),
                 
-                // 3. 可互動 (Interactive)
+                // 3. Interactive
                 AppTag(
                   label: 'Filter: Active',
                   onDeleted: () {},

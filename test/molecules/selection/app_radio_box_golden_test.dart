@@ -12,7 +12,7 @@ void main() {
       'AppRadio Matrix',
       fileName: 'app_radio_matrix',
       builder: () => GoldenTestGroup(
-        columns: 3, // 排列: 未選 | 已選 | 禁用
+        columns: 3, // Arrangement: Unselected | Selected | Disabled
         children: kTestThemeMatrix.entries.map((entry) {
           final themeName = entry.key;
           final themeData = entry.value;

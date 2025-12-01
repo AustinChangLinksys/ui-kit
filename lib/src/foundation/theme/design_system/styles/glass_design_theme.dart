@@ -23,7 +23,7 @@ class GlassDesignTheme extends AppDesignTheme {
     required super.layoutSpec,
   });
 
-  // --- Light Mode (Liquid Water) ---
+  // Light Mode (Liquid Water)
   factory GlassDesignTheme.light([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultLightScheme;
     final glassBaseColor = scheme.surface.withValues(alpha: 0.02);
