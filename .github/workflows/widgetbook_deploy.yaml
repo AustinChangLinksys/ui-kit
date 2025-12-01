@@ -33,7 +33,7 @@ jobs:
 
       - name: Build Web
         # Remember to replace <repo-name> with your project name
-        run: flutter build web -t widgetbook/lib/main.dart --base-href /<repo-name>/ --release
+        run: flutter build web -t widgetbook/lib/main.dart --base-href /ui-kit/ --release
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
