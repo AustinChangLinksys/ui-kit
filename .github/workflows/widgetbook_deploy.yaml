@@ -8,7 +8,8 @@ on:
       - 'lib/**' # Only trigger when UI code changes
       - 'widgetbook/**'
       - 'pubspec.yaml'
-
+  workflow_dispatch:
+    
 permissions:
   contents: write
 
