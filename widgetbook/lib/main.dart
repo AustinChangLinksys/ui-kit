@@ -8,6 +8,7 @@ import 'main.directories.g.dart';
 
 // 3. Import custom Addon
 import 'addons/design_system_addon.dart';
+import 'package:ui_kit_library/ui_kit.dart';
 
 void main() {
   runApp(const WidgetbookApp());
@@ -49,7 +50,7 @@ class WidgetbookApp extends StatelessWidget {
         // The Theme is now injected by DesignSystemAddon.buildUseCase
         // The child is already wrapped in a MaterialApp
         // So we just need to return the child directly
-        return child;
+        return DesignSystem.init(context, child);
       },
     );
   }

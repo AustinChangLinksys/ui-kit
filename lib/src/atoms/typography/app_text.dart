@@ -99,7 +99,8 @@ extension AppTextVariantX on AppTextVariant {
         // Ensure color follows current theme (because static definitions are usually black)
         style = specStyle.copyWith(
           color: textTheme.bodySmall?.color,
-          fontFamily: textTheme.bodySmall?.fontFamily, // Ensure consistent font family
+          fontFamily:
+              textTheme.bodySmall?.fontFamily, // Ensure consistent font family
         );
         break;
     }
@@ -127,6 +128,7 @@ class AppText extends StatelessWidget {
     this.overflow,
     this.fontWeight,
     this.height,
+    this.selectable = false,
   });
 
   final String data;
@@ -137,6 +139,7 @@ class AppText extends StatelessWidget {
   final TextOverflow? overflow;
   final FontWeight? fontWeight; // Allow fine-tuning of weight
   final double? height; // Allow fine-tuning of line height
+  final bool selectable; // Allow text selection
 
 // ==========================================
   // Semantic Factories
@@ -144,195 +147,291 @@ class AppText extends StatelessWidget {
   // ==========================================
 
   /// Headline (Page Title) -> Headline Medium
-  factory AppText.headline(String data,
-          {Color? color,
-          TextAlign? textAlign,
-          int? maxLines,
-          TextOverflow? overflow}) =>
+  factory AppText.headline(
+    String data, {
+    Color? color,
+    TextAlign? textAlign,
+    int? maxLines,
+    TextOverflow? overflow,
+    bool selectable = false,
+  }) =>
       AppText(data,
           variant: AppTextVariant.headlineMedium,
           color: color,
           textAlign: textAlign,
           maxLines: maxLines,
-          overflow: overflow);
+          overflow: overflow,
+          selectable: selectable);
 
   /// Subtitle (Section Title) -> Title Medium
-  factory AppText.subhead(String data,
-          {Color? color,
-          TextAlign? textAlign,
-          int? maxLines,
-          TextOverflow? overflow}) =>
+  factory AppText.subhead(
+    String data, {
+    Color? color,
+    TextAlign? textAlign,
+    int? maxLines,
+    TextOverflow? overflow,
+    bool selectable = false,
+  }) =>
       AppText(data,
           variant: AppTextVariant.titleMedium,
           color: color,
           textAlign: textAlign,
           maxLines: maxLines,
-          overflow: overflow);
+          overflow: overflow,
+          selectable: selectable);
 
   /// Body Text -> Body Medium
-  factory AppText.body(String data,
-          {Color? color,
-          TextAlign? textAlign,
-          int? maxLines,
-          TextOverflow? overflow}) =>
+  factory AppText.body(
+    String data, {
+    Color? color,
+    TextAlign? textAlign,
+    int? maxLines,
+    TextOverflow? overflow,
+    bool selectable = false,
+  }) =>
       AppText(data,
           variant: AppTextVariant.bodyMedium,
           color: color,
           textAlign: textAlign,
           maxLines: maxLines,
-          overflow: overflow);
+          overflow: overflow,
+          selectable: selectable);
 
   /// Caption -> Body Small
-  factory AppText.caption(String data,
-          {Color? color,
-          TextAlign? textAlign,
-          int? maxLines,
-          TextOverflow? overflow}) =>
+  factory AppText.caption(
+    String data, {
+    Color? color,
+    TextAlign? textAlign,
+    int? maxLines,
+    TextOverflow? overflow,
+    bool selectable = false,
+  }) =>
       AppText(data,
           variant: AppTextVariant.bodySmall,
           color: color,
           textAlign: textAlign,
           maxLines: maxLines,
-          overflow: overflow);
+          overflow: overflow,
+          selectable: selectable);
 
   /// Tiny Text (Tag / Timestamp) -> Body Extra Small
-  factory AppText.tiny(String data,
-          {Color? color,
-          TextAlign? textAlign,
-          int? maxLines,
-          TextOverflow? overflow}) =>
+  factory AppText.tiny(
+    String data, {
+    Color? color,
+    TextAlign? textAlign,
+    int? maxLines,
+    TextOverflow? overflow,
+    bool selectable = false,
+  }) =>
       AppText(data,
           variant: AppTextVariant.bodyExtraSmall,
           color: color,
           textAlign: textAlign,
           maxLines: maxLines,
-          overflow: overflow);
+          overflow: overflow,
+          selectable: selectable);
 
   // ==========================================
   // Material 3 Mapping Factories
   // ==========================================
 
-  factory AppText.displayLarge(String data,
-          {Color? color, TextAlign? textAlign}) =>
+  factory AppText.displayLarge(
+    String data, {
+    Color? color,
+    TextAlign? textAlign,
+    bool selectable = false,
+  }) =>
       AppText(data,
           variant: AppTextVariant.displayLarge,
           color: color,
-          textAlign: textAlign);
-  factory AppText.displayMedium(String data,
-          {Color? color, TextAlign? textAlign}) =>
+          textAlign: textAlign,
+          selectable: selectable);
+  factory AppText.displayMedium(
+    String data, {
+    Color? color,
+    TextAlign? textAlign,
+    bool selectable = false,
+  }) =>
       AppText(data,
           variant: AppTextVariant.displayMedium,
           color: color,
-          textAlign: textAlign);
-  factory AppText.displaySmall(String data,
-          {Color? color, TextAlign? textAlign}) =>
+          textAlign: textAlign,
+          selectable: selectable);
+  factory AppText.displaySmall(
+    String data, {
+    Color? color,
+    TextAlign? textAlign,
+    bool selectable = false,
+  }) =>
       AppText(data,
           variant: AppTextVariant.displaySmall,
           color: color,
-          textAlign: textAlign);
+          textAlign: textAlign,
+          selectable: selectable);
 
-  factory AppText.headlineLarge(String data,
-          {Color? color, TextAlign? textAlign}) =>
+  factory AppText.headlineLarge(
+    String data, {
+    Color? color,
+    TextAlign? textAlign,
+    bool selectable = false,
+  }) =>
       AppText(data,
           variant: AppTextVariant.headlineLarge,
           color: color,
-          textAlign: textAlign);
-  factory AppText.headlineMedium(String data,
-          {Color? color, TextAlign? textAlign}) =>
+          textAlign: textAlign,
+          selectable: selectable);
+  factory AppText.headlineMedium(
+    String data, {
+    Color? color,
+    TextAlign? textAlign,
+    bool selectable = false,
+  }) =>
       AppText(data,
           variant: AppTextVariant.headlineMedium,
           color: color,
-          textAlign: textAlign);
-  factory AppText.headlineSmall(String data,
-          {Color? color, TextAlign? textAlign}) =>
+          textAlign: textAlign,
+          selectable: selectable);
+  factory AppText.headlineSmall(
+    String data, {
+    Color? color,
+    TextAlign? textAlign,
+    bool selectable = false,
+  }) =>
       AppText(data,
           variant: AppTextVariant.headlineSmall,
           color: color,
-          textAlign: textAlign);
+          textAlign: textAlign,
+          selectable: selectable);
 
-  factory AppText.titleLarge(String data,
-          {Color? color, TextAlign? textAlign}) =>
+  factory AppText.titleLarge(
+    String data, {
+    Color? color,
+    TextAlign? textAlign,
+    bool selectable = false,
+  }) =>
       AppText(data,
           variant: AppTextVariant.titleLarge,
           color: color,
-          textAlign: textAlign);
-  factory AppText.titleMedium(String data,
-          {Color? color, TextAlign? textAlign}) =>
+          textAlign: textAlign,
+          selectable: selectable);
+  factory AppText.titleMedium(
+    String data, {
+    Color? color,
+    TextAlign? textAlign,
+    bool selectable = false,
+  }) =>
       AppText(data,
           variant: AppTextVariant.titleMedium,
           color: color,
-          textAlign: textAlign);
-  factory AppText.titleSmall(String data,
-          {Color? color, TextAlign? textAlign}) =>
+          textAlign: textAlign,
+          selectable: selectable);
+  factory AppText.titleSmall(
+    String data, {
+    Color? color,
+    TextAlign? textAlign,
+    bool selectable = false,
+  }) =>
       AppText(data,
           variant: AppTextVariant.titleSmall,
           color: color,
-          textAlign: textAlign);
+          textAlign: textAlign,
+          selectable: selectable);
 
-  factory AppText.labelLarge(String data,
-          {Color? color, TextAlign? textAlign}) =>
+  factory AppText.labelLarge(
+    String data, {
+    Color? color,
+    TextAlign? textAlign,
+    bool selectable = false,
+  }) =>
       AppText(data,
           variant: AppTextVariant.labelLarge,
           color: color,
-          textAlign: textAlign);
-  factory AppText.labelMedium(String data,
-          {Color? color, TextAlign? textAlign}) =>
+          textAlign: textAlign,
+          selectable: selectable);
+  factory AppText.labelMedium(
+    String data, {
+    Color? color,
+    TextAlign? textAlign,
+    bool selectable = false,
+  }) =>
       AppText(data,
           variant: AppTextVariant.labelMedium,
           color: color,
-          textAlign: textAlign);
-  factory AppText.labelSmall(String data,
-          {Color? color, TextAlign? textAlign}) =>
+          textAlign: textAlign,
+          selectable: selectable);
+  factory AppText.labelSmall(
+    String data, {
+    Color? color,
+    TextAlign? textAlign,
+    bool selectable = false,
+  }) =>
       AppText(data,
           variant: AppTextVariant.labelSmall,
           color: color,
-          textAlign: textAlign);
+          textAlign: textAlign,
+          selectable: selectable);
 
-  factory AppText.bodyLarge(String data,
-          {Color? color,
-          TextAlign? textAlign,
-          int? maxLines,
-          TextOverflow? overflow}) =>
+  factory AppText.bodyLarge(
+    String data, {
+    Color? color,
+    TextAlign? textAlign,
+    int? maxLines,
+    TextOverflow? overflow,
+    bool selectable = false,
+  }) =>
       AppText(data,
           variant: AppTextVariant.bodyLarge,
           color: color,
           textAlign: textAlign,
           maxLines: maxLines,
-          overflow: overflow);
-  factory AppText.bodyMedium(String data,
-          {Color? color,
-          TextAlign? textAlign,
-          int? maxLines,
-          TextOverflow? overflow}) =>
+          overflow: overflow,
+          selectable: selectable);
+  factory AppText.bodyMedium(
+    String data, {
+    Color? color,
+    TextAlign? textAlign,
+    int? maxLines,
+    TextOverflow? overflow,
+    bool selectable = false,
+  }) =>
       AppText(data,
           variant: AppTextVariant.bodyMedium,
           color: color,
           textAlign: textAlign,
           maxLines: maxLines,
-          overflow: overflow);
-  factory AppText.bodySmall(String data,
-          {Color? color,
-          TextAlign? textAlign,
-          int? maxLines,
-          TextOverflow? overflow}) =>
+          overflow: overflow,
+          selectable: selectable);
+  factory AppText.bodySmall(
+    String data, {
+    Color? color,
+    TextAlign? textAlign,
+    int? maxLines,
+    TextOverflow? overflow,
+    bool selectable = false,
+  }) =>
       AppText(data,
           variant: AppTextVariant.bodySmall,
           color: color,
           textAlign: textAlign,
           maxLines: maxLines,
-          overflow: overflow);
+          overflow: overflow,
+          selectable: selectable);
 
-  factory AppText.bodyExtraSmall(String data,
-          {Color? color,
-          TextAlign? textAlign,
-          int? maxLines,
-          TextOverflow? overflow}) =>
+  factory AppText.bodyExtraSmall(
+    String data, {
+    Color? color,
+    TextAlign? textAlign,
+    int? maxLines,
+    TextOverflow? overflow,
+    bool selectable = false,
+  }) =>
       AppText(data,
           variant: AppTextVariant.bodyExtraSmall,
           color: color,
           textAlign: textAlign,
           maxLines: maxLines,
-          overflow: overflow);
+          overflow: overflow,
+          selectable: selectable);
 
   @override
   Widget build(BuildContext context) {
@@ -343,10 +442,21 @@ class AppText extends StatelessWidget {
 
     // Overlay color and fine-tune
     final effectiveStyle = baseStyle.copyWith(
-      color: color ?? theme.surfaceBase.contentColor, // Default to current Surface content color
+      color: color ??
+          theme.surfaceBase
+              .contentColor, // Default to current Surface content color
       fontWeight: fontWeight,
       height: height,
     );
+
+    if (selectable) {
+      return SelectableText(
+        data,
+        style: effectiveStyle,
+        textAlign: textAlign,
+        maxLines: maxLines,
+      );
+    }
 
     return Text(
       data,

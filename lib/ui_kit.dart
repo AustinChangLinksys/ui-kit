@@ -6,6 +6,7 @@ library ui_kit;
 // -----------------------------------------------------------------------------
 export 'src/foundation/theme/tokens/app_theme.dart';
 export 'src/foundation/theme/app_typography.dart';
+export 'src/foundation/design_system.dart';
 
 // Unified Design System
 export 'src/foundation/theme/design_system/app_design_theme.dart';

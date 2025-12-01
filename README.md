@@ -1,16 +1,28 @@
 # UI Kit Library
 
-A high-cohesion, theme-driven UI component library for the USP Client POC project. This package follows **Atomic Design** principles to provide a robust and reusable set of widgets, designed for scalability and maintainability.
+A high-cohesion, theme-driven UI component library for the USP Client POC project. This package implements the **Unified Design System (v2.0)**, following **Atomic Design** principles to provide a robust, scalable, and maintainable set of widgets.
+
+It features a **Data-Driven Strategy (DDS)** that allows runtime switching between distinct visual languages (Glassmorphism, Neo-Brutalism, Flat, Neumorphic) without changing business logic.
 
 ## 🏗 Architecture
 
-This project is structured using **Atomic Design**:
+This project is structured using **Atomic Design** with strict architectural boundaries:
 
-- **Atoms** (`lib/src/atoms`): Basic building blocks (Icons, Typography, Colors, Buttons, simple inputs). High stability, low complexity.
-- **Molecules** (`lib/src/molecules`): Groups of atoms functioning together (Form fields with labels, Search bars, Card headers).
-- **Organisms** (`lib/src/organisms`): Complex UI components composed of groups of molecules and/or atoms (Forms, Navigation bars, Product cards).
-- **Layout** (`lib/src/layout`): Layout-specific components and wrappers.
-- **Foundation** (`lib/src/foundation`): Core utilities, theme definitions, generated assets, and constants.
+- **Foundation** (`lib/src/foundation`): The brain of the system. Contains `AppDesignTheme` contracts, `Specs` (Layout, Interaction, Typography), and Tokens.
+- **Atoms** (`lib/src/atoms`): The primitives.
+    - **`AppSurface`**: The core renderer handling physics, borders, shadows, and blur.
+    - Includes `AppText`, `AppGap`, `AppSkeleton`.
+- **Molecules** (`lib/src/molecules`): Semantic components composed of atoms.
+    - Buttons, Inputs, Toggles, Cards, Navigation.
+- **Organisms** (`lib/src/organisms`): Complex, standalone UI sections.
+- **Layout** (`lib/src/layout`): Responsive wrappers.
+
+## 🌟 Key Features (v2.0)
+
+* **Multi-Paradigm Support**: Seamlessly switch between **Glass** (Liquid), **Brutal** (Mechanical), **Flat** (Standard), and **Neumorphic** (Tactile) themes.
+* **Physics-Based Interaction**: Components inherit physical behaviors (Scale, Glow, Offset) from the active theme via `InteractionSpec`.
+* **Smart Layouts**: Spacing and margins automatically adapt to the theme's density using `spacingFactor`.
+* **Safe Mode Testing**: Automated Golden Tests covering the full 8-style matrix (4 themes × Light/Dark).
 
 ## 🚀 Getting Started
 
@@ -26,13 +38,13 @@ Add this package to your `pubspec.yaml`:
 dependencies:
   ui_kit_library:
     path: packages/ui_kit # Or git url
-```
+````
 
 ## 🛠 Development
 
 ### Code Generation
 
-This project relies heavily on code generation for Assets (`flutter_gen`) and Themes (`theme_tailor`).
+This project relies on code generation for Assets (`flutter_gen`) and Theme Extensions (`theme_tailor`).
 
 To run the code generator:
 
@@ -40,105 +52,95 @@ To run the code generator:
 dart run build_runner build --delete-conflicting-outputs
 ```
 
-### Assets
-
-Assets are managed in the `assets/` directory and code-generated into safe Dart accessors.
-
-- **Images**: `assets/images/`
-- **Icons**: `assets/icons/`
-- **Fonts**: `assets/fonts/`
-- **Animations**: `assets/anims/` (Rive files)
-
-**Usage:**
-Code is generated in `lib/src/foundation/gen/`.
-
 ### Widgetbook (Component Catalog)
 
-We use [Widgetbook](https://www.widgetbook.io/) to document and test components in isolation.
+We use [Widgetbook](https://www.widgetbook.io/) for interactive documentation and isolation testing.
 
-To run Widgetbook:
+**To run Widgetbook:**
 
 1.  Navigate to the widgetbook directory:
     ```bash
     cd widgetbook
     ```
-2.  Run the app:
+2.  Run the app (Web is recommended for Glass effects):
     ```bash
     flutter run -d chrome
     ```
-    (Or choose your preferred device/emulator)
 
-To generate Widgetbook use cases:
-```bash
-cd widgetbook
-dart run build_runner build --delete-conflicting-outputs
-```
+**To deploy:**
+The Widgetbook is automatically deployed to GitHub Pages via GitHub Actions.
 
 ## 🧪 Testing
 
 ### Unit & Widget Tests
-Run standard Flutter tests:
+
+Run standard logic tests:
 
 ```bash
 flutter test
 ```
 
-### Golden Tests
-We use `alchemist` for visual regression testing (Golden Tests).
+### Golden Tests (Visual Regression)
 
-To run golden tests:
+We use `alchemist` with a custom **Test Matrix** to verify all 8 styles simultaneously.
+
+To update golden files:
+
 ```bash
-flutter test --tags golden
+flutter test --update-goldens --tags golden
 ```
-*(Note: Ensure you are on the correct platform for golden generation if required)*
 
 ## ✨ Widgetbook Stories Overview
 
-Below is a summary of the UI components showcased in our Widgetbook, categorized by their Atomic Design level:
+Below is the summary of components available in our system:
 
-**Atoms (基本元件)**
--   **AppText**: 展示 `AppText` 的各種排版樣式 (Headline, Body, Caption 等) 與互動屬性。
--   **AppButton & AppIconButton**: 展示 `AppButton` 與 `AppIconButton` 的各種變體、尺寸與狀態 (Loading, Disabled)。
--   **AppSkeleton**: 展示 `AppSkeleton` 載入狀態，包含文字、圓形與複雜組件的骨架圖。
--   **Assets (AppIcon, ProductImage, ThemeAwareSvg)**: 展示 `AppIcon`, `ProductImage`, `ThemeAwareSvg` 等資源元件的顯示與主題切換效果。
--   **AppSurface**: 展示 `AppSurface` 的不同層級 (Base, Elevated, Highlight) 與互動效果。
--   **AppGap**: 展示 `AppGap` 的各種間距尺寸 (xxs 到 xxxl) 與 RWD Gutter。
+### Atoms (Basic Building Blocks)
 
-**Molecules (複合元件)**
--   **AppCard**: 展示 `AppCard` 的標題、內容與互動效果。
--   **AppSwitch**: 展示 `AppSwitch` 的開關狀態與禁用狀態。
--   **AppRadio**: 展示 `AppRadio` 單選按鈕群組的互動與狀態。
--   **AppCheckbox**: 展示 `AppCheckbox` 複選框的互動與狀態。
--   **AppSlider**: 展示 `AppSlider` 滑桿的連續與分段模式。
--   **AppDialog**: 展示 `AppDialog` 的標準對話框與彈出式視窗範例。
+  - **AppSurface**: The core container showcasing different levels (Base, Elevated, Highlight) and interactive physics.
+  - **AppText**: Supports the full Material 3 typography scale and semantic shortcuts (`.headline`, `.body`, `.tiny`).
+  - **AppGap**: Smart spacing component demonstrating various sizes (xxs-xxxl) and responsive gutters.
+  - **AppSkeleton**: Smart loading placeholder showcasing Pulse (Glass) and Blink (Brutal) animations.
+  - **Assets**: Showcases `AppIcon` and `ThemeAwareSvg` with automatic color adaptation.
 
-**Navigation (導航)**
--   **AppNavigationBar**: 展示 `AppNavigationBar` (底部導航) 的互動切換。
--   **AppNavigationRail**: 展示 `AppNavigationRail` (側邊導航) 在桌面佈局的應用。
+### Molecules (Functional Components)
 
-**Status (狀態)**
--   **AppTag**: 展示 `AppTag` 的標籤樣式、刪除功能與互動效果。
--   **AppBadge**: 展示 `AppBadge` 的狀態徽章樣式與自定義顏色。
--   **AppAvatar**: 展示 `AppAvatar` 的圖片與文字縮寫顯示，以及不同尺寸變化。
+  - **Buttons**:
+      - **AppButton**: Supports Size Variants (S/M/L), Loading states, and icon combinations.
+      - **AppIconButton**: Enforced 1:1 aspect ratio, shape adapts automatically to theme (Circle/Square).
+  - **Forms**:
+      - **AppTextField**: Supports Outline, Underline, and Filled variants, plus Focus/Error states.
+      - **AppSlider**: Supports continuous sliding and discrete steps (Divisions).
+      - **AppSwitch**: Demonstrates the Renderer Pattern (Texture/Text/Icon/Dot).
+      - **AppCheckbox / AppRadio**: State-driven selection controls.
+  - **Display**:
+      - **AppBadge**: Status badge supporting custom color tinting.
+      - **AppTag**: Label component supporting interaction and deletion.
+      - **AppAvatar**: Enforced circular avatar supporting image cropping and text fallback.
+      - **AppTooltip**: Supports multi-directional positioning and rich content popovers.
 
-**Layouts (佈局)**
--   **AppPageView**: 展示 `AppPageView` 的響應式網格佈局策略 (Span Logic vs Fixed Split)。
+### Navigation
 
-**Examples (範例頁面)**
--   **MockupPage**: 一個完整的 Mockup 頁面，整合了多種 UI 元件以展示實際應用場景。
--   **DashboardPage**: 一個複雜的 Dashboard 頁面範例，包含 RWD 佈局與多個功能區塊。
+  - **AppNavigationBar**: Bottom navigation bar showcasing the layout difference between Glass (Floating) and Brutal (Fixed).
+  - **AppNavigationRail**: Vertical side navigation for desktop/tablet layouts.
+
+### Examples (Scenarios)
+
+  - **DashboardPage**: A complete dashboard example (Kitchen Sink) integrating all components to demonstrate RWD layout and overall theme switching effects.
+  - **MockupPage**: Basic typography and layout example.
 
 ## 📚 Documentation
 
-Detailed specifications and plans can be found in the `specs/` directory:
-- `specs/001-ui-kit-init`: Initial setup and charter.
-- `specs/002-unified-design-system`: Design system specifications.
-- `specs/003-ui-kit-molecules`: Component specific specs.
+Detailed architecture decisions can be found in the `specs/` directory:
+
+  - `specs/002-unified-design-system`: Core Architecture & Data Model.
+  - `specs/003-ui-kit-molecules`: Component Implementation Plans.
 
 ## 📦 Dependencies
 
 Key packages used:
-- **Styling**: `theme_tailor_annotation`
-- **Assets**: `flutter_svg`, `rive`
-- **Animation**: `flutter_animate`
-- **Utilities**: `gap`, `equatable`
+
+  - **Styling**: `theme_tailor_annotation`
+  - **Layout**: `flutter_portal`, `gap`
+  - **Testing**: `alchemist`, `widgetbook`
+  - **Utils**: `equatable`, `flutter_animate`
+

@@ -1,7 +1,7 @@
 name: ui_kit_library
 description: A high-cohesion, theme-driven UI component library.
 version: 0.0.1
-homepage: https://your-repo-url.com
+homepage: https://github.com/AustinChangLinksys/ui-kit
 environment:
   sdk: '>=3.2.0 <4.0.0'
   flutter: ">=3.22.0"
@@ -22,6 +22,8 @@ dependencies:
   theme_tailor_annotation: ^3.1.1 # 自動生成 ThemeExtension (憲章 3.3)
   # --- Layout ---
   gap: ^3.0.1
+  # --- Portal ---
+  flutter_portal: ^1.1.4
 
 dev_dependencies:
   flutter_test:

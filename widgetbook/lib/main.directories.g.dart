@@ -39,6 +39,8 @@ import 'package:widgetbook_workspace/stories/molecules/cards/app_card.stories.da
     as _widgetbook_workspace_stories_molecules_cards_app_card_stories;
 import 'package:widgetbook_workspace/stories/molecules/dialogs/app_dialog.stories.dart'
     as _widgetbook_workspace_stories_molecules_dialogs_app_dialog_stories;
+import 'package:widgetbook_workspace/stories/molecules/display/app_tooltip.stories.dart'
+    as _widgetbook_workspace_stories_molecules_display_app_tooltip_stories;
 import 'package:widgetbook_workspace/stories/molecules/toggles/app_switch.stories.dart'
     as _widgetbook_workspace_stories_molecules_toggles_app_switch_stories;
 import 'package:widgetbook_workspace/stories/navigation/app_navigation_bar.story.dart'
@@ -310,6 +312,28 @@ final directories = <_widgetbook.WidgetbookNode>[
                 builder:
                     _widgetbook_workspace_stories_molecules_dialogs_app_dialog_stories
                         .buildAppDialog,
+              ),
+            ],
+          )
+        ],
+      ),
+      _widgetbook.WidgetbookFolder(
+        name: 'display',
+        children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'AppTooltip',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Interactive Tooltip',
+                builder:
+                    _widgetbook_workspace_stories_molecules_display_app_tooltip_stories
+                        .buildInteractiveTooltip,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Positions Gallery',
+                builder:
+                    _widgetbook_workspace_stories_molecules_display_app_tooltip_stories
+                        .buildTooltipGallery,
               ),
             ],
           )
