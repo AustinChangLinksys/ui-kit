@@ -27,6 +27,8 @@ import 'package:widgetbook_workspace/stories/atoms/typography/app_text.stories.d
     as _widgetbook_workspace_stories_atoms_typography_app_text_stories;
 import 'package:widgetbook_workspace/stories/examples/dashboard_page.stories.dart'
     as _widgetbook_workspace_stories_examples_dashboard_page_stories;
+import 'package:widgetbook_workspace/stories/examples/design_style_gallery.stories.dart'
+    as _widgetbook_workspace_stories_examples_design_style_gallery_stories;
 import 'package:widgetbook_workspace/stories/examples/mockup_page.stories.dart'
     as _widgetbook_workspace_stories_examples_mockup_page_stories;
 import 'package:widgetbook_workspace/stories/layouts/app_gap_stories.dart'
@@ -65,6 +67,40 @@ import 'package:widgetbook_workspace/stories/status/app_tag.stories.dart'
     as _widgetbook_workspace_stories_status_app_tag_stories;
 
 final directories = <_widgetbook.WidgetbookNode>[
+  _widgetbook.WidgetbookFolder(
+    name: 'Design Language Gallery',
+    children: [
+      _widgetbook.WidgetbookComponent(
+        name: 'AppDesignTheme',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Brutal Style (Mechanical)',
+            builder:
+                _widgetbook_workspace_stories_examples_design_style_gallery_stories
+                    .buildBrutalGallery,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Flat Style (Standard)',
+            builder:
+                _widgetbook_workspace_stories_examples_design_style_gallery_stories
+                    .buildFlatGallery,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Glass Style (Liquid)',
+            builder:
+                _widgetbook_workspace_stories_examples_design_style_gallery_stories
+                    .buildGlassGallery,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Neumorphic Style (Tactile)',
+            builder:
+                _widgetbook_workspace_stories_examples_design_style_gallery_stories
+                    .buildNeumorphicGallery,
+          ),
+        ],
+      )
+    ],
+  ),
   _widgetbook.WidgetbookFolder(
     name: 'Examples',
     children: [

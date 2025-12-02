@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ui_kit_library/src/foundation/theme/tokens/app_palette.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/input_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/interaction_spec.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/layout_spec.dart';
@@ -172,10 +171,12 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         ),
       ),
       loaderStyle: LoaderStyle(
+        type: LoaderType.circular,
         color: scheme.primary,
+        backgroundColor: scheme.surfaceContainerHighest.withValues(alpha: 0.5),
         strokeWidth: 6.0,
         size: 40.0,
-        period: const Duration(milliseconds: 1500),
+        period: const Duration(milliseconds: 1200),
       ),
       toastStyle: ToastStyle(
         padding: const EdgeInsets.all(20),
@@ -364,10 +365,12 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         ),
       ),
       loaderStyle: LoaderStyle(
+        type: LoaderType.circular,
         color: scheme.primary,
+        backgroundColor: scheme.surfaceContainerHighest.withValues(alpha: 0.5),
         strokeWidth: 6.0,
         size: 40.0,
-        period: const Duration(milliseconds: 1500),
+        period: const Duration(milliseconds: 1200),
       ),
       toastStyle: ToastStyle(
         padding: const EdgeInsets.all(20),

@@ -145,10 +145,16 @@ class BrutalDesignTheme extends AppDesignTheme {
         ),
       ),
       loaderStyle: LoaderStyle(
-        color: scheme.onSurface,
-        strokeWidth: 8.0,
-        size: 48.0,
+        type: LoaderType.block,
+        color: scheme.primary,
+        strokeWidth: 0,
+        size: 32.0,
         period: const Duration(milliseconds: 800),
+        borderRadius: 0.0,
+        shadows: [
+          const BoxShadow(
+              color: Colors.black, offset: Offset(4, 4), blurRadius: 0),
+        ],
       ),
       toastStyle: ToastStyle(
         padding: const EdgeInsets.all(16),
@@ -164,7 +170,7 @@ class BrutalDesignTheme extends AppDesignTheme {
       ),
       typography: const TypographySpec(
         bodyFontFamily: 'NeueHaasGrotTextRound',
-        displayFontFamily: 'NeueHaasGrotTextRound',        
+        displayFontFamily: 'NeueHaasGrotTextRound',
       ),
       animation: const AnimationSpec(
         duration: Duration(milliseconds: 150),
@@ -182,7 +188,6 @@ class BrutalDesignTheme extends AppDesignTheme {
         marginMobile: 24.0,
         marginTablet: 48.0,
         marginDesktop: 120.0,
-
         gutterMobile: 24.0,
         gutterTablet: 32.0,
         gutterDesktop: 40.0,
@@ -307,10 +312,16 @@ class BrutalDesignTheme extends AppDesignTheme {
         ),
       ),
       loaderStyle: LoaderStyle(
-        color: scheme.onSurface,
-        strokeWidth: 8.0,
-        size: 48.0,
+        type: LoaderType.block,
+        color: scheme.primary,
+        strokeWidth: 0,
+        size: 32.0,
         period: const Duration(milliseconds: 800),
+        borderRadius: 0.0,
+        shadows: [
+          const BoxShadow(
+              color: Colors.black, offset: Offset(4, 4), blurRadius: 0),
+        ],
       ),
       toastStyle: ToastStyle(
         padding: const EdgeInsets.all(16),
@@ -344,7 +355,6 @@ class BrutalDesignTheme extends AppDesignTheme {
         marginMobile: 24.0,
         marginTablet: 48.0,
         marginDesktop: 120.0,
-
         gutterMobile: 24.0,
         gutterTablet: 32.0,
         gutterDesktop: 40.0,

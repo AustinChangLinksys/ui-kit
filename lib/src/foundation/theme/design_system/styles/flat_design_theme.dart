@@ -176,6 +176,7 @@ class FlatDesignTheme extends AppDesignTheme {
         ),
       ),
       loaderStyle: LoaderStyle(
+        type: LoaderType.circular,
         color: scheme.primary,
         strokeWidth: 4.0,
         size: 32.0,
@@ -360,6 +361,7 @@ class FlatDesignTheme extends AppDesignTheme {
         strokeWidth: 4.0,
         size: 32.0,
         period: const Duration(seconds: 1),
+        type: LoaderType.circular,
       ),
       toastStyle: ToastStyle(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),

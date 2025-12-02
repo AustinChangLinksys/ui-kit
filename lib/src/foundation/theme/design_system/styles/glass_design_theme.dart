@@ -63,18 +63,19 @@ class GlassDesignTheme extends AppDesignTheme {
         contentColor: scheme.onSurface,
       ),
       surfaceHighlight: SurfaceStyle(
-        backgroundColor: scheme.primary.withValues(alpha: 0.1),
-        borderColor: scheme.primary.withValues(alpha: 0.3),
+        backgroundColor: scheme.primary.withValues(alpha: 0.15),
+        borderColor: Colors.white.withValues(alpha: 0.5),
         borderWidth: 1.5,
-        borderRadius: 16.0,
+        borderRadius: 24.0,
+        blurStrength: 20.0,
         shadows: [
           BoxShadow(
-            color: scheme.primary.withValues(alpha: 0.15),
-            blurRadius: 15,
-            spreadRadius: 2,
+            color: scheme.primary.withValues(alpha: 0.25),
+            blurRadius: 12,
+            spreadRadius: -2,
+            offset: const Offset(0, 4),
           )
         ],
-        blurStrength: 15.0,
         contentColor: scheme.primary,
         interaction: const InteractionSpec(
           pressedScale: 0.92,
@@ -184,10 +185,18 @@ class GlassDesignTheme extends AppDesignTheme {
         ),
       ),
       loaderStyle: LoaderStyle(
-        color: scheme.primary.withValues(alpha: 0.8),
+        type: LoaderType.pulse,
+        color: scheme.primary,
         strokeWidth: 4.0,
-        size: 32.0,
-        period: const Duration(seconds: 2),
+        size: 48.0,
+        period: const Duration(milliseconds: 1500),
+        shadows: [
+          BoxShadow(
+            color: scheme.primary.withValues(alpha: 0.6),
+            blurRadius: 20,
+            spreadRadius: 2,
+          ),
+        ],
       ),
       toastStyle: ToastStyle(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -225,12 +234,16 @@ class GlassDesignTheme extends AppDesignTheme {
     scheme ??= AppTheme.defaultDarkScheme;
     return GlassDesignTheme._(
       surfaceBase: SurfaceStyle(
-        backgroundColor: Colors.black.withValues(alpha: 0.2),
-        borderColor: Colors.white.withValues(alpha: 0.1),
-        borderWidth: 1.0,
+        backgroundColor: Colors.black.withValues(alpha: 0.3),
+        borderColor: Colors.white.withValues(alpha: 0.2),
+        borderWidth: 1.5,
         borderRadius: 24.0,
         shadows: [
-          BoxShadow(color: Colors.black.withValues(alpha: 0.3), blurRadius: 24)
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.3),
+            blurRadius: 24,
+            spreadRadius: 0,
+          ),
         ],
         blurStrength: 25.0,
         contentColor: scheme.onSurface,
@@ -367,10 +380,18 @@ class GlassDesignTheme extends AppDesignTheme {
         ),
       ),
       loaderStyle: LoaderStyle(
-        color: scheme.primary.withValues(alpha: 0.8),
+        type: LoaderType.circular,
+        color: scheme.primary,
         strokeWidth: 4.0,
-        size: 32.0,
-        period: const Duration(seconds: 2),
+        size: 48.0,
+        period: const Duration(milliseconds: 1500),
+        shadows: [
+          BoxShadow(
+            color: scheme.primary.withValues(alpha: 0.6),
+            blurRadius: 20,
+            spreadRadius: 2,
+          ),
+        ],
       ),
       toastStyle: ToastStyle(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),

@@ -5,6 +5,8 @@ library ui_kit;
 // Contains: Theme factory, layout settings, color definitions, text definitions, special material themes
 // -----------------------------------------------------------------------------
 export 'src/foundation/theme/tokens/app_theme.dart';
+export 'src/foundation/theme/tokens/app_palette.dart';
+
 export 'src/foundation/theme/app_typography.dart';
 export 'src/foundation/design_system.dart';
 

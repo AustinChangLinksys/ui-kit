@@ -1,10 +1,21 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/layout_spec.dart';
+import 'package:ui_kit_library/ui_kit.dart';
 
 extension LayoutContext on BuildContext {
   // 1. Basic access
-  LayoutSpec get layout => Theme.of(this).extension<LayoutSpec>()!;
+  LayoutSpec get layout {
+    // ✨ 修正點：先取得 AppDesignTheme，再拿裡面的 layout
+    final theme = Theme.of(this).extension<AppDesignTheme>();
+    if (theme == null) {
+      // 防呆：清楚的錯誤訊息
+      throw FlutterError('AppDesignTheme not found in context.\n'
+          'Ensure that your app is wrapped with a Theme that includes AppDesignTheme (via AppTheme.create).');
+    }
+    return theme.layoutSpec;
+  }
+
   double get screenWidth => MediaQuery.sizeOf(this).width;
   double get screenHeight => MediaQuery.sizeOf(this).height;
 
