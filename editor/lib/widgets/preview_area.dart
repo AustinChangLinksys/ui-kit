@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 import '../controllers/theme_editor_controller.dart';
@@ -55,35 +54,35 @@ class PreviewArea extends StatelessWidget {
 class _DashboardHeroDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final theme = AppTheme.of(context);
-
     return SingleChildScrollView(
-      padding: EdgeInsets.all(theme.spacingFactor * 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Title
-          AppText(
-            'Theme Preview',
-            variant: AppTextVariant.headlineSmall,
-          ),
-          Gap(theme.spacingFactor * 24),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Title
+            AppText(
+              'Theme Preview',
+              variant: AppTextVariant.headlineSmall,
+            ),
+            AppGap.xl(),
 
-          // Color Palette Preview
-          _ColorPalettePreview(theme: theme),
-          Gap(theme.spacingFactor * 24),
+            // Color Palette Preview
+            _ColorPalettePreview(),
+            AppGap.xl(),
 
-          // Typography Preview
-          _TypographyPreview(theme: theme),
-          Gap(theme.spacingFactor * 24),
+            // Typography Preview
+            _TypographyPreview(),
+            AppGap.xl(),
 
-          // Surface Variants Preview
-          _SurfaceVariantsPreview(theme: theme),
-          Gap(theme.spacingFactor * 24),
+            // Surface Variants Preview
+            _SurfaceVariantsPreview(),
+            AppGap.xl(),
 
-          // Components Preview
-          _ComponentsPreview(theme: theme),
-        ],
+            // Components Preview
+            _ComponentsPreview(),
+          ],
+        ),
       ),
     );
   }
@@ -91,9 +90,7 @@ class _DashboardHeroDemo extends StatelessWidget {
 
 /// Displays color palette from the theme using UI Kit
 class _ColorPalettePreview extends StatelessWidget {
-  final AppDesignTheme theme;
-
-  const _ColorPalettePreview({required this.theme});
+  const _ColorPalettePreview();
 
   @override
   Widget build(BuildContext context) {
@@ -102,10 +99,10 @@ class _ColorPalettePreview extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AppText('Colors', variant: AppTextVariant.titleMedium),
-        Gap(theme.spacingFactor * 12),
+        AppGap.md(),
         Wrap(
-          spacing: theme.spacingFactor * 12,
-          runSpacing: theme.spacingFactor * 12,
+          spacing: 12,
+          runSpacing: 12,
           children: [
             _ColorBox(color: colorScheme.primary, label: 'Primary'),
             _ColorBox(color: colorScheme.secondary, label: 'Secondary'),
@@ -137,7 +134,7 @@ class _ColorBox extends StatelessWidget {
             child: Container(color: color),
           ),
         ),
-        Gap(8),
+        AppGap.xs(),
         AppText(label, variant: AppTextVariant.bodySmall),
       ],
     );
@@ -146,9 +143,7 @@ class _ColorBox extends StatelessWidget {
 
 /// Displays typography hierarchy using AppText
 class _TypographyPreview extends StatelessWidget {
-  final AppDesignTheme theme;
-
-  const _TypographyPreview({required this.theme});
+  const _TypographyPreview();
 
   @override
   Widget build(BuildContext context) {
@@ -156,7 +151,7 @@ class _TypographyPreview extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AppText('Typography', variant: AppTextVariant.titleMedium),
-        Gap(theme.spacingFactor * 12),
+        AppGap.md(),
         AppText('Headline', variant: AppTextVariant.headlineSmall),
         AppText('Title Medium', variant: AppTextVariant.titleMedium),
         AppText('Body Text', variant: AppTextVariant.bodyMedium),
@@ -168,9 +163,7 @@ class _TypographyPreview extends StatelessWidget {
 
 /// Displays surface variants using AppSurface
 class _SurfaceVariantsPreview extends StatelessWidget {
-  final AppDesignTheme theme;
-
-  const _SurfaceVariantsPreview({required this.theme});
+  const _SurfaceVariantsPreview();
 
   @override
   Widget build(BuildContext context) {
@@ -178,20 +171,24 @@ class _SurfaceVariantsPreview extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AppText('Surface Variants', variant: AppTextVariant.titleMedium),
-        Gap(theme.spacingFactor * 12),
+        AppGap.md(),
         Row(
           children: [
             Expanded(
               child: AppSurface(
-                padding: EdgeInsets.all(theme.spacingFactor * 12),
-                child: AppText('Base', variant: AppTextVariant.bodySmall),
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: AppText('Base', variant: AppTextVariant.bodySmall),
+                ),
               ),
             ),
-            Gap(theme.spacingFactor * 12),
+            AppGap.md(),
             Expanded(
               child: AppSurface(
-                padding: EdgeInsets.all(theme.spacingFactor * 12),
-                child: AppText('Elevated', variant: AppTextVariant.bodySmall),
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: AppText('Elevated', variant: AppTextVariant.bodySmall),
+                ),
               ),
             ),
           ],
@@ -203,9 +200,7 @@ class _SurfaceVariantsPreview extends StatelessWidget {
 
 /// Displays sample components using UI Kit widgets
 class _ComponentsPreview extends StatelessWidget {
-  final AppDesignTheme theme;
-
-  const _ComponentsPreview({required this.theme});
+  const _ComponentsPreview();
 
   @override
   Widget build(BuildContext context) {
@@ -213,7 +208,7 @@ class _ComponentsPreview extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AppText('Components', variant: AppTextVariant.titleMedium),
-        Gap(theme.spacingFactor * 12),
+        AppGap.md(),
 
         // Buttons
         Row(
@@ -222,7 +217,7 @@ class _ComponentsPreview extends StatelessWidget {
               label: 'Primary',
               onTap: () {},
             ),
-            Gap(theme.spacingFactor * 12),
+            AppGap.md(),
             AppButton(
               label: 'Secondary',
               onTap: () {},
@@ -230,13 +225,13 @@ class _ComponentsPreview extends StatelessWidget {
             ),
           ],
         ),
-        Gap(theme.spacingFactor * 12),
+        AppGap.md(),
 
         // Input Field - shows InputStyle changes
         AppTextFormField(
           label: 'Input Field',
         ),
-        Gap(theme.spacingFactor * 12),
+        AppGap.md(),
 
         // Toggle/Switch - shows ToggleStyle changes
         Row(
@@ -245,16 +240,16 @@ class _ComponentsPreview extends StatelessWidget {
               value: true,
               onChanged: (_) {},
             ),
-            Gap(theme.spacingFactor * 12),
+            AppGap.md(),
             AppText('Enabled', variant: AppTextVariant.bodyMedium),
           ],
         ),
-        Gap(theme.spacingFactor * 12),
+        AppGap.md(),
 
         // Card - shows SurfaceStyle changes
         AppCard(
           child: Padding(
-            padding: EdgeInsets.all(theme.spacingFactor * 12),
+            padding: const EdgeInsets.all(12),
             child: AppText('Sample Card', variant: AppTextVariant.bodyMedium),
           ),
         ),
