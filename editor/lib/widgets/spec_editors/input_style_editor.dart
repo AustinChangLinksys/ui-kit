@@ -37,9 +37,15 @@ class _InputStyleEditorState extends State<InputStyleEditor> {
   }
 
   void _handleOutlineStyleChanged(SurfaceStyle style) {
-    // Create updated InputStyle with new outlineStyle
-    // Note: This uses the dynamic copyWith pattern since InputStyle is not exported
-    final updated = (_currentInputStyle as dynamic).copyWith(outlineStyle: style);
+    // Create new InputStyle with updated outlineStyle
+    // Using dynamic constructor since InputStyle is not exported
+    final updated = ((_currentInputStyle as dynamic).runtimeType as dynamic)(
+      outlineStyle: style,
+      underlineStyle: (_currentInputStyle as dynamic).underlineStyle,
+      filledStyle: (_currentInputStyle as dynamic).filledStyle,
+      focusModifier: (_currentInputStyle as dynamic).focusModifier,
+      errorModifier: (_currentInputStyle as dynamic).errorModifier,
+    );
     setState(() {
       _currentInputStyle = updated;
     });
@@ -47,7 +53,13 @@ class _InputStyleEditorState extends State<InputStyleEditor> {
   }
 
   void _handleUnderlineStyleChanged(SurfaceStyle style) {
-    final updated = (_currentInputStyle as dynamic).copyWith(underlineStyle: style);
+    final updated = ((_currentInputStyle as dynamic).runtimeType as dynamic)(
+      outlineStyle: (_currentInputStyle as dynamic).outlineStyle,
+      underlineStyle: style,
+      filledStyle: (_currentInputStyle as dynamic).filledStyle,
+      focusModifier: (_currentInputStyle as dynamic).focusModifier,
+      errorModifier: (_currentInputStyle as dynamic).errorModifier,
+    );
     setState(() {
       _currentInputStyle = updated;
     });
@@ -55,7 +67,13 @@ class _InputStyleEditorState extends State<InputStyleEditor> {
   }
 
   void _handleFilledStyleChanged(SurfaceStyle style) {
-    final updated = (_currentInputStyle as dynamic).copyWith(filledStyle: style);
+    final updated = ((_currentInputStyle as dynamic).runtimeType as dynamic)(
+      outlineStyle: (_currentInputStyle as dynamic).outlineStyle,
+      underlineStyle: (_currentInputStyle as dynamic).underlineStyle,
+      filledStyle: style,
+      focusModifier: (_currentInputStyle as dynamic).focusModifier,
+      errorModifier: (_currentInputStyle as dynamic).errorModifier,
+    );
     setState(() {
       _currentInputStyle = updated;
     });
@@ -63,7 +81,13 @@ class _InputStyleEditorState extends State<InputStyleEditor> {
   }
 
   void _handleFocusModifierChanged(SurfaceStyle style) {
-    final updated = (_currentInputStyle as dynamic).copyWith(focusModifier: style);
+    final updated = ((_currentInputStyle as dynamic).runtimeType as dynamic)(
+      outlineStyle: (_currentInputStyle as dynamic).outlineStyle,
+      underlineStyle: (_currentInputStyle as dynamic).underlineStyle,
+      filledStyle: (_currentInputStyle as dynamic).filledStyle,
+      focusModifier: style,
+      errorModifier: (_currentInputStyle as dynamic).errorModifier,
+    );
     setState(() {
       _currentInputStyle = updated;
     });
@@ -71,7 +95,13 @@ class _InputStyleEditorState extends State<InputStyleEditor> {
   }
 
   void _handleErrorModifierChanged(SurfaceStyle style) {
-    final updated = (_currentInputStyle as dynamic).copyWith(errorModifier: style);
+    final updated = ((_currentInputStyle as dynamic).runtimeType as dynamic)(
+      outlineStyle: (_currentInputStyle as dynamic).outlineStyle,
+      underlineStyle: (_currentInputStyle as dynamic).underlineStyle,
+      filledStyle: (_currentInputStyle as dynamic).filledStyle,
+      focusModifier: (_currentInputStyle as dynamic).focusModifier,
+      errorModifier: style,
+    );
     setState(() {
       _currentInputStyle = updated;
     });
