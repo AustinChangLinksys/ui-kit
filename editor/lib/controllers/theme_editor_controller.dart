@@ -55,8 +55,7 @@ class ThemeEditorController extends ChangeNotifier {
   }
 
   /// Update Input Style
-  void updateInputStyle(dynamic style) {
-    // Accepts any inputStyle object, ensures it has copyWith capability
+  void updateInputStyle(InputStyle style) {
     final updated = _currentTheme.copyWith(inputStyle: style);
     _currentTheme = updated;
     _hasUnsavedChanges = true;

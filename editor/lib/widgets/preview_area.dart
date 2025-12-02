@@ -239,13 +239,8 @@ class _ComponentsPreview extends StatelessWidget {
           ],
         ),
         SizedBox(height: 12),
-        TextField(
-          decoration: InputDecoration(
-            labelText: 'Input Field',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(theme.surfaceBase.borderRadius),
-            ),
-          ),
+        AppTextFormField(
+          label: 'Input Field',
         ),
       ],
     );
