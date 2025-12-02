@@ -28,16 +28,17 @@ Build a standalone Flutter Web application that provides a WYSIWYG interface for
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-**Status**: ✅ PASS (Constitution template unfilled; no explicit constraints violated)
+**Status**: ✅ PASS (Version 2.0.0 confirmed)
 
 **Gate Evaluation**:
-- ✅ **Isolation Verified**: Editor is a standalone app in `editor/` directory, consuming UI Kit as external dependency
-- ✅ **Dependency Isolation**: Zero editor-specific dependencies added to core UI Kit's pubspec.yaml
-- ✅ **Testing Strategy**: Component widgets are testable independently; editor itself is end-user tool, not library code
-- ✅ **Simplicity**: Single-app architecture with clear separation of concerns (state → UI → export)
-- ✅ **Offline Operation**: No external API calls; all logic runs locally in browser
+- ✅ **Physical Isolation (2.1)**: Editor is a standalone app in `editor/` directory, strictly decoupled.
+- ✅ **Dependency Hygiene (2.2)**: Consumes UI Kit as external dependency; zero editor-specific dependencies in core library.
+- ✅ **Primitive Usage (5.1)**: Editor UI components will compose `AppSurface` for consistent styling where applicable.
+- ✅ **No Runtime Type Checks (6.1)**: Editor logic relies on `AppDesignTheme` properties, not type checking.
+- ✅ **Assets (7.1, 7.2)**: Will use `flutter_gen` and SVG icons; no string paths or raw asset references.
+- ✅ **Testing (12.2)**: Golden tests will follow Safe Mode Protocol (fixed sizes, background visibility).
 
-**Constitution Note**: The project constitution is a template (unfilled). No explicit constraints conflict with this implementation plan. The editor follows library-first principles by remaining isolated and not polluting the core library.
+**Constitution Note**: Complies with Constitution v2.0.0. The editor serves as a tooling layer to support the library's "Theme-Driven" vision (Section 1).
 
 ## Project Structure
 
@@ -107,7 +108,11 @@ The structure is intentionally flat and focused, as this is a tool application, 
 
 ## Complexity Tracking
 
-**Status**: ✅ NO VIOLATIONS — No complexity trade-offs needed. All design decisions maintain simplicity.
+**Status**: ✅ COMPLIANT — Design adheres to Constitution v2.0.0 constraints.
+
+**Constraints & Trade-offs**:
+- **AppSurface Mandate (5.1)**: All custom editor UI containers must wrap `AppSurface` rather than raw `Container`, ensuring visual consistency with the library's design language.
+- **Strict Typing (6.1)**: Logic must avoid `is BrutalTheme` checks; all conditional rendering must be driven by `AppDesignTheme` data or explicit flags.
 
 ---
 

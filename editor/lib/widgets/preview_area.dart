@@ -2,10 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 import '../controllers/theme_editor_controller.dart';
+import 'templates/component_showcase_template.dart';
+import 'templates/dashboard_template.dart';
+import 'templates/settings_template.dart';
+
+enum PreviewTemplate {
+  components('Components'),
+  dashboard('Dashboard'),
+  settings('Settings');
+
+  final String label;
+  const PreviewTemplate(this.label);
+}
 
 /// Widget that displays a live preview of the current theme
 /// All preview components use UI Kit library widgets
-class PreviewArea extends StatelessWidget {
+class PreviewArea extends StatefulWidget {
   final double? previewWidth;
 
   const PreviewArea({
@@ -14,246 +26,169 @@ class PreviewArea extends StatelessWidget {
   });
 
   @override
+  State<PreviewArea> createState() => _PreviewAreaState();
+}
+
+class _PreviewAreaState extends State<PreviewArea> {
+  PreviewTemplate _selectedTemplate = PreviewTemplate.components;
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<ThemeEditorController>(
       builder: (context, themeController, _) {
-        return Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey.shade300),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Center(
-              child: SizedBox(
-                width: previewWidth,
-                child: Theme(
-                  data: AppTheme.create(
-                    brightness: themeController.brightness,
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // Template Selector Toolbar
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border(
+                      bottom: BorderSide(color: Colors.grey.shade300),
+                    ),
                   ),
-                  child: Builder(
-                    builder: (context) {
-                      return Scaffold(
-                        backgroundColor: AppTheme.of(context).surfaceBase.backgroundColor,
-                        body: _DashboardHeroDemo(),
-                      );
-                    },
+                  child: Row(
+                    children: [
+                      const Text(
+                        'Preview Template:',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      DropdownButton<PreviewTemplate>(
+                        value: _selectedTemplate,
+                        items: PreviewTemplate.values.map((template) {
+                          return DropdownMenuItem(
+                            value: template,
+                            child: Text(template.label),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          if (value != null) {
+                            setState(() {
+                              _selectedTemplate = value;
+                            });
+                          }
+                        },
+                        isDense: true,
+                        underline: Container(),
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black87,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            ),
-          ),
+                
+                // Preview Content
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFE5E5E5), // Neutral canvas background
+                      // border: Border.all(color: Colors.grey.shade300), // Border moved to outer container if needed, or removed
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.zero, // Changed from circular 8 as it's full panel now
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(24.0), // Padding to show canvas
+                          child: Container(
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  blurRadius: 20,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16), // Device-like rounded corners
+                              child: SizedBox(
+                                width: widget.previewWidth,
+                                child: Theme(
+                                  data: AppTheme.create(
+                                    brightness: themeController.brightness,
+                                    // seedColor is redundant if we pass colorSchemeOverride, but keep for safety
+                                    seedColor: themeController.seedColor,
+                                    colorSchemeOverride: themeController.createColorScheme(themeController.brightness),
+                                    designThemeBuilder: (_) => themeController.currentTheme,
+                                  ),
+                                  child: Builder(
+                                    builder: (context) {
+                                      // Responsive logic based on effective width
+                                      final effectiveWidth = widget.previewWidth ?? constraints.maxWidth;
+                                      final isMobile = effectiveWidth < 600;
+
+                                      Widget body;
+                                      switch (_selectedTemplate) {
+                                        case PreviewTemplate.components:
+                                          body = const ComponentShowcaseTemplate();
+                                          break;
+                                        case PreviewTemplate.dashboard:
+                                          body = const DashboardTemplate();
+                                          break;
+                                        case PreviewTemplate.settings:
+                                          body = const SettingsTemplate();
+                                          break;
+                                      }
+
+                                      Widget? bottomNav;
+
+                                      if (isMobile) {
+                                        bottomNav = AppNavigationBar(
+                                          items: const [
+                                            AppNavigationItem(icon: Icon(Icons.home), label: 'Home'),
+                                            AppNavigationItem(icon: Icon(Icons.settings), label: 'Settings'),
+                                          ],
+                                          currentIndex: 0,
+                                          onTap: (_) {},
+                                        );
+                                      } else {
+                                        body = Row(
+                                          children: [
+                                            AppNavigationRail(
+                                              items: const [
+                                                AppNavigationItem(icon: Icon(Icons.home), label: 'Home'),
+                                                AppNavigationItem(icon: Icon(Icons.settings), label: 'Settings'),
+                                              ],
+                                              currentIndex: 0,
+                                              onTap: (_) {},
+                                            ),
+                                            Expanded(child: body),
+                                          ],
+                                        );
+                                      }
+
+                                      return Scaffold(
+                                        backgroundColor: AppTheme.of(context).surfaceBase.backgroundColor,
+                                        body: body,
+                                        bottomNavigationBar: bottomNav,
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
         );
       },
-    );
-  }
-}
-
-/// Hero demo page showing key UI components from the dashboard
-/// All components use UI Kit library
-class _DashboardHeroDemo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Title
-            AppText(
-              'Theme Preview',
-              variant: AppTextVariant.headlineSmall,
-            ),
-            AppGap.xl(),
-
-            // Color Palette Preview
-            _ColorPalettePreview(),
-            AppGap.xl(),
-
-            // Typography Preview
-            _TypographyPreview(),
-            AppGap.xl(),
-
-            // Surface Variants Preview
-            _SurfaceVariantsPreview(),
-            AppGap.xl(),
-
-            // Components Preview
-            _ComponentsPreview(),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// Displays color palette from the theme using UI Kit
-class _ColorPalettePreview extends StatelessWidget {
-  const _ColorPalettePreview();
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        AppText('Colors', variant: AppTextVariant.titleMedium),
-        AppGap.md(),
-        Wrap(
-          spacing: 12,
-          runSpacing: 12,
-          children: [
-            _ColorBox(color: colorScheme.primary, label: 'Primary'),
-            _ColorBox(color: colorScheme.secondary, label: 'Secondary'),
-            _ColorBox(color: colorScheme.tertiary, label: 'Tertiary'),
-            _ColorBox(color: colorScheme.error, label: 'Error'),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-/// Small color indicator box with label using AppSurface
-class _ColorBox extends StatelessWidget {
-  final Color color;
-  final String label;
-
-  const _ColorBox({required this.color, required this.label});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        AppSurface(
-          child: SizedBox(
-            width: 60,
-            height: 60,
-            child: Container(color: color),
-          ),
-        ),
-        AppGap.xs(),
-        AppText(label, variant: AppTextVariant.bodySmall),
-      ],
-    );
-  }
-}
-
-/// Displays typography hierarchy using AppText
-class _TypographyPreview extends StatelessWidget {
-  const _TypographyPreview();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        AppText('Typography', variant: AppTextVariant.titleMedium),
-        AppGap.md(),
-        AppText('Headline', variant: AppTextVariant.headlineSmall),
-        AppText('Title Medium', variant: AppTextVariant.titleMedium),
-        AppText('Body Text', variant: AppTextVariant.bodyMedium),
-        AppText('Caption', variant: AppTextVariant.bodySmall),
-      ],
-    );
-  }
-}
-
-/// Displays surface variants using AppSurface
-class _SurfaceVariantsPreview extends StatelessWidget {
-  const _SurfaceVariantsPreview();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        AppText('Surface Variants', variant: AppTextVariant.titleMedium),
-        AppGap.md(),
-        Row(
-          children: [
-            Expanded(
-              child: AppSurface(
-                child: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: AppText('Base', variant: AppTextVariant.bodySmall),
-                ),
-              ),
-            ),
-            AppGap.md(),
-            Expanded(
-              child: AppSurface(
-                child: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: AppText('Elevated', variant: AppTextVariant.bodySmall),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-/// Displays sample components using UI Kit widgets
-class _ComponentsPreview extends StatelessWidget {
-  const _ComponentsPreview();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        AppText('Components', variant: AppTextVariant.titleMedium),
-        AppGap.md(),
-
-        // Buttons
-        Row(
-          children: [
-            AppButton(
-              label: 'Primary',
-              onTap: () {},
-            ),
-            AppGap.md(),
-            AppButton(
-              label: 'Secondary',
-              onTap: () {},
-              variant: SurfaceVariant.base,
-            ),
-          ],
-        ),
-        AppGap.md(),
-
-        // Input Field - shows InputStyle changes
-        AppTextFormField(
-          label: 'Input Field',
-        ),
-        AppGap.md(),
-
-        // Toggle/Switch - shows ToggleStyle changes
-        Row(
-          children: [
-            AppSwitch(
-              value: true,
-              onChanged: (_) {},
-            ),
-            AppGap.md(),
-            AppText('Enabled', variant: AppTextVariant.bodyMedium),
-          ],
-        ),
-        AppGap.md(),
-
-        // Card - shows SurfaceStyle changes
-        AppCard(
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: AppText('Sample Card', variant: AppTextVariant.bodyMedium),
-          ),
-        ),
-      ],
     );
   }
 }

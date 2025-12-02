@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui_kit_library/ui_kit.dart';
 import '../widgets/control_panel.dart';
 import '../widgets/preview_area.dart';
 
@@ -27,9 +28,7 @@ class _LiveEditorPageState extends State<LiveEditorPage> {
     if (isTabletLayout) {
       // Mobile layout: stacked vertically
       return Scaffold(
-        appBar: AppBar(
-          title: const Text('Live Theme Editor'),
-        ),
+        appBar: AppBar(title: const Text('Live Theme Editor')),
         body: ListView(
           children: [
             // Preview Area
@@ -57,9 +56,7 @@ class _LiveEditorPageState extends State<LiveEditorPage> {
     } else {
       // Desktop layout: side by side
       return Scaffold(
-        appBar: AppBar(
-          title: const Text('Live Theme Editor'),
-        ),
+        appBar: AppBar(title: const Text('Live Theme Editor')),
         body: Row(
           children: [
             // Control Panel (Left side)
@@ -79,11 +76,12 @@ class _LiveEditorPageState extends State<LiveEditorPage> {
             ),
             // Preview Area (Right side)
             Expanded(
-              flex: 1,
+              flex: 2,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: PreviewArea(
-                  previewWidth: _isMobilePreviewWidth ? 375 : null,
+                child: DesignSystem.init(
+                  context,
+                  PreviewArea(previewWidth: _isMobilePreviewWidth ? 375 : null),
                 ),
               ),
             ),

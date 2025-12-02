@@ -28,6 +28,7 @@ export 'src/foundation/theme/design_system/styles/brutal_design_theme.dart';
 export 'src/foundation/theme/design_system/styles/flat_design_theme.dart';
 export 'src/foundation/theme/design_system/styles/neumorphic_design_theme.dart';
 export 'src/foundation/theme/design_system/styles/pixel_design_theme.dart';
+export 'src/foundation/theme/design_system/specs/skeleton_style.dart';
 
 export 'src/foundation/gen/assets.gen.dart';
 export 'src/foundation/icons/app_font_icons.dart';

@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             title: 'Live Theme Editor',
             theme: AppTheme.create(
-              brightness: themeController.brightness,
+              brightness: Brightness.light, // Editor UI always light
             ),
             home: const LiveEditorPage(),
           );

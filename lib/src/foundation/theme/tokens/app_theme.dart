@@ -43,9 +43,10 @@ class AppTheme {
     required Brightness brightness,
     Color seedColor = AppPalette.brandPrimary, // Allow Widgetbook to override Seed
     DesignThemeBuilder? designThemeBuilder,
+    ColorScheme? colorSchemeOverride,
   }) {
     // A. Generate base ColorScheme
-    final colorScheme = ColorScheme.fromSeed(
+    final colorScheme = colorSchemeOverride ?? ColorScheme.fromSeed(
       seedColor: seedColor,
       brightness: brightness,
     );

@@ -6,11 +6,13 @@ import '../property_editors/double_property.dart';
 class GlobalMetricsEditor extends StatefulWidget {
   final double spacingFactor;
   final Duration animationDuration;
-  final ValueChanged<({double spacingFactor, Duration animationDuration})> onChanged;
+  final double buttonHeight;
+  final ValueChanged<({double spacingFactor, Duration animationDuration, double buttonHeight})> onChanged;
 
   const GlobalMetricsEditor({
     required this.spacingFactor,
     required this.animationDuration,
+    required this.buttonHeight,
     required this.onChanged,
     super.key,
   });
@@ -22,12 +24,14 @@ class GlobalMetricsEditor extends StatefulWidget {
 class _GlobalMetricsEditorState extends State<GlobalMetricsEditor> {
   late double _spacingFactor;
   late Duration _animationDuration;
+  late double _buttonHeight;
 
   @override
   void initState() {
     super.initState();
     _spacingFactor = widget.spacingFactor;
     _animationDuration = widget.animationDuration;
+    _buttonHeight = widget.buttonHeight;
   }
 
   @override
@@ -39,26 +43,38 @@ class _GlobalMetricsEditorState extends State<GlobalMetricsEditor> {
     if (oldWidget.animationDuration != widget.animationDuration) {
       _animationDuration = widget.animationDuration;
     }
+    if (oldWidget.buttonHeight != widget.buttonHeight) {
+      _buttonHeight = widget.buttonHeight;
+    }
+  }
+
+  void _notifyChanged() {
+    widget.onChanged((
+      spacingFactor: _spacingFactor,
+      animationDuration: _animationDuration,
+      buttonHeight: _buttonHeight,
+    ));
   }
 
   void _handleSpacingFactorChanged(double value) {
     setState(() {
       _spacingFactor = value;
     });
-    widget.onChanged((
-      spacingFactor: _spacingFactor,
-      animationDuration: _animationDuration,
-    ));
+    _notifyChanged();
   }
 
   void _handleAnimationDurationChanged(double milliseconds) {
     setState(() {
       _animationDuration = Duration(milliseconds: milliseconds.toInt());
     });
-    widget.onChanged((
-      spacingFactor: _spacingFactor,
-      animationDuration: _animationDuration,
-    ));
+    _notifyChanged();
+  }
+
+  void _handleButtonHeightChanged(double value) {
+    setState(() {
+      _buttonHeight = value;
+    });
+    _notifyChanged();
   }
 
   @override
@@ -79,6 +95,16 @@ class _GlobalMetricsEditorState extends State<GlobalMetricsEditor> {
           max: 2.0,
           onChanged: _handleSpacingFactorChanged,
           divisions: 15,
+        ),
+        const Gap(16),
+        // Button Height
+        DoubleProperty(
+          label: 'Button Height',
+          value: _buttonHeight,
+          min: 32.0,
+          max: 64.0,
+          onChanged: _handleButtonHeightChanged,
+          divisions: 16,
         ),
         const Gap(16),
         // Animation Duration (in milliseconds)

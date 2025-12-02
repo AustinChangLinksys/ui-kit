@@ -1,12 +1,13 @@
-name: Deploy Widgetbook
+name: Deploy Docs (Widgetbook + Editor)
 
 on:
   push:
     branches:
-      - main # Or master, depends on your main branch
+      - main
     paths:
-      - "lib/**" # Only trigger when UI code changes
+      - "lib/**"
       - "widgetbook/**"
+      - "editor/**"
       - "pubspec.yaml"
   workflow_dispatch:
 
@@ -25,22 +26,42 @@ jobs:
         with:
           channel: "stable"
 
-      - name: Install Dependencies
+      # --- 1. Build Widgetbook ---
+      - name: Install Widgetbook Dependencies
         run: |
           flutter pub get
           cd widgetbook && flutter pub get
 
-      # Key: Run Build Runner to generate code (ThemeTailor / Widgetbook Generator)
-      - name: Run Build Runner
+      - name: Run Build Runner (Widgetbook)
         run: cd widgetbook && dart run build_runner build --delete-conflicting-outputs
 
-      - name: Build Web
-        # Remember to replace <repo-name> with your project name
+      - name: Build Widgetbook Web
         run: |
           cd widgetbook
           flutter build web --base-href /ui-kit/ --release
+          
+      # --- 2. Build Theme Editor ---
+      - name: Install Editor Dependencies
+        run: |
+          cd editor && flutter pub get
+
+      - name: Build Editor Web
+        run: |
+          cd editor
+          flutter build web --base-href /ui-kit/editor/ --release
+
+      # --- 3. Prepare Deployment Artifacts ---
+      - name: Prepare Deployment Directory
+        run: |
+          mkdir -p deployment/editor
+          # Copy Widgetbook to root of deployment
+          cp -a widgetbook/build/web/. deployment/
+          # Copy Editor to /editor subdirectory
+          cp -a editor/build/web/. deployment/editor/
+
+      # --- 4. Deploy ---
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./widgetbook/build/web
+          publish_dir: ./deployment

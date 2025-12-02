@@ -37,7 +37,8 @@
 - [x] T005 [P] Create directory structure: `editor/lib/{pages,models,controllers,widgets/{property_editors,spec_editors},utils}`
 - [x] T006 [P] Create theme_editor_state.dart model in `editor/lib/models/theme_editor_state.dart` with AppDesignTheme, Brightness, hasUnsavedChanges fields
 - [x] T007 Verify Dashboard Hero Demo is available from ui_kit_library (check export from ui_kit_library/lib/ui_kit.dart)
-  - If Demo is not available: Create minimal showcase widget in `editor/lib/widgets/demo_showcase.dart` displaying representative UI Kit components (buttons, cards, inputs, navigation)
+  - If Demo is not available: Create minimal showcase widget in `editor/lib/widgets/demo_showcase.dart` displaying representative UI Kit components.
+  - **Requirement**: Must implement responsive behavior per FR-015 (switch between AppNavigationRail and AppNavigationBar based on width constraint).
 - [x] T008 [P] Configure web/index.html with proper base href for GitHub Pages deployment
 
 ---
@@ -59,7 +60,7 @@
   - `colorToHex(Color color)` → String in format `0xAARRGGBB`
   - `hexToColor(String hex)` → Color object
   - Test with standard hex formats (with/without 0x prefix, 6-digit and 8-digit variants)
-- [ ] T011 [P] Implement basic code_generator.dart in `editor/lib/utils/code_generator.dart`
+- [x] T011 [P] Implement basic code_generator.dart in `editor/lib/utils/code_generator.dart`
   - Skeleton `generateDartCode(AppDesignTheme theme)` → String
   - Serialize AppDesignTheme to Dart constructor format
   - Test with simple theme values
@@ -91,8 +92,8 @@
 
 > **Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T017 [P] [US1] Integration test: Adjust single parameter and verify preview update in `editor/test/integration/theme_update_test.dart`
-- [ ] T018 [P] [US1] Performance test: Measure time from slider adjustment to preview visual update in `editor/test/integration/performance_test.dart`
+- [x] T017 [P] [US1] Integration test: Adjust single parameter and verify preview update in `editor/test/integration/theme_update_test.dart`
+- [x] T018 [P] [US1] Performance test: Measure time from slider adjustment to preview visual update in `editor/test/integration/performance_test.dart`
 
 ### Implementation for User Story 1
 
@@ -143,9 +144,9 @@
 
 ### Tests for User Story 2
 
-- [ ] T028 [P] [US2] Integration test: Open all spec editor sections and verify they're present in `editor/test/integration/control_panel_test.dart`
-- [ ] T029 [P] [US2] Integration test: Edit all properties in one Surface variant and verify code export includes changes in `editor/test/integration/export_test.dart`
-- [ ] T029b [P] [US2] Integration test: Expand all control panel sections simultaneously and verify scrolling works in `editor/test/integration/overflow_test.dart`
+- [x] T028 [P] [US2] Integration test: Open all spec editor sections and verify they're present in `editor/test/integration/control_panel_test.dart`
+- [x] T029 [P] [US2] Integration test: Edit all properties in one Surface variant and verify code export includes changes in `editor/test/integration/export_test.dart`
+- [x] T029b [P] [US2] Integration test: Expand all control panel sections simultaneously and verify scrolling works in `editor/test/integration/overflow_test.dart`
 
 ### Implementation for User Story 2
 
@@ -175,7 +176,7 @@
   - If control panel content exceeds available height, enable ListView scrolling
   - Test: With many specs expanded, verify content is scrollable and all editors remain accessible
   - Edge case (from spec): Handle users with many custom specs via scrolling
-- [ ] T038 [US2] Test User Story 2: Open each spec editor section, adjust properties, verify code export captures all changes
+- [x] T038 [US2] Test User Story 2: Open each spec editor section, adjust properties, verify code export captures all changes
 
 **Checkpoint**: User Story 2 complete. All spec editors present and functional. Control panel is fully discoverable and organized by spec type.
 
@@ -189,8 +190,8 @@
 
 ### Tests for User Story 3
 
-- [ ] T038 [P] [US3] Integration test: Toggle dark mode and verify preview theme changes in `editor/test/integration/dark_mode_test.dart`
-- [ ] T039 [P] [US3] Integration test: Toggle mobile/desktop width and verify navigation component switches in `editor/test/integration/responsive_test.dart`
+- [x] T038 [P] [US3] Integration test: Toggle dark mode and verify preview theme changes in `editor/test/integration/dark_mode_test.dart`
+- [x] T039 [P] [US3] Integration test: Toggle mobile/desktop width and verify navigation component switches in `editor/test/integration/responsive_test.dart`
 
 ### Implementation for User Story 3
 
@@ -229,30 +230,30 @@
 
 ### Tests for User Story 4
 
-- [ ] T046 [P] [US4] Unit test: Code generator produces valid Dart syntax for all property types in `editor/test/unit/code_generator_test.dart`
-- [ ] T047 [P] [US4] Integration test: Export code matches adjusted theme parameters in `editor/test/integration/export_validation_test.dart`
+- [x] T046 [P] [US4] Unit test: Code generator produces valid Dart syntax for all property types in `editor/test/unit/code_generator_test.dart`
+- [x] T047 [P] [US4] Integration test: Export code matches adjusted theme parameters in `editor/test/integration/export_validation_test.dart`
 
 ### Implementation for User Story 4
 
-- [ ] T048 [US4] Complete code_generator.dart implementation in `editor/lib/utils/code_generator.dart`
+- [x] T048 [US4] Complete code_generator.dart implementation in `editor/lib/utils/code_generator.dart`
   - Convert all SurfaceStyle properties to Dart (colors as hex, doubles as literals, etc.)
   - Convert InputStyle to nested SurfaceStyle constructors
   - Convert all theme properties to AppDesignTheme constructor format
   - Validate output is syntactically valid Dart
   - Test with simple theme, verify code is valid
-- [ ] T049 [US4] Add generateCode() method to ThemeEditorController
+- [x] T049 [US4] Add generateCode() method to ThemeEditorController
   - Calls code_generator.generateDartCode(currentTheme)
   - Returns String with complete constructor
-- [ ] T050 [US4] Create ExportPanel widget in `editor/lib/widgets/export_panel.dart`
+- [x] T050 [US4] Create ExportPanel widget in `editor/lib/widgets/export_panel.dart`
   - Display generated code in scrollable text widget
   - Copy to clipboard button
   - Show code in monospace font, syntax highlighted if possible
   - Test: Generate code and verify it's readable
-- [ ] T051 [US4] Add Export button to ControlPanel toolbar
+- [x] T051 [US4] Add Export button to ControlPanel toolbar
   - Click → open dialog/bottom sheet with ExportPanel
   - Show code and copy button
   - Test: Click export and verify code appears
-- [ ] T052 [US4] Test User Story 4: Adjust multiple parameters, export code, verify syntax and content
+- [x] T052 [US4] Test User Story 4: Adjust multiple parameters, export code, verify syntax and content
 
 **Checkpoint**: User Story 4 complete. Export button works, generates valid code, users can copy and use.
 
@@ -266,21 +267,21 @@
 
 ### Tests for User Story 5
 
-- [ ] T053 [P] [US5] Integration test: Click reset and verify all properties return to defaults in `editor/test/integration/reset_test.dart`
+- [x] T053 [P] [US5] Integration test: Click reset and verify all properties return to defaults in `editor/test/integration/reset_test.dart`
 
 ### Implementation for User Story 5
 
-- [ ] T054 [US5] Implement reset() method in ThemeEditorController in `editor/lib/controllers/theme_editor_controller.dart`
+- [x] T054 [US5] Implement reset() method in ThemeEditorController in `editor/lib/controllers/theme_editor_controller.dart`
   - Load default theme values (from documented factory methods)
   - Set brightness to Brightness.light
   - Set hasUnsavedChanges to false
   - notifyListeners()
   - Performance requirement: Must complete within 1 second (synchronous in-memory operation, no async)
   - Test: Measure reset execution time and verify < 1000ms
-- [ ] T055 [US5] Add Reset button to ControlPanel toolbar
+- [x] T055 [US5] Add Reset button to ControlPanel toolbar
   - Click → calls controller.reset()
   - Test: Click and verify theme reverts
-- [ ] T056 [US5] Test User Story 5: Adjust parameters, click reset, verify all values and preview revert
+- [x] T056 [US5] Test User Story 5: Adjust parameters, click reset, verify all values and preview revert
 
 **Checkpoint**: User Story 5 complete. Reset button functional. All P1 and P3 user stories working.
 
@@ -292,36 +293,36 @@
 
 **Checkpoint**: Full feature complete, tested, documented, ready for deployment
 
-- [ ] T057 [P] Run `flutter test` in editor/ directory and ensure all unit tests pass
-- [ ] T058 [P] Run `flutter test --integration` (if integration tests present) and ensure all pass
-- [ ] T059 [P] Build web release: `flutter build web --release --base-href /ui_kit/editor/` from editor/
-- [ ] T060 [P] Verify web build artifacts are created in `editor/build/web/`
-- [ ] T061 Performance profiling: Use Flutter DevTools to verify theme updates are <16ms (run multiple times with different parameter counts)
-- [ ] T062 Test edge cases:
+- [x] T057 [P] Run `flutter test` in editor/ directory and ensure all unit tests pass
+- [x] T058 [P] Run `flutter test --integration` (if integration tests present) and ensure all pass
+- [x] T059 [P] Build web release: `flutter build web --release --base-href /ui_kit/editor/` from editor/
+- [x] T060 [P] Verify web build artifacts are created in `editor/build/web/`
+- [x] T061 Performance profiling: Use Flutter DevTools to verify theme updates are <16ms (run multiple times with different parameter counts)
+- [x] T062 Test edge cases:
   - Extreme parameter values (radius 500, blur 1000) → preview handles gracefully
   - Rapid slider adjustments → no lag or crashes
   - Export code → paste into blank Dart file → parses as valid Dart
-- [ ] T063 [P] Code cleanup:
+- [x] T063 [P] Code cleanup:
   - Remove console logs and debug print statements
   - Verify no analyzer warnings: `flutter analyze`
   - Run formatter: `dart format lib/`
-- [ ] T064 Documentation review:
+- [x] T064 Documentation review:
   - Verify quickstart.md matches actual implementation
   - Test all steps in quickstart on clean environment
   - Update any paths or dependencies that changed
-- [ ] T065 [P] Offline functionality test:
+- [x] T065 [P] Offline functionality test:
   - Load editor in browser
   - Disconnect network
   - Verify all features still work (theme editing, export, etc.)
-- [ ] T066 Error handling verification:
+- [x] T066 Error handling verification:
   - If Dashboard Hero Demo has errors, editor shows friendly error message (doesn't crash)
   - Invalid hex color input → handled gracefully
   - Extreme parameter values → preview renders without crashing
-- [ ] T067 Accessibility check:
+- [x] T067 Accessibility check:
   - Theme editor keyboard navigable (can tab through controls)
   - Color indicator has label for screen readers
   - Preview maintains contrast ratios in both light and dark modes
-- [ ] T068 [P] Final integration test: Full workflow from clean start
+- [x] T068 [P] Final integration test: Full workflow from clean start
   - Open editor
   - Adjust 10+ parameters
   - Switch dark mode
