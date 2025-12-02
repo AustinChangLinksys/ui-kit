@@ -29,7 +29,6 @@ Dart (SDK >=3.2.0 <4.0.0), Flutter (SDK >=3.22.0): Follow standard conventions
 ## Recent Changes
 - 004-interactive-forms: Added Dart 3.0+ (Flutter 3.10+)
 - 003-ui-kit-molecules: Added Dart 3.2+ (Flutter 3.22+)
-- 002-unified-design-system: Added Dart 3.8+ (Utilizing Records, Patterns, Class Modifiers) + `flutter`, `theme_tailor_annotation`, `equatable`
 
 
 <!-- MANUAL ADDITIONS START -->

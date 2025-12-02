@@ -1,5 +1,4 @@
 import 'package:alchemist/alchemist.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_kit_library/src/molecules/feedback/app_toast.dart';
 
@@ -19,7 +18,7 @@ void main() {
         name: 'Success',
         width: 300,
         height: 420,
-        child: AppToast(
+        child: const AppToast(
           type: ToastType.success,
           title: 'Success',
           description: 'Operation completed.',
@@ -34,7 +33,7 @@ void main() {
         name: 'Error',
         width: 300,
         height: 420,
-        child: AppToast(
+        child: const AppToast(
           type: ToastType.error,
           title: 'Error',
           description: 'Something went wrong.',
@@ -49,7 +48,7 @@ void main() {
         name: 'Info',
         width: 300,
         height: 420,
-        child: AppToast(
+        child: const AppToast(
           type: ToastType.info,
           title: 'Information',
         ),

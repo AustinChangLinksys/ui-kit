@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ui_kit_library/ui_kit.dart'; // Ensure copyWith & customBorder are imported
 
 /// Visual variants of the input box (corresponds to InputStyle in Theme)
@@ -22,6 +23,7 @@ class AppTextField extends StatefulWidget {
     this.textVariant = AppTextVariant.bodyMedium, // control text size
     this.prefixIcon,
     this.suffixIcon,
+    this.inputFormatters,
     super.key,
   });
 
@@ -36,6 +38,7 @@ class AppTextField extends StatefulWidget {
   final AppTextVariant textVariant; // Font semantics
   final Widget? prefixIcon;
   final Widget? suffixIcon;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   State<AppTextField> createState() => _AppTextFieldState();
@@ -141,6 +144,7 @@ class _AppTextFieldState extends State<AppTextField> {
                       onChanged: widget.onChanged,
                       obscureText: widget.obscureText,
                       keyboardType: widget.keyboardType,
+                      inputFormatters: widget.inputFormatters,
 
                       // Style: Inherit Surface color + externally specified Typography
                       style: baseTextStyle.copyWith(

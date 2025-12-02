@@ -83,11 +83,12 @@ class AppLoader extends StatelessWidget {
   }
 
   Widget _buildLinear(BuildContext context, LoaderStyle style, Color color) {
+    final effectiveHeight = style.strokeWidth > 0 ? style.strokeWidth : 4.0;
     return ClipRRect(
-      borderRadius: BorderRadius.circular(style.strokeWidth),
+      borderRadius: BorderRadius.circular(effectiveHeight),
       child: LinearProgressIndicator(
         value: value,
-        minHeight: style.strokeWidth,
+        minHeight: effectiveHeight,
         color: color,
         backgroundColor: style.backgroundColor ?? color.withValues(alpha: 0.2),
       ),

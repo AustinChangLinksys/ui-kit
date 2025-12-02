@@ -15,6 +15,8 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
   InputStyle get inputStyle;
   LoaderStyle get loaderStyle;
   ToastStyle get toastStyle;
+  DividerStyle get dividerStyle;
+  NetworkInputStyle get networkInputStyle;
   SurfaceStyle get surfaceBase;
   SurfaceStyle get surfaceElevated;
   SurfaceStyle get surfaceHighlight;
@@ -32,6 +34,8 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
     InputStyle? inputStyle,
     LoaderStyle? loaderStyle,
     ToastStyle? toastStyle,
+    DividerStyle? dividerStyle,
+    NetworkInputStyle? networkInputStyle,
     SurfaceStyle? surfaceBase,
     SurfaceStyle? surfaceElevated,
     SurfaceStyle? surfaceHighlight,
@@ -48,6 +52,8 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       inputStyle: inputStyle ?? this.inputStyle,
       loaderStyle: loaderStyle ?? this.loaderStyle,
       toastStyle: toastStyle ?? this.toastStyle,
+      dividerStyle: dividerStyle ?? this.dividerStyle,
+      networkInputStyle: networkInputStyle ?? this.networkInputStyle,
       surfaceBase: surfaceBase ?? this.surfaceBase,
       surfaceElevated: surfaceElevated ?? this.surfaceElevated,
       surfaceHighlight: surfaceHighlight ?? this.surfaceHighlight,
@@ -70,6 +76,8 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       inputStyle: t < 0.5 ? inputStyle : other.inputStyle,
       loaderStyle: loaderStyle.lerp(other.loaderStyle, t),
       toastStyle: toastStyle.lerp(other.toastStyle, t),
+      dividerStyle: t < 0.5 ? dividerStyle : other.dividerStyle,
+      networkInputStyle: t < 0.5 ? networkInputStyle : other.networkInputStyle,
       surfaceBase: t < 0.5 ? surfaceBase : other.surfaceBase,
       surfaceElevated: t < 0.5 ? surfaceElevated : other.surfaceElevated,
       surfaceHighlight: t < 0.5 ? surfaceHighlight : other.surfaceHighlight,
@@ -98,6 +106,10 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
             const DeepCollectionEquality()
                 .equals(toastStyle, other.toastStyle) &&
             const DeepCollectionEquality()
+                .equals(dividerStyle, other.dividerStyle) &&
+            const DeepCollectionEquality()
+                .equals(networkInputStyle, other.networkInputStyle) &&
+            const DeepCollectionEquality()
                 .equals(surfaceBase, other.surfaceBase) &&
             const DeepCollectionEquality()
                 .equals(surfaceElevated, other.surfaceElevated) &&
@@ -125,6 +137,8 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       const DeepCollectionEquality().hash(inputStyle),
       const DeepCollectionEquality().hash(loaderStyle),
       const DeepCollectionEquality().hash(toastStyle),
+      const DeepCollectionEquality().hash(dividerStyle),
+      const DeepCollectionEquality().hash(networkInputStyle),
       const DeepCollectionEquality().hash(surfaceBase),
       const DeepCollectionEquality().hash(surfaceElevated),
       const DeepCollectionEquality().hash(surfaceHighlight),
@@ -146,6 +160,8 @@ extension AppDesignThemeBuildContextProps on BuildContext {
   InputStyle get inputStyle => appDesignTheme.inputStyle;
   LoaderStyle get loaderStyle => appDesignTheme.loaderStyle;
   ToastStyle get toastStyle => appDesignTheme.toastStyle;
+  DividerStyle get dividerStyle => appDesignTheme.dividerStyle;
+  NetworkInputStyle get networkInputStyle => appDesignTheme.networkInputStyle;
   SurfaceStyle get surfaceBase => appDesignTheme.surfaceBase;
   SurfaceStyle get surfaceElevated => appDesignTheme.surfaceElevated;
   SurfaceStyle get surfaceHighlight => appDesignTheme.surfaceHighlight;

@@ -12,7 +12,6 @@ class AppTooltip extends StatefulWidget {
     this.maxWidth = 250.0,
     this.maxHeight,
     this.padding,
-    // ✨ 1. 新增參數：預設為 false
     this.initiallyVisible = false,
     super.key,
   }) : assert(message != null || content != null,
@@ -27,7 +26,6 @@ class AppTooltip extends StatefulWidget {
   final double? maxHeight;
   final EdgeInsetsGeometry? padding;
 
-  // ✨ 儲存這個設定
   final bool initiallyVisible;
 
   @override
@@ -35,7 +33,6 @@ class AppTooltip extends StatefulWidget {
 }
 
 class _AppTooltipState extends State<AppTooltip> {
-  // 這是控制顯示與否的核心狀態
   bool _isVisible = false;
 
   static const double _kDefaultGap = 8.0;
@@ -43,8 +40,6 @@ class _AppTooltipState extends State<AppTooltip> {
   @override
   void initState() {
     super.initState();
-    // ✨ 2. 關鍵邏輯：在初始化時，將 State 設為傳入的值
-    // 如果 initiallyVisible 為 true，_isVisible 就會是 true
     _isVisible = widget.initiallyVisible;
   }
 
@@ -53,19 +48,14 @@ class _AppTooltipState extends State<AppTooltip> {
     final theme = AppTheme.of(context);
 
     return MouseRegion(
-      // 互動邏輯：滑鼠移入顯示，移出隱藏
       onEnter: (_) => setState(() => _isVisible = true),
       onExit: (_) => setState(() => _isVisible = false),
       child: GestureDetector(
-        // 互動邏輯：長按顯示，放開隱藏 (Mobile)
         onLongPress: () => setState(() => _isVisible = true),
         onLongPressUp: () => setState(() => _isVisible = false),
 
         child: PortalTarget(
-          // ✨ 3. 綁定狀態：PortalTarget 會根據 _isVisible 決定是否渲染 follower
-          // 因為 initState 已經設定過初始值，所以如果 initiallyVisible=true，這裡一開始就是 true
           visible: _isVisible,
-
           anchor: _resolveAnchor(),
           portalFollower: _buildPopup(theme),
           child: widget.child,
@@ -74,7 +64,6 @@ class _AppTooltipState extends State<AppTooltip> {
     );
   }
 
-  /// 解析錨點邏輯
   Anchor _resolveAnchor() {
     final offset = widget.offset ??
         switch (widget.position) {
