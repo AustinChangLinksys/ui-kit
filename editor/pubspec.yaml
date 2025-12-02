@@ -39,6 +39,7 @@ dependencies:
   provider: ^6.0.0
   flex_color_picker: ^3.0.0
   gap: ^3.0.0
+  shared_preferences: ^2.2.0
 
   # UI Kit library (local path dependency)
   ui_kit_library:

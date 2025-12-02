@@ -229,7 +229,7 @@ class ControlPanel extends StatelessWidget {
   }
 }
 
-/// Section header widget
+/// Section header widget with visual separation
 class _SectionHeader extends StatelessWidget {
   final String title;
 
@@ -237,9 +237,26 @@ class _SectionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      title,
-      style: Theme.of(context).textTheme.titleMedium,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.5,
+              ),
+        ),
+        const Gap(8),
+        Container(
+          height: 1,
+          width: 40,
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primary.withOpacity(0.3),
+            borderRadius: BorderRadius.circular(1),
+          ),
+        ),
+      ],
     );
   }
 }
