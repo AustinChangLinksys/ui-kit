@@ -13,6 +13,20 @@ class NavigationStyle {
     this.itemSpacing = 8.0,
   });
 
+  NavigationStyle copyWith({
+    double? height,
+    bool? isFloating,
+    double? floatingMargin,
+    double? itemSpacing,
+  }) {
+    return NavigationStyle(
+      height: height ?? this.height,
+      isFloating: isFloating ?? this.isFloating,
+      floatingMargin: floatingMargin ?? this.floatingMargin,
+      itemSpacing: itemSpacing ?? this.itemSpacing,
+    );
+  }
+
   // Option: if you insist on animating height transitions, you can write a lerp manually
   // But for this kind of structural change, we usually accept instantaneous switching
   static NavigationStyle lerp(NavigationStyle a, NavigationStyle b, double t) {
@@ -21,7 +35,7 @@ class NavigationStyle {
       height: ui.lerpDouble(a.height, b.height, t)!,
       floatingMargin: ui.lerpDouble(a.floatingMargin, b.floatingMargin, t)!,
       itemSpacing: ui.lerpDouble(a.itemSpacing, b.itemSpacing, t)!,
-      
+
       // Boolean values cannot transition, t < 0.5 remains unchanged, t >= 0.5 switches
       isFloating: t < 0.5 ? a.isFloating : b.isFloating,
     );

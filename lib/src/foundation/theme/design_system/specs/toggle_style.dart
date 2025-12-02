@@ -37,4 +37,28 @@ class ToggleStyle {
     this.inactiveTrackStyle,
     this.thumbStyle,
   });
+
+  ToggleStyle copyWith({
+    ToggleContentType? activeType,
+    ToggleContentType? inactiveType,
+    String? activeText,
+    String? inactiveText,
+    IconData? activeIcon,
+    IconData? inactiveIcon,
+    SurfaceStyle? activeTrackStyle,
+    SurfaceStyle? inactiveTrackStyle,
+    SurfaceStyle? thumbStyle,
+  }) {
+    return ToggleStyle(
+      activeType: activeType ?? this.activeType,
+      inactiveType: inactiveType ?? this.inactiveType,
+      activeText: activeText ?? this.activeText,
+      inactiveText: inactiveText ?? this.inactiveText,
+      activeIcon: activeIcon ?? this.activeIcon,
+      inactiveIcon: inactiveIcon ?? this.inactiveIcon,
+      activeTrackStyle: activeTrackStyle ?? this.activeTrackStyle,
+      inactiveTrackStyle: inactiveTrackStyle ?? this.inactiveTrackStyle,
+      thumbStyle: thumbStyle ?? this.thumbStyle,
+    );
+  }
 }

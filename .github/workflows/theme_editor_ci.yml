@@ -1,0 +1,69 @@
+name: Theme Editor CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'editor/**'
+      - '.github/workflows/theme_editor_ci.yml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'editor/**'
+      - '.github/workflows/theme_editor_ci.yml'
+
+jobs:
+  test_and_build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.0'
+          cache: true
+
+      - name: Get dependencies
+        run: |
+          cd editor
+          flutter pub get
+
+      - name: Run analyzer
+        run: |
+          cd editor
+          flutter analyze
+
+      - name: Build web
+        run: |
+          cd editor
+          flutter build web --release
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: theme-editor-web
+          path: editor/build/web/
+          retention-days: 30
+
+  deploy_to_preview:
+    needs: test_and_build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: theme-editor-web
+          path: editor/build/web/
+
+      - name: Deploy to preview
+        run: |
+          echo "Theme Editor would be deployed to production here"
+          echo "Build artifacts are ready at: editor/build/web/"
+          ls -la editor/build/web/ || true

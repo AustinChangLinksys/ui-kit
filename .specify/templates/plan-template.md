@@ -31,18 +31,7 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-The following principles from the Project Constitution (v1.0.0) are critical gates for planning and must be adhered to:
-
-- **Architectural Boundaries (Section 2):**
-    - **2.1 Physical Isolation:** The UI Kit must remain an independent Dart package.
-    - **2.2 Dependency Hygiene:** Strictly adhere to allowed UI and utility packages; no business logic or backend connectivity dependencies.
-    - **2.3 Directory Structure:** Follow the defined Atomic Design variant (`src/foundation`, `src/atoms`, `src/molecules`, `src/organisms`, `src/layout`).
-- **Component Design (Section 4):**
-    - **4.1 Dumb Components:** Components must be stateless (UI transient state only) and receive data via constructors, emit events via callbacks.
-    - **4.2 Composition over Inheritance:** Utilize the Slots Pattern.
-- **Quality Assurance & Testing (Section 12):**
-    - **12.1 Widgetbook:** All public components must have registered UseCases.
-    - **12.2 Golden Tests:** Core components require screenshot tests for Light/Dark Mode, and Text Scale (1.0/1.5), ensuring zero overflow.
+[Gates determined based on constitution file]
 
 ## Project Structure
 
@@ -60,21 +49,50 @@ specs/[###-feature]/
 
 ### Source Code (repository root)
 <!--
-  The UI Kit project must adhere to the following directory structure as defined in the Project Constitution (v1.0.0, Section 2.3).
-  Expand this structure with real paths as needed for the specific feature.
+  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
+  for this feature. Delete unused options and expand the chosen structure with
+  real paths (e.g., apps/admin, packages/something). The delivered plan must
+  not include Option labels.
 -->
 
 ```text
+# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
 src/
-├── foundation/ # Base styles (Colors, Typography, Spacing).
-├── atoms/      # Indivisible units (Button, Icon, Badge).
-├── molecules/  # Simple compositions (ListTile, InputField).
-├── organisms/  # Complex sections (AppBar, ProductCard).
-└── layout/     # Responsive layout utilities.
+├── models/
+├── services/
+├── cli/
+└── lib/
+
+tests/
+├── contract/
+├── integration/
+└── unit/
+
+# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
+backend/
+├── src/
+│   ├── models/
+│   ├── services/
+│   └── api/
+└── tests/
+
+frontend/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   └── services/
+└── tests/
+
+# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
+api/
+└── [same as backend above]
+
+ios/ or android/
+└── [platform-specific structure: feature modules, UI flows, platform tests]
 ```
 
 **Structure Decision**: [Document the selected structure and reference the real
-directories captured above. This should always reflect the constitution's structure for UI Kit development.]
+directories captured above]
 
 ## Complexity Tracking
 

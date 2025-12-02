@@ -75,24 +75,6 @@
 - What happens when [boundary condition]?
 - How does system handle [error scenario]?
 
-## Constitutional Alignment
-
-*GATE: All specifications MUST adhere to the principles outlined in the Project Constitution (v1.0.0).*
-
-Consider how the following constitutional principles impact this feature's specification:
-
-- **2. Architectural Boundaries**: Ensure no forbidden dependencies are introduced and the component respects the established directory structure.
-- **3. Theming & Styling**: All styling must adhere to the Token-First Design, Semantic Architecture, and use Theme Tailor for automation. Dynamic Theme Factory and Typography standards must be considered.
-- **4. Component Design**: Components must be "Dumb" (logic-free, stateless except for UI transient state) and favor "Composition over Inheritance" (Slots Pattern).
-- **5. Assets Management**: Follow strict access standards (strong typing via `flutter_gen`) and formatting standards for Icons (SVG, color externalized) and Product Images (WebP, Dark Mode adaptation).
-- **6. Animation Strategy**: Align with the permitted technology stack (flutter_animate, Rive) and Rive standards (State Machines, .riv format).
-- **7. Layout & Responsiveness**: Avoid singletons for layout; use `BuildContext` and `MediaQuery`. Centralize configuration of breakpoints.
-- **8. Accessibility (a11y)**: Ensure all interactive components have proper `Semantics` and adequate `Touch Targets`.
-- **9. Internationalization (i18n)**: Adhere to the "No-String Policy" and use Directionality-safe syntax for RTL support.
-- **10. Performance**: Apply `RepaintBoundary` for frequently changing components and be mindful of expensive operations like `Opacity` and `BackdropFilter`.
-- **11. Versioning**: Understand the impact on API changes for Semantic Versioning and Deprecation Policy.
-- **12. Quality Assurance & Testing**: Plan for `Widgetbook` UseCases and `Golden Tests` covering theme, text scale, and zero overflow.
-
 ## Requirements *(mandatory)*
 
 <!--
