@@ -20,50 +20,36 @@ description: "Task list template for feature implementation"
 
 ## Path Conventions
 
-The UI Kit project must adhere to the directory structure defined in the Project Constitution (v1.0.0, Section 2.3).
-Tasks will use paths relative to the `src/` directory within the UI Kit package:
+- **Single project**: `src/`, `tests/` at repository root
+- **Web app**: `backend/src/`, `frontend/src/`
+- **Mobile**: `api/src/`, `ios/src/` or `android/src/`
+- Paths shown below assume single project - adjust based on plan.md structure
 
-- `src/foundation/`
-- `src/atoms/`
-- `src/molecules/`
-- `src/organisms/`
-- `src/layout/`
-
-<!--
+<!-- 
   ============================================================================
   IMPORTANT: The tasks below are SAMPLE TASKS for illustration purposes only.
-
+  
   The /speckit.tasks command MUST replace these with actual tasks based on:
   - User stories from spec.md (with their priorities P1, P2, P3...)
   - Feature requirements from plan.md
   - Entities from data-model.md
   - Endpoints from contracts/
-
+  
   Tasks MUST be organized by user story so each story can be:
   - Implemented independently
   - Tested independently
   - Delivered as an MVP increment
-
+  
   DO NOT keep these sample tasks in the generated tasks.md file.
   ============================================================================
 -->
-
-## Constitutional Alignment
-
-All tasks for feature implementation MUST align with the principles outlined in the Project Constitution (v1.0.0). Pay particular attention to:
-
-- **Architectural Boundaries**: Especially Dependency Hygiene (Section 2.2) and Directory Structure (Section 2.3).
-- **Theming & Styling**: Ensure components follow Token-First Design (Section 3.1) and use Theme Tailor (Section 3.3).
-- **Component Design**: Enforce "Dumb Components" (Section 4.1) and "Composition over Inheritance" (Section 4.2).
-- **Assets Management**: Adhere to Access Standards (Section 5.1) and Formatting Standards (Section 5.2).
-- **Quality Assurance & Testing**: Mandatory Widgetbook (Section 12.1) and Golden Test (Section 12.2) requirements.
 
 ## Phase 1: Setup (Shared Infrastructure)
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create project structure following Constitution 2.3 Directory Structure
-- [ ] T002 Initialize Dart package with Flutter dependencies (Constitution 2.1 Physical Isolation)
+- [ ] T001 Create project structure per implementation plan
+- [ ] T002 Initialize [language] project with [framework] dependencies
 - [ ] T003 [P] Configure linting and formatting tools
 
 ---
@@ -97,17 +83,17 @@ Examples of foundational tasks (adjust based on your project):
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T010 [P] [US1] Implement Widgetbook UseCases for [Component] (Constitution 12.1 Widgetbook)
-- [ ] T011 [P] [US1] Implement Golden Tests for [Component] (Constitution 12.2 Golden Tests)
+- [ ] T010 [P] [US1] Contract test for [endpoint] in tests/contract/test_[name].py
+- [ ] T011 [P] [US1] Integration test for [user journey] in tests/integration/test_[name].py
 
 ### Implementation for User Story 1
 
-- [ ] T012 [P] [US1] Create [UI Component] in src/atoms/ or src/molecules/ (Constitution 2.3 Directory Structure)
-- [ ] T013 [US1] Ensure component is "Dumb" (Constitution 4.1 Dumb Components)
-- [ ] T014 [US1] Implement styling using ThemeExtension and Theme Tailor (Constitution 3.1, 3.3)
-- [ ] T015 [US1] Integrate asset access via flutter_gen (if applicable) (Constitution 5.1 Assets Management)
-- [ ] T016 [US1] Ensure accessibility standards are met (Semantics, Touch Targets) (Constitution 8.1, 8.2)
-- [ ] T017 [US1] Add basic documentation and examples to Widgetbook (Constitution 12.1 Widgetbook)
+- [ ] T012 [P] [US1] Create [Entity1] model in src/models/[entity1].py
+- [ ] T013 [P] [US1] Create [Entity2] model in src/models/[entity2].py
+- [ ] T014 [US1] Implement [Service] in src/services/[service].py (depends on T012, T013)
+- [ ] T015 [US1] Implement [endpoint/feature] in src/[location]/[file].py
+- [ ] T016 [US1] Add validation and error handling
+- [ ] T017 [US1] Add logging for user story 1 operations
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
