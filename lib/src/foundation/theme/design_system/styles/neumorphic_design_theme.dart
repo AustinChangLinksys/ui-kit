@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/specs/input_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/interaction_spec.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/specs/layout_spec.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/specs/navigation_style.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/specs/skeleton_style.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/specs/toggle_style.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
 class NeumorphicDesignTheme extends AppDesignTheme {

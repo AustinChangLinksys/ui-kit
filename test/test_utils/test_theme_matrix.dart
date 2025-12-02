@@ -1,11 +1,6 @@
 // test/test_utils/test_theme_matrix.dart
 
 import 'package:flutter/material.dart';
-import 'package:ui_kit_library/src/foundation/theme/tokens/app_theme.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/styles/brutal_design_theme.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/styles/flat_design_theme.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/styles/glass_design_theme.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/styles/neumorphic_design_theme.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
 /// Defines the standard matrix of 8 Design Styles for Golden Tests.

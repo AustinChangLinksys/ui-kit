@@ -15,7 +15,27 @@ permissions:
   contents: write
 
 jobs:
+  # 1. Quality Check
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+      - name: Install Dependencies
+        run: |
+          flutter pub get
+          cd editor && flutter pub get
+          cd ../widgetbook && flutter pub get
+      - name: Analyze Editor
+        run: cd editor && flutter analyze
+      - name: Analyze Widgetbook
+        run: cd widgetbook && flutter analyze
+
+  # 2. Build & Deploy (Existing logic)
   build-and-deploy:
+    needs: verify # Wait for verification to pass
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -39,7 +59,7 @@ jobs:
         run: |
           cd widgetbook
           flutter build web --base-href /ui-kit/ --release
-          
+
       # --- 2. Build Theme Editor ---
       - name: Install Editor Dependencies
         run: |

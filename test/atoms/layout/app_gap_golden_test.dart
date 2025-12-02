@@ -68,7 +68,7 @@ class _GapVisualizer extends StatelessWidget {
           Container(
             width: 20,
             height: 20,
-            color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
+            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.5),
           ),
           // The main subject under test: Gap
           gap,
@@ -76,7 +76,7 @@ class _GapVisualizer extends StatelessWidget {
           Container(
             width: 20,
             height: 20,
-            color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
+            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.5),
           ),
         ],
       ),

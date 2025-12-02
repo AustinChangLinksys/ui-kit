@@ -15,10 +15,10 @@ Widget buildNetworkInputsUseCase(BuildContext context) {
           label: 'IPv4 Address',
         ),
         const SizedBox(height: 24),
-        AppMacAddressTextField(
+        const AppMacAddressTextField(
             label: 'MAC Address', invalidFormatMessage: 'Invalid format'),
         const SizedBox(height: 24),
-        AppIPv6TextField(
+        const AppIPv6TextField(
             label: 'IPv6 Address', invalidFormatMessage: 'Invalid format'),
       ],
     ),

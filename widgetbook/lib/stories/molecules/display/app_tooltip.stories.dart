@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_portal/flutter_portal.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 import 'package:ui_kit_library/ui_kit.dart';
@@ -21,15 +20,16 @@ Widget buildInteractiveTooltip(BuildContext context) {
     initialOption: AxisDirection.up,
     labelBuilder: (val) => val.name,
   );
-  
+
   final useRichContent = context.knobs.boolean(
     label: 'Use Rich Content',
     initialValue: false,
   );
 
   // 2. 構建
-  return Portal( // ✨ 關鍵：必須包裹 Portal
-    child: Center(
+  return DesignSystem.init(
+    context,
+    Center(
       child: AppTooltip(
         position: position,
         // 根據 Knob 決定顯示文字還是複雜內容
@@ -50,45 +50,45 @@ Widget buildInteractiveTooltip(BuildContext context) {
 )
 Widget buildTooltipGallery(BuildContext context) {
   // 靜態展示：雖然不能自動全部打開（因為需要互動），但可以讓開發者測試各個方向
-  return Portal(
-    child: Center(
+  return DesignSystem.init(
+    context,
+    const Center(
       child: Wrap(
         spacing: 48, // 加大間距以免 Tooltip 重疊
         runSpacing: 80, // 留垂直空間給 Tooltip
         alignment: WrapAlignment.center,
         children: [
           _TooltipDemo(
-            label: 'Top', 
-            tooltip: const AppTooltip(
-              message: 'Tooltip Top',
-              position: AxisDirection.up,
-              child: AppIconButton(icon: Icon(Icons.arrow_upward), onTap: null),
-            )
-          ),
+              label: 'Top',
+              tooltip: AppTooltip(
+                message: 'Tooltip Top',
+                position: AxisDirection.up,
+                child:
+                    AppIconButton(icon: Icon(Icons.arrow_upward), onTap: null),
+              )),
           _TooltipDemo(
-            label: 'Bottom', 
-            tooltip: const AppTooltip(
-              message: 'Tooltip Bottom',
-              position: AxisDirection.down,
-              child: AppIconButton(icon: Icon(Icons.arrow_downward), onTap: null),
-            )
-          ),
+              label: 'Bottom',
+              tooltip: AppTooltip(
+                message: 'Tooltip Bottom',
+                position: AxisDirection.down,
+                child: AppIconButton(
+                    icon: Icon(Icons.arrow_downward), onTap: null),
+              )),
           _TooltipDemo(
-            label: 'Left', 
-            tooltip: const AppTooltip(
-              message: 'Left Side',
-              position: AxisDirection.left,
-              child: AppIconButton(icon: Icon(Icons.arrow_back), onTap: null),
-            )
-          ),
+              label: 'Left',
+              tooltip: AppTooltip(
+                message: 'Left Side',
+                position: AxisDirection.left,
+                child: AppIconButton(icon: Icon(Icons.arrow_back), onTap: null),
+              )),
           _TooltipDemo(
-            label: 'Right', 
-            tooltip: const AppTooltip(
-              message: 'Right Side',
-              position: AxisDirection.right,
-              child: AppIconButton(icon: Icon(Icons.arrow_forward), onTap: null),
-            )
-          ),
+              label: 'Right',
+              tooltip: AppTooltip(
+                message: 'Right Side',
+                position: AxisDirection.right,
+                child:
+                    AppIconButton(icon: Icon(Icons.arrow_forward), onTap: null),
+              )),
         ],
       ),
     ),

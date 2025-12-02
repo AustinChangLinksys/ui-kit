@@ -12,23 +12,23 @@ class AppIpv4TextField extends FormField<String> {
   AppIpv4TextField({
     super.key,
     this.controller,
-    
+
     // Support [label] above label (consistent with AppTextFormField).
     this.label,
-    
     super.onSaved,
     super.validator,
     String? initialValue,
     super.enabled = true,
     super.autovalidateMode,
   }) : super(
-          initialValue:
-              controller?.text.isNotEmpty == true ? controller!.text : initialValue,
+          initialValue: controller?.text.isNotEmpty == true
+              ? controller!.text
+              : initialValue,
           builder: (FormFieldState<String> field) {
             final state = field as _AppIpv4TextFieldState;
             final theme = AppTheme.of(field.context);
             final hasError = field.hasError;
-            
+
             final separatorStyle = theme.networkInputStyle.ipv4SeparatorStyle;
 
             return Column(
@@ -54,7 +54,7 @@ class AppIpv4TextField extends FormField<String> {
                     Expanded(child: state._buildSegment(3)),
                   ],
                 ),
-                
+
                 // Error message
                 if (hasError) ...[
                   SizedBox(height: theme.spacingFactor * 4),
@@ -112,8 +112,12 @@ class _AppIpv4TextFieldState extends FormFieldState<String> {
   @override
   void dispose() {
     widget.controller?.removeListener(_onExternalControllerChanged);
-    for (var c in _controllers) c.dispose();
-    for (var f in _focusNodes) f.dispose();
+    for (var c in _controllers) {
+      c.dispose();
+    }
+    for (var f in _focusNodes) {
+      f.dispose();
+    }
     super.dispose();
   }
 
@@ -142,11 +146,11 @@ class _AppIpv4TextFieldState extends FormFieldState<String> {
   void _updateValue() {
     // 組合 IP
     final newValue = _controllers.map((c) => c.text).join('.');
-    
+
     // 如果還沒填滿 4 格，或是格子裡是空的，可能會產生 "192..." 或 "..."
     // 這邊直接傳遞原始組合字串，讓外部 Validator (如 Required) 去決定合不合法
     didChange(newValue);
-    
+
     if (widget.controller != null && widget.controller!.text != newValue) {
       widget.controller!.text = newValue;
     }
@@ -183,13 +187,13 @@ class _AppIpv4TextFieldState extends FormFieldState<String> {
       keyboardType: TextInputType.number,
       hintText: '000',
       // Consider adding a compact or centered variant for optimized small display
-      variant: AppInputVariant.outline, 
+      variant: AppInputVariant.outline,
       inputFormatters: [
         FilteringTextInputFormatter.digitsOnly,
         _IPv4SegmentFormatter(
           onPaste: (pasted) => _handlePaste(pasted, index),
           onDot: () {
-             if (index < 3) _focusNodes[index + 1].requestFocus();
+            if (index < 3) _focusNodes[index + 1].requestFocus();
           },
         ),
         LengthLimitingTextInputFormatter(3),
@@ -197,13 +201,12 @@ class _AppIpv4TextFieldState extends FormFieldState<String> {
       onChanged: (val) {
         // 強制數值 <= 255
         if (val.isNotEmpty) {
-           final intVal = int.tryParse(val);
-           if (intVal != null && intVal > 255) {
-             _controllers[index].text = '255';
-             _controllers[index].selection = TextSelection.fromPosition(
-                const TextPosition(offset: 3)
-             );
-           }
+          final intVal = int.tryParse(val);
+          if (intVal != null && intVal > 255) {
+            _controllers[index].text = '255';
+            _controllers[index].selection =
+                TextSelection.fromPosition(const TextPosition(offset: 3));
+          }
         }
       },
     );
@@ -215,23 +218,33 @@ class _AppIpv4TextFieldState extends FormFieldState<String> {
       case SeparatorStyle.glowingDot:
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 4),
-          width: 4, height: 4,
+          width: 4,
+          height: 4,
           decoration: BoxDecoration(
             color: theme.surfaceHighlight.contentColor,
             shape: BoxShape.circle,
-            boxShadow: [BoxShadow(color: theme.surfaceHighlight.contentColor.withValues(alpha: 0.6), blurRadius: 4)],
+            boxShadow: [
+              BoxShadow(
+                  color: theme.surfaceHighlight.contentColor
+                      .withValues(alpha: 0.6),
+                  blurRadius: 4)
+            ],
           ),
         );
       case SeparatorStyle.squareBlock:
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 6),
-          width: 6, height: 6,
+          width: 6,
+          height: 6,
           color: theme.surfaceBase.contentColor,
         );
       case SeparatorStyle.dot:
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: Text('.', style: TextStyle(color: theme.surfaceBase.contentColor, fontWeight: FontWeight.bold)),
+          child: Text('.',
+              style: TextStyle(
+                  color: theme.surfaceBase.contentColor,
+                  fontWeight: FontWeight.bold)),
         );
     }
   }
@@ -244,10 +257,11 @@ class _IPv4SegmentFormatter extends TextInputFormatter {
   _IPv4SegmentFormatter({required this.onPaste, required this.onDot});
 
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
     if (newValue.text.contains('.')) {
       onPaste(newValue.text);
-      return oldValue; 
+      return oldValue;
     }
     return newValue;
   }

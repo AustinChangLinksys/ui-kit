@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_kit_library/ui_kit.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/specs/skeleton_style.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/specs/layout_spec.dart';
-import 'color_utils.dart';
+
 
 /// Generates Dart code for the given theme.
 String generateDartCode(AppDesignTheme theme) {
@@ -39,7 +37,7 @@ String generateDartCode(AppDesignTheme theme) {
 
 String _color(Color? color) {
   if (color == null) return 'Colors.transparent';
-  return 'Color(0x${color.value.toRadixString(16).toUpperCase().padLeft(8, '0')})';
+  return 'Color(0x${color.toARGB32().toRadixString(16).toUpperCase().padLeft(8, '0')})';
 }
 
 String _generateAnimationSpec(AnimationSpec spec) {
@@ -58,8 +56,8 @@ String _generateSurfaceStyle(String paramName, SurfaceStyle style) {
   buffer.writeln('    borderRadius: ${style.borderRadius},');
   buffer.writeln('    blurStrength: ${style.blurStrength},');
   buffer.writeln('    contentColor: ${_color(style.contentColor)},');
-  if (style.shadows != null && style.shadows!.isNotEmpty) {
-    final shadow = style.shadows!.first;
+  if (style.shadows.isNotEmpty) {
+    final shadow = style.shadows.first;
     buffer.writeln('    shadows: [\n' 
                    '      BoxShadow(\n' 
                    '        color: ${_color(shadow.color)},\n' 
@@ -143,7 +141,7 @@ String _generateToastStyle(ToastStyle style) {
   return '  toastStyle: ToastStyle(\n' 
          '    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),\n' 
          '    margin: const EdgeInsets.all(16),\n' 
-         '    borderRadius: BorderRadius.circular(${style.borderRadius is BorderRadius ? (style.borderRadius as BorderRadius).topLeft.x : 8.0}),\n' 
+         '    borderRadius: BorderRadius.circular(${style.borderRadius}),\n' 
          '    backgroundColor: ${_color(style.backgroundColor)},\n' 
          '    textStyle: TextStyle(fontSize: 14, color: ${_color(Colors.white)}),\n' 
          '    displayDuration: Duration(seconds: ${style.displayDuration.inSeconds}),\n' 

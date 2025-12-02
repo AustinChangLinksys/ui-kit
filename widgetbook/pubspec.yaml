@@ -12,6 +12,7 @@ dependencies:
   ui_kit_library:
     path: ../
 dev_dependencies:
+  flutter_lints: ^3.0.0
   build_runner: ^2.4.8
   widgetbook_generator: ^3.20.1
 flutter:

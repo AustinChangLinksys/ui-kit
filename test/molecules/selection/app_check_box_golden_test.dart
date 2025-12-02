@@ -44,10 +44,10 @@ void main() {
               ),
             ),
             // 3. Disabled (Checked state)
-            SizedBox(
+            const SizedBox(
               width: 160,
               height: 60,
-              child: const AppCheckbox(
+              child: AppCheckbox(
                 value: true,
                 onChanged: null, // Disabled
                 label: 'Lock',

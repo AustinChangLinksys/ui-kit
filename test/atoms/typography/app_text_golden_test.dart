@@ -24,7 +24,7 @@ void main() {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // 1. Semantic Factories (semantic shortcuts - most common)
-            _SectionHeader('Semantic Aliases'),
+            const _SectionHeader('Semantic Aliases'),
             AppText.headline('Headline (H3)'),
             AppText.subhead('Subhead (Subtitle2)'),
             AppText.body(
@@ -35,7 +35,7 @@ void main() {
             const Divider(height: 24),
 
             // 2. Material 3 Standard Levels (standard levels - precise control)
-            _SectionHeader('Material 3 Scale'),
+            const _SectionHeader('Material 3 Scale'),
             AppText.displaySmall('Display Small'),
             AppText.headlineSmall('Headline Small'),
             AppText.titleMedium('Title Medium'),
@@ -45,7 +45,7 @@ void main() {
             const Divider(height: 24),
 
             // 3. Custom Extensions (custom extensions)
-            _SectionHeader('Custom / Overrides'),
+            const _SectionHeader('Custom / Overrides'),
             AppText.bodyExtraSmall('Body Extra Small (10sp)'),
             // Test color override
             AppText.body('Colored Text (Primary)', color: Colors.blue), // Use a fixed color for golden tests
@@ -70,7 +70,7 @@ class _SectionHeader extends StatelessWidget {
       child: Text(
         text,
         style: TextStyle(
-          color: Colors.grey.withOpacity(0.5),
+          color: Colors.grey.withValues(alpha: 0.5),
           fontSize: 10,
           fontWeight: FontWeight.bold,
           letterSpacing: 1.5,

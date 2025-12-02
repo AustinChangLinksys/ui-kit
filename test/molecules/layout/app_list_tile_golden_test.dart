@@ -19,10 +19,10 @@ void main() {
         name: 'Standard',
         width: 300,
         height: 100,
-        child: AppListTile(
-          leading: const Icon(Icons.folder),
-          title: const Text('Folder'),
-          trailing: const Icon(Icons.chevron_right),
+        child: const AppListTile(
+          leading: Icon(Icons.folder),
+          title: Text('Folder'),
+          trailing: Icon(Icons.chevron_right),
         ),
       ),
     );
@@ -34,11 +34,11 @@ void main() {
         name: 'Selected',
         width: 300,
         height: 100,
-        child: AppListTile(
-          leading: const Icon(Icons.wifi),
-          title: const Text('Wi-Fi'),
-          subtitle: const Text('Connected'),
-          trailing: const Icon(Icons.check),
+        child: const AppListTile(
+          leading: Icon(Icons.wifi),
+          title: Text('Wi-Fi'),
+          subtitle: Text('Connected'),
+          trailing: Icon(Icons.check),
           selected: true,
         ),
       ),

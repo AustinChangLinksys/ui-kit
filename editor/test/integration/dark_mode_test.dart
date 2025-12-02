@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:editor/pages/live_editor_page.dart';
 import 'package:editor/controllers/theme_editor_controller.dart';
 import 'package:editor/widgets/preview_area.dart';
-import 'package:ui_kit_library/ui_kit.dart';
 
 void main() {
   group('Dark Mode Integration', () {

@@ -148,7 +148,7 @@ class _BrutalSpinnerState extends State<_BrutalSpinner>
               borderColor: Colors.black,
               borderWidth: 2.0,
               borderRadius: 0,
-              shadows: [],
+              shadows: const [],
               blurStrength: 0,
               contentColor: Colors.transparent,
             ),

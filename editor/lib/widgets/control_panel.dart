@@ -370,7 +370,7 @@ class _SectionHeader extends StatelessWidget {
           height: 1,
           width: 40,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary.withOpacity(0.3),
+            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
             borderRadius: BorderRadius.circular(1),
           ),
         ),

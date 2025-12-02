@@ -163,11 +163,11 @@ class AppValidators {
   // Accessed via AppValidators.network.ipv4()
   // ===========================================================================
   
-  static const _NetworkValidators network = _NetworkValidators();
+  static const NetworkValidators network = NetworkValidators();
 }
 
-class _NetworkValidators {
-  const _NetworkValidators();
+class NetworkValidators {
+  const NetworkValidators();
 
   /// IPv4 format validator (IpAddressRule).
   /// By default, it excludes reserved IPs (IpAddressNoReservedRule), can be enabled via [allowReserved].

@@ -129,7 +129,7 @@ class _InternetSettingsPageState extends State<InternetSettingsPage> {
               ),
               AppGap.lg(),
 
-              AppDivider(), // Horizontal divider
+              const AppDivider(), // Horizontal divider
 
               AppGap.lg(),
               AppText.titleMedium('MAC Address Filter'),
@@ -151,7 +151,7 @@ class _InternetSettingsPageState extends State<InternetSettingsPage> {
               ),
               AppGap.lg(),
 
-              AppDivider(), // Another horizontal divider
+              const AppDivider(), // Another horizontal divider
 
               AppGap.lg(),
               AppText.titleMedium('IPv6 Configuration'),

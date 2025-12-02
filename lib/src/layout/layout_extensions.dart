@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/specs/layout_spec.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
 extension LayoutContext on BuildContext {

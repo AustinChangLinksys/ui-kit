@@ -133,8 +133,8 @@ class _DividerPainter extends CustomPainter {
 
   // --- 繪製虛線 ---
   void _drawDashedLine(Canvas canvas, Offset p1, Offset p2, Paint paint) {
-    final double dashWidth = 8.0;
-    final double dashSpace = 4.0;
+    const double dashWidth = 8.0;
+    const double dashSpace = 4.0;
     
     double distance = (p2 - p1).distance;
     double dx = (p2.dx - p1.dx) / distance;

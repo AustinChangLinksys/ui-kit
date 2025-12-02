@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_portal/flutter_portal.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
@@ -15,8 +14,9 @@ Widget buildAppDropdown(BuildContext context) {
     initialOption: 'None',
   );
 
-  return Portal(
-    child: Padding(
+  return DesignSystem.init(
+    context,
+    Padding(
       padding: const EdgeInsets.all(24.0),
       child: Align(
         alignment: Alignment.topCenter,

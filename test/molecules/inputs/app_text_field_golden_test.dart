@@ -27,39 +27,39 @@ void main() {
         name: 'AppTextField',
         width: 300,
         height: 500, // Adjusted height to accommodate all scenarios
-        child: Column(
+        child: const Column(
           children: [
             // 1. Idle Outline
-            const AppTextField(hintText: 'Enter value'),
-            const SizedBox(height: 10),
+            AppTextField(hintText: 'Enter value'),
+            SizedBox(height: 10),
 
             // 2. Focused Outline (triggered by pumpWidget)
-            const AppTextField(hintText: 'Focused Text'),
-            const SizedBox(height: 10),
+            AppTextField(hintText: 'Focused Text'),
+            SizedBox(height: 10),
 
             // 3. Error State
-            const AppTextField(
+            AppTextField(
               hintText: 'Required',
               errorText: 'This field is required.',
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
 
             // 4. Underline Variant
-            const AppTextField(
+            AppTextField(
               variant: AppInputVariant.underline,
               hintText: 'Username',
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
 
             // 5. Filled Variant
-            const AppTextField(
+            AppTextField(
               variant: AppInputVariant.filled,
               hintText: 'Email Address',
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
 
             // 6. With Icons & Large Text (Typography Test)
-            const AppTextField(
+            AppTextField(
               hintText: 'Page Title',
               textVariant: AppTextVariant.headlineSmall,
               prefixIcon: Icon(Icons.title),

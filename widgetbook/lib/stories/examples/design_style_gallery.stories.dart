@@ -174,15 +174,15 @@ class _DashboardPageState extends State<DashboardPage> {
   ];
 
   final _navItems = [
-    AppNavigationItem(
+    const AppNavigationItem(
         icon: Icon(Icons.dashboard_outlined),
         activeIcon: Icon(Icons.dashboard),
         label: 'Home'),
-    AppNavigationItem(
+    const AppNavigationItem(
         icon: Icon(Icons.grid_view),
         activeIcon: Icon(Icons.grid_view_rounded),
         label: 'Rooms'),
-    AppNavigationItem(
+    const AppNavigationItem(
         icon: Icon(Icons.settings_outlined),
         activeIcon: Icon(Icons.settings),
         label: 'Settings'),

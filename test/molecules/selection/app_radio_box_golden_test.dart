@@ -46,10 +46,10 @@ void main() {
               ),
             ),
             // 3. Disabled
-            SizedBox(
+            const SizedBox(
               width: 160,
               height: 60,
-              child: const AppRadio<int>(
+              child: AppRadio<int>(
                 value: 1,
                 groupValue: 1,
                 onChanged: null, // Disabled

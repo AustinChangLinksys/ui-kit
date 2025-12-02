@@ -22,7 +22,7 @@ void main() {
         child: Column(
           children: [
             // 1. Basic block
-            AppSkeleton(
+            const AppSkeleton(
               width: 100,
               height: 60,
             ),

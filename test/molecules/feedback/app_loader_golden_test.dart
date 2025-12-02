@@ -19,7 +19,7 @@ void main() {
         name: 'Circular Indeterminate',
         width: 200,
         height: 100,
-        child: AppLoader(variant: LoaderVariant.circular),
+        child: const AppLoader(variant: LoaderVariant.circular),
       ),
     );
 
@@ -30,7 +30,7 @@ void main() {
         name: 'Circular Determinate',
         width: 200,
         height: 100,
-        child: AppLoader(variant: LoaderVariant.circular, value: 0.75),
+        child: const AppLoader(variant: LoaderVariant.circular, value: 0.75),
       ),
     );
 
@@ -41,7 +41,7 @@ void main() {
         name: 'Linear Indeterminate',
         width: 200,
         height: 100,
-        child: SizedBox(
+        child: const SizedBox(
           width: 150,
           child: AppLoader(variant: LoaderVariant.linear),
         ),
@@ -55,7 +55,7 @@ void main() {
         name: 'Linear Determinate',
         width: 200,
         height: 100,
-        child: SizedBox(
+        child: const SizedBox(
           width: 150,
           child: AppLoader(variant: LoaderVariant.linear, value: 0.5),
         ),

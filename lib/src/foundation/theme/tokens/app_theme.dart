@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ui_kit_library/src/foundation/theme/tokens/app_palette.dart';
 import 'package:ui_kit_library/ui_kit.dart'; // Default fallback
 
 // Defines the Builder type for external input (e.g., Widgetbook)

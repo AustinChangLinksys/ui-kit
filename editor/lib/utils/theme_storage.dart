@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -5,7 +7,6 @@ import 'package:ui_kit_library/ui_kit.dart';
 
 /// Manages persistent storage of custom themes
 class ThemeStorage {
-  static const String _defaultThemesKey = 'saved_themes';
   static const String _lastThemeKey = 'last_used_theme';
 
   /// Save current theme to local storage
@@ -113,23 +114,23 @@ class ThemeStorage {
 
   static Map<String, dynamic> _serializeSurfaceStyle(SurfaceStyle style) {
     return {
-      'backgroundColor': style.backgroundColor.value,
-      'borderColor': style.borderColor.value,
+      'backgroundColor': style.backgroundColor.toARGB32(),
+      'borderColor': style.borderColor.toARGB32(),
       'borderWidth': style.borderWidth,
       'borderRadius': style.borderRadius,
       'blurStrength': style.blurStrength,
-      'contentColor': style.contentColor.value,
+      'contentColor': style.contentColor.toARGB32(),
     };
   }
 
-  static SurfaceStyle _deserializeSurfaceStyle(Map<String, dynamic> data) {
-    return SurfaceStyle(
-      backgroundColor: Color(data['backgroundColor'] as int),
-      borderColor: Color(data['borderColor'] as int),
-      borderWidth: data['borderWidth'] as double,
-      borderRadius: data['borderRadius'] as double,
-      blurStrength: data['blurStrength'] as double,
-      contentColor: Color(data['contentColor'] as int),
-    );
-  }
+  // static SurfaceStyle _deserializeSurfaceStyle(Map<String, dynamic> data) {
+  //   return SurfaceStyle(
+  //     backgroundColor: Color(data['backgroundColor'] as int),
+  //     borderColor: Color(data['borderColor'] as int),
+  //     borderWidth: data['borderWidth'] as double,
+  //     borderRadius: data['borderRadius'] as double,
+  //     blurStrength: data['blurStrength'] as double,
+  //     contentColor: Color(data['contentColor'] as int),
+  //   );
+  // }
 }
