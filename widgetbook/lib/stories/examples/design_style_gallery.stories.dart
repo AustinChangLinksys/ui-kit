@@ -59,6 +59,20 @@ Widget buildNeumorphicGallery(BuildContext context) {
   );
 }
 
+// --- 5. Pixel Gallery ---
+@widgetbook.UseCase(
+  name: 'Pixel Style (Retro)',
+  type: AppDesignTheme,
+  path: 'Design Language Gallery',
+)
+Widget buildPixelGallery(BuildContext context) {
+  return _ThemeWrapper(
+    themeBuilder: (scheme) => PixelDesignTheme.light(scheme),
+    darkThemeBuilder: (scheme) => PixelDesignTheme.dark(scheme),
+    child: const DashboardPage(),
+  );
+}
+
 // ====================================================================
 // 🛠 Helpers
 // ====================================================================
@@ -81,7 +95,7 @@ class _ThemeWrapper extends StatelessWidget {
     // ✨ 1. Brightness Knob:
     final isDark = context.knobs.boolean(
       label: 'Dark Mode',
-      initialValue: true, 
+      initialValue: true,
     );
 
     final isDesktop = context.knobs.boolean(
@@ -90,15 +104,6 @@ class _ThemeWrapper extends StatelessWidget {
     );
 
     final brightness = isDark ? Brightness.dark : Brightness.light;
-    final seedColor = AppPalette.brandPrimary;
-    final scheme = ColorScheme.fromSeed(
-      seedColor: seedColor,
-      brightness: brightness,
-    );
-
-    final designTheme = brightness == Brightness.light
-        ? themeBuilder(scheme)
-        : darkThemeBuilder(scheme);
 
     final themeData = AppTheme.create(
       brightness: brightness,
@@ -118,17 +123,16 @@ class _ThemeWrapper extends StatelessWidget {
             height: isDesktop ? 768 : 800,
             decoration: BoxDecoration(
               color: themeData.scaffoldBackgroundColor,
-              borderRadius:
-                  BorderRadius.circular(isDesktop ? 16 : 40),
+              borderRadius: BorderRadius.circular(isDesktop ? 16 : 40),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
+                  color: Colors.black.withValues(alpha: 0.2),
                   blurRadius: 40,
                   spreadRadius: 10,
                 )
               ],
               border: Border.all(
-                color: Colors.white.withOpacity(0.1),
+                color: Colors.white.withValues(alpha: 0.1),
                 width: 8,
               ),
             ),
@@ -155,8 +159,12 @@ class _DashboardPageState extends State<DashboardPage> {
   String _selectedRoom = 'Living Room';
   bool _masterSwitch = true;
   double _temperature = 24.5;
-  double _brightness = 0.8;
+  bool _isRefreshing = false; // 用於展示 Loader
   final TextEditingController _searchController = TextEditingController();
+
+  // 新增：模擬設置狀態
+  bool _notificationsEnabled = true;
+  int _powerMode = 1; // 0: Eco, 1: Standard, 2: High Perf
 
   final List<Map<String, dynamic>> _devices = [
     {'name': 'Main Light', 'isOn': true, 'type': 'light'},
@@ -175,14 +183,16 @@ class _DashboardPageState extends State<DashboardPage> {
         activeIcon: Icon(Icons.grid_view_rounded),
         label: 'Rooms'),
     AppNavigationItem(
-        icon: Icon(Icons.access_time),
-        activeIcon: Icon(Icons.access_time_filled),
-        label: 'History'),
-    AppNavigationItem(
         icon: Icon(Icons.settings_outlined),
         activeIcon: Icon(Icons.settings),
         label: 'Settings'),
   ];
+
+  void _refreshData() async {
+    setState(() => _isRefreshing = true);
+    await Future.delayed(const Duration(seconds: 2));
+    if (mounted) setState(() => _isRefreshing = false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -196,60 +206,61 @@ class _DashboardPageState extends State<DashboardPage> {
 
         Widget bodyContent = SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header
+              // 1. Header Section
               Padding(
                 padding: EdgeInsets.all(16.0 * theme.spacingFactor),
-                child: Column(
+                child: Row(
                   children: [
-                    Row(
-                      children: [
-                        if (!isDesktopLayout) ...[
-                          const AppAvatar(initials: 'AU', size: 48),
-                          AppGap.md(),
-                        ],
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                    if (!isDesktopLayout) ...[
+                      const AppAvatar(
+                          initials: 'AU',
+                          size: 48,
+                          imageUrl: 'https://i.pravatar.cc/150?img=12'),
+                      AppGap.md(),
+                    ],
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AppText.headline('Welcome Home'),
+                          Row(
                             children: [
-                              AppText.headline('Welcome Home'),
-                              AppText.caption('Austin • 3 Active Devices'),
+                              AppText.caption('System Status: '),
+                              AppGap.xs(),
+                              const AppBadge(
+                                  label: 'Online', color: Colors.green),
                             ],
                           ),
+                        ],
+                      ),
+                    ),
+                    if (_isRefreshing)
+                      const AppLoader(
+                          variant: LoaderVariant.circular,
+                          value: null) // Circular Spinner
+                    else
+                      AppTooltip(
+                        message: 'Refresh Data',
+                        position: AxisDirection.down,
+                        child: AppIconButton(
+                          icon: const Icon(Icons.refresh),
+                          onTap: _refreshData,
+                          variant: SurfaceVariant.base,
                         ),
-                        if (!isDesktopLayout) ...[
-                          const Spacer(),
-                          AppIconButton(
-                            icon: const Icon(Icons.notifications_outlined),
-                            onTap: () {},
-                            variant: SurfaceVariant.base,
-                          ),
-                        ]
-                      ],
-                    ),
-                    AppGap.lg(),
-                    AppTextField(
-                      controller: _searchController,
-                      hintText: 'Search devices...',
-                      prefixIcon: const Icon(Icons.search),
-                      suffixIcon: _searchController.text.isNotEmpty
-                          ? GestureDetector(
-                              onTap: () =>
-                                  setState(() => _searchController.clear()),
-                              child: const Icon(Icons.close),
-                            )
-                          : null,
-                      onChanged: (v) => setState(() {}),
-                    ),
+                      ),
                   ],
                 ),
               ),
 
-              // Rooms
+              const AppDivider(), // ✨ Divider Demo
+
+              // 2. Quick Filters
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 padding: EdgeInsets.symmetric(
-                    horizontal: 16.0 * theme.spacingFactor),
+                    horizontal: 16.0 * theme.spacingFactor, vertical: 12),
                 child: Row(
                   children: [
                     for (final room in [
@@ -273,13 +284,14 @@ class _DashboardPageState extends State<DashboardPage> {
 
               AppGap.md(),
 
-              // Grid Content
+              // 3. Main Grid
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: 16.0 * theme.spacingFactor),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Environment Card
+                    // --- Environment Control Card ---
                     AppCard(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -287,7 +299,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              AppText.subhead('Environment'),
+                              AppText.subhead('Climate'),
                               AppSwitch(
                                   value: _masterSwitch,
                                   onChanged: (v) =>
@@ -295,6 +307,7 @@ class _DashboardPageState extends State<DashboardPage> {
                             ],
                           ),
                           AppGap.lg(),
+                          // Temperature
                           Row(children: [
                             const Icon(Icons.thermostat,
                                 size: 20, color: Colors.orange),
@@ -310,10 +323,81 @@ class _DashboardPageState extends State<DashboardPage> {
                               onChanged: _masterSwitch
                                   ? (v) => setState(() => _temperature = v)
                                   : null),
+
+                          AppGap.md(),
+                          const AppDivider(
+                              indent: 10, endIndent: 10), // Inner Divider
+                          AppGap.md(),
+
+                          // Power Mode (Radio Demo)
+                          AppText.caption('Power Mode'),
+                          AppGap.sm(),
+                          Row(
+                            children: [
+                              _PowerModeOption(
+                                  label: 'Eco',
+                                  value: 0,
+                                  groupValue: _powerMode,
+                                  onChanged: (v) =>
+                                      setState(() => _powerMode = v!)),
+                              AppGap.md(),
+                              _PowerModeOption(
+                                  label: 'Std',
+                                  value: 1,
+                                  groupValue: _powerMode,
+                                  onChanged: (v) =>
+                                      setState(() => _powerMode = v!)),
+                              AppGap.md(),
+                              _PowerModeOption(
+                                  label: 'High',
+                                  value: 2,
+                                  groupValue: _powerMode,
+                                  onChanged: (v) =>
+                                      setState(() => _powerMode = v!)),
+                            ],
+                          ),
                         ],
                       ),
                     ),
+
                     AppGap.lg(),
+
+                    // --- Search & List ---
+                    Row(
+                      children: [
+                        Expanded(
+                          child: AppTextField(
+                            controller: _searchController,
+                            hintText: 'Find devices...',
+                            prefixIcon: const Icon(Icons.search),
+                            // Demo: Suffix Icon Button
+                            suffixIcon: _searchController.text.isNotEmpty
+                                ? GestureDetector(
+                                    onTap: _searchController.clear,
+                                    child: const Icon(Icons.close))
+                                : null,
+                            onChanged: (v) => setState(() {}),
+                          ),
+                        ),
+                        AppGap.md(),
+                        AppButton(
+                          label: 'Add',
+                          icon: const Icon(Icons.add),
+                          size: AppButtonSize.medium,
+                          onTap: () {}, // Shows Add Dialog
+                        ),
+                      ],
+                    ),
+
+                    AppGap.md(),
+
+                    // Loader Demo (Linear)
+                    if (_isRefreshing)
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 16),
+                        child: AppLoader(
+                            variant: LoaderVariant.linear), // Linear Progress
+                      ),
 
                     // Device List
                     ..._devices
@@ -333,8 +417,25 @@ class _DashboardPageState extends State<DashboardPage> {
                               ),
                             )),
 
-                    // Bottom Padding for Mobile Nav
-                    if (!isDesktopLayout) SizedBox(height: 100),
+                    // Settings Checkbox Demo
+                    AppGap.lg(),
+                    AppSurface(
+                      variant: SurfaceVariant.base,
+                      padding: const EdgeInsets.all(12),
+                      child: Row(
+                        children: [
+                          AppCheckbox(
+                            value: _notificationsEnabled,
+                            onChanged: (v) =>
+                                setState(() => _notificationsEnabled = v!),
+                          ),
+                          AppGap.sm(),
+                          AppText.body('Enable Push Notifications'),
+                        ],
+                      ),
+                    ),
+
+                    if (!isDesktopLayout) const SizedBox(height: 100),
                   ],
                 ),
               ),
@@ -342,14 +443,12 @@ class _DashboardPageState extends State<DashboardPage> {
           ),
         );
 
-        // ✨ 響應式佈局分支
+        // ... (Scaffold structure remains the same) ...
         if (isDesktopLayout) {
-          // --- Desktop Layout (Row with NavRail) ---
           return Scaffold(
             backgroundColor: Colors.transparent,
             body: Row(
               children: [
-                // Side Navigation
                 AppNavigationRail(
                   currentIndex: _navIndex,
                   onTap: (i) => setState(() => _navIndex = i),
@@ -359,21 +458,26 @@ class _DashboardPageState extends State<DashboardPage> {
                     child: AppAvatar(initials: 'AU', size: 40),
                   ),
                   trailing: AppIconButton(
-                      icon: const Icon(Icons.logout),
-                      onTap: () {},
-                      variant: SurfaceVariant.base),
+                      icon: const Icon(Icons.logout), onTap: () {}),
                 ),
-                // Main Content
                 Expanded(child: bodyContent),
               ],
             ),
           );
         } else {
-          // --- Mobile Layout (Column with BottomBar) ---
           return Scaffold(
-            extendBody: true, // Glass Effect
+            extendBody: true,
             backgroundColor: Colors.transparent,
             body: Container(
+              decoration: isGlass
+                  ? const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [Color(0xFF2E335A), Color(0xFF1C1B33)],
+                      ),
+                    )
+                  : null,
               child: bodyContent,
             ),
             bottomNavigationBar: AppNavigationBar(
@@ -384,6 +488,31 @@ class _DashboardPageState extends State<DashboardPage> {
           );
         }
       },
+    );
+  }
+}
+
+class _PowerModeOption extends StatelessWidget {
+  final String label;
+  final int value;
+  final int groupValue;
+  final ValueChanged<int?> onChanged;
+
+  const _PowerModeOption(
+      {required this.label,
+      required this.value,
+      required this.groupValue,
+      required this.onChanged});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        AppRadio<int>(
+            value: value, groupValue: groupValue, onChanged: onChanged),
+        AppGap.xs(),
+        AppText.caption(label),
+      ],
     );
   }
 }

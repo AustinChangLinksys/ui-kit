@@ -22,6 +22,8 @@ class NeumorphicDesignTheme extends AppDesignTheme {
     required super.inputStyle,
     required super.loaderStyle,
     required super.toastStyle,
+    required super.dividerStyle,
+    required super.networkInputStyle,
     required super.layoutSpec,
   });
 
@@ -187,6 +189,16 @@ class NeumorphicDesignTheme extends AppDesignTheme {
             fontSize: 15, fontWeight: FontWeight.w600, color: scheme.onSurface),
         displayDuration: const Duration(seconds: 3),
       ),
+      dividerStyle: DividerStyle(
+        color: AppPalette.neumorphicLightShadow.withValues(alpha: 0.4),
+        secondaryColor: Colors.white,
+        thickness: 1.5,
+        pattern: DividerPattern.solid,
+      ),
+      networkInputStyle: const NetworkInputStyle(
+        ipv4SeparatorStyle: SeparatorStyle.dot,
+        macAddressSeparator: ':',
+      ),
       typography: const TypographySpec(
         bodyFontFamily: 'NeueHaasGrotTextRound',
         displayFontFamily: 'NeueHaasGrotTextRound',
@@ -211,6 +223,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         marginDesktop: 80.0,
 
         // Gutter must be greater than (Shadow Blur Radius * 2), otherwise shadows will overlap
+        // Assuming max Shadow Blur is 10, Gutter should be at least 20-24
         gutterMobile: 24.0,
         gutterTablet: 32.0,
         gutterDesktop: 40.0,
@@ -381,6 +394,17 @@ class NeumorphicDesignTheme extends AppDesignTheme {
             fontSize: 15, fontWeight: FontWeight.w600, color: scheme.onSurface),
         displayDuration: const Duration(seconds: 3),
       ),
+      dividerStyle: DividerStyle(
+        // 深色模式下的凹槽
+        color: Colors.black.withValues(alpha: 0.5),
+        secondaryColor: Colors.white.withValues(alpha: 0.1),
+        thickness: 1.5,
+        pattern: DividerPattern.solid,
+      ),
+      networkInputStyle: const NetworkInputStyle(
+        ipv4SeparatorStyle: SeparatorStyle.dot,
+        macAddressSeparator: ':',
+      ),
       typography: const TypographySpec(
         bodyFontFamily: 'NeueHaasGrotTextRound',
         displayFontFamily: 'NeueHaasGrotTextRound',
@@ -399,6 +423,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         itemSpacing: 12.0,
       ),
       layoutSpec: const LayoutSpec(
+        // For diffused shadows, margins cannot be too small
         marginMobile: 24.0,
         marginTablet: 40.0,
         marginDesktop: 80.0,

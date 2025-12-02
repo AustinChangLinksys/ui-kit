@@ -6,6 +6,7 @@ import 'package:ui_kit_library/src/foundation/theme/design_system/styles/brutal_
 import 'package:ui_kit_library/src/foundation/theme/design_system/styles/flat_design_theme.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/styles/glass_design_theme.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/styles/neumorphic_design_theme.dart';
+import 'package:ui_kit_library/ui_kit.dart';
 
 /// Defines the standard matrix of 8 Design Styles for Golden Tests.
 /// (4 Design Languages * 2 Brightness Modes)
@@ -48,5 +49,15 @@ final Map<String, ThemeData> kTestThemeMatrix = {
   'Neumorphic_Dark': AppTheme.create(
     brightness: Brightness.dark,
     designThemeBuilder: (s) => NeumorphicDesignTheme.dark(s),
+  ),
+
+  // 5. Pixel
+  'Pixel_Light': AppTheme.create(
+    brightness: Brightness.light,
+    designThemeBuilder: (s) => PixelDesignTheme.light(s),
+  ),
+  'Pixel_Dark': AppTheme.create(
+    brightness: Brightness.dark,
+    designThemeBuilder: (s) => PixelDesignTheme.dark(s),
   ),
 };

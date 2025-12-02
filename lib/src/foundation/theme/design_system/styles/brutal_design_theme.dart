@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/divider_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/input_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/interaction_spec.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/layout_spec.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/navigation_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/network_input_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/skeleton_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/toggle_style.dart';
 import 'package:ui_kit_library/ui_kit.dart';
@@ -23,6 +25,8 @@ class BrutalDesignTheme extends AppDesignTheme {
     required super.inputStyle,
     required super.loaderStyle,
     required super.toastStyle,
+    required super.dividerStyle,
+    required super.networkInputStyle,
     required super.layoutSpec,
   });
 
@@ -167,6 +171,17 @@ class BrutalDesignTheme extends AppDesignTheme {
             fontFamily: 'NeueHaasGrotTextRound',
             color: scheme.onSurface),
         displayDuration: const Duration(seconds: 2),
+      ),
+      dividerStyle: DividerStyle(
+        color: scheme.onSurface,
+        thickness: 3.0,
+        pattern: DividerPattern.jagged,
+        indent: 0.0,
+        endIndent: 0.0,
+      ),
+      networkInputStyle: const NetworkInputStyle(
+        ipv4SeparatorStyle: SeparatorStyle.squareBlock,
+        macAddressSeparator: '-',
       ),
       typography: const TypographySpec(
         bodyFontFamily: 'NeueHaasGrotTextRound',
@@ -334,6 +349,17 @@ class BrutalDesignTheme extends AppDesignTheme {
             fontFamily: 'NeueHaasGrotTextRound',
             color: scheme.onSurface),
         displayDuration: const Duration(seconds: 2),
+      ),
+      dividerStyle: DividerStyle(
+        color: scheme.onSurface,
+        thickness: 3.0,
+        pattern: DividerPattern.jagged,
+        indent: 0.0,
+        endIndent: 0.0,
+      ),
+      networkInputStyle: const NetworkInputStyle(
+        ipv4SeparatorStyle: SeparatorStyle.squareBlock,
+        macAddressSeparator: '-',
       ),
       typography: const TypographySpec(
         bodyFontFamily: 'NeueHaasGrotTextRound',
