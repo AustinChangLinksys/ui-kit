@@ -10,7 +10,12 @@ Build a standalone Flutter Web application that provides a WYSIWYG interface for
 ## Technical Context
 
 **Language/Version**: Dart (latest Flutter SDK)
-**Primary Dependencies**: Flutter Web, UI Kit library (path-based), Provider (state management), flex_color_picker (color picker UI), gap (layout spacing helper)
+**Primary Dependencies**:
+  - Flutter Web (latest SDK)
+  - UI Kit library (path-based: `path: ../`)
+  - Provider (^6.0.0 or latest for state management)
+  - flex_color_picker (^3.0.0 for color picker UI)
+  - gap (^3.0.0 for layout spacing helper)
 **Storage**: LocalStorage/SessionStorage (browser-only, for session-local state persistence)
 **Testing**: Flutter testing framework, widget tests for components (not the editor itself, per design)
 **Target Platform**: Web (Flutter Web/WASM)

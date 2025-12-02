@@ -37,6 +37,7 @@
 - [ ] T005 [P] Create directory structure: `editor/lib/{pages,models,controllers,widgets/{property_editors,spec_editors},utils}`
 - [ ] T006 [P] Create theme_editor_state.dart model in `editor/lib/models/theme_editor_state.dart` with AppDesignTheme, Brightness, hasUnsavedChanges fields
 - [ ] T007 Verify Dashboard Hero Demo is available from ui_kit_library (check export from ui_kit_library/lib/ui_kit.dart)
+  - If Demo is not available: Create minimal showcase widget in `editor/lib/widgets/demo_showcase.dart` displaying representative UI Kit components (buttons, cards, inputs, navigation)
 - [ ] T008 [P] Configure web/index.html with proper base href for GitHub Pages deployment
 
 ---
@@ -102,9 +103,10 @@
   - Test: Drag slider and verify onChanged callback fires
 - [ ] T020 [US1] Implement ColorProperty widget in `editor/lib/widgets/property_editors/color_property.dart`
   - Show color indicator button
-  - Tap button → open ColorPickerDialog (using flex_color_picker)
+  - Tap button → open ColorPickerDialog (using flex_color_picker with palette support enabled)
+  - Support hex input and palette selection in picker (FR-012 compliance)
   - Dialog returns Color → calls onChanged
-  - Test: Select color and verify callback with correct Color
+  - Test: Select color via hex input and palette, verify callback with correct Color
 - [ ] T021 [P] [US1] Add updateSurfaceBase, updateSurfaceElevated, updateSurfaceHighlight methods to ThemeEditorController
   - These call updateTheme() with copyWith() on specific surface
   - Ensure notifyListeners() is called for all subscribers
@@ -143,6 +145,7 @@
 
 - [ ] T028 [P] [US2] Integration test: Open all spec editor sections and verify they're present in `editor/test/integration/control_panel_test.dart`
 - [ ] T029 [P] [US2] Integration test: Edit all properties in one Surface variant and verify code export includes changes in `editor/test/integration/export_test.dart`
+- [ ] T029b [P] [US2] Integration test: Expand all control panel sections simultaneously and verify scrolling works in `editor/test/integration/overflow_test.dart`
 
 ### Implementation for User Story 2
 
@@ -168,7 +171,11 @@
   - Add InputStyleEditor, GlobalMetricsEditor, LoaderSpecEditor, ToggleSpecEditor, NavigationSpecEditor to ListView
   - Wire up all onChanged callbacks to controller methods
   - Ensure scrolling if content exceeds viewport
-- [ ] T037 [US2] Test User Story 2: Open each spec editor section, adjust properties, verify code export captures all changes
+- [ ] T037 [US2] Implement overflow handling for control panel in `editor/lib/widgets/control_panel.dart`
+  - If control panel content exceeds available height, enable ListView scrolling
+  - Test: With many specs expanded, verify content is scrollable and all editors remain accessible
+  - Edge case (from spec): Handle users with many custom specs via scrolling
+- [ ] T038 [US2] Test User Story 2: Open each spec editor section, adjust properties, verify code export captures all changes
 
 **Checkpoint**: User Story 2 complete. All spec editors present and functional. Control panel is fully discoverable and organized by spec type.
 
@@ -263,12 +270,13 @@
 
 ### Implementation for User Story 5
 
-- [ ] T054 [US5] Implement reset() method in ThemeEditorController
+- [ ] T054 [US5] Implement reset() method in ThemeEditorController in `editor/lib/controllers/theme_editor_controller.dart`
   - Load default theme values (from documented factory methods)
   - Set brightness to Brightness.light
   - Set hasUnsavedChanges to false
   - notifyListeners()
-  - Performance: Must complete within 1 second
+  - Performance requirement: Must complete within 1 second (synchronous in-memory operation, no async)
+  - Test: Measure reset execution time and verify < 1000ms
 - [ ] T055 [US5] Add Reset button to ControlPanel toolbar
   - Click → calls controller.reset()
   - Test: Click and verify theme reverts
