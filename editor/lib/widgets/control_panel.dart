@@ -9,6 +9,7 @@ import 'spec_editors/loader_spec_editor.dart';
 import 'spec_editors/toggle_spec_editor.dart';
 import 'spec_editors/navigation_spec_editor.dart';
 import 'export_dialog.dart';
+import 'reset_confirmation_dialog.dart';
 
 /// Control panel widget containing all theme property editors
 /// Organized in tabs or sections for different theme aspects
@@ -90,7 +91,14 @@ class ControlPanel extends StatelessWidget {
                                 // Reset button
                                 IconButton(
                                   icon: const Icon(Icons.refresh),
-                                  onPressed: () => themeController.reset(),
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => ResetConfirmationDialog(
+                                        onConfirm: () => themeController.reset(),
+                                      ),
+                                    );
+                                  },
                                   tooltip: 'Reset to default',
                                 ),
                               ],
