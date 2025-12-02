@@ -8,6 +8,7 @@ import 'spec_editors/global_metrics_editor.dart';
 import 'spec_editors/loader_spec_editor.dart';
 import 'spec_editors/toggle_spec_editor.dart';
 import 'spec_editors/navigation_spec_editor.dart';
+import 'export_dialog.dart';
 
 /// Control panel widget containing all theme property editors
 /// Organized in tabs or sections for different theme aspects
@@ -50,6 +51,20 @@ class ControlPanel extends StatelessWidget {
                             ),
                             Row(
                               children: [
+                                // Export button
+                                IconButton(
+                                  icon: const Icon(Icons.download),
+                                  onPressed: () {
+                                    final code = themeController.generateCode();
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => ExportDialog(
+                                        generatedCode: code,
+                                      ),
+                                    );
+                                  },
+                                  tooltip: 'Export theme code',
+                                ),
                                 // Viewport width toggle
                                 IconButton(
                                   icon: Icon(
