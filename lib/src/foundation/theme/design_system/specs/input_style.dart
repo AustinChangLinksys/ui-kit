@@ -20,6 +20,22 @@ class InputStyle extends Equatable {
     required this.errorModifier,
   });
 
+  InputStyle copyWith({
+    SurfaceStyle? outlineStyle,
+    SurfaceStyle? underlineStyle,
+    SurfaceStyle? filledStyle,
+    SurfaceStyle? focusModifier,
+    SurfaceStyle? errorModifier,
+  }) {
+    return InputStyle(
+      outlineStyle: outlineStyle ?? this.outlineStyle,
+      underlineStyle: underlineStyle ?? this.underlineStyle,
+      filledStyle: filledStyle ?? this.filledStyle,
+      focusModifier: focusModifier ?? this.focusModifier,
+      errorModifier: errorModifier ?? this.errorModifier,
+    );
+  }
+
   @override
   List<Object?> get props => [
         outlineStyle,
