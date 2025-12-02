@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 import '../controllers/theme_editor_controller.dart';
 
 /// Widget that displays a live preview of the current theme
-/// Wraps the Dashboard Page with the current AppDesignTheme
+/// All preview components use UI Kit library widgets
 class PreviewArea extends StatelessWidget {
   final double? previewWidth;
 
@@ -50,7 +51,7 @@ class PreviewArea extends StatelessWidget {
 }
 
 /// Hero demo page showing key UI components from the dashboard
-/// Simplified version for quick visual feedback
+/// All components use UI Kit library
 class _DashboardHeroDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -62,23 +63,23 @@ class _DashboardHeroDemo extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Title
-          Text(
+          AppText(
             'Theme Preview',
-            style: Theme.of(context).textTheme.headlineSmall,
+            variant: AppTextVariant.headlineSmall,
           ),
-          SizedBox(height: theme.spacingFactor * 24),
+          Gap(theme.spacingFactor * 24),
 
           // Color Palette Preview
           _ColorPalettePreview(theme: theme),
-          SizedBox(height: theme.spacingFactor * 24),
+          Gap(theme.spacingFactor * 24),
 
           // Typography Preview
           _TypographyPreview(theme: theme),
-          SizedBox(height: theme.spacingFactor * 24),
+          Gap(theme.spacingFactor * 24),
 
           // Surface Variants Preview
           _SurfaceVariantsPreview(theme: theme),
-          SizedBox(height: theme.spacingFactor * 24),
+          Gap(theme.spacingFactor * 24),
 
           // Components Preview
           _ComponentsPreview(theme: theme),
@@ -88,7 +89,7 @@ class _DashboardHeroDemo extends StatelessWidget {
   }
 }
 
-/// Displays color palette from the theme
+/// Displays color palette from the theme using UI Kit
 class _ColorPalettePreview extends StatelessWidget {
   final AppDesignTheme theme;
 
@@ -100,11 +101,11 @@ class _ColorPalettePreview extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Colors', style: Theme.of(context).textTheme.titleMedium),
-        SizedBox(height: 12),
+        AppText('Colors', variant: AppTextVariant.titleMedium),
+        Gap(theme.spacingFactor * 12),
         Wrap(
-          spacing: 12,
-          runSpacing: 12,
+          spacing: theme.spacingFactor * 12,
+          runSpacing: theme.spacingFactor * 12,
           children: [
             _ColorBox(color: colorScheme.primary, label: 'Primary'),
             _ColorBox(color: colorScheme.secondary, label: 'Secondary'),
@@ -117,7 +118,7 @@ class _ColorPalettePreview extends StatelessWidget {
   }
 }
 
-/// Small color indicator box with label
+/// Small color indicator box with label using AppSurface
 class _ColorBox extends StatelessWidget {
   final Color color;
   final String label;
@@ -129,23 +130,21 @@ class _ColorBox extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Container(
-          width: 60,
-          height: 60,
-          decoration: BoxDecoration(
-            color: color,
-            border: Border.all(color: Colors.grey),
-            borderRadius: BorderRadius.circular(4),
+        AppSurface(
+          child: SizedBox(
+            width: 60,
+            height: 60,
+            child: Container(color: color),
           ),
         ),
-        SizedBox(height: 8),
-        Text(label, style: Theme.of(context).textTheme.bodySmall),
+        Gap(8),
+        AppText(label, variant: AppTextVariant.bodySmall),
       ],
     );
   }
 }
 
-/// Displays typography hierarchy
+/// Displays typography hierarchy using AppText
 class _TypographyPreview extends StatelessWidget {
   final AppDesignTheme theme;
 
@@ -156,18 +155,18 @@ class _TypographyPreview extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Typography', style: Theme.of(context).textTheme.titleMedium),
-        SizedBox(height: 12),
-        Text('Headline', style: Theme.of(context).textTheme.headlineSmall),
-        Text('Title Medium', style: Theme.of(context).textTheme.titleMedium),
-        Text('Body Text', style: Theme.of(context).textTheme.bodyMedium),
-        Text('Caption', style: Theme.of(context).textTheme.bodySmall),
+        AppText('Typography', variant: AppTextVariant.titleMedium),
+        Gap(theme.spacingFactor * 12),
+        AppText('Headline', variant: AppTextVariant.headlineSmall),
+        AppText('Title Medium', variant: AppTextVariant.titleMedium),
+        AppText('Body Text', variant: AppTextVariant.bodyMedium),
+        AppText('Caption', variant: AppTextVariant.bodySmall),
       ],
     );
   }
 }
 
-/// Displays surface variants
+/// Displays surface variants using AppSurface
 class _SurfaceVariantsPreview extends StatelessWidget {
   final AppDesignTheme theme;
 
@@ -178,31 +177,21 @@ class _SurfaceVariantsPreview extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Surface Variants', style: Theme.of(context).textTheme.titleMedium),
-        SizedBox(height: 12),
+        AppText('Surface Variants', variant: AppTextVariant.titleMedium),
+        Gap(theme.spacingFactor * 12),
         Row(
           children: [
             Expanded(
-              child: Container(
+              child: AppSurface(
                 padding: EdgeInsets.all(theme.spacingFactor * 12),
-                decoration: BoxDecoration(
-                  color: theme.surfaceBase.backgroundColor,
-                  border: Border.all(color: theme.surfaceBase.borderColor),
-                  borderRadius: BorderRadius.circular(theme.surfaceBase.borderRadius),
-                ),
-                child: Text('Base', style: Theme.of(context).textTheme.bodySmall),
+                child: AppText('Base', variant: AppTextVariant.bodySmall),
               ),
             ),
-            SizedBox(width: 12),
+            Gap(theme.spacingFactor * 12),
             Expanded(
-              child: Container(
+              child: AppSurface(
                 padding: EdgeInsets.all(theme.spacingFactor * 12),
-                decoration: BoxDecoration(
-                  color: theme.surfaceElevated.backgroundColor,
-                  border: Border.all(color: theme.surfaceElevated.borderColor),
-                  borderRadius: BorderRadius.circular(theme.surfaceElevated.borderRadius),
-                ),
-                child: Text('Elevated', style: Theme.of(context).textTheme.bodySmall),
+                child: AppText('Elevated', variant: AppTextVariant.bodySmall),
               ),
             ),
           ],
@@ -212,7 +201,7 @@ class _SurfaceVariantsPreview extends StatelessWidget {
   }
 }
 
-/// Displays sample components
+/// Displays sample components using UI Kit widgets
 class _ComponentsPreview extends StatelessWidget {
   final AppDesignTheme theme;
 
@@ -223,24 +212,51 @@ class _ComponentsPreview extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Components', style: Theme.of(context).textTheme.titleMedium),
-        SizedBox(height: 12),
+        AppText('Components', variant: AppTextVariant.titleMedium),
+        Gap(theme.spacingFactor * 12),
+
+        // Buttons
         Row(
           children: [
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text('Primary'),
+            AppButton(
+              label: 'Primary',
+              onTap: () {},
             ),
-            SizedBox(width: 12),
-            OutlinedButton(
-              onPressed: () {},
-              child: const Text('Secondary'),
+            Gap(theme.spacingFactor * 12),
+            AppButton(
+              label: 'Secondary',
+              onTap: () {},
+              variant: SurfaceVariant.base,
             ),
           ],
         ),
-        SizedBox(height: 12),
+        Gap(theme.spacingFactor * 12),
+
+        // Input Field - shows InputStyle changes
         AppTextFormField(
           label: 'Input Field',
+        ),
+        Gap(theme.spacingFactor * 12),
+
+        // Toggle/Switch - shows ToggleStyle changes
+        Row(
+          children: [
+            AppSwitch(
+              value: true,
+              onChanged: (_) {},
+            ),
+            Gap(theme.spacingFactor * 12),
+            AppText('Enabled', variant: AppTextVariant.bodyMedium),
+          ],
+        ),
+        Gap(theme.spacingFactor * 12),
+
+        // Card - shows SurfaceStyle changes
+        AppCard(
+          child: Padding(
+            padding: EdgeInsets.all(theme.spacingFactor * 12),
+            child: AppText('Sample Card', variant: AppTextVariant.bodyMedium),
+          ),
         ),
       ],
     );
