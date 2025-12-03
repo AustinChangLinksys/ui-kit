@@ -20,5 +20,12 @@ export 'src/data/utils/schema_generator.dart';
 export 'src/data/datasources/mock_content_generator.dart';
 export 'src/data/datasources/aws_content_generator.dart';
 
-// Presentation layer exports (populated as features are implemented)
-// export 'src/presentation/gen_ui_wrapper.dart';
+// Presentation layer exports
+export 'src/presentation/state/gen_ui_state.dart';
+export 'src/presentation/registry/component_registry.dart';
+export 'src/presentation/registry/registry_helpers.dart';
+export 'src/presentation/gen_ui_wrapper.dart';
+export 'src/presentation/widgets/gen_ui_container.dart';
+export 'src/presentation/widgets/dynamic_builder.dart';
+export 'src/presentation/widgets/loading_indicator.dart';
+export 'src/presentation/widgets/error_display.dart';

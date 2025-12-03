@@ -22,11 +22,11 @@
 
 **Purpose**: Project initialization and Flutter package structure expansion
 
-- [ ] T001 Create presentation layer directories: `generative_ui/lib/src/presentation/{registry,widgets,state}`
-- [ ] T002 Create test directories: `generative_ui/test/presentation/{registry,widgets,integration}`
-- [ ] T003 [P] Update library export in `generative_ui/lib/generative_ui.dart` to include presentation layer classes
-- [ ] T004 Create GenUiState enum and model in `generative_ui/lib/src/presentation/state/gen_ui_state.dart`
-- [ ] T005 Create placeholder gen_ui_wrapper.dart with basic structure at `generative_ui/lib/src/presentation/gen_ui_wrapper.dart`
+- [x] T001 Create presentation layer directories: `generative_ui/lib/src/presentation/{registry,widgets,state}`
+- [x] T002 Create test directories: `generative_ui/test/presentation/{registry,widgets,integration}`
+- [x] T003 [P] Update library export in `generative_ui/lib/generative_ui.dart` to include presentation layer classes
+- [x] T004 Create GenUiState enum and model in `generative_ui/lib/src/presentation/state/gen_ui_state.dart`
+- [x] T005 Create placeholder gen_ui_wrapper.dart with basic structure at `generative_ui/lib/src/presentation/gen_ui_wrapper.dart`
 
 **Checkpoint**: Presentation layer structure ready
 
@@ -38,32 +38,32 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T006 Create ComponentRegistry interface and implementation in `generative_ui/lib/src/presentation/registry/component_registry.dart`
-  - Interface: `register(String name, WidgetBuilder builder)`
-  - Method: `lookup(String name) -> WidgetBuilder?`
+- [x] T006 Create ComponentRegistry interface and implementation in `generative_ui/lib/src/presentation/registry/component_registry.dart`
+  - Interface: `register(String name, GenUiWidgetBuilder builder)`
+  - Method: `lookup(String name) -> GenUiWidgetBuilder?`
   - Method: `getRegisteredComponents() -> List<String>`
   - Include O(1) performance validation
-- [ ] T007 Create WidgetBuilder typedef in `generative_ui/lib/src/presentation/registry/component_registry.dart`
+- [x] T007 Create GenUiWidgetBuilder typedef in `generative_ui/lib/src/presentation/registry/component_registry.dart`
   - Signature: `Widget Function(BuildContext, Map<String, dynamic>)`
   - Document no-async-operations constraint
-- [ ] T008 Create FallbackCard widget for unknown/error components in `generative_ui/lib/src/presentation/widgets/fallback_card.dart`
+- [x] T008 Create FallbackCard widget for unknown/error components in `generative_ui/lib/src/presentation/widgets/fallback_card.dart`
   - Display error type (Unsupported/Error)
   - Display raw JSON data for debugging
-  - Wrapped in AppCard with error styling
-- [ ] T009 Create MessageBubble widget for TextBlock rendering in `generative_ui/lib/src/presentation/widgets/message_bubble.dart`
+  - Wrapped in AppSurface with error styling
+- [x] T009 Create MessageBubble widget for TextBlock rendering in `generative_ui/lib/src/presentation/widgets/message_bubble.dart`
   - Render text in chat bubble style
   - Use UI Kit AppSurface for styling
   - Support multiple lines and text wrapping
-- [ ] T010 Create DynamicWidgetBuilder core rendering engine in `generative_ui/lib/src/presentation/widgets/dynamic_builder.dart`
+- [x] T010 Create DynamicWidgetBuilder core rendering engine in `generative_ui/lib/src/presentation/widgets/dynamic_builder.dart`
   - Handle TextBlock -> MessageBubble
   - Handle ToolUseBlock -> registry lookup
   - Implement error boundary (try-catch per widget)
   - Return FallbackCard on unknown or error
-- [ ] T011 Create unit tests for ComponentRegistry in `generative_ui/test/presentation/registry/component_registry_test.dart`
-  - Test register and lookup
-  - Test unknown component returns null
-  - Test performance <10ms for 100 components
-  - Test getRegisteredComponents returns all
+- [x] T011 Create unit tests for ComponentRegistry in `generative_ui/test/presentation/registry/component_registry_test.dart`
+  - Test register and lookup ✅ PASSING
+  - Test unknown component returns null ✅ PASSING
+  - Test performance <10ms for 100 components ✅ PASSING
+  - Test getRegisteredComponents returns all ✅ PASSING
 - [ ] T012 Create unit tests for DynamicWidgetBuilder in `generative_ui/test/presentation/widgets/dynamic_builder_test.dart`
   - Test TextBlock rendering
   - Test unknown ToolUseBlock renders FallbackCard
