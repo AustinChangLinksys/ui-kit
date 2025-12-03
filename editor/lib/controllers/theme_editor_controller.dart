@@ -196,7 +196,8 @@ class ThemeEditorController extends ChangeNotifier {
     loadPreset(_currentPreset);
   }
 
-  /// Update specific color override
+  /// Update specific color override and immediately apply without full preset reload
+  /// This ensures color changes are reflected in preview while preserving other customizations
   void updateColorOverride({
     Color? primary,
     Color? secondary,
@@ -211,8 +212,42 @@ class ThemeEditorController extends ChangeNotifier {
     if (error != null) _errorOverride = error;
     if (surface != null) _surfaceOverride = surface;
     if (outline != null) _outlineOverride = outline;
-    
-    loadPreset(_currentPreset);
+
+    // Apply color scheme without resetting theme structure
+    _applyColorSchemeToCurrentTheme();
+    _hasUnsavedChanges = true;
+    notifyListeners();
+  }
+
+  /// Apply updated color scheme to current theme without resetting theme structure
+  /// This preserves all surface styles and other customizations while updating colors
+  void _applyColorSchemeToCurrentTheme() {
+    final lightScheme = createColorScheme(Brightness.light);
+    final darkScheme = createColorScheme(Brightness.dark);
+
+    switch (_currentPreset) {
+      case 'Flat':
+        _lightTheme = FlatDesignTheme.light(lightScheme);
+        _darkTheme = FlatDesignTheme.dark(darkScheme);
+        break;
+      case 'Brutal':
+        _lightTheme = BrutalDesignTheme.light(lightScheme);
+        _darkTheme = BrutalDesignTheme.dark(darkScheme);
+        break;
+      case 'Neumorphic':
+        _lightTheme = NeumorphicDesignTheme.light(lightScheme);
+        _darkTheme = NeumorphicDesignTheme.dark(darkScheme);
+        break;
+      case 'Pixel':
+        _lightTheme = PixelDesignTheme.light(lightScheme);
+        _darkTheme = PixelDesignTheme.dark(darkScheme);
+        break;
+      case 'Glass':
+      default:
+        _lightTheme = GlassDesignTheme.light(lightScheme);
+        _darkTheme = GlassDesignTheme.dark(darkScheme);
+        break;
+    }
   }
 
   /// Create ColorScheme with current overrides
