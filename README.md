@@ -90,6 +90,58 @@ To update golden files:
 flutter test --update-goldens --tags golden
 ```
 
+## 🎨 Surface Texture Support
+
+The UI Kit supports surface textures for enhanced visual depth and style. Textures are rendered as semi-transparent overlays on surface backgrounds.
+
+### Available Textures
+
+- **Pixel Grid** (4x4): Dot pattern for pixel/retro styles
+- **Diagonal Lines** (4x4): Caution stripe pattern
+- **Noise** (8x8): Monochrome grain for glassmorphic effects
+- **Wood** (8x8): Natural wood grain pattern
+- **Metal** (8x8): Brushed metal with scratches
+- **Fabric** (8x8): Woven cloth pattern
+- **Checkerboard** (8x8): Black and white squares
+- **Pixel Art** (8x8): Retro 8-bit style pattern
+
+### Recommended Opacity Values
+
+Texture opacity should be tuned based on the surface background brightness:
+
+| Scenario | Light Mode | Dark Mode | Notes |
+|----------|-----------|-----------|-------|
+| **Glass Effects** | 0.08 - 0.12 | 0.12 - 0.18 | Subtle grain (most themes) |
+| **Fabric/Woven** | 0.15 - 0.20 | 0.20 - 0.30 | Visible texture |
+| **Metal** | 0.18 - 0.25 | 0.25 - 0.35 | Scratches visible |
+| **Wood** | 0.20 - 0.30 | 0.30 - 0.40 | Wood grain prominent |
+| **Pixel/Retro** | 0.25 - 0.35 | 0.35 - 0.45 | Strong retro effect |
+
+**Light Mode**: Use lower opacity (more subtle) to avoid visual clutter on bright backgrounds.
+**Dark Mode**: Use higher opacity (more visible) to maintain texture visibility on dark backgrounds.
+
+### Implementation in Themes
+
+Textures are configured per theme variant in their respective `factory` constructors:
+
+```dart
+// Example: Glass Light Mode
+surfaceBase: SurfaceStyle(
+  backgroundColor: glassBaseColor,
+  texture: AppTextures.noise,
+  textureOpacity: 0.10, // Light mode: subtle
+),
+
+// Example: Glass Dark Mode
+surfaceBase: SurfaceStyle(
+  backgroundColor: glassBaseColor,
+  texture: AppTextures.noise,
+  textureOpacity: 0.15, // Dark mode: more visible
+),
+```
+
+---
+
 ## ✨ Widgetbook Stories Overview
 
 Below is the summary of components available in our system:

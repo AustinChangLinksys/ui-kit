@@ -6,6 +6,7 @@
 ///
 /// Phase 1: MockContentGenerator (this file's reference implementation)
 /// Phase 3: AwsPassThroughGenerator (future AWS Bedrock integration)
+library;
 
 abstract class IContentGenerator {
   /// Generates content response based on user input
@@ -130,6 +131,11 @@ class MockContentGenerator implements IContentGenerator {
       }]
     }''';
   }
+
+  @override
+  Future<bool> isAvailable() {
+    throw UnimplementedError();
+  }
 }
 
 // Placeholder for Phase 3 AWS Integration
@@ -146,5 +152,10 @@ class AwsPassThroughGenerator implements IContentGenerator {
       'AWS integration deferred to Phase 3. '
       'This will use aws_signature_v4 and http to call Bedrock API.',
     );
+  }
+
+  @override
+  Future<bool> isAvailable() {
+    throw UnimplementedError();
   }
 }

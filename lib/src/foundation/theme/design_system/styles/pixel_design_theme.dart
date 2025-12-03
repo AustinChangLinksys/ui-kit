@@ -42,6 +42,8 @@ class PixelDesignTheme extends AppDesignTheme {
         ],
         blurStrength: 0.0,
         contentColor: scheme.onSurface,
+        texture: AppTextures.pixelGrid,
+        textureOpacity: 0.25, // Light mode: pixel grid visible but not overwhelming
       ),
       surfaceElevated: SurfaceStyle(
         backgroundColor: scheme.primaryContainer,
@@ -255,6 +257,8 @@ class PixelDesignTheme extends AppDesignTheme {
         ],
         blurStrength: 0.0,
         contentColor: black,
+        texture: AppTextures.pixelGrid,
+        textureOpacity: 0.35, // Dark mode: pixel grid more prominent
       ),
       surfaceElevated: SurfaceStyle(
         backgroundColor: scheme.primaryContainer,

@@ -42,6 +42,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         ],
         blurStrength: 0.0,
         contentColor: scheme.onSurface,
+        texture: AppTextures.diagonalLines,
+        textureOpacity: 0.20, // Light mode: caution stripe visible but subtle
       ),
       surfaceElevated: SurfaceStyle(
         backgroundColor:
@@ -256,6 +258,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         ],
         blurStrength: 0.0,
         contentColor: scheme.onSurface,
+        texture: AppTextures.diagonalLines,
+        textureOpacity: 0.30, // Dark mode: caution stripe more prominent
       ),
       surfaceElevated: SurfaceStyle(
         backgroundColor:

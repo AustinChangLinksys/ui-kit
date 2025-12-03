@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 import 'package:ui_kit_library/ui_kit.dart';
 
@@ -47,6 +48,119 @@ Widget buildAppSurfaceInteractive(BuildContext context) {
       child: const Center(
         child: Text('Tap Me\n(Animates on Theme Switch)'),
       ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Textures',
+  type: AppSurface,
+)
+Widget buildAppSurfaceTextures(BuildContext context) {
+  final textureOpacity = context.knobs.double.slider(
+    label: 'Texture Opacity',
+    initialValue: 0.3,
+    min: 0.0,
+    max: 1.0,
+  );
+
+  final selectedTexture = context.knobs.object.dropdown<String>(
+    label: 'Select Texture',
+    initialOption: 'Pixel Grid',
+    options: [
+      'Pixel Grid',
+      'Diagonal Lines',
+      'Noise',
+      'Wood',
+      'Metal',
+      'Fabric',
+      'Checkerboard',
+      'Pixel Art',
+      'None',
+    ],
+  );
+
+  final textureMap = {
+    'Pixel Grid': AppTextures.pixelGrid,
+    'Diagonal Lines': AppTextures.diagonalLines,
+    'Noise': AppTextures.noise,
+    'Wood': AppTextures.wood,
+    'Metal': AppTextures.metal,
+    'Fabric': AppTextures.fabric,
+    'Checkerboard': AppTextures.checkerboard,
+    'Pixel Art': AppTextures.pixelArt,
+    'None': null,
+  };
+
+  return Center(
+    child: AppSurface(
+      variant: SurfaceVariant.base,
+      style: SurfaceStyle(
+        backgroundColor: Colors.grey.shade200,
+        borderColor: Colors.grey.shade300,
+        contentColor: Colors.black,
+        texture: textureMap[selectedTexture],
+        textureOpacity: textureOpacity,
+      ),
+      width: 200,
+      height: 200,
+      child: const Center(
+        child: Text('Textured Surface'),
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'All Textures Gallery',
+  type: AppSurface,
+)
+Widget buildAppSurfaceTextureGallery(BuildContext context) {
+  final textureOpacity = context.knobs.double.slider(
+    label: 'Texture Opacity',
+    initialValue: 0.3,
+    min: 0.0,
+    max: 1.0,
+  );
+
+  final textures = [
+    ('Pixel Grid', AppTextures.pixelGrid, Colors.grey.shade200),
+    ('Diagonal Lines', AppTextures.diagonalLines, const Color(0xFFFFF8E1)),
+    ('Noise', AppTextures.noise, const Color(0xFF222222)),
+    ('Wood', AppTextures.wood, const Color(0xFF8B4513)),
+    ('Metal', AppTextures.metal, const Color(0xFFAAAAAA)),
+    ('Fabric', AppTextures.fabric, const Color(0xFFC8B4A0)),
+    ('Checkerboard', AppTextures.checkerboard, Colors.white),
+    ('Pixel Art', AppTextures.pixelArt, const Color(0xFFFFC864)),
+  ];
+
+  return SingleChildScrollView(
+    padding: const EdgeInsets.all(16),
+    child: Wrap(
+      spacing: 16,
+      runSpacing: 16,
+      children: [
+        for (final (name, texture, bgColor) in textures)
+          AppSurface(
+            width: 150,
+            height: 150,
+            style: SurfaceStyle(
+              backgroundColor: bgColor,
+              borderColor: Colors.grey.shade400,
+              borderWidth: 2.0,
+              contentColor: Colors.black,
+              texture: texture,
+              textureOpacity: textureOpacity,
+            ),
+            child: Center(
+              child: Text(
+                name,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 12),
+              ),
+            ),
+          ),
+      ],
     ),
   );
 }
