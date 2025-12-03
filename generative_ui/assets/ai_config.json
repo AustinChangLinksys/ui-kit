@@ -1,0 +1,20 @@
+{
+  "phase": "mock",
+  "mock": {
+    "enabled": true,
+    "scenarios": [
+      "wifi",
+      "info",
+      "error"
+    ]
+  },
+  "aws": {
+    "enabled": false,
+    "region": "us-west-2",
+    "model_id": "bedrock-placeholder"
+  },
+  "performance": {
+    "mock_max_latency_ms": 100,
+    "parser_max_latency_ms": 50
+  }
+}
