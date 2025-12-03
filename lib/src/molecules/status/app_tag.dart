@@ -1,33 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
+/// A semantic tag component with automatic selection state styling.
+///
+/// Tags automatically switch between **Base** and **Tonal** surfaces based on selection state,
+/// providing clear visual feedback for filter selection and status indication.
+///
+/// **Example - Filter Tags**:
+/// ```dart
+/// AppTag(
+///   label: '#Flutter',
+///   isSelected: isFlutterSelected,
+///   onTap: () => setState(() => isFlutterSelected = !isFlutterSelected),
+/// )
+///
+/// // With custom color
+/// AppTag(
+///   label: 'Active',
+///   color: Colors.green,
+///   isSelected: true,
+/// )
+/// ```
+///
+/// **Visual Hierarchy**:
+/// - `isSelected: false`: Base surface (low-priority)
+/// - `isSelected: true`: Tonal surface (medium-priority, active state)
 class AppTag extends StatelessWidget {
   const AppTag({
     required this.label,
     this.color,
     this.onDeleted,
     this.onTap,
+    this.isSelected = false,
     super.key,
   });
 
   final String label;
-  
-  /// Specifies the color (Tint Color). If null, uses Theme's Base style.
+
+  /// Specifies the color (Tint Color). If null, uses Theme's Base/Tonal style.
   final Color? color;
-  
+
   /// Delete callback. If present, displays a delete icon.
   final VoidCallback? onDeleted;
-  
+
   /// Click callback (e.g., selecting a Tag).
   final VoidCallback? onTap;
+
+  /// Whether this tag is in the selected/active state.
+  /// When true, automatically applies the Tonal surface style.
+  /// When false, uses the Base surface style.
+  /// Enables clear visual feedback for filter selections and active states.
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
     final theme = AppTheme.of(context);
-    
+
     // 1. Get base style (IoC)
-    // Tags belong to the "Base" level, inheriting the physical properties of cards (e.g., Brutal's thick border)
-    final baseStyle = theme.surfaceBase;
+    // Tags use Base level by default, Tonal when selected
+    // When selected, automatically switch to Secondary (Tonal) surface for visual distinction
+    final baseStyle = isSelected ? theme.surfaceSecondary : theme.surfaceBase;
 
     // 2. Calculate effective style (Style Resolution)
     SurfaceStyle effectiveStyle = baseStyle;
@@ -48,7 +80,7 @@ class AppTag extends StatelessWidget {
     // If the Theme has sharp corners (Brutal), Tags retain sharp corners (0.0).
     if (baseStyle.borderRadius > 0) {
       effectiveStyle = effectiveStyle.copyWith(
-        borderRadius: 8.0, 
+        borderRadius: 8.0,
       );
     }
 

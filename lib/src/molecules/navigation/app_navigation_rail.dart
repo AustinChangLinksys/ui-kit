@@ -1,6 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
+/// A semantic side navigation rail with Tonal surface indicators for selected items.
+///
+/// Similar to [AppNavigationBar] but optimized for vertical layouts (landscape/desktop).
+/// The selected item is highlighted with a **Tonal rounded surface** (8.0 radius),
+/// providing visual consistency with the bottom navigation bar.
+///
+/// **Example**:
+/// ```dart
+/// AppNavigationRail(
+///   currentIndex: selectedIndex,
+///   onTap: (index) => setState(() => selectedIndex = index),
+///   items: [
+///     AppNavigationItem(icon: Icons.home, label: 'Home'),
+///     AppNavigationItem(icon: Icons.search, label: 'Search'),
+///     AppNavigationItem(icon: Icons.settings, label: 'Settings'),
+///   ],
+/// )
+/// ```
+///
+/// **Visual Hierarchy**:
+/// - Selected item: Tonal surface with rounded corners (8.0px)
+/// - Unselected items: Reduced opacity text/icons on transparent background
 class AppNavigationRail extends StatelessWidget {
   const AppNavigationRail({
     required this.items,
@@ -113,10 +135,50 @@ class _RailItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = isSelected
-        ? theme.surfaceHighlight.contentColor
-        : theme.surfaceBase.contentColor.withValues(alpha: 0.6);
+    // Selected items use Tonal pill indicator (like AppNavigationBar)
+    // Unselected items use reduced opacity text/icons
+    if (isSelected) {
+      return GestureDetector(
+        onTap: onTap,
+        behavior: HitTestBehavior.opaque,
+        child: AppSurface(
+          variant: SurfaceVariant.tonal,
+          shape: BoxShape.rectangle,
+          style: theme.surfaceSecondary.copyWith(
+            borderRadius: 8.0, // Rail items use smaller radius than pill
+          ),
+          padding: EdgeInsets.symmetric(
+            horizontal: 8 * theme.spacingFactor,
+            vertical: 8 * theme.spacingFactor,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconTheme(
+                data: IconThemeData(
+                  color: theme.surfaceSecondary.contentColor,
+                  size: 24,
+                ),
+                child: item.activeIcon ?? item.icon,
+              ),
+              SizedBox(height: theme.spacingFactor * 4),
+              Text(
+                item.label,
+                style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      color: theme.surfaceSecondary.contentColor,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 10,
+                    ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+      );
+    }
 
+    // Unselected items: reduced opacity text/icons on transparent background
+    final color = theme.surfaceBase.contentColor.withValues(alpha: 0.6);
     return GestureDetector(
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
@@ -128,17 +190,15 @@ class _RailItem extends StatelessWidget {
           children: [
             IconTheme(
               data: IconThemeData(color: color, size: 24),
-              child: isSelected && item.activeIcon != null
-                  ? item.activeIcon!
-                  : item.icon,
+              child: item.icon,
             ),
             SizedBox(height: theme.spacingFactor * 4),
             Text(
               item.label,
               style: Theme.of(context).textTheme.labelSmall?.copyWith(
                     color: color,
-                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                    fontSize: 10, // Rail text is usually smaller
+                    fontWeight: FontWeight.w400,
+                    fontSize: 10,
                   ),
               textAlign: TextAlign.center,
             ),

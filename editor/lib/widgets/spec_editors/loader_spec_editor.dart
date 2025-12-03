@@ -3,9 +3,11 @@ import 'package:gap/gap.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 import '../property_editors/double_property.dart';
 import '../property_editors/enum_property.dart';
-import '../property_editors/color_property.dart' as color_prop;
+import 'color_info_display.dart';
 
 /// Editor widget for LoaderStyle properties
+/// Allows editing of all 8 LoaderStyle parameters:
+/// type, color, backgroundColor, strokeWidth, size, period, shadows, borderRadius
 class LoaderSpecEditor extends StatefulWidget {
   final LoaderStyle initialStyle;
   final ValueChanged<LoaderStyle> onChanged;
@@ -49,16 +51,6 @@ class _LoaderSpecEditorState extends State<LoaderSpecEditor> {
     _updateStyle(updated);
   }
 
-  void _handleColorChanged(Color color) {
-    final updated = _currentStyle.copyWith(color: color);
-    _updateStyle(updated);
-  }
-
-  void _handleBackgroundColorChanged(Color? color) {
-    final updated = _currentStyle.copyWith(backgroundColor: color);
-    _updateStyle(updated);
-  }
-
   void _handleStrokeWidthChanged(double value) {
     final updated = _currentStyle.copyWith(strokeWidth: value);
     _updateStyle(updated);
@@ -66,6 +58,13 @@ class _LoaderSpecEditorState extends State<LoaderSpecEditor> {
 
   void _handleSizeChanged(double value) {
     final updated = _currentStyle.copyWith(size: value);
+    _updateStyle(updated);
+  }
+
+  void _handlePeriodChanged(double milliseconds) {
+    final updated = _currentStyle.copyWith(
+      period: Duration(milliseconds: milliseconds.toInt()),
+    );
     _updateStyle(updated);
   }
 
@@ -78,6 +77,12 @@ class _LoaderSpecEditorState extends State<LoaderSpecEditor> {
   Widget build(BuildContext context) {
     return ExpansionTile(
       title: Text('Loader', style: Theme.of(context).textTheme.titleMedium),
+      subtitle: Text(
+        '8 parameters',
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Colors.grey,
+            ),
+      ),
       initiallyExpanded: false,
       children: [
         Padding(
@@ -85,7 +90,7 @@ class _LoaderSpecEditorState extends State<LoaderSpecEditor> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Loader Type
+              // 1. Loader Type
               EnumProperty<LoaderType>(
                 label: 'Type',
                 value: _currentStyle.type,
@@ -95,26 +100,28 @@ class _LoaderSpecEditorState extends State<LoaderSpecEditor> {
               ),
               const Gap(16),
 
-              // Color
-              color_prop.ColorProperty(
+              // 2. Color - Read-only (managed via Colors tab)
+              ColorInfoDisplay(
                 label: 'Color',
-                value: _currentStyle.color ?? Colors.blue,
-                onChanged: _handleColorChanged,
+                color: _currentStyle.color ?? Colors.blue,
+                sourceColor: 'scheme.primary (all themes)',
+                note: 'Modify in Colors tab → Primary',
               ),
               const Gap(16),
 
-              // Background Color (optional)
+              // 3. Background Color (optional) - Read-only (managed via Colors tab)
               if (_currentStyle.backgroundColor != null)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16.0),
-                  child: color_prop.ColorProperty(
+                  child: ColorInfoDisplay(
                     label: 'Background Color',
-                    value: _currentStyle.backgroundColor!,
-                    onChanged: _handleBackgroundColorChanged,
+                    color: _currentStyle.backgroundColor!,
+                    sourceColor: 'Set via theme implementation',
+                    note: 'Modify in Colors tab to change scheme colors',
                   ),
                 ),
 
-              // Stroke Width
+              // 4. Stroke Width
               DoubleProperty(
                 label: 'Stroke Width',
                 value: _currentStyle.strokeWidth,
@@ -125,7 +132,7 @@ class _LoaderSpecEditorState extends State<LoaderSpecEditor> {
               ),
               const Gap(16),
 
-              // Size
+              // 5. Size
               DoubleProperty(
                 label: 'Size',
                 value: _currentStyle.size,
@@ -136,7 +143,52 @@ class _LoaderSpecEditorState extends State<LoaderSpecEditor> {
               ),
               const Gap(16),
 
-              // Border Radius
+              // 6. Period (Animation duration in milliseconds)
+              DoubleProperty(
+                label: 'Period (milliseconds)',
+                value: _currentStyle.period.inMilliseconds.toDouble(),
+                min: 400,
+                max: 3000,
+                onChanged: _handlePeriodChanged,
+                divisions: 26,
+              ),
+              const Gap(16),
+
+              // 7. Shadows (read-only info)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Box Shadows',
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
+                    const Gap(8),
+                    Container(
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey.shade300),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        '${_currentStyle.shadows.length} shadow(s)',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ),
+                    Text(
+                      'Shadows set via theme implementations',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Colors.grey,
+                            fontStyle: FontStyle.italic,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+              const Gap(16),
+
+              // 8. Border Radius
               DoubleProperty(
                 label: 'Border Radius',
                 value: _currentStyle.borderRadius,

@@ -26,6 +26,27 @@ class DividerStyle extends Equatable {
     this.pattern = DividerPattern.solid,
   });
 
+  /// Create a copy of this DividerStyle with modified properties
+  DividerStyle copyWith({
+    Color? color,
+    Color? secondaryColor,
+    double? thickness,
+    double? indent,
+    double? endIndent,
+    double? glowStrength,
+    DividerPattern? pattern,
+  }) {
+    return DividerStyle(
+      color: color ?? this.color,
+      secondaryColor: secondaryColor ?? this.secondaryColor,
+      thickness: thickness ?? this.thickness,
+      indent: indent ?? this.indent,
+      endIndent: endIndent ?? this.endIndent,
+      glowStrength: glowStrength ?? this.glowStrength,
+      pattern: pattern ?? this.pattern,
+    );
+  }
+
   @override
   List<Object?> get props => [
         color,

@@ -8,6 +8,8 @@ class PixelDesignTheme extends AppDesignTheme {
     required super.surfaceBase,
     required super.surfaceElevated,
     required super.surfaceHighlight,
+    required super.surfaceSecondary,
+    required super.surfaceTertiary,
     required super.toggleStyle,
     required super.typography,
     required super.animation,
@@ -77,6 +79,36 @@ class PixelDesignTheme extends AppDesignTheme {
           pressedOffset: Offset(2, 2),
         ),
       ),
+      surfaceSecondary: SurfaceStyle(
+        backgroundColor: scheme.secondaryContainer,
+        borderColor: scheme.onSurface,
+        borderWidth: 2.0,
+        borderRadius: 2.0,
+        shadows: [
+          BoxShadow(
+            color: scheme.onSurface.withValues(alpha: 0.3),
+            blurRadius: 0,
+            offset: const Offset(2, 2),
+          )
+        ],
+        blurStrength: 0.0,
+        contentColor: scheme.onSecondaryContainer,
+      ),
+      surfaceTertiary: SurfaceStyle(
+        backgroundColor: scheme.tertiaryContainer,
+        borderColor: scheme.onSurface,
+        borderWidth: 2.0,
+        borderRadius: 2.0,
+        shadows: [
+          BoxShadow(
+            color: scheme.onSurface.withValues(alpha: 0.3),
+            blurRadius: 0,
+            offset: const Offset(2, 2),
+          )
+        ],
+        blurStrength: 0.0,
+        contentColor: scheme.onTertiaryContainer,
+      ),
       toggleStyle: const ToggleStyle(
         activeType: ToggleContentType.text,
         inactiveType: ToggleContentType.text,
@@ -84,8 +116,8 @@ class PixelDesignTheme extends AppDesignTheme {
         inactiveText: 'OFF',
       ),
       skeletonStyle: SkeletonStyle(
-        baseColor: Colors.black.withValues(alpha: 0.1),
-        highlightColor: Colors.black.withValues(alpha: 0.2),
+        baseColor: scheme.shadow.withValues(alpha: 0.1),
+        highlightColor: scheme.shadow.withValues(alpha: 0.2),
         animationType: SkeletonAnimationType.blink,
         borderRadius: 2.0,
       ),
@@ -149,7 +181,7 @@ class PixelDesignTheme extends AppDesignTheme {
         borderRadius: 2.0,
         shadows: [
           BoxShadow(
-              color: Colors.black.withValues(alpha: 0.2),
+              color: scheme.shadow.withValues(alpha: 0.2),
               offset: const Offset(2, 2),
               blurRadius: 0),
         ],
@@ -260,6 +292,36 @@ class PixelDesignTheme extends AppDesignTheme {
           pressedOffset: Offset(2, 2),
         ),
       ),
+      surfaceSecondary: SurfaceStyle(
+        backgroundColor: scheme.secondaryContainer,
+        borderColor: black,
+        borderWidth: 2.0,
+        borderRadius: 2.0,
+        shadows: [
+          BoxShadow(
+            color: black.withValues(alpha: 0.3),
+            blurRadius: 0,
+            offset: const Offset(2, 2),
+          )
+        ],
+        blurStrength: 0.0,
+        contentColor: scheme.onSecondaryContainer,
+      ),
+      surfaceTertiary: SurfaceStyle(
+        backgroundColor: scheme.tertiaryContainer,
+        borderColor: black,
+        borderWidth: 2.0,
+        borderRadius: 2.0,
+        shadows: [
+          BoxShadow(
+            color: black.withValues(alpha: 0.3),
+            blurRadius: 0,
+            offset: const Offset(2, 2),
+          )
+        ],
+        blurStrength: 0.0,
+        contentColor: scheme.onTertiaryContainer,
+      ),
       toggleStyle: const ToggleStyle(
         activeType: ToggleContentType.text,
         inactiveType: ToggleContentType.text,
@@ -328,7 +390,7 @@ class PixelDesignTheme extends AppDesignTheme {
         borderRadius: 2.0,
         shadows: [
           BoxShadow(
-              color: Colors.black.withValues(alpha: 0.4),
+              color: scheme.shadow.withValues(alpha: 0.4),
               offset: const Offset(2, 2),
               blurRadius: 0),
         ],

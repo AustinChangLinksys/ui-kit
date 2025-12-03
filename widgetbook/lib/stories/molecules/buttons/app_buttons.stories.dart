@@ -197,6 +197,11 @@ Widget buildIconButtonStates(BuildContext context) {
                   variant: SurfaceVariant.base,
                   icon: const Icon(Icons.home),
                   onTap: () {}),
+              // ✨ Tonal: Secondary actions, toggle states
+              AppIconButton(
+                  variant: SurfaceVariant.tonal,
+                  icon: const Icon(Icons.favorite),
+                  onTap: () {}),
               AppIconButton(
                   variant: SurfaceVariant.highlight,
                   icon: const Icon(Icons.add),
@@ -204,6 +209,30 @@ Widget buildIconButtonStates(BuildContext context) {
               AppIconButton(
                   variant: SurfaceVariant.elevated,
                   icon: const Icon(Icons.edit),
+                  onTap: () {}),
+            ],
+          ),
+          const SizedBox(height: 32),
+          const _Header('Toggle State Example (Tonal)'),
+          const Text(
+            '✨ Favorite button uses Tonal when selected',
+            style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
+          ),
+          const SizedBox(height: 16),
+          Wrap(
+            spacing: 24,
+            children: [
+              // Unselected: Base variant
+              AppIconButton(
+                  variant: SurfaceVariant.base,
+                  icon: const Icon(Icons.favorite_border),
+                  tooltip: 'Not favorited',
+                  onTap: () {}),
+              // Selected: Tonal variant
+              AppIconButton(
+                  variant: SurfaceVariant.tonal,
+                  icon: const Icon(Icons.favorite, color: Colors.red),
+                  tooltip: 'Favorited',
                   onTap: () {}),
             ],
           ),

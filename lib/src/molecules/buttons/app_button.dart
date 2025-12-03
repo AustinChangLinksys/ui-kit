@@ -8,6 +8,29 @@ enum AppButtonSize {
   large, // 56px
 }
 
+/// A semantic button component with visual hierarchy support.
+///
+/// **Variant Examples**:
+/// ```dart
+/// // Primary action (default)
+/// AppButton(label: 'Confirm', onTap: () {})
+///
+/// // Secondary action (tonal)
+/// AppButton(
+///   label: 'Save Draft',
+///   variant: SurfaceVariant.tonal,
+///   onTap: () {},
+/// )
+///
+/// // Low priority (base)
+/// AppButton(
+///   label: 'Cancel',
+///   variant: SurfaceVariant.base,
+///   onTap: () {},
+/// )
+/// ```
+///
+/// Visual hierarchy: `highlight` (primary) > `tonal` (secondary) > `base` (tertiary)
 class AppButton extends StatelessWidget {
   const AppButton({
     required this.label,
@@ -23,6 +46,10 @@ class AppButton extends StatelessWidget {
   final VoidCallback? onTap;
   final Widget? icon;
   final bool isLoading;
+  /// The semantic variant that controls button styling across all design themes.
+  /// - `highlight`: Primary CTA (default)
+  /// - `tonal`: Secondary action
+  /// - `base`: Low priority action
   final SurfaceVariant variant;
   final AppButtonSize size;
 

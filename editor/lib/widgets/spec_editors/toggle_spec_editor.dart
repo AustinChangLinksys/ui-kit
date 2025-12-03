@@ -4,6 +4,8 @@ import 'package:ui_kit_library/ui_kit.dart';
 import 'surface_style_editor.dart';
 
 /// Editor widget for ToggleStyle properties
+/// Allows editing of surface styles and viewing toggle configuration:
+/// activeTrackStyle, inactiveTrackStyle, thumbStyle, activeType, inactiveType
 class ToggleSpecEditor extends StatefulWidget {
   final ToggleStyle initialStyle;
   final ValueChanged<ToggleStyle> onChanged;
@@ -67,6 +69,12 @@ class _ToggleSpecEditorState extends State<ToggleSpecEditor> {
   Widget build(BuildContext context) {
     return ExpansionTile(
       title: Text('Toggle', style: Theme.of(context).textTheme.titleMedium),
+      subtitle: Text(
+        '5 parameters',
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Colors.grey,
+            ),
+      ),
       initiallyExpanded: false,
       children: [
         Padding(
@@ -74,13 +82,14 @@ class _ToggleSpecEditorState extends State<ToggleSpecEditor> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Surface Styles section
               Text(
                 'Surface Styles',
                 style: Theme.of(context).textTheme.titleSmall,
               ),
               const Gap(12),
 
-              // Active Track Style
+              // 1. Active Track Style
               if (_currentStyle.activeTrackStyle != null)
                 Column(
                   children: [
@@ -93,7 +102,7 @@ class _ToggleSpecEditorState extends State<ToggleSpecEditor> {
                   ],
                 ),
 
-              // Inactive Track Style
+              // 2. Inactive Track Style
               if (_currentStyle.inactiveTrackStyle != null)
                 Column(
                   children: [
@@ -106,13 +115,71 @@ class _ToggleSpecEditorState extends State<ToggleSpecEditor> {
                   ],
                 ),
 
-              // Thumb Style
+              // 3. Thumb Style
               if (_currentStyle.thumbStyle != null)
-                SurfaceStyleEditor(
-                  title: 'Thumb',
-                  initialStyle: _currentStyle.thumbStyle!,
-                  onChanged: _handleThumbStyleChanged,
+                Column(
+                  children: [
+                    SurfaceStyleEditor(
+                      title: 'Thumb',
+                      initialStyle: _currentStyle.thumbStyle!,
+                      onChanged: _handleThumbStyleChanged,
+                    ),
+                    const Gap(12),
+                  ],
                 ),
+
+              // 4. Active Type (read-only info)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Active Type',
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
+                    const Gap(8),
+                    Container(
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey.shade300),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        _currentStyle.activeType.toString().split('.').last,
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Gap(16),
+
+              // 5. Inactive Type (read-only info)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Inactive Type',
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
+                    const Gap(8),
+                    Container(
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey.shade300),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        _currentStyle.inactiveType.toString().split('.').last,
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

@@ -55,7 +55,12 @@ Widget buildAvatarStates(BuildContext context) {
             ],
           ),
           SizedBox(height: 32),
-          _Header('Image vs Initials'),
+          _Header('Image vs Initials (Tonal Fallback)'),
+          Text(
+            '✨ Fallback now uses Tonal surface - adapts to all themes',
+            style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
+          ),
+          SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -64,10 +69,17 @@ Widget buildAvatarStates(BuildContext context) {
                 size: 64,
                 imageUrl: 'https://i.pravatar.cc/300?img=3',
               ),
+              // ✨ Shows Tonal fallback when image fails/unavailable
               AppAvatar(
                 initials: 'AB',
                 size: 64,
-                imageUrl: null, // Fallback
+                imageUrl: null, // Fallback with Tonal surface
+              ),
+              // Different initials, also Tonal fallback
+              AppAvatar(
+                initials: 'MK',
+                size: 64,
+                imageUrl: null,
               ),
             ],
           ),

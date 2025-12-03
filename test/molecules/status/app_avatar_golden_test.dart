@@ -12,25 +12,90 @@ void main() {
   });
 
   group('AppAvatar Golden Tests', () {
+    // Test 1: Avatar fallback with initials (standard sizes)
     goldenTest(
-      'AppAvatar Matrix',
-      fileName: 'app_avatar_matrix',
+      'AppAvatar - Initials Fallback (Standard & Large)',
+      fileName: 'app_avatar_initials_fallback',
       builder: () => buildThemeMatrix(
-        name: 'AppAvatar',
-        width: 200, // Adjusted width to accommodate all elements in a row
+        name: 'Initials Fallback',
+        width: 200,
         height: 100,
         child: const Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            // 1. Standard Initials (Standard)
+            // Standard size (40px) with initials
             AppAvatar(
-              initials: 'JD',
+              initials: 'AB',
               size: 40,
+              imageUrl: null,
             ),
-            // 2. Large size (Large)
+            // Large size (56px) with initials
             AppAvatar(
-              initials: 'XY',
+              initials: 'CD',
               size: 56,
+              imageUrl: null,
+            ),
+          ],
+        ),
+      ),
+    );
+
+    // Test 2: Avatar with single character initials
+    goldenTest(
+      'AppAvatar - Single Character Initials',
+      fileName: 'app_avatar_single_char',
+      builder: () => buildThemeMatrix(
+        name: 'Single Character',
+        width: 200,
+        height: 100,
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            // Single character fallback
+            AppAvatar(
+              initials: 'X',
+              size: 40,
+              imageUrl: null,
+            ),
+            // Single character at large size
+            AppAvatar(
+              initials: 'Y',
+              size: 56,
+              imageUrl: null,
+            ),
+          ],
+        ),
+      ),
+    );
+
+    // Test 3: Avatar with empty/long initials edge cases
+    goldenTest(
+      'AppAvatar - Edge Cases (Empty & Truncated)',
+      fileName: 'app_avatar_edge_cases',
+      builder: () => buildThemeMatrix(
+        name: 'Edge Cases',
+        width: 250,
+        height: 100,
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            // Empty initials (fallback to empty circle)
+            AppAvatar(
+              initials: '',
+              size: 40,
+              imageUrl: null,
+            ),
+            // Long initials (should truncate to 2 chars)
+            AppAvatar(
+              initials: 'ABCD',
+              size: 40,
+              imageUrl: null,
+            ),
+            // Three characters (should show first 2)
+            AppAvatar(
+              initials: 'XYZ',
+              size: 56,
+              imageUrl: null,
             ),
           ],
         ),

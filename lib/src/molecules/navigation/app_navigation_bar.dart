@@ -1,6 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
+/// A semantic navigation bar with pill-shaped Tonal indicator for selected items.
+///
+/// The selected item is highlighted with a **Tonal pill-shaped surface**,
+/// providing a clear visual indication of the current navigation state across all design themes.
+///
+/// **Example**:
+/// ```dart
+/// AppNavigationBar(
+///   currentIndex: selectedIndex,
+///   onTap: (index) => setState(() => selectedIndex = index),
+///   items: [
+///     AppNavigationItem(icon: Icons.home, label: 'Home'),
+///     AppNavigationItem(icon: Icons.search, label: 'Search'),
+///     AppNavigationItem(icon: Icons.favorite, label: 'Favorites'),
+///   ],
+/// )
+/// ```
+///
+/// **Visual Hierarchy**:
+/// - Selected item: Pill-shaped Tonal surface (medium-priority highlight)
+/// - Unselected items: Reduced opacity text/icons on base background
 class AppNavigationBar extends StatelessWidget {
   const AppNavigationBar({
     required this.items,
@@ -10,8 +31,11 @@ class AppNavigationBar extends StatelessWidget {
   }) : assert(items.length >= 2 && items.length <= 5,
             'AppNavigationBar must have between 2 and 5 items.');
 
+  /// Navigation items to display in the bar (2-5 items)
   final List<AppNavigationItem> items;
+  /// The index of the currently selected item
   final int currentIndex;
+  /// Callback when a different item is selected
   final ValueChanged<int> onTap;
 
   @override
@@ -49,10 +73,10 @@ class AppNavigationBar extends StatelessWidget {
           final isSelected = index == currentIndex;
 
           // Color logic:
-          // - Selected: Use Highlight's text color (usually primary color)
+          // - Selected: Use Tonal surface for visual distinction
           // - Unselected: Use Base's text color with reduced opacity
           final color = isSelected
-              ? theme.surfaceHighlight.contentColor
+              ? theme.surfaceSecondary.contentColor
               : theme.surfaceBase.contentColor.withValues(alpha: 0.6);
 
           // Use Expanded to ensure click area is evenly distributed
@@ -60,29 +84,63 @@ class AppNavigationBar extends StatelessWidget {
             child: GestureDetector(
               onTap: () => onTap(index),
               behavior: HitTestBehavior.opaque, // Ensure blank areas are also clickable
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconTheme(
-                    data: IconThemeData(
-                      color: color,
-                      size: 24 * theme.spacingFactor, // Support scaling
-                    ),
-                    child: isSelected && item.activeIcon != null
-                        ? item.activeIcon!
-                        : item.icon,
-                  ),
-                  SizedBox(height: 4 * theme.spacingFactor),
-                  Text(
-                    item.label,
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          color: color,
-                          fontWeight:
-                              isSelected ? FontWeight.w600 : FontWeight.w400,
+              child: Center(
+                child: isSelected
+                    // Pill-shaped Tonal indicator for selected item
+                    ? AppSurface(
+                        variant: SurfaceVariant.tonal,
+                        shape: BoxShape.rectangle,
+                        style: theme.surfaceSecondary.copyWith(
+                          borderRadius: 99.0, // Force pill shape
                         ),
-                  ),
-                ],
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 16 * theme.spacingFactor,
+                          vertical: 4 * theme.spacingFactor,
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconTheme(
+                              data: IconThemeData(
+                                color: color,
+                                size: 24 * theme.spacingFactor,
+                              ),
+                              child: item.activeIcon ?? item.icon,
+                            ),
+                            SizedBox(height: 4 * theme.spacingFactor),
+                            Text(
+                              item.label,
+                              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                                    color: color,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      )
+                    // Unselected item - no background
+                    : Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconTheme(
+                            data: IconThemeData(
+                              color: color,
+                              size: 24 * theme.spacingFactor,
+                            ),
+                            child: item.icon,
+                          ),
+                          SizedBox(height: 4 * theme.spacingFactor),
+                          Text(
+                            item.label,
+                            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                                  color: color,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                          ),
+                        ],
+                      ),
               ),
             ),
           );

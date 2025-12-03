@@ -4,11 +4,41 @@ import 'package:ui_kit_library/src/atoms/surfaces/app_surface.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/app_design_theme.dart';
 import 'app_button.dart'; // Import AppButtonSize enum
 
-/// A square or circular icon button based on the theme.
+/// A square or circular icon button with semantic surface variant support.
 ///
 /// Follows the **Data-Driven Strategy**:
 /// - Enforces 1:1 aspect ratio.
 /// - Visuals driven by [AppSurface] and [SurfaceVariant].
+///
+/// **Variant Usage Examples**:
+/// ```dart
+/// // Default base style (action button)
+/// AppIconButton(
+///   icon: Icon(Icons.add),
+///   onTap: () => addItem(),
+/// )
+///
+/// // Toggle state with Tonal (e.g., favorite, mute)
+/// AppIconButton(
+///   icon: Icon(isMuted ? Icons.volume_off : Icons.volume_up),
+///   variant: isMuted ? SurfaceVariant.tonal : SurfaceVariant.base,
+///   onTap: () => toggleMute(),
+/// )
+///
+/// // Highlight for critical action (delete)
+/// AppIconButton(
+///   icon: Icon(Icons.delete, color: Colors.red),
+///   variant: SurfaceVariant.highlight,
+///   onTap: () => deleteItem(),
+/// )
+/// ```
+///
+/// **Surface Variants**:
+/// - `base` (default): Standard action button
+/// - `tonal`: Toggle/selected states, secondary actions
+/// - `highlight`: Critical actions, primary CTAs
+/// - `elevated`: Floating/prominent context
+/// - `accent`: Decorative or special emphasis
 class AppIconButton extends StatelessWidget {
   const AppIconButton({
     required this.icon,

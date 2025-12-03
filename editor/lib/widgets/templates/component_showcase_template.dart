@@ -112,7 +112,9 @@ class _TypographyPreview extends StatelessWidget {
   }
 }
 
-/// Displays surface variants using AppSurface
+/// Displays all surface variants using AppSurface
+/// Shows: Base, Elevated, Highlight, Tonal (Secondary), Accent (Tertiary)
+/// This demonstrates the impact of color scheme changes on all surface types
 class _SurfaceVariantsPreview extends StatelessWidget {
   const _SurfaceVariantsPreview();
 
@@ -123,10 +125,12 @@ class _SurfaceVariantsPreview extends StatelessWidget {
       children: [
         AppText('Surface Variants', variant: AppTextVariant.titleMedium),
         AppGap.md(),
+        // Row 1: Base and Elevated
         Row(
           children: [
             Expanded(
               child: AppSurface(
+                variant: SurfaceVariant.base,
                 child: Padding(
                   padding: const EdgeInsets.all(12),
                   child: AppText('Base', variant: AppTextVariant.bodySmall),
@@ -136,6 +140,7 @@ class _SurfaceVariantsPreview extends StatelessWidget {
             AppGap.md(),
             Expanded(
               child: AppSurface(
+                variant: SurfaceVariant.elevated,
                 child: Padding(
                   padding: const EdgeInsets.all(12),
                   child: AppText('Elevated', variant: AppTextVariant.bodySmall),
@@ -144,12 +149,56 @@ class _SurfaceVariantsPreview extends StatelessWidget {
             ),
           ],
         ),
+        AppGap.md(),
+        // Row 2: Highlight and Tonal (Secondary)
+        Row(
+          children: [
+            Expanded(
+              child: AppSurface(
+                variant: SurfaceVariant.highlight,
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: AppText('Highlight', variant: AppTextVariant.bodySmall),
+                ),
+              ),
+            ),
+            AppGap.md(),
+            Expanded(
+              child: AppSurface(
+                variant: SurfaceVariant.tonal,
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: AppText('Tonal (Secondary)', variant: AppTextVariant.bodySmall),
+                ),
+              ),
+            ),
+          ],
+        ),
+        AppGap.md(),
+        // Row 3: Accent (Tertiary)
+        Row(
+          children: [
+            Expanded(
+              child: AppSurface(
+                variant: SurfaceVariant.accent,
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: AppText('Accent (Tertiary)', variant: AppTextVariant.bodySmall),
+                ),
+              ),
+            ),
+            AppGap.md(),
+            Expanded(
+              child: Container(),
+            ),
+          ],
+        ),
       ],
     );
   }
 }
 
-/// Displays sample components using UI Kit widgets
+/// Displays all available UI Kit components organized by category
 class _ComponentsPreview extends StatelessWidget {
   const _ComponentsPreview();
 
@@ -158,118 +207,230 @@ class _ComponentsPreview extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        AppText('Components', variant: AppTextVariant.titleMedium),
+        // Buttons & Navigation
+        AppText('Buttons & Navigation', variant: AppTextVariant.titleMedium),
         AppGap.md(),
-
-        // Buttons
-        Row(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AppButton(label: 'Primary', onTap: () {}),
+            // AppButton variants
+            Row(
+              children: [
+                AppButton(label: 'Primary', onTap: () {}),
+                AppGap.md(),
+                AppButton(
+                  label: 'Secondary',
+                  onTap: () {},
+                  variant: SurfaceVariant.base,
+                ),
+              ],
+            ),
             AppGap.md(),
-            AppButton(
-              label: 'Secondary',
-              onTap: () {},
-              variant: SurfaceVariant.base,
+            // AppIconButton
+            Row(
+              children: [
+                AppIconButton(
+                  icon: Icon(Icons.favorite),
+                  onTap: () {},
+                ),
+                AppGap.md(),
+                AppIconButton(
+                  icon: Icon(Icons.share),
+                  onTap: () {},
+                  variant: SurfaceVariant.base,
+                ),
+              ],
             ),
           ],
-        ),
-        AppGap.md(),
-
-        // Input Field - shows InputStyle changes
-        AppTextFormField(label: 'Input Field'),
-        AppGap.md(),
-
-        // Toggle/Switch - shows ToggleStyle changes
-        Row(
-          children: [
-            AppSwitch(value: true, onChanged: (_) {}),
-            AppGap.md(),
-            AppText('Enabled', variant: AppTextVariant.bodyMedium),
-          ],
-        ),
-        AppGap.md(),
-
-        // Card - shows SurfaceStyle changes
-        AppCard(
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: AppText('Sample Card', variant: AppTextVariant.bodyMedium),
-          ),
         ),
         AppGap.xl(),
 
-        // Feedback & Status
-        AppText('Feedback & Status', variant: AppTextVariant.titleMedium),
+        // Form & Input Controls
+        AppText('Form & Input Controls', variant: AppTextVariant.titleMedium),
         AppGap.md(),
-        Row(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AppLoader(),
+            // AppTextFormField
+            AppTextFormField(label: 'Text Input'),
             AppGap.md(),
-            AppBadge(label: 'Badge'),
+            // AppTextField
+            AppTextField(hintText: 'Simple Text Field'),
             AppGap.md(),
-            AppTag(label: 'Tag'),
-            AppGap.md(),
-            AppTooltip(
-              message: 'Tooltip Info',
-              child: Icon(Icons.info_outline),
+            // AppDropdown
+            AppDropdown<String>(
+              value: 'option1',
+              items: const ['option1', 'option2', 'option3'],
+              onChanged: (value) {},
+              label: 'Dropdown Selection',
             ),
+            AppGap.md(),
           ],
-        ),
-        AppGap.md(),
-        AppButton(
-          label: 'Show Toast',
-          onTap: () {
-            AppToast.show(
-              context,
-              title: 'Toast Title',
-              type: ToastType.info,
-              description: 'This is a toast message',
-            );
-          },
-          variant: SurfaceVariant.base,
         ),
         AppGap.xl(),
 
         // Selection Controls
         AppText('Selection Controls', variant: AppTextVariant.titleMedium),
         AppGap.md(),
-        Row(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AppCheckbox(value: true, onChanged: (_) {}),
+            // Checkbox
+            Row(
+              children: [
+                AppCheckbox(value: true, onChanged: (_) {}),
+                AppGap.md(),
+                AppText('Checked', variant: AppTextVariant.bodyMedium),
+                AppGap.xl(),
+                AppCheckbox(value: false, onChanged: (_) {}),
+                AppGap.md(),
+                AppText('Unchecked', variant: AppTextVariant.bodyMedium),
+              ],
+            ),
             AppGap.md(),
-            AppCheckbox(value: false, onChanged: (_) {}),
-            AppGap.xl(),
-            AppRadio<int>(value: 1, groupValue: 1, onChanged: (_) {}),
+            // Radio
+            Row(
+              children: [
+                AppRadio<int>(value: 1, groupValue: 1, onChanged: (_) {}),
+                AppGap.md(),
+                AppText('Selected', variant: AppTextVariant.bodyMedium),
+                AppGap.xl(),
+                AppRadio<int>(value: 2, groupValue: 1, onChanged: (_) {}),
+                AppGap.md(),
+                AppText('Unselected', variant: AppTextVariant.bodyMedium),
+              ],
+            ),
             AppGap.md(),
-            AppRadio<int>(value: 2, groupValue: 1, onChanged: (_) {}),
-          ],
-        ),
-        AppGap.md(),
-        AppSlider(value: 0.5, onChanged: (_) {}),
-        AppGap.xl(),
-
-        // Layout & Loading
-        AppText('Layout & Loading', variant: AppTextVariant.titleMedium),
-        AppGap.md(),
-        AppDivider(),
-        AppGap.md(),
-        Row(
-          children: [
-            AppSkeleton.circular(size: 48),
+            // AppSwitch
+            Row(
+              children: [
+                AppSwitch(value: true, onChanged: (_) {}),
+                AppGap.md(),
+                AppText('Toggle Switch', variant: AppTextVariant.bodyMedium),
+              ],
+            ),
             AppGap.md(),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppSkeleton.text(width: 120),
-                  AppGap.xs(),
-                  AppSkeleton.text(width: 200),
-                ],
-              ),
+            // AppSlider
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppText('Slider Control', variant: AppTextVariant.bodySmall),
+                AppGap.xs(),
+                AppSlider(value: 0.5, onChanged: (_) {}),
+              ],
             ),
           ],
         ),
         AppGap.xl(),
+
+        // Status & Feedback
+        AppText('Status & Feedback', variant: AppTextVariant.titleMedium),
+        AppGap.md(),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Status indicators
+            Row(
+              children: [
+                AppBadge(label: 'Badge'),
+                AppGap.md(),
+                AppTag(label: 'Tag'),
+                AppGap.md(),
+                AppAvatar(initials: 'UI'),
+              ],
+            ),
+            AppGap.md(),
+            // Loaders and feedback
+            Row(
+              children: [
+                AppLoader(),
+                AppGap.md(),
+                AppTooltip(
+                  message: 'Hover Info',
+                  child: Icon(Icons.info_outline),
+                ),
+                AppGap.md(),
+                AppButton(
+                  label: 'Toast',
+                  onTap: () {
+                    AppToast.show(
+                      context,
+                      title: 'Notification',
+                      type: ToastType.success,
+                      description: 'Action completed successfully',
+                    );
+                  },
+                  variant: SurfaceVariant.base,
+                ),
+              ],
+            ),
+          ],
+        ),
+        AppGap.xl(),
+
+        // Display & Layout
+        AppText('Display & Layout', variant: AppTextVariant.titleMedium),
+        AppGap.md(),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // AppCard
+            AppCard(
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: AppText('Sample Card Component', variant: AppTextVariant.bodyMedium),
+              ),
+            ),
+            AppGap.md(),
+            // AppListTile
+            AppListTile(
+              leading: AppIcon.font(Icons.person),
+              title: AppText('List Tile', variant: AppTextVariant.bodyMedium),
+              subtitle: AppText('With leading icon', variant: AppTextVariant.bodySmall),
+            ),
+            AppGap.md(),
+            // AppDivider
+            AppDivider(),
+            AppGap.md(),
+            // Skeletons
+            Row(
+              children: [
+                AppSkeleton.circular(size: 48),
+                AppGap.md(),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppSkeleton.text(width: 120),
+                      AppGap.xs(),
+                      AppSkeleton.text(width: 200),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+        AppGap.xl(),
+
+        // Icon Showcase
+        AppText('Icon Library', variant: AppTextVariant.titleMedium),
+        AppGap.md(),
+        Row(
+          children: [
+            AppIcon.font(Icons.home),
+            AppGap.md(),
+            AppIcon.font(Icons.settings),
+            AppGap.md(),
+            AppIcon.font(Icons.search),
+            AppGap.md(),
+            AppIcon.font(Icons.favorite),
+            AppGap.md(),
+            AppIcon.font(Icons.share),
+          ],
+        ),
+        AppGap.xl(),
+
       ],
     );
   }

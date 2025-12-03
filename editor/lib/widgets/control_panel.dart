@@ -205,6 +205,22 @@ class ControlPanel extends StatelessWidget {
                           onChanged: (style) =>
                               themeController.updateSurfaceHighlight(style),
                         ),
+                        const Gap(12),
+                        SurfaceStyleEditor(
+                          title: 'Secondary Surface',
+                          initialStyle:
+                              themeController.currentTheme.surfaceSecondary,
+                          onChanged: (style) =>
+                              themeController.updateSurfaceSecondary(style),
+                        ),
+                        const Gap(12),
+                        SurfaceStyleEditor(
+                          title: 'Tertiary Surface',
+                          initialStyle:
+                              themeController.currentTheme.surfaceTertiary,
+                          onChanged: (style) =>
+                              themeController.updateSurfaceTertiary(style),
+                        ),
                       ],
                     ),
 
@@ -245,12 +261,6 @@ class ControlPanel extends StatelessWidget {
                           label: 'Error',
                           value: themeController.currentLightScheme.error,
                           onChanged: (color) => themeController.updateColorOverride(error: color),
-                        ),
-                        const Gap(12),
-                        color_property.ColorProperty(
-                          label: 'Surface',
-                          value: themeController.currentLightScheme.surface,
-                          onChanged: (color) => themeController.updateColorOverride(surface: color),
                         ),
                         const Gap(12),
                         color_property.ColorProperty(

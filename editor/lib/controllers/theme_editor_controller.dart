@@ -82,6 +82,20 @@ class ThemeEditorController extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Update Surface Secondary variant
+  void updateSurfaceSecondary(SurfaceStyle style) {
+    _setCurrentTheme(currentTheme.copyWith(surfaceSecondary: style));
+    _hasUnsavedChanges = true;
+    notifyListeners();
+  }
+
+  /// Update Surface Tertiary variant
+  void updateSurfaceTertiary(SurfaceStyle style) {
+    _setCurrentTheme(currentTheme.copyWith(surfaceTertiary: style));
+    _hasUnsavedChanges = true;
+    notifyListeners();
+  }
+
   /// Update Input Style
   void updateInputStyle(InputStyle style) {
     _setCurrentTheme(currentTheme.copyWith(inputStyle: style));
@@ -167,12 +181,11 @@ class ThemeEditorController extends ChangeNotifier {
   Color _seedColor = const Color(0xFF0870EA);
   Color get seedColor => _seedColor;
 
-  // Color overrides
+  // Semantic color overrides
   Color? _primaryOverride;
   Color? _secondaryOverride;
   Color? _tertiaryOverride;
   Color? _errorOverride;
-  Color? _surfaceOverride;
   Color? _outlineOverride;
 
   // Getters for overrides
@@ -180,7 +193,6 @@ class ThemeEditorController extends ChangeNotifier {
   Color? get secondaryOverride => _secondaryOverride;
   Color? get tertiaryOverride => _tertiaryOverride;
   Color? get errorOverride => _errorOverride;
-  Color? get surfaceOverride => _surfaceOverride;
   Color? get outlineOverride => _outlineOverride;
 
   /// Get current computed ColorScheme (Light) for UI display
@@ -196,26 +208,59 @@ class ThemeEditorController extends ChangeNotifier {
     loadPreset(_currentPreset);
   }
 
-  /// Update specific color override
+  /// Update semantic color overrides and immediately apply without full preset reload
+  /// This ensures color changes are reflected in preview while preserving theme structure
   void updateColorOverride({
     Color? primary,
     Color? secondary,
     Color? tertiary,
     Color? error,
-    Color? surface,
     Color? outline,
   }) {
     if (primary != null) _primaryOverride = primary;
     if (secondary != null) _secondaryOverride = secondary;
     if (tertiary != null) _tertiaryOverride = tertiary;
     if (error != null) _errorOverride = error;
-    if (surface != null) _surfaceOverride = surface;
     if (outline != null) _outlineOverride = outline;
-    
-    loadPreset(_currentPreset);
+
+    // Apply color scheme without resetting theme structure
+    _applyColorSchemeToCurrentTheme();
+    _hasUnsavedChanges = true;
+    notifyListeners();
   }
 
-  /// Create ColorScheme with current overrides
+  /// Apply updated color scheme to current theme without resetting theme structure
+  /// This preserves all surface styles and other customizations while updating colors
+  void _applyColorSchemeToCurrentTheme() {
+    final lightScheme = createColorScheme(Brightness.light);
+    final darkScheme = createColorScheme(Brightness.dark);
+
+    switch (_currentPreset) {
+      case 'Flat':
+        _lightTheme = FlatDesignTheme.light(lightScheme);
+        _darkTheme = FlatDesignTheme.dark(darkScheme);
+        break;
+      case 'Brutal':
+        _lightTheme = BrutalDesignTheme.light(lightScheme);
+        _darkTheme = BrutalDesignTheme.dark(darkScheme);
+        break;
+      case 'Neumorphic':
+        _lightTheme = NeumorphicDesignTheme.light(lightScheme);
+        _darkTheme = NeumorphicDesignTheme.dark(darkScheme);
+        break;
+      case 'Pixel':
+        _lightTheme = PixelDesignTheme.light(lightScheme);
+        _darkTheme = PixelDesignTheme.dark(darkScheme);
+        break;
+      case 'Glass':
+      default:
+        _lightTheme = GlassDesignTheme.light(lightScheme);
+        _darkTheme = GlassDesignTheme.dark(darkScheme);
+        break;
+    }
+  }
+
+  /// Create ColorScheme with semantic color overrides
   ColorScheme createColorScheme(Brightness brightness) {
     return ColorScheme.fromSeed(
       seedColor: _seedColor,
@@ -224,7 +269,6 @@ class ThemeEditorController extends ChangeNotifier {
       secondary: _secondaryOverride,
       tertiary: _tertiaryOverride,
       error: _errorOverride,
-      surface: _surfaceOverride,
       outline: _outlineOverride,
     );
   }
@@ -271,7 +315,6 @@ class ThemeEditorController extends ChangeNotifier {
     _secondaryOverride = null;
     _tertiaryOverride = null;
     _errorOverride = null;
-    _surfaceOverride = null;
     _outlineOverride = null;
     loadPreset(_currentPreset);
   }

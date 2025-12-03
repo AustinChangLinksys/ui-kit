@@ -7,6 +7,8 @@ class FlatDesignTheme extends AppDesignTheme {
     required super.surfaceBase,
     required super.surfaceElevated,
     required super.surfaceHighlight,
+    required super.surfaceSecondary,
+    required super.surfaceTertiary,
     required super.typography,
     required super.animation,
     required super.spacingFactor,
@@ -72,6 +74,24 @@ class FlatDesignTheme extends AppDesignTheme {
           hoverOpacity: 0.9,
           pressedOffset: Offset.zero,
         ),
+      ),
+      surfaceSecondary: SurfaceStyle(
+        backgroundColor: scheme.secondaryContainer,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 8.0,
+        shadows: const [],
+        blurStrength: 0.0,
+        contentColor: scheme.onSecondaryContainer,
+      ),
+      surfaceTertiary: SurfaceStyle(
+        backgroundColor: scheme.tertiaryContainer,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 8.0,
+        shadows: const [],
+        blurStrength: 0.0,
+        contentColor: scheme.onTertiaryContainer,
       ),
 
       // 2. Toggle Specialization (iOS Style)
@@ -273,6 +293,24 @@ class FlatDesignTheme extends AppDesignTheme {
           pressedOffset: Offset.zero,
         ),
       ),
+      surfaceSecondary: SurfaceStyle(
+        backgroundColor: scheme.secondaryContainer,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 8.0,
+        shadows: const [],
+        blurStrength: 0.0,
+        contentColor: scheme.onSecondaryContainer,
+      ),
+      surfaceTertiary: SurfaceStyle(
+        backgroundColor: scheme.tertiaryContainer,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 8.0,
+        shadows: const [],
+        blurStrength: 0.0,
+        contentColor: scheme.onTertiaryContainer,
+      ),
       toggleStyle: ToggleStyle(
         activeType: ToggleContentType.none,
         inactiveType: ToggleContentType.none,
@@ -301,7 +339,7 @@ class FlatDesignTheme extends AppDesignTheme {
           borderRadius: 99,
           shadows: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.3),
+              color: scheme.shadow.withValues(alpha: 0.3),
               blurRadius: 4,
               offset: const Offset(0, 2),
             )
