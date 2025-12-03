@@ -1,3 +1,4 @@
+import 'package:alchemist/alchemist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:generative_ui/src/domain/entities/content_block.dart';
@@ -12,12 +13,11 @@ import 'package:generative_ui/src/presentation/widgets/gen_ui_container.dart';
 import 'package:generative_ui/src/presentation/widgets/loading_indicator.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
-// Standard Golden Test (No Alchemist) to avoid complex pump/semantics issues
-// Alchemist is great but finicky with complex widget trees in some environments.
-// Fallback to standard flutter_test matchesGoldenFile.
+import '../../utils/golden_test_utils.dart';
 
 class MockOrchestrator extends OrchestrateUIFlowUseCase {
   MockOrchestrator() : super(contentGenerator: MockContentGenerator());
+  
   @override
   Future<LLMResponse> execute(String userInput) {
     return Future.value(LLMResponse(id: 'mock', model: 'test', content: []));
@@ -31,6 +31,7 @@ class MockContentGenerator implements IContentGenerator {
 void main() {
   late ComponentRegistry registry;
   late DynamicWidgetBuilder builder;
+  final theme = AppTheme.create(brightness: Brightness.light);
 
   setUp(() {
     registry = ComponentRegistry();
@@ -39,82 +40,114 @@ void main() {
     registerInfoCard(registry);
   });
 
-  Widget buildWrapper(Widget child) {
-    return MaterialApp(
-      theme: AppTheme.create(brightness: Brightness.light),
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: child,
-        ),
-      ),
-    );
-  }
-
-  testWidgets('Golden: GenUI Widgets', (tester) async {
-    await tester.pumpWidget(buildWrapper(
-      Column(
-        children: [
-          Builder(builder: (ctx) => builder.buildBlock(
-            ToolUseBlock(
-              id: '1',
+  group('GenUI Goldens', () {
+    goldenTest(
+      'Widgets (Safe Mode)',
+      fileName: 'gen_ui_widgets',
+      pumpBeforeTest: (tester) async {
+        await tester.pump(); 
+      },
+      builder: () {
+        return GoldenTestGroup(
+          children: [
+            buildSafeScenario(
               name: 'WifiSettingsCard',
-              input: {'ssid': 'MyWifi', 'security': 'WPA3', 'isEnabled': true},
+              theme: theme,
+              width: 600, // Significantly increased width
+              height: 300,
+              child: Builder(builder: (ctx) => builder.buildBlock(
+                ToolUseBlock(
+                  id: '1',
+                  name: 'WifiSettingsCard',
+                  input: {'ssid': 'MyWifi', 'security': 'WPA3', 'isEnabled': true},
+                ),
+                ctx,
+              )),
             ),
-            ctx,
-          )),
-          const SizedBox(height: 16),
-          Builder(builder: (ctx) => builder.buildBlock(
-            ToolUseBlock(
-              id: '2',
+            buildSafeScenario(
               name: 'InfoCard',
-              input: {'title': 'Info', 'message': 'Hello World', 'icon': 'info'},
+              theme: theme,
+              width: 600,
+              height: 200,
+              child: Builder(builder: (ctx) => builder.buildBlock(
+                ToolUseBlock(
+                  id: '2',
+                  name: 'InfoCard',
+                  input: {'title': 'Info', 'message': 'Hello World', 'icon': 'info'},
+                ),
+                ctx,
+              )),
             ),
-            ctx,
-          )),
-          const SizedBox(height: 16),
-          // LoadingIndicator has infinite animation, causing pumpAndSettle timeout.
-          // Mocking it or removing it for this static golden.
-          const Text('Loading Indicator Placeholder'), 
-        ],
-      )
-    ));
-
-    await tester.pumpAndSettle();
-
-    await expectLater(
-      find.byType(MaterialApp),
-      matchesGoldenFile('goldens/gen_ui_widgets.png'),
-    );
-  });
-
-  testWidgets('Golden: Mixed Layout', (tester) async {
-    await tester.pumpWidget(buildWrapper(
-      GenUiContainer(
-        registry: registry,
-        orchestrator: MockOrchestrator(),
-        initialResponse: LLMResponse(
-          id: 'mix', 
-          model: 't', 
-          content: [
-            TextBlock(text: 'Configuring...'),
-            ToolUseBlock(
-              id: 't1', 
-              name: 'WifiSettingsCard', 
-              input: {'ssid': 'Mixed', 'security': 'Open'}
+            buildSafeScenario(
+              name: 'MessageBubble (AI)',
+              theme: theme,
+              width: 600,
+              child: Builder(builder: (ctx) => builder.buildBlock(
+                TextBlock(text: 'This is an AI response.'),
+                ctx,
+              )),
             ),
-            TextBlock(text: 'Done.'),
+            buildSafeScenario(
+              name: 'FallbackCard (Unsupported)',
+              theme: theme,
+              width: 600,
+              child: Builder(builder: (ctx) => builder.buildBlock(
+                ToolUseBlock(id: '3', name: 'Unknown', input: {}),
+                ctx,
+              )),
+            ),
+            buildSafeScenario(
+              name: 'LoadingIndicator (Frozen)',
+              theme: theme,
+              child: const LoadingIndicator(),
+            ),
+            buildSafeScenario(
+              name: 'ErrorDisplay',
+              theme: theme,
+              width: 600,
+              height: 300,
+              child: ErrorDisplay(message: 'Error occurred', onRetry: () {}),
+            ),
           ],
-        ),
-      ),
-    ));
+        );
+      },
+    );
 
-    await tester.pumpAndSettle();
-
-    await expectLater(
-      find.byType(MaterialApp),
-      matchesGoldenFile('goldens/gen_ui_mixed_layout.png'),
+    goldenTest(
+      'Mixed Layout',
+      fileName: 'gen_ui_mixed_layout',
+      pumpBeforeTest: (tester) async {
+        await tester.pump();
+      },
+      builder: () {
+        return GoldenTestGroup(
+          children: [
+            buildSafeScenario(
+              name: 'Mixed Content Container',
+              theme: theme,
+              width: 600, // Sufficient width
+              height: 800, // Tall enough for mixed content list
+              child: GenUiContainer(
+                registry: registry,
+                orchestrator: MockOrchestrator(),
+                initialResponse: LLMResponse(
+                  id: 'mix', 
+                  model: 't', 
+                  content: [
+                    TextBlock(text: 'Configuring...'),
+                    ToolUseBlock(
+                      id: 't1', 
+                      name: 'WifiSettingsCard', 
+                      input: {'ssid': 'Mixed', 'security': 'Open'}
+                    ),
+                    TextBlock(text: 'Done.'),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   });
 }
