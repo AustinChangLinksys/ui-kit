@@ -112,6 +112,74 @@ void main() {
       expect(decoration.border?.top.color, Colors.green);
       expect(decoration.border?.top.width, 10.0);
     });
+
+    // 4. Backward Compatibility (No texture = no change)
+    testWidgets('AppSurface renders no texture by default (Backward Compat)', (tester) async {
+      final themeData = kTestThemeMatrix.values.first;
+      
+      // Ensure we are testing a surface style WITHOUT texture
+      // Overriding style to be clean
+      const cleanStyle = SurfaceStyle(
+        backgroundColor: Colors.white,
+        borderColor: Colors.transparent,
+        contentColor: Colors.black,
+        texture: null, // Explicitly null
+      );
+
+      await tester.pumpWidget(_buildTestApp(
+        themeData,
+        const AppSurface(style: cleanStyle, child: Text('A')),
+      ));
+
+      final container = tester.widget<AnimatedContainer>(find.byType(AnimatedContainer));
+      final decoration = container.decoration as BoxDecoration;
+
+      expect(decoration.image, isNull, reason: 'Texture should be null by default');
+    });
+
+    // 5. Graceful Degradation (Texture Load Failure)
+    testWidgets('AppSurface structure remains valid even with missing texture asset', (tester) async {
+      final themeData = kTestThemeMatrix.values.first;
+      
+      const badStyle = SurfaceStyle(
+        backgroundColor: Colors.red,
+        borderColor: Colors.transparent,
+        contentColor: Colors.white,
+        texture: AssetImage('assets/missing_texture.png'),
+      );
+
+      // Ignore image loading errors for this test
+      final originalOnError = FlutterError.onError;
+      FlutterError.onError = (FlutterErrorDetails details) {
+        // Swallow specific image error
+        if (details.exception.toString().contains('Unable to load asset')) {
+          return;
+        }
+        originalOnError?.call(details);
+      };
+
+      try {
+        await tester.pumpWidget(_buildTestApp(
+          themeData,
+          const AppSurface(style: badStyle, child: Text('A')),
+        ));
+        
+        // Allow potential async image loading to fail
+        await tester.pump();
+
+        // The container should still exist with the correct color
+        final container = tester.widget<AnimatedContainer>(find.byType(AnimatedContainer));
+        final decoration = container.decoration as BoxDecoration;
+        
+        expect(decoration.color, Colors.red);
+        expect(decoration.image, isNotNull); 
+        
+        // Confirm the child text is still visible
+        expect(find.text('A'), findsOneWidget);
+      } finally {
+        FlutterError.onError = originalOnError;
+      }
+    });
   });
 }
 

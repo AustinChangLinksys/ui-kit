@@ -13,6 +13,8 @@ class SurfaceStyle extends Equatable {
   final Color contentColor; // Default text/icon color on this surface
   final InteractionSpec? interaction;
   final BoxBorder? customBorder;
+  final ImageProvider? texture;
+  final double textureOpacity;
 
   const SurfaceStyle({
     required this.backgroundColor,
@@ -24,6 +26,8 @@ class SurfaceStyle extends Equatable {
     required this.contentColor,
     this.interaction,
     this.customBorder,
+    this.texture,
+    this.textureOpacity = 1.0,
   });
 
   @override
@@ -37,6 +41,8 @@ class SurfaceStyle extends Equatable {
         contentColor,
         interaction,
         customBorder,
+        texture,
+        textureOpacity,
       ];
 
   SurfaceStyle copyWith({
@@ -49,6 +55,8 @@ class SurfaceStyle extends Equatable {
     Color? contentColor,
     InteractionSpec? interaction,
     BoxBorder? customBorder,
+    ImageProvider? texture,
+    double? textureOpacity,
   }) {
     return SurfaceStyle(
       backgroundColor: backgroundColor ?? this.backgroundColor,
@@ -60,6 +68,8 @@ class SurfaceStyle extends Equatable {
       contentColor: contentColor ?? this.contentColor,
       interaction: interaction ?? this.interaction,
       customBorder: customBorder ?? this.customBorder,
+      texture: texture ?? this.texture,
+      textureOpacity: textureOpacity ?? this.textureOpacity,
     );
   }
 }

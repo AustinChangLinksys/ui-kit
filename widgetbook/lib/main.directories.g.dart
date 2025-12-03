@@ -263,10 +263,22 @@ final directories = <_widgetbook.WidgetbookNode>[
             name: 'AppSurface',
             useCases: [
               _widgetbook.WidgetbookUseCase(
+                name: 'All Textures Gallery',
+                builder:
+                    _widgetbook_workspace_stories_atoms_surfaces_app_surface_stories
+                        .buildAppSurfaceTextureGallery,
+              ),
+              _widgetbook.WidgetbookUseCase(
                 name: 'Interactive',
                 builder:
                     _widgetbook_workspace_stories_atoms_surfaces_app_surface_stories
                         .buildAppSurfaceInteractive,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Textures',
+                builder:
+                    _widgetbook_workspace_stories_atoms_surfaces_app_surface_stories
+                        .buildAppSurfaceTextures,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Variants',
@@ -366,11 +378,17 @@ final directories = <_widgetbook.WidgetbookNode>[
             name: 'AppCard',
             useCases: [
               _widgetbook.WidgetbookUseCase(
-                name: 'Standard',
+                name: 'Interactive Playground',
                 builder:
                     _widgetbook_workspace_stories_molecules_cards_app_card_stories
                         .buildAppCard,
-              )
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Multi-Select Grid',
+                builder:
+                    _widgetbook_workspace_stories_molecules_cards_app_card_stories
+                        .buildCardMultiSelect,
+              ),
             ],
           )
         ],

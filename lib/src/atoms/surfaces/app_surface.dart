@@ -6,11 +6,11 @@ import '../../foundation/theme/design_system/specs/interaction_spec.dart';
 
 /// The possible semantic roles for a surface.
 enum SurfaceVariant {
-  base,       // Default background (Cards, Panels)
-  elevated,   // Floating elements (Dialogs, Tooltips)
-  highlight,  // Primary actions (Buttons, Active states)
-  tonal,      // Secondary actions (Selected filters, Tonal buttons)
-  accent,     // Decorative or special emphasis
+  base, // Default background (Cards, Panels)
+  elevated, // Floating elements (Dialogs, Tooltips)
+  highlight, // Primary actions (Buttons, Active states)
+  tonal, // Secondary actions (Selected filters, Tonal buttons)
+  accent, // Decorative or special emphasis
 }
 
 /// The fundamental building block of the UI Kit.
@@ -91,19 +91,22 @@ class _AppSurfaceState extends State<AppSurface> {
 
     // 2. Resolve the effective style (Override > Variant)
     final effectiveStyle = widget.style ?? _resolveStyle(theme, widget.variant);
-    
+
     // 3. Resolve Interaction Physics
     final isInteractive = widget.interactive || widget.onTap != null;
     final physics = effectiveStyle.interaction ?? const InteractionSpec();
-    
+
     // Calculate active physics values
-    final double scale = (isInteractive && _isPressed) ? physics.pressedScale : 1.0;
-    final double opacity = (isInteractive && _isPressed) ? physics.pressedOpacity : 1.0;
-    final Offset offset = (isInteractive && _isPressed) ? physics.pressedOffset : Offset.zero;
+    final double scale =
+        (isInteractive && _isPressed) ? physics.pressedScale : 1.0;
+    final double opacity =
+        (isInteractive && _isPressed) ? physics.pressedOpacity : 1.0;
+    final Offset offset =
+        (isInteractive && _isPressed) ? physics.pressedOffset : Offset.zero;
 
     // 4. Build the Render Tree
     // Structure: Padding (Margin) -> Gesture -> Transform (Offset) -> Opacity -> Scale -> Container -> Clip (Blur) -> Content
-    
+
     Widget content = AnimatedContainer(
       duration: theme.animation.duration,
       curve: theme.animation.curve,
@@ -112,16 +115,30 @@ class _AppSurfaceState extends State<AppSurface> {
       padding: widget.padding ?? EdgeInsets.zero,
       decoration: BoxDecoration(
         color: effectiveStyle.backgroundColor,
+        image: effectiveStyle.texture != null
+            ? DecorationImage(
+                image: effectiveStyle.texture!,
+                opacity: effectiveStyle.textureOpacity,
+                repeat: ImageRepeat.repeat,
+                fit: BoxFit.none,
+                alignment: Alignment.topLeft,
+                filterQuality: FilterQuality.none,
+                matchTextDirection: true,
+              )
+            : null,
         // Border Logic: Prefer customBorder (e.g. Underline), fallback to uniform border
-        border: effectiveStyle.customBorder ?? Border.all(
-          color: effectiveStyle.borderColor,
-          width: effectiveStyle.borderWidth,
-          // Brutalism might use 0 width but valid color, checking width > 0 is safer
-          style: effectiveStyle.borderWidth > 0 ? BorderStyle.solid : BorderStyle.none,
-        ),
+        border: effectiveStyle.customBorder ??
+            Border.all(
+              color: effectiveStyle.borderColor,
+              width: effectiveStyle.borderWidth,
+              // Brutalism might use 0 width but valid color, checking width > 0 is safer
+              style: effectiveStyle.borderWidth > 0
+                  ? BorderStyle.solid
+                  : BorderStyle.none,
+            ),
         // Shape Logic: Circles cannot have borderRadius
-        borderRadius: widget.shape == BoxShape.circle 
-            ? null 
+        borderRadius: widget.shape == BoxShape.circle
+            ? null
             : BorderRadius.circular(effectiveStyle.borderRadius),
         boxShadow: effectiveStyle.shadows,
         shape: widget.shape,
@@ -167,7 +184,8 @@ class _AppSurfaceState extends State<AppSurface> {
         onTapDown: (_) => setState(() => _isPressed = true),
         onTapUp: (_) => setState(() => _isPressed = false),
         onTapCancel: () => setState(() => _isPressed = false),
-        behavior: HitTestBehavior.opaque, // Ensure clicks are caught even on transparent areas
+        behavior: HitTestBehavior
+            .opaque, // Ensure clicks are caught even on transparent areas
         child: AnimatedScale(
           scale: scale,
           duration: theme.animation.duration,

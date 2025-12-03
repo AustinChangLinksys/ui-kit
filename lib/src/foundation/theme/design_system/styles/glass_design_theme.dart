@@ -218,7 +218,7 @@ class GlassDesignTheme extends AppDesignTheme {
         ),
       ),
       loaderStyle: LoaderStyle(
-        type: LoaderType.pulse,
+        type: LoaderType.circular,
         color: scheme.primary,
         strokeWidth: 4.0,
         size: 48.0,
@@ -290,6 +290,8 @@ class GlassDesignTheme extends AppDesignTheme {
         ],
         blurStrength: 25.0,
         contentColor: scheme.onSurface,
+        texture: AppTextures.noise, // Demonstration
+        textureOpacity: 0.05,
       ),
       surfaceElevated: SurfaceStyle(
         backgroundColor: scheme.surfaceContainerHighest.withValues(alpha: 0.05),
@@ -321,6 +323,8 @@ class GlassDesignTheme extends AppDesignTheme {
           hoverOpacity: 0.9,
           pressedOffset: Offset.zero,
         ),
+        texture: AppTextures.pixelGrid, // Demonstration
+        textureOpacity: 0.08,
       ),
       // Secondary (Tonal) Surface - Medium emphasis, selected/active states (Dark mode)
       surfaceSecondary: SurfaceStyle(
@@ -479,9 +483,9 @@ class GlassDesignTheme extends AppDesignTheme {
         displayDuration: const Duration(seconds: 3),
       ),
       dividerStyle: DividerStyle(
-        color: scheme.outline.withValues(alpha: 0.15),
+        color: scheme.outline.withValues(alpha: 0.3),
         thickness: 1.0,
-        glowStrength: 4.0,
+        glowStrength: 6.0,
         pattern: DividerPattern.solid,
       ),
       networkInputStyle: const NetworkInputStyle(
