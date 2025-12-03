@@ -10,7 +10,7 @@
 
 ---
 
-## Format: `- [ ] [TaskID] [P?] [Story?] Description`
+## Format: `- [X] [TaskID] [P?] [Story?] Description`
 
 - **[P]**: Can run in parallel (different files, no dependencies)
 - **[Story]**: User story label (US1, US2, US3, US4)
@@ -22,14 +22,14 @@
 
 **Purpose**: Project initialization and Flutter package structure
 
-- [ ] T001 Create Flutter package directory structure at `lib/src/generative_ui/`
-- [ ] T002 Create pubspec.yaml with dependencies (flutter, ui_kit) at `lib/src/generative_ui/pubspec.yaml`
-- [ ] T003 [P] Create domain layer directories: `lib/src/generative_ui/lib/src/domain/{entities,repositories,usecases}`
-- [ ] T004 [P] Create data layer directories: `lib/src/generative_ui/lib/src/data/{datasources,utils}`
-- [ ] T005 [P] Create presentation layer directories: `lib/src/generative_ui/lib/src/presentation/controllers`
-- [ ] T006 [P] Create test directories: `lib/src/generative_ui/test/{domain,data,presentation}`
-- [ ] T007 Create assets directory: `lib/src/generative_ui/assets/` (for ai_config.json)
-- [ ] T008 Initialize library export file at `lib/src/generative_ui/lib/generative_ui.dart`
+- [X] T001 Create Flutter package directory structure at `lib/src/generative_ui/`
+- [X] T002 Create pubspec.yaml with dependencies (flutter, ui_kit) at `lib/src/generative_ui/pubspec.yaml`
+- [X] T003 [P] Create domain layer directories: `lib/src/generative_ui/lib/src/domain/{entities,repositories,usecases}`
+- [X] T004 [P] Create data layer directories: `lib/src/generative_ui/lib/src/data/{datasources,utils}`
+- [X] T005 [P] Create presentation layer directories: `lib/src/generative_ui/lib/src/presentation/controllers`
+- [X] T006 [P] Create test directories: `lib/src/generative_ui/test/{domain,data,presentation}`
+- [X] T007 Create assets directory: `lib/src/generative_ui/assets/` (for ai_config.json)
+- [X] T008 Initialize library export file at `lib/src/generative_ui/lib/generative_ui.dart`
 
 **Checkpoint**: Package structure ready
 
@@ -41,13 +41,13 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T009 Create exception hierarchy in `lib/src/generative_ui/lib/src/domain/entities/gen_exception.dart` (ParsingException, ToolUseValidationException, ContentGenerationException, GenException)
-- [ ] T010 [P] Create ContentBlock hierarchy in `lib/src/generative_ui/lib/src/domain/entities/content_block.dart` (ContentBlock, TextBlock, ToolUseBlock classes)
-- [ ] T011 [P] Create LLMResponse model in `lib/src/generative_ui/lib/src/domain/entities/llm_response.dart` (with getFirstToolUse, validation methods)
-- [ ] T012 [P] Create GenTool value object in `lib/src/generative_ui/lib/src/domain/entities/gen_tool.dart` (with toJson, fromJson methods)
-- [ ] T013 Create IContentGenerator repository interface in `lib/src/generative_ui/lib/src/domain/repositories/i_content_generator.dart` (with generate method contract)
-- [ ] T014 Create ai_config.json template at `lib/src/generative_ui/assets/ai_config.json` (with phase, mock, aws sections)
-- [ ] T015 Update library exports in `lib/src/generative_ui/lib/generative_ui.dart` to include all domain layer exports
+- [X] T009 Create exception hierarchy in `lib/src/generative_ui/lib/src/domain/entities/gen_exception.dart` (ParsingException, ToolUseValidationException, ContentGenerationException, GenException)
+- [X] T010 [P] Create ContentBlock hierarchy in `lib/src/generative_ui/lib/src/domain/entities/content_block.dart` (ContentBlock, TextBlock, ToolUseBlock classes)
+- [X] T011 [P] Create LLMResponse model in `lib/src/generative_ui/lib/src/domain/entities/llm_response.dart` (with getFirstToolUse, validation methods)
+- [X] T012 [P] Create GenTool value object in `lib/src/generative_ui/lib/src/domain/entities/gen_tool.dart` (with toJson, fromJson methods)
+- [X] T013 Create IContentGenerator repository interface in `lib/src/generative_ui/lib/src/domain/repositories/i_content_generator.dart` (with generate method contract)
+- [X] T014 Create ai_config.json template at `lib/src/generative_ui/assets/ai_config.json` (with phase, mock, aws sections)
+- [X] T015 Update library exports in `lib/src/generative_ui/lib/generative_ui.dart` to include all domain layer exports
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -68,14 +68,14 @@
 
 ### Implementation for User Story 1
 
-- [ ] T016 [P] [US1] Create ResponseParser utility with DBC in `lib/src/generative_ui/lib/src/data/utils/response_parser.dart` (preconditions: non-empty input; postconditions: valid Map<String, dynamic> or exception)
-- [ ] T017 [P] [US1] Implement JSON extraction logic for markdown code blocks in ResponseParser (`_extractJson` method, handles ```json...``` patterns)
-- [ ] T018 [P] [US1] Implement JSON boundary detection in ResponseParser (find first '{' and last '}' for malformed input tolerance)
-- [ ] T019 [US1] Add precondition validation to ResponseParser (empty string check, throw ArgumentError)
-- [ ] T020 [US1] Add postcondition validation to ResponseParser (verify parsed result is Map<String, dynamic>)
-- [ ] T021 [US1] Create unit tests for ResponseParser in `test/data/utils/response_parser_test.dart` (5 malformed format scenarios: markdown blocks, whitespace, annotations, nested blocks, escaped JSON)
-- [ ] T022 [US1] Create integration test for parser + entity building in `test/data/utils/orchestrate_parser_test.dart` (verify parsed Map → LLMResponse domain model conversion)
-- [ ] T023 [US1] Update library exports to include ResponseParser in `lib/src/generative_ui/lib/generative_ui.dart`
+- [X] T016 [P] [US1] Create ResponseParser utility with DBC in `lib/src/generative_ui/lib/src/data/utils/response_parser.dart` (preconditions: non-empty input; postconditions: valid Map<String, dynamic> or exception)
+- [X] T017 [P] [US1] Implement JSON extraction logic for markdown code blocks in ResponseParser (`_extractJson` method, handles ```json...``` patterns)
+- [X] T018 [P] [US1] Implement JSON boundary detection in ResponseParser (find first '{' and last '}' for malformed input tolerance)
+- [X] T019 [US1] Add precondition validation to ResponseParser (empty string check, throw ArgumentError)
+- [X] T020 [US1] Add postcondition validation to ResponseParser (verify parsed result is Map<String, dynamic>)
+- [X] T021 [US1] Create unit tests for ResponseParser in `test/data/utils/response_parser_test.dart` (5 malformed format scenarios: markdown blocks, whitespace, annotations, nested blocks, escaped JSON)
+- [X] T022 [US1] Create integration test for parser + entity building in `test/data/utils/orchestrate_parser_test.dart` (verify parsed Map → LLMResponse domain model conversion)
+- [X] T023 [US1] Update library exports to include ResponseParser in `lib/src/generative_ui/lib/generative_ui.dart`
 
 **Checkpoint**: User Story 1 complete - Parser is tested, robust, and ready for mock scenarios. Can validate SC-002 (5 malformed formats handled).
 
@@ -94,14 +94,14 @@
 
 ### Implementation for User Story 2
 
-- [ ] T024 [P] [US2] Create MockContentGenerator class implementing IContentGenerator in `lib/src/generative_ui/lib/src/data/datasources/mock_content_generator.dart` (with generate method, keyword matching logic)
-- [ ] T025 [P] [US2] Implement Wi-Fi scenario in MockContentGenerator (`_getResponseForPrompt` keyword: "wifi", returns WifiSettingsCard JSON with ssid, security, isEnabled)
-- [ ] T026 [P] [US2] Implement Info scenario in MockContentGenerator (default case, returns InfoCard text JSON)
-- [ ] T027 [P] [US2] Implement Error scenario in MockContentGenerator (keyword: "error", returns intentionally malformed JSON for error handling tests)
-- [ ] T028 [US2] Add async simulation (Future.delayed 100ms) to MockContentGenerator to match real LLM latency
-- [ ] T029 [US2] Create unit tests for MockContentGenerator in `test/data/datasources/mock_content_generator_test.dart` (verify 3 scenarios, keyword matching, response format)
-- [ ] T030 [US2] Create tests for scenario extensibility and edge cases in `test/data/datasources/mock_content_generator_test.dart`: (1) verify adding new scenario requires <10 lines (SC-007), (2) verify 100 rapid consecutive requests don't cause state pollution or duplicate responses (edge case 4)
-- [ ] T031 [US2] Update library exports to include MockContentGenerator in `lib/src/generative_ui/lib/generative_ui.dart`
+- [X] T024 [P] [US2] Create MockContentGenerator class implementing IContentGenerator in `lib/src/generative_ui/lib/src/data/datasources/mock_content_generator.dart` (with generate method, keyword matching logic)
+- [X] T025 [P] [US2] Implement Wi-Fi scenario in MockContentGenerator (`_getResponseForPrompt` keyword: "wifi", returns WifiSettingsCard JSON with ssid, security, isEnabled)
+- [X] T026 [P] [US2] Implement Info scenario in MockContentGenerator (default case, returns InfoCard text JSON)
+- [X] T027 [P] [US2] Implement Error scenario in MockContentGenerator (keyword: "error", returns intentionally malformed JSON for error handling tests)
+- [X] T028 [US2] Add async simulation (Future.delayed 100ms) to MockContentGenerator to match real LLM latency
+- [X] T029 [US2] Create unit tests for MockContentGenerator in `test/data/datasources/mock_content_generator_test.dart` (verify 3 scenarios, keyword matching, response format)
+- [X] T030 [US2] Create tests for scenario extensibility and edge cases in `test/data/datasources/mock_content_generator_test.dart`: (1) verify adding new scenario requires <10 lines (SC-007), (2) verify 100 rapid consecutive requests don't cause state pollution or duplicate responses (edge case 4)
+- [X] T031 [US2] Update library exports to include MockContentGenerator in `lib/src/generative_ui/lib/generative_ui.dart`
 
 **Checkpoint**: User Story 2 complete - MockContentGenerator is tested, triggers 3 scenarios correctly, enables rapid testing. Can validate SC-001 (3 scenarios) and SC-008 (<100ms response).
 
@@ -120,14 +120,14 @@
 
 ### Implementation for User Story 3
 
-- [ ] T032 [P] [US3] Create SchemaField value class in `lib/src/generative_ui/lib/src/data/utils/schema_generator.dart` (type, description, required, enum fields)
-- [ ] T033 [P] [US3] Create SchemaGenerator utility class in `lib/src/generative_ui/lib/src/data/utils/schema_generator.dart` (generateSchema method, takes componentName + fields map, returns tool_use compatible schema)
-- [ ] T034 [US3] Implement schema builder logic in SchemaGenerator (creates "object" type schema, maps fields to JSON Schema properties with types and descriptions)
-- [ ] T035 [US3] Implement enum support in SchemaGenerator (if SchemaField has enum, include in output schema)
-- [ ] T036 [US3] Implement required fields tracking in SchemaGenerator (tracks required: true fields in schema output)
-- [ ] T037 [US3] Create unit tests for SchemaGenerator in `test/data/utils/schema_generator_test.dart` (test WifiSettingsCard and InfoCard schema generation, enum handling, required fields)
-- [ ] T038 [US3] Create schema validation test in `test/data/utils/schema_generator_test.dart` (verify output matches JSON Schema Draft 7 structure - SC-003)
-- [ ] T039 [US3] Update library exports to include SchemaGenerator in `lib/src/generative_ui/lib/generative_ui.dart`
+- [X] T032 [P] [US3] Create SchemaField value class in `lib/src/generative_ui/lib/src/data/utils/schema_generator.dart` (type, description, required, enum fields)
+- [X] T033 [P] [US3] Create SchemaGenerator utility class in `lib/src/generative_ui/lib/src/data/utils/schema_generator.dart` (generateSchema method, takes componentName + fields map, returns tool_use compatible schema)
+- [X] T034 [US3] Implement schema builder logic in SchemaGenerator (creates "object" type schema, maps fields to JSON Schema properties with types and descriptions)
+- [X] T035 [US3] Implement enum support in SchemaGenerator (if SchemaField has enum, include in output schema)
+- [X] T036 [US3] Implement required fields tracking in SchemaGenerator (tracks required: true fields in schema output)
+- [X] T037 [US3] Create unit tests for SchemaGenerator in `test/data/utils/schema_generator_test.dart` (test WifiSettingsCard and InfoCard schema generation, enum handling, required fields)
+- [X] T038 [US3] Create schema validation test in `test/data/utils/schema_generator_test.dart` (verify output matches JSON Schema Draft 7 structure - SC-003)
+- [X] T039 [US3] Update library exports to include SchemaGenerator in `lib/src/generative_ui/lib/generative_ui.dart`
 
 **Checkpoint**: User Story 3 complete - SchemaGenerator produces valid JSON Schema for components. Establishes foundation for Phase 2 system prompt and Phase 3 AWS integration.
 
@@ -146,16 +146,16 @@
 
 ### Implementation for User Story 4
 
-- [ ] T040 [P] [US4] Create OrchestrateUIFlowUseCase in `lib/src/generative_ui/lib/src/domain/usecases/orchestrate_ui_flow.dart` (takes IContentGenerator + ResponseParser, orchestrates generate → parse → validate flow)
-- [ ] T041 [P] [US4] Implement execute method in OrchestrateUIFlowUseCase (generates raw response, parses, builds LLMResponse domain model, validates)
-- [ ] T042 [US4] Implement _buildResponse in OrchestrateUIFlowUseCase (handles Claude format with content[] array, creates TextBlock or ToolUseBlock based on type field)
-- [ ] T043 [US4] Implement _validateResponse in OrchestrateUIFlowUseCase (checks content non-empty, validates each ToolUseBlock)
-- [ ] T044 [US4] Create AwsPassThroughGenerator placeholder in `lib/src/generative_ui/lib/src/data/datasources/aws_content_generator.dart` (implements IContentGenerator, throws UnimplementedError with Phase 3 note)
-- [ ] T045 [US4] Create ai_config.json loading utility in `lib/src/generative_ui/lib/src/domain/usecases/config_loader.dart` (loads from assets, parses JSON, exposes phase setting)
-- [ ] T046 [US4] Create unit tests for OrchestrateUIFlowUseCase in `test/domain/usecases/orchestrate_ui_flow_test.dart` (Wi-Fi scenario, Info scenario, Error scenario, validation chain)
-- [ ] T047 [US4] Create unit tests for config loading in `test/domain/usecases/config_loader_test.dart` (verify ai_config.json loads, phase property accessible)
-- [ ] T048 [US4] Create integration test in `test/integration/end_to_end_test.dart` (MockContentGenerator → ResponseParser → OrchestrateUIFlowUseCase → LLMResponse, verify all 3 mock scenarios work end-to-end - SC-001)
-- [ ] T049 [US4] Update library exports in `lib/src/generative_ui/lib/generative_ui.dart` to include OrchestrateUIFlowUseCase, ConfigLoader, AwsPassThroughGenerator
+- [X] T040 [P] [US4] Create OrchestrateUIFlowUseCase in `lib/src/generative_ui/lib/src/domain/usecases/orchestrate_ui_flow.dart` (takes IContentGenerator + ResponseParser, orchestrates generate → parse → validate flow)
+- [X] T041 [P] [US4] Implement execute method in OrchestrateUIFlowUseCase (generates raw response, parses, builds LLMResponse domain model, validates)
+- [X] T042 [US4] Implement _buildResponse in OrchestrateUIFlowUseCase (handles Claude format with content[] array, creates TextBlock or ToolUseBlock based on type field)
+- [X] T043 [US4] Implement _validateResponse in OrchestrateUIFlowUseCase (checks content non-empty, validates each ToolUseBlock)
+- [X] T044 [US4] Create AwsPassThroughGenerator placeholder in `lib/src/generative_ui/lib/src/data/datasources/aws_content_generator.dart` (implements IContentGenerator, throws UnimplementedError with Phase 3 note)
+- [X] T045 [US4] Create ai_config.json loading utility in `lib/src/generative_ui/lib/src/domain/usecases/config_loader.dart` (loads from assets, parses JSON, exposes phase setting)
+- [X] T046 [US4] Create unit tests for OrchestrateUIFlowUseCase in `test/domain/usecases/orchestrate_ui_flow_test.dart` (Wi-Fi scenario, Info scenario, Error scenario, validation chain)
+- [X] T047 [US4] Create unit tests for config loading in `test/domain/usecases/config_loader_test.dart` (verify ai_config.json loads, phase property accessible)
+- [X] T048 [US4] Create integration test in `test/integration/end_to_end_test.dart` (MockContentGenerator → ResponseParser → OrchestrateUIFlowUseCase → LLMResponse, verify all 3 mock scenarios work end-to-end - SC-001)
+- [X] T049 [US4] Update library exports in `lib/src/generative_ui/lib/generative_ui.dart` to include OrchestrateUIFlowUseCase, ConfigLoader, AwsPassThroughGenerator
 
 **Checkpoint**: User Story 4 complete - Full orchestration pipeline implemented. All 4 user stories functional, independently testable. Can validate SC-001, SC-004, SC-006 (existing tests still pass), SC-008.
 
@@ -165,13 +165,13 @@
 
 **Purpose**: Final validation, documentation, and preparation for Phase 2 UI rendering
 
-- [ ] T050 [P] Run all unit tests: `flutter test test/` and verify all pass
-- [ ] T051 [P] Run test coverage and document baseline in `lib/src/generative_ui/` (target: >80% for parser, mock generator, orchestrator)
-- [ ] T052 [P] Verify SC-006: Run existing ui_kit tests from repository root (`flutter test`) and confirm no regressions
-- [ ] T053 [P] Create INTEGRATION_EXAMPLES.md in `specs/008-genui-mockfirst-poc/` with usage examples for developers
-- [ ] T054 Update spec.md with actual test metrics (parser handles X formats, mock scenarios respond in Xms, etc.)
-- [ ] T055 Commit Phase 1 to git: `git add lib/src/generative_ui/` and `git commit -m "feat: Implement GenUI mock orchestration Phase 1"`
-- [ ] T056 Document Phase 2 preparation in `specs/008-genui-mockfirst-poc/PHASE2_PREP.md` (GenUiWrapper widget scaffolding, UI component integration points)
+- [X] T050 [P] Run all unit tests: `flutter test test/` and verify all pass
+- [X] T051 [P] Run test coverage and document baseline in `lib/src/generative_ui/` (target: >80% for parser, mock generator, orchestrator)
+- [X] T052 [P] Verify SC-006: Run existing ui_kit tests from repository root (`flutter test`) and confirm no regressions
+- [X] T053 [P] Create INTEGRATION_EXAMPLES.md in `specs/008-genui-mockfirst-poc/` with usage examples for developers
+- [X] T054 Update spec.md with actual test metrics (parser handles X formats, mock scenarios respond in Xms, etc.)
+- [X] T055 Commit Phase 1 to git: `git add lib/src/generative_ui/` and `git commit -m "feat: Implement GenUI mock orchestration Phase 1"`
+- [X] T056 Document Phase 2 preparation in `specs/008-genui-mockfirst-poc/PHASE2_PREP.md` (GenUiWrapper widget scaffolding, UI component integration points)
 
 **Checkpoint**: Phase 1 complete. Ready for Phase 2 (UI rendering) or Phase 3 (AWS integration).
 
@@ -273,16 +273,16 @@ Phase 7 (Polish) - All devs together, 2 hours
 
 **Phase 1 Complete When**:
 
-- [ ] All Phase 1-7 tasks checked ✅
-- [ ] All unit tests pass (T021-T022, T029-T030, T037-T038, T046-T048)
-- [ ] SC-001: All 3 mock scenarios trigger and return correct JSON
-- [ ] SC-002: Parser handles all 5 malformed formats without crashing
-- [ ] SC-003: SchemaGenerator produces valid JSON Schema for 2-3 components
-- [ ] SC-004: ai_config.json loads successfully
-- [ ] SC-005: Parser unit tests and integration tests are independent
-- [ ] SC-006: Existing UI Kit tests still pass
-- [ ] SC-007: New mock scenario can be added with <10 lines
-- [ ] SC-008: MockContentGenerator responds in <100ms
+- [X] All Phase 1-7 tasks checked ✅
+- [X] All unit tests pass (T021-T022, T029-T030, T037-T038, T046-T048)
+- [X] SC-001: All 3 mock scenarios trigger and return correct JSON
+- [X] SC-002: Parser handles all 5 malformed formats without crashing
+- [X] SC-003: SchemaGenerator produces valid JSON Schema for 2-3 components
+- [X] SC-004: ai_config.json loads successfully
+- [X] SC-005: Parser unit tests and integration tests are independent
+- [X] SC-006: Existing UI Kit tests still pass
+- [X] SC-007: New mock scenario can be added with <10 lines
+- [X] SC-008: MockContentGenerator responds in <100ms
 
 ---
 
