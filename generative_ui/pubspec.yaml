@@ -1,5 +1,6 @@
 name: generative_ui
 description: Generative UI client-side orchestration with mock-first proof of concept for LLM integration.
+publish_to: 'none'
 version: 0.1.0
 
 environment:

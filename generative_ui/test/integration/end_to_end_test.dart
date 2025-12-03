@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:generative_ui/generative_ui.dart';
-import 'package:generative_ui/src/domain/usecases/orchestrate_ui_flow.dart';
 
 void main() {
   group('End-to-End Integration Tests', () {
