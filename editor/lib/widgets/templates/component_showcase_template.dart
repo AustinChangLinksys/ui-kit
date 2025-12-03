@@ -112,7 +112,8 @@ class _TypographyPreview extends StatelessWidget {
   }
 }
 
-/// Displays surface variants using AppSurface
+/// Displays all surface variants using AppSurface
+/// Shows: Base, Elevated, Tonal, Highlight to demonstrate color scheme impact
 class _SurfaceVariantsPreview extends StatelessWidget {
   const _SurfaceVariantsPreview();
 
@@ -123,10 +124,12 @@ class _SurfaceVariantsPreview extends StatelessWidget {
       children: [
         AppText('Surface Variants', variant: AppTextVariant.titleMedium),
         AppGap.md(),
+        // Row 1: Base and Elevated
         Row(
           children: [
             Expanded(
               child: AppSurface(
+                variant: SurfaceVariant.base,
                 child: Padding(
                   padding: const EdgeInsets.all(12),
                   child: AppText('Base', variant: AppTextVariant.bodySmall),
@@ -136,9 +139,35 @@ class _SurfaceVariantsPreview extends StatelessWidget {
             AppGap.md(),
             Expanded(
               child: AppSurface(
+                variant: SurfaceVariant.elevated,
                 child: Padding(
                   padding: const EdgeInsets.all(12),
                   child: AppText('Elevated', variant: AppTextVariant.bodySmall),
+                ),
+              ),
+            ),
+          ],
+        ),
+        AppGap.md(),
+        // Row 2: Tonal and Highlight
+        Row(
+          children: [
+            Expanded(
+              child: AppSurface(
+                variant: SurfaceVariant.tonal,
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: AppText('Tonal', variant: AppTextVariant.bodySmall),
+                ),
+              ),
+            ),
+            AppGap.md(),
+            Expanded(
+              child: AppSurface(
+                variant: SurfaceVariant.highlight,
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: AppText('Highlight', variant: AppTextVariant.bodySmall),
                 ),
               ),
             ),
