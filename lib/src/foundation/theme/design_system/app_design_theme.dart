@@ -43,6 +43,10 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
   final SurfaceStyle surfaceElevated;
   @override
   final SurfaceStyle surfaceHighlight;
+  @override
+  final SurfaceStyle surfaceSecondary;
+  @override
+  final SurfaceStyle surfaceTertiary;
 
   @override
   final TypographySpec typography;
@@ -63,6 +67,8 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
     required this.surfaceBase,
     required this.surfaceElevated,
     required this.surfaceHighlight,
+    required this.surfaceSecondary,
+    required this.surfaceTertiary,
     required this.toggleStyle,
     required this.skeletonStyle,
     required this.inputStyle,

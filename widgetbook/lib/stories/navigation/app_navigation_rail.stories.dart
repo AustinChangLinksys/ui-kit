@@ -26,7 +26,9 @@ class _InteractiveRailWrapperState extends State<_InteractiveRailWrapper> {
           currentIndex: _currentIndex,
           onTap: (index) => setState(() => _currentIndex = index),
           items: const [
+            // ✨ Selected item (index 0): Shows Tonal pill indicator
             AppNavigationItem(icon: Icon(Icons.dashboard), label: 'Dashboard'),
+            // Unselected items: Reduced opacity text/icons
             AppNavigationItem(icon: Icon(Icons.analytics), label: 'Analytics'),
             AppNavigationItem(icon: Icon(Icons.notifications), label: 'Alerts'),
           ],
@@ -43,7 +45,7 @@ class _InteractiveRailWrapperState extends State<_InteractiveRailWrapper> {
             onPressed: () {},
           ),
         ),
-        
+
         Expanded(
           child: Container(
             margin: const EdgeInsets.all(16),
@@ -51,7 +53,22 @@ class _InteractiveRailWrapperState extends State<_InteractiveRailWrapper> {
               color: Theme.of(context).colorScheme.surfaceContainer,
               borderRadius: BorderRadius.circular(16),
             ),
-            child: const Center(child: Text('Main Content Area')),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Selected: $_currentIndex',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    '✨ Selected item uses Tonal surface\nwith 8px rounded corners\n(consistent with bottom nav)',
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ],

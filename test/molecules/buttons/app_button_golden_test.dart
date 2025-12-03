@@ -2,26 +2,25 @@ import 'package:alchemist/alchemist.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
-// 引入測試工具組
-import '../../test_utils/golden_test_matrix_factory.dart'; // ✨ 矩陣工廠
-import '../../test_utils/font_loader.dart'; // ✨ 字體載入
+// Import test utilities
+import '../../test_utils/golden_test_matrix_factory.dart'; // ✨ Matrix factory
+import '../../test_utils/font_loader.dart'; // ✨ Font loader
 
 void main() {
-  // 1. 測試前置準備：載入字體
+  // 1. Setup: Load fonts
   setUpAll(() async {
-    await loadAppFonts(); 
+    await loadAppFonts();
   });
 
   group('AppButton Golden Tests', () {
-    
-    // 測試 1: Highlight Variant (Primary)
+
+    // Test 1: Highlight Variant (Primary CTA)
     goldenTest(
       'AppButton - Highlight',
       fileName: 'app_button_highlight',
-      // 使用矩陣工廠自動生成 8 種風格 (4x2)
       builder: () => buildThemeMatrix(
         name: 'Highlight',
-        width: 300, // 給予充足寬度防止 Overflow
+        width: 300,
         height: 100,
         child: AppButton(
           label: 'Confirm',
@@ -31,7 +30,23 @@ void main() {
       ),
     );
 
-    // 測試 2: Base Variant (Secondary)
+    // Test 2: Tonal Variant (Secondary Action)
+    goldenTest(
+      'AppButton - Tonal',
+      fileName: 'app_button_tonal',
+      builder: () => buildThemeMatrix(
+        name: 'Tonal',
+        width: 300,
+        height: 100,
+        child: AppButton(
+          label: 'Save Draft',
+          onTap: () {},
+          variant: SurfaceVariant.tonal,
+        ),
+      ),
+    );
+
+    // Test 3: Base Variant (Low Priority)
     goldenTest(
       'AppButton - Base',
       fileName: 'app_button_base',
@@ -47,7 +62,7 @@ void main() {
       ),
     );
 
-    // 測試 3: Loading State
+    // Test 4: Loading State
     goldenTest(
       'AppButton - Loading',
       fileName: 'app_button_loading',
@@ -55,8 +70,8 @@ void main() {
         name: 'Loading',
         width: 300,
         height: 100,
-        // Matrix Factory 內部呼叫 buildSafeScenario，預設 disableAnimation: true
-        // 這裡會自動凍結動畫，不會 Timeout
+        // Matrix factory internally calls buildSafeScenario with disableAnimation: true
+        // Animations are frozen automatically to prevent timeout
         child: AppButton(
           label: 'Loading',
           isLoading: true,
@@ -65,7 +80,7 @@ void main() {
       ),
     );
 
-    // 測試 4: Disabled State
+    // Test 5: Disabled State
     goldenTest(
       'AppButton - Disabled',
       fileName: 'app_button_disabled',

@@ -7,6 +7,8 @@ class NeumorphicDesignTheme extends AppDesignTheme {
     required super.surfaceBase,
     required super.surfaceElevated,
     required super.surfaceHighlight,
+    required super.surfaceSecondary,
+    required super.surfaceTertiary,
     required super.typography,
     required super.animation,
     required super.spacingFactor,
@@ -101,6 +103,50 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           hoverOpacity: 1.0,
           pressedOffset: Offset.zero,
         ),
+      ),
+      surfaceSecondary: SurfaceStyle(
+        backgroundColor: lightBaseColor,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 14.0,
+        shadows: [
+          BoxShadow(
+            color: Color.alphaBlend(
+                Colors.white.withValues(alpha: 0.6), scheme.surface),
+            offset: const Offset(-3, -3),
+            blurRadius: 5,
+          ),
+          BoxShadow(
+            color: Color.alphaBlend(
+                Colors.black.withValues(alpha: 0.15), scheme.surface),
+            offset: const Offset(3, 3),
+            blurRadius: 5,
+          ),
+        ],
+        blurStrength: 0.0,
+        contentColor: scheme.onSurface,
+      ),
+      surfaceTertiary: SurfaceStyle(
+        backgroundColor: lightBaseColor,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 14.0,
+        shadows: [
+          BoxShadow(
+            color: Color.alphaBlend(
+                Colors.white.withValues(alpha: 0.6), scheme.surface),
+            offset: const Offset(-2, -2),
+            blurRadius: 5,
+          ),
+          BoxShadow(
+            color: Color.alphaBlend(
+                Colors.black.withValues(alpha: 0.15), scheme.surface),
+            offset: const Offset(2, 2),
+            blurRadius: 5,
+          ),
+        ],
+        blurStrength: 0.0,
+        contentColor: scheme.onSurface,
       ),
       toggleStyle: const ToggleStyle(
         activeType: ToggleContentType.dot, // dot
@@ -305,6 +351,50 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           hoverOpacity: 1.0,
           pressedOffset: Offset.zero,
         ),
+      ),
+      surfaceSecondary: SurfaceStyle(
+        backgroundColor: darkBaseColor,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 14.0,
+        shadows: [
+          BoxShadow(
+            color: Color.alphaBlend(
+                Colors.white.withValues(alpha: 0.08), scheme.surface),
+            offset: const Offset(-3, -3),
+            blurRadius: 5,
+          ),
+          BoxShadow(
+            color: Color.alphaBlend(
+                Colors.black.withValues(alpha: 0.5), scheme.surface),
+            offset: const Offset(3, 3),
+            blurRadius: 5,
+          ),
+        ],
+        blurStrength: 0.0,
+        contentColor: scheme.onSurface,
+      ),
+      surfaceTertiary: SurfaceStyle(
+        backgroundColor: darkBaseColor,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 14.0,
+        shadows: [
+          BoxShadow(
+            color: Color.alphaBlend(
+                Colors.white.withValues(alpha: 0.08), scheme.surface),
+            offset: const Offset(-2, -2),
+            blurRadius: 5,
+          ),
+          BoxShadow(
+            color: Color.alphaBlend(
+                Colors.black.withValues(alpha: 0.5), scheme.surface),
+            offset: const Offset(2, 2),
+            blurRadius: 5,
+          ),
+        ],
+        blurStrength: 0.0,
+        contentColor: scheme.onSurface,
       ),
       toggleStyle: const ToggleStyle(
         activeType: ToggleContentType.dot, // dot

@@ -18,25 +18,46 @@ void main() {
   ];
 
   group('AppNavigationRail Golden Tests', () {
+    // Test 1: Selected item (index 0) shows Tonal pill indicator
     goldenTest(
-      'AppNavigationRail Matrix',
-      fileName: 'app_navigation_rail_matrix',
+      'AppNavigationRail - Selected Item 0 (Tonal Pill)',
+      fileName: 'app_navigation_rail_selected_0',
       builder: () => buildThemeMatrix(
-        name: 'AppNavigationRail',
+        name: 'Selected 0',
         width: 150, // Only capture the left part of the Rail
         height: 400, // Height must be long enough to see Header/Footer
         child: Row(
-          // Simulate the Row structure of Scaffold body
           children: [
             AppNavigationRail(
               items: navItems,
-              currentIndex: 0,
+              currentIndex: 0, // ✨ First item selected with Tonal pill
               onTap: (_) {},
-              // Test Slot
               leading: const FlutterLogo(size: 32),
               trailing: const Icon(Icons.logout, size: 20),
             ),
-            // Right blank space simulates content area
+            const Expanded(child: SizedBox()),
+          ],
+        ),
+      ),
+    );
+
+    // Test 2: Different selected item (index 1) shows Tonal pill moves
+    goldenTest(
+      'AppNavigationRail - Selected Item 1 (Tonal Pill)',
+      fileName: 'app_navigation_rail_selected_1',
+      builder: () => buildThemeMatrix(
+        name: 'Selected 1',
+        width: 150,
+        height: 400,
+        child: Row(
+          children: [
+            AppNavigationRail(
+              items: navItems,
+              currentIndex: 1, // ✨ Second item selected with Tonal pill
+              onTap: (_) {},
+              leading: const FlutterLogo(size: 32),
+              trailing: const Icon(Icons.logout, size: 20),
+            ),
             const Expanded(child: SizedBox()),
           ],
         ),

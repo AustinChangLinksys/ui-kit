@@ -20,6 +20,8 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
   SurfaceStyle get surfaceBase;
   SurfaceStyle get surfaceElevated;
   SurfaceStyle get surfaceHighlight;
+  SurfaceStyle get surfaceSecondary;
+  SurfaceStyle get surfaceTertiary;
   TypographySpec get typography;
   AnimationSpec get animation;
   double get spacingFactor;
@@ -39,6 +41,8 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
     SurfaceStyle? surfaceBase,
     SurfaceStyle? surfaceElevated,
     SurfaceStyle? surfaceHighlight,
+    SurfaceStyle? surfaceSecondary,
+    SurfaceStyle? surfaceTertiary,
     TypographySpec? typography,
     AnimationSpec? animation,
     double? spacingFactor,
@@ -57,6 +61,8 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       surfaceBase: surfaceBase ?? this.surfaceBase,
       surfaceElevated: surfaceElevated ?? this.surfaceElevated,
       surfaceHighlight: surfaceHighlight ?? this.surfaceHighlight,
+      surfaceSecondary: surfaceSecondary ?? this.surfaceSecondary,
+      surfaceTertiary: surfaceTertiary ?? this.surfaceTertiary,
       typography: typography ?? this.typography,
       animation: animation ?? this.animation,
       spacingFactor: spacingFactor ?? this.spacingFactor,
@@ -81,6 +87,8 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       surfaceBase: t < 0.5 ? surfaceBase : other.surfaceBase,
       surfaceElevated: t < 0.5 ? surfaceElevated : other.surfaceElevated,
       surfaceHighlight: t < 0.5 ? surfaceHighlight : other.surfaceHighlight,
+      surfaceSecondary: t < 0.5 ? surfaceSecondary : other.surfaceSecondary,
+      surfaceTertiary: t < 0.5 ? surfaceTertiary : other.surfaceTertiary,
       typography: t < 0.5 ? typography : other.typography,
       animation: t < 0.5 ? animation : other.animation,
       spacingFactor: t < 0.5 ? spacingFactor : other.spacingFactor,
@@ -116,6 +124,10 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
             const DeepCollectionEquality()
                 .equals(surfaceHighlight, other.surfaceHighlight) &&
             const DeepCollectionEquality()
+                .equals(surfaceSecondary, other.surfaceSecondary) &&
+            const DeepCollectionEquality()
+                .equals(surfaceTertiary, other.surfaceTertiary) &&
+            const DeepCollectionEquality()
                 .equals(typography, other.typography) &&
             const DeepCollectionEquality().equals(animation, other.animation) &&
             const DeepCollectionEquality()
@@ -142,6 +154,8 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       const DeepCollectionEquality().hash(surfaceBase),
       const DeepCollectionEquality().hash(surfaceElevated),
       const DeepCollectionEquality().hash(surfaceHighlight),
+      const DeepCollectionEquality().hash(surfaceSecondary),
+      const DeepCollectionEquality().hash(surfaceTertiary),
       const DeepCollectionEquality().hash(typography),
       const DeepCollectionEquality().hash(animation),
       const DeepCollectionEquality().hash(spacingFactor),
@@ -165,6 +179,8 @@ extension AppDesignThemeBuildContextProps on BuildContext {
   SurfaceStyle get surfaceBase => appDesignTheme.surfaceBase;
   SurfaceStyle get surfaceElevated => appDesignTheme.surfaceElevated;
   SurfaceStyle get surfaceHighlight => appDesignTheme.surfaceHighlight;
+  SurfaceStyle get surfaceSecondary => appDesignTheme.surfaceSecondary;
+  SurfaceStyle get surfaceTertiary => appDesignTheme.surfaceTertiary;
   TypographySpec get typography => appDesignTheme.typography;
   AnimationSpec get animation => appDesignTheme.animation;
   double get spacingFactor => appDesignTheme.spacingFactor;

@@ -31,6 +31,10 @@ class DashboardPage extends StatelessWidget {
             const _DashboardHeader(),
             AppGap.xl(),
 
+            // 1.5. Visual Hierarchy Showcase (Tonal Semantic Surfaces)
+            const _VisualHierarchyShowcase(),
+            AppGap.xl(),
+
             // 2. Main Content Grid
             // On wide screens, display side by side, on narrow screens, display vertically
             LayoutBuilder(builder: (context, constraints) {
@@ -535,6 +539,80 @@ class _WiFiCardState extends State<_WiFiCard> {
                 ],
               ),
               const Icon(Icons.qr_code, size: 20, color: Colors.white),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _VisualHierarchyShowcase extends StatelessWidget {
+  const _VisualHierarchyShowcase();
+
+  @override
+  Widget build(BuildContext context) {
+    return AppCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AppText.titleMedium('Visual Hierarchy'),
+          AppGap.md(),
+          AppText.caption('Three-tier priority system for actions',
+              color: Colors.grey),
+          AppGap.lg(),
+          // Display buttons in a 3-tier hierarchy
+          Row(
+            children: [
+              // Low Priority: Base (Cancel)
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    AppButton(
+                      label: 'Cancel',
+                      onTap: () {},
+                      variant: SurfaceVariant.base,
+                    ),
+                    AppGap.sm(),
+                    AppText.caption('Low Priority (Base)', color: Colors.grey),
+                  ],
+                ),
+              ),
+              AppGap.md(),
+              // Medium Priority: Tonal (Save Draft)
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    AppButton(
+                      label: 'Save Draft',
+                      onTap: () {},
+                      variant: SurfaceVariant.tonal,
+                    ),
+                    AppGap.sm(),
+                    AppText.caption('Medium Priority (Tonal)',
+                        color: Colors.grey),
+                  ],
+                ),
+              ),
+              AppGap.md(),
+              // High Priority: Highlight (Add Device)
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    AppButton(
+                      label: 'Add Device',
+                      onTap: () {},
+                      variant: SurfaceVariant.highlight,
+                    ),
+                    AppGap.sm(),
+                    AppText.caption('High Priority (Highlight)',
+                        color: Colors.grey),
+                  ],
+                ),
+              ),
             ],
           ),
         ],

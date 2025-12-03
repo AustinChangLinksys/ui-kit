@@ -47,24 +47,31 @@ class AppAvatar extends StatelessWidget {
   }
 
   Widget _buildFallback(BuildContext context, AppDesignTheme theme) {
-    // Use Highlight color (usually Primary Color) as base tone
-    final primaryColor = theme.surfaceHighlight.contentColor;
+    // Use Tonal surface for fallback background
+    // This automatically adapts to all design themes:
+    // - Glass: Frosted tint
+    // - Brutal: Solid grey with border
+    // - Flat: Material 3 secondary container
+    // - Neumorphic: Soft tactile surface
+    // - Pixel: Grid pattern with retro colors
 
-    return Container(
+    return AppSurface(
+      variant: SurfaceVariant.tonal,
       width: size,
       height: size,
-      // Background color: extremely light primary tone
-      color: primaryColor.withValues(alpha: 0.1),
-      alignment: Alignment.center,
-      child: Text(
-        // Add null safety logic
-        initials.isNotEmpty 
-            ? initials.substring(0, initials.length.clamp(0, 2)).toUpperCase() 
-            : "",
-        style: Theme.of(context).textTheme.labelLarge?.copyWith(
-          color: primaryColor, // Text color
-          fontWeight: FontWeight.bold,
-          fontSize: size * 0.4, // Font size scales with Avatar size
+      shape: BoxShape.circle,
+      padding: EdgeInsets.zero,
+      child: Center(
+        child: Text(
+          // Add null safety logic
+          initials.isNotEmpty
+              ? initials.substring(0, initials.length.clamp(0, 2)).toUpperCase()
+              : "",
+          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+            color: theme.surfaceSecondary.contentColor,
+            fontWeight: FontWeight.bold,
+            fontSize: size * 0.4, // Font size scales with Avatar size
+          ),
         ),
       ),
     );

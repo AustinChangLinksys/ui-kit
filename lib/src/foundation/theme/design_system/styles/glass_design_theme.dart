@@ -7,6 +7,8 @@ class GlassDesignTheme extends AppDesignTheme {
     required super.surfaceBase,
     required super.surfaceElevated,
     required super.surfaceHighlight,
+    required super.surfaceSecondary,
+    required super.surfaceTertiary,
     required super.typography,
     required super.animation,
     required super.spacingFactor,
@@ -80,6 +82,40 @@ class GlassDesignTheme extends AppDesignTheme {
           hoverOpacity: 0.9,
           pressedOffset: Offset.zero,
         ),
+      ),
+      // Secondary (Tonal) Surface - Medium emphasis, selected/active states
+      surfaceSecondary: SurfaceStyle(
+        backgroundColor: scheme.primary.withValues(alpha: 0.12),
+        borderColor: Colors.white.withValues(alpha: 0.4),
+        borderWidth: 1.0,
+        borderRadius: 24.0,
+        blurStrength: 15.0,
+        shadows: [
+          BoxShadow(
+            color: scheme.primary.withValues(alpha: 0.1),
+            blurRadius: 10,
+            spreadRadius: -2,
+            offset: const Offset(0, 2),
+          )
+        ],
+        contentColor: scheme.primary.withValues(alpha: 0.8),
+      ),
+      // Tertiary (Accent) Surface - Decorative or special emphasis
+      surfaceTertiary: SurfaceStyle(
+        backgroundColor: scheme.tertiary.withValues(alpha: 0.15),
+        borderColor: scheme.tertiary.withValues(alpha: 0.3),
+        borderWidth: 1.0,
+        borderRadius: 24.0,
+        blurStrength: 12.0,
+        shadows: [
+          BoxShadow(
+            color: scheme.tertiary.withValues(alpha: 0.1),
+            blurRadius: 8,
+            spreadRadius: -2,
+            offset: const Offset(0, 2),
+          )
+        ],
+        contentColor: scheme.tertiary,
       ),
       skeletonStyle: SkeletonStyle(
         baseColor: scheme.primary.withValues(alpha: 0.02),
@@ -285,6 +321,40 @@ class GlassDesignTheme extends AppDesignTheme {
           hoverOpacity: 0.9,
           pressedOffset: Offset.zero,
         ),
+      ),
+      // Secondary (Tonal) Surface - Medium emphasis, selected/active states (Dark mode)
+      surfaceSecondary: SurfaceStyle(
+        backgroundColor: scheme.primary.withValues(alpha: 0.25),
+        borderColor: Colors.white.withValues(alpha: 0.2),
+        borderWidth: 1.0,
+        borderRadius: 24.0,
+        blurStrength: 15.0,
+        shadows: [
+          BoxShadow(
+            color: scheme.primary.withValues(alpha: 0.15),
+            blurRadius: 10,
+            spreadRadius: -2,
+            offset: const Offset(0, 2),
+          )
+        ],
+        contentColor: scheme.onPrimary.withValues(alpha: 0.8),
+      ),
+      // Tertiary (Accent) Surface - Decorative or special emphasis (Dark mode)
+      surfaceTertiary: SurfaceStyle(
+        backgroundColor: scheme.tertiary.withValues(alpha: 0.2),
+        borderColor: scheme.tertiary.withValues(alpha: 0.3),
+        borderWidth: 1.0,
+        borderRadius: 24.0,
+        blurStrength: 12.0,
+        shadows: [
+          BoxShadow(
+            color: scheme.tertiary.withValues(alpha: 0.15),
+            blurRadius: 8,
+            spreadRadius: -2,
+            offset: const Offset(0, 2),
+          )
+        ],
+        contentColor: scheme.tertiary,
       ),
       skeletonStyle: SkeletonStyle(
         baseColor: scheme.primary.withValues(alpha: 0.05),

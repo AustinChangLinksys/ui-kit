@@ -8,6 +8,8 @@ class BrutalDesignTheme extends AppDesignTheme {
     required super.surfaceBase,
     required super.surfaceElevated,
     required super.surfaceHighlight,
+    required super.surfaceSecondary,
+    required super.surfaceTertiary,
     required super.toggleStyle,
     required super.typography,
     required super.animation,
@@ -77,6 +79,38 @@ class BrutalDesignTheme extends AppDesignTheme {
           hoverOpacity: 1.0,
           pressedOffset: Offset(4, 4),
         ),
+      ),
+      // Secondary (Tonal) Surface - Medium emphasis with mechanical aesthetic
+      surfaceSecondary: SurfaceStyle(
+        backgroundColor: Colors.grey.withValues(alpha: 0.15),
+        borderColor: scheme.onSurface,
+        borderWidth: 2.0,
+        borderRadius: 0.0,
+        shadows: [
+          BoxShadow(
+            color: scheme.onSurface,
+            blurRadius: 0,
+            offset: const Offset(2, 2),
+          )
+        ],
+        blurStrength: 0.0,
+        contentColor: scheme.onSurface,
+      ),
+      // Tertiary (Accent) Surface - Decorative with mechanical aesthetic
+      surfaceTertiary: SurfaceStyle(
+        backgroundColor: scheme.tertiary.withValues(alpha: 0.2),
+        borderColor: scheme.tertiary,
+        borderWidth: 2.0,
+        borderRadius: 0.0,
+        shadows: [
+          BoxShadow(
+            color: scheme.tertiary,
+            blurRadius: 0,
+            offset: const Offset(2, 2),
+          )
+        ],
+        blurStrength: 0.0,
+        contentColor: scheme.tertiary,
       ),
       toggleStyle: const ToggleStyle(
         activeType: ToggleContentType.text,
@@ -259,6 +293,38 @@ class BrutalDesignTheme extends AppDesignTheme {
           hoverOpacity: 1.0,
           pressedOffset: Offset(4, 4),
         ),
+      ),
+      // Secondary (Tonal) Surface - Medium emphasis with mechanical aesthetic (Dark mode)
+      surfaceSecondary: SurfaceStyle(
+        backgroundColor: Colors.grey.withValues(alpha: 0.25),
+        borderColor: Colors.white.withValues(alpha: 0.3),
+        borderWidth: 2.0,
+        borderRadius: 0.0,
+        shadows: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.4),
+            blurRadius: 0,
+            offset: const Offset(2, 2),
+          )
+        ],
+        blurStrength: 0.0,
+        contentColor: Colors.white.withValues(alpha: 0.8),
+      ),
+      // Tertiary (Accent) Surface - Decorative with mechanical aesthetic (Dark mode)
+      surfaceTertiary: SurfaceStyle(
+        backgroundColor: scheme.tertiary.withValues(alpha: 0.25),
+        borderColor: scheme.tertiary.withValues(alpha: 0.6),
+        borderWidth: 2.0,
+        borderRadius: 0.0,
+        shadows: [
+          BoxShadow(
+            color: scheme.tertiary.withValues(alpha: 0.3),
+            blurRadius: 0,
+            offset: const Offset(2, 2),
+          )
+        ],
+        blurStrength: 0.0,
+        contentColor: scheme.tertiary,
       ),
       toggleStyle: const ToggleStyle(
         activeType: ToggleContentType.text,
