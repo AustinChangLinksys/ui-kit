@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:ui_kit_library/ui_kit.dart';
-import '../property_editors/color_property.dart' as color_prop;
 import '../property_editors/double_property.dart';
+import 'color_info_display.dart';
 
 /// Editor widget for SurfaceStyle properties
 /// Allows editing of all 9 SurfaceStyle parameters:
@@ -47,21 +47,6 @@ class _SurfaceStyleEditorState extends State<SurfaceStyleEditor> {
     widget.onChanged(newStyle);
   }
 
-  void _handleBackgroundColorChanged(Color color) {
-    final updated = _currentStyle.copyWith(backgroundColor: color);
-    _updateStyle(updated);
-  }
-
-  void _handleBorderColorChanged(Color color) {
-    final updated = _currentStyle.copyWith(borderColor: color);
-    _updateStyle(updated);
-  }
-
-  void _handleContentColorChanged(Color color) {
-    final updated = _currentStyle.copyWith(contentColor: color);
-    _updateStyle(updated);
-  }
-
   void _handleBorderWidthChanged(double value) {
     final updated = _currentStyle.copyWith(borderWidth: value);
     _updateStyle(updated);
@@ -94,27 +79,30 @@ class _SurfaceStyleEditorState extends State<SurfaceStyleEditor> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 1. Background Color
-              color_prop.ColorProperty(
+              // 1. Background Color - Read-only (managed via Colors tab)
+              ColorInfoDisplay(
                 label: 'Background Color',
-                value: _currentStyle.backgroundColor,
-                onChanged: _handleBackgroundColorChanged,
+                color: _currentStyle.backgroundColor,
+                sourceColor: 'Set via theme implementation',
+                note: 'Modify in Colors tab to change scheme colors',
               ),
               const Gap(16),
 
-              // 2. Border Color
-              color_prop.ColorProperty(
+              // 2. Border Color - Read-only (managed via Colors tab)
+              ColorInfoDisplay(
                 label: 'Border Color',
-                value: _currentStyle.borderColor,
-                onChanged: _handleBorderColorChanged,
+                color: _currentStyle.borderColor,
+                sourceColor: 'Set via theme implementation',
+                note: 'Modify in Colors tab to change scheme colors',
               ),
               const Gap(16),
 
-              // 3. Content Color
-              color_prop.ColorProperty(
+              // 3. Content Color - Read-only (managed via Colors tab)
+              ColorInfoDisplay(
                 label: 'Content Color (text/icons)',
-                value: _currentStyle.contentColor,
-                onChanged: _handleContentColorChanged,
+                color: _currentStyle.contentColor,
+                sourceColor: 'Set via theme implementation',
+                note: 'Modify in Colors tab to change scheme colors',
               ),
               const Gap(16),
 

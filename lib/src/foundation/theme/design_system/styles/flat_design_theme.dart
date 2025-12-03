@@ -339,7 +339,7 @@ class FlatDesignTheme extends AppDesignTheme {
           borderRadius: 99,
           shadows: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.3),
+              color: scheme.shadow.withValues(alpha: 0.3),
               blurRadius: 4,
               offset: const Offset(0, 2),
             )

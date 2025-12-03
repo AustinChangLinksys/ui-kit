@@ -29,9 +29,9 @@ class NeumorphicDesignTheme extends AppDesignTheme {
     scheme ??= AppTheme.defaultLightScheme;
     final lightBaseColor = scheme.surface;
     final lightShadow = Color.alphaBlend(
-        Colors.white.withValues(alpha: 0.5), scheme.surface); // White shadow
+        scheme.outline.withValues(alpha: 0.5), scheme.surface); // White shadow
     final darkShadow = Color.alphaBlend(
-        Colors.black.withValues(alpha: 0.2), scheme.surface); // Black shadow
+        scheme.shadow.withValues(alpha: 0.2), scheme.surface); // Black shadow
     final highlightBorderColor = scheme.primary;
     final neuBase = scheme.surface;
     final neuShadow = AppPalette.neumorphicLightShadow.withValues(alpha: 0.3);
@@ -64,13 +64,13 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         shadows: [
           BoxShadow(
             color: Color.alphaBlend(
-                Colors.white.withValues(alpha: 0.7), scheme.surface),
+                scheme.outline.withValues(alpha: 0.7), scheme.surface),
             offset: const Offset(-8, -8),
             blurRadius: 16,
           ),
           BoxShadow(
             color: Color.alphaBlend(
-                Colors.black.withValues(alpha: 0.3), scheme.surface),
+                scheme.shadow.withValues(alpha: 0.3), scheme.surface),
             offset: const Offset(8, 8),
             blurRadius: 16,
           ),
@@ -112,13 +112,13 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         shadows: [
           BoxShadow(
             color: Color.alphaBlend(
-                Colors.white.withValues(alpha: 0.6), scheme.surface),
+                scheme.outline.withValues(alpha: 0.6), scheme.surface),
             offset: const Offset(-3, -3),
             blurRadius: 5,
           ),
           BoxShadow(
             color: Color.alphaBlend(
-                Colors.black.withValues(alpha: 0.15), scheme.surface),
+                scheme.shadow.withValues(alpha: 0.15), scheme.surface),
             offset: const Offset(3, 3),
             blurRadius: 5,
           ),
@@ -134,13 +134,13 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         shadows: [
           BoxShadow(
             color: Color.alphaBlend(
-                Colors.white.withValues(alpha: 0.6), scheme.surface),
+                scheme.outline.withValues(alpha: 0.6), scheme.surface),
             offset: const Offset(-2, -2),
             blurRadius: 5,
           ),
           BoxShadow(
             color: Color.alphaBlend(
-                Colors.black.withValues(alpha: 0.15), scheme.surface),
+                scheme.shadow.withValues(alpha: 0.15), scheme.surface),
             offset: const Offset(2, 2),
             blurRadius: 5,
           ),
@@ -276,9 +276,9 @@ class NeumorphicDesignTheme extends AppDesignTheme {
     scheme ??= AppTheme.defaultDarkScheme;
     final darkBaseColor = scheme.surface;
     final darkLightShadow = Color.alphaBlend(
-        Colors.white.withValues(alpha: 0.1), scheme.surface); // Light shadow
+        scheme.outline.withValues(alpha: 0.1), scheme.surface); // Light shadow
     final darkDarkShadow = Color.alphaBlend(
-        Colors.black.withValues(alpha: 0.6), scheme.surface); // Dark shadow
+        scheme.shadow.withValues(alpha: 0.6), scheme.surface); // Dark shadow
     final darkHighlightBorderColor = scheme.primary;
     final neuBase = scheme.surface;
     final neuShadow = AppPalette.neumorphicLightShadow.withValues(alpha: 0.3);
@@ -312,13 +312,13 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         shadows: [
           BoxShadow(
             color: Color.alphaBlend(
-                Colors.white.withValues(alpha: 0.15), scheme.surface),
+                scheme.outline.withValues(alpha: 0.15), scheme.surface),
             offset: const Offset(-8, -8),
             blurRadius: 16,
           ),
           BoxShadow(
             color: Color.alphaBlend(
-                Colors.black.withValues(alpha: 0.8), scheme.surface),
+                scheme.shadow.withValues(alpha: 0.8), scheme.surface),
             offset: const Offset(8, 8),
             blurRadius: 16,
           ),
@@ -360,13 +360,13 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         shadows: [
           BoxShadow(
             color: Color.alphaBlend(
-                Colors.white.withValues(alpha: 0.08), scheme.surface),
+                scheme.outline.withValues(alpha: 0.08), scheme.surface),
             offset: const Offset(-3, -3),
             blurRadius: 5,
           ),
           BoxShadow(
             color: Color.alphaBlend(
-                Colors.black.withValues(alpha: 0.5), scheme.surface),
+                scheme.shadow.withValues(alpha: 0.5), scheme.surface),
             offset: const Offset(3, 3),
             blurRadius: 5,
           ),
@@ -382,13 +382,13 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         shadows: [
           BoxShadow(
             color: Color.alphaBlend(
-                Colors.white.withValues(alpha: 0.08), scheme.surface),
+                scheme.outline.withValues(alpha: 0.08), scheme.surface),
             offset: const Offset(-2, -2),
             blurRadius: 5,
           ),
           BoxShadow(
             color: Color.alphaBlend(
-                Colors.black.withValues(alpha: 0.5), scheme.surface),
+                scheme.shadow.withValues(alpha: 0.5), scheme.surface),
             offset: const Offset(2, 2),
             blurRadius: 5,
           ),
@@ -481,8 +481,8 @@ class NeumorphicDesignTheme extends AppDesignTheme {
       ),
       dividerStyle: DividerStyle(
         // 深色模式下的凹槽
-        color: Colors.black.withValues(alpha: 0.5),
-        secondaryColor: Colors.white.withValues(alpha: 0.1),
+        color: scheme.shadow.withValues(alpha: 0.5),
+        secondaryColor: scheme.outline.withValues(alpha: 0.1),
         thickness: 1.5,
         pattern: DividerPattern.solid,
       ),

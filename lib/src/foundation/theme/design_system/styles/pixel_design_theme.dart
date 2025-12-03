@@ -116,8 +116,8 @@ class PixelDesignTheme extends AppDesignTheme {
         inactiveText: 'OFF',
       ),
       skeletonStyle: SkeletonStyle(
-        baseColor: Colors.black.withValues(alpha: 0.1),
-        highlightColor: Colors.black.withValues(alpha: 0.2),
+        baseColor: scheme.shadow.withValues(alpha: 0.1),
+        highlightColor: scheme.shadow.withValues(alpha: 0.2),
         animationType: SkeletonAnimationType.blink,
         borderRadius: 2.0,
       ),
@@ -181,7 +181,7 @@ class PixelDesignTheme extends AppDesignTheme {
         borderRadius: 2.0,
         shadows: [
           BoxShadow(
-              color: Colors.black.withValues(alpha: 0.2),
+              color: scheme.shadow.withValues(alpha: 0.2),
               offset: const Offset(2, 2),
               blurRadius: 0),
         ],
@@ -390,7 +390,7 @@ class PixelDesignTheme extends AppDesignTheme {
         borderRadius: 2.0,
         shadows: [
           BoxShadow(
-              color: Colors.black.withValues(alpha: 0.4),
+              color: scheme.shadow.withValues(alpha: 0.4),
               offset: const Offset(2, 2),
               blurRadius: 0),
         ],

@@ -181,12 +181,11 @@ class ThemeEditorController extends ChangeNotifier {
   Color _seedColor = const Color(0xFF0870EA);
   Color get seedColor => _seedColor;
 
-  // Color overrides
+  // Semantic color overrides
   Color? _primaryOverride;
   Color? _secondaryOverride;
   Color? _tertiaryOverride;
   Color? _errorOverride;
-  Color? _surfaceOverride;
   Color? _outlineOverride;
 
   // Getters for overrides
@@ -194,7 +193,6 @@ class ThemeEditorController extends ChangeNotifier {
   Color? get secondaryOverride => _secondaryOverride;
   Color? get tertiaryOverride => _tertiaryOverride;
   Color? get errorOverride => _errorOverride;
-  Color? get surfaceOverride => _surfaceOverride;
   Color? get outlineOverride => _outlineOverride;
 
   /// Get current computed ColorScheme (Light) for UI display
@@ -210,21 +208,19 @@ class ThemeEditorController extends ChangeNotifier {
     loadPreset(_currentPreset);
   }
 
-  /// Update specific color override and immediately apply without full preset reload
-  /// This ensures color changes are reflected in preview while preserving other customizations
+  /// Update semantic color overrides and immediately apply without full preset reload
+  /// This ensures color changes are reflected in preview while preserving theme structure
   void updateColorOverride({
     Color? primary,
     Color? secondary,
     Color? tertiary,
     Color? error,
-    Color? surface,
     Color? outline,
   }) {
     if (primary != null) _primaryOverride = primary;
     if (secondary != null) _secondaryOverride = secondary;
     if (tertiary != null) _tertiaryOverride = tertiary;
     if (error != null) _errorOverride = error;
-    if (surface != null) _surfaceOverride = surface;
     if (outline != null) _outlineOverride = outline;
 
     // Apply color scheme without resetting theme structure
@@ -264,7 +260,7 @@ class ThemeEditorController extends ChangeNotifier {
     }
   }
 
-  /// Create ColorScheme with current overrides
+  /// Create ColorScheme with semantic color overrides
   ColorScheme createColorScheme(Brightness brightness) {
     return ColorScheme.fromSeed(
       seedColor: _seedColor,
@@ -273,7 +269,6 @@ class ThemeEditorController extends ChangeNotifier {
       secondary: _secondaryOverride,
       tertiary: _tertiaryOverride,
       error: _errorOverride,
-      surface: _surfaceOverride,
       outline: _outlineOverride,
     );
   }
@@ -320,7 +315,6 @@ class ThemeEditorController extends ChangeNotifier {
     _secondaryOverride = null;
     _tertiaryOverride = null;
     _errorOverride = null;
-    _surfaceOverride = null;
     _outlineOverride = null;
     loadPreset(_currentPreset);
   }

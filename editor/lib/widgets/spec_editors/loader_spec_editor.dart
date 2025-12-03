@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 import '../property_editors/double_property.dart';
 import '../property_editors/enum_property.dart';
-import '../property_editors/color_property.dart' as color_prop;
+import 'color_info_display.dart';
 
 /// Editor widget for LoaderStyle properties
 /// Allows editing of all 8 LoaderStyle parameters:
@@ -48,16 +48,6 @@ class _LoaderSpecEditorState extends State<LoaderSpecEditor> {
 
   void _handleTypeChanged(LoaderType type) {
     final updated = _currentStyle.copyWith(type: type);
-    _updateStyle(updated);
-  }
-
-  void _handleColorChanged(Color color) {
-    final updated = _currentStyle.copyWith(color: color);
-    _updateStyle(updated);
-  }
-
-  void _handleBackgroundColorChanged(Color? color) {
-    final updated = _currentStyle.copyWith(backgroundColor: color);
     _updateStyle(updated);
   }
 
@@ -110,22 +100,24 @@ class _LoaderSpecEditorState extends State<LoaderSpecEditor> {
               ),
               const Gap(16),
 
-              // 2. Color
-              color_prop.ColorProperty(
+              // 2. Color - Read-only (managed via Colors tab)
+              ColorInfoDisplay(
                 label: 'Color',
-                value: _currentStyle.color ?? Colors.blue,
-                onChanged: _handleColorChanged,
+                color: _currentStyle.color ?? Colors.blue,
+                sourceColor: 'scheme.primary (all themes)',
+                note: 'Modify in Colors tab → Primary',
               ),
               const Gap(16),
 
-              // 3. Background Color (optional)
+              // 3. Background Color (optional) - Read-only (managed via Colors tab)
               if (_currentStyle.backgroundColor != null)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16.0),
-                  child: color_prop.ColorProperty(
+                  child: ColorInfoDisplay(
                     label: 'Background Color',
-                    value: _currentStyle.backgroundColor!,
-                    onChanged: _handleBackgroundColorChanged,
+                    color: _currentStyle.backgroundColor!,
+                    sourceColor: 'Set via theme implementation',
+                    note: 'Modify in Colors tab to change scheme colors',
                   ),
                 ),
 

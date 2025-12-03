@@ -82,7 +82,7 @@ class BrutalDesignTheme extends AppDesignTheme {
       ),
       // Secondary (Tonal) Surface - Medium emphasis with mechanical aesthetic
       surfaceSecondary: SurfaceStyle(
-        backgroundColor: Colors.grey.withValues(alpha: 0.15),
+        backgroundColor: scheme.surfaceContainerHighest.withValues(alpha: 0.15),
         borderColor: scheme.onSurface,
         borderWidth: 2.0,
         borderRadius: 0.0,
@@ -119,8 +119,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         inactiveText: 'O',
       ),
       skeletonStyle: SkeletonStyle(
-        baseColor: Colors.black.withValues(alpha: 0.15),
-        highlightColor: Colors.black.withValues(alpha: 0.3),
+        baseColor: scheme.shadow.withValues(alpha: 0.15),
+        highlightColor: scheme.shadow.withValues(alpha: 0.3),
         animationType: SkeletonAnimationType.blink,
         borderRadius: 0.0,
       ),
@@ -296,19 +296,19 @@ class BrutalDesignTheme extends AppDesignTheme {
       ),
       // Secondary (Tonal) Surface - Medium emphasis with mechanical aesthetic (Dark mode)
       surfaceSecondary: SurfaceStyle(
-        backgroundColor: Colors.grey.withValues(alpha: 0.25),
-        borderColor: Colors.white.withValues(alpha: 0.3),
+        backgroundColor: scheme.surfaceContainerHighest.withValues(alpha: 0.25),
+        borderColor: scheme.outline.withValues(alpha: 0.3),
         borderWidth: 2.0,
         borderRadius: 0.0,
         shadows: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.4),
+            color: scheme.shadow.withValues(alpha: 0.4),
             blurRadius: 0,
             offset: const Offset(2, 2),
           )
         ],
         blurStrength: 0.0,
-        contentColor: Colors.white.withValues(alpha: 0.8),
+        contentColor: scheme.outline.withValues(alpha: 0.8),
       ),
       // Tertiary (Accent) Surface - Decorative with mechanical aesthetic (Dark mode)
       surfaceTertiary: SurfaceStyle(

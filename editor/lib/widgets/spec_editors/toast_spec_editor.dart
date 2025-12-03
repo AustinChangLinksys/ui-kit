@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:ui_kit_library/ui_kit.dart';
-import '../property_editors/color_property.dart' as color_prop;
 import '../property_editors/double_property.dart';
+import 'color_info_display.dart';
 
 class ToastSpecEditor extends StatelessWidget {
   final ToastStyle initialStyle;
@@ -35,22 +35,12 @@ class ToastSpecEditor extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              // 1. Background Color
-              color_prop.ColorProperty(
+              // 1. Background Color - Read-only (managed via Colors tab)
+              ColorInfoDisplay(
                 label: 'Background Color',
-                value: initialStyle.backgroundColor ?? Colors.black,
-                onChanged: (color) {
-                  onChanged(
-                    ToastStyle(
-                      backgroundColor: color,
-                      borderRadius: initialStyle.borderRadius,
-                      padding: initialStyle.padding,
-                      margin: initialStyle.margin,
-                      textStyle: initialStyle.textStyle,
-                      displayDuration: initialStyle.displayDuration,
-                    ),
-                  );
-                },
+                color: initialStyle.backgroundColor ?? Colors.black,
+                sourceColor: 'Set via theme implementation',
+                note: 'Modify in Colors tab to change scheme colors',
               ),
               const Gap(12),
 

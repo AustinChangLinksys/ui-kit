@@ -264,12 +264,6 @@ class ControlPanel extends StatelessWidget {
                         ),
                         const Gap(12),
                         color_property.ColorProperty(
-                          label: 'Surface',
-                          value: themeController.currentLightScheme.surface,
-                          onChanged: (color) => themeController.updateColorOverride(surface: color),
-                        ),
-                        const Gap(12),
-                        color_property.ColorProperty(
                           label: 'Outline',
                           value: themeController.currentLightScheme.outline,
                           onChanged: (color) => themeController.updateColorOverride(outline: color),

@@ -32,7 +32,7 @@ class GlassDesignTheme extends AppDesignTheme {
     return GlassDesignTheme._(
       surfaceBase: SurfaceStyle(
         backgroundColor: glassBaseColor,
-        borderColor: Colors.white.withValues(alpha: 0.5),
+        borderColor: scheme.outline.withValues(alpha: 0.5),
         borderWidth: 1.5,
         borderRadius: 24.0,
         shadows: [
@@ -47,8 +47,8 @@ class GlassDesignTheme extends AppDesignTheme {
         contentColor: scheme.onSurface,
       ),
       surfaceElevated: SurfaceStyle(
-        backgroundColor: Colors.white.withValues(alpha: 0.1),
-        borderColor: Colors.white.withValues(alpha: 0.6),
+        backgroundColor: scheme.surfaceContainerHighest.withValues(alpha: 0.1),
+        borderColor: scheme.outline.withValues(alpha: 0.6),
         borderWidth: 1.5,
         borderRadius: 24.0,
         shadows: [
@@ -63,7 +63,7 @@ class GlassDesignTheme extends AppDesignTheme {
       ),
       surfaceHighlight: SurfaceStyle(
         backgroundColor: scheme.primary.withValues(alpha: 0.15),
-        borderColor: Colors.white.withValues(alpha: 0.5),
+        borderColor: scheme.outline.withValues(alpha: 0.5),
         borderWidth: 1.5,
         borderRadius: 24.0,
         blurStrength: 20.0,
@@ -85,20 +85,20 @@ class GlassDesignTheme extends AppDesignTheme {
       ),
       // Secondary (Tonal) Surface - Medium emphasis, selected/active states
       surfaceSecondary: SurfaceStyle(
-        backgroundColor: scheme.primary.withValues(alpha: 0.12),
-        borderColor: Colors.white.withValues(alpha: 0.4),
+        backgroundColor: scheme.secondary.withValues(alpha: 0.12),
+        borderColor: scheme.outline.withValues(alpha: 0.4),
         borderWidth: 1.0,
         borderRadius: 24.0,
         blurStrength: 15.0,
         shadows: [
           BoxShadow(
-            color: scheme.primary.withValues(alpha: 0.1),
+            color: scheme.secondary.withValues(alpha: 0.1),
             blurRadius: 10,
             spreadRadius: -2,
             offset: const Offset(0, 2),
           )
         ],
-        contentColor: scheme.primary.withValues(alpha: 0.8),
+        contentColor: scheme.secondary.withValues(alpha: 0.8),
       ),
       // Tertiary (Accent) Surface - Decorative or special emphasis
       surfaceTertiary: SurfaceStyle(
@@ -128,7 +128,7 @@ class GlassDesignTheme extends AppDesignTheme {
         inactiveType: ToggleContentType.grip,
         activeTrackStyle: SurfaceStyle(
           backgroundColor: scheme.primary.withValues(alpha: 0.5),
-          borderColor: Colors.white.withValues(alpha: 0.2),
+          borderColor: scheme.outline.withValues(alpha: 0.2),
           borderWidth: 0,
           borderRadius: 99.0,
           shadows: [
@@ -136,11 +136,11 @@ class GlassDesignTheme extends AppDesignTheme {
                 color: scheme.primary.withValues(alpha: 0.3), blurRadius: 12)
           ],
           blurStrength: 15.0,
-          contentColor: Colors.white,
+          contentColor: scheme.onPrimary,
         ),
         inactiveTrackStyle: SurfaceStyle(
-          backgroundColor: Colors.grey.withValues(alpha: 0.1),
-          borderColor: Colors.white.withValues(alpha: 0.3),
+          backgroundColor: scheme.surfaceContainerHighest.withValues(alpha: 0.1),
+          borderColor: scheme.outline.withValues(alpha: 0.3),
           borderWidth: 1.0,
           borderRadius: 99.0,
           shadows: const [],
@@ -148,13 +148,13 @@ class GlassDesignTheme extends AppDesignTheme {
           contentColor: scheme.onSurface.withValues(alpha: 0.5),
         ),
         thumbStyle: SurfaceStyle(
-          backgroundColor: Colors.white.withValues(alpha: 0.9),
-          borderColor: Colors.white,
+          backgroundColor: scheme.surface.withValues(alpha: 0.9),
+          borderColor: scheme.outline,
           borderWidth: 0.0,
           borderRadius: 99.0,
           shadows: [
             BoxShadow(
-                color: Colors.black.withValues(alpha: 0.1),
+                color: scheme.shadow.withValues(alpha: 0.1),
                 blurRadius: 4,
                 offset: const Offset(0, 2))
           ],
@@ -166,7 +166,7 @@ class GlassDesignTheme extends AppDesignTheme {
         // Underline Style
         underlineStyle: SurfaceStyle(
           backgroundColor: Colors.transparent,
-          borderColor: Colors.white.withValues(alpha: 0.3), // Required
+          borderColor: scheme.outline.withValues(alpha: 0.3), // Required
           contentColor: scheme.onSurface, // Required
           borderWidth: 0,
           borderRadius: 0,
@@ -174,12 +174,12 @@ class GlassDesignTheme extends AppDesignTheme {
           shadows: const [],
           customBorder: Border(
               bottom: BorderSide(
-                  color: Colors.white.withValues(alpha: 0.3), width: 1.5)),
+                  color: scheme.outline.withValues(alpha: 0.3), width: 1.5)),
         ),
         // Outline Style
         outlineStyle: SurfaceStyle(
-          backgroundColor: Colors.white.withValues(alpha: 0.1),
-          borderColor: Colors.white.withValues(alpha: 0.3),
+          backgroundColor: scheme.surfaceContainerHighest.withValues(alpha: 0.1),
+          borderColor: scheme.outline.withValues(alpha: 0.3),
           contentColor: scheme.onSurface,
           borderWidth: 1.0,
           borderRadius: 8.0,
@@ -191,7 +191,7 @@ class GlassDesignTheme extends AppDesignTheme {
         ),
         // Filled Style
         filledStyle: SurfaceStyle(
-          backgroundColor: Colors.white.withValues(alpha: 0.05),
+          backgroundColor: scheme.surfaceContainerHighest.withValues(alpha: 0.05),
           borderColor: Colors.transparent,
           contentColor: scheme.onSurface,
           borderWidth: 0,
@@ -235,12 +235,12 @@ class GlassDesignTheme extends AppDesignTheme {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         margin: const EdgeInsets.all(24),
         borderRadius: BorderRadius.circular(16),
-        backgroundColor: Colors.white.withValues(alpha: 0.6),
-        textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+        backgroundColor: scheme.surface.withValues(alpha: 0.6),
+        textStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: scheme.onSurface),
         displayDuration: const Duration(seconds: 3),
       ),
       dividerStyle: DividerStyle(
-        color: Colors.white.withValues(alpha: 0.3),
+        color: scheme.outline.withValues(alpha: 0.3),
         thickness: 1.0,
         glowStrength: 6.0,
         pattern: DividerPattern.solid,
@@ -277,13 +277,13 @@ class GlassDesignTheme extends AppDesignTheme {
     scheme ??= AppTheme.defaultDarkScheme;
     return GlassDesignTheme._(
       surfaceBase: SurfaceStyle(
-        backgroundColor: Colors.black.withValues(alpha: 0.3),
-        borderColor: Colors.white.withValues(alpha: 0.2),
+        backgroundColor: scheme.shadow.withValues(alpha: 0.3),
+        borderColor: scheme.outline.withValues(alpha: 0.2),
         borderWidth: 1.5,
         borderRadius: 24.0,
         shadows: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.3),
+            color: scheme.shadow.withValues(alpha: 0.3),
             blurRadius: 24,
             spreadRadius: 0,
           ),
@@ -292,12 +292,12 @@ class GlassDesignTheme extends AppDesignTheme {
         contentColor: scheme.onSurface,
       ),
       surfaceElevated: SurfaceStyle(
-        backgroundColor: Colors.white.withValues(alpha: 0.05),
-        borderColor: Colors.white.withValues(alpha: 0.2),
+        backgroundColor: scheme.surfaceContainerHighest.withValues(alpha: 0.05),
+        borderColor: scheme.outline.withValues(alpha: 0.2),
         borderWidth: 1.0,
         borderRadius: 24.0,
         shadows: [
-          BoxShadow(color: Colors.black.withValues(alpha: 0.5), blurRadius: 32)
+          BoxShadow(color: scheme.shadow.withValues(alpha: 0.5), blurRadius: 32)
         ],
         blurStrength: 35.0,
         contentColor: scheme.onSurface,
@@ -324,20 +324,20 @@ class GlassDesignTheme extends AppDesignTheme {
       ),
       // Secondary (Tonal) Surface - Medium emphasis, selected/active states (Dark mode)
       surfaceSecondary: SurfaceStyle(
-        backgroundColor: scheme.primary.withValues(alpha: 0.25),
-        borderColor: Colors.white.withValues(alpha: 0.2),
+        backgroundColor: scheme.secondary.withValues(alpha: 0.25),
+        borderColor: scheme.outline.withValues(alpha: 0.2),
         borderWidth: 1.0,
         borderRadius: 24.0,
         blurStrength: 15.0,
         shadows: [
           BoxShadow(
-            color: scheme.primary.withValues(alpha: 0.15),
+            color: scheme.secondary.withValues(alpha: 0.15),
             blurRadius: 10,
             spreadRadius: -2,
             offset: const Offset(0, 2),
           )
         ],
-        contentColor: scheme.onPrimary.withValues(alpha: 0.8),
+        contentColor: scheme.onSecondary.withValues(alpha: 0.8),
       ),
       // Tertiary (Accent) Surface - Decorative or special emphasis (Dark mode)
       surfaceTertiary: SurfaceStyle(
@@ -367,7 +367,7 @@ class GlassDesignTheme extends AppDesignTheme {
         inactiveType: ToggleContentType.grip,
         activeTrackStyle: SurfaceStyle(
           backgroundColor: scheme.primary.withValues(alpha: 0.4),
-          borderColor: Colors.white.withValues(alpha: 0.1),
+          borderColor: scheme.outline.withValues(alpha: 0.1),
           borderWidth: 0,
           borderRadius: 99.0,
           shadows: [
@@ -375,11 +375,11 @@ class GlassDesignTheme extends AppDesignTheme {
                 color: scheme.primary.withValues(alpha: 0.2), blurRadius: 12)
           ],
           blurStrength: 10.0,
-          contentColor: Colors.white,
+          contentColor: scheme.onPrimary,
         ),
         inactiveTrackStyle: SurfaceStyle(
-          backgroundColor: Colors.white.withValues(alpha: 0.05),
-          borderColor: Colors.white.withValues(alpha: 0.1),
+          backgroundColor: scheme.surfaceContainerHighest.withValues(alpha: 0.05),
+          borderColor: scheme.outline.withValues(alpha: 0.1),
           borderWidth: 1.0,
           borderRadius: 99.0,
           shadows: const [],
@@ -387,13 +387,13 @@ class GlassDesignTheme extends AppDesignTheme {
           contentColor: scheme.onSurface.withValues(alpha: 0.5),
         ),
         thumbStyle: SurfaceStyle(
-          backgroundColor: Colors.grey.withValues(alpha: 0.9),
-          borderColor: Colors.white.withValues(alpha: 0.2),
+          backgroundColor: scheme.surface.withValues(alpha: 0.9),
+          borderColor: scheme.outline.withValues(alpha: 0.2),
           borderWidth: 0,
           borderRadius: 99.0,
           shadows: [
             BoxShadow(
-                color: Colors.black.withValues(alpha: 0.5),
+                color: scheme.shadow.withValues(alpha: 0.5),
                 blurRadius: 4,
                 offset: const Offset(0, 2))
           ],
@@ -405,7 +405,7 @@ class GlassDesignTheme extends AppDesignTheme {
         // Underline Style
         underlineStyle: SurfaceStyle(
           backgroundColor: Colors.transparent,
-          borderColor: Colors.white.withValues(alpha: 0.3), // Required
+          borderColor: scheme.outline.withValues(alpha: 0.3), // Required
           contentColor: scheme.onSurface, // Required
           borderWidth: 0,
           borderRadius: 0,
@@ -413,12 +413,12 @@ class GlassDesignTheme extends AppDesignTheme {
           shadows: const [],
           customBorder: Border(
               bottom: BorderSide(
-                  color: Colors.white.withValues(alpha: 0.3), width: 1.5)),
+                  color: scheme.outline.withValues(alpha: 0.3), width: 1.5)),
         ),
         // Outline Style
         outlineStyle: SurfaceStyle(
-          backgroundColor: Colors.white.withValues(alpha: 0.1),
-          borderColor: Colors.white.withValues(alpha: 0.3),
+          backgroundColor: scheme.surfaceContainerHighest.withValues(alpha: 0.1),
+          borderColor: scheme.outline.withValues(alpha: 0.3),
           contentColor: scheme.onSurface,
           borderWidth: 1.0,
           borderRadius: 8.0,
@@ -430,7 +430,7 @@ class GlassDesignTheme extends AppDesignTheme {
         ),
         // Filled Style
         filledStyle: SurfaceStyle(
-          backgroundColor: Colors.white.withValues(alpha: 0.05),
+          backgroundColor: scheme.surfaceContainerHighest.withValues(alpha: 0.05),
           borderColor: Colors.transparent,
           contentColor: scheme.onSurface,
           borderWidth: 0,
@@ -474,12 +474,12 @@ class GlassDesignTheme extends AppDesignTheme {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         margin: const EdgeInsets.all(24),
         borderRadius: BorderRadius.circular(16),
-        backgroundColor: Colors.black.withValues(alpha: 0.6),
-        textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+        backgroundColor: scheme.surface.withValues(alpha: 0.6),
+        textStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: scheme.onSurface),
         displayDuration: const Duration(seconds: 3),
       ),
       dividerStyle: DividerStyle(
-        color: Colors.white.withValues(alpha: 0.15),
+        color: scheme.outline.withValues(alpha: 0.15),
         thickness: 1.0,
         glowStrength: 4.0,
         pattern: DividerPattern.solid,
