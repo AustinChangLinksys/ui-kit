@@ -205,6 +205,22 @@ class ControlPanel extends StatelessWidget {
                           onChanged: (style) =>
                               themeController.updateSurfaceHighlight(style),
                         ),
+                        const Gap(12),
+                        SurfaceStyleEditor(
+                          title: 'Secondary Surface',
+                          initialStyle:
+                              themeController.currentTheme.surfaceSecondary,
+                          onChanged: (style) =>
+                              themeController.updateSurfaceSecondary(style),
+                        ),
+                        const Gap(12),
+                        SurfaceStyleEditor(
+                          title: 'Tertiary Surface',
+                          initialStyle:
+                              themeController.currentTheme.surfaceTertiary,
+                          onChanged: (style) =>
+                              themeController.updateSurfaceTertiary(style),
+                        ),
                       ],
                     ),
 

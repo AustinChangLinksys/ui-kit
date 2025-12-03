@@ -82,6 +82,20 @@ class ThemeEditorController extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Update Surface Secondary variant
+  void updateSurfaceSecondary(SurfaceStyle style) {
+    _setCurrentTheme(currentTheme.copyWith(surfaceSecondary: style));
+    _hasUnsavedChanges = true;
+    notifyListeners();
+  }
+
+  /// Update Surface Tertiary variant
+  void updateSurfaceTertiary(SurfaceStyle style) {
+    _setCurrentTheme(currentTheme.copyWith(surfaceTertiary: style));
+    _hasUnsavedChanges = true;
+    notifyListeners();
+  }
+
   /// Update Input Style
   void updateInputStyle(InputStyle style) {
     _setCurrentTheme(currentTheme.copyWith(inputStyle: style));

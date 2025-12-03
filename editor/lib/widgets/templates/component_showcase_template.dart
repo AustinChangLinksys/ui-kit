@@ -113,7 +113,8 @@ class _TypographyPreview extends StatelessWidget {
 }
 
 /// Displays all surface variants using AppSurface
-/// Shows: Base, Elevated, Tonal, Highlight to demonstrate color scheme impact
+/// Shows: Base, Elevated, Highlight, Tonal (Secondary), Accent (Tertiary)
+/// This demonstrates the impact of color scheme changes on all surface types
 class _SurfaceVariantsPreview extends StatelessWidget {
   const _SurfaceVariantsPreview();
 
@@ -149,19 +150,9 @@ class _SurfaceVariantsPreview extends StatelessWidget {
           ],
         ),
         AppGap.md(),
-        // Row 2: Tonal and Highlight
+        // Row 2: Highlight and Tonal (Secondary)
         Row(
           children: [
-            Expanded(
-              child: AppSurface(
-                variant: SurfaceVariant.tonal,
-                child: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: AppText('Tonal', variant: AppTextVariant.bodySmall),
-                ),
-              ),
-            ),
-            AppGap.md(),
             Expanded(
               child: AppSurface(
                 variant: SurfaceVariant.highlight,
@@ -170,6 +161,35 @@ class _SurfaceVariantsPreview extends StatelessWidget {
                   child: AppText('Highlight', variant: AppTextVariant.bodySmall),
                 ),
               ),
+            ),
+            AppGap.md(),
+            Expanded(
+              child: AppSurface(
+                variant: SurfaceVariant.tonal,
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: AppText('Tonal (Secondary)', variant: AppTextVariant.bodySmall),
+                ),
+              ),
+            ),
+          ],
+        ),
+        AppGap.md(),
+        // Row 3: Accent (Tertiary)
+        Row(
+          children: [
+            Expanded(
+              child: AppSurface(
+                variant: SurfaceVariant.accent,
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: AppText('Accent (Tertiary)', variant: AppTextVariant.bodySmall),
+                ),
+              ),
+            ),
+            AppGap.md(),
+            Expanded(
+              child: Container(),
             ),
           ],
         ),
