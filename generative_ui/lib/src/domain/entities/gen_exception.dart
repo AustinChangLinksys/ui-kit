@@ -10,19 +10,17 @@ abstract class GenException implements Exception {
 class ParsingException extends GenException {
   final String? originalInput;
 
-  ParsingException(String message, {this.originalInput}) : super(message);
+  ParsingException(super.message, {this.originalInput});
 }
 
 class ToolUseValidationException extends GenException {
   final dynamic toolBlock;
 
-  ToolUseValidationException(String message, {this.toolBlock})
-      : super(message);
+  ToolUseValidationException(super.message, {this.toolBlock});
 }
 
 class ContentGenerationException extends GenException {
   final dynamic rawResponse;
 
-  ContentGenerationException(String message, {this.rawResponse})
-      : super(message);
+  ContentGenerationException(super.message, {this.rawResponse});
 }

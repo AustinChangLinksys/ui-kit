@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:generative_ui/generative_ui.dart';
-import 'package:generative_ui/src/data/utils/response_parser.dart';
 
 void main() {
   group('ResponseParser', () {

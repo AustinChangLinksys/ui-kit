@@ -35,10 +35,10 @@ class OrchestrateUIFlowUseCase {
     }
   }
 
-  /// Build LLMResponse from parsed Claude format
-  LLMResponse _buildResponse(Map<String, dynamic> map) {
-    return LLMResponse.fromMap(map);
-  }
+  // /// Build LLMResponse from parsed Claude format
+  // LLMResponse _buildResponse(Map<String, dynamic> map) {
+  //   return LLMResponse.fromMap(map);
+  // }
 
   /// Validate response meets requirements
   void _validateResponse(LLMResponse response) {

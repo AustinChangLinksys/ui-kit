@@ -58,7 +58,7 @@ void main() {
       });
 
       test('includes user input in info message', () async {
-        final userMessage = 'Custom test input';
+        const userMessage = 'Custom test input';
         final result = await generator.generate(userMessage);
         final parsed = ResponseParser.parse(result);
 
