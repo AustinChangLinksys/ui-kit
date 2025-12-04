@@ -1,6 +1,20 @@
 import 'package:flutter/material.dart';
 
-/// Builder function signature for component factories
+/// Callback signature for component actions.
+///
+/// When a user interacts with a dynamic UI component (e.g., clicks "Save"),
+/// this callback is invoked with the action data.
+///
+/// Parameters:
+/// - [data]: Map containing action type and any associated data
+///
+/// Example:
+/// ```dart
+/// onAction?.call({'action': 'save', 'ssid': 'MyNetwork', 'password': '***'});
+/// ```
+typedef GenUiActionCallback = void Function(Map<String, dynamic> data);
+
+/// Builder function signature for component factories.
 ///
 /// Builds a Flutter widget from a component name and properties map.
 /// No async operations are permitted in component builders.
@@ -8,28 +22,31 @@ import 'package:flutter/material.dart';
 /// Parameters:
 /// - [context]: BuildContext for accessing theme and other context
 /// - [props]: Map of properties to pass to the widget (typically from ToolUseBlock input)
+/// - [onAction]: Optional callback for reporting user actions back to the AI
 ///
 /// Returns: A Flutter Widget instance
 ///
 /// Example:
 /// ```dart
-/// typedef GenUiWidgetBuilder = Widget Function(
-///   BuildContext context,
-///   Map<String, dynamic> props,
-/// );
-///
-/// GenUiWidgetBuilder wifiBuilder = (context, props) {
+/// GenUiWidgetBuilder wifiBuilder = (context, props, {onAction}) {
 ///   return WifiSettingsCard(
 ///     ssid: props['ssid'] as String? ?? 'Unknown',
 ///     security: props['security'] as String? ?? 'Open',
 ///     isEnabled: props['isEnabled'] as bool? ?? false,
+///     onSave: onAction != null
+///         ? (data) => onAction({'action': 'save', ...data})
+///         : null,
+///     onCancel: onAction != null
+///         ? () => onAction({'action': 'cancel'})
+///         : null,
 ///   );
 /// };
 /// ```
 typedef GenUiWidgetBuilder = Widget Function(
   BuildContext context,
-  Map<String, dynamic> props,
-);
+  Map<String, dynamic> props, {
+  GenUiActionCallback? onAction,
+});
 
 /// Interface for component registration and lookup
 ///
@@ -47,18 +64,25 @@ typedef GenUiWidgetBuilder = Widget Function(
 /// final registry = ComponentRegistry();
 ///
 /// // Register components during app initialization
-/// registry.register('WifiSettingsCard', (context, props) {
+/// registry.register('WifiSettingsCard', (context, props, {onAction}) {
 ///   return WifiSettingsCard(
 ///     ssid: props['ssid'] as String? ?? 'Unknown',
 ///     security: props['security'] as String? ?? 'Open',
 ///     isEnabled: props['isEnabled'] as bool? ?? false,
+///     onSave: onAction != null
+///         ? (data) => onAction({'action': 'save', ...data})
+///         : null,
 ///   );
 /// });
 ///
-/// // Lookup during rendering
+/// // Lookup and build with action callback
 /// final builder = registry.lookup('WifiSettingsCard');
 /// if (builder != null) {
-///   final widget = builder(context, toolUseProps);
+///   final widget = builder(
+///     context,
+///     toolUseProps,
+///     onAction: (data) => handleToolAction(toolUseId, data),
+///   );
 /// }
 /// ```
 abstract class IComponentRegistry {

@@ -18,7 +18,7 @@ void main() {
       final stopwatch = Stopwatch()..start();
       
       for (int i = 0; i < 100; i++) {
-        registry.register('Component$i', (ctx, props) => Container());
+        registry.register('Component$i', (ctx, props, {onAction}) => Container());
       }
 
       final registerTime = stopwatch.elapsedMilliseconds;

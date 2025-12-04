@@ -13,6 +13,14 @@ dependencies:
   ui_kit_library:
     path: ../
 
+  # AWS Connectivity
+  aws_common: ^0.7.5
+  aws_signature_v4: ^0.6.5
+  http: ^1.2.1
+
+  # Configuration
+  flutter_dotenv: ^5.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

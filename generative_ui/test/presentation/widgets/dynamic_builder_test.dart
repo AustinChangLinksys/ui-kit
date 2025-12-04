@@ -77,7 +77,7 @@ void main() {
     testWidgets('renders registered ToolUseBlock using builder',
         (tester) async {
       // Register a test component
-      registry.register('TestCard', (context, props) {
+      registry.register('TestCard', (context, props, {onAction}) {
         return Container(
           key: const Key('test-card'),
           child: Text(props['title'] ?? 'No Title'),
@@ -102,7 +102,7 @@ void main() {
         'catches builder exception and renders FallbackCard (RenderingError)',
         (tester) async {
       // Register a component that throws
-      registry.register('ErrorCard', (context, props) {
+      registry.register('ErrorCard', (context, props, {onAction}) {
         throw Exception('Builder failure');
       });
 
