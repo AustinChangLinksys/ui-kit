@@ -5,6 +5,12 @@
 **Status**: Draft
 **Input**: User description: "Upgrade `example/` to `gen_ui_client/` with Layout Architect role"
 
+## Clarifications
+
+### Session 2025-12-04
+- Q: Which UI Kit components should be registered? → A: ALL components - 9 atoms + 22 molecules (31 total)
+- Q: Component fallback strategy when AI requests unregistered component? → A: Render styled AppSurface with error message
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Theme-Aware Dynamic Components (Priority: P1)
@@ -89,7 +95,7 @@ The `example/` directory is renamed to `gen_ui_client/` and restructured as a st
 
 ### Edge Cases
 
-- What happens when a component requested by the AI is not in the registry?
+- When a component requested by the AI is not in the registry, render a styled AppSurface with error message indicating the unknown component name.
 - How does the system handle theme changes while a component is loading?
 - What happens if seed color values are invalid (out of range)?
 - How does the system behave when system prompt exceeds token limits?
@@ -101,7 +107,20 @@ The `example/` directory is renamed to `gen_ui_client/` and restructured as a st
 
 - **FR-001**: System MUST rename `generative_ui/example/` to `generative_ui/gen_ui_client/`.
 - **FR-002**: All demo components MUST use UI Kit atoms/molecules instead of hardcoded Material widgets.
-- **FR-003**: System MUST provide a ComponentRegistry pre-populated with all UI Kit molecules (AppButton, AppTextField, AppCard, AppListTile, AppSwitch, AppCheckbox, AppDropdown, AppSlider, AppBadge, AppTag, AppAvatar).
+- **FR-003**: System MUST provide a ComponentRegistry pre-populated with ALL UI Kit components:
+  - **Atoms**: AppSurface, AppText, AppIcon, AppGap, AppDivider, AppSkeleton, ThemeAwareImage, ThemeAwareSvg, ProductImage
+  - **Molecules - Buttons**: AppButton, AppIconButton
+  - **Molecules - Inputs**: AppTextField, AppTextFormField, AppDropdown
+  - **Molecules - Network Inputs**: AppIPv4TextField, AppIPv6TextField, AppMacAddressTextField
+  - **Molecules - Selection**: AppCheckbox, AppRadio, AppSlider
+  - **Molecules - Toggles**: AppSwitch
+  - **Molecules - Status**: AppBadge, AppTag, AppAvatar
+  - **Molecules - Feedback**: AppLoader, AppToast
+  - **Molecules - Display**: AppTooltip
+  - **Molecules - Layout**: AppListTile, AppCard
+  - **Molecules - Navigation**: AppNavigationBar, AppNavigationRail, AppNavigationItem
+  - **Molecules - Dialogs**: AppDialog
+  - **Molecules - Menu**: AppPopupMenu, AppPopupMenuItem
 - **FR-004**: Dynamic components MUST inherit their visual appearance from the current AppDesignTheme.
 - **FR-005**: System MUST support runtime theme switching (Glass, Brutal, Flat, Neumorphic, Pixel) for all AI-rendered components.
 - **FR-006**: System MUST support seed color customization via ColorScheme.fromSeed().
@@ -109,6 +128,7 @@ The `example/` directory is renamed to `gen_ui_client/` and restructured as a st
 - **FR-008**: Developers MUST be able to override the system prompt via configuration.
 - **FR-009**: System MUST export a pre-configured GenUiChatView that works out-of-the-box with UI Kit theming.
 - **FR-010**: All component registrations MUST include proper onAction callback wiring for interactive components.
+- **FR-011**: When AI requests an unregistered component, system MUST render a styled AppSurface with error message displaying the unknown component name.
 
 ### Key Entities
 
@@ -123,7 +143,7 @@ The `example/` directory is renamed to `gen_ui_client/` and restructured as a st
 
 - **SC-001**: All AI-rendered components visually match the current theme with no hardcoded colors visible.
 - **SC-002**: Theme switching updates all visible components within 300ms without layout shifts or flickering.
-- **SC-003**: At least 10 UI Kit molecules are available in the component registry for AI use.
+- **SC-003**: All 31 UI Kit components (9 atoms + 22 molecules) are available in the component registry for AI use.
 - **SC-004**: Seed color changes propagate to all components without requiring app restart or re-render of conversation.
 - **SC-005**: The gen_ui_client application launches and functions identically to the previous example application.
 - **SC-006**: Documentation clearly explains the Layout Architect concept and how to customize system prompts.
