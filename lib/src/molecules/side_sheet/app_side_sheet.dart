@@ -144,8 +144,9 @@ class _AppSideSheetState extends State<AppSideSheet>
       position: slideAnimation,
       child: SizedBox(
         width: sheetWidth,
-        child: Material(
-          // Provides surface background for the sheet panel
+        child: AppSurface(
+          // Elevated variant for floating panel with theme-specific styling
+          variant: SurfaceVariant.elevated,
           child: widget.child,
         ),
       ),
@@ -195,8 +196,9 @@ class _AppSideSheetState extends State<AppSideSheet>
           width: sheetWidth,
           child: SlideTransition(
             position: slideAnimation,
-            child: Material(
-              // Provides surface background for the sheet panel
+            child: AppSurface(
+              // Elevated variant for floating panel with theme-specific styling
+              variant: SurfaceVariant.elevated,
               child: Semantics(
                 label: 'Side Sheet',
                 enabled: true,
