@@ -21,14 +21,14 @@ All paths relative to `generative_ui/gen_ui_client/` unless otherwise noted.
 
 **Purpose**: Rename project and establish Clean Architecture structure
 
-- [ ] T001 Rename `generative_ui/example/` to `generative_ui/gen_ui_client/`
-- [ ] T002 Update `generative_ui/gen_ui_client/pubspec.yaml` with new name and dependencies (riverpod, dart_style, flutter_highlight)
-- [ ] T003 [P] Create directory structure: `lib/core/constants/`, `lib/core/errors/`
-- [ ] T004 [P] Create directory structure: `lib/domain/entities/`, `lib/domain/services/`
-- [ ] T005 [P] Create directory structure: `lib/data/services/`
-- [ ] T006 [P] Create directory structure: `lib/presentation/providers/`, `lib/presentation/registry/`, `lib/presentation/views/`
-- [ ] T007 Update path references in `generative_ui/gen_ui_client/pubspec.yaml` (generative_ui: path ../, ui_kit_library: path ../../)
-- [ ] T008 Run `flutter pub get` to verify dependencies resolve
+- [x] T001 Rename `generative_ui/example/` to `generative_ui/gen_ui_client/`
+- [x] T002 Update `generative_ui/gen_ui_client/pubspec.yaml` with new name and dependencies (riverpod, dart_style, flutter_highlight)
+- [x] T003 [P] Create directory structure: `lib/core/constants/`, `lib/core/errors/`
+- [x] T004 [P] Create directory structure: `lib/domain/entities/`, `lib/domain/services/`
+- [x] T005 [P] Create directory structure: `lib/data/services/`
+- [x] T006 [P] Create directory structure: `lib/presentation/providers/`, `lib/presentation/registry/`, `lib/presentation/views/`
+- [x] T007 Update path references in `generative_ui/gen_ui_client/pubspec.yaml` (generative_ui: path ../, ui_kit_library: path ../../)
+- [x] T008 Run `flutter pub get` to verify dependencies resolve
 
 ---
 
@@ -38,14 +38,14 @@ All paths relative to `generative_ui/gen_ui_client/` unless otherwise noted.
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T009 [P] Create `lib/core/errors/contract_exception.dart` with ContractException class
-- [ ] T010 [P] Create `lib/core/errors/failure.dart` with Failure sealed class
-- [ ] T011 [P] Create `lib/domain/entities/design_language.dart` with DesignLanguage enum (glass, brutal, flat, neumorphic, pixel)
-- [ ] T012 [P] Create `lib/domain/entities/theme_state.dart` with ThemeState entity (designLanguage, seedColor, brightness)
-- [ ] T013 [P] Create `lib/domain/entities/layout_node.dart` with LayoutNode entity (type, props, children, fromJson, toJson)
-- [ ] T014 [P] (Future) Create `lib/domain/entities/code_gen_result.dart` with CodeGenResult entity - skip for Phase 4
-- [ ] T015 (Future) Create `lib/domain/services/i_code_gen_service.dart` with ICodeGenService interface - skip for Phase 4
-- [ ] T016 Run `dart run build_runner build` to generate Riverpod code
+- [x] T009 [P] Create `lib/core/errors/contract_exception.dart` with ContractException class
+- [x] T010 [P] Create `lib/core/errors/failure.dart` with Failure sealed class
+- [x] T011 [P] Create `lib/domain/entities/design_language.dart` with DesignLanguage enum (glass, brutal, flat, neumorphic, pixel)
+- [x] T012 [P] Create `lib/domain/entities/theme_state.dart` with ThemeState entity (designLanguage, seedColor, brightness)
+- [x] T013 [P] Create `lib/domain/entities/layout_node.dart` with LayoutNode entity (type, props, children, fromJson, toJson)
+- [x] T014 [P] (Future) Create `lib/domain/entities/code_gen_result.dart` with CodeGenResult entity - skip for Phase 4
+- [x] T015 (Future) Create `lib/domain/services/i_code_gen_service.dart` with ICodeGenService interface - skip for Phase 4
+- [x] T016 Run `dart run build_runner build` to generate Riverpod code
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 

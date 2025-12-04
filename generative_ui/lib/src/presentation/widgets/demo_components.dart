@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui_kit_library/ui_kit.dart';
 
 /// A demo component for configuring Wi-Fi settings with action support.
 ///
@@ -6,6 +7,8 @@ import 'package:flutter/material.dart';
 /// 1. AI renders this card with initial values
 /// 2. User modifies settings and clicks Save/Cancel
 /// 3. Action data is sent back to the AI via onAction callback
+///
+/// Uses UI Kit components for theme-aware rendering.
 class WifiSettingsCard extends StatefulWidget {
   final String ssid;
   final String security;
@@ -66,9 +69,7 @@ class _WifiSettingsCardState extends State<WifiSettingsCard> {
   Widget build(BuildContext context) {
     final hasActions = widget.onSave != null || widget.onCancel != null;
 
-    return Card(
-      elevation: 4,
-      color: Colors.white,
+    return AppCard(
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -80,69 +81,55 @@ class _WifiSettingsCardState extends State<WifiSettingsCard> {
               children: [
                 const Row(
                   children: [
-                    Icon(Icons.wifi, color: Colors.blue, size: 28),
+                    Icon(Icons.wifi, size: 28),
                     SizedBox(width: 10),
-                    Text(
+                    AppText(
                       'Wi-Fi Settings',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                      ),
+                      variant: AppTextVariant.titleLarge,
                     ),
                   ],
                 ),
-                Switch(
+                AppSwitch(
                   value: _isEnabled,
                   onChanged: (val) => setState(() => _isEnabled = val),
                 ),
               ],
             ),
-            const SizedBox(height: 20),
-            _buildTextField(
-              label: 'Network Name (SSID)',
-              value: _ssidController.text,
-              onChanged: (val) => _ssidController.text = val,
-              icon: Icons.router,
+            AppGap.lg(),
+            AppTextField(
+              controller: _ssidController,
+              hintText: 'Network Name (SSID)',
             ),
-            const SizedBox(height: 16),
-            _buildTextField(
-              label: 'Security Type',
-              value: _security,
+            AppGap.md(),
+            AppTextField(
+              controller: TextEditingController(text: _security),
+              hintText: 'Security Type',
               onChanged: (val) => _security = val,
-              icon: Icons.security,
             ),
-            const SizedBox(height: 16),
-            _buildTextField(
-              label: 'Password',
-              value: _passwordController.text,
-              onChanged: (val) => _passwordController.text = val,
-              icon: Icons.lock,
+            AppGap.md(),
+            AppTextField(
+              controller: _passwordController,
+              hintText: 'Password',
               obscureText: true,
             ),
             if (hasActions) ...[
-              const SizedBox(height: 24),
+              AppGap.lg(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   if (widget.onCancel != null) ...[
-                    OutlinedButton(
-                      onPressed: widget.onCancel,
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: Colors.grey[700],
-                      ),
-                      child: const Text('Cancel'),
+                    AppButton(
+                      label: 'Cancel',
+                      variant: SurfaceVariant.base,
+                      onTap: widget.onCancel,
                     ),
                     const SizedBox(width: 12),
                   ],
                   if (widget.onSave != null)
-                    ElevatedButton(
-                      onPressed: _handleSave,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        foregroundColor: Colors.white,
-                      ),
-                      child: const Text('Save'),
+                    AppButton(
+                      label: 'Save',
+                      variant: SurfaceVariant.highlight,
+                      onTap: _handleSave,
                     ),
                 ],
               ),
@@ -152,40 +139,12 @@ class _WifiSettingsCardState extends State<WifiSettingsCard> {
       ),
     );
   }
-
-  Widget _buildTextField({
-    required String label,
-    required String value,
-    required ValueChanged<String> onChanged,
-    required IconData icon,
-    bool obscureText = false,
-  }) {
-    return TextField(
-      controller: TextEditingController(text: value),
-      onChanged: onChanged,
-      obscureText: obscureText,
-      style: const TextStyle(color: Colors.black87),
-      decoration: InputDecoration(
-        labelText: label,
-        labelStyle: const TextStyle(color: Colors.black54),
-        prefixIcon: Icon(icon, color: Colors.grey[600]),
-        border: const OutlineInputBorder(),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey[400]!),
-        ),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blue, width: 2),
-        ),
-        filled: true,
-        fillColor: Colors.grey[50],
-      ),
-    );
-  }
 }
 
 /// A demo component for displaying information.
 ///
 /// This is a read-only component that displays info without user actions.
+/// Uses UI Kit components for theme-aware rendering.
 class InfoCard extends StatelessWidget {
   final String title;
   final String message;
@@ -200,9 +159,7 @@ class InfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      color: Colors.white,
+    return AppCard(
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -211,39 +168,29 @@ class InfoCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.blue[50],
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Icon(
-                    Icons.info_outline,
-                    color: Colors.blue,
-                    size: 24,
+                const AppSurface(
+                  variant: SurfaceVariant.base,
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Icon(
+                      Icons.info_outline,
+                      size: 24,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 14),
                 Expanded(
-                  child: Text(
+                  child: AppText(
                     title,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
+                    variant: AppTextVariant.titleMedium,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 14),
-            Text(
+            AppGap.md(),
+            AppText(
               message,
-              style: const TextStyle(
-                fontSize: 15,
-                color: Colors.black87,
-                height: 1.4,
-              ),
+              variant: AppTextVariant.bodyMedium,
             ),
           ],
         ),
@@ -253,6 +200,7 @@ class InfoCard extends StatelessWidget {
 }
 
 /// A confirmation card for displaying success/error status after actions.
+/// Uses UI Kit components for theme-aware rendering.
 class ConfirmationCard extends StatelessWidget {
   final String title;
   final String message;
@@ -271,13 +219,11 @@ class ConfirmationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final backgroundColor = isSuccess ? Colors.green[50] : Colors.red[50];
-    final iconColor = isSuccess ? Colors.green : Colors.red;
+    final colorScheme = Theme.of(context).colorScheme;
+    final iconColor = isSuccess ? Colors.green : colorScheme.error;
     final icon = isSuccess ? Icons.check_circle : Icons.error;
 
-    return Card(
-      elevation: 4,
-      color: Colors.white,
+    return AppCard(
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -286,48 +232,36 @@ class ConfirmationCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: backgroundColor,
-                    borderRadius: BorderRadius.circular(10),
+                AppSurface(
+                  variant: SurfaceVariant.base,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Icon(icon, color: iconColor, size: 28),
                   ),
-                  child: Icon(icon, color: iconColor, size: 28),
                 ),
                 const SizedBox(width: 14),
                 Expanded(
-                  child: Text(
+                  child: AppText(
                     title,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
+                    variant: AppTextVariant.titleMedium,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 14),
-            Text(
+            AppGap.md(),
+            AppText(
               message,
-              style: const TextStyle(
-                fontSize: 15,
-                color: Colors.black87,
-                height: 1.4,
-              ),
+              variant: AppTextVariant.bodyMedium,
             ),
             if (onDismiss != null) ...[
-              const SizedBox(height: 20),
+              AppGap.lg(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  ElevatedButton(
-                    onPressed: onDismiss,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: isSuccess ? Colors.green : Colors.red,
-                      foregroundColor: Colors.white,
-                    ),
-                    child: const Text('OK'),
+                  AppButton(
+                    label: 'OK',
+                    variant: SurfaceVariant.highlight,
+                    onTap: onDismiss,
                   ),
                 ],
               ),

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 import '../../domain/entities/chat_message.dart';
+import '../../domain/entities/content_block.dart';
 import '../../domain/entities/conversation_state.dart';
 import '../../domain/entities/gen_exception.dart';
 import '../../domain/entities/gen_tool.dart';
@@ -71,6 +72,9 @@ class ChatController extends ChangeNotifier {
 
     _lastUserMessage = message;
 
+    // Check if last assistant message has pending tool_use that needs tool_result
+    _insertPendingToolResults();
+
     // Add user message
     final userMessage = ChatMessage.user(message);
     _state = _state.withMessage(userMessage);
@@ -119,6 +123,49 @@ class ChatController extends ChangeNotifier {
       _state = _state.withError('An unexpected error occurred: $e');
       notifyListeners();
     }
+  }
+
+  /// Insert tool_result messages for any pending tool_use blocks.
+  ///
+  /// Claude API requires that every tool_use must be followed by a tool_result
+  /// before any new user message. This method checks the last assistant message
+  /// and inserts acknowledgment tool_results for all tool_use blocks.
+  void _insertPendingToolResults() {
+    if (_state.messages.isEmpty) return;
+
+    // Find the last assistant message
+    ChatMessage? lastAssistantMessage;
+    for (var i = _state.messages.length - 1; i >= 0; i--) {
+      final msg = _state.messages[i];
+      if (msg.isAssistant) {
+        lastAssistantMessage = msg;
+        break;
+      }
+      // If we hit a tool_result before an assistant message, no pending tools
+      if (msg.isToolResult) return;
+    }
+
+    if (lastAssistantMessage == null) return;
+
+    // Check if the assistant message has tool_use blocks
+    final response = lastAssistantMessage.response;
+    if (response == null) return;
+
+    final toolUseBlocks = response.content.whereType<ToolUseBlock>().toList();
+    if (toolUseBlocks.isEmpty) return;
+
+    debugPrint('Found ${toolUseBlocks.length} pending tool_use blocks, inserting tool_results');
+
+    // Insert tool_result for each tool_use block
+    for (final toolUse in toolUseBlocks) {
+      final toolResult = ChatMessage.toolResult(
+        toolUseId: toolUse.id,
+        result: {'status': 'rendered', 'component': toolUse.name},
+      );
+      _state = _state.withMessage(toolResult);
+      debugPrint('Inserted tool_result for ${toolUse.name} (${toolUse.id})');
+    }
+    notifyListeners();
   }
 
   /// Handle tool action from a dynamic UI component.

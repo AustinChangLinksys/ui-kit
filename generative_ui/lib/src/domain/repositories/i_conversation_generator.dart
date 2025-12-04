@@ -19,6 +19,8 @@ abstract class IConversationGenerator {
   /// - [messages]: Complete conversation history in chronological order
   /// - [tools]: Optional list of available tools/functions the AI can invoke
   /// - [systemPrompt]: Optional system-level instructions for the AI
+  /// - [forceToolUse]: If true and tools are provided, forces the AI to use
+  ///   at least one tool instead of just returning text.
   ///
   /// Returns an [LLMResponse] containing the AI's response, which may include
   /// text content, tool use requests, or both.
@@ -33,5 +35,6 @@ abstract class IConversationGenerator {
     List<ChatMessage> messages, {
     List<GenTool>? tools,
     String? systemPrompt,
+    bool forceToolUse = false,
   });
 }

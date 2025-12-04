@@ -25,7 +25,8 @@ class AwsContentGenerator implements IContentGenerator, IConversationGenerator {
   final AWSSigV4Signer _signer;
 
   /// Default max tokens for responses.
-  static const int defaultMaxTokens = 2000;
+  /// Increased to 8000 to allow for complex UI layouts with nested components.
+  static const int defaultMaxTokens = 8000;
 
   /// Anthropic API version for Bedrock.
   static const String anthropicVersion = 'bedrock-2023-05-31';
@@ -44,20 +45,27 @@ class AwsContentGenerator implements IContentGenerator, IConversationGenerator {
         );
 
   /// Build the request body for Bedrock Messages API.
+  ///
+  /// When [forceToolUse] is true and tools are provided, sets tool_choice to 'any'
+  /// which forces the model to use at least one tool instead of just returning text.
   Map<String, dynamic> buildBedrockRequest({
     required List<Map<String, dynamic>> messages,
     List<GenTool>? tools,
     String? systemPrompt,
     int maxTokens = defaultMaxTokens,
     double? temperature,
+    bool forceToolUse = false,
   }) {
+    final hasTools = tools != null && tools.isNotEmpty;
+
     return {
       'anthropic_version': anthropicVersion,
       'max_tokens': maxTokens,
       if (systemPrompt != null) 'system': systemPrompt,
       'messages': messages,
-      if (tools != null && tools.isNotEmpty)
-        'tools': tools.map((t) => t.toJson()).toList(),
+      if (hasTools) 'tools': tools.map((t) => t.toJson()).toList(),
+      // Force tool use when requested and tools are available
+      if (hasTools && forceToolUse) 'tool_choice': {'type': 'any'},
       if (temperature != null) 'temperature': temperature,
     };
   }
@@ -194,11 +202,13 @@ class AwsContentGenerator implements IContentGenerator, IConversationGenerator {
     List<ChatMessage> messages, {
     List<GenTool>? tools,
     String? systemPrompt,
+    bool forceToolUse = false,
   }) async {
     debugPrint('=== AwsContentGenerator.generateWithHistory ===');
     debugPrint('Endpoint: ${config.endpointUri}');
     debugPrint('Messages count: ${messages.length}');
     debugPrint('Tools count: ${tools?.length ?? 0}');
+    debugPrint('Force tool use: $forceToolUse');
 
     // Convert messages to Claude API format
     final apiMessages = messages
@@ -222,6 +232,7 @@ class AwsContentGenerator implements IContentGenerator, IConversationGenerator {
       messages: apiMessages,
       tools: tools,
       systemPrompt: effectiveSystemPrompt,
+      forceToolUse: forceToolUse,
     );
 
     final body = jsonEncode(requestBody);
