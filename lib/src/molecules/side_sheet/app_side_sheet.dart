@@ -144,7 +144,10 @@ class _AppSideSheetState extends State<AppSideSheet>
       position: slideAnimation,
       child: SizedBox(
         width: sheetWidth,
-        child: widget.child,
+        child: Material(
+          // Provides surface background for the sheet panel
+          child: widget.child,
+        ),
       ),
     );
   }
@@ -192,10 +195,13 @@ class _AppSideSheetState extends State<AppSideSheet>
           width: sheetWidth,
           child: SlideTransition(
             position: slideAnimation,
-            child: Semantics(
-              label: 'Side Sheet',
-              enabled: true,
-              child: widget.child,
+            child: Material(
+              // Provides surface background for the sheet panel
+              child: Semantics(
+                label: 'Side Sheet',
+                enabled: true,
+                child: widget.child,
+              ),
             ),
           ),
         ),
