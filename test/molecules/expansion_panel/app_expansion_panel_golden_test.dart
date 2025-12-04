@@ -18,8 +18,8 @@ void main() {
         name: 'Collapsed',
         width: 300.0,
         height: 400.0,
-        child: AppExpansionPanel(
-          panels: const [
+        child: const AppExpansionPanel(
+          panels: [
             ExpansionPanelItem(
               headerTitle: 'Panel 1',
               content: Text('Content 1'),
@@ -40,8 +40,8 @@ void main() {
         name: 'Expanded',
         width: 300.0,
         height: 400.0,
-        child: AppExpansionPanel(
-          panels: const [
+        child: const AppExpansionPanel(
+          panels: [
             ExpansionPanelItem(
               headerTitle: 'Panel 1',
               content: Text('Content 1'),
@@ -63,8 +63,8 @@ void main() {
         name: 'Multiple Expanded',
         width: 300.0,
         height: 400.0,
-        child: AppExpansionPanel(
-          panels: const [
+        child: const AppExpansionPanel(
+          panels: [
             ExpansionPanelItem(
               headerTitle: 'Panel 1',
               content: Text('Content 1'),

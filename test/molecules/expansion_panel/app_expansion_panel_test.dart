@@ -17,7 +17,7 @@ void main() {
             useMaterial3: true,
             extensions: [theme],
           ),
-          home: Scaffold(
+          home: const Scaffold(
             body: AppExpansionPanel(
               panels: [testPanel],
             ),
@@ -37,7 +37,7 @@ void main() {
             useMaterial3: true,
             extensions: [theme],
           ),
-          home: Scaffold(
+          home: const Scaffold(
             body: AppExpansionPanel(
               panels: [testPanel],
             ),
@@ -59,7 +59,7 @@ void main() {
             useMaterial3: true,
             extensions: [theme],
           ),
-          home: Scaffold(
+          home: const Scaffold(
             body: AppExpansionPanel(
               panels: [testPanel],
               initialExpandedIndices: {0},
@@ -82,10 +82,10 @@ void main() {
             useMaterial3: true,
             extensions: [theme],
           ),
-          home: Scaffold(
+          home: const Scaffold(
             body: AppExpansionPanel(
               panels: [
-                const ExpansionPanelItem(
+                ExpansionPanelItem(
                   headerTitle: 'Disabled Panel',
                   content: Text('Disabled Content'),
                   enabled: false,
@@ -109,10 +109,10 @@ void main() {
             useMaterial3: true,
             extensions: [theme],
           ),
-          home: Scaffold(
+          home: const Scaffold(
             body: AppExpansionPanel(
               panels: [
-                const ExpansionPanelItem(
+                ExpansionPanelItem(
                   headerTitle: 'No Expand Panel',
                   content: Text('Cannot Expand'),
                   canExpand: false,
@@ -136,7 +136,7 @@ void main() {
             useMaterial3: true,
             extensions: [theme],
           ),
-          home: Scaffold(
+          home: const Scaffold(
             body: AppExpansionPanel(panels: []),
           ),
         ),
