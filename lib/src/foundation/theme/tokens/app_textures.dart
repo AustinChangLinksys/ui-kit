@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 
-class AppTextures {
-  AppTextures._();
+/// Static asset providers for texture images.
+/// Renamed from AppTextures to avoid conflict with the Enum in specs.
+class AppTextureAssets {
+  AppTextureAssets._();
 
   // Pixel Grid - 4x4 dot pattern
   static const String _pixelGridBase64 =
@@ -36,16 +38,17 @@ class AppTextures {
   static const String _pixelArtBase64 =
       'iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAARUlEQVR4nGP8fyKFgYHBOOscAxicnWYEYTAhiyKzGY2MQErgCiESZ6cZgXRAROFCEDZIAivAaRTj/xMpyJbDFSHsQHMuAE4FILndQyyEAAAAAElFTkSuQmCC';
 
-  static ImageProvider get pixelGrid =>
+  // PERFORMANCE FIX: Use static final to decode only once.
+  static final ImageProvider pixelGrid =
       MemoryImage(base64Decode(_pixelGridBase64));
-  static ImageProvider get diagonalLines =>
+  static final ImageProvider diagonalLines =
       MemoryImage(base64Decode(_diagonalLinesBase64));
-  static ImageProvider get noise => MemoryImage(base64Decode(_noiseBase64));
-  static ImageProvider get wood => MemoryImage(base64Decode(_woodBase64));
-  static ImageProvider get metal => MemoryImage(base64Decode(_metalBase64));
-  static ImageProvider get fabric => MemoryImage(base64Decode(_fabricBase64));
-  static ImageProvider get checkerboard =>
+  static final ImageProvider noise = MemoryImage(base64Decode(_noiseBase64));
+  static final ImageProvider wood = MemoryImage(base64Decode(_woodBase64));
+  static final ImageProvider metal = MemoryImage(base64Decode(_metalBase64));
+  static final ImageProvider fabric = MemoryImage(base64Decode(_fabricBase64));
+  static final ImageProvider checkerboard =
       MemoryImage(base64Decode(_checkerboardBase64));
-  static ImageProvider get pixelArt =>
+  static final ImageProvider pixelArt =
       MemoryImage(base64Decode(_pixelArtBase64));
 }

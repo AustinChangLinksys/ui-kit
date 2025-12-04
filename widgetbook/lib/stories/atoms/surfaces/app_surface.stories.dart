@@ -81,14 +81,14 @@ Widget buildAppSurfaceTextures(BuildContext context) {
   );
 
   final textureMap = {
-    'Pixel Grid': AppTextures.pixelGrid,
-    'Diagonal Lines': AppTextures.diagonalLines,
-    'Noise': AppTextures.noise,
-    'Wood': AppTextures.wood,
-    'Metal': AppTextures.metal,
-    'Fabric': AppTextures.fabric,
-    'Checkerboard': AppTextures.checkerboard,
-    'Pixel Art': AppTextures.pixelArt,
+    'Pixel Grid': AppTextureAssets.pixelGrid,
+    'Diagonal Lines': AppTextureAssets.diagonalLines,
+    'Noise': AppTextureAssets.noise,
+    'Wood': AppTextureAssets.wood,
+    'Metal': AppTextureAssets.metal,
+    'Fabric': AppTextureAssets.fabric,
+    'Checkerboard': AppTextureAssets.checkerboard,
+    'Pixel Art': AppTextureAssets.pixelArt,
     'None': null,
   };
 
@@ -124,14 +124,14 @@ Widget buildAppSurfaceTextureGallery(BuildContext context) {
   );
 
   final textures = [
-    ('Pixel Grid', AppTextures.pixelGrid, Colors.grey.shade200),
-    ('Diagonal Lines', AppTextures.diagonalLines, const Color(0xFFFFF8E1)),
-    ('Noise', AppTextures.noise, const Color(0xFF222222)),
-    ('Wood', AppTextures.wood, const Color(0xFF8B4513)),
-    ('Metal', AppTextures.metal, const Color(0xFFAAAAAA)),
-    ('Fabric', AppTextures.fabric, const Color(0xFFC8B4A0)),
-    ('Checkerboard', AppTextures.checkerboard, Colors.white),
-    ('Pixel Art', AppTextures.pixelArt, const Color(0xFFFFC864)),
+    ('Pixel Grid', AppTextureAssets.pixelGrid, Colors.grey.shade200),
+    ('Diagonal Lines', AppTextureAssets.diagonalLines, const Color(0xFFFFF8E1)),
+    ('Noise', AppTextureAssets.noise, const Color(0xFF222222)),
+    ('Wood', AppTextureAssets.wood, const Color(0xFF8B4513)),
+    ('Metal', AppTextureAssets.metal, const Color(0xFFAAAAAA)),
+    ('Fabric', AppTextureAssets.fabric, const Color(0xFFC8B4A0)),
+    ('Checkerboard', AppTextureAssets.checkerboard, Colors.white),
+    ('Pixel Art', AppTextureAssets.pixelArt, const Color(0xFFFFC864)),
   ];
 
   return SingleChildScrollView(

@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
 class NoiseOverlay extends StatefulWidget {
-  const NoiseOverlay({super.key});
+  final int? seed;
+
+  const NoiseOverlay({super.key, this.seed});
 
   @override
   State<NoiseOverlay> createState() => _NoiseOverlayState();
@@ -13,7 +15,7 @@ class NoiseOverlay extends StatefulWidget {
 class _NoiseOverlayState extends State<NoiseOverlay>
     with SingleTickerProviderStateMixin {
   late Ticker _ticker;
-  final math.Random _random = math.Random();
+  late final math.Random _random = math.Random(widget.seed);
   ui.Image? _noiseImage;
   double _offset = 0.0;
 

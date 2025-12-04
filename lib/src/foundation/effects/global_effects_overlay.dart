@@ -5,10 +5,12 @@ import 'package:ui_kit_library/src/foundation/effects/noise_overlay.dart';
 
 class GlobalEffectsOverlay extends StatelessWidget {
   final Widget child;
+  final int? noiseSeed;
 
   const GlobalEffectsOverlay({
     super.key,
     required this.child,
+    this.noiseSeed,
   });
 
   @override
@@ -25,7 +27,7 @@ class GlobalEffectsOverlay extends StatelessWidget {
 
     switch (effectType) {
       case GlobalEffectsType.noiseOverlay:
-        overlay = const NoiseOverlay();
+        overlay = NoiseOverlay(seed: noiseSeed);
         break;
       case GlobalEffectsType.crtShader:
         overlay = const _CrtOverlay();

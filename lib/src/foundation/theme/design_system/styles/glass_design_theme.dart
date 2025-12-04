@@ -52,6 +52,7 @@ class GlassDesignTheme extends AppDesignTheme {
         blurStrength: 25.0,
         contentColor: scheme.onSurface,
       ),
+      // ... (rest of light factory is mostly same, just confirming no texture usage here)
       surfaceElevated: SurfaceStyle(
         backgroundColor: scheme.surfaceContainerHighest.withValues(alpha: 0.1),
         borderColor: scheme.outline.withValues(alpha: 0.6),
@@ -360,9 +361,15 @@ class GlassDesignTheme extends AppDesignTheme {
           blurStrength: 30.0,
           contentColor: scheme.onSurface,
         ),
+        barrierColor: Colors.black.withValues(alpha: 0.3),
+        barrierBlur: 10.0,
+        maxWidth: 400.0,
+        padding: const EdgeInsets.all(24.0),
+        buttonSpacing: 12.0,
+        buttonAlignment: MainAxisAlignment.end,
       ),
       motion: const GlassMotion(),
-      visualEffects: GlobalEffectsType.none,
+      visualEffects: GlobalEffectsType.noiseOverlay,
       iconStyle: AppIconStyle
           .thinStroke, // Or vectorFilled, depending on Glass style preference
     );
@@ -385,7 +392,8 @@ class GlassDesignTheme extends AppDesignTheme {
         ],
         blurStrength: 25.0,
         contentColor: scheme.onSurface,
-        texture: AppTextures.noise, // Demonstration
+        // UPDATED: Use AppTextureAssets.noise
+        texture: AppTextureAssets.noise, 
         textureOpacity: 0.05,
       ),
       surfaceElevated: SurfaceStyle(
@@ -418,7 +426,8 @@ class GlassDesignTheme extends AppDesignTheme {
           hoverOpacity: 0.9,
           pressedOffset: Offset.zero,
         ),
-        texture: AppTextures.pixelGrid, // Demonstration
+        // UPDATED: Use AppTextureAssets.pixelGrid
+        texture: AppTextureAssets.pixelGrid, 
         textureOpacity: 0.08,
       ),
       // Secondary (Tonal) Surface - Medium emphasis, selected/active states (Dark mode)

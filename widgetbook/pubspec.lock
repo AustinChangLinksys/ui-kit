@@ -272,13 +272,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
-  generative_ui:
-    dependency: transitive
-    description:
-      path: "../generative_ui"
-      relative: true
-    source: path
-    version: "0.1.0"
   glob:
     dependency: transitive
     description:

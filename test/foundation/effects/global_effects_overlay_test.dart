@@ -30,6 +30,7 @@ void main() {
             width: 400.0,
             height: 300.0,
             child: GlobalEffectsOverlay(
+              noiseSeed: 12345, // Fixed seed for deterministic testing
               child: Center(
                 child: Container(
                   width: 200,

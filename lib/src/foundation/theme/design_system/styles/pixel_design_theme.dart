@@ -48,7 +48,7 @@ class PixelDesignTheme extends AppDesignTheme {
         ],
         blurStrength: 0.0,
         contentColor: scheme.onSurface,
-        texture: AppTextures.pixelGrid,
+        texture: AppTextureAssets.pixelGrid,
         textureOpacity:
             0.25, // Light mode: pixel grid visible but not overwhelming
       ),
@@ -329,7 +329,7 @@ class PixelDesignTheme extends AppDesignTheme {
         buttonAlignment: MainAxisAlignment.end,
       ),
       motion: const PixelMotion(),
-      visualEffects: GlobalEffectsType.crtShader,
+      visualEffects: GlobalEffectsType.crtShader, // Example of applying CRT to Pixel theme
       iconStyle: AppIconStyle.pixelated,
     );
   }
@@ -353,7 +353,7 @@ class PixelDesignTheme extends AppDesignTheme {
         ],
         blurStrength: 0.0,
         contentColor: black,
-        texture: AppTextures.pixelGrid,
+        texture: AppTextureAssets.pixelGrid,
         textureOpacity: 0.35, // Dark mode: pixel grid more prominent
       ),
       surfaceElevated: SurfaceStyle(

@@ -13,6 +13,8 @@
 import 'package:widgetbook/widgetbook.dart' as _widgetbook;
 import 'package:widgetbook_workspace/stories/atoms/assets.stories.dart'
     as _widgetbook_workspace_stories_atoms_assets_stories;
+import 'package:widgetbook_workspace/stories/atoms/icons/app_icon.stories.dart'
+    as _widgetbook_workspace_stories_atoms_icons_app_icon_stories;
 import 'package:widgetbook_workspace/stories/atoms/layout/app_divider_stories.dart'
     as _widgetbook_workspace_stories_atoms_layout_app_divider_stories;
 import 'package:widgetbook_workspace/stories/atoms/loading/app_skeleton.stories.dart'
@@ -35,6 +37,8 @@ import 'package:widgetbook_workspace/stories/examples/internet_settings_page.sto
     as _widgetbook_workspace_stories_examples_internet_settings_page_stories;
 import 'package:widgetbook_workspace/stories/examples/mockup_page.stories.dart'
     as _widgetbook_workspace_stories_examples_mockup_page_stories;
+import 'package:widgetbook_workspace/stories/foundation/effects/global_effects_overlay.stories.dart'
+    as _widgetbook_workspace_stories_foundation_effects_global_effects_overlay_stories;
 import 'package:widgetbook_workspace/stories/layouts/app_gap_stories.dart'
     as _widgetbook_workspace_stories_layouts_app_gap_stories;
 import 'package:widgetbook_workspace/stories/layouts/app_page_view.stories.dart'
@@ -169,7 +173,13 @@ final directories = <_widgetbook.WidgetbookNode>[
                 name: 'Icon Playground',
                 builder: _widgetbook_workspace_stories_atoms_assets_stories
                     .buildAppIcon,
-              )
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Icon Styles',
+                builder:
+                    _widgetbook_workspace_stories_atoms_icons_app_icon_stories
+                        .buildAppIconUseCase,
+              ),
             ],
           )
         ],
@@ -318,6 +328,27 @@ final directories = <_widgetbook.WidgetbookNode>[
           )
         ],
       ),
+    ],
+  ),
+  _widgetbook.WidgetbookFolder(
+    name: 'foundation',
+    children: [
+      _widgetbook.WidgetbookFolder(
+        name: 'effects',
+        children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'GlobalEffectsOverlay',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Global Effects Overlay',
+                builder:
+                    _widgetbook_workspace_stories_foundation_effects_global_effects_overlay_stories
+                        .buildGlobalEffectsOverlayUseCase,
+              )
+            ],
+          )
+        ],
+      )
     ],
   ),
   _widgetbook.WidgetbookFolder(

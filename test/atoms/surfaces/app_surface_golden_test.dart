@@ -31,14 +31,14 @@ void main() {
           final context = tester.element(find.byType(Scaffold));
 
           // preload all defined textures
-          await precacheImage(AppTextures.pixelGrid, context);
-          await precacheImage(AppTextures.diagonalLines, context);
-          await precacheImage(AppTextures.noise, context);
-          await precacheImage(AppTextures.wood, context);
-          await precacheImage(AppTextures.metal, context);
-          await precacheImage(AppTextures.fabric, context);
-          await precacheImage(AppTextures.checkerboard, context);
-          await precacheImage(AppTextures.pixelArt, context);
+          await precacheImage(AppTextureAssets.pixelGrid, context);
+          await precacheImage(AppTextureAssets.diagonalLines, context);
+          await precacheImage(AppTextureAssets.noise, context);
+          await precacheImage(AppTextureAssets.wood, context);
+          await precacheImage(AppTextureAssets.metal, context);
+          await precacheImage(AppTextureAssets.fabric, context);
+          await precacheImage(AppTextureAssets.checkerboard, context);
+          await precacheImage(AppTextureAssets.pixelArt, context);
         });
 
         await tester.pumpAndSettle();
@@ -60,7 +60,7 @@ void main() {
                 contentColor: Colors.black,
 
                 // set texture
-                texture: AppTextures.pixelGrid,
+                texture: AppTextureAssets.pixelGrid,
                 textureOpacity: 0.3,
               ),
               child: const Center(child: Text('Pixel Grid')),
@@ -80,7 +80,7 @@ void main() {
                 contentColor: Colors.black,
 
                 // set texture
-                texture: AppTextures.diagonalLines,
+                texture: AppTextureAssets.diagonalLines,
                 textureOpacity: 0.2,
               ),
               child: const Center(child: Text('Diagonal')),
@@ -101,7 +101,7 @@ void main() {
                 borderRadius: 24.0,
 
                 // set texture
-                texture: AppTextures.noise,
+                texture: AppTextureAssets.noise,
                 textureOpacity: 0.15, // noise doesn't need to be too strong
               ),
               child: const Center(child: Text('Noise / Glass')),
@@ -121,7 +121,7 @@ void main() {
                 contentColor: Colors.white,
 
                 // set texture
-                texture: AppTextures.wood,
+                texture: AppTextureAssets.wood,
                 textureOpacity: 0.4,
               ),
               child: const Center(child: Text('Wood')),
@@ -141,7 +141,7 @@ void main() {
                 contentColor: Colors.black,
 
                 // set texture
-                texture: AppTextures.metal,
+                texture: AppTextureAssets.metal,
                 textureOpacity: 0.3,
               ),
               child: const Center(child: Text('Metal')),
@@ -161,7 +161,7 @@ void main() {
                 contentColor: Colors.black,
 
                 // set texture
-                texture: AppTextures.fabric,
+                texture: AppTextureAssets.fabric,
                 textureOpacity: 0.25,
               ),
               child: const Center(child: Text('Fabric')),
@@ -181,7 +181,7 @@ void main() {
                 contentColor: Colors.black,
 
                 // set texture
-                texture: AppTextures.checkerboard,
+                texture: AppTextureAssets.checkerboard,
                 textureOpacity: 0.2,
               ),
               child: const Center(child: Text('Checker')),
@@ -201,7 +201,7 @@ void main() {
                 contentColor: Colors.black,
 
                 // set texture
-                texture: AppTextures.pixelArt,
+                texture: AppTextureAssets.pixelArt,
                 textureOpacity: 0.35,
               ),
               child: const Center(child: Text('Pixel Art')),
