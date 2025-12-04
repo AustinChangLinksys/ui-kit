@@ -408,6 +408,7 @@ Widget buildCustomWidthSheet(BuildContext context) {
                 showGeneralDialog(
                   context: context,
                   barrierDismissible: true,
+                  barrierLabel: 'Side Sheet',
                   barrierColor: Colors.transparent,
                   transitionDuration: const Duration(milliseconds: 400),
                   pageBuilder: (dialogContext, anim1, anim2) {
@@ -437,6 +438,7 @@ Widget buildCustomWidthSheet(BuildContext context) {
                 showGeneralDialog(
                   context: context,
                   barrierDismissible: true,
+                  barrierLabel: 'Side Sheet',
                   barrierColor: Colors.transparent,
                   transitionDuration: const Duration(milliseconds: 400),
                   pageBuilder: (dialogContext, anim1, anim2) {
