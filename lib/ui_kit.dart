@@ -72,6 +72,7 @@ export 'src/molecules/navigation/app_navigation_bar.dart';
 export 'src/molecules/navigation/app_navigation_item.dart';
 export 'src/molecules/navigation/app_navigation_rail.dart';
 export 'src/molecules/expansion_panel/app_expansion_panel.dart' show AppExpansionPanel, ExpansionPanel, ExpansionPanelItem;
+export 'src/molecules/carousel/app_carousel.dart' show AppCarousel, CarouselScrollBehavior;
 export 'src/molecules/selection/app_checkbox.dart';
 export 'src/molecules/selection/app_radio.dart';
 export 'src/molecules/selection/app_slider.dart';
