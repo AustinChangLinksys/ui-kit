@@ -22,6 +22,9 @@ class GlassDesignTheme extends AppDesignTheme {
     required super.dividerStyle,
     required super.networkInputStyle,
     required super.layoutSpec,
+    required super.appBarStyle,
+    required super.menuStyle,
+    required super.dialogStyle,
   });
 
   // Light Mode (Liquid Water)
@@ -270,6 +273,93 @@ class GlassDesignTheme extends AppDesignTheme {
         gutterTablet: 24.0,
         gutterDesktop: 32.0,
       ),
+
+      // Phase 2: AppBar, Menu, Dialog styles (Glass Light)
+      appBarStyle: AppBarStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: scheme.surface.withValues(alpha: 0.6),
+          borderColor: scheme.outline.withValues(alpha: 0.3),
+          borderWidth: 1.0,
+          borderRadius: 0.0,
+          shadows: const [],
+          blurStrength: 25.0,
+          contentColor: scheme.onSurface,
+        ),
+        dividerStyle: DividerStyle(
+          color: scheme.outline.withValues(alpha: 0.2),
+          thickness: 1.0,
+          pattern: DividerPattern.solid,
+          glowStrength: 4.0,
+        ),
+        height: 56.0,
+        collapsedHeight: 56.0,
+        expandedHeight: 200.0,
+        flexibleSpaceBlur: 25.0,
+      ),
+      menuStyle: AppMenuStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: scheme.surface.withValues(alpha: 0.7),
+          borderColor: scheme.outline.withValues(alpha: 0.3),
+          borderWidth: 1.0,
+          borderRadius: 16.0,
+          shadows: [
+            BoxShadow(
+              color: scheme.primary.withValues(alpha: 0.1),
+              blurRadius: 20,
+              spreadRadius: -5,
+            ),
+          ],
+          blurStrength: 20.0,
+          contentColor: scheme.onSurface,
+        ),
+        itemStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 8.0,
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        itemHoverStyle: SurfaceStyle(
+          backgroundColor: scheme.primary.withValues(alpha: 0.1),
+          borderColor: scheme.primary.withValues(alpha: 0.2),
+          borderWidth: 1.0,
+          borderRadius: 8.0,
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        destructiveItemStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 8.0,
+          blurStrength: 0.0,
+          contentColor: scheme.error,
+        ),
+      ),
+      dialogStyle: DialogStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: scheme.surface.withValues(alpha: 0.8),
+          borderColor: scheme.outline.withValues(alpha: 0.3),
+          borderWidth: 1.5,
+          borderRadius: 24.0,
+          shadows: [
+            BoxShadow(
+              color: scheme.primary.withValues(alpha: 0.15),
+              blurRadius: 30,
+              spreadRadius: -5,
+            ),
+          ],
+          blurStrength: 30.0,
+          contentColor: scheme.onSurface,
+        ),
+        barrierColor: Colors.black.withValues(alpha: 0.3),
+        barrierBlur: 10.0,
+        maxWidth: 400.0,
+        padding: const EdgeInsets.all(24.0),
+        buttonSpacing: 12.0,
+        buttonAlignment: MainAxisAlignment.end,
+      ),
     );
   }
 
@@ -512,6 +602,91 @@ class GlassDesignTheme extends AppDesignTheme {
         gutterMobile: 20.0,
         gutterTablet: 24.0,
         gutterDesktop: 32.0,
+      ),
+
+      // Phase 2: AppBar, Menu, Dialog styles (Glass Dark)
+      appBarStyle: AppBarStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: scheme.shadow.withValues(alpha: 0.4),
+          borderColor: scheme.outline.withValues(alpha: 0.2),
+          borderWidth: 1.0,
+          borderRadius: 0.0,
+          shadows: const [],
+          blurStrength: 25.0,
+          contentColor: scheme.onSurface,
+        ),
+        dividerStyle: DividerStyle(
+          color: scheme.outline.withValues(alpha: 0.15),
+          thickness: 1.0,
+          pattern: DividerPattern.solid,
+          glowStrength: 4.0,
+        ),
+        height: 56.0,
+        collapsedHeight: 56.0,
+        expandedHeight: 200.0,
+        flexibleSpaceBlur: 25.0,
+      ),
+      menuStyle: AppMenuStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: scheme.shadow.withValues(alpha: 0.6),
+          borderColor: scheme.outline.withValues(alpha: 0.2),
+          borderWidth: 1.0,
+          borderRadius: 16.0,
+          shadows: [
+            BoxShadow(
+              color: scheme.shadow.withValues(alpha: 0.4),
+              blurRadius: 24,
+            ),
+          ],
+          blurStrength: 20.0,
+          contentColor: scheme.onSurface,
+        ),
+        itemStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 8.0,
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        itemHoverStyle: SurfaceStyle(
+          backgroundColor: scheme.primary.withValues(alpha: 0.15),
+          borderColor: scheme.primary.withValues(alpha: 0.3),
+          borderWidth: 1.0,
+          borderRadius: 8.0,
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        destructiveItemStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 8.0,
+          blurStrength: 0.0,
+          contentColor: scheme.error,
+        ),
+      ),
+      dialogStyle: DialogStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: scheme.shadow.withValues(alpha: 0.7),
+          borderColor: scheme.outline.withValues(alpha: 0.2),
+          borderWidth: 1.5,
+          borderRadius: 24.0,
+          shadows: [
+            BoxShadow(
+              color: scheme.shadow.withValues(alpha: 0.5),
+              blurRadius: 32,
+            ),
+          ],
+          blurStrength: 30.0,
+          contentColor: scheme.onSurface,
+        ),
+        barrierColor: Colors.black.withValues(alpha: 0.4),
+        barrierBlur: 10.0,
+        maxWidth: 400.0,
+        padding: const EdgeInsets.all(24.0),
+        buttonSpacing: 12.0,
+        buttonAlignment: MainAxisAlignment.end,
       ),
     );
   }

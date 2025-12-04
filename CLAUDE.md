@@ -219,3 +219,10 @@ Design decisions and architecture documentation are in `specs/`:
 - `specs/002-unified-design-system`: Core architecture and data model
 - `specs/003-ui-kit-molecules`: Component implementation details
 - Additional specs for features like forms, network inputs, and theme editor
+
+## Active Technologies
+- Dart 3.x / Flutter 3.x + flutter, theme_tailor_annotation, equatable, flutter_animate, alchemist (testing) (011-phase2-components)
+- N/A (UI library, no persistence) (011-phase2-components)
+
+## Recent Changes
+- 011-phase2-components: Added Dart 3.x / Flutter 3.x + flutter, theme_tailor_annotation, equatable, flutter_animate, alchemist (testing)

@@ -340,6 +340,27 @@ class ThemeEditorController extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Update AppBar Style
+  void updateAppBarStyle(AppBarStyle style) {
+    _setCurrentTheme(currentTheme.copyWith(appBarStyle: style));
+    _hasUnsavedChanges = true;
+    notifyListeners();
+  }
+
+  /// Update Menu Style
+  void updateMenuStyle(AppMenuStyle style) {
+    _setCurrentTheme(currentTheme.copyWith(menuStyle: style));
+    _hasUnsavedChanges = true;
+    notifyListeners();
+  }
+
+  /// Update Dialog Style
+  void updateDialogStyle(DialogStyle style) {
+    _setCurrentTheme(currentTheme.copyWith(dialogStyle: style));
+    _hasUnsavedChanges = true;
+    notifyListeners();
+  }
+
   /// Generate Dart code for current theme
   String generateCode() {
     return generateDartCode(currentTheme);

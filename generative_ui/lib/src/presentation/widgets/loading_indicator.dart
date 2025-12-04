@@ -6,6 +6,7 @@ class LoadingIndicator extends StatelessWidget {
 
   const LoadingIndicator({
     this.message = 'Thinking...',
+    super.key,
   });
 
   @override

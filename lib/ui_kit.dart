@@ -30,6 +30,9 @@ export 'src/foundation/theme/design_system/styles/neumorphic_design_theme.dart';
 export 'src/foundation/theme/design_system/styles/pixel_design_theme.dart';
 export 'src/foundation/theme/design_system/specs/skeleton_style.dart';
 export 'src/foundation/theme/design_system/specs/layout_spec.dart';
+export 'src/foundation/theme/design_system/specs/app_bar_style.dart';
+export 'src/foundation/theme/design_system/specs/app_menu_style.dart';
+export 'src/foundation/theme/design_system/specs/dialog_style.dart';
 export 'src/foundation/theme/tokens/app_textures.dart';
 
 export 'src/foundation/gen/assets.gen.dart';
@@ -76,6 +79,16 @@ export 'src/molecules/feedback/app_loader.dart';
 export 'src/molecules/feedback/app_toast.dart';
 export 'src/molecules/layout/app_list_tile.dart';
 export 'src/molecules/display/app_tooltip.dart';
+
+export 'src/molecules/menu/app_popup_menu_item.dart';
+export 'src/molecules/menu/app_popup_menu.dart';
+
+// -----------------------------------------------------------------------------
+// Organisms (Complex Components)
+// Contains: app bars, dialogs, menus
+// -----------------------------------------------------------------------------
+export 'src/organisms/app_bar/app_unified_bar.dart';
+export 'src/organisms/app_bar/app_unified_sliver_bar.dart';
 
 // Layout
 export 'src/layout/layout_extensions.dart';

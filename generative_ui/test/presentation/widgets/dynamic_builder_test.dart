@@ -48,7 +48,7 @@ void main() {
   group('DynamicWidgetBuilder', () {
     testWidgets('renders TextBlock as MessageBubble', (tester) async {
       final textBlock = TextBlock(text: 'Hello GenUI');
-      
+
       await tester.pumpWidget(wrapWithTheme(Builder(
         builder: (context) => dynamicBuilder.buildBlock(textBlock, context),
       )));
@@ -57,7 +57,8 @@ void main() {
       expect(find.text('Hello GenUI'), findsOneWidget);
     });
 
-    testWidgets('renders unknown ToolUseBlock as FallbackCard (Unsupported)', (tester) async {
+    testWidgets('renders unknown ToolUseBlock as FallbackCard (Unsupported)',
+        (tester) async {
       final toolBlock = ToolUseBlock(
         id: '123',
         name: 'UnknownComponent',
@@ -73,11 +74,12 @@ void main() {
       expect(find.text('Component: UnknownComponent'), findsOneWidget);
     });
 
-    testWidgets('renders registered ToolUseBlock using builder', (tester) async {
+    testWidgets('renders registered ToolUseBlock using builder',
+        (tester) async {
       // Register a test component
       registry.register('TestCard', (context, props) {
         return Container(
-          key: Key('test-card'),
+          key: const Key('test-card'),
           child: Text(props['title'] ?? 'No Title'),
         );
       });
@@ -92,11 +94,13 @@ void main() {
         builder: (context) => dynamicBuilder.buildBlock(toolBlock, context),
       )));
 
-      expect(find.byKey(Key('test-card')), findsOneWidget);
+      expect(find.byKey(const Key('test-card')), findsOneWidget);
       expect(find.text('My Test Card'), findsOneWidget);
     });
 
-    testWidgets('catches builder exception and renders FallbackCard (RenderingError)', (tester) async {
+    testWidgets(
+        'catches builder exception and renders FallbackCard (RenderingError)',
+        (tester) async {
       // Register a component that throws
       registry.register('ErrorCard', (context, props) {
         throw Exception('Builder failure');
@@ -145,14 +149,25 @@ void main() {
       });
 
       test('safeEnum converts correctly', () {
-        expect(DynamicWidgetBuilder.safeEnum('value1', TestEnum.values, TestEnum.value2), TestEnum.value1);
-        expect(DynamicWidgetBuilder.safeEnum('VALUE1', TestEnum.values, TestEnum.value2), TestEnum.value1);
-        expect(DynamicWidgetBuilder.safeEnum('invalid', TestEnum.values, TestEnum.value2), TestEnum.value2);
-        expect(DynamicWidgetBuilder.safeEnum(null, TestEnum.values, TestEnum.value2), TestEnum.value2);
+        expect(
+            DynamicWidgetBuilder.safeEnum(
+                'value1', TestEnum.values, TestEnum.value2),
+            TestEnum.value1);
+        expect(
+            DynamicWidgetBuilder.safeEnum(
+                'VALUE1', TestEnum.values, TestEnum.value2),
+            TestEnum.value1);
+        expect(
+            DynamicWidgetBuilder.safeEnum(
+                'invalid', TestEnum.values, TestEnum.value2),
+            TestEnum.value2);
+        expect(
+            DynamicWidgetBuilder.safeEnum(
+                null, TestEnum.values, TestEnum.value2),
+            TestEnum.value2);
       });
     });
   });
 }
 
 enum TestEnum { value1, value2 }
-

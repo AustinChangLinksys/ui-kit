@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:theme_tailor_annotation/theme_tailor_annotation.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/app_bar_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/dialog_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/divider_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/input_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/layout_spec.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/loader_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/app_menu_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/navigation_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/network_input_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/skeleton_style.dart';
@@ -63,6 +66,15 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
   @override
   final NavigationStyle navigationStyle;
 
+  @override
+  final AppBarStyle appBarStyle;
+
+  @override
+  final AppMenuStyle menuStyle;
+
+  @override
+  final DialogStyle dialogStyle;
+
   const AppDesignTheme({
     required this.surfaceBase,
     required this.surfaceElevated,
@@ -82,5 +94,8 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
     required this.buttonHeight,
     required this.navigationStyle,
     required this.layoutSpec,
+    required this.appBarStyle,
+    required this.menuStyle,
+    required this.dialogStyle,
   });
 }

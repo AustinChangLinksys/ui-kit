@@ -8,6 +8,7 @@ class ErrorDisplay extends StatelessWidget {
   const ErrorDisplay({
     required this.message,
     required this.onRetry,
+    super.key,
   });
 
   @override
