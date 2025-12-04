@@ -384,6 +384,8 @@ class PixelDesignTheme extends AppDesignTheme {
         nextIcon: Icons.arrow_forward,
         animationDuration: const Duration(milliseconds: 100),
         animationCurve: Curves.linear,
+        useSnapScroll: true,
+        navButtonSize: 64.0,
       ),
       chipGroupStyle: ChipGroupStyle(
         unselectedBackground: Colors.grey.shade800,
@@ -742,6 +744,8 @@ class PixelDesignTheme extends AppDesignTheme {
         nextIcon: Icons.arrow_forward,
         animationDuration: const Duration(milliseconds: 100),
         animationCurve: Curves.linear,
+        useSnapScroll: true,
+        navButtonSize: 64.0,
       ),
       chipGroupStyle: ChipGroupStyle(
         unselectedBackground: Colors.grey.shade800,

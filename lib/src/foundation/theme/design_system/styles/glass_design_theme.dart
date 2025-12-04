@@ -420,6 +420,8 @@ class GlassDesignTheme extends AppDesignTheme {
         nextIcon: Icons.arrow_forward,
         animationDuration: const Duration(milliseconds: 400),
         animationCurve: Curves.easeInOutCubic,
+        useSnapScroll: false,
+        navButtonSize: 48.0,
       ),
       chipGroupStyle: ChipGroupStyle(
         unselectedBackground: scheme.surfaceContainer,
@@ -809,6 +811,8 @@ class GlassDesignTheme extends AppDesignTheme {
         nextIcon: Icons.arrow_forward,
         animationDuration: const Duration(milliseconds: 400),
         animationCurve: Curves.easeInOutCubic,
+        useSnapScroll: false,
+        navButtonSize: 48.0,
       ),
       chipGroupStyle: ChipGroupStyle(
         unselectedBackground: scheme.surfaceContainer,

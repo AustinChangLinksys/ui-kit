@@ -404,6 +404,8 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         nextIcon: Icons.arrow_forward,
         animationDuration: const Duration(milliseconds: 350),
         animationCurve: Curves.easeInOutQuad,
+        useSnapScroll: false,
+        navButtonSize: 48.0,
       ),
       chipGroupStyle: ChipGroupStyle(
         unselectedBackground: scheme.surface,
@@ -787,6 +789,8 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         nextIcon: Icons.arrow_forward,
         animationDuration: const Duration(milliseconds: 350),
         animationCurve: Curves.easeInOutQuad,
+        useSnapScroll: false,
+        navButtonSize: 48.0,
       ),
       chipGroupStyle: ChipGroupStyle(
         unselectedBackground: scheme.surface,

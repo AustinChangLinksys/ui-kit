@@ -395,6 +395,8 @@ class FlatDesignTheme extends AppDesignTheme {
         nextIcon: Icons.arrow_forward,
         animationDuration: const Duration(milliseconds: 300),
         animationCurve: Curves.easeInOut,
+        useSnapScroll: false,
+        navButtonSize: 48.0,
       ),
       chipGroupStyle: ChipGroupStyle(
         unselectedBackground: scheme.surfaceContainerHighest,
@@ -751,6 +753,8 @@ class FlatDesignTheme extends AppDesignTheme {
         nextIcon: Icons.arrow_forward,
         animationDuration: const Duration(milliseconds: 300),
         animationCurve: Curves.easeInOut,
+        useSnapScroll: false,
+        navButtonSize: 48.0,
       ),
       chipGroupStyle: ChipGroupStyle(
         unselectedBackground: scheme.surfaceContainerHighest,

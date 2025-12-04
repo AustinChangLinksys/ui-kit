@@ -374,6 +374,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         nextIcon: Icons.arrow_forward,
         animationDuration: const Duration(milliseconds: 150),
         animationCurve: Curves.linear,
+        useSnapScroll: false,
+        navButtonSize: 48.0,
       ),
       chipGroupStyle: ChipGroupStyle(
         unselectedBackground: Colors.grey.shade800,
@@ -722,6 +724,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         nextIcon: Icons.arrow_forward,
         animationDuration: const Duration(milliseconds: 150),
         animationCurve: Curves.linear,
+        useSnapScroll: false,
+        navButtonSize: 48.0,
       ),
       chipGroupStyle: ChipGroupStyle(
         unselectedBackground: Colors.grey.shade800,

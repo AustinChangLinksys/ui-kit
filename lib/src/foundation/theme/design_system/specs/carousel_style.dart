@@ -13,6 +13,8 @@ class CarouselStyle extends ThemeExtension<CarouselStyle>
     required this.nextIcon,
     required this.animationDuration,
     required this.animationCurve,
+    this.useSnapScroll = false,
+    this.navButtonSize = 48.0,
   });
 
   /// Color of navigation buttons
@@ -38,4 +40,12 @@ class CarouselStyle extends ThemeExtension<CarouselStyle>
   /// Animation curve for item transitions
   @override
   final Curve animationCurve;
+
+  /// Use snap scroll instead of smooth scroll (Pixel theme)
+  @override
+  final bool useSnapScroll;
+
+  /// Size of navigation buttons (Pixel theme has larger buttons)
+  @override
+  final double navButtonSize;
 }
