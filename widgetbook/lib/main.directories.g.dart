@@ -67,6 +67,10 @@ import 'package:widgetbook_workspace/stories/navigation/app_navigation_bar.story
     as _widgetbook_workspace_stories_navigation_app_navigation_bar_story;
 import 'package:widgetbook_workspace/stories/navigation/app_navigation_rail.stories.dart'
     as _widgetbook_workspace_stories_navigation_app_navigation_rail_stories;
+import 'package:widgetbook_workspace/stories/navigation/carousel_story.dart'
+    as _widgetbook_workspace_stories_navigation_carousel_story;
+import 'package:widgetbook_workspace/stories/navigation/expansion_panel_story.dart'
+    as _widgetbook_workspace_stories_navigation_expansion_panel_story;
 import 'package:widgetbook_workspace/stories/organisms/app_unified_bar.stories.dart'
     as _widgetbook_workspace_stories_organisms_app_unified_bar_stories;
 import 'package:widgetbook_workspace/stories/organisms/app_unified_sliver_bar.stories.dart'
@@ -400,6 +404,36 @@ final directories = <_widgetbook.WidgetbookNode>[
         ],
       ),
       _widgetbook.WidgetbookFolder(
+        name: 'carousel',
+        children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'AppCarousel',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Basic Carousel',
+                builder: _widgetbook_workspace_stories_navigation_carousel_story
+                    .buildBasicCarousel,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Image Carousel',
+                builder: _widgetbook_workspace_stories_navigation_carousel_story
+                    .buildImageCarousel,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With Auto-Play',
+                builder: _widgetbook_workspace_stories_navigation_carousel_story
+                    .buildAutoPlayCarousel,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With Different Scroll Behaviors',
+                builder: _widgetbook_workspace_stories_navigation_carousel_story
+                    .buildScrollBehaviorCarousel,
+              ),
+            ],
+          )
+        ],
+      ),
+      _widgetbook.WidgetbookFolder(
         name: 'dialogs',
         children: [
           _widgetbook.WidgetbookComponent(
@@ -450,6 +484,34 @@ final directories = <_widgetbook.WidgetbookNode>[
                 builder:
                     _widgetbook_workspace_stories_molecules_display_app_tooltip_stories
                         .buildTooltipGallery,
+              ),
+            ],
+          )
+        ],
+      ),
+      _widgetbook.WidgetbookFolder(
+        name: 'expansion_panel',
+        children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'AppExpansionPanel',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Multiple Panels',
+                builder:
+                    _widgetbook_workspace_stories_navigation_expansion_panel_story
+                        .buildMultiplePanels,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Single Panel',
+                builder:
+                    _widgetbook_workspace_stories_navigation_expansion_panel_story
+                        .buildSinglePanel,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With Long Content',
+                builder:
+                    _widgetbook_workspace_stories_navigation_expansion_panel_story
+                        .buildLongContent,
               ),
             ],
           )
