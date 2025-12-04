@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/interaction_spec.dart';
 import 'package:ui_kit_library/ui_kit.dart';
+// Import GlobalEffectsType
+// Import AppIconStyle
 
 class FlatDesignTheme extends AppDesignTheme {
   const FlatDesignTheme._({
@@ -25,6 +27,9 @@ class FlatDesignTheme extends AppDesignTheme {
     required super.appBarStyle,
     required super.menuStyle,
     required super.dialogStyle,
+    required super.motion,
+    required super.visualEffects,
+    required super.iconStyle,
   });
 
   factory FlatDesignTheme.light([ColorScheme? scheme]) {
@@ -335,6 +340,9 @@ class FlatDesignTheme extends AppDesignTheme {
         buttonSpacing: 8.0,
         buttonAlignment: MainAxisAlignment.end,
       ),
+      motion: const FlatMotion(),
+      visualEffects: GlobalEffectsType.none,
+      iconStyle: AppIconStyle.vectorFilled,
     );
   }
 
@@ -630,6 +638,9 @@ class FlatDesignTheme extends AppDesignTheme {
         buttonSpacing: 8.0,
         buttonAlignment: MainAxisAlignment.end,
       ),
+      motion: const FlatMotion(),
+      visualEffects: GlobalEffectsType.none,
+      iconStyle: AppIconStyle.vectorFilled,
     );
   }
 }

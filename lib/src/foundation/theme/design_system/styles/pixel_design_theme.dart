@@ -26,6 +26,9 @@ class PixelDesignTheme extends AppDesignTheme {
     required super.appBarStyle,
     required super.menuStyle,
     required super.dialogStyle,
+    required super.motion,
+    required super.visualEffects,
+    required super.iconStyle,
   });
 
   factory PixelDesignTheme.light([ColorScheme? scheme]) {
@@ -46,7 +49,8 @@ class PixelDesignTheme extends AppDesignTheme {
         blurStrength: 0.0,
         contentColor: scheme.onSurface,
         texture: AppTextures.pixelGrid,
-        textureOpacity: 0.25, // Light mode: pixel grid visible but not overwhelming
+        textureOpacity:
+            0.25, // Light mode: pixel grid visible but not overwhelming
       ),
       surfaceElevated: SurfaceStyle(
         backgroundColor: scheme.primaryContainer,
@@ -324,6 +328,9 @@ class PixelDesignTheme extends AppDesignTheme {
         buttonSpacing: 8.0,
         buttonAlignment: MainAxisAlignment.end,
       ),
+      motion: const PixelMotion(),
+      visualEffects: GlobalEffectsType.crtShader,
+      iconStyle: AppIconStyle.pixelated,
     );
   }
 
@@ -621,6 +628,9 @@ class PixelDesignTheme extends AppDesignTheme {
         buttonSpacing: 8.0,
         buttonAlignment: MainAxisAlignment.end,
       ),
+      motion: const PixelMotion(),
+      visualEffects: GlobalEffectsType.crtShader,
+      iconStyle: AppIconStyle.pixelated,
     );
   }
 }

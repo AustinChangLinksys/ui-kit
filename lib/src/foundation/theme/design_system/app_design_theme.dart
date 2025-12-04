@@ -12,6 +12,9 @@ import 'package:ui_kit_library/src/foundation/theme/design_system/specs/network_
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/skeleton_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/toast_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/toggle_style.dart';
+import 'package:ui_kit_library/src/foundation/motion/app_motion.dart';
+import 'package:ui_kit_library/src/foundation/effects/global_effects_type.dart';
+import 'package:ui_kit_library/src/foundation/icons/app_icon_style.dart';
 import 'specs/surface_style.dart';
 
 part 'app_design_theme.tailor.dart';
@@ -75,6 +78,15 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
   @override
   final DialogStyle dialogStyle;
 
+  @override
+  final AppMotion motion;
+
+  @override
+  final GlobalEffectsType visualEffects;
+
+  @override
+  final AppIconStyle iconStyle;
+
   const AppDesignTheme({
     required this.surfaceBase,
     required this.surfaceElevated,
@@ -97,5 +109,8 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
     required this.appBarStyle,
     required this.menuStyle,
     required this.dialogStyle,
+    required this.motion,
+    required this.visualEffects,
+    required this.iconStyle,
   });
 }

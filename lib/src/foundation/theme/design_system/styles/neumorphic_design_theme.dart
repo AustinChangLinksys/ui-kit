@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/interaction_spec.dart';
 import 'package:ui_kit_library/ui_kit.dart';
+import 'package:ui_kit_library/src/foundation/motion/neumorphic_motion.dart'; // Assuming NeumorphicMotion is created
 
 class NeumorphicDesignTheme extends AppDesignTheme {
   NeumorphicDesignTheme._({
@@ -25,6 +26,9 @@ class NeumorphicDesignTheme extends AppDesignTheme {
     required super.appBarStyle,
     required super.menuStyle,
     required super.dialogStyle,
+    required super.motion,
+    required super.visualEffects,
+    required super.iconStyle,
   });
 
   // Default to Light, providing a default ColorScheme
@@ -344,6 +348,9 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         barrierColor: Colors.black.withValues(alpha: 0.4),
         barrierBlur: 0.0,
       ),
+      motion: const NeumorphicMotion(), // Assuming NeumorphicMotion
+      visualEffects: GlobalEffectsType.none,
+      iconStyle: AppIconStyle.vectorFilled,
     );
   }
 
@@ -666,6 +673,9 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         barrierColor: Colors.black.withValues(alpha: 0.5),
         barrierBlur: 0.0,
       ),
+      motion: const NeumorphicMotion(), // Assuming NeumorphicMotion
+      visualEffects: GlobalEffectsType.none,
+      iconStyle: AppIconStyle.vectorFilled,
     );
   }
 }

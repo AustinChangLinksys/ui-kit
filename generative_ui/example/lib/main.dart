@@ -27,6 +27,11 @@ class GenUiExampleApp extends StatelessWidget {
       theme: AppTheme.create(brightness: Brightness.light),
       darkTheme: AppTheme.create(brightness: Brightness.dark),
       themeMode: ThemeMode.system,
+      builder: (context, child) {
+        return GlobalEffectsOverlay(
+          child: child ?? const SizedBox.shrink(),
+        );
+      },
       home: const ChatDemoScreen(),
     );
   }

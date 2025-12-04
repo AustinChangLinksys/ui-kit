@@ -35,6 +35,21 @@ export 'src/foundation/theme/design_system/specs/app_menu_style.dart';
 export 'src/foundation/theme/design_system/specs/dialog_style.dart';
 export 'src/foundation/theme/tokens/app_textures.dart';
 
+// Motion System
+export 'src/foundation/motion/app_motion.dart';
+export 'src/foundation/motion/motion_spec.dart';
+export 'src/foundation/motion/flat_motion.dart';
+export 'src/foundation/motion/glass_motion.dart';
+export 'src/foundation/motion/pixel_motion.dart';
+export 'src/foundation/motion/steps_curve.dart';
+
+// Global Effects
+export 'src/foundation/effects/global_effects_type.dart';
+export 'src/foundation/effects/global_effects_overlay.dart';
+
+// Icons
+export 'src/foundation/icons/app_icon_style.dart';
+
 export 'src/foundation/gen/assets.gen.dart';
 export 'src/foundation/icons/app_font_icons.dart';
 export 'src/atoms/images/theme_aware_svg.dart';

@@ -31,6 +31,9 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
   AppBarStyle get appBarStyle;
   AppMenuStyle get menuStyle;
   DialogStyle get dialogStyle;
+  AppMotion get motion;
+  GlobalEffectsType get visualEffects;
+  AppIconStyle get iconStyle;
 
   @override
   AppDesignTheme copyWith({
@@ -55,6 +58,9 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
     AppBarStyle? appBarStyle,
     AppMenuStyle? menuStyle,
     DialogStyle? dialogStyle,
+    AppMotion? motion,
+    GlobalEffectsType? visualEffects,
+    AppIconStyle? iconStyle,
   }) {
     return AppDesignTheme(
       toggleStyle: toggleStyle ?? this.toggleStyle,
@@ -78,6 +84,9 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       appBarStyle: appBarStyle ?? this.appBarStyle,
       menuStyle: menuStyle ?? this.menuStyle,
       dialogStyle: dialogStyle ?? this.dialogStyle,
+      motion: motion ?? this.motion,
+      visualEffects: visualEffects ?? this.visualEffects,
+      iconStyle: iconStyle ?? this.iconStyle,
     );
   }
 
@@ -107,6 +116,9 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       appBarStyle: t < 0.5 ? appBarStyle : other.appBarStyle,
       menuStyle: t < 0.5 ? menuStyle : other.menuStyle,
       dialogStyle: t < 0.5 ? dialogStyle : other.dialogStyle,
+      motion: t < 0.5 ? motion : other.motion,
+      visualEffects: t < 0.5 ? visualEffects : other.visualEffects,
+      iconStyle: t < 0.5 ? iconStyle : other.iconStyle,
     );
   }
 
@@ -154,7 +166,11 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
                 .equals(appBarStyle, other.appBarStyle) &&
             const DeepCollectionEquality().equals(menuStyle, other.menuStyle) &&
             const DeepCollectionEquality()
-                .equals(dialogStyle, other.dialogStyle));
+                .equals(dialogStyle, other.dialogStyle) &&
+            const DeepCollectionEquality().equals(motion, other.motion) &&
+            const DeepCollectionEquality()
+                .equals(visualEffects, other.visualEffects) &&
+            const DeepCollectionEquality().equals(iconStyle, other.iconStyle));
   }
 
   @override
@@ -182,6 +198,9 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       const DeepCollectionEquality().hash(appBarStyle),
       const DeepCollectionEquality().hash(menuStyle),
       const DeepCollectionEquality().hash(dialogStyle),
+      const DeepCollectionEquality().hash(motion),
+      const DeepCollectionEquality().hash(visualEffects),
+      const DeepCollectionEquality().hash(iconStyle),
     ]);
   }
 }
@@ -210,4 +229,7 @@ extension AppDesignThemeBuildContextProps on BuildContext {
   AppBarStyle get appBarStyle => appDesignTheme.appBarStyle;
   AppMenuStyle get menuStyle => appDesignTheme.menuStyle;
   DialogStyle get dialogStyle => appDesignTheme.dialogStyle;
+  AppMotion get motion => appDesignTheme.motion;
+  GlobalEffectsType get visualEffects => appDesignTheme.visualEffects;
+  AppIconStyle get iconStyle => appDesignTheme.iconStyle;
 }

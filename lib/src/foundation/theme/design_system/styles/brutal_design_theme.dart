@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui_kit_library/src/foundation/motion/brutal_motion.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/interaction_spec.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
@@ -26,6 +27,9 @@ class BrutalDesignTheme extends AppDesignTheme {
     required super.appBarStyle,
     required super.menuStyle,
     required super.dialogStyle,
+    required super.motion,
+    required super.visualEffects,
+    required super.iconStyle,
   });
 
   factory BrutalDesignTheme.light([ColorScheme? scheme]) {
@@ -314,6 +318,9 @@ class BrutalDesignTheme extends AppDesignTheme {
         barrierColor: Colors.black.withValues(alpha: 0.5),
         barrierBlur: 0.0,
       ),
+      motion: const BrutalMotion(),
+      visualEffects: GlobalEffectsType.none,
+      iconStyle: AppIconStyle.vectorFilled,
     );
   }
 
@@ -601,6 +608,9 @@ class BrutalDesignTheme extends AppDesignTheme {
         barrierColor: Colors.black.withValues(alpha: 0.6),
         barrierBlur: 0.0,
       ),
+      motion: const BrutalMotion(),
+      visualEffects: GlobalEffectsType.none,
+      iconStyle: AppIconStyle.vectorFilled,
     );
   }
 }
