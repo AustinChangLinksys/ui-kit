@@ -289,7 +289,7 @@ void main() {
       for (int i = 1; i < testItems.length; i++) {
         await tester.drag(
           find.byType(PageView),
-          Offset(-500, 0),
+          const Offset(-500, 0),
         );
         await tester.pumpAndSettle();
         expect(find.text(testItems[i]), findsOneWidget);

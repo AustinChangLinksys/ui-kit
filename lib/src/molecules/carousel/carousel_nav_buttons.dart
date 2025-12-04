@@ -14,14 +14,14 @@ class CarouselNavButtons extends StatelessWidget {
   final MainAxisAlignment alignment;
 
   const CarouselNavButtons({
-    Key? key,
+    super.key,
     this.onPrevious,
     this.onNext,
     required this.canGoPrevious,
     required this.canGoNext,
     this.buttonSize = 48.0,
     this.alignment = MainAxisAlignment.spaceBetween,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

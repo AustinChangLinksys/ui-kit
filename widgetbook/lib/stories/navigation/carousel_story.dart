@@ -75,13 +75,9 @@ Widget buildAutoPlayCarousel(BuildContext context) {
           return Container(
             color: Colors.primaries[index % Colors.primaries.length],
             child: Center(
-              child: AppText(
+              child: AppText.displaySmall(
                 items[index],
-                style: Theme.of(context)
-                    .textTheme
-                    .displaySmall
-                    ?.copyWith(color: Colors.white),
-                variant: AppTextVariant.displayMedium,
+                color: Colors.white,
               ),
             ),
           );
@@ -96,12 +92,12 @@ Widget buildAutoPlayCarousel(BuildContext context) {
   type: AppCarousel,
 )
 Widget buildScrollBehaviorCarousel(BuildContext context) {
-  final behavior = context.knobs.options(
+  final behavior = context.knobs.object.dropdown(
     label: 'Scroll Behavior',
     options: [
-      Option(label: 'Smooth', value: CarouselScrollBehavior.smooth),
-      Option(label: 'Snap', value: CarouselScrollBehavior.snap),
-      Option(label: 'Loop', value: CarouselScrollBehavior.loop),
+      CarouselScrollBehavior.smooth,
+      CarouselScrollBehavior.snap,
+      CarouselScrollBehavior.loop,
     ],
   );
 
@@ -133,13 +129,9 @@ Widget buildScrollBehaviorCarousel(BuildContext context) {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  AppText(
+                  AppText.displayMedium(
                     items[index],
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineMedium
-                        ?.copyWith(color: Colors.white),
-                    variant: AppTextVariant.headlineMedium,
+                    color: Colors.white,
                   ),
                   const SizedBox(height: 12),
                   Container(
@@ -151,10 +143,20 @@ Widget buildScrollBehaviorCarousel(BuildContext context) {
                     ),
                     child: AppText(
                       'Mode: ${behavior.toString().split('.').last}',
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Colors.white,
-                          ),
-                      variant: AppTextVariant.labelSmall,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: Colors.black26,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: AppText.labelSmall(
+                      'Mode: ${behavior.toString().split('.').last}',
+                      color: Colors.white,
                     ),
                   ),
                 ],
@@ -172,12 +174,6 @@ Widget buildScrollBehaviorCarousel(BuildContext context) {
   type: AppCarousel,
 )
 Widget buildImageCarousel(BuildContext context) {
-  final images = [
-    'assets/images/sample1.jpg',
-    'assets/images/sample2.jpg',
-    'assets/images/sample3.jpg',
-  ];
-
   return DesignSystem.init(
     context,
     Padding(
@@ -207,7 +203,7 @@ Widget buildImageCarousel(BuildContext context) {
                     variant: AppTextVariant.bodyLarge,
                   ),
                   const SizedBox(height: 8),
-                  AppText(
+                  const AppText(
                     'Swipe or use arrow keys to navigate',
                     variant: AppTextVariant.bodySmall,
                   ),

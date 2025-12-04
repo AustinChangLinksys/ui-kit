@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
 /// Carousel component for displaying sequential items with navigation
@@ -40,7 +39,7 @@ class AppCarousel extends StatefulWidget {
   final CarouselStyle? style;
 
   const AppCarousel({
-    Key? key,
+    super.key,
     required this.itemCount,
     required this.itemBuilder,
     required this.itemHeight,
@@ -52,7 +51,7 @@ class AppCarousel extends StatefulWidget {
     this.autoPlayDuration = const Duration(seconds: 3),
     this.showNavigationButtons = true,
     this.style,
-  }) : super(key: key);
+  });
 
   @override
   State<AppCarousel> createState() => _AppCarouselState();
@@ -168,11 +167,11 @@ class _AppCarouselState extends State<AppCarousel>
             // Carousel content
             Expanded(
               child: Focus(
-                onKey: (node, event) {
-                  if (event.isKeyPressed(LogicalKeyboardKey.arrowRight)) {
+                onKeyEvent: (node, event) {
+                  if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
                     _goNext();
                     return KeyEventResult.handled;
-                  } else if (event.isKeyPressed(LogicalKeyboardKey.arrowLeft)) {
+                  } else if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
                     _goPrevious();
                     return KeyEventResult.handled;
                   }

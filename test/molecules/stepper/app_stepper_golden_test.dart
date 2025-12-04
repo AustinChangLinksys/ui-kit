@@ -1,5 +1,4 @@
 import 'package:alchemist/alchemist.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 import '../../test_utils/font_loader.dart';
@@ -127,8 +126,8 @@ void main() {
         name: 'With Descriptions',
         width: 380.0,
         height: 300.0,
-        child: AppStepper(
-          steps: const [
+        child: const AppStepper(
+          steps: [
             StepperStep(
               id: 's1',
               label: 'Step 1',
@@ -146,7 +145,7 @@ void main() {
             ),
           ],
           currentStep: 1,
-          completedSteps: const {0},
+          completedSteps: {0},
           variant: StepperVariant.vertical,
         ),
       ),
@@ -159,8 +158,8 @@ void main() {
         name: 'With Disabled Step',
         width: 400.0,
         height: 150.0,
-        child: AppStepper(
-          steps: const [
+        child: const AppStepper(
+          steps: [
             StepperStep(
               id: 's1',
               label: 'Step 1',
@@ -178,7 +177,7 @@ void main() {
             ),
           ],
           currentStep: 0,
-          completedSteps: const {},
+          completedSteps: {},
           variant: StepperVariant.horizontal,
         ),
       ),

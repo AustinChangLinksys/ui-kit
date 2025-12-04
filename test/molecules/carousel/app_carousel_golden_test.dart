@@ -42,7 +42,7 @@ void main() {
                     variant: AppTextVariant.headlineSmall,
                   ),
                   const SizedBox(height: 8),
-                  AppText(
+                  const AppText(
                     'of 5',
                     variant: AppTextVariant.bodySmall,
                   ),
@@ -102,7 +102,7 @@ void main() {
                       color: Colors.black26,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: AppText(
+                    child: const AppText(
                       'Scroll: Both Directions',
                       color: Colors.white,
                       variant: AppTextVariant.bodySmall,
@@ -164,7 +164,7 @@ void main() {
                       color: Colors.black26,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: AppText(
+                    child: const AppText(
                       'Reached End',
                       color: Colors.white,
                       variant: AppTextVariant.bodySmall,
@@ -227,7 +227,7 @@ void main() {
                       color: Colors.black26,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: AppText(
+                    child: const AppText(
                       'Infinite Loop',
                       color: Colors.white,
                       variant: AppTextVariant.bodySmall,

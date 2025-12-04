@@ -139,7 +139,7 @@ class _AppStepperState extends State<AppStepper> {
             ),
           ),
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
 
         // Step label and description
         if (currentIndex < steps.length)
@@ -271,7 +271,7 @@ class _AppStepperState extends State<AppStepper> {
               stepSize: stepSize,
             ),
           ),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
