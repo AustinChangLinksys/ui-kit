@@ -68,6 +68,7 @@ class _AppSideSheetState extends State<AppSideSheet>
     with TickerProviderStateMixin {
   late SideSheetStyle _style;
   late AnimationController _animationController;
+  bool _hasCheckedTickerMode = false;
 
   @override
   void initState() {
@@ -91,6 +92,15 @@ class _AppSideSheetState extends State<AppSideSheet>
       'Call DesignSystem.init() in MaterialApp.builder.',
     );
     _style = widget.style ?? theme!.sideSheetStyle;
+
+    // When TickerMode is disabled (e.g., in golden tests), animations won't tick.
+    // Force the animation to complete so the widget renders in its final state.
+    if (!_hasCheckedTickerMode) {
+      _hasCheckedTickerMode = true;
+      if (!TickerMode.of(context)) {
+        _animationController.value = 1.0;
+      }
+    }
   }
 
   @override
