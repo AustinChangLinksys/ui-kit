@@ -17,6 +17,7 @@ Widget buildLeftOverlaySheet(BuildContext context) {
             showGeneralDialog(
               context: context,
               barrierDismissible: true,
+              barrierLabel: 'Side Sheet',
               barrierColor: Colors.transparent,
               transitionDuration: const Duration(milliseconds: 400),
               pageBuilder: (context, anim1, anim2) {
@@ -77,6 +78,7 @@ Widget buildRightOverlaySheet(BuildContext context) {
             showGeneralDialog(
               context: context,
               barrierDismissible: true,
+              barrierLabel: 'Side Sheet',
               barrierColor: Colors.transparent,
               transitionDuration: const Duration(milliseconds: 400),
               pageBuilder: (context, anim1, anim2) {
@@ -130,6 +132,7 @@ Widget buildAppDrawer(BuildContext context) {
             showGeneralDialog(
               context: context,
               barrierDismissible: true,
+              barrierLabel: 'Side Sheet',
               barrierColor: Colors.transparent,
               transitionDuration: const Duration(milliseconds: 400),
               pageBuilder: (context, anim1, anim2) {
@@ -255,6 +258,7 @@ Widget buildDismissibleSheet(BuildContext context) {
             showGeneralDialog(
               context: context,
               barrierDismissible: true,
+              barrierLabel: 'Side Sheet',
               barrierColor: Colors.transparent,
               transitionDuration: const Duration(milliseconds: 400),
               pageBuilder: (context, anim1, anim2) {
@@ -313,6 +317,7 @@ Widget buildNonDismissibleSheet(BuildContext context) {
               context: context,
               barrierDismissible: false,
               barrierColor: Colors.transparent,
+              barrierLabel: 'Side Sheet',
               transitionDuration: const Duration(milliseconds: 400),
               pageBuilder: (context, anim1, anim2) {
                 return AppSideSheet(
