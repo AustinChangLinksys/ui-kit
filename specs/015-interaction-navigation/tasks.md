@@ -11,8 +11,17 @@
 
 ## Format: `[ID] [P?] [Story] Description`
 
+- **[ID]**: Task identifier (T001, T002, etc.)
 - **[P]**: Can run in parallel (different files, no cross-dependencies)
-- **[Story]**: User story label (US1, US2, US3, etc.)
+- **[Story]**: User story label (US1, US2, US3, etc.) - appears as `[US1]` in task title
+  - Phase 3 (T023-T033): [US1] AppExpansionPanel
+  - Phase 4 (T034-T044): [US2] AppCarousel
+  - Phase 5 (T045-T055): [US3] AppStepper
+  - Phase 6 (T056-T064): [US4] AppBottomSheet
+  - Phase 7 (T065-T074): [US5] AppDrawer/SideSheet
+  - Phase 8 (T075-T084): [US6] AppTabs
+  - Phase 9 (T085-T093): [US7] AppBreadcrumb
+  - Phase 10 (T094-T103): [US8] AppChipGroup
 - **File paths**: Relative to repository root (lib/src/, test/, widgetbook/)
 
 ---
@@ -100,43 +109,43 @@
 
 ### Component Implementation
 
-- [ ] T023 [P] Create `AppExpansionPanel` widget in `lib/src/molecules/expansion_panel/app_expansion_panel.dart`
+- [ ] T023 [P] [US1] Create `AppExpansionPanel` widget in `lib/src/molecules/expansion_panel/app_expansion_panel.dart`
   - Constructor: panels (required), initialExpandedIndices, allowMultipleOpen, onPanelToggled, style
   - State management: ValueNotifier for expanded panels set
   - AppSurface usage: One AppSurface per panel header + content area
 
-- [ ] T024 [P] Create `ExpansionItem` helper widget in `lib/src/molecules/expansion_panel/expansion_item.dart`
+- [ ] T024 [P] [US1] Create `ExpansionItem` helper widget in `lib/src/molecules/expansion_panel/expansion_item.dart`
   - Handles individual panel expand/collapse animation
   - Uses flutter_animate for smooth transitions
   - Semantics wrapper for accessibility
 
-- [ ] T025 Create `ExpansionPanelRenderer` for theme-specific rendering in `lib/src/molecules/expansion_panel/expansion_panel_renderer.dart`
+- [ ] T025 [US1] Create `ExpansionPanelRenderer` for theme-specific rendering in `lib/src/molecules/expansion_panel/expansion_panel_renderer.dart`
   - Glass theme: Deepened background on expand (recessed look via AppSurface variant)
   - Pixel theme: Pixel-perfect expand/collapse indicator animation
   - Returns themed expand icon widget
 
-- [ ] T026 Update `AppExpansionPanel` to use Renderer Pattern with `ExpansionPanelRenderer`
+- [ ] T026 [US1] Update `AppExpansionPanel` to use Renderer Pattern with `ExpansionPanelRenderer`
 
 ### Theme Integration
 
-- [ ] T027 Verify `ExpansionPanelStyle` applied in all 5 themes via theme extension lookup
+- [ ] T027 [US1] Verify `ExpansionPanelStyle` applied in all 5 themes via theme extension lookup
 
 ### Accessibility & Testing
 
-- [ ] T028 Add Semantics to `AppExpansionPanel`: label="Expansion Panel Group", button role on headers, announces expand/collapse state
-- [ ] T029 Add Semantics to each `ExpansionItem`: expandable=true, expanded=isExpanded state
-- [ ] T030 Verify touch targets ≥ 48x48dp on header areas
+- [ ] T028 [US1] Add Semantics to `AppExpansionPanel`: label="Expansion Panel Group", button role on headers, announces expand/collapse state
+- [ ] T029 [US1] Add Semantics to each `ExpansionItem`: expandable=true, expanded=isExpanded state
+- [ ] T030 [US1] Verify touch targets ≥ 48x48dp on header areas
 
 ### Widgetbook Story
 
-- [ ] T031 Create Widgetbook story in `widgetbook/lib/stories/navigation/expansion_panel_story.dart`
+- [ ] T031 [US1] Create Widgetbook story in `widgetbook/lib/stories/navigation/expansion_panel_story.dart`
   - Show single, multiple open, all closed, all open states
   - Theme switcher knobs
   - Knobs for content variations (text, icons, long content)
 
 ### Golden Tests
 
-- [ ] T032 Create golden test file `test/molecules/expansion_panel/app_expansion_panel_golden_test.dart`
+- [ ] T032 [US1] Create golden test file `test/molecules/expansion_panel/app_expansion_panel_golden_test.dart`
   - Test all 8 theme combinations (4 themes × 2 brightness): collapsed state, expanded state, multiple panels
   - Use buildThemeMatrix() factory
   - Explicit size constraints (300×400), ColoredBox background
@@ -144,7 +153,7 @@
 
 ### Unit Tests
 
-- [ ] T033 Create unit test file `test/molecules/expansion_panel/app_expansion_panel_test.dart`
+- [ ] T033 [US1] Create unit test file `test/molecules/expansion_panel/app_expansion_panel_test.dart`
   - Test expand/collapse toggle functionality
   - Test allowMultipleOpen behavior (single vs multiple)
   - Test initialExpandedIndices parameter
@@ -163,51 +172,51 @@
 
 ### Component Implementation
 
-- [ ] T034 [P] Create `AppCarousel` widget in `lib/src/molecules/carousel/app_carousel.dart`
+- [ ] T034 [P] [US2] Create `AppCarousel` widget in `lib/src/molecules/carousel/app_carousel.dart`
   - Constructor: itemCount (required), itemBuilder (required), itemHeight (required), itemWidth, padding, scrollBehavior, onIndexChanged, enableAutoPlay, autoPlayDuration, showNavigationButtons, style
   - State management: ValueNotifier for currentItemIndex, auto-play timer if enabled
   - Uses ListView.builder for lazy rendering (performance for large lists)
 
-- [ ] T035 [P] Create `CarouselNavButtons` widget in `lib/src/molecules/carousel/carousel_nav_buttons.dart`
+- [ ] T035 [P] [US2] Create `CarouselNavButtons` widget in `lib/src/molecules/carousel/carousel_nav_buttons.dart`
   - Previous/Next buttons using AppSurface with interactive=true
   - Disabled state at boundaries (unless carousel loops)
   - Semantics: "Previous item", "Next item" labels
 
-- [ ] T036 Create `CarouselRenderer` for theme-specific button rendering in `lib/src/molecules/carousel/carousel_renderer.dart`
+- [ ] T036 [US2] Create `CarouselRenderer` for theme-specific button rendering in `lib/src/molecules/carousel/carousel_renderer.dart`
   - Glass theme: Subtle button styling, smooth scroll animation
   - Brutal theme: Bold buttons, fast scroll
   - Pixel theme: Large pixelated arrow buttons (48+px), snap scroll (no smooth animation)
   - Returns themed navigation button widgets
 
-- [ ] T037 Update `AppCarousel` to use CarouselRenderer for nav buttons based on `CarouselStyle.useSnapScroll`
+- [ ] T037 [US2] Update `AppCarousel` to use CarouselRenderer for nav buttons based on `CarouselStyle.useSnapScroll`
 
 ### Theme Integration
 
-- [ ] T038 Verify `CarouselStyle` applied via theme extension with snap behavior per theme
+- [ ] T038 [US2] Verify `CarouselStyle` applied via theme extension with snap behavior per theme
 
 ### Accessibility & Testing
 
-- [ ] T039 Add Semantics to carousel: "Carousel, item {current} of {total}"
-- [ ] T040 Add Semantics to nav buttons: disabled state announced
-- [ ] T041 Keyboard support: Left/Right arrow keys navigate carousel
+- [ ] T039 [US2] Add Semantics to carousel: "Carousel, item {current} of {total}"
+- [ ] T040 [US2] Add Semantics to nav buttons: disabled state announced
+- [ ] T041 [US2] Keyboard support: Left/Right arrow keys navigate carousel
 
 ### Widgetbook Story
 
-- [ ] T042 Create Widgetbook story in `widgetbook/lib/stories/navigation/carousel_story.dart`
+- [ ] T042 [US2] Create Widgetbook story in `widgetbook/lib/stories/navigation/carousel_story.dart`
   - Show different carousel sizes
   - Theme switcher
   - Knobs for: auto-play toggle, item count, display mode variations
 
 ### Golden Tests
 
-- [ ] T043 Create golden test `test/molecules/carousel/app_carousel_golden_test.dart`
+- [ ] T043 [US2] Create golden test `test/molecules/carousel/app_carousel_golden_test.dart`
   - Test 8 theme combinations: default state, at first item, at last item, with nav buttons
   - Explicit constraints (300×200), ColoredBox background, TickerMode(enabled: false) for auto-play
   - Total: 4 scenarios × 8 combinations = 32 golden files
 
 ### Unit Tests
 
-- [ ] T044 Create unit test `test/molecules/carousel/app_carousel_test.dart`
+- [ ] T044 [US2] Create unit test `test/molecules/carousel/app_carousel_test.dart`
   - Test navigation (next/previous buttons)
   - Test boundary conditions (first/last item)
   - Test carousel looping
@@ -227,37 +236,37 @@
 
 ### Component Implementation
 
-- [ ] T045 [P] Create `AppStepper` widget in `lib/src/molecules/stepper/app_stepper.dart`
+- [ ] T045 [P] [US3] Create `AppStepper` widget in `lib/src/molecules/stepper/app_stepper.dart`
   - Constructor: steps (required), currentStep (required), completedSteps, onStepTapped, type, style
   - State management: Tracks currentStep and completedSteps
   - Renders step indicators horizontally with connectors between steps
 
-- [ ] T046 [P] Create `StepIndicator` widget in `lib/src/molecules/stepper/step_indicator.dart`
+- [ ] T046 [P] [US3] Create `StepIndicator` widget in `lib/src/molecules/stepper/step_indicator.dart`
   - Single step circle/indicator with title and optional description
   - Shows: pending (outline), active (filled), completed (checkmark or indicator)
   - Uses AppSurface for styling (SurfaceVariant.base for inactive, highlight for active)
 
-- [ ] T047 Create `StepperRenderer` for theme-specific rendering in `lib/src/molecules/stepper/stepper_renderer.dart`
+- [ ] T047 [US3] Create `StepperRenderer` for theme-specific rendering in `lib/src/molecules/stepper/stepper_renderer.dart`
   - Glass theme: Smooth connectors, glowing active step
   - Brutal theme: Bold filled circles, thick connectors
   - Pixel theme: Dashed connectors, pixel checkmark icon (✓ in pixel font or custom icon)
   - Neumorphic theme: Recessed pending, raised completed
 
-- [ ] T048 Update `AppStepper` to use StepperRenderer for connectors and completion indicators
+- [ ] T048 [US3] Update `AppStepper` to use StepperRenderer for connectors and completion indicators
 
 ### Theme Integration
 
-- [ ] T049 Verify `StepperStyle` applied with dashed/solid connector logic per theme
+- [ ] T049 [US3] Verify `StepperStyle` applied with dashed/solid connector logic per theme
 
 ### Accessibility & Testing
 
-- [ ] T050 Add Semantics to stepper: "Step indicator, step {current+1} of {total}"
-- [ ] T051 Add Semantics to each step: "Step {n}, {completed/active/pending}" + title
-- [ ] T052 Keyboard support: Tab navigates between steps in non-linear mode
+- [ ] T050 [US3] Add Semantics to stepper: "Step indicator, step {current+1} of {total}"
+- [ ] T051 [US3] Add Semantics to each step: "Step {n}, {completed/active/pending}" + title
+- [ ] T052 [US3] Keyboard support: Tab navigates between steps in non-linear mode
 
 ### Widgetbook Story
 
-- [ ] T053 Create Widgetbook story in `widgetbook/lib/stories/navigation/stepper_story.dart`
+- [ ] T053 [US3] Create Widgetbook story in `widgetbook/lib/stories/navigation/stepper_story.dart`
   - Show different step counts
   - Linear vs non-linear mode toggle
   - Theme switcher
@@ -265,14 +274,14 @@
 
 ### Golden Tests
 
-- [ ] T054 Create golden test `test/molecules/stepper/app_stepper_golden_test.dart`
+- [ ] T054 [US3] Create golden test `test/molecules/stepper/app_stepper_golden_test.dart`
   - Test 8 combinations: initial state, current step 2, all completed, mixed states
   - Explicit size (400×120), ColoredBox background
   - Total: 4+ scenarios × 8 combinations = 32+ golden files
 
 ### Unit Tests
 
-- [ ] T055 Create unit test `test/molecules/stepper/app_stepper_test.dart`
+- [ ] T055 [US3] Create unit test `test/molecules/stepper/app_stepper_test.dart`
   - Test step tapping (onStepTapped callback)
   - Test completed steps display
   - Test linear vs non-linear stepping
@@ -291,12 +300,12 @@
 
 ### Component Implementation
 
-- [ ] T056 [P] Create `AppBottomSheet` widget in `lib/src/molecules/bottom_sheet/app_bottom_sheet.dart`
+- [ ] T056 [P] [US4] Create `AppBottomSheet` widget in `lib/src/molecules/bottom_sheet/app_bottom_sheet.dart`
   - Constructor: child (required), maxHeight, minHeight, padding, onDismiss, isDismissible, enableDrag, style
   - Animation: Slides up from bottom using flutter_animate
   - Uses SingleChildScrollView for content scrolling if exceeds max height
 
-- [ ] T057 Create `BottomSheetHandle` widget in `lib/src/molecules/bottom_sheet/bottom_sheet_handle.dart`
+- [ ] T057 [US4] Create `BottomSheetHandle` widget in `lib/src/molecules/bottom_sheet/bottom_sheet_handle.dart`
   - Draggable indicator at top of sheet
   - Glass theme: Subtle line
   - Pixel theme: Thick black line (folder tab style)
@@ -304,24 +313,24 @@
 
 ### Theme Integration
 
-- [ ] T058 Verify `BottomSheetStyle` applied (overlayColor scrim, animation timing)
+- [ ] T058 [US4] Verify `BottomSheetStyle` applied (overlayColor scrim, animation timing)
 
 ### Accessibility & Testing
 
-- [ ] T059 Add Semantics: dialog role, title announcement, close button labeled
-- [ ] T060 Add Semantics to handle: "Draggable handle to dismiss"
-- [ ] T061 Keyboard support: Escape key dismisses sheet
+- [ ] T059 [US4] Add Semantics: dialog role, title announcement, close button labeled
+- [ ] T060 [US4] Add Semantics to handle: "Draggable handle to dismiss"
+- [ ] T061 [US4] Keyboard support: Escape key dismisses sheet
 
 ### Widgetbook Story
 
-- [ ] T062 Create Widgetbook story in `widgetbook/lib/stories/navigation/bottom_sheet_story.dart`
+- [ ] T062 [US4] Create Widgetbook story in `widgetbook/lib/stories/navigation/bottom_sheet_story.dart`
   - Show various content heights
   - Theme switcher
   - Knobs for max/min height
 
 ### Golden Tests
 
-- [ ] T063 Create golden test `test/molecules/bottom_sheet/app_bottom_sheet_golden_test.dart`
+- [ ] T063 [US4] Create golden test `test/molecules/bottom_sheet/app_bottom_sheet_golden_test.dart`
   - Test 8 combinations: open state (different heights), with/without handle
   - Explicit size (375×300), ColoredBox background
   - TickerMode(enabled: false) for animation
@@ -329,7 +338,7 @@
 
 ### Unit Tests
 
-- [ ] T064 Create unit test `test/molecules/bottom_sheet/app_bottom_sheet_test.dart`
+- [ ] T064 [US4] Create unit test `test/molecules/bottom_sheet/app_bottom_sheet_test.dart`
   - Test dismiss (tap outside, drag down, button click)
   - Test scroll behavior when content exceeds max height
   - Test isDismissible parameter
@@ -348,16 +357,16 @@
 
 ### Component Implementation
 
-- [ ] T065 [P] Create `AppSideSheet` widget in `lib/src/molecules/side_sheet/app_side_sheet.dart`
+- [ ] T065 [P] [US5] Create `AppSideSheet` widget in `lib/src/molecules/side_sheet/app_side_sheet.dart`
   - Constructor: child (required), width, position (left/right), isPersistent, onDismiss, isDismissible, style
   - Animation: Slides in from side using flutter_animate
   - Overlay mode: Scrim behind sheet, tappable to dismiss
   - Persistent mode: Always visible, no scrim
 
-- [ ] T066 Create `AppDrawer` as convenience wrapper in `lib/src/molecules/side_sheet/app_drawer.dart`
+- [ ] T066 [US5] Create `AppDrawer` as convenience wrapper in `lib/src/molecules/side_sheet/app_drawer.dart`
   - Subclass/wrapper of AppSideSheet with left position, overlay mode defaults
 
-- [ ] T067 Create `SideSheetRenderer` in `lib/src/molecules/side_sheet/side_sheet_renderer.dart`
+- [ ] T067 [US5] Create `SideSheetRenderer` in `lib/src/molecules/side_sheet/side_sheet_renderer.dart`
   - Glass theme: High blur (20+), rim light edges, smooth slide animation
   - Brutal theme: Dark overlay, fast snap animation
   - Pixel theme: Dithering background texture, no smooth animation (snap open)
@@ -366,24 +375,24 @@
 
 ### Theme Integration
 
-- [ ] T068 Verify `SideSheetStyle` with theme-specific blur, dithering, animation per theme
+- [ ] T068 [US5] Verify `SideSheetStyle` with theme-specific blur, dithering, animation per theme
 
 ### Accessibility & Testing
 
-- [ ] T069 Add Semantics: navigation role, "Navigation drawer" or "Side panel"
-- [ ] T070 Add Semantics to navigation items inside: links with proper labels
-- [ ] T071 Keyboard support: Escape closes drawer, Tab cycles through items
+- [ ] T069 [US5] Add Semantics: navigation role, "Navigation drawer" or "Side panel"
+- [ ] T070 [US5] Add Semantics to navigation items inside: links with proper labels
+- [ ] T071 [US5] Keyboard support: Escape closes drawer, Tab cycles through items
 
 ### Widgetbook Story
 
-- [ ] T072 Create Widgetbook story in `widgetbook/lib/stories/navigation/side_sheet_story.dart`
+- [ ] T072 [US5] Create Widgetbook story in `widgetbook/lib/stories/navigation/side_sheet_story.dart`
   - Show drawer (temporary) vs side sheet (persistent)
   - Theme switcher
   - Knobs for width, position variations
 
 ### Golden Tests
 
-- [ ] T073 Create golden test `test/molecules/side_sheet/app_side_sheet_golden_test.dart`
+- [ ] T073 [US5] Create golden test `test/molecules/side_sheet/app_side_sheet_golden_test.dart`
   - Test 8 combinations: open drawer, persistent side sheet
   - Explicit size (400×400), ColoredBox background
   - TickerMode(enabled: false)
@@ -391,7 +400,7 @@
 
 ### Unit Tests
 
-- [ ] T074 Create unit test `test/molecules/side_sheet/app_side_sheet_test.dart`
+- [ ] T074 [US5] Create unit test `test/molecules/side_sheet/app_side_sheet_test.dart`
   - Test open/close toggle
   - Test persistent vs temporary modes
   - Test dismiss (tap outside, programmatic)
@@ -410,18 +419,18 @@
 
 ### Component Implementation
 
-- [ ] T075 [P] Create `AppTabs` widget in `lib/src/molecules/tabs/app_tabs.dart`
+- [ ] T075 [P] [US6] Create `AppTabs` widget in `lib/src/molecules/tabs/app_tabs.dart`
   - Constructor: tabs (required), initialIndex, displayMode, onTabChanged, style
   - State management: ValueNotifier for selectedIndex
   - Supports: underline (default), segmented, scrollable modes
   - Shows only selected tab's content (content.isEmpty for unselected)
 
-- [ ] T076 [P] Create `TabBar` widget in `lib/src/molecules/tabs/tab_bar.dart`
+- [ ] T076 [P] [US6] Create `TabBar` widget in `lib/src/molecules/tabs/tab_bar.dart`
   - Row of tab buttons with indicator
   - Uses AppSurface for button styling
   - Indicator animation: smooth underline or background transition
 
-- [ ] T077 Create `TabRenderer` in `lib/src/molecules/tabs/tab_renderer.dart`
+- [ ] T077 [US6] Create `TabRenderer` in `lib/src/molecules/tabs/tab_renderer.dart`
   - Glass theme: Smooth indicator animation, glow on active
   - Brutal theme: Bold text on active, thick indicator
   - Pixel theme: Inverted colors (black on white, white on black) or connected block style
@@ -430,17 +439,17 @@
 
 ### Theme Integration
 
-- [ ] T078 Verify `TabsStyle` applied with indicator and text colors per theme
+- [ ] T078 [US6] Verify `TabsStyle` applied with indicator and text colors per theme
 
 ### Accessibility & Testing
 
-- [ ] T079 Add Semantics to tab bar: "Tab bar, {count} tabs"
-- [ ] T080 Add Semantics to each tab: "Tab {n} of {total}" + label, selected state
-- [ ] T081 Keyboard support: Arrow keys navigate tabs, Enter/Space selects
+- [ ] T079 [US6] Add Semantics to tab bar: "Tab bar, {count} tabs"
+- [ ] T080 [US6] Add Semantics to each tab: "Tab {n} of {total}" + label, selected state
+- [ ] T081 [US6] Keyboard support: Arrow keys navigate tabs, Enter/Space selects
 
 ### Widgetbook Story
 
-- [ ] T082 Create Widgetbook story in `widgetbook/lib/stories/navigation/tabs_story.dart`
+- [ ] T082 [US6] Create Widgetbook story in `widgetbook/lib/stories/navigation/tabs_story.dart`
   - Show different tab counts
   - Display mode variations (underline, segmented, scrollable)
   - Theme switcher
@@ -448,14 +457,14 @@
 
 ### Golden Tests
 
-- [ ] T083 Create golden test `test/molecules/tabs/app_tabs_golden_test.dart`
+- [ ] T083 [US6] Create golden test `test/molecules/tabs/app_tabs_golden_test.dart`
   - Test 8 combinations: tab 1 active, tab 2 active, scrollable tabs
   - Explicit size (300×200), ColoredBox background
   - Total: 3+ scenarios × 8 combinations = 24+ golden files
 
 ### Unit Tests
 
-- [ ] T084 Create unit test `test/molecules/tabs/app_tabs_test.dart`
+- [ ] T084 [US6] Create unit test `test/molecules/tabs/app_tabs_test.dart`
   - Test tab switching (onTabChanged callback)
   - Test initialIndex parameter
   - Test displayMode variations
@@ -474,12 +483,12 @@
 
 ### Component Implementation
 
-- [ ] T085 Create `AppBreadcrumb` widget in `lib/src/molecules/breadcrumb/app_breadcrumb.dart`
+- [ ] T085 [US7] Create `AppBreadcrumb` widget in `lib/src/molecules/breadcrumb/app_breadcrumb.dart`
   - Constructor: items (required), overflowBehavior, style
   - Layout: Row of breadcrumb items with separators
   - Overflow handling: ellipsis (hide middle items), scroll, or wrap modes
 
-- [ ] T086 Create `BreadcrumbRenderer` in `lib/src/molecules/breadcrumb/breadcrumb_renderer.dart`
+- [ ] T086 [US7] Create `BreadcrumbRenderer` in `lib/src/molecules/breadcrumb/breadcrumb_renderer.dart`
   - Glass theme: Smooth separators, glow on hover
   - Brutal theme: Bold separators
   - Pixel theme: ASCII-style separators (">", "|", etc. based on separator_text)
@@ -488,17 +497,17 @@
 
 ### Theme Integration
 
-- [ ] T087 Verify `BreadcrumbStyle` with separatorText override for Pixel theme ASCII style
+- [ ] T087 [US7] Verify `BreadcrumbStyle` with separatorText override for Pixel theme ASCII style
 
 ### Accessibility & Testing
 
-- [ ] T088 Add Semantics: navigation role, "Breadcrumb navigation"
-- [ ] T089 Add Semantics to items: links with aria-current="page" for current location
-- [ ] T090 Current location item: NOT clickable, aria-current="page" semantic
+- [ ] T088 [US7] Add Semantics: navigation role, "Breadcrumb navigation"
+- [ ] T089 [US7] Add Semantics to items: links with aria-current="page" for current location
+- [ ] T090 [US7] Current location item: NOT clickable, aria-current="page" semantic
 
 ### Widgetbook Story
 
-- [ ] T091 Create Widgetbook story in `widgetbook/lib/stories/navigation/breadcrumb_story.dart`
+- [ ] T091 [US7] Create Widgetbook story in `widgetbook/lib/stories/navigation/breadcrumb_story.dart`
   - Show various path depths
   - Overflow behavior variations
   - Theme switcher
@@ -506,14 +515,14 @@
 
 ### Golden Tests
 
-- [ ] T092 Create golden test `test/molecules/breadcrumb/app_breadcrumb_golden_test.dart`
+- [ ] T092 [US7] Create golden test `test/molecules/breadcrumb/app_breadcrumb_golden_test.dart`
   - Test 8 combinations: short path, long path (overflow), different separators
   - Explicit size (400×60), ColoredBox background
   - Total: 3+ scenarios × 8 combinations = 24+ golden files
 
 ### Unit Tests
 
-- [ ] T093 Create unit test `test/molecules/breadcrumb/app_breadcrumb_test.dart`
+- [ ] T093 [US7] Create unit test `test/molecules/breadcrumb/app_breadcrumb_test.dart`
   - Test breadcrumb item tapping (navigation)
   - Test current location item (not tappable)
   - Test overflow behavior (ellipsis, scroll, wrap)
@@ -531,17 +540,17 @@
 
 ### Component Implementation
 
-- [ ] T094 Create `AppChipGroup` widget in `lib/src/molecules/chip_group/app_chip_group.dart`
+- [ ] T094 [US8] Create `AppChipGroup` widget in `lib/src/molecules/chip_group/app_chip_group.dart`
   - Constructor: chips (required), allowMultiSelect, initialSelectedIndices, onSelectionChanged, layout, scrollDirection, style
   - State management: ValueNotifier for selectedIndices
   - Layout: Wrap (default) or scroll modes
 
-- [ ] T095 [P] Create `AppChip` widget in `lib/src/molecules/chip_group/app_chip.dart`
+- [ ] T095 [P] [US8] Create `AppChip` widget in `lib/src/molecules/chip_group/app_chip.dart`
   - Individual chip with label, optional icon
   - Uses AppSurface for styling (unselected vs selected)
   - Interactive=true on AppSurface
 
-- [ ] T096 Create `ChipRenderer` in `lib/src/molecules/chip_group/chip_renderer.dart`
+- [ ] T096 [US8] Create `ChipRenderer` in `lib/src/molecules/chip_group/chip_renderer.dart`
   - Glass theme: Selected chips show illuminated glass with subtle glow
   - Brutal theme: Bold border change on selection
   - Pixel theme: Inverted colors or bold outline
@@ -550,17 +559,17 @@
 
 ### Theme Integration
 
-- [ ] T097 Verify `ChipGroupStyle` applied with selection colors and glow per theme
+- [ ] T097 [US8] Verify `ChipGroupStyle` applied with selection colors and glow per theme
 
 ### Accessibility & Testing
 
-- [ ] T098 Add Semantics to chip group: "Filterable options, {count} choices"
-- [ ] T099 Add Semantics to each chip: "Option {label}, {selected/unselected}"
-- [ ] T100 Keyboard support: Tab to chip, Space/Enter toggles selection
+- [ ] T098 [US8] Add Semantics to chip group: "Filterable options, {count} choices"
+- [ ] T099 [US8] Add Semantics to each chip: "Option {label}, {selected/unselected}"
+- [ ] T100 [US8] Keyboard support: Tab to chip, Space/Enter toggles selection
 
 ### Widgetbook Story
 
-- [ ] T101 Create Widgetbook story in `widgetbook/lib/stories/navigation/chip_group_story.dart`
+- [ ] T101 [US8] Create Widgetbook story in `widgetbook/lib/stories/navigation/chip_group_story.dart`
   - Show single-select vs multi-select modes
   - Wrap vs scroll layout variations
   - Theme switcher
@@ -568,14 +577,14 @@
 
 ### Golden Tests
 
-- [ ] T102 Create golden test `test/molecules/chip_group/app_chip_group_golden_test.dart`
+- [ ] T102 [US8] Create golden test `test/molecules/chip_group/app_chip_group_golden_test.dart`
   - Test 8 combinations: unselected, single selected, multiple selected, many chips
   - Explicit size (350×150), ColoredBox background
   - Total: 4+ scenarios × 8 combinations = 32+ golden files
 
 ### Unit Tests
 
-- [ ] T103 Create unit test `test/molecules/chip_group/app_chip_group_test.dart`
+- [ ] T103 [US8] Create unit test `test/molecules/chip_group/app_chip_group_test.dart`
   - Test single-select mode (only one chip selected at a time)
   - Test multi-select mode
   - Test chip tapping (onSelectionChanged callback)

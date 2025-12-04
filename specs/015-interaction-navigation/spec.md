@@ -232,7 +232,7 @@ A developer building search/discovery features needs a chip component group for 
 
 ### Measurable Outcomes
 
-- **SC-001**: All 8 components render correctly across all 5 visual themes (Glass, Brutal, Flat, Neumorphic, Pixel) and both light/dark brightness modes (8 combinations per component = 64 golden test combinations)
+- **SC-001**: All 8 components render correctly across all 5 visual themes (Glass, Brutal, Flat, Neumorphic, Pixel) and both light/dark brightness modes (4 themes × 2 brightness = 8 combinations per component; multiplied by 5+ scenarios per component ≈ 240+ golden test files across all components)
 - **SC-002**: Each component has zero accessibility violations when scanned with standard a11y tools (WCAG 2.1 AA compliance minimum)
 - **SC-003**: Developers can integrate any component into an app with fewer than 5 lines of configuration code
 - **SC-004**: All components animate smoothly with 60 FPS performance on mid-range devices (Flutter benchmark target)

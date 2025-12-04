@@ -632,13 +632,117 @@ Every component:
 
 ---
 
+## Theme Spec Implementation Guide
+
+### Overview
+
+Each theme spec is implemented in the corresponding theme file (`glass_design_theme.dart`, `brutal_design_theme.dart`, etc.). The properties listed above define the **structure and interface**; the values are filled in during theme implementation.
+
+### Example: BottomSheetStyle Implementation Pattern
+
+**Task**: Define BottomSheetStyle in each of the 5 themes
+
+```dart
+// lib/src/foundation/theme/design_system/styles/glass_design_theme.dart
+BottomSheetStyle(
+  overlayColor: Colors.black.withOpacity(0.2),   // Subtle overlay for Glass
+  animationDuration: Duration(milliseconds: 400),
+  animationCurve: Curves.easeInOutCubic,         // Smooth curve for Glass
+  topBorderRadius: 16,
+  dragHandleHeight: 8,
+),
+
+// lib/src/foundation/theme/design_system/styles/brutal_design_theme.dart
+BottomSheetStyle(
+  overlayColor: Colors.black.withOpacity(0.5),   // Dark overlay for Brutal
+  animationDuration: Duration(milliseconds: 200), // Fast animation
+  animationCurve: Curves.linear,                  // Instant for Brutal
+  topBorderRadius: 0,                             // Sharp corners
+  dragHandleHeight: 12,                           // Thick handle
+),
+
+// lib/src/foundation/theme/design_system/styles/pixel_design_theme.dart
+BottomSheetStyle(
+  overlayColor: Colors.black.withOpacity(0.4),
+  animationDuration: Duration(milliseconds: 100),
+  animationCurve: Curves.linear,                  // Snap animation
+  topBorderRadius: 0,
+  dragHandleHeight: 16,                           // Extra thick "tab" handle
+),
+```
+
+### Property Implementation Checklist
+
+For each theme spec (BottomSheetStyle, SideSheetStyle, TabsStyle, etc.):
+
+1. **Color properties**: Use tokens from `AppPalette` or theme-specific colors
+   - Glass: High contrast, subtle overlays, glow effects
+   - Brutal: Dark, bold, high contrast
+   - Flat: Clean, minimal, flat colors only
+   - Neumorphic: Soft colors for shadow blending
+   - Pixel: High contrast, retro colors, clear distinctions
+
+2. **Duration properties**: Animation timings
+   - Glass: 300-500ms (smooth)
+   - Brutal: 100-200ms (fast/instant)
+   - Flat: 200-300ms (standard)
+   - Neumorphic: 250-400ms (gentle)
+   - Pixel: 100ms (snap/instant)
+
+3. **Curve properties**: Animation behavior
+   - Glass: `Curves.easeInOutCubic` (smooth)
+   - Brutal: `Curves.linear` or `Curves.easeInOut` (fast)
+   - Flat: `Curves.easeInOut` (standard)
+   - Neumorphic: `Curves.easeInOutQuad` (gentle)
+   - Pixel: `Curves.linear` (no easing)
+
+4. **Dimension properties**: Sizes
+   - Glass: Refined, elegant (e.g., 8px handles, 16px radius)
+   - Brutal: Bold, thick (e.g., 12px handles, 2px borders)
+   - Flat: Minimal, clean (e.g., 6px handles, 12px radius)
+   - Neumorphic: Subtle, soft (e.g., 8px handles, 20px radius)
+   - Pixel: Discrete, multiples of 4 or 8 (e.g., 16px handles, 4px radius)
+
+5. **Boolean/Enum properties**: Feature toggles
+   - `useSnapScroll`: true for Pixel, false for others
+   - `useDashedConnector`: true for Pixel, false for others
+   - `useAsciiSeparators`: true for Pixel, false for others
+   - `enableDithering`: true for Pixel (SideSheet), false for others
+
+### Per-Theme Guidance
+
+| Property | Glass | Brutal | Flat | Neumorphic | Pixel |
+|----------|-------|--------|------|------------|-------|
+| **Overlay Color** | 0.1-0.2 opacity | 0.4-0.5 opacity | 0.15 opacity | 0.2 opacity | 0.3 opacity |
+| **Animation Duration** | 300-500ms | 100-200ms | 200-300ms | 250-400ms | 100ms |
+| **Animation Curve** | easeInOutCubic | linear | easeInOut | easeInOutQuad | linear |
+| **Border Radius** | 12-20px | 0-4px | 8-16px | 16-24px | 0-4px (multiples of 4) |
+| **Text Weight** | 500 | 700+ | 400 | 500 | 700 |
+
+### Implementation Workflow
+
+1. **Task Phase 2** (T008-T015): Create spec files with @TailorMixin() annotation and property definitions
+2. **Task Phase 2** (T017-T021): Implement each spec in the 5 theme files with concrete values
+3. **Task Phase 2** (T022): Run `dart run build_runner build` to generate `copyWith()` and `lerp()` methods
+4. **During Component Implementation**: Use theme.componentStyle to access the values
+
+### Testing Theme Implementations
+
+Each theme spec is verified during golden tests:
+- T032, T043, T054, T063, T073, T083, T092, T102: Golden test files automatically render all 8 combinations (4 themes × 2 brightness)
+- Visual verification: All themes should look visually distinct (no two themes look identical)
+- Consistency: Behavior within a theme is consistent (Pixel = snap across all components, Glass = smooth across all components)
+
+---
+
 ## Summary
 
 The data model defines:
 - ✓ 8 component state models
-- ✓ 8 theme spec definitions
+- ✓ 8 theme spec definitions with property structures
 - ✓ Component API signatures (all follow Dart conventions)
 - ✓ Validation rules for all inputs
 - ✓ Accessibility and theming requirements
+- ✓ Theme implementation guidance for all 5 visual languages
 
-All models are immutable, testable, and follow Flutter best practices. Ready for implementation phase.
+All models are immutable, testable, and follow Flutter best practices. Ready for implementation phase. Theme implementations are discovered and filled in during Phase 2 task execution (T017-T021).

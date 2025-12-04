@@ -154,7 +154,7 @@ lib/src/
 │       ├── app_chip.dart
 │       └── chip_renderer.dart
 │
-└── widgetbook/lib/stories/
+└── widgetbook/lib/stories/navigation/
     ├── bottom_sheet_story.dart (NEW)
     ├── side_sheet_story.dart (NEW)
     ├── tabs_story.dart (NEW)
