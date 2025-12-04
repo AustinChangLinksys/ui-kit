@@ -82,31 +82,21 @@ class _AppSideSheetState extends State<AppSideSheet>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    // Constitution 4.1: AppDesignTheme is single source of truth for all styling
+    // All colors/animations come from theme, never hardcoded
     final theme = Theme.of(context).extension<AppDesignTheme>();
-    _style = widget.style ?? theme?.sideSheetStyle ?? _defaultStyle();
+    assert(
+      theme != null,
+      'AppSideSheet requires DesignSystem initialization. '
+      'Call DesignSystem.init() in MaterialApp.builder.',
+    );
+    _style = widget.style ?? theme!.sideSheetStyle;
   }
 
   @override
   void dispose() {
     _animationController.dispose();
     super.dispose();
-  }
-
-  SideSheetStyle _defaultStyle() {
-    // Adaptive overlay color based on current theme brightness
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    final overlayColor = isDarkMode
-        ? const Color(0xCC000000)  // More opaque for dark theme (80% opacity)
-        : const Color(0x80000000); // Standard for light theme (50% opacity)
-
-    return SideSheetStyle(
-      width: 280,
-      overlayColor: overlayColor,
-      animationDuration: const Duration(milliseconds: 400),
-      animationCurve: Curves.easeOutCubic,
-      blurStrength: 0,
-      enableDithering: false,
-    );
   }
 
   void _handleDismiss() {
