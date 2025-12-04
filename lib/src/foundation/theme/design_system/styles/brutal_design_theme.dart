@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/app_bar_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/dialog_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/interaction_spec.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/app_menu_style.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
 class BrutalDesignTheme extends AppDesignTheme {
@@ -23,6 +26,9 @@ class BrutalDesignTheme extends AppDesignTheme {
     required super.dividerStyle,
     required super.networkInputStyle,
     required super.layoutSpec,
+    required super.appBarStyle,
+    required super.menuStyle,
+    required super.dialogStyle,
   });
 
   factory BrutalDesignTheme.light([ColorScheme? scheme]) {
@@ -236,6 +242,81 @@ class BrutalDesignTheme extends AppDesignTheme {
         gutterTablet: 32.0,
         gutterDesktop: 40.0,
       ),
+
+      // Phase 2: Graceful defaults (Brutal Light)
+      appBarStyle: AppBarStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: scheme.surface,
+          borderColor: scheme.onSurface,
+          borderWidth: 3.0,
+          borderRadius: 0.0,
+          shadows: const [],
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        dividerStyle: DividerStyle(
+          color: scheme.onSurface,
+          thickness: 3.0,
+          pattern: DividerPattern.solid,
+        ),
+      ),
+      menuStyle: AppMenuStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: scheme.surface,
+          borderColor: scheme.onSurface,
+          borderWidth: 3.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(
+              color: scheme.onSurface,
+              blurRadius: 0,
+              offset: const Offset(4, 4),
+            ),
+          ],
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        itemStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.transparent,
+          borderRadius: 0.0,
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        itemHoverStyle: SurfaceStyle(
+          backgroundColor: scheme.onSurface,
+          borderColor: Colors.transparent,
+          borderRadius: 0.0,
+          blurStrength: 0.0,
+          contentColor: scheme.surface,
+        ),
+        destructiveItemStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.transparent,
+          borderRadius: 0.0,
+          blurStrength: 0.0,
+          contentColor: scheme.error,
+        ),
+      ),
+      dialogStyle: DialogStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: scheme.surface,
+          borderColor: scheme.onSurface,
+          borderWidth: 3.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(
+              color: scheme.onSurface,
+              blurRadius: 0,
+              offset: const Offset(6, 6),
+            ),
+          ],
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        barrierColor: Colors.black.withValues(alpha: 0.5),
+        barrierBlur: 0.0,
+      ),
     );
   }
 
@@ -447,6 +528,81 @@ class BrutalDesignTheme extends AppDesignTheme {
         gutterMobile: 24.0,
         gutterTablet: 32.0,
         gutterDesktop: 40.0,
+      ),
+
+      // Phase 2: Graceful defaults (Brutal Dark)
+      appBarStyle: AppBarStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: scheme.surface,
+          borderColor: black,
+          borderWidth: 3.0,
+          borderRadius: 0.0,
+          shadows: const [],
+          blurStrength: 0.0,
+          contentColor: black,
+        ),
+        dividerStyle: DividerStyle(
+          color: black,
+          thickness: 3.0,
+          pattern: DividerPattern.solid,
+        ),
+      ),
+      menuStyle: AppMenuStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: scheme.surface,
+          borderColor: black,
+          borderWidth: 3.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(
+              color: black,
+              blurRadius: 0,
+              offset: const Offset(4, 4),
+            ),
+          ],
+          blurStrength: 0.0,
+          contentColor: black,
+        ),
+        itemStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.transparent,
+          borderRadius: 0.0,
+          blurStrength: 0.0,
+          contentColor: black,
+        ),
+        itemHoverStyle: SurfaceStyle(
+          backgroundColor: black,
+          borderColor: Colors.transparent,
+          borderRadius: 0.0,
+          blurStrength: 0.0,
+          contentColor: scheme.surface,
+        ),
+        destructiveItemStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.transparent,
+          borderRadius: 0.0,
+          blurStrength: 0.0,
+          contentColor: scheme.error,
+        ),
+      ),
+      dialogStyle: DialogStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: scheme.surface,
+          borderColor: black,
+          borderWidth: 3.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(
+              color: black,
+              blurRadius: 0,
+              offset: const Offset(6, 6),
+            ),
+          ],
+          blurStrength: 0.0,
+          contentColor: black,
+        ),
+        barrierColor: Colors.black.withValues(alpha: 0.6),
+        barrierBlur: 0.0,
       ),
     );
   }

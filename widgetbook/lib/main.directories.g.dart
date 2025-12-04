@@ -59,12 +59,18 @@ import 'package:widgetbook_workspace/stories/molecules/inputs/network_inputs_sto
     as _widgetbook_workspace_stories_molecules_inputs_network_inputs_stories;
 import 'package:widgetbook_workspace/stories/molecules/layout/app_list_tile.stories.dart'
     as _widgetbook_workspace_stories_molecules_layout_app_list_tile_stories;
+import 'package:widgetbook_workspace/stories/molecules/menu/app_popup_menu.stories.dart'
+    as _widgetbook_workspace_stories_molecules_menu_app_popup_menu_stories;
 import 'package:widgetbook_workspace/stories/molecules/toggles/app_switch.stories.dart'
     as _widgetbook_workspace_stories_molecules_toggles_app_switch_stories;
 import 'package:widgetbook_workspace/stories/navigation/app_navigation_bar.story.dart'
     as _widgetbook_workspace_stories_navigation_app_navigation_bar_story;
 import 'package:widgetbook_workspace/stories/navigation/app_navigation_rail.stories.dart'
     as _widgetbook_workspace_stories_navigation_app_navigation_rail_stories;
+import 'package:widgetbook_workspace/stories/organisms/app_unified_bar.stories.dart'
+    as _widgetbook_workspace_stories_organisms_app_unified_bar_stories;
+import 'package:widgetbook_workspace/stories/organisms/app_unified_sliver_bar.stories.dart'
+    as _widgetbook_workspace_stories_organisms_app_unified_sliver_bar_stories;
 import 'package:widgetbook_workspace/stories/status/app_avatar.stories.dart'
     as _widgetbook_workspace_stories_status_app_avatar_stories;
 import 'package:widgetbook_workspace/stories/status/app_badge.stories.dart'
@@ -400,10 +406,22 @@ final directories = <_widgetbook.WidgetbookNode>[
             name: 'AppDialog',
             useCases: [
               _widgetbook.WidgetbookUseCase(
+                name: 'Confirm Dialog Helper',
+                builder:
+                    _widgetbook_workspace_stories_molecules_dialogs_app_dialog_stories
+                        .buildConfirmDialogHelper,
+              ),
+              _widgetbook.WidgetbookUseCase(
                 name: 'Dialog Demo (Popup)',
                 builder:
                     _widgetbook_workspace_stories_molecules_dialogs_app_dialog_stories
                         .buildAppDialogPopup,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Dialog with Icon',
+                builder:
+                    _widgetbook_workspace_stories_molecules_dialogs_app_dialog_stories
+                        .buildAppDialogWithIcon,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Standard Dialog',
@@ -526,6 +544,86 @@ final directories = <_widgetbook.WidgetbookNode>[
               )
             ],
           )
+        ],
+      ),
+      _widgetbook.WidgetbookFolder(
+        name: 'menu',
+        children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'AppPopupMenu',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Context Menu Demo',
+                builder:
+                    _widgetbook_workspace_stories_molecules_menu_app_popup_menu_stories
+                        .buildContextMenuDemo,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Custom Child Trigger',
+                builder:
+                    _widgetbook_workspace_stories_molecules_menu_app_popup_menu_stories
+                        .buildAppPopupMenuCustomChild,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Custom Icon Trigger',
+                builder:
+                    _widgetbook_workspace_stories_molecules_menu_app_popup_menu_stories
+                        .buildAppPopupMenuCustomIcon,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Default Menu',
+                builder:
+                    _widgetbook_workspace_stories_molecules_menu_app_popup_menu_stories
+                        .buildAppPopupMenuDefault,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'In AppBar Context',
+                builder:
+                    _widgetbook_workspace_stories_molecules_menu_app_popup_menu_stories
+                        .buildAppPopupMenuInAppBar,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Interactive Multi-Level Menu',
+                builder:
+                    _widgetbook_workspace_stories_molecules_menu_app_popup_menu_stories
+                        .buildInteractiveMultiLevelMenu,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With Disabled Items',
+                builder:
+                    _widgetbook_workspace_stories_molecules_menu_app_popup_menu_stories
+                        .buildAppPopupMenuWithDisabled,
+              ),
+            ],
+          ),
+          _widgetbook.WidgetbookComponent(
+            name: 'AppPopupMenuPreview',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Menu Preview (Static)',
+                builder:
+                    _widgetbook_workspace_stories_molecules_menu_app_popup_menu_stories
+                        .buildAppPopupMenuPreview,
+              )
+            ],
+          ),
+          _widgetbook.WidgetbookComponent(
+            name: 'CascadingMenuPreview',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Cascading with Destructive',
+                builder:
+                    _widgetbook_workspace_stories_molecules_menu_app_popup_menu_stories
+                        .buildCascadingMenuDestructive,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Three-Level Cascading Menu',
+                builder:
+                    _widgetbook_workspace_stories_molecules_menu_app_popup_menu_stories
+                        .buildCascadingMenuPreview,
+              ),
+            ],
+          ),
         ],
       ),
       _widgetbook.WidgetbookFolder(
@@ -683,6 +781,116 @@ final directories = <_widgetbook.WidgetbookNode>[
           )
         ],
       ),
+    ],
+  ),
+  _widgetbook.WidgetbookFolder(
+    name: 'organisms',
+    children: [
+      _widgetbook.WidgetbookFolder(
+        name: 'app_bar',
+        children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'AppUnifiedBar',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Custom Title Widget',
+                builder:
+                    _widgetbook_workspace_stories_organisms_app_unified_bar_stories
+                        .buildAppUnifiedBarCustomTitle,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Default AppBar',
+                builder:
+                    _widgetbook_workspace_stories_organisms_app_unified_bar_stories
+                        .buildAppUnifiedBarDefault,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Detailed Page (Back + Actions)',
+                builder:
+                    _widgetbook_workspace_stories_organisms_app_unified_bar_stories
+                        .buildAppUnifiedBarDetailPage,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Left Aligned Title',
+                builder:
+                    _widgetbook_workspace_stories_organisms_app_unified_bar_stories
+                        .buildAppUnifiedBarLeftAligned,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Multiple Action Groups',
+                builder:
+                    _widgetbook_workspace_stories_organisms_app_unified_bar_stories
+                        .buildAppUnifiedBarMultipleActions,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Transparent / Overlay Style',
+                builder:
+                    _widgetbook_workspace_stories_organisms_app_unified_bar_stories
+                        .buildAppUnifiedBarTransparent,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With Action Badges',
+                builder:
+                    _widgetbook_workspace_stories_organisms_app_unified_bar_stories
+                        .buildAppUnifiedBarWithBadges,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With Bottom (TabBar)',
+                builder:
+                    _widgetbook_workspace_stories_organisms_app_unified_bar_stories
+                        .buildAppUnifiedBarWithBottom,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With Drawer Menu',
+                builder:
+                    _widgetbook_workspace_stories_organisms_app_unified_bar_stories
+                        .buildAppUnifiedBarWithDrawer,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With Leading',
+                builder:
+                    _widgetbook_workspace_stories_organisms_app_unified_bar_stories
+                        .buildAppUnifiedBarWithLeading,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With Search Field',
+                builder:
+                    _widgetbook_workspace_stories_organisms_app_unified_bar_stories
+                        .buildAppUnifiedBarWithSearch,
+              ),
+            ],
+          ),
+          _widgetbook.WidgetbookComponent(
+            name: 'AppUnifiedSliverBar',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Collapsed (No Flexible Space)',
+                builder:
+                    _widgetbook_workspace_stories_organisms_app_unified_sliver_bar_stories
+                        .buildAppUnifiedSliverBarCollapsed,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Expanded with Image',
+                builder:
+                    _widgetbook_workspace_stories_organisms_app_unified_sliver_bar_stories
+                        .buildAppUnifiedSliverBarExpanded,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Floating with Snap',
+                builder:
+                    _widgetbook_workspace_stories_organisms_app_unified_sliver_bar_stories
+                        .buildAppUnifiedSliverBarFloating,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With Custom Title Widget',
+                builder:
+                    _widgetbook_workspace_stories_organisms_app_unified_sliver_bar_stories
+                        .buildAppUnifiedSliverBarCustomTitle,
+              ),
+            ],
+          ),
+        ],
+      )
     ],
   ),
 ];

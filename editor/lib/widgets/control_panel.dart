@@ -12,6 +12,9 @@ import 'spec_editors/navigation_spec_editor.dart';
 import 'spec_editors/skeleton_spec_editor.dart';
 import 'spec_editors/toast_spec_editor.dart';
 import 'spec_editors/divider_spec_editor.dart';
+import 'spec_editors/app_bar_spec_editor.dart';
+import 'spec_editors/menu_spec_editor.dart';
+import 'spec_editors/dialog_spec_editor.dart';
 import 'export_dialog.dart';
 import 'reset_confirmation_dialog.dart';
 
@@ -32,7 +35,7 @@ class ControlPanel extends StatelessWidget {
     return Consumer<ThemeEditorController>(
       builder: (context, themeController, _) {
         return DefaultTabController(
-          length: 5,
+          length: 6,
           child: Column(
             children: [
               // 1. Header (Title + Toolbar)
@@ -151,6 +154,7 @@ class ControlPanel extends StatelessWidget {
                   Tab(text: 'Inputs'),
                   Tab(text: 'Feedback'),
                   Tab(text: 'Layout'),
+                  Tab(text: 'Components'),
                 ],
               ),
 
@@ -343,6 +347,39 @@ class ControlPanel extends StatelessWidget {
                               themeController.currentTheme.dividerStyle,
                           onChanged: (style) =>
                               themeController.updateDividerStyle(style),
+                        ),
+                      ],
+                    ),
+
+                    // Tab 6: Components
+                    ListView(
+                      padding: const EdgeInsets.all(16),
+                      children: [
+                        _SectionHeader(title: 'App Bar'),
+                        const Gap(12),
+                        AppBarSpecEditor(
+                          initialStyle:
+                              themeController.currentTheme.appBarStyle,
+                          onChanged: (style) =>
+                              themeController.updateAppBarStyle(style),
+                        ),
+                        const Gap(24),
+                        _SectionHeader(title: 'Popup Menu'),
+                        const Gap(12),
+                        MenuSpecEditor(
+                          initialStyle:
+                              themeController.currentTheme.menuStyle,
+                          onChanged: (style) =>
+                              themeController.updateMenuStyle(style),
+                        ),
+                        const Gap(24),
+                        _SectionHeader(title: 'Dialog'),
+                        const Gap(12),
+                        DialogSpecEditor(
+                          initialStyle:
+                              themeController.currentTheme.dialogStyle,
+                          onChanged: (style) =>
+                              themeController.updateDialogStyle(style),
                         ),
                       ],
                     ),

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/app_bar_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/dialog_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/interaction_spec.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/app_menu_style.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
 class NeumorphicDesignTheme extends AppDesignTheme {
@@ -22,6 +25,9 @@ class NeumorphicDesignTheme extends AppDesignTheme {
     required super.dividerStyle,
     required super.networkInputStyle,
     required super.layoutSpec,
+    required super.appBarStyle,
+    required super.menuStyle,
+    required super.dialogStyle,
   });
 
   // Default to Light, providing a default ColorScheme
@@ -268,6 +274,78 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         gutterMobile: 24.0,
         gutterTablet: 32.0,
         gutterDesktop: 40.0,
+      ),
+
+      // Phase 2: Graceful defaults (Neumorphic style)
+      appBarStyle: AppBarStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: lightBaseColor,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(color: lightShadow, offset: const Offset(-3, -3), blurRadius: 6),
+            BoxShadow(color: darkShadow, offset: const Offset(3, 3), blurRadius: 6),
+          ],
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        dividerStyle: DividerStyle(
+          color: scheme.outlineVariant,
+          thickness: 1.0,
+          pattern: DividerPattern.solid,
+        ),
+      ),
+      menuStyle: AppMenuStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: lightBaseColor,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 16.0,
+          shadows: [
+            BoxShadow(color: lightShadow, offset: const Offset(-4, -4), blurRadius: 8),
+            BoxShadow(color: darkShadow, offset: const Offset(4, 4), blurRadius: 8),
+          ],
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        itemStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.transparent,
+          borderRadius: 12.0,
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        itemHoverStyle: SurfaceStyle(
+          backgroundColor: scheme.surfaceContainerHighest,
+          borderColor: Colors.transparent,
+          borderRadius: 12.0,
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        destructiveItemStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.transparent,
+          borderRadius: 12.0,
+          blurStrength: 0.0,
+          contentColor: scheme.error,
+        ),
+      ),
+      dialogStyle: DialogStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: lightBaseColor,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 24.0,
+          shadows: [
+            BoxShadow(color: lightShadow, offset: const Offset(-6, -6), blurRadius: 12),
+            BoxShadow(color: darkShadow, offset: const Offset(6, 6), blurRadius: 12),
+          ],
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        barrierColor: Colors.black.withValues(alpha: 0.4),
+        barrierBlur: 0.0,
       ),
     );
   }
@@ -518,6 +596,78 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         gutterMobile: 24.0,
         gutterTablet: 32.0,
         gutterDesktop: 40.0,
+      ),
+
+      // Phase 2: Graceful defaults (Neumorphic Dark)
+      appBarStyle: AppBarStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: darkBaseColor,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(color: darkLightShadow, offset: const Offset(-3, -3), blurRadius: 6),
+            BoxShadow(color: darkDarkShadow, offset: const Offset(3, 3), blurRadius: 6),
+          ],
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        dividerStyle: DividerStyle(
+          color: scheme.outlineVariant,
+          thickness: 1.0,
+          pattern: DividerPattern.solid,
+        ),
+      ),
+      menuStyle: AppMenuStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: darkBaseColor,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 16.0,
+          shadows: [
+            BoxShadow(color: darkLightShadow, offset: const Offset(-4, -4), blurRadius: 8),
+            BoxShadow(color: darkDarkShadow, offset: const Offset(4, 4), blurRadius: 8),
+          ],
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        itemStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.transparent,
+          borderRadius: 12.0,
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        itemHoverStyle: SurfaceStyle(
+          backgroundColor: scheme.surfaceContainerHighest,
+          borderColor: Colors.transparent,
+          borderRadius: 12.0,
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        destructiveItemStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.transparent,
+          borderRadius: 12.0,
+          blurStrength: 0.0,
+          contentColor: scheme.error,
+        ),
+      ),
+      dialogStyle: DialogStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: darkBaseColor,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 24.0,
+          shadows: [
+            BoxShadow(color: darkLightShadow, offset: const Offset(-6, -6), blurRadius: 12),
+            BoxShadow(color: darkDarkShadow, offset: const Offset(6, 6), blurRadius: 12),
+          ],
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        barrierColor: Colors.black.withValues(alpha: 0.5),
+        barrierBlur: 0.0,
       ),
     );
   }

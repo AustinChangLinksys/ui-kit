@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/app_bar_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/dialog_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/interaction_spec.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/app_menu_style.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
 class FlatDesignTheme extends AppDesignTheme {
@@ -22,6 +25,9 @@ class FlatDesignTheme extends AppDesignTheme {
     required super.dividerStyle,
     required super.networkInputStyle,
     required super.layoutSpec,
+    required super.appBarStyle,
+    required super.menuStyle,
+    required super.dialogStyle,
   });
 
   factory FlatDesignTheme.light([ColorScheme? scheme]) {
@@ -246,6 +252,92 @@ class FlatDesignTheme extends AppDesignTheme {
         gutterTablet: 24.0,
         gutterDesktop: 24.0,
       ),
+
+      // Phase 2: AppBar, Menu, Dialog styles
+      appBarStyle: AppBarStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: scheme.surface,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 0.0,
+          shadows: const [],
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        dividerStyle: DividerStyle(
+          color: scheme.outlineVariant,
+          thickness: 1.0,
+          pattern: DividerPattern.solid,
+        ),
+        height: 56.0,
+        collapsedHeight: 56.0,
+        expandedHeight: 200.0,
+        flexibleSpaceBlur: 0.0,
+      ),
+      menuStyle: AppMenuStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: scheme.surfaceContainerLow,
+          borderColor: scheme.outlineVariant,
+          borderWidth: 1.0,
+          borderRadius: 8.0,
+          shadows: [
+            BoxShadow(
+              color: scheme.shadow.withValues(alpha: 0.1),
+              blurRadius: 8,
+              offset: const Offset(0, 4),
+            ),
+          ],
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        itemStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 4.0,
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        itemHoverStyle: SurfaceStyle(
+          backgroundColor: scheme.surfaceContainerHighest,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 4.0,
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        destructiveItemStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 4.0,
+          blurStrength: 0.0,
+          contentColor: scheme.error,
+        ),
+      ),
+      dialogStyle: DialogStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: scheme.surfaceContainerLow,
+          borderColor: scheme.outlineVariant,
+          borderWidth: 1.0,
+          borderRadius: 16.0,
+          shadows: [
+            BoxShadow(
+              color: scheme.shadow.withValues(alpha: 0.15),
+              blurRadius: 16,
+              offset: const Offset(0, 8),
+            ),
+          ],
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        barrierColor: Colors.black.withValues(alpha: 0.5),
+        barrierBlur: 0.0,
+        maxWidth: 400.0,
+        padding: const EdgeInsets.all(24.0),
+        buttonSpacing: 8.0,
+        buttonAlignment: MainAxisAlignment.end,
+      ),
     );
   }
 
@@ -454,6 +546,92 @@ class FlatDesignTheme extends AppDesignTheme {
         gutterMobile: 16.0,
         gutterTablet: 24.0,
         gutterDesktop: 24.0,
+      ),
+
+      // Phase 2: AppBar, Menu, Dialog styles (Dark)
+      appBarStyle: AppBarStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: scheme.surface,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 0.0,
+          shadows: const [],
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        dividerStyle: DividerStyle(
+          color: scheme.outlineVariant,
+          thickness: 1.0,
+          pattern: DividerPattern.solid,
+        ),
+        height: 56.0,
+        collapsedHeight: 56.0,
+        expandedHeight: 200.0,
+        flexibleSpaceBlur: 0.0,
+      ),
+      menuStyle: AppMenuStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: scheme.surfaceContainerLow,
+          borderColor: scheme.outlineVariant,
+          borderWidth: 1.0,
+          borderRadius: 8.0,
+          shadows: [
+            BoxShadow(
+              color: scheme.shadow.withValues(alpha: 0.2),
+              blurRadius: 8,
+              offset: const Offset(0, 4),
+            ),
+          ],
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        itemStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 4.0,
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        itemHoverStyle: SurfaceStyle(
+          backgroundColor: scheme.surfaceContainerHighest,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 4.0,
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        destructiveItemStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 4.0,
+          blurStrength: 0.0,
+          contentColor: scheme.error,
+        ),
+      ),
+      dialogStyle: DialogStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: scheme.surfaceContainerLow,
+          borderColor: scheme.outlineVariant,
+          borderWidth: 1.0,
+          borderRadius: 16.0,
+          shadows: [
+            BoxShadow(
+              color: scheme.shadow.withValues(alpha: 0.3),
+              blurRadius: 16,
+              offset: const Offset(0, 8),
+            ),
+          ],
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        barrierColor: Colors.black.withValues(alpha: 0.6),
+        barrierBlur: 0.0,
+        maxWidth: 400.0,
+        padding: const EdgeInsets.all(24.0),
+        buttonSpacing: 8.0,
+        buttonAlignment: MainAxisAlignment.end,
       ),
     );
   }

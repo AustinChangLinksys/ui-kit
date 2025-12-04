@@ -28,6 +28,9 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
   LayoutSpec get layoutSpec;
   double get buttonHeight;
   NavigationStyle get navigationStyle;
+  AppBarStyle get appBarStyle;
+  AppMenuStyle get menuStyle;
+  DialogStyle get dialogStyle;
 
   @override
   AppDesignTheme copyWith({
@@ -49,6 +52,9 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
     LayoutSpec? layoutSpec,
     double? buttonHeight,
     NavigationStyle? navigationStyle,
+    AppBarStyle? appBarStyle,
+    AppMenuStyle? menuStyle,
+    DialogStyle? dialogStyle,
   }) {
     return AppDesignTheme(
       toggleStyle: toggleStyle ?? this.toggleStyle,
@@ -69,6 +75,9 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       layoutSpec: layoutSpec ?? this.layoutSpec,
       buttonHeight: buttonHeight ?? this.buttonHeight,
       navigationStyle: navigationStyle ?? this.navigationStyle,
+      appBarStyle: appBarStyle ?? this.appBarStyle,
+      menuStyle: menuStyle ?? this.menuStyle,
+      dialogStyle: dialogStyle ?? this.dialogStyle,
     );
   }
 
@@ -95,6 +104,9 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       layoutSpec: t < 0.5 ? layoutSpec : other.layoutSpec,
       buttonHeight: t < 0.5 ? buttonHeight : other.buttonHeight,
       navigationStyle: t < 0.5 ? navigationStyle : other.navigationStyle,
+      appBarStyle: t < 0.5 ? appBarStyle : other.appBarStyle,
+      menuStyle: t < 0.5 ? menuStyle : other.menuStyle,
+      dialogStyle: t < 0.5 ? dialogStyle : other.dialogStyle,
     );
   }
 
@@ -137,12 +149,17 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
             const DeepCollectionEquality()
                 .equals(buttonHeight, other.buttonHeight) &&
             const DeepCollectionEquality()
-                .equals(navigationStyle, other.navigationStyle));
+                .equals(navigationStyle, other.navigationStyle) &&
+            const DeepCollectionEquality()
+                .equals(appBarStyle, other.appBarStyle) &&
+            const DeepCollectionEquality().equals(menuStyle, other.menuStyle) &&
+            const DeepCollectionEquality()
+                .equals(dialogStyle, other.dialogStyle));
   }
 
   @override
   int get hashCode {
-    return Object.hash(
+    return Object.hashAll([
       runtimeType.hashCode,
       const DeepCollectionEquality().hash(toggleStyle),
       const DeepCollectionEquality().hash(skeletonStyle),
@@ -162,7 +179,10 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       const DeepCollectionEquality().hash(layoutSpec),
       const DeepCollectionEquality().hash(buttonHeight),
       const DeepCollectionEquality().hash(navigationStyle),
-    );
+      const DeepCollectionEquality().hash(appBarStyle),
+      const DeepCollectionEquality().hash(menuStyle),
+      const DeepCollectionEquality().hash(dialogStyle),
+    ]);
   }
 }
 
@@ -187,4 +207,7 @@ extension AppDesignThemeBuildContextProps on BuildContext {
   LayoutSpec get layoutSpec => appDesignTheme.layoutSpec;
   double get buttonHeight => appDesignTheme.buttonHeight;
   NavigationStyle get navigationStyle => appDesignTheme.navigationStyle;
+  AppBarStyle get appBarStyle => appDesignTheme.appBarStyle;
+  AppMenuStyle get menuStyle => appDesignTheme.menuStyle;
+  DialogStyle get dialogStyle => appDesignTheme.dialogStyle;
 }
