@@ -2,7 +2,12 @@
 
 A high-cohesion, theme-driven UI component library for the USP Client POC project. This package implements the **Unified Design System (v2.0)**, following **Atomic Design** principles to provide a robust, scalable, and maintainable set of widgets.
 
-It features a **Data-Driven Strategy (DDS)** that allows runtime switching between distinct visual languages (Glassmorphism, Neo-Brutalism, Flat, Neumorphic) without changing business logic.
+It features a **Data-Driven Strategy (DDS)** that allows runtime switching between distinct visual languages (Glassmorphism, Neo-Brutalism, Flat, Neumorphic, Pixel) without changing business logic.
+
+## 🔗 Live Demos
+
+- **[Storybook (Widgetbook)](https://austinchanglinksys.github.io/ui-kit/)** - Interactive component catalog
+- **[Live Theme Editor](https://austinchanglinksys.github.io/ui-kit/editor/)** - Real-time theme customization tool
 
 ## 🏗 Architecture
 
@@ -19,10 +24,10 @@ This project is structured using **Atomic Design** with strict architectural bou
 
 ## 🌟 Key Features (v2.0)
 
-* **Multi-Paradigm Support**: Seamlessly switch between **Glass** (Liquid), **Brutal** (Mechanical), **Flat** (Standard), and **Neumorphic** (Tactile) themes.
+* **Multi-Paradigm Support**: Seamlessly switch between **Glass** (Liquid), **Brutal** (Mechanical), **Flat** (Standard), **Neumorphic** (Tactile), and **Pixel** (Retro) themes.
 * **Physics-Based Interaction**: Components inherit physical behaviors (Scale, Glow, Offset) from the active theme via `InteractionSpec`.
 * **Smart Layouts**: Spacing and margins automatically adapt to the theme's density using `spacingFactor`.
-* **Safe Mode Testing**: Automated Golden Tests covering the full 8-style matrix (4 themes × Light/Dark).
+* **Safe Mode Testing**: Automated Golden Tests covering the full 10-style matrix (5 themes × Light/Dark).
 
 ## 🚀 Getting Started
 
@@ -180,6 +185,13 @@ Below is the summary of components available in our system:
 
   - **AppNavigationBar**: Bottom navigation bar showcasing the layout difference between Glass (Floating) and Brutal (Fixed).
   - **AppNavigationRail**: Vertical side navigation for desktop/tablet layouts.
+
+### Organisms (Complex Components)
+
+  - **AppUnifiedBar**: Theme-aware standard AppBar implementing `PreferredSizeWidget`. Supports title, actions, leading widget, and bottom tabs with style-aware dividers.
+  - **AppUnifiedSliverBar**: Collapsible sliver AppBar with pinned/floating/snap behaviors. Features blur overlay for Glass style and smooth collapse/expand animations.
+  - **AppPopupMenu**: Theme-aware popup menu with overlay management. Supports destructive items, hover states, and configurable positioning.
+  - **AppDialog**: Modal dialog with structured button API and isDestructive flag. Features backdrop blur for Glass mode and scrollable content support.
 
 ### Examples (Scenarios)
 
