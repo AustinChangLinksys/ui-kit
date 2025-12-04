@@ -120,7 +120,7 @@ void main() {
   });
 
   testWidgets('E2E: Renders FallbackCard for builder error', (tester) async {
-    registry.register('BadComp', (context, props) => throw 'Error');
+    registry.register('BadComp', (context, props, {onAction}) => throw 'Error');
     
     final block = ToolUseBlock(
       id: 'tool-3',

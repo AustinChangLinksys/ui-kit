@@ -223,6 +223,8 @@ Design decisions and architecture documentation are in `specs/`:
 ## Active Technologies
 - Dart 3.x / Flutter 3.x + flutter, theme_tailor_annotation, equatable, flutter_animate, alchemist (testing) (011-phase2-components)
 - N/A (UI library, no persistence) (011-phase2-components)
+- Dart 3.x / Flutter 3.x (SDK >=3.0.0 <4.0.0, Flutter >=3.13.0) (012-genui-phase3-aws-client)
+- N/A (in-memory conversation history; no persistence required per spec) (012-genui-phase3-aws-client)
 
 ## Recent Changes
 - 011-phase2-components: Added Dart 3.x / Flutter 3.x + flutter, theme_tailor_annotation, equatable, flutter_animate, alchemist (testing)

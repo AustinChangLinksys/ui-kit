@@ -210,6 +210,22 @@ When introducing a new design language (e.g., Neumorphic):
   - **Animation Freezing**: Tests involving infinite animations (Loading/Skeleton) **MUST** use `TickerMode(enabled: false)` or manual pump control to prevent timeouts.
 - **Zero Overflow**: At 1.5x text scale, screenshots must not show overflow warnings.
 
+### 12.3 Auxiliary Verification Applications
+
+To ensure component robustness in extreme and dynamic environments, developers must synchronously maintain both **Widgetbook** and the **Theme Editor**. These applications serve as mandatory acceptance criteria for visual correctness.
+
+1.  **Widgetbook (Isolation Verification)**
+
+    - **Mandatory UseCases**: All new components must establish corresponding UseCases within Widgetbook.
+    - **Boundary Testing**: Layout flexibility must be verified by simulating extreme content via **Knobs** (e.g., multi-line text wrapping, missing icons, minimal dimensions).
+    - **Goal**: To ensure the structural integrity and correct interaction states (Hover, Press, Disabled) of a "single component" in an isolated environment.
+
+2.  **Theme Editor (Integration Verification)**
+    - **Implementation Synchronization**: Whenever a Theme Spec is added or modified (e.g., adding a new `ToggleStyle`), the parameter control panel in the Editor must be updated synchronously.
+    - **Dynamic Stress Testing**: Acceptance must involve dynamic, drastic runtime adjustments of theme parameters via the Editor (e.g., drastically increasing global corner radius from 8px to 50px, or pushing color contrast to limits).
+    - **Goal**: To verify strict adherence to **[3.1 IoC]** and **[3.2 DDS]** principles.
+      - _Criteria_: If a component fails to update instantly or breaks visually when Editor parameters change, it indicates the presence of internal hard-coded logic and is deemed **Non-Compliant**.
+
 ---
 
 ## 13\. Governance

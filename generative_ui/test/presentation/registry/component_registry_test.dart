@@ -2,13 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:generative_ui/src/presentation/registry/component_registry.dart';
 
-Widget _testBuilder(BuildContext context, Map<String, dynamic> props) =>
+Widget _testBuilder(
+  BuildContext context,
+  Map<String, dynamic> props, {
+  GenUiActionCallback? onAction,
+}) =>
     const SizedBox();
 
-Widget _textBuilder1(BuildContext context, Map<String, dynamic> props) =>
+Widget _textBuilder1(
+  BuildContext context,
+  Map<String, dynamic> props, {
+  GenUiActionCallback? onAction,
+}) =>
     const Text('Builder1');
 
-Widget _textBuilder2(BuildContext context, Map<String, dynamic> props) =>
+Widget _textBuilder2(
+  BuildContext context,
+  Map<String, dynamic> props, {
+  GenUiActionCallback? onAction,
+}) =>
     const Text('Builder2');
 
 void main() {

@@ -23,19 +23,24 @@ class DynamicWidgetBuilder {
 
   const DynamicWidgetBuilder({required this.registry});
 
-  /// Build a widget for a content block
+  /// Build a widget for a content block.
   ///
   /// Parameters:
   /// - [block]: ContentBlock to render (TextBlock or ToolUseBlock)
   /// - [context]: BuildContext for theming and context
+  /// - [onAction]: Optional callback for tool action handling
   ///
   /// Returns: Flutter widget, or FallbackCard on error
-  Widget buildBlock(ContentBlock block, BuildContext context) {
+  Widget buildBlock(
+    ContentBlock block,
+    BuildContext context, {
+    void Function(String toolUseId, Map<String, dynamic> data)? onAction,
+  }) {
     try {
       if (block is TextBlock) {
         return _buildTextBlock(block, context);
       } else if (block is ToolUseBlock) {
-        return _buildToolUseBlock(block, context);
+        return _buildToolUseBlock(block, context, onAction: onAction);
       } else {
         // Unknown block type
         return FallbackCard(
@@ -61,8 +66,12 @@ class DynamicWidgetBuilder {
     return MessageBubble(text: block.text);
   }
 
-  /// Build a ToolUseBlock by looking up in registry and instantiating
-  Widget _buildToolUseBlock(ToolUseBlock block, BuildContext context) {
+  /// Build a ToolUseBlock by looking up in registry and instantiating.
+  Widget _buildToolUseBlock(
+    ToolUseBlock block,
+    BuildContext context, {
+    void Function(String toolUseId, Map<String, dynamic> data)? onAction,
+  }) {
     // Look up component builder in registry
     final builder = registry.lookup(block.name);
 
@@ -76,8 +85,14 @@ class DynamicWidgetBuilder {
       );
     }
 
-    // Instantiate component with props
-    return builder(context, block.input);
+    // Create action callback that includes toolUseId
+    GenUiActionCallback? actionCallback;
+    if (onAction != null) {
+      actionCallback = (data) => onAction(block.id, data);
+    }
+
+    // Instantiate component with props and action callback
+    return builder(context, block.input, onAction: actionCallback);
   }
 
   // --- Type Conversion Helpers ---
