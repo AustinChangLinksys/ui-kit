@@ -16,6 +16,8 @@ mixin _$CarouselStyleTailorMixin on ThemeExtension<CarouselStyle> {
   IconData get nextIcon;
   Duration get animationDuration;
   Curve get animationCurve;
+  bool get useSnapScroll;
+  double get navButtonSize;
 
   @override
   CarouselStyle copyWith({
@@ -25,6 +27,8 @@ mixin _$CarouselStyleTailorMixin on ThemeExtension<CarouselStyle> {
     IconData? nextIcon,
     Duration? animationDuration,
     Curve? animationCurve,
+    bool? useSnapScroll,
+    double? navButtonSize,
   }) {
     return CarouselStyle(
       navButtonColor: navButtonColor ?? this.navButtonColor,
@@ -33,6 +37,8 @@ mixin _$CarouselStyleTailorMixin on ThemeExtension<CarouselStyle> {
       nextIcon: nextIcon ?? this.nextIcon,
       animationDuration: animationDuration ?? this.animationDuration,
       animationCurve: animationCurve ?? this.animationCurve,
+      useSnapScroll: useSnapScroll ?? this.useSnapScroll,
+      navButtonSize: navButtonSize ?? this.navButtonSize,
     );
   }
 
@@ -47,6 +53,8 @@ mixin _$CarouselStyleTailorMixin on ThemeExtension<CarouselStyle> {
       nextIcon: t < 0.5 ? nextIcon : other.nextIcon,
       animationDuration: t < 0.5 ? animationDuration : other.animationDuration,
       animationCurve: t < 0.5 ? animationCurve : other.animationCurve,
+      useSnapScroll: t < 0.5 ? useSnapScroll : other.useSnapScroll,
+      navButtonSize: t < 0.5 ? navButtonSize : other.navButtonSize,
     );
   }
 
@@ -65,7 +73,11 @@ mixin _$CarouselStyleTailorMixin on ThemeExtension<CarouselStyle> {
             const DeepCollectionEquality()
                 .equals(animationDuration, other.animationDuration) &&
             const DeepCollectionEquality()
-                .equals(animationCurve, other.animationCurve));
+                .equals(animationCurve, other.animationCurve) &&
+            const DeepCollectionEquality()
+                .equals(useSnapScroll, other.useSnapScroll) &&
+            const DeepCollectionEquality()
+                .equals(navButtonSize, other.navButtonSize));
   }
 
   @override
@@ -78,6 +90,8 @@ mixin _$CarouselStyleTailorMixin on ThemeExtension<CarouselStyle> {
       const DeepCollectionEquality().hash(nextIcon),
       const DeepCollectionEquality().hash(animationDuration),
       const DeepCollectionEquality().hash(animationCurve),
+      const DeepCollectionEquality().hash(useSnapScroll),
+      const DeepCollectionEquality().hash(navButtonSize),
     );
   }
 }
@@ -102,4 +116,10 @@ extension CarouselStyleBuildContextProps on BuildContext {
 
   /// Animation curve for item transitions
   Curve get animationCurve => carouselStyle.animationCurve;
+
+  /// Use snap scroll instead of smooth scroll (Pixel theme)
+  bool get useSnapScroll => carouselStyle.useSnapScroll;
+
+  /// Size of navigation buttons (Pixel theme has larger buttons)
+  double get navButtonSize => carouselStyle.navButtonSize;
 }

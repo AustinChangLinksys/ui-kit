@@ -16,6 +16,7 @@ mixin _$StepperStyleTailorMixin on ThemeExtension<StepperStyle> {
   Color get connectorColor;
   double get stepSize;
   bool get useDashedConnector;
+  Duration get animationDuration;
 
   @override
   StepperStyle copyWith({
@@ -25,6 +26,7 @@ mixin _$StepperStyleTailorMixin on ThemeExtension<StepperStyle> {
     Color? connectorColor,
     double? stepSize,
     bool? useDashedConnector,
+    Duration? animationDuration,
   }) {
     return StepperStyle(
       activeStepColor: activeStepColor ?? this.activeStepColor,
@@ -33,6 +35,7 @@ mixin _$StepperStyleTailorMixin on ThemeExtension<StepperStyle> {
       connectorColor: connectorColor ?? this.connectorColor,
       stepSize: stepSize ?? this.stepSize,
       useDashedConnector: useDashedConnector ?? this.useDashedConnector,
+      animationDuration: animationDuration ?? this.animationDuration,
     );
   }
 
@@ -49,6 +52,7 @@ mixin _$StepperStyleTailorMixin on ThemeExtension<StepperStyle> {
       stepSize: t < 0.5 ? stepSize : other.stepSize,
       useDashedConnector:
           t < 0.5 ? useDashedConnector : other.useDashedConnector,
+      animationDuration: t < 0.5 ? animationDuration : other.animationDuration,
     );
   }
 
@@ -67,7 +71,9 @@ mixin _$StepperStyleTailorMixin on ThemeExtension<StepperStyle> {
                 .equals(connectorColor, other.connectorColor) &&
             const DeepCollectionEquality().equals(stepSize, other.stepSize) &&
             const DeepCollectionEquality()
-                .equals(useDashedConnector, other.useDashedConnector));
+                .equals(useDashedConnector, other.useDashedConnector) &&
+            const DeepCollectionEquality()
+                .equals(animationDuration, other.animationDuration));
   }
 
   @override
@@ -80,6 +86,7 @@ mixin _$StepperStyleTailorMixin on ThemeExtension<StepperStyle> {
       const DeepCollectionEquality().hash(connectorColor),
       const DeepCollectionEquality().hash(stepSize),
       const DeepCollectionEquality().hash(useDashedConnector),
+      const DeepCollectionEquality().hash(animationDuration),
     );
   }
 }
@@ -104,4 +111,7 @@ extension StepperStyleBuildContextProps on BuildContext {
 
   /// Use dashed connector lines (Pixel theme)
   bool get useDashedConnector => stepperStyle.useDashedConnector;
+
+  /// Animation duration for step transitions
+  Duration get animationDuration => stepperStyle.animationDuration;
 }

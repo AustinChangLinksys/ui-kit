@@ -13,6 +13,7 @@ class StepperStyle extends ThemeExtension<StepperStyle>
     required this.connectorColor,
     required this.stepSize,
     required this.useDashedConnector,
+    this.animationDuration = const Duration(milliseconds: 300),
   });
 
   /// Color of the active step indicator
@@ -38,4 +39,19 @@ class StepperStyle extends ThemeExtension<StepperStyle>
   /// Use dashed connector lines (Pixel theme)
   @override
   final bool useDashedConnector;
+
+  /// Animation duration for step transitions
+  @override
+  final Duration animationDuration;
+
+  /// Default style for fallback when theme is not available
+  static const defaultStyle = StepperStyle(
+    activeStepColor: Color(0xFF2196F3),
+    completedStepColor: Color(0xFF4CAF50),
+    pendingStepColor: Color(0xFFBDBDBD),
+    connectorColor: Color(0xFF2196F3),
+    stepSize: 48,
+    useDashedConnector: false,
+    animationDuration: Duration(milliseconds: 300),
+  );
 }
