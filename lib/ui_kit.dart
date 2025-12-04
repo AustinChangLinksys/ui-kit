@@ -33,6 +33,14 @@ export 'src/foundation/theme/design_system/specs/layout_spec.dart';
 export 'src/foundation/theme/design_system/specs/app_bar_style.dart';
 export 'src/foundation/theme/design_system/specs/app_menu_style.dart';
 export 'src/foundation/theme/design_system/specs/dialog_style.dart';
+export 'src/foundation/theme/design_system/specs/bottom_sheet_style.dart';
+export 'src/foundation/theme/design_system/specs/side_sheet_style.dart';
+export 'src/foundation/theme/design_system/specs/tabs_style.dart';
+export 'src/foundation/theme/design_system/specs/stepper_style.dart';
+export 'src/foundation/theme/design_system/specs/breadcrumb_style.dart';
+export 'src/foundation/theme/design_system/specs/expansion_panel_style.dart';
+export 'src/foundation/theme/design_system/specs/carousel_style.dart';
+export 'src/foundation/theme/design_system/specs/chip_group_style.dart';
 export 'src/foundation/theme/tokens/app_textures.dart';
 
 export 'src/foundation/gen/assets.gen.dart';

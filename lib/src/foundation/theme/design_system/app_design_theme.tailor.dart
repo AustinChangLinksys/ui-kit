@@ -31,6 +31,14 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
   AppBarStyle get appBarStyle;
   AppMenuStyle get menuStyle;
   DialogStyle get dialogStyle;
+  BottomSheetStyle get bottomSheetStyle;
+  SideSheetStyle get sideSheetStyle;
+  TabsStyle get tabsStyle;
+  StepperStyle get stepperStyle;
+  BreadcrumbStyle get breadcrumbStyle;
+  ExpansionPanelStyle get expansionPanelStyle;
+  CarouselStyle get carouselStyle;
+  ChipGroupStyle get chipGroupStyle;
 
   @override
   AppDesignTheme copyWith({
@@ -55,6 +63,14 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
     AppBarStyle? appBarStyle,
     AppMenuStyle? menuStyle,
     DialogStyle? dialogStyle,
+    BottomSheetStyle? bottomSheetStyle,
+    SideSheetStyle? sideSheetStyle,
+    TabsStyle? tabsStyle,
+    StepperStyle? stepperStyle,
+    BreadcrumbStyle? breadcrumbStyle,
+    ExpansionPanelStyle? expansionPanelStyle,
+    CarouselStyle? carouselStyle,
+    ChipGroupStyle? chipGroupStyle,
   }) {
     return AppDesignTheme(
       toggleStyle: toggleStyle ?? this.toggleStyle,
@@ -78,6 +94,14 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       appBarStyle: appBarStyle ?? this.appBarStyle,
       menuStyle: menuStyle ?? this.menuStyle,
       dialogStyle: dialogStyle ?? this.dialogStyle,
+      bottomSheetStyle: bottomSheetStyle ?? this.bottomSheetStyle,
+      sideSheetStyle: sideSheetStyle ?? this.sideSheetStyle,
+      tabsStyle: tabsStyle ?? this.tabsStyle,
+      stepperStyle: stepperStyle ?? this.stepperStyle,
+      breadcrumbStyle: breadcrumbStyle ?? this.breadcrumbStyle,
+      expansionPanelStyle: expansionPanelStyle ?? this.expansionPanelStyle,
+      carouselStyle: carouselStyle ?? this.carouselStyle,
+      chipGroupStyle: chipGroupStyle ?? this.chipGroupStyle,
     );
   }
 
@@ -107,6 +131,15 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       appBarStyle: t < 0.5 ? appBarStyle : other.appBarStyle,
       menuStyle: t < 0.5 ? menuStyle : other.menuStyle,
       dialogStyle: t < 0.5 ? dialogStyle : other.dialogStyle,
+      bottomSheetStyle: bottomSheetStyle.lerp(other.bottomSheetStyle, t),
+      sideSheetStyle: sideSheetStyle.lerp(other.sideSheetStyle, t),
+      tabsStyle: tabsStyle.lerp(other.tabsStyle, t),
+      stepperStyle: stepperStyle.lerp(other.stepperStyle, t),
+      breadcrumbStyle: breadcrumbStyle.lerp(other.breadcrumbStyle, t),
+      expansionPanelStyle:
+          expansionPanelStyle.lerp(other.expansionPanelStyle, t),
+      carouselStyle: carouselStyle.lerp(other.carouselStyle, t),
+      chipGroupStyle: chipGroupStyle.lerp(other.chipGroupStyle, t),
     );
   }
 
@@ -154,7 +187,22 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
                 .equals(appBarStyle, other.appBarStyle) &&
             const DeepCollectionEquality().equals(menuStyle, other.menuStyle) &&
             const DeepCollectionEquality()
-                .equals(dialogStyle, other.dialogStyle));
+                .equals(dialogStyle, other.dialogStyle) &&
+            const DeepCollectionEquality()
+                .equals(bottomSheetStyle, other.bottomSheetStyle) &&
+            const DeepCollectionEquality()
+                .equals(sideSheetStyle, other.sideSheetStyle) &&
+            const DeepCollectionEquality().equals(tabsStyle, other.tabsStyle) &&
+            const DeepCollectionEquality()
+                .equals(stepperStyle, other.stepperStyle) &&
+            const DeepCollectionEquality()
+                .equals(breadcrumbStyle, other.breadcrumbStyle) &&
+            const DeepCollectionEquality()
+                .equals(expansionPanelStyle, other.expansionPanelStyle) &&
+            const DeepCollectionEquality()
+                .equals(carouselStyle, other.carouselStyle) &&
+            const DeepCollectionEquality()
+                .equals(chipGroupStyle, other.chipGroupStyle));
   }
 
   @override
@@ -182,6 +230,14 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       const DeepCollectionEquality().hash(appBarStyle),
       const DeepCollectionEquality().hash(menuStyle),
       const DeepCollectionEquality().hash(dialogStyle),
+      const DeepCollectionEquality().hash(bottomSheetStyle),
+      const DeepCollectionEquality().hash(sideSheetStyle),
+      const DeepCollectionEquality().hash(tabsStyle),
+      const DeepCollectionEquality().hash(stepperStyle),
+      const DeepCollectionEquality().hash(breadcrumbStyle),
+      const DeepCollectionEquality().hash(expansionPanelStyle),
+      const DeepCollectionEquality().hash(carouselStyle),
+      const DeepCollectionEquality().hash(chipGroupStyle),
     ]);
   }
 }
@@ -210,4 +266,13 @@ extension AppDesignThemeBuildContextProps on BuildContext {
   AppBarStyle get appBarStyle => appDesignTheme.appBarStyle;
   AppMenuStyle get menuStyle => appDesignTheme.menuStyle;
   DialogStyle get dialogStyle => appDesignTheme.dialogStyle;
+  BottomSheetStyle get bottomSheetStyle => appDesignTheme.bottomSheetStyle;
+  SideSheetStyle get sideSheetStyle => appDesignTheme.sideSheetStyle;
+  TabsStyle get tabsStyle => appDesignTheme.tabsStyle;
+  StepperStyle get stepperStyle => appDesignTheme.stepperStyle;
+  BreadcrumbStyle get breadcrumbStyle => appDesignTheme.breadcrumbStyle;
+  ExpansionPanelStyle get expansionPanelStyle =>
+      appDesignTheme.expansionPanelStyle;
+  CarouselStyle get carouselStyle => appDesignTheme.carouselStyle;
+  ChipGroupStyle get chipGroupStyle => appDesignTheme.chipGroupStyle;
 }

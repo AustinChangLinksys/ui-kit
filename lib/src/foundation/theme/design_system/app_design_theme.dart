@@ -12,6 +12,14 @@ import 'package:ui_kit_library/src/foundation/theme/design_system/specs/network_
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/skeleton_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/toast_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/toggle_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/bottom_sheet_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/side_sheet_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/tabs_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/stepper_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/breadcrumb_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/expansion_panel_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/carousel_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/chip_group_style.dart';
 import 'specs/surface_style.dart';
 
 part 'app_design_theme.tailor.dart';
@@ -75,6 +83,30 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
   @override
   final DialogStyle dialogStyle;
 
+  @override
+  final BottomSheetStyle bottomSheetStyle;
+
+  @override
+  final SideSheetStyle sideSheetStyle;
+
+  @override
+  final TabsStyle tabsStyle;
+
+  @override
+  final StepperStyle stepperStyle;
+
+  @override
+  final BreadcrumbStyle breadcrumbStyle;
+
+  @override
+  final ExpansionPanelStyle expansionPanelStyle;
+
+  @override
+  final CarouselStyle carouselStyle;
+
+  @override
+  final ChipGroupStyle chipGroupStyle;
+
   const AppDesignTheme({
     required this.surfaceBase,
     required this.surfaceElevated,
@@ -97,5 +129,13 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
     required this.appBarStyle,
     required this.menuStyle,
     required this.dialogStyle,
+    required this.bottomSheetStyle,
+    required this.sideSheetStyle,
+    required this.tabsStyle,
+    required this.stepperStyle,
+    required this.breadcrumbStyle,
+    required this.expansionPanelStyle,
+    required this.carouselStyle,
+    required this.chipGroupStyle,
   });
 }
