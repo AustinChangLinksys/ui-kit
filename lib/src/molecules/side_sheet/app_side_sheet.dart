@@ -93,10 +93,16 @@ class _AppSideSheetState extends State<AppSideSheet>
   }
 
   SideSheetStyle _defaultStyle() {
-    return const SideSheetStyle(
+    // Adaptive overlay color based on current theme brightness
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final overlayColor = isDarkMode
+        ? const Color(0xCC000000)  // More opaque for dark theme (80% opacity)
+        : const Color(0x80000000); // Standard for light theme (50% opacity)
+
+    return SideSheetStyle(
       width: 280,
-      overlayColor: Color(0x80000000),
-      animationDuration: Duration(milliseconds: 400),
+      overlayColor: overlayColor,
+      animationDuration: const Duration(milliseconds: 400),
       animationCurve: Curves.easeOutCubic,
       blurStrength: 0,
       enableDithering: false,
