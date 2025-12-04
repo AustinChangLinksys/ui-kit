@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Layout Tool Schema",
+  "description": "JSON Schema for AI-generated layouts using UI Kit components",
+  "type": "object",
+  "required": ["type"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "Component name from UI Kit registry",
+      "enum": [
+        "AppSurface",
+        "AppText",
+        "AppIcon",
+        "AppGap",
+        "AppDivider",
+        "AppSkeleton",
+        "ThemeAwareImage",
+        "ThemeAwareSvg",
+        "ProductImage",
+        "AppButton",
+        "AppIconButton",
+        "AppTextField",
+        "AppTextFormField",
+        "AppDropdown",
+        "AppIPv4TextField",
+        "AppIPv6TextField",
+        "AppMacAddressTextField",
+        "AppCheckbox",
+        "AppRadio",
+        "AppSlider",
+        "AppSwitch",
+        "AppBadge",
+        "AppTag",
+        "AppAvatar",
+        "AppLoader",
+        "AppToast",
+        "AppTooltip",
+        "AppListTile",
+        "AppCard",
+        "AppNavigationBar",
+        "AppNavigationRail",
+        "AppNavigationItem",
+        "AppDialog",
+        "AppPopupMenu",
+        "AppPopupMenuItem",
+        "Column",
+        "Row",
+        "Wrap",
+        "Stack",
+        "Center",
+        "Padding",
+        "SizedBox",
+        "Expanded",
+        "Flexible"
+      ]
+    },
+    "props": {
+      "type": "object",
+      "description": "Component-specific properties",
+      "additionalProperties": true
+    },
+    "children": {
+      "type": "array",
+      "description": "Child components for layout containers",
+      "items": {
+        "$ref": "#"
+      }
+    }
+  },
+  "additionalProperties": false
+}

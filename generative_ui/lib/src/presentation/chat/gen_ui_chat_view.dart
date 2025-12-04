@@ -186,8 +186,9 @@ class _GenUiChatViewState extends State<GenUiChatView> {
 
   /// Content state UI - message list with mixed text bubbles and dynamic components.
   Widget _buildMessageList() {
+    // Filter out system messages and tool_result messages (internal protocol)
     final messages = _controller.messages
-        .where((m) => m.role != ChatRole.system)
+        .where((m) => m.role != ChatRole.system && !m.isToolResult)
         .toList();
 
     if (messages.isEmpty) {

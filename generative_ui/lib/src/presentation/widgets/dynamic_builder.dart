@@ -92,7 +92,37 @@ class DynamicWidgetBuilder {
     }
 
     // Instantiate component with props and action callback
-    return builder(context, block.input, onAction: actionCallback);
+    final component = builder(context, block.input, onAction: actionCallback);
+
+    // Wrap in a container for visual boundary with proper constraints
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // Use available width, or a reasonable default if unbounded
+        final maxWidth = constraints.maxWidth.isFinite
+            ? constraints.maxWidth
+            : MediaQuery.of(context).size.width * 0.9;
+
+        return Container(
+          constraints: BoxConstraints(maxWidth: maxWidth),
+          margin: const EdgeInsets.symmetric(vertical: 4),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surfaceContainerLowest,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: Theme.of(context).colorScheme.outlineVariant,
+              width: 1,
+            ),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: component,
+            ),
+          ),
+        );
+      },
+    );
   }
 
   // --- Type Conversion Helpers ---

@@ -28,11 +28,11 @@ Based on plan.md, this is a Flutter module within the ui_kit monorepo:
 
 **Purpose**: Project initialization and dependency configuration
 
-- [ ] T001 Update dependencies in generative_ui/pubspec.yaml (add aws_common ^0.7.11, aws_signature_v4 ^0.6.9, http ^1.2.1, flutter_dotenv ^5.1.0)
-- [ ] T002 [P] Create .env.example template in generative_ui/assets/.env.example with AWS credential placeholders
-- [ ] T003 [P] Update generative_ui/.gitignore to exclude assets/.env
+- [x] T001 Update dependencies in generative_ui/pubspec.yaml (add aws_common ^0.7.11, aws_signature_v4 ^0.6.9, http ^1.2.1, flutter_dotenv ^5.1.0)
+- [x] T002 [P] Create .env.example template in generative_ui/assets/.env.example with AWS credential placeholders
+- [x] T003 [P] Update generative_ui/.gitignore to exclude assets/.env
 - [ ] T004 [P] Register .env asset in generative_ui/pubspec.yaml flutter assets section
-- [ ] T005 Run flutter pub get to verify dependency resolution in generative_ui/
+- [x] T005 Run flutter pub get to verify dependency resolution in generative_ui/
 
 ---
 
@@ -44,35 +44,35 @@ Based on plan.md, this is a Flutter module within the ui_kit monorepo:
 
 ### Exception Hierarchy
 
-- [ ] T006 [P] Create GenUiException base class in generative_ui/lib/src/domain/entities/gen_exception.dart (add isRetryable property, message field)
-- [ ] T007 [P] Create NetworkException extending GenUiException in generative_ui/lib/src/domain/entities/gen_exception.dart
-- [ ] T008 [P] Create AuthenticationException extending GenUiException in generative_ui/lib/src/domain/entities/gen_exception.dart
-- [ ] T009 [P] Create RateLimitException extending GenUiException in generative_ui/lib/src/domain/entities/gen_exception.dart
-- [ ] T010 [P] Create ConfigurationException in generative_ui/lib/src/domain/entities/gen_exception.dart
+- [x] T006 [P] Create GenUiException base class in generative_ui/lib/src/domain/entities/gen_exception.dart (add isRetryable property, message field)
+- [x] T007 [P] Create NetworkException extending GenUiException in generative_ui/lib/src/domain/entities/gen_exception.dart
+- [x] T008 [P] Create AuthenticationException extending GenUiException in generative_ui/lib/src/domain/entities/gen_exception.dart
+- [x] T009 [P] Create RateLimitException extending GenUiException in generative_ui/lib/src/domain/entities/gen_exception.dart
+- [x] T010 [P] Create ConfigurationException in generative_ui/lib/src/domain/entities/gen_exception.dart
 
 ### Core Entities
 
-- [ ] T011 [P] Create ChatRole enum (user, assistant, system) in generative_ui/lib/src/domain/entities/chat_message.dart
-- [ ] T012 [P] Create ContentPart abstract class with toMap() in generative_ui/lib/src/domain/entities/chat_message.dart
-- [ ] T013 [P] Create TextContentPart class in generative_ui/lib/src/domain/entities/chat_message.dart
-- [ ] T014 [P] Create ToolResultPart class in generative_ui/lib/src/domain/entities/chat_message.dart
-- [ ] T015 Create ChatMessage class with factory constructors (user, assistant, toolResult, system) and toClaudeFormat() in generative_ui/lib/src/domain/entities/chat_message.dart (depends on T011-T014)
-- [ ] T016 [P] Create ChatViewState enum (welcome, loading, content, error) in generative_ui/lib/src/domain/entities/conversation_state.dart
-- [ ] T017 Create ConversationState class with state transition methods in generative_ui/lib/src/domain/entities/conversation_state.dart (depends on T015, T016)
-- [ ] T018 [P] Create ToolActionOutput class in generative_ui/lib/src/domain/entities/tool_action_output.dart
+- [x] T011 [P] Create ChatRole enum (user, assistant, system) in generative_ui/lib/src/domain/entities/chat_message.dart
+- [x] T012 [P] Create ContentPart abstract class with toMap() in generative_ui/lib/src/domain/entities/chat_message.dart
+- [x] T013 [P] Create TextContentPart class in generative_ui/lib/src/domain/entities/chat_message.dart
+- [x] T014 [P] Create ToolResultPart class in generative_ui/lib/src/domain/entities/chat_message.dart
+- [x] T015 Create ChatMessage class with factory constructors (user, assistant, toolResult, system) and toClaudeFormat() in generative_ui/lib/src/domain/entities/chat_message.dart (depends on T011-T014)
+- [x] T016 [P] Create ChatViewState enum (welcome, loading, content, error) in generative_ui/lib/src/domain/entities/conversation_state.dart
+- [x] T017 Create ConversationState class with state transition methods in generative_ui/lib/src/domain/entities/conversation_state.dart (depends on T015, T016)
+- [x] T018 [P] Create ToolActionOutput class in generative_ui/lib/src/domain/entities/tool_action_output.dart
 
 ### AWS Configuration
 
-- [ ] T019 Create data/config/ directory in generative_ui/lib/src/data/config/
-- [ ] T020 Create AWSConfig class with fromEnvironment() factory in generative_ui/lib/src/data/config/aws_config.dart (depends on T010)
+- [x] T019 Create data/config/ directory in generative_ui/lib/src/data/config/
+- [x] T020 Create AWSConfig class with fromEnvironment() factory in generative_ui/lib/src/data/config/aws_config.dart (depends on T010)
 
 ### Interface Extension
 
-- [ ] T021 Create IConversationGenerator interface with generateWithHistory() method in generative_ui/lib/src/domain/repositories/i_conversation_generator.dart (depends on T015)
+- [x] T021 Create IConversationGenerator interface with generateWithHistory() method in generative_ui/lib/src/domain/repositories/i_conversation_generator.dart (depends on T015)
 
 ### Registry Enhancement
 
-- [ ] T022 Update GenUiWidgetBuilder typedef to add optional onAction callback parameter in generative_ui/lib/src/presentation/registry/component_registry.dart
+- [x] T022 Update GenUiWidgetBuilder typedef to add optional onAction callback parameter in generative_ui/lib/src/presentation/registry/component_registry.dart
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
@@ -86,31 +86,31 @@ Based on plan.md, this is a Flutter module within the ui_kit monorepo:
 
 ### AWS Bedrock Adapter Implementation
 
-- [ ] T023 [US1] Implement request body builder method in AwsContentGenerator (buildBedrockRequest) in generative_ui/lib/src/data/datasources/aws_content_generator.dart
-- [ ] T024 [US1] Implement SigV4 signing logic using AWSSigV4Signer in generative_ui/lib/src/data/datasources/aws_content_generator.dart (depends on T020)
-- [ ] T025 [US1] Implement HTTP POST to Bedrock Runtime endpoint in generative_ui/lib/src/data/datasources/aws_content_generator.dart (depends on T024)
-- [ ] T026 [US1] Implement response parsing and LLMResponse conversion in generative_ui/lib/src/data/datasources/aws_content_generator.dart
-- [ ] T027 [US1] Implement generate() method (IContentGenerator) delegating to generateWithHistory() in generative_ui/lib/src/data/datasources/aws_content_generator.dart (depends on T021)
-- [ ] T028 [US1] Implement generateWithHistory() method (IConversationGenerator) in generative_ui/lib/src/data/datasources/aws_content_generator.dart (depends on T023-T026)
+- [x] T023 [US1] Implement request body builder method in AwsContentGenerator (buildBedrockRequest) in generative_ui/lib/src/data/datasources/aws_content_generator.dart
+- [x] T024 [US1] Implement SigV4 signing logic using AWSSigV4Signer in generative_ui/lib/src/data/datasources/aws_content_generator.dart (depends on T020)
+- [x] T025 [US1] Implement HTTP POST to Bedrock Runtime endpoint in generative_ui/lib/src/data/datasources/aws_content_generator.dart (depends on T024)
+- [x] T026 [US1] Implement response parsing and LLMResponse conversion in generative_ui/lib/src/data/datasources/aws_content_generator.dart
+- [x] T027 [US1] Implement generate() method (IContentGenerator) delegating to generateWithHistory() in generative_ui/lib/src/data/datasources/aws_content_generator.dart (depends on T021)
+- [x] T028 [US1] Implement generateWithHistory() method (IConversationGenerator) in generative_ui/lib/src/data/datasources/aws_content_generator.dart (depends on T023-T026)
 
 ### Chat Controller
 
-- [ ] T029 [US1] Create ChatController class with ConversationState in generative_ui/lib/src/presentation/chat/chat_controller.dart (depends on T017)
-- [ ] T030 [US1] Implement sendMessage() method in ChatController (user → loading → response → content) in generative_ui/lib/src/presentation/chat/chat_controller.dart (depends on T028, T029)
+- [x] T029 [US1] Create ChatController class with ConversationState in generative_ui/lib/src/presentation/chat/chat_controller.dart (depends on T017)
+- [x] T030 [US1] Implement sendMessage() method in ChatController (user → loading → response → content) in generative_ui/lib/src/presentation/chat/chat_controller.dart (depends on T028, T029)
 
 ### Chat UI Components
 
-- [ ] T031 [P] [US1] Create ChatInputArea widget (TextField + Send button) in generative_ui/lib/src/presentation/chat/chat_input_area.dart
-- [ ] T032 [US1] Update DynamicWidgetBuilder.buildBlock() to accept optional onAction callback in generative_ui/lib/src/presentation/widgets/dynamic_builder.dart (depends on T022)
-- [ ] T033 [US1] Create GenUiChatView main widget integrating ChatController, message list, and input area in generative_ui/lib/src/presentation/chat/gen_ui_chat_view.dart (depends on T029-T032)
-- [ ] T034 [US1] Implement welcome state UI (initial screen before conversation starts) in generative_ui/lib/src/presentation/chat/gen_ui_chat_view.dart
-- [ ] T035 [US1] Implement loading state UI (indicator while waiting for AI response) in generative_ui/lib/src/presentation/chat/gen_ui_chat_view.dart
-- [ ] T036 [US1] Implement content state UI (message list with mixed text bubbles and dynamic components) in generative_ui/lib/src/presentation/chat/gen_ui_chat_view.dart
+- [x] T031 [P] [US1] Create ChatInputArea widget (TextField + Send button) in generative_ui/lib/src/presentation/chat/chat_input_area.dart
+- [x] T032 [US1] Update DynamicWidgetBuilder.buildBlock() to accept optional onAction callback in generative_ui/lib/src/presentation/widgets/dynamic_builder.dart (depends on T022)
+- [x] T033 [US1] Create GenUiChatView main widget integrating ChatController, message list, and input area in generative_ui/lib/src/presentation/chat/gen_ui_chat_view.dart (depends on T029-T032)
+- [x] T034 [US1] Implement welcome state UI (initial screen before conversation starts) in generative_ui/lib/src/presentation/chat/gen_ui_chat_view.dart
+- [x] T035 [US1] Implement loading state UI (indicator while waiting for AI response) in generative_ui/lib/src/presentation/chat/gen_ui_chat_view.dart
+- [x] T036 [US1] Implement content state UI (message list with mixed text bubbles and dynamic components) in generative_ui/lib/src/presentation/chat/gen_ui_chat_view.dart
 
 ### Export Updates
 
-- [ ] T037 [US1] Export new entities (ChatMessage, ConversationState, ChatRole, ChatViewState) from generative_ui/lib/generative_ui.dart
-- [ ] T038 [US1] Export chat widgets (GenUiChatView, ChatController) from generative_ui/lib/generative_ui.dart
+- [x] T037 [US1] Export new entities (ChatMessage, ConversationState, ChatRole, ChatViewState) from generative_ui/lib/generative_ui.dart
+- [x] T038 [US1] Export chat widgets (GenUiChatView, ChatController) from generative_ui/lib/generative_ui.dart
 
 **Checkpoint**: User Story 1 complete - users can send messages and receive AI responses
 
@@ -124,18 +124,18 @@ Based on plan.md, this is a Flutter module within the ui_kit monorepo:
 
 ### Tool Action Flow
 
-- [ ] T039 [US2] Implement _handleToolAction() method in ChatController to create tool_result message in generative_ui/lib/src/presentation/chat/chat_controller.dart (depends on T018, T030)
-- [ ] T040 [US2] Connect onAction callback from DynamicWidgetBuilder to ChatController._handleToolAction() in generative_ui/lib/src/presentation/chat/gen_ui_chat_view.dart (depends on T032, T039)
-- [ ] T041 [US2] Implement automatic follow-up request after tool_result (send tool output → get AI confirmation) in generative_ui/lib/src/presentation/chat/chat_controller.dart (depends on T039)
+- [x] T039 [US2] Implement _handleToolAction() method in ChatController to create tool_result message in generative_ui/lib/src/presentation/chat/chat_controller.dart (depends on T018, T030)
+- [x] T040 [US2] Connect onAction callback from DynamicWidgetBuilder to ChatController._handleToolAction() in generative_ui/lib/src/presentation/chat/gen_ui_chat_view.dart (depends on T032, T039)
+- [x] T041 [US2] Implement automatic follow-up request after tool_result (send tool output → get AI confirmation) in generative_ui/lib/src/presentation/chat/chat_controller.dart (depends on T039)
 
 ### Component Registry Integration
 
-- [ ] T042 [US2] Update existing component registrations to pass onAction callback (demo_components.dart or registry_helpers.dart) in generative_ui/lib/src/presentation/widgets/demo_components.dart
-- [ ] T043 [US2] Update _buildToolUseBlock in DynamicWidgetBuilder to pass toolUseId with onAction in generative_ui/lib/src/presentation/widgets/dynamic_builder.dart (depends on T032)
+- [x] T042 [US2] Update existing component registrations to pass onAction callback (demo_components.dart or registry_helpers.dart) in generative_ui/lib/src/presentation/widgets/demo_components.dart
+- [x] T043 [US2] Update _buildToolUseBlock in DynamicWidgetBuilder to pass toolUseId with onAction in generative_ui/lib/src/presentation/widgets/dynamic_builder.dart (depends on T032)
 
 ### Export Updates
 
-- [ ] T044 [US2] Export ToolActionOutput from generative_ui/lib/generative_ui.dart
+- [x] T044 [US2] Export ToolActionOutput from generative_ui/lib/generative_ui.dart
 
 **Checkpoint**: User Story 2 complete - closed-loop interaction working (Chat-to-Action)
 
@@ -149,15 +149,15 @@ Based on plan.md, this is a Flutter module within the ui_kit monorepo:
 
 ### Multi-turn Support
 
-- [ ] T045 [US3] Ensure ConversationState.toClaudeMessages() correctly formats full history for API in generative_ui/lib/src/domain/entities/conversation_state.dart
-- [ ] T046 [US3] Pass complete message history in generateWithHistory() calls in generative_ui/lib/src/presentation/chat/chat_controller.dart (verify existing implementation)
-- [ ] T047 [US3] Add system prompt injection via ChatMessage.system() in initial conversation in generative_ui/lib/src/presentation/chat/chat_controller.dart
+- [x] T045 [US3] Ensure ConversationState.toClaudeMessages() correctly formats full history for API in generative_ui/lib/src/domain/entities/conversation_state.dart
+- [x] T046 [US3] Pass complete message history in generateWithHistory() calls in generative_ui/lib/src/presentation/chat/chat_controller.dart (verify existing implementation)
+- [x] T047 [US3] Add system prompt injection via ChatMessage.system() in initial conversation in generative_ui/lib/src/presentation/chat/chat_controller.dart
 
 ### History Display
 
-- [ ] T048 [US3] Implement scrollable message list with proper ListView.builder in generative_ui/lib/src/presentation/chat/gen_ui_chat_view.dart
-- [ ] T049 [US3] Apply visual distinction for message types (user bubble style vs assistant style) using AppSurface in generative_ui/lib/src/presentation/chat/gen_ui_chat_view.dart
-- [ ] T050 [US3] Handle mixed content rendering (text bubbles interleaved with dynamic components) in message list in generative_ui/lib/src/presentation/chat/gen_ui_chat_view.dart
+- [x] T048 [US3] Implement scrollable message list with proper ListView.builder in generative_ui/lib/src/presentation/chat/gen_ui_chat_view.dart
+- [x] T049 [US3] Apply visual distinction for message types (user bubble style vs assistant style) using AppSurface in generative_ui/lib/src/presentation/chat/gen_ui_chat_view.dart
+- [x] T050 [US3] Handle mixed content rendering (text bubbles interleaved with dynamic components) in message list in generative_ui/lib/src/presentation/chat/gen_ui_chat_view.dart
 
 **Checkpoint**: User Story 3 complete - multi-turn conversations with full context
 
@@ -171,20 +171,20 @@ Based on plan.md, this is a Flutter module within the ui_kit monorepo:
 
 ### Error Handling in AWS Adapter
 
-- [ ] T051 [US4] Implement HTTP error code mapping in AwsContentGenerator (400→ValidationException, 401/403→AuthenticationException, 429→RateLimitException) in generative_ui/lib/src/data/datasources/aws_content_generator.dart (depends on T006-T010)
-- [ ] T052 [US4] Implement network error catching (SocketException, TimeoutException) → NetworkException in generative_ui/lib/src/data/datasources/aws_content_generator.dart
-- [ ] T053 [US4] Implement malformed response handling → GenUiException in generative_ui/lib/src/data/datasources/aws_content_generator.dart
+- [x] T051 [US4] Implement HTTP error code mapping in AwsContentGenerator (400→ValidationException, 401/403→AuthenticationException, 429→RateLimitException) in generative_ui/lib/src/data/datasources/aws_content_generator.dart (depends on T006-T010)
+- [x] T052 [US4] Implement network error catching (SocketException, TimeoutException) → NetworkException in generative_ui/lib/src/data/datasources/aws_content_generator.dart
+- [x] T053 [US4] Implement malformed response handling → GenUiException in generative_ui/lib/src/data/datasources/aws_content_generator.dart
 
 ### Error State in Controller
 
-- [ ] T054 [US4] Implement error state transition in ChatController.sendMessage() catch block in generative_ui/lib/src/presentation/chat/chat_controller.dart (depends on T051-T053)
-- [ ] T055 [US4] Implement retry() method in ChatController (re-attempt last failed message) in generative_ui/lib/src/presentation/chat/chat_controller.dart (depends on T054)
+- [x] T054 [US4] Implement error state transition in ChatController.sendMessage() catch block in generative_ui/lib/src/presentation/chat/chat_controller.dart (depends on T051-T053)
+- [x] T055 [US4] Implement retry() method in ChatController (re-attempt last failed message) in generative_ui/lib/src/presentation/chat/chat_controller.dart (depends on T054)
 
 ### Error UI
 
-- [ ] T056 [US4] Implement error state UI with user-friendly message in generative_ui/lib/src/presentation/chat/gen_ui_chat_view.dart (depends on T054)
-- [ ] T057 [US4] Add retry button to error UI (visible when isRetryable is true) in generative_ui/lib/src/presentation/chat/gen_ui_chat_view.dart (depends on T055, T056)
-- [ ] T058 [US4] Add non-retryable error guidance (e.g., "Check AWS configuration") in generative_ui/lib/src/presentation/chat/gen_ui_chat_view.dart
+- [x] T056 [US4] Implement error state UI with user-friendly message in generative_ui/lib/src/presentation/chat/gen_ui_chat_view.dart (depends on T054)
+- [x] T057 [US4] Add retry button to error UI (visible when isRetryable is true) in generative_ui/lib/src/presentation/chat/gen_ui_chat_view.dart (depends on T055, T056)
+- [x] T058 [US4] Add non-retryable error guidance (e.g., "Check AWS configuration") in generative_ui/lib/src/presentation/chat/gen_ui_chat_view.dart
 
 **Checkpoint**: User Story 4 complete - graceful error handling with retry
 
@@ -198,15 +198,15 @@ Based on plan.md, this is a Flutter module within the ui_kit monorepo:
 
 ### Credential Loading
 
-- [ ] T059 [US5] Add dotenv.load() initialization call documentation/example in generative_ui example app or README
-- [ ] T060 [US5] Implement credential validation on AWSConfig construction (throw ConfigurationException with clear message) in generative_ui/lib/src/data/config/aws_config.dart (verify T020)
-- [ ] T061 [US5] Handle missing credentials gracefully in AwsContentGenerator constructor in generative_ui/lib/src/data/datasources/aws_content_generator.dart
+- [x] T059 [US5] Add dotenv.load() initialization call documentation/example in generative_ui example app or README
+- [x] T060 [US5] Implement credential validation on AWSConfig construction (throw ConfigurationException with clear message) in generative_ui/lib/src/data/config/aws_config.dart (verify T020)
+- [x] T061 [US5] Handle missing credentials gracefully in AwsContentGenerator constructor in generative_ui/lib/src/data/datasources/aws_content_generator.dart
 
 ### Security Verification
 
-- [ ] T062 [US5] Verify .env is in .gitignore (audit task)
-- [ ] T063 [US5] Verify no hardcoded credentials in any Dart files (audit task)
-- [ ] T064 [US5] Create .env.example with placeholder values (verify T002 content matches research.md spec)
+- [x] T062 [US5] Verify .env is in .gitignore (audit task)
+- [x] T063 [US5] Verify no hardcoded credentials in any Dart files (audit task)
+- [x] T064 [US5] Create .env.example with placeholder values (verify T002 content matches research.md spec)
 
 **Checkpoint**: User Story 5 complete - secure credential management
 
@@ -219,10 +219,10 @@ Based on plan.md, this is a Flutter module within the ui_kit monorepo:
 - [ ] T065 [P] Add Widgetbook story for GenUiChatView in widgetbook/lib/widgetbook.dart
 - [ ] T066 [P] Add Widgetbook story for ChatInputArea in widgetbook/lib/widgetbook.dart
 - [ ] T067 [P] Update quickstart.md with actual usage examples after implementation in specs/012-genui-phase3-aws-client/quickstart.md
-- [ ] T068 Run flutter analyze on generative_ui/ and fix any warnings
-- [ ] T069 Run full E2E flow validation per SC-001 acceptance criteria
-- [ ] T070 Code review for AppSurface composition compliance (constitution 5.1)
-- [ ] T071 Code review for token-first styling compliance (constitution 4.1)
+- [x] T068 Run flutter analyze on generative_ui/ and fix any warnings
+- [x] T069 Run full E2E flow validation per SC-001 acceptance criteria
+- [x] T070 Code review for AppSurface composition compliance (constitution 5.1)
+- [x] T071 Code review for token-first styling compliance (constitution 4.1)
 
 ---
 
@@ -313,17 +313,17 @@ Task: "Create ToolResultPart class in chat_message.dart"
 
 ### Task Summary
 
-| Phase | User Story | Task Count | Parallel Tasks |
-|-------|------------|------------|----------------|
-| 1 | Setup | 5 | 3 |
-| 2 | Foundational | 17 | 13 |
-| 3 | US1 - Send/Receive | 16 | 2 |
-| 4 | US2 - Actions | 6 | 0 |
-| 5 | US3 - History | 6 | 0 |
-| 6 | US4 - Errors | 8 | 0 |
-| 7 | US5 - Security | 6 | 0 |
-| 8 | Polish | 7 | 3 |
-| **Total** | | **71** | **21** |
+| Phase | User Story | Task Count | Completed | Remaining |
+|-------|------------|------------|-----------|-----------|
+| 1 | Setup | 5 | 4 | 1 |
+| 2 | Foundational | 17 | 17 | 0 |
+| 3 | US1 - Send/Receive | 16 | 16 | 0 |
+| 4 | US2 - Actions | 6 | 6 | 0 |
+| 5 | US3 - History | 6 | 6 | 0 |
+| 6 | US4 - Errors | 8 | 8 | 0 |
+| 7 | US5 - Security | 6 | 6 | 0 |
+| 8 | Polish | 7 | 4 | 3 |
+| **Total** | | **71** | **67** | **4** |
 
 ---
 
