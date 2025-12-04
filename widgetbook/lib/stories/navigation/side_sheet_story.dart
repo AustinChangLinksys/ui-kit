@@ -21,9 +21,10 @@ Widget buildLeftOverlaySheet(BuildContext context) {
               barrierColor: Colors.transparent,
               transitionDuration: const Duration(milliseconds: 400),
               pageBuilder: (dialogContext, anim1, anim2) {
-                return DesignSystem.init(
-                  context,
-                  Builder(
+                final themeData = Theme.of(context);
+                return Theme(
+                  data: themeData,
+                  child: Builder(
                     builder: (context) => AppSideSheet(
                     position: SideSheetPosition.left,
                     displayMode: SideSheetDisplayMode.overlay,
@@ -87,9 +88,10 @@ Widget buildRightOverlaySheet(BuildContext context) {
               barrierColor: Colors.transparent,
               transitionDuration: const Duration(milliseconds: 400),
               pageBuilder: (dialogContext, anim1, anim2) {
-                return DesignSystem.init(
-                  context,
-                  Builder(
+                final themeData = Theme.of(context);
+                return Theme(
+                  data: themeData,
+                  child: Builder(
                     builder: (context) => AppSideSheet(
                     position: SideSheetPosition.right,
                     displayMode: SideSheetDisplayMode.overlay,
@@ -146,9 +148,10 @@ Widget buildAppDrawer(BuildContext context) {
               barrierColor: Colors.transparent,
               transitionDuration: const Duration(milliseconds: 400),
               pageBuilder: (dialogContext, anim1, anim2) {
-                return DesignSystem.init(
-                  context,
-                  Builder(
+                final themeData = Theme.of(context);
+                return Theme(
+                  data: themeData,
+                  child: Builder(
                     builder: (context) => AppDrawer(
                       width: 280,
                       child: Scaffold(
@@ -277,9 +280,10 @@ Widget buildDismissibleSheet(BuildContext context) {
               barrierColor: Colors.transparent,
               transitionDuration: const Duration(milliseconds: 400),
               pageBuilder: (dialogContext, anim1, anim2) {
-                return DesignSystem.init(
-                  context,
-                  Builder(
+                final themeData = Theme.of(context);
+                return Theme(
+                  data: themeData,
+                  child: Builder(
                     builder: (context) => AppSideSheet(
                     isDismissible: true,
                     position: SideSheetPosition.left,
@@ -340,9 +344,10 @@ Widget buildNonDismissibleSheet(BuildContext context) {
               barrierLabel: 'Side Sheet',
               transitionDuration: const Duration(milliseconds: 400),
               pageBuilder: (dialogContext, anim1, anim2) {
-                return DesignSystem.init(
-                  context,
-                  Builder(
+                final themeData = Theme.of(context);
+                return Theme(
+                  data: themeData,
+                  child: Builder(
                     builder: (context) => AppSideSheet(
                     isDismissible: false,
                     position: SideSheetPosition.left,
@@ -406,9 +411,10 @@ Widget buildCustomWidthSheet(BuildContext context) {
                   barrierColor: Colors.transparent,
                   transitionDuration: const Duration(milliseconds: 400),
                   pageBuilder: (dialogContext, anim1, anim2) {
-                    return DesignSystem.init(
-                      context,
-                      Builder(
+                    final themeData = Theme.of(context);
+                    return Theme(
+                      data: themeData,
+                      child: Builder(
                         builder: (context) => AppSideSheet(
                           width: 200,
                           position: SideSheetPosition.left,
@@ -434,9 +440,10 @@ Widget buildCustomWidthSheet(BuildContext context) {
                   barrierColor: Colors.transparent,
                   transitionDuration: const Duration(milliseconds: 400),
                   pageBuilder: (dialogContext, anim1, anim2) {
-                    return DesignSystem.init(
-                      context,
-                      Builder(
+                    final themeData = Theme.of(context);
+                    return Theme(
+                      data: themeData,
+                      child: Builder(
                         builder: (context) => AppSideSheet(
                           width: 350,
                           position: SideSheetPosition.left,
