@@ -71,6 +71,8 @@ import 'package:widgetbook_workspace/stories/navigation/carousel_story.dart'
     as _widgetbook_workspace_stories_navigation_carousel_story;
 import 'package:widgetbook_workspace/stories/navigation/expansion_panel_story.dart'
     as _widgetbook_workspace_stories_navigation_expansion_panel_story;
+import 'package:widgetbook_workspace/stories/navigation/stepper_story.dart'
+    as _widgetbook_workspace_stories_navigation_stepper_story;
 import 'package:widgetbook_workspace/stories/organisms/app_unified_bar.stories.dart'
     as _widgetbook_workspace_stories_organisms_app_unified_bar_stories;
 import 'package:widgetbook_workspace/stories/organisms/app_unified_sliver_bar.stories.dart'
@@ -819,6 +821,56 @@ final directories = <_widgetbook.WidgetbookNode>[
               ),
             ],
           ),
+        ],
+      ),
+      _widgetbook.WidgetbookFolder(
+        name: 'stepper',
+        children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'AppStepper',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Custom Step Count',
+                builder: _widgetbook_workspace_stories_navigation_stepper_story
+                    .buildCustomStepCount,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Horizontal - Active Step',
+                builder: _widgetbook_workspace_stories_navigation_stepper_story
+                    .buildHorizontalActiveStep,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Horizontal - Completed',
+                builder: _widgetbook_workspace_stories_navigation_stepper_story
+                    .buildHorizontalCompleted,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Horizontal - First Step',
+                builder: _widgetbook_workspace_stories_navigation_stepper_story
+                    .buildHorizontalFirstStep,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Interactive Steps',
+                builder: _widgetbook_workspace_stories_navigation_stepper_story
+                    .buildInteractiveSteps,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Read-Only Mode',
+                builder: _widgetbook_workspace_stories_navigation_stepper_story
+                    .buildReadOnlyMode,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Vertical Layout',
+                builder: _widgetbook_workspace_stories_navigation_stepper_story
+                    .buildVerticalLayout,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With Disabled Steps',
+                builder: _widgetbook_workspace_stories_navigation_stepper_story
+                    .buildWithDisabledSteps,
+              ),
+            ],
+          )
         ],
       ),
       _widgetbook.WidgetbookFolder(
