@@ -18,44 +18,29 @@ void main() {
         name: 'Left Overlay',
         width: 400.0,
         height: 300.0,
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: ColoredBox(
-                color: Colors.grey[200]!,
-              ),
-            ),
-            const Positioned(
-              left: 0,
-              top: 0,
-              bottom: 0,
-              width: 280,
-              child: AppSideSheet(
-                position: SideSheetPosition.left,
-                displayMode: SideSheetDisplayMode.overlay,
-                width: 280,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 48,
-                        child: ColoredBox(
-                          color: Colors.black,
-                          child: Center(
-                            child: Text('Navigation', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
-                          ),
-                        ),
-                      ),
-                      ListTile(title: Text('Home')),
-                      ListTile(title: Text('Projects')),
-                      ListTile(title: Text('Profile')),
-                      ListTile(title: Text('Settings')),
-                    ],
+        child: AppSideSheet(
+          position: SideSheetPosition.left,
+          displayMode: SideSheetDisplayMode.overlay,
+          width: 280,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 48,
+                  child: ColoredBox(
+                    color: Colors.black,
+                    child: Center(
+                      child: Text('Navigation', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                    ),
                   ),
                 ),
-              ),
+                ListTile(title: Text('Home')),
+                ListTile(title: Text('Projects')),
+                ListTile(title: Text('Profile')),
+                ListTile(title: Text('Settings')),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -67,43 +52,28 @@ void main() {
         name: 'Right Overlay',
         width: 400.0,
         height: 300.0,
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: ColoredBox(
-                color: Colors.grey[200]!,
-              ),
-            ),
-            const Positioned(
-              right: 0,
-              top: 0,
-              bottom: 0,
-              width: 280,
-              child: AppSideSheet(
-                position: SideSheetPosition.right,
-                displayMode: SideSheetDisplayMode.overlay,
-                width: 280,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 48,
-                        child: ColoredBox(
-                          color: Colors.black,
-                          child: Center(
-                            child: Text('Settings', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
-                          ),
-                        ),
-                      ),
-                      ListTile(title: Text('Dark Mode')),
-                      ListTile(title: Text('Notifications')),
-                      ListTile(title: Text('Language')),
-                    ],
+        child: AppSideSheet(
+          position: SideSheetPosition.right,
+          displayMode: SideSheetDisplayMode.overlay,
+          width: 280,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 48,
+                  child: ColoredBox(
+                    color: Colors.black,
+                    child: Center(
+                      child: Text('Settings', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                    ),
                   ),
                 ),
-              ),
+                ListTile(title: Text('Dark Mode')),
+                ListTile(title: Text('Notifications')),
+                ListTile(title: Text('Language')),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -151,38 +121,23 @@ void main() {
         name: 'Drawer',
         width: 400.0,
         height: 300.0,
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: ColoredBox(
-                color: Colors.grey[200]!,
-              ),
-            ),
-            const Positioned(
-              left: 0,
-              top: 0,
-              bottom: 0,
-              width: 280,
-              child: AppDrawer(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 56,
-                        child: ColoredBox(
-                          color: Colors.blue,
-                          child: Center(child: Text('Menu', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
-                        ),
-                      ),
-                      ListTile(title: Text('Home')),
-                      ListTile(title: Text('Favorites')),
-                      ListTile(title: Text('Bookmarks')),
-                    ],
+        child: AppDrawer(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 56,
+                  child: ColoredBox(
+                    color: Colors.blue,
+                    child: Center(child: Text('Menu', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
                   ),
                 ),
-              ),
+                ListTile(title: Text('Home')),
+                ListTile(title: Text('Favorites')),
+                ListTile(title: Text('Bookmarks')),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -194,35 +149,20 @@ void main() {
         name: 'Wide',
         width: 400.0,
         height: 300.0,
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: ColoredBox(
-                color: Colors.grey[200]!,
-              ),
+        child: AppSideSheet(
+          position: SideSheetPosition.left,
+          displayMode: SideSheetDisplayMode.overlay,
+          width: 350,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 48, child: Center(child: Text('Settings'))),
+                ListTile(title: Text('Theme')),
+                ListTile(title: Text('Notifications')),
+                ListTile(title: Text('Language')),
+              ],
             ),
-            const Positioned(
-              left: 0,
-              top: 0,
-              bottom: 0,
-              width: 350,
-              child: AppSideSheet(
-                position: SideSheetPosition.left,
-                displayMode: SideSheetDisplayMode.overlay,
-                width: 350,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(height: 48, child: Center(child: Text('Settings'))),
-                      ListTile(title: Text('Theme')),
-                      ListTile(title: Text('Notifications')),
-                      ListTile(title: Text('Language')),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -234,34 +174,19 @@ void main() {
         name: 'Narrow',
         width: 400.0,
         height: 300.0,
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: ColoredBox(
-                color: Colors.grey[200]!,
-              ),
+        child: AppSideSheet(
+          position: SideSheetPosition.left,
+          displayMode: SideSheetDisplayMode.overlay,
+          width: 200,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 40, child: Center(child: Text('Menu'))),
+                ListTile(title: Text('Home')),
+                ListTile(title: Text('Likes')),
+              ],
             ),
-            const Positioned(
-              left: 0,
-              top: 0,
-              bottom: 0,
-              width: 200,
-              child: AppSideSheet(
-                position: SideSheetPosition.left,
-                displayMode: SideSheetDisplayMode.overlay,
-                width: 200,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(height: 40, child: Center(child: Text('Menu'))),
-                      ListTile(title: Text('Home')),
-                      ListTile(title: Text('Likes')),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -273,36 +198,21 @@ void main() {
         name: 'Scrollable',
         width: 400.0,
         height: 300.0,
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: ColoredBox(
-                color: Colors.grey[200]!,
-              ),
+        child: AppSideSheet(
+          position: SideSheetPosition.left,
+          displayMode: SideSheetDisplayMode.overlay,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 48, child: Center(child: Text('Items'))),
+                ListTile(title: Text('Item 1')),
+                ListTile(title: Text('Item 2')),
+                ListTile(title: Text('Item 3')),
+                ListTile(title: Text('Item 4')),
+                ListTile(title: Text('Item 5')),
+              ],
             ),
-            const Positioned(
-              left: 0,
-              top: 0,
-              bottom: 0,
-              width: 280,
-              child: AppSideSheet(
-                position: SideSheetPosition.left,
-                displayMode: SideSheetDisplayMode.overlay,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(height: 48, child: Center(child: Text('Items'))),
-                      ListTile(title: Text('Item 1')),
-                      ListTile(title: Text('Item 2')),
-                      ListTile(title: Text('Item 3')),
-                      ListTile(title: Text('Item 4')),
-                      ListTile(title: Text('Item 5')),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

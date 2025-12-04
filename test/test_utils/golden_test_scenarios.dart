@@ -27,10 +27,12 @@ GoldenTestScenario buildSafeScenario({
         color: theme.scaffoldBackgroundColor,
         child: Theme(
           data: theme,
-          child: Center(
-            child: TickerMode(
-              enabled: !disableAnimation,
-              child: child,
+          child: Builder(
+            builder: (context) => Center(
+              child: TickerMode(
+                enabled: !disableAnimation,
+                child: child,
+              ),
             ),
           ),
         ),
