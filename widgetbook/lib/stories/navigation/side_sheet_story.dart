@@ -21,7 +21,8 @@ Widget buildLeftOverlaySheet(BuildContext context) {
               barrierColor: Colors.transparent,
               transitionDuration: const Duration(milliseconds: 400),
               pageBuilder: (context, anim1, anim2) {
-                return AppSideSheet(
+                return Builder(
+                  builder: (context) => AppSideSheet(
                   position: SideSheetPosition.left,
                   displayMode: SideSheetDisplayMode.overlay,
                   width: 280,
@@ -52,6 +53,7 @@ Widget buildLeftOverlaySheet(BuildContext context) {
                       ],
                     ),
                   ),
+                ),
                 );
               },
             );
@@ -82,7 +84,8 @@ Widget buildRightOverlaySheet(BuildContext context) {
               barrierColor: Colors.transparent,
               transitionDuration: const Duration(milliseconds: 400),
               pageBuilder: (context, anim1, anim2) {
-                return AppSideSheet(
+                return Builder(
+                  builder: (context) => AppSideSheet(
                   position: SideSheetPosition.right,
                   displayMode: SideSheetDisplayMode.overlay,
                   width: 320,
@@ -106,6 +109,7 @@ Widget buildRightOverlaySheet(BuildContext context) {
                       ],
                     ),
                   ),
+                ),
                 );
               },
             );
@@ -136,34 +140,36 @@ Widget buildAppDrawer(BuildContext context) {
               barrierColor: Colors.transparent,
               transitionDuration: const Duration(milliseconds: 400),
               pageBuilder: (context, anim1, anim2) {
-                return AppDrawer(
-                  width: 280,
-                  child: Scaffold(
-                    appBar: AppBar(
-                      title: const Text('Menu'),
-                      automaticallyImplyLeading: false,
-                    ),
-                    body: ListView(
-                      children: [
-                        const DrawerHeader(
-                          child: Text('App Menu'),
-                        ),
-                        ListTile(
-                          leading: const Icon(Icons.home),
-                          title: const Text('Home'),
-                          onTap: () => Navigator.pop(context),
-                        ),
-                        ListTile(
-                          leading: const Icon(Icons.favorite),
-                          title: const Text('Favorites'),
-                          onTap: () => Navigator.pop(context),
-                        ),
-                        ListTile(
-                          leading: const Icon(Icons.bookmark),
-                          title: const Text('Bookmarks'),
-                          onTap: () => Navigator.pop(context),
-                        ),
-                      ],
+                return Builder(
+                  builder: (context) => AppDrawer(
+                    width: 280,
+                    child: Scaffold(
+                      appBar: AppBar(
+                        title: const Text('Menu'),
+                        automaticallyImplyLeading: false,
+                      ),
+                      body: ListView(
+                        children: [
+                          const DrawerHeader(
+                            child: Text('App Menu'),
+                          ),
+                          ListTile(
+                            leading: const Icon(Icons.home),
+                            title: const Text('Home'),
+                            onTap: () => Navigator.pop(context),
+                          ),
+                          ListTile(
+                            leading: const Icon(Icons.favorite),
+                            title: const Text('Favorites'),
+                            onTap: () => Navigator.pop(context),
+                          ),
+                          ListTile(
+                            leading: const Icon(Icons.bookmark),
+                            title: const Text('Bookmarks'),
+                            onTap: () => Navigator.pop(context),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );
@@ -262,7 +268,8 @@ Widget buildDismissibleSheet(BuildContext context) {
               barrierColor: Colors.transparent,
               transitionDuration: const Duration(milliseconds: 400),
               pageBuilder: (context, anim1, anim2) {
-                return AppSideSheet(
+                return Builder(
+                  builder: (context) => AppSideSheet(
                   isDismissible: true,
                   position: SideSheetPosition.left,
                   displayMode: SideSheetDisplayMode.overlay,
@@ -290,6 +297,7 @@ Widget buildDismissibleSheet(BuildContext context) {
                       ),
                     ),
                   ),
+                ),
                 );
               },
             );
@@ -320,7 +328,8 @@ Widget buildNonDismissibleSheet(BuildContext context) {
               barrierLabel: 'Side Sheet',
               transitionDuration: const Duration(milliseconds: 400),
               pageBuilder: (context, anim1, anim2) {
-                return AppSideSheet(
+                return Builder(
+                  builder: (context) => AppSideSheet(
                   isDismissible: false,
                   position: SideSheetPosition.left,
                   displayMode: SideSheetDisplayMode.overlay,
@@ -349,6 +358,7 @@ Widget buildNonDismissibleSheet(BuildContext context) {
                       ),
                     ),
                   ),
+                ),
                 );
               },
             );
@@ -381,13 +391,15 @@ Widget buildCustomWidthSheet(BuildContext context) {
                   barrierColor: Colors.transparent,
                   transitionDuration: const Duration(milliseconds: 400),
                   pageBuilder: (context, anim1, anim2) {
-                    return AppSideSheet(
-                      width: 200,
-                      position: SideSheetPosition.left,
-                      displayMode: SideSheetDisplayMode.overlay,
-                      child: Scaffold(
-                        appBar: AppBar(title: const Text('Narrow')),
-                        body: const Center(child: AppText('200px wide')),
+                    return Builder(
+                      builder: (context) => AppSideSheet(
+                        width: 200,
+                        position: SideSheetPosition.left,
+                        displayMode: SideSheetDisplayMode.overlay,
+                        child: Scaffold(
+                          appBar: AppBar(title: const Text('Narrow')),
+                          body: const Center(child: AppText('200px wide')),
+                        ),
                       ),
                     );
                   },
@@ -404,13 +416,15 @@ Widget buildCustomWidthSheet(BuildContext context) {
                   barrierColor: Colors.transparent,
                   transitionDuration: const Duration(milliseconds: 400),
                   pageBuilder: (context, anim1, anim2) {
-                    return AppSideSheet(
-                      width: 350,
-                      position: SideSheetPosition.left,
-                      displayMode: SideSheetDisplayMode.overlay,
-                      child: Scaffold(
-                        appBar: AppBar(title: const Text('Wide')),
-                        body: const Center(child: AppText('350px wide')),
+                    return Builder(
+                      builder: (context) => AppSideSheet(
+                        width: 350,
+                        position: SideSheetPosition.left,
+                        displayMode: SideSheetDisplayMode.overlay,
+                        child: Scaffold(
+                          appBar: AppBar(title: const Text('Wide')),
+                          body: const Center(child: AppText('350px wide')),
+                        ),
                       ),
                     );
                   },
