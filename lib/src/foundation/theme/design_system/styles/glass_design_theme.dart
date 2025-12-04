@@ -39,6 +39,7 @@ class GlassDesignTheme extends AppDesignTheme {
   factory GlassDesignTheme.light([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultLightScheme;
     final glassBaseColor = scheme.surface.withValues(alpha: 0.02);
+    final overlayColor = Colors.black.withValues(alpha: 0.2);
 
     return GlassDesignTheme._(
       surfaceBase: SurfaceStyle(
@@ -369,7 +370,7 @@ class GlassDesignTheme extends AppDesignTheme {
         buttonAlignment: MainAxisAlignment.end,
       ),
       bottomSheetStyle: BottomSheetStyle(
-        overlayColor: Colors.black.withValues(alpha: 0.2),
+        overlayColor: overlayColor,
         animationDuration: const Duration(milliseconds: 400),
         animationCurve: Curves.easeInOutCubic,
         topBorderRadius: 16.0,
@@ -377,7 +378,7 @@ class GlassDesignTheme extends AppDesignTheme {
       ),
       sideSheetStyle: SideSheetStyle(
         width: 280.0,
-        overlayColor: Colors.black.withValues(alpha: 0.2),
+        overlayColor: overlayColor,
         animationDuration: const Duration(milliseconds: 400),
         animationCurve: Curves.easeInOutCubic,
         blurStrength: 20.0,
@@ -436,6 +437,7 @@ class GlassDesignTheme extends AppDesignTheme {
 
   factory GlassDesignTheme.dark([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultDarkScheme;
+    final overlayColor = Colors.white.withValues(alpha: 0.2);
     return GlassDesignTheme._(
       surfaceBase: SurfaceStyle(
         backgroundColor: scheme.shadow.withValues(alpha: 0.3),
@@ -760,7 +762,7 @@ class GlassDesignTheme extends AppDesignTheme {
         buttonAlignment: MainAxisAlignment.end,
       ),
       bottomSheetStyle: BottomSheetStyle(
-        overlayColor: Colors.black.withValues(alpha: 0.2),
+        overlayColor: overlayColor,
         animationDuration: const Duration(milliseconds: 400),
         animationCurve: Curves.easeInOutCubic,
         topBorderRadius: 16.0,
@@ -768,7 +770,7 @@ class GlassDesignTheme extends AppDesignTheme {
       ),
       sideSheetStyle: SideSheetStyle(
         width: 280.0,
-        overlayColor: Colors.black.withValues(alpha: 0.2),
+        overlayColor: overlayColor,
         animationDuration: const Duration(milliseconds: 400),
         animationCurve: Curves.easeInOutCubic,
         blurStrength: 20.0,

@@ -38,6 +38,9 @@ class BrutalDesignTheme extends AppDesignTheme {
 
   factory BrutalDesignTheme.light([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultLightScheme;
+    final overlayColor = Colors.black.withValues(alpha: 0.5);
+    final bottomSheetOverlay = Colors.black.withValues(alpha: 0.5);
+    final sideSheetOverlay = Colors.black.withValues(alpha: 0.6);
     return BrutalDesignTheme._(
       surfaceBase: SurfaceStyle(
         backgroundColor: scheme.surface, // Use ColorScheme's surface
@@ -323,7 +326,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         barrierBlur: 0.0,
       ),
       bottomSheetStyle: BottomSheetStyle(
-        overlayColor: Colors.black.withValues(alpha: 0.5),
+        overlayColor: bottomSheetOverlay,
         animationDuration: const Duration(milliseconds: 200),
         animationCurve: Curves.linear,
         topBorderRadius: 0.0,
@@ -331,7 +334,7 @@ class BrutalDesignTheme extends AppDesignTheme {
       ),
       sideSheetStyle: SideSheetStyle(
         width: 280.0,
-        overlayColor: Colors.black.withValues(alpha: 0.6),
+        overlayColor: sideSheetOverlay,
         animationDuration: const Duration(milliseconds: 150),
         animationCurve: Curves.linear,
         blurStrength: 0.0,
@@ -391,6 +394,10 @@ class BrutalDesignTheme extends AppDesignTheme {
   factory BrutalDesignTheme.dark([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultDarkScheme;
     final black = scheme.onSurface;
+    final overlayColorDark = Colors.white.withValues(alpha: 0.6);
+    final overlayColorLight = Colors.white.withValues(alpha: 0.5);
+    final bottomSheetOverlay = Colors.white.withValues(alpha: 0.6);
+    final sideSheetOverlay = Colors.white.withValues(alpha: 0.6);
 
     return BrutalDesignTheme._(
       surfaceBase: SurfaceStyle(
@@ -673,7 +680,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         barrierBlur: 0.0,
       ),
       bottomSheetStyle: BottomSheetStyle(
-        overlayColor: Colors.black.withValues(alpha: 0.5),
+        overlayColor: bottomSheetOverlay,
         animationDuration: const Duration(milliseconds: 200),
         animationCurve: Curves.linear,
         topBorderRadius: 0.0,
@@ -681,7 +688,7 @@ class BrutalDesignTheme extends AppDesignTheme {
       ),
       sideSheetStyle: SideSheetStyle(
         width: 280.0,
-        overlayColor: Colors.black.withValues(alpha: 0.6),
+        overlayColor: sideSheetOverlay,
         animationDuration: const Duration(milliseconds: 150),
         animationCurve: Curves.linear,
         blurStrength: 0.0,

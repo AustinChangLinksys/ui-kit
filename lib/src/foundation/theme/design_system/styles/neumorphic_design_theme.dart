@@ -38,6 +38,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
   // Default to Light, providing a default ColorScheme
   factory NeumorphicDesignTheme.light([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultLightScheme;
+    final overlayColor = Colors.black.withValues(alpha: 0.2);
     final lightBaseColor = scheme.surface;
     final lightShadow = Color.alphaBlend(
         scheme.outline.withValues(alpha: 0.5), scheme.surface); // White shadow
@@ -353,7 +354,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         barrierBlur: 0.0,
       ),
       bottomSheetStyle: BottomSheetStyle(
-        overlayColor: Colors.black.withValues(alpha: 0.2),
+        overlayColor: overlayColor,
         animationDuration: const Duration(milliseconds: 350),
         animationCurve: Curves.easeInOutQuad,
         topBorderRadius: 20.0,
@@ -361,7 +362,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
       ),
       sideSheetStyle: SideSheetStyle(
         width: 280.0,
-        overlayColor: Colors.black.withValues(alpha: 0.2),
+        overlayColor: overlayColor,
         animationDuration: const Duration(milliseconds: 350),
         animationCurve: Curves.easeInOutQuad,
         blurStrength: 0.0,
@@ -420,6 +421,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
 
   factory NeumorphicDesignTheme.dark([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultDarkScheme;
+    final overlayColor = Colors.white.withValues(alpha: 0.2);
     final darkBaseColor = scheme.surface;
     final darkLightShadow = Color.alphaBlend(
         scheme.outline.withValues(alpha: 0.1), scheme.surface); // Light shadow
@@ -738,7 +740,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         barrierBlur: 0.0,
       ),
       bottomSheetStyle: BottomSheetStyle(
-        overlayColor: Colors.black.withValues(alpha: 0.2),
+        overlayColor: overlayColor,
         animationDuration: const Duration(milliseconds: 350),
         animationCurve: Curves.easeInOutQuad,
         topBorderRadius: 20.0,
@@ -746,7 +748,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
       ),
       sideSheetStyle: SideSheetStyle(
         width: 280.0,
-        overlayColor: Colors.black.withValues(alpha: 0.2),
+        overlayColor: overlayColor,
         animationDuration: const Duration(milliseconds: 350),
         animationCurve: Curves.easeInOutQuad,
         blurStrength: 0.0,

@@ -38,6 +38,7 @@ class PixelDesignTheme extends AppDesignTheme {
 
   factory PixelDesignTheme.light([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultLightScheme;
+    final overlayColor = Colors.black.withValues(alpha: 0.4);
     return PixelDesignTheme._(
       surfaceBase: SurfaceStyle(
         backgroundColor: scheme.surface,
@@ -333,7 +334,7 @@ class PixelDesignTheme extends AppDesignTheme {
         buttonAlignment: MainAxisAlignment.end,
       ),
       bottomSheetStyle: BottomSheetStyle(
-        overlayColor: Colors.black.withValues(alpha: 0.4),
+        overlayColor: overlayColor,
         animationDuration: const Duration(milliseconds: 100),
         animationCurve: Curves.linear,
         topBorderRadius: 0.0,
@@ -341,7 +342,7 @@ class PixelDesignTheme extends AppDesignTheme {
       ),
       sideSheetStyle: SideSheetStyle(
         width: 256.0,
-        overlayColor: Colors.black.withValues(alpha: 0.4),
+        overlayColor: overlayColor,
         animationDuration: const Duration(milliseconds: 100),
         animationCurve: Curves.linear,
         blurStrength: 0.0,
@@ -400,6 +401,7 @@ class PixelDesignTheme extends AppDesignTheme {
 
   factory PixelDesignTheme.dark([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultDarkScheme;
+    final overlayColor = Colors.white.withValues(alpha: 0.4);
     final black = scheme.onSurface;
 
     return PixelDesignTheme._(
@@ -693,7 +695,7 @@ class PixelDesignTheme extends AppDesignTheme {
         buttonAlignment: MainAxisAlignment.end,
       ),
       bottomSheetStyle: BottomSheetStyle(
-        overlayColor: Colors.black.withValues(alpha: 0.4),
+        overlayColor: overlayColor,
         animationDuration: const Duration(milliseconds: 100),
         animationCurve: Curves.linear,
         topBorderRadius: 0.0,
@@ -701,7 +703,7 @@ class PixelDesignTheme extends AppDesignTheme {
       ),
       sideSheetStyle: SideSheetStyle(
         width: 256.0,
-        overlayColor: Colors.black.withValues(alpha: 0.4),
+        overlayColor: overlayColor,
         animationDuration: const Duration(milliseconds: 100),
         animationCurve: Curves.linear,
         blurStrength: 0.0,

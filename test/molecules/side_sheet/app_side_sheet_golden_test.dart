@@ -18,28 +18,44 @@ void main() {
         name: 'Left Overlay',
         width: 400.0,
         height: 300.0,
-        child: Scaffold(
-          body: Stack(
-            children: [
-              Positioned.fill(
-                child: ColoredBox(
-                  color: Colors.grey[200]!,
-                ),
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: ColoredBox(
+                color: Colors.grey[200]!,
               ),
-              const Positioned(
-                left: 0,
-                top: 0,
-                bottom: 0,
+            ),
+            const Positioned(
+              left: 0,
+              top: 0,
+              bottom: 0,
+              width: 280,
+              child: AppSideSheet(
+                position: SideSheetPosition.left,
+                displayMode: SideSheetDisplayMode.overlay,
                 width: 280,
-                child: AppSideSheet(
-                  position: SideSheetPosition.left,
-                  displayMode: SideSheetDisplayMode.overlay,
-                  width: 280,
-                  child: _OverlayContent(),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 48,
+                        child: ColoredBox(
+                          color: Colors.black,
+                          child: Center(
+                            child: Text('Navigation', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                          ),
+                        ),
+                      ),
+                      ListTile(title: Text('Home')),
+                      ListTile(title: Text('Projects')),
+                      ListTile(title: Text('Profile')),
+                      ListTile(title: Text('Settings')),
+                    ],
+                  ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -51,28 +67,43 @@ void main() {
         name: 'Right Overlay',
         width: 400.0,
         height: 300.0,
-        child: Scaffold(
-          body: Stack(
-            children: [
-              Positioned.fill(
-                child: ColoredBox(
-                  color: Colors.grey[200]!,
-                ),
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: ColoredBox(
+                color: Colors.grey[200]!,
               ),
-              const Positioned(
-                right: 0,
-                top: 0,
-                bottom: 0,
+            ),
+            const Positioned(
+              right: 0,
+              top: 0,
+              bottom: 0,
+              width: 280,
+              child: AppSideSheet(
+                position: SideSheetPosition.right,
+                displayMode: SideSheetDisplayMode.overlay,
                 width: 280,
-                child: AppSideSheet(
-                  position: SideSheetPosition.right,
-                  displayMode: SideSheetDisplayMode.overlay,
-                  width: 280,
-                  child: _OverlayContent(),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 48,
+                        child: ColoredBox(
+                          color: Colors.black,
+                          child: Center(
+                            child: Text('Settings', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                          ),
+                        ),
+                      ),
+                      ListTile(title: Text('Dark Mode')),
+                      ListTile(title: Text('Notifications')),
+                      ListTile(title: Text('Language')),
+                    ],
+                  ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -84,25 +115,31 @@ void main() {
         name: 'Persistent',
         width: 400.0,
         height: 300.0,
-        child: Scaffold(
-          body: Row(
-            children: [
-              const AppSideSheet(
-                position: SideSheetPosition.left,
-                displayMode: SideSheetDisplayMode.persistent,
-                width: 120,
-                child: _PersistentContent(),
-              ),
-              Expanded(
-                child: ColoredBox(
-                  color: Colors.grey[100]!,
-                  child: const Center(
-                    child: AppText('Main'),
-                  ),
+        child: Row(
+          children: [
+            const AppSideSheet(
+              position: SideSheetPosition.left,
+              displayMode: SideSheetDisplayMode.persistent,
+              width: 120,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(height: 48, child: Center(child: Text('Nav'))),
+                    ListTile(title: Text('Home')),
+                    ListTile(title: Text('Settings')),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+            Expanded(
+              child: ColoredBox(
+                color: Colors.grey[100]!,
+                child: const Center(
+                  child: Text('Main'),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -114,25 +151,38 @@ void main() {
         name: 'Drawer',
         width: 400.0,
         height: 300.0,
-        child: Scaffold(
-          body: Stack(
-            children: [
-              Positioned.fill(
-                child: ColoredBox(
-                  color: Colors.grey[200]!,
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: ColoredBox(
+                color: Colors.grey[200]!,
+              ),
+            ),
+            const Positioned(
+              left: 0,
+              top: 0,
+              bottom: 0,
+              width: 280,
+              child: AppDrawer(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 56,
+                        child: ColoredBox(
+                          color: Colors.blue,
+                          child: Center(child: Text('Menu', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+                        ),
+                      ),
+                      ListTile(title: Text('Home')),
+                      ListTile(title: Text('Favorites')),
+                      ListTile(title: Text('Bookmarks')),
+                    ],
+                  ),
                 ),
               ),
-              const Positioned(
-                left: 0,
-                top: 0,
-                bottom: 0,
-                width: 280,
-                child: AppDrawer(
-                  child: _DrawerContent(),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -144,28 +194,35 @@ void main() {
         name: 'Wide',
         width: 400.0,
         height: 300.0,
-        child: Scaffold(
-          body: Stack(
-            children: [
-              Positioned.fill(
-                child: ColoredBox(
-                  color: Colors.grey[200]!,
-                ),
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: ColoredBox(
+                color: Colors.grey[200]!,
               ),
-              const Positioned(
-                left: 0,
-                top: 0,
-                bottom: 0,
+            ),
+            const Positioned(
+              left: 0,
+              top: 0,
+              bottom: 0,
+              width: 350,
+              child: AppSideSheet(
+                position: SideSheetPosition.left,
+                displayMode: SideSheetDisplayMode.overlay,
                 width: 350,
-                child: AppSideSheet(
-                  position: SideSheetPosition.left,
-                  displayMode: SideSheetDisplayMode.overlay,
-                  width: 350,
-                  child: _WideContent(),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(height: 48, child: Center(child: Text('Settings'))),
+                      ListTile(title: Text('Theme')),
+                      ListTile(title: Text('Notifications')),
+                      ListTile(title: Text('Language')),
+                    ],
+                  ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -177,28 +234,34 @@ void main() {
         name: 'Narrow',
         width: 400.0,
         height: 300.0,
-        child: Scaffold(
-          body: Stack(
-            children: [
-              Positioned.fill(
-                child: ColoredBox(
-                  color: Colors.grey[200]!,
-                ),
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: ColoredBox(
+                color: Colors.grey[200]!,
               ),
-              const Positioned(
-                left: 0,
-                top: 0,
-                bottom: 0,
+            ),
+            const Positioned(
+              left: 0,
+              top: 0,
+              bottom: 0,
+              width: 200,
+              child: AppSideSheet(
+                position: SideSheetPosition.left,
+                displayMode: SideSheetDisplayMode.overlay,
                 width: 200,
-                child: AppSideSheet(
-                  position: SideSheetPosition.left,
-                  displayMode: SideSheetDisplayMode.overlay,
-                  width: 200,
-                  child: _NarrowContent(),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(height: 40, child: Center(child: Text('Menu'))),
+                      ListTile(title: Text('Home')),
+                      ListTile(title: Text('Likes')),
+                    ],
+                  ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -210,224 +273,38 @@ void main() {
         name: 'Scrollable',
         width: 400.0,
         height: 300.0,
-        child: Scaffold(
-          body: Stack(
-            children: [
-              Positioned.fill(
-                child: ColoredBox(
-                  color: Colors.grey[200]!,
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: ColoredBox(
+                color: Colors.grey[200]!,
+              ),
+            ),
+            const Positioned(
+              left: 0,
+              top: 0,
+              bottom: 0,
+              width: 280,
+              child: AppSideSheet(
+                position: SideSheetPosition.left,
+                displayMode: SideSheetDisplayMode.overlay,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(height: 48, child: Center(child: Text('Items'))),
+                      ListTile(title: Text('Item 1')),
+                      ListTile(title: Text('Item 2')),
+                      ListTile(title: Text('Item 3')),
+                      ListTile(title: Text('Item 4')),
+                      ListTile(title: Text('Item 5')),
+                    ],
+                  ),
                 ),
               ),
-              const Positioned(
-                left: 0,
-                top: 0,
-                bottom: 0,
-                width: 280,
-                child: AppSideSheet(
-                  position: SideSheetPosition.left,
-                  displayMode: SideSheetDisplayMode.overlay,
-                  child: _ScrollableContent(),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   });
-}
-
-class _OverlayContent extends StatelessWidget {
-  const _OverlayContent();
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      child: Column(
-        children: [
-          AppBar(title: const Text('Navigation')),
-          Expanded(
-            child: ListView(
-              children: const [
-                ListTile(
-                  leading: Icon(Icons.home),
-                  title: Text('Home'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.business),
-                  title: Text('Projects'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.person),
-                  title: Text('Profile'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text('Settings'),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _PersistentContent extends StatelessWidget {
-  const _PersistentContent();
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      child: Column(
-        children: [
-          AppBar(title: const Text('Menu')),
-          Expanded(
-            child: ListView(
-              children: const [
-                ListTile(
-                  leading: Icon(Icons.dashboard),
-                  title: Text('Dashboard'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.analytics),
-                  title: Text('Analytics'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.report),
-                  title: Text('Reports'),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _DrawerContent extends StatelessWidget {
-  const _DrawerContent();
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      child: Column(
-        children: [
-          const DrawerHeader(
-            child: Text('App Menu'),
-          ),
-          Expanded(
-            child: ListView(
-              children: const [
-                ListTile(
-                  leading: Icon(Icons.home),
-                  title: Text('Home'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.favorite),
-                  title: Text('Favorites'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.bookmark),
-                  title: Text('Bookmarks'),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _WideContent extends StatelessWidget {
-  const _WideContent();
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      child: Column(
-        children: [
-          AppBar(title: const Text('Wide Panel')),
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.all(16),
-              children: [
-                const AppText('Settings'),
-                const SizedBox(height: 16),
-                const ListTile(
-                  title: Text('Theme'),
-                  subtitle: Text('Dark Mode'),
-                ),
-                const ListTile(
-                  title: Text('Notifications'),
-                ),
-                const ListTile(
-                  title: Text('Language'),
-                  subtitle: Text('English'),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _NarrowContent extends StatelessWidget {
-  const _NarrowContent();
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      child: Column(
-        children: [
-          AppBar(title: const Text('Menu'), elevation: 0),
-          Expanded(
-            child: ListView(
-              children: const [
-                ListTile(
-                  leading: Icon(Icons.home),
-                  title: Text('Home'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.favorite),
-                  title: Text('Likes'),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ScrollableContent extends StatelessWidget {
-  const _ScrollableContent();
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      child: Column(
-        children: [
-          AppBar(title: const Text('Long List')),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 20,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text('Item ${index + 1}'),
-                  subtitle: Text('Description ${index + 1}'),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }

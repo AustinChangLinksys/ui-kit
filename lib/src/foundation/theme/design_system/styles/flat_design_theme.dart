@@ -37,6 +37,7 @@ class FlatDesignTheme extends AppDesignTheme {
 
   factory FlatDesignTheme.light([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultLightScheme;
+    final overlayColor = Colors.black.withValues(alpha: 0.15);
     // Define semantic color variables (Token-First)
     final activeColor = scheme.primary;
     final inactiveColor = scheme
@@ -344,7 +345,7 @@ class FlatDesignTheme extends AppDesignTheme {
         buttonAlignment: MainAxisAlignment.end,
       ),
       bottomSheetStyle: BottomSheetStyle(
-        overlayColor: Colors.black.withValues(alpha: 0.15),
+        overlayColor: overlayColor,
         animationDuration: const Duration(milliseconds: 300),
         animationCurve: Curves.easeInOut,
         topBorderRadius: 12.0,
@@ -352,7 +353,7 @@ class FlatDesignTheme extends AppDesignTheme {
       ),
       sideSheetStyle: SideSheetStyle(
         width: 280.0,
-        overlayColor: Colors.black.withValues(alpha: 0.15),
+        overlayColor: overlayColor,
         animationDuration: const Duration(milliseconds: 300),
         animationCurve: Curves.easeInOut,
         blurStrength: 0.0,
@@ -411,6 +412,7 @@ class FlatDesignTheme extends AppDesignTheme {
 
   factory FlatDesignTheme.dark([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultDarkScheme;
+    final overlayColor = Colors.white.withValues(alpha: 0.15);
     // Dark Mode color mapping
     final activeColor = scheme.primary;
     final inactiveColor = scheme.surfaceContainerHighest;
@@ -702,7 +704,7 @@ class FlatDesignTheme extends AppDesignTheme {
         buttonAlignment: MainAxisAlignment.end,
       ),
       bottomSheetStyle: BottomSheetStyle(
-        overlayColor: Colors.black.withValues(alpha: 0.15),
+        overlayColor: overlayColor,
         animationDuration: const Duration(milliseconds: 300),
         animationCurve: Curves.easeInOut,
         topBorderRadius: 12.0,
@@ -710,7 +712,7 @@ class FlatDesignTheme extends AppDesignTheme {
       ),
       sideSheetStyle: SideSheetStyle(
         width: 280.0,
-        overlayColor: Colors.black.withValues(alpha: 0.15),
+        overlayColor: overlayColor,
         animationDuration: const Duration(milliseconds: 300),
         animationCurve: Curves.easeInOut,
         blurStrength: 0.0,
