@@ -96,10 +96,10 @@ The `example/` directory is renamed to `gen_ui_client/` and restructured as a st
 ### Edge Cases
 
 - When a component requested by the AI is not in the registry, render a styled AppSurface with error message indicating the unknown component name.
-- How does the system handle theme changes while a component is loading?
-- What happens if seed color values are invalid (out of range)?
-- How does the system behave when system prompt exceeds token limits?
-- What happens if the AI tries to nest components in unsupported ways?
+- Theme changes during component loading: Loading state inherits new theme immediately; no special handling required as Flutter rebuilds widget tree.
+- Invalid seed color values: ColorScheme.fromSeed() handles gracefully; any Color value is valid.
+- System prompt token limits: AWS Bedrock returns error; display user-friendly message via existing error handling (Phase 3).
+- Unsupported component nesting: Render parent component with error message for invalid child; do not crash.
 
 ## Requirements *(mandatory)*
 

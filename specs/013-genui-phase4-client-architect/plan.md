@@ -9,8 +9,9 @@ Upgrade `generative_ui/example/` to `generative_ui/gen_ui_client/` as a standalo
 - Theme-aware dynamic UI rendering (all 5 design languages)
 - Complete UI Kit component registry (31 components)
 - Seed color customization
-- Code generation export capability
 - Clean Architecture (Domain/Data/Presentation layers)
+
+> **Note**: Code generation export capability is planned for a future phase.
 
 ## Technical Context
 
@@ -82,10 +83,10 @@ generative_ui/
     │   │   ├── constants/       # App constants
     │   │   └── errors/          # Failure, ContractException
     │   ├── domain/              # Client-specific domain (Pure Dart)
-    │   │   ├── entities/        # LayoutBlueprint (extends ChatMessage)
-    │   │   └── services/        # ICodeGenService interface
+    │   │   ├── entities/        # LayoutNode (layout tree representation)
+    │   │   └── services/        # ICodeGenService interface (Future Phase)
     │   ├── data/                # Client-specific data layer
-    │   │   └── services/        # DartCodeGenService implementation
+    │   │   └── services/        # DartCodeGenService implementation (Future Phase)
     │   └── presentation/
     │       ├── providers/       # Riverpod: theme_provider, architect_provider
     │       ├── registry/        # UiKitComponentRegistry (31 components)
@@ -108,7 +109,7 @@ generative_ui/
 
 **Decision**: Extend, don't duplicate
 - gen_ui_client imports generative_ui's ChatMessage, LLMResponse, etc.
-- Only add client-specific entities (LayoutBlueprint) and services (ICodeGenService)
+- Only add client-specific entities (LayoutNode, ThemeState) and services (ICodeGenService - Future Phase)
 - Avoids code duplication while maintaining separation
 
 ### AD-002: Registry Pattern for 31 Components

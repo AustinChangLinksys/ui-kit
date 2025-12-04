@@ -110,7 +110,9 @@ class LayoutNode extends Equatable {
 - props: Key-value pairs matching component constructor parameters
 - children: Only populated for layout components (Column, Row, Card, etc.)
 
-### CodeGenResult (New - gen_ui_client)
+### CodeGenResult (Future Phase - gen_ui_client)
+
+> **Note**: This entity is defined for future code generation feature. Not implemented in Phase 4.
 
 Result of code generation operation.
 

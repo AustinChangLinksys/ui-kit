@@ -43,8 +43,8 @@ All paths relative to `generative_ui/gen_ui_client/` unless otherwise noted.
 - [ ] T011 [P] Create `lib/domain/entities/design_language.dart` with DesignLanguage enum (glass, brutal, flat, neumorphic, pixel)
 - [ ] T012 [P] Create `lib/domain/entities/theme_state.dart` with ThemeState entity (designLanguage, seedColor, brightness)
 - [ ] T013 [P] Create `lib/domain/entities/layout_node.dart` with LayoutNode entity (type, props, children, fromJson, toJson)
-- [ ] T014 [P] Create `lib/domain/entities/code_gen_result.dart` with CodeGenResult entity (sourceCode, isFormatted, error)
-- [ ] T015 Create `lib/domain/services/i_code_gen_service.dart` with ICodeGenService interface
+- [ ] T014 [P] (Future) Create `lib/domain/entities/code_gen_result.dart` with CodeGenResult entity - skip for Phase 4
+- [ ] T015 (Future) Create `lib/domain/services/i_code_gen_service.dart` with ICodeGenService interface - skip for Phase 4
 - [ ] T016 Run `dart run build_runner build` to generate Riverpod code
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
@@ -101,6 +101,7 @@ All paths relative to `generative_ui/gen_ui_client/` unless otherwise noted.
 - [ ] T043 [US2] Implement error fallback in `ui_kit_component_registry.dart` using AppSurface with error message for unknown components
 - [ ] T044 [US2] Wire onAction callbacks for all interactive components (AppButton, AppTextField, AppCheckbox, AppSwitch, etc.)
 - [ ] T045 [US2] Update DynamicWidgetBuilder in generative_ui to use UiKitComponentRegistry instead of demo registry
+- [ ] T045.5 [US2] Export pre-configured GenUiChatView from gen_ui_client in `lib/gen_ui_client.dart` barrel file (FR-009)
 - [ ] T046 [US2] Verify 31 components are registered by testing each component type renders correctly
 
 **Checkpoint**: All 31 UI Kit components available for AI to use
