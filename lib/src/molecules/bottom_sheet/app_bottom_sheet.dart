@@ -67,6 +67,7 @@ class _AppBottomSheetState extends State<AppBottomSheet>
     with TickerProviderStateMixin {
   late BottomSheetStyle _style;
   late AnimationController _animationController;
+  bool _hasCheckedTickerMode = false;
 
   @override
   void initState() {
@@ -81,24 +82,29 @@ class _AppBottomSheetState extends State<AppBottomSheet>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    // Constitution 4.1: AppDesignTheme is single source of truth for all styling
     final theme = Theme.of(context).extension<AppDesignTheme>();
-    _style = widget.style ?? theme?.bottomSheetStyle ?? _defaultStyle();
+    assert(
+      theme != null,
+      'AppBottomSheet requires DesignSystem initialization. '
+      'Call DesignSystem.init() in MaterialApp.builder.',
+    );
+    _style = widget.style ?? theme!.bottomSheetStyle;
+
+    // When TickerMode is disabled (e.g., in golden tests), animations won't tick.
+    // Force the animation to complete so the widget renders in its final state.
+    if (!_hasCheckedTickerMode) {
+      _hasCheckedTickerMode = true;
+      if (!TickerMode.of(context)) {
+        _animationController.value = 1.0;
+      }
+    }
   }
 
   @override
   void dispose() {
     _animationController.dispose();
     super.dispose();
-  }
-
-  BottomSheetStyle _defaultStyle() {
-    return const BottomSheetStyle(
-      overlayColor: Color(0x80000000),
-      animationDuration: Duration(milliseconds: 300),
-      animationCurve: Curves.easeOutCubic,
-      topBorderRadius: 16,
-      dragHandleHeight: 4,
-    );
   }
 
   void _dismiss() {
@@ -149,42 +155,47 @@ class _AppBottomSheetState extends State<AppBottomSheet>
                 ),
                 child: GestureDetector(
                   onTap: () {}, // Prevent tap-through to scrim
-                  child: Container(
+                  child: ConstrainedBox(
                     constraints: BoxConstraints(
                       minHeight: minHeight,
                       maxHeight: maxHeight,
                     ),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).scaffoldBackgroundColor,
+                    // ClipRRect for bottom sheet's top-only border radius
+                    // AppSurface provides theme-specific styling (colors, blur, shadows)
+                    child: ClipRRect(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(_style.topBorderRadius),
                         topRight: Radius.circular(_style.topBorderRadius),
                       ),
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        // Draggable handle
-                        if (widget.enableDrag)
-                          _BottomSheetHandle(
-                            height: _style.dragHandleHeight,
-                            onDragUpdate: (details) {
-                              if (details.delta.dy > 10) {
-                                _dismiss();
-                              }
-                            },
-                          ),
+                      child: AppSurface(
+                        // Elevated variant for floating panel with theme-specific styling
+                        variant: SurfaceVariant.elevated,
+                        child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          // Draggable handle
+                          if (widget.enableDrag)
+                            _BottomSheetHandle(
+                              height: _style.dragHandleHeight,
+                              onDragUpdate: (details) {
+                                if (details.delta.dy > 10) {
+                                  _dismiss();
+                                }
+                              },
+                            ),
 
-                        // Sheet content with scrolling support
-                        Flexible(
-                          child: SingleChildScrollView(
-                            child: Padding(
-                              padding: widget.padding,
-                              child: widget.child,
+                          // Sheet content with scrolling support
+                          Flexible(
+                            child: SingleChildScrollView(
+                              child: Padding(
+                                padding: widget.padding,
+                                child: widget.child,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
+                      ),
                     ),
                   ),
                 ),
