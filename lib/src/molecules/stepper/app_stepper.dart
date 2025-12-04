@@ -124,6 +124,7 @@ class _AppStepperState extends State<AppStepper> {
           child: SizedBox(
             height: _style.stepSize + 24,
             child: Row(
+              mainAxisSize: MainAxisSize.min,
               children: List.generate(
                 steps.length,
                 (index) => _buildStepIndicator(
