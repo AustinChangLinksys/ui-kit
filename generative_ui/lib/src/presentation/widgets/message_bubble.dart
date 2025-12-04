@@ -22,6 +22,7 @@ class MessageBubble extends StatelessWidget {
   const MessageBubble({
     required this.text,
     this.isUserMessage = false,
+    super.key,
   });
 
   @override
@@ -44,16 +45,16 @@ class MessageBubble extends StatelessWidget {
           // We will trust the SurfaceStyle for now or apply a subtle overlay if needed.
           // For now, I'll stick to the original logic but using correct context.
           decoration: BoxDecoration(
-             color: isUserMessage
-                 ? colorScheme.primary.withOpacity(0.1)
-                 : colorScheme.surfaceContainer.withOpacity(0.5),
-             borderRadius: BorderRadius.circular(12),
-             border: Border.all(
-               color: isUserMessage
-                   ? colorScheme.primary.withOpacity(0.2)
-                   : colorScheme.outlineVariant.withOpacity(0.3),
-               width: 1,
-             ),
+            color: isUserMessage
+                ? colorScheme.primary.withValues(alpha: 0.1)
+                : colorScheme.surfaceContainer.withValues(alpha: 0.5),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: isUserMessage
+                  ? colorScheme.primary.withValues(alpha: 0.2)
+                  : colorScheme.outlineVariant.withValues(alpha: 0.3),
+              width: 1,
+            ),
           ),
           child: AppText.bodyMedium(
             text,

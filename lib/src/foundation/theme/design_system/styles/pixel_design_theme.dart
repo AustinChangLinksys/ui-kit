@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/specs/app_bar_style.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/specs/dialog_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/interaction_spec.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/specs/app_menu_style.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
 class PixelDesignTheme extends AppDesignTheme {

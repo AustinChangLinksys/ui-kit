@@ -30,6 +30,7 @@ class FallbackCard extends StatelessWidget {
     required this.componentName,
     this.propsData = const {},
     this.message,
+    super.key,
   });
 
   @override
@@ -46,7 +47,7 @@ class FallbackCard extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           border: Border.all(
-            color: Colors.red.withOpacity(0.3),
+            color: Colors.red.withValues(alpha: 0.3),
             width: 1,
           ),
           borderRadius: BorderRadius.circular(8),
@@ -58,7 +59,7 @@ class FallbackCard extends StatelessWidget {
             // Error header
             Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.error_outline,
                   color: Colors.red,
                   size: 20,
@@ -121,7 +122,7 @@ class FallbackCard extends StatelessWidget {
       return '{}';
     }
     try {
-      final encoder = JsonEncoder.withIndent('  ');
+      const encoder = JsonEncoder.withIndent('  ');
       return encoder.convert(data);
     } catch (e) {
       return '{...}';

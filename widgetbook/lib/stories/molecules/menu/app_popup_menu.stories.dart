@@ -55,7 +55,7 @@ Widget buildAppPopupMenuDefault(BuildContext context) {
   type: AppPopupMenu,
 )
 Widget buildAppPopupMenuCustomIcon(BuildContext context) {
-  final iconOption = context.knobs.list<IconData>(
+  final iconOption = context.knobs.object.dropdown<IconData>(
     label: 'Trigger Icon',
     options: [
       Icons.more_vert,
@@ -388,10 +388,12 @@ Widget buildCascadingMenuDestructive(BuildContext context) {
           icon: Icons.flash_on,
           hasSubmenu: true,
         ),
-        AppPopupMenuItem(value: 'settings', label: 'Settings', icon: Icons.settings),
+        AppPopupMenuItem(
+            value: 'settings', label: 'Settings', icon: Icons.settings),
       ],
       level2Items: [
-        AppPopupMenuItem(value: 'archive', label: 'Archive', icon: Icons.archive),
+        AppPopupMenuItem(
+            value: 'archive', label: 'Archive', icon: Icons.archive),
         AppPopupMenuItem(
           value: 'danger',
           label: 'Danger Zone',
@@ -436,8 +438,6 @@ class _InteractiveMultiLevelMenuDemoState
   String _lastSelected = 'None';
 
   void _showSubMenu(BuildContext context, Offset position, int level) {
-    final theme = Theme.of(context);
-
     final List<AppPopupMenuItem<String>> items;
     if (level == 2) {
       items = const [
@@ -458,7 +458,7 @@ class _InteractiveMultiLevelMenuDemoState
       position: position,
       items: items,
     ).then((value) {
-      if (value != null && mounted) {
+      if (value != null && mounted && context.mounted) {
         setState(() => _lastSelected = value);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -591,7 +591,7 @@ Widget buildContextMenuDemo(BuildContext context) {
             ),
           ],
         ).then((value) {
-          if (value != null) {
+          if (value != null && context.mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text('Context menu: $value'),

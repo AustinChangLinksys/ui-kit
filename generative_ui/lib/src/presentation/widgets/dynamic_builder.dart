@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:generative_ui/src/domain/entities/content_block.dart';
-import 'package:generative_ui/src/domain/entities/llm_response.dart';
 import 'package:generative_ui/src/presentation/registry/component_registry.dart';
 import 'package:generative_ui/src/presentation/widgets/fallback_card.dart';
 import 'package:generative_ui/src/presentation/widgets/message_bubble.dart';
@@ -42,7 +41,7 @@ class DynamicWidgetBuilder {
         return FallbackCard(
           errorType: FallbackErrorType.renderingError,
           componentName: 'Unknown block type',
-          propsData: {},
+          propsData: const {},
           message: 'Block type not recognized: ${block.runtimeType}',
         );
       }
@@ -50,8 +49,8 @@ class DynamicWidgetBuilder {
       // Error boundary: catch all exceptions per block
       return FallbackCard(
         errorType: FallbackErrorType.renderingError,
-        componentName: block is ToolUseBlock ? (block as ToolUseBlock).name : 'TextBlock',
-        propsData: block is ToolUseBlock ? (block as ToolUseBlock).input : {},
+        componentName: block is ToolUseBlock ? (block).name : 'TextBlock',
+        propsData: block is ToolUseBlock ? (block).input : {},
         message: 'Rendering error: ${e.toString()}',
       );
     }

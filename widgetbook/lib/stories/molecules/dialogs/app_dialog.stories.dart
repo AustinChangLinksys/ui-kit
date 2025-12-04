@@ -14,7 +14,8 @@ Widget buildAppDialog(BuildContext context) {
   );
   final contentText = context.knobs.string(
     label: 'Content',
-    initialValue: 'Are you sure you want to proceed? This action cannot be undone.',
+    initialValue:
+        'Are you sure you want to proceed? This action cannot be undone.',
   );
   final showActions = context.knobs.boolean(
     label: 'Show Actions',
@@ -51,7 +52,7 @@ Widget buildAppDialog(BuildContext context) {
   type: AppDialog,
 )
 Widget buildAppDialogWithIcon(BuildContext context) {
-  final iconOption = context.knobs.list<IconData>(
+  final iconOption = context.knobs.object.dropdown<IconData>(
     label: 'Icon',
     options: [
       Icons.warning_amber_rounded,
@@ -97,7 +98,8 @@ Widget buildAppDialogPopup(BuildContext context) {
   );
   final contentText = context.knobs.string(
     label: 'Content',
-    initialValue: 'This dialog uses the active design theme with backdrop blur for Glass mode.',
+    initialValue:
+        'This dialog uses the active design theme with backdrop blur for Glass mode.',
   );
   final isDestructive = context.knobs.boolean(
     label: 'Destructive Action',

@@ -14,6 +14,7 @@ class WifiSettingsCard extends StatelessWidget {
     required this.ssid,
     required this.security,
     this.isEnabled = false,
+    super.key,
   });
 
   @override
@@ -61,6 +62,7 @@ class InfoCard extends StatelessWidget {
     required this.title,
     required this.message,
     this.iconName,
+    super.key,
   });
 
   @override
@@ -73,7 +75,7 @@ class InfoCard extends StatelessWidget {
           Row(
             children: [
               if (iconName != null) ...[
-                Icon(Icons.info_outline), // Placeholder for icon lookup
+                const Icon(Icons.info_outline), // Placeholder for icon lookup
                 AppGap.sm(),
               ],
               AppText.titleMedium(title),

@@ -49,13 +49,13 @@ void main() {
         name: 'Collapsed',
         width: 400,
         height: 100,
-        child: CustomScrollView(
+        child: const CustomScrollView(
           slivers: [
-            const AppUnifiedSliverBar(
+            AppUnifiedSliverBar(
               title: 'Dashboard',
               pinned: true,
             ),
-            const SliverToBoxAdapter(
+            SliverToBoxAdapter(
               child: SizedBox(height: 50),
             ),
           ],

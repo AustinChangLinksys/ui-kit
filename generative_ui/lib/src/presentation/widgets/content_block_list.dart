@@ -11,6 +11,7 @@ class ContentBlockList extends StatelessWidget {
   const ContentBlockList({
     required this.blocks,
     required this.builder,
+    super.key,
   });
 
   @override

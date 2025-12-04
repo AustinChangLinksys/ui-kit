@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:generative_ui/src/presentation/registry/component_registry.dart'
-    hide WidgetBuilder show GenUiWidgetBuilder, IComponentRegistry, ComponentRegistry;
+import 'package:generative_ui/src/presentation/registry/component_registry.dart';
+
+Widget _testBuilder(BuildContext context, Map<String, dynamic> props) =>
+    const SizedBox();
+
+Widget _textBuilder1(BuildContext context, Map<String, dynamic> props) =>
+    const Text('Builder1');
+
+Widget _textBuilder2(BuildContext context, Map<String, dynamic> props) =>
+    const Text('Builder2');
 
 void main() {
   group('ComponentRegistry', () {
@@ -13,15 +21,14 @@ void main() {
 
     test('register and lookup returns builder', () {
       // Arrange
-      GenUiWidgetBuilder builder = (context, props) => const SizedBox();
       const componentName = 'TestComponent';
 
       // Act
-      registry.register(componentName, builder);
+      registry.register(componentName, _testBuilder);
       final result = registry.lookup(componentName);
 
       // Assert
-      expect(result, equals(builder));
+      expect(result, equals(_testBuilder));
     });
 
     test('lookup returns null for unregistered component', () {
@@ -37,10 +44,9 @@ void main() {
 
     test('getRegisteredComponents returns all registered names', () {
       // Arrange
-      GenUiWidgetBuilder builder = (context, props) => const SizedBox();
-      registry.register('Component1', builder);
-      registry.register('Component2', builder);
-      registry.register('Component3', builder);
+      registry.register('Component1', _testBuilder);
+      registry.register('Component2', _testBuilder);
+      registry.register('Component3', _testBuilder);
 
       // Act
       final components = registry.getRegisteredComponents();
@@ -60,9 +66,8 @@ void main() {
 
     test('lookup performance with 100 components', () {
       // Arrange
-      GenUiWidgetBuilder builder = (context, props) => const SizedBox();
       for (int i = 0; i < 100; i++) {
-        registry.register('Component$i', builder);
+        registry.register('Component$i', _testBuilder);
       }
 
       // Act & Assert - Verify lookup completes in acceptable time
@@ -80,23 +85,20 @@ void main() {
 
     test('duplicate registration replaces previous builder', () {
       // Arrange
-      GenUiWidgetBuilder builder1 = (context, props) => const Text('Builder1');
-      GenUiWidgetBuilder builder2 = (context, props) => const Text('Builder2');
       const componentName = 'TestComponent';
 
       // Act
-      registry.register(componentName, builder1);
-      registry.register(componentName, builder2);
+      registry.register(componentName, _textBuilder1);
+      registry.register(componentName, _textBuilder2);
       final result = registry.lookup(componentName);
 
       // Assert
-      expect(result, equals(builder2));
+      expect(result, equals(_textBuilder2));
     });
 
     test('case sensitivity in component names', () {
       // Arrange
-      GenUiWidgetBuilder builder = (context, props) => const SizedBox();
-      registry.register('TestComponent', builder);
+      registry.register('TestComponent', _testBuilder);
 
       // Act
       final exactMatch = registry.lookup('TestComponent');
