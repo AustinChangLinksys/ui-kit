@@ -37,6 +37,8 @@ import 'package:widgetbook_workspace/stories/examples/internet_settings_page.sto
     as _widgetbook_workspace_stories_examples_internet_settings_page_stories;
 import 'package:widgetbook_workspace/stories/examples/mockup_page.stories.dart'
     as _widgetbook_workspace_stories_examples_mockup_page_stories;
+import 'package:widgetbook_workspace/stories/foundation/color_json_story.dart'
+    as _widgetbook_workspace_stories_foundation_color_json_story;
 import 'package:widgetbook_workspace/stories/foundation/effects/global_effects_overlay.stories.dart'
     as _widgetbook_workspace_stories_foundation_effects_global_effects_overlay_stories;
 import 'package:widgetbook_workspace/stories/layouts/app_gap.stories.dart'
@@ -1576,6 +1578,27 @@ final directories = <_widgetbook.WidgetbookNode>[
           ),
         ],
       ),
+    ],
+  ),
+  _widgetbook.WidgetbookFolder(
+    name: 'stories',
+    children: [
+      _widgetbook.WidgetbookFolder(
+        name: 'foundation',
+        children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'AppThemeConfigJsonViewer',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Custom Theme via JSON',
+                builder:
+                    _widgetbook_workspace_stories_foundation_color_json_story
+                        .buildColorJsonStory,
+              )
+            ],
+          )
+        ],
+      )
     ],
   ),
 ];
