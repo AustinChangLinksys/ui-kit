@@ -37,6 +37,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
     required super.expansionPanelStyle,
     required super.carouselStyle,
     required super.chipGroupStyle,
+    required super.topologySpec,
   });
 
   // Default to Light, providing a default ColorScheme
@@ -423,6 +424,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         selectedBorderColor: scheme.primary,
         borderRadius: 18.0,
       ),
+      topologySpec: _buildTopologySpec(scheme, isLight: true),
     );
   }
 
@@ -812,6 +814,151 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         selectedBorderColor: scheme.primary,
         borderRadius: 18.0,
       ),
+      topologySpec: _buildTopologySpec(scheme, isLight: false),
+    );
+  }
+
+  /// Builds topology spec for Neumorphic theme with soft, embossed aesthetic.
+  static TopologySpec _buildTopologySpec(ColorScheme scheme, {required bool isLight}) {
+    final baseColor = scheme.surface;
+    final lightShadow = isLight
+        ? Color.alphaBlend(scheme.outline.withValues(alpha: 0.5), scheme.surface)
+        : Color.alphaBlend(scheme.outline.withValues(alpha: 0.1), scheme.surface);
+
+    return TopologySpec(
+      // Gateway styles - soft embossed circles
+      gatewayNormalStyle: NodeStyle(
+        backgroundColor: baseColor,
+        borderColor: scheme.primary.withValues(alpha: 0.3),
+        borderWidth: 1.0,
+        borderRadius: 999.0,
+        glowColor: lightShadow,
+        glowRadius: 8.0,
+        size: 68.0,
+        iconColor: scheme.primary,
+      ),
+      gatewayHighLoadStyle: NodeStyle(
+        backgroundColor: baseColor,
+        borderColor: scheme.tertiary.withValues(alpha: 0.4),
+        borderWidth: 1.5,
+        borderRadius: 999.0,
+        glowColor: scheme.tertiary.withValues(alpha: 0.2),
+        glowRadius: 10.0,
+        size: 68.0,
+        iconColor: scheme.tertiary,
+      ),
+      gatewayOfflineStyle: NodeStyle(
+        backgroundColor: baseColor,
+        borderColor: scheme.outline.withValues(alpha: 0.2),
+        borderWidth: 1.0,
+        borderRadius: 999.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 68.0,
+        iconColor: scheme.outline,
+      ),
+
+      // Extender styles - soft rounded rectangles
+      extenderNormalStyle: NodeStyle(
+        backgroundColor: baseColor,
+        borderColor: scheme.secondary.withValues(alpha: 0.2),
+        borderWidth: 1.0,
+        borderRadius: 16.0,
+        glowColor: lightShadow,
+        glowRadius: 6.0,
+        size: 54.0,
+        iconColor: scheme.secondary,
+      ),
+      extenderHighLoadStyle: NodeStyle(
+        backgroundColor: baseColor,
+        borderColor: scheme.tertiary.withValues(alpha: 0.3),
+        borderWidth: 1.0,
+        borderRadius: 16.0,
+        glowColor: scheme.tertiary.withValues(alpha: 0.15),
+        glowRadius: 8.0,
+        size: 54.0,
+        iconColor: scheme.tertiary,
+      ),
+      extenderOfflineStyle: NodeStyle(
+        backgroundColor: baseColor,
+        borderColor: scheme.outline.withValues(alpha: 0.15),
+        borderWidth: 1.0,
+        borderRadius: 16.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 54.0,
+        iconColor: scheme.outline,
+      ),
+
+      // Client styles - small soft circles
+      clientNormalStyle: NodeStyle(
+        backgroundColor: baseColor,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 999.0,
+        glowColor: lightShadow,
+        glowRadius: 4.0,
+        size: 32.0,
+        iconColor: scheme.onSurface,
+      ),
+      clientOfflineStyle: NodeStyle(
+        backgroundColor: baseColor,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 999.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 32.0,
+        iconColor: scheme.outline,
+      ),
+
+      // Link styles - soft connections
+      ethernetLinkStyle: LinkStyle(
+        color: scheme.outline.withValues(alpha: 0.5),
+        width: 2.0,
+        dashPattern: null,
+        glowColor: lightShadow,
+        glowRadius: 2.0,
+        animationDuration: Duration.zero,
+      ),
+      wifiStrongStyle: LinkStyle(
+        color: Colors.green.withValues(alpha: 0.6),
+        width: 2.0,
+        dashPattern: const [6.0, 3.0],
+        glowColor: Colors.green.withValues(alpha: 0.1),
+        glowRadius: 3.0,
+        animationDuration: const Duration(milliseconds: 1800),
+      ),
+      wifiMediumStyle: LinkStyle(
+        color: Colors.orange.withValues(alpha: 0.6),
+        width: 2.0,
+        dashPattern: const [5.0, 3.0],
+        glowColor: Colors.orange.withValues(alpha: 0.1),
+        glowRadius: 2.0,
+        animationDuration: const Duration(milliseconds: 2200),
+      ),
+      wifiWeakStyle: LinkStyle(
+        color: scheme.error.withValues(alpha: 0.6),
+        width: 1.5,
+        dashPattern: const [4.0, 3.0],
+        glowColor: scheme.error.withValues(alpha: 0.1),
+        glowRadius: 2.0,
+        animationDuration: const Duration(milliseconds: 2600),
+      ),
+      wifiUnknownStyle: LinkStyle(
+        color: scheme.outline.withValues(alpha: 0.4),
+        width: 1.5,
+        dashPattern: const [4.0, 4.0],
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        animationDuration: const Duration(milliseconds: 2200),
+      ),
+
+      // Layout - soft spacing
+      nodeSpacing: 95.0,
+      linkCurvature: 0.25,
+      orbitRadius: 58.0,
+      orbitSpeed: const Duration(seconds: 22),
     );
   }
 }

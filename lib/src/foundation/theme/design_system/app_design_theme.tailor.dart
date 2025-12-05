@@ -42,6 +42,8 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
   ExpansionPanelStyle get expansionPanelStyle;
   CarouselStyle get carouselStyle;
   ChipGroupStyle get chipGroupStyle;
+  TopologySpec get topologySpec;
+  AppStyleColors get styleColors;
 
   @override
   AppDesignTheme copyWith({
@@ -77,6 +79,8 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
     ExpansionPanelStyle? expansionPanelStyle,
     CarouselStyle? carouselStyle,
     ChipGroupStyle? chipGroupStyle,
+    TopologySpec? topologySpec,
+    AppStyleColors? styleColors,
   }) {
     return AppDesignTheme(
       toggleStyle: toggleStyle ?? this.toggleStyle,
@@ -111,6 +115,8 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       expansionPanelStyle: expansionPanelStyle ?? this.expansionPanelStyle,
       carouselStyle: carouselStyle ?? this.carouselStyle,
       chipGroupStyle: chipGroupStyle ?? this.chipGroupStyle,
+      topologySpec: topologySpec ?? this.topologySpec,
+      styleColors: styleColors ?? this.styleColors,
     );
   }
 
@@ -152,6 +158,8 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
           expansionPanelStyle.lerp(other.expansionPanelStyle, t),
       carouselStyle: carouselStyle.lerp(other.carouselStyle, t),
       chipGroupStyle: chipGroupStyle.lerp(other.chipGroupStyle, t),
+      topologySpec: topologySpec.lerp(other.topologySpec, t),
+      styleColors: styleColors.lerp(other.styleColors, t),
     );
   }
 
@@ -218,7 +226,11 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
             const DeepCollectionEquality()
                 .equals(carouselStyle, other.carouselStyle) &&
             const DeepCollectionEquality()
-                .equals(chipGroupStyle, other.chipGroupStyle));
+                .equals(chipGroupStyle, other.chipGroupStyle) &&
+            const DeepCollectionEquality()
+                .equals(topologySpec, other.topologySpec) &&
+            const DeepCollectionEquality()
+                .equals(styleColors, other.styleColors));
   }
 
   @override
@@ -257,6 +269,8 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       const DeepCollectionEquality().hash(expansionPanelStyle),
       const DeepCollectionEquality().hash(carouselStyle),
       const DeepCollectionEquality().hash(chipGroupStyle),
+      const DeepCollectionEquality().hash(topologySpec),
+      const DeepCollectionEquality().hash(styleColors),
     ]);
   }
 }
@@ -297,4 +311,6 @@ extension AppDesignThemeBuildContextProps on BuildContext {
       appDesignTheme.expansionPanelStyle;
   CarouselStyle get carouselStyle => appDesignTheme.carouselStyle;
   ChipGroupStyle get chipGroupStyle => appDesignTheme.chipGroupStyle;
+  TopologySpec get topologySpec => appDesignTheme.topologySpec;
+  AppStyleColors get styleColors => appDesignTheme.styleColors;
 }

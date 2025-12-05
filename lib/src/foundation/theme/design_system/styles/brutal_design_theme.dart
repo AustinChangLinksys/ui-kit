@@ -38,7 +38,7 @@ class BrutalDesignTheme extends AppDesignTheme {
     required super.expansionPanelStyle,
     required super.carouselStyle,
     required super.chipGroupStyle,
-
+    required super.topologySpec,
   });
 
   factory BrutalDesignTheme.light([ColorScheme? scheme]) {
@@ -395,6 +395,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         selectedBorderColor: Colors.white,
         borderRadius: 4.0,
       ),
+      topologySpec: _buildTopologySpec(scheme, isLight: true),
     );
   }
 
@@ -750,6 +751,149 @@ class BrutalDesignTheme extends AppDesignTheme {
         selectedBorderColor: Colors.white,
         borderRadius: 4.0,
       ),
+      topologySpec: _buildTopologySpec(scheme, isLight: false),
+    );
+  }
+
+  /// Builds topology spec for Brutal theme with mechanical, industrial aesthetic.
+  static TopologySpec _buildTopologySpec(ColorScheme scheme, {required bool isLight}) {
+    final borderColor = scheme.onSurface;
+    final errorColor = scheme.error;
+
+    return TopologySpec(
+      // Gateway styles - mechanical hub
+      gatewayNormalStyle: NodeStyle(
+        backgroundColor: scheme.surface,
+        borderColor: borderColor,
+        borderWidth: 3.0,
+        borderRadius: 0.0, // Sharp corners
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 72.0,
+        iconColor: borderColor,
+      ),
+      gatewayHighLoadStyle: NodeStyle(
+        backgroundColor: errorColor,
+        borderColor: borderColor,
+        borderWidth: 3.0,
+        borderRadius: 0.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 72.0,
+        iconColor: scheme.onError,
+      ),
+      gatewayOfflineStyle: NodeStyle(
+        backgroundColor: scheme.outline.withValues(alpha: 0.3),
+        borderColor: scheme.outline,
+        borderWidth: 2.0,
+        borderRadius: 0.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 72.0,
+        iconColor: scheme.outline,
+      ),
+
+      // Extender styles - industrial nodes
+      extenderNormalStyle: NodeStyle(
+        backgroundColor: scheme.primaryContainer,
+        borderColor: borderColor,
+        borderWidth: 3.0,
+        borderRadius: 0.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 56.0,
+        iconColor: scheme.onPrimaryContainer,
+      ),
+      extenderHighLoadStyle: NodeStyle(
+        backgroundColor: errorColor.withValues(alpha: 0.8),
+        borderColor: borderColor,
+        borderWidth: 3.0,
+        borderRadius: 0.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 56.0,
+        iconColor: scheme.onError,
+      ),
+      extenderOfflineStyle: NodeStyle(
+        backgroundColor: scheme.outline.withValues(alpha: 0.2),
+        borderColor: scheme.outline,
+        borderWidth: 2.0,
+        borderRadius: 0.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 56.0,
+        iconColor: scheme.outline,
+      ),
+
+      // Client styles - compact terminals
+      clientNormalStyle: NodeStyle(
+        backgroundColor: scheme.surface,
+        borderColor: borderColor,
+        borderWidth: 2.0,
+        borderRadius: 0.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 32.0,
+        iconColor: borderColor,
+      ),
+      clientOfflineStyle: NodeStyle(
+        backgroundColor: scheme.outline.withValues(alpha: 0.15),
+        borderColor: scheme.outline,
+        borderWidth: 1.5,
+        borderRadius: 0.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 32.0,
+        iconColor: scheme.outline,
+      ),
+
+      // Link styles - industrial connections
+      ethernetLinkStyle: const LinkStyle(
+        color: Colors.black,
+        width: 3.0,
+        dashPattern: null,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        animationDuration: Duration.zero,
+      ),
+      wifiStrongStyle: LinkStyle(
+        color: Colors.green.shade700,
+        width: 3.0,
+        dashPattern: const [8.0, 4.0],
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        animationDuration: const Duration(milliseconds: 800),
+      ),
+      wifiMediumStyle: LinkStyle(
+        color: Colors.orange.shade700,
+        width: 3.0,
+        dashPattern: const [6.0, 4.0],
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        animationDuration: const Duration(milliseconds: 1000),
+      ),
+      wifiWeakStyle: LinkStyle(
+        color: errorColor,
+        width: 2.0,
+        dashPattern: const [4.0, 4.0],
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        animationDuration: const Duration(milliseconds: 1200),
+      ),
+      wifiUnknownStyle: LinkStyle(
+        color: scheme.outline,
+        width: 2.0,
+        dashPattern: const [4.0, 6.0],
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        animationDuration: const Duration(milliseconds: 1000),
+      ),
+
+      // Layout - grid-based
+      nodeSpacing: 120.0,
+      linkCurvature: 0.0, // Straight lines
+      orbitRadius: 70.0,
+      orbitSpeed: const Duration(seconds: 15),
     );
   }
 }

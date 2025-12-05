@@ -37,6 +37,7 @@ class PixelDesignTheme extends AppDesignTheme {
     required super.expansionPanelStyle,
     required super.carouselStyle,
     required super.chipGroupStyle,
+    required super.topologySpec,
   });
 
   factory PixelDesignTheme.light([ColorScheme? scheme]) {
@@ -338,7 +339,8 @@ class PixelDesignTheme extends AppDesignTheme {
         buttonAlignment: MainAxisAlignment.end,
       ),
       motion: const PixelMotion(),
-      visualEffects: GlobalEffectsType.crtShader, // Example of applying CRT to Pixel theme
+      visualEffects:
+          GlobalEffectsType.crtShader, // Example of applying CRT to Pixel theme
       iconStyle: AppIconStyle.pixelated,
       bottomSheetStyle: BottomSheetStyle(
         overlayColor: overlayColor,
@@ -376,7 +378,8 @@ class PixelDesignTheme extends AppDesignTheme {
         inactiveLinkColor: Colors.grey.shade300,
         separatorColor: Colors.white,
         separatorText: ' > ',
-        itemTextStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, fontFamily: 'Courier'),
+        itemTextStyle: const TextStyle(
+            fontSize: 14, fontWeight: FontWeight.bold, fontFamily: 'Courier'),
       ),
       expansionPanelStyle: ExpansionPanelStyle(
         headerColor: Colors.black,
@@ -403,6 +406,7 @@ class PixelDesignTheme extends AppDesignTheme {
         selectedBorderColor: Colors.white,
         borderRadius: 0.0,
       ),
+      topologySpec: _buildTopologySpec(scheme, isLight: true),
     );
   }
 
@@ -740,7 +744,8 @@ class PixelDesignTheme extends AppDesignTheme {
         inactiveLinkColor: Colors.grey.shade300,
         separatorColor: Colors.white,
         separatorText: ' > ',
-        itemTextStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, fontFamily: 'Courier'),
+        itemTextStyle: const TextStyle(
+            fontSize: 14, fontWeight: FontWeight.bold, fontFamily: 'Courier'),
       ),
       expansionPanelStyle: ExpansionPanelStyle(
         headerColor: Colors.black,
@@ -767,6 +772,150 @@ class PixelDesignTheme extends AppDesignTheme {
         selectedBorderColor: Colors.white,
         borderRadius: 0.0,
       ),
+      topologySpec: _buildTopologySpec(scheme, isLight: false),
+    );
+  }
+
+  /// Builds topology spec for Pixel theme with retro 8-bit aesthetic.
+  static TopologySpec _buildTopologySpec(ColorScheme scheme,
+      {required bool isLight}) {
+    final borderColor = scheme.onSurface;
+    final errorColor = scheme.error;
+
+    return TopologySpec(
+      // Gateway styles - chunky pixel blocks
+      gatewayNormalStyle: NodeStyle(
+        backgroundColor: scheme.primaryContainer,
+        borderColor: borderColor,
+        borderWidth: 2.0,
+        borderRadius: 2.0, // Slightly rounded for pixel feel
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 64.0,
+        iconColor: scheme.onPrimaryContainer,
+      ),
+      gatewayHighLoadStyle: NodeStyle(
+        backgroundColor: errorColor,
+        borderColor: borderColor,
+        borderWidth: 2.0,
+        borderRadius: 2.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 64.0,
+        iconColor: scheme.onError,
+      ),
+      gatewayOfflineStyle: NodeStyle(
+        backgroundColor: scheme.outline.withValues(alpha: 0.4),
+        borderColor: scheme.outline,
+        borderWidth: 2.0,
+        borderRadius: 2.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 64.0,
+        iconColor: scheme.outline,
+      ),
+
+      // Extender styles - pixel squares
+      extenderNormalStyle: NodeStyle(
+        backgroundColor: scheme.secondaryContainer,
+        borderColor: borderColor,
+        borderWidth: 2.0,
+        borderRadius: 2.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 48.0,
+        iconColor: scheme.onSecondaryContainer,
+      ),
+      extenderHighLoadStyle: NodeStyle(
+        backgroundColor: errorColor.withValues(alpha: 0.9),
+        borderColor: borderColor,
+        borderWidth: 2.0,
+        borderRadius: 2.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 48.0,
+        iconColor: scheme.onError,
+      ),
+      extenderOfflineStyle: NodeStyle(
+        backgroundColor: scheme.outline.withValues(alpha: 0.3),
+        borderColor: scheme.outline,
+        borderWidth: 2.0,
+        borderRadius: 2.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 48.0,
+        iconColor: scheme.outline,
+      ),
+
+      // Client styles - small pixel dots
+      clientNormalStyle: NodeStyle(
+        backgroundColor: scheme.tertiaryContainer,
+        borderColor: borderColor,
+        borderWidth: 2.0,
+        borderRadius: 2.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 28.0,
+        iconColor: scheme.onTertiaryContainer,
+      ),
+      clientOfflineStyle: NodeStyle(
+        backgroundColor: scheme.outline.withValues(alpha: 0.2),
+        borderColor: scheme.outline,
+        borderWidth: 1.5,
+        borderRadius: 2.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 28.0,
+        iconColor: scheme.outline,
+      ),
+
+      // Link styles - pixelated connections
+      ethernetLinkStyle: LinkStyle(
+        color: borderColor,
+        width: 2.0,
+        dashPattern: null,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        animationDuration: Duration.zero,
+      ),
+      wifiStrongStyle: const LinkStyle(
+        color: Colors.green,
+        width: 2.0,
+        dashPattern: [4.0, 2.0], // Shorter dashes for pixel feel
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        animationDuration: Duration(milliseconds: 600),
+      ),
+      wifiMediumStyle: const LinkStyle(
+        color: Colors.orange,
+        width: 2.0,
+        dashPattern: [4.0, 2.0],
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        animationDuration: Duration(milliseconds: 800),
+      ),
+      wifiWeakStyle: LinkStyle(
+        color: errorColor,
+        width: 2.0,
+        dashPattern: const [2.0, 2.0],
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        animationDuration: const Duration(milliseconds: 1000),
+      ),
+      wifiUnknownStyle: LinkStyle(
+        color: scheme.outline,
+        width: 2.0,
+        dashPattern: const [2.0, 4.0],
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        animationDuration: const Duration(milliseconds: 800),
+      ),
+
+      // Layout - grid-aligned
+      nodeSpacing: 80.0, // Snappier grid
+      linkCurvature: 0.0, // Straight lines for pixel art
+      orbitRadius: 50.0,
+      orbitSpeed: const Duration(seconds: 12), // Faster for retro feel
     );
   }
 }

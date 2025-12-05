@@ -36,6 +36,7 @@ class GlassDesignTheme extends AppDesignTheme {
     required super.expansionPanelStyle,
     required super.carouselStyle,
     required super.chipGroupStyle,
+    required super.topologySpec,
   });
 
   // Light Mode (Liquid Water)
@@ -444,6 +445,7 @@ class GlassDesignTheme extends AppDesignTheme {
         selectedBorderColor: scheme.primary,
         borderRadius: 20.0,
       ),
+      topologySpec: _buildTopologySpec(scheme, isLight: true),
     );
   }
 
@@ -845,6 +847,151 @@ class GlassDesignTheme extends AppDesignTheme {
         selectedBorderColor: scheme.primary,
         borderRadius: 20.0,
       ),
+      topologySpec: _buildTopologySpec(scheme, isLight: false),
+    );
+  }
+
+  /// Builds topology spec for Glass theme with organic, fluid visual language.
+  static TopologySpec _buildTopologySpec(ColorScheme scheme, {required bool isLight}) {
+    final primaryGlow = scheme.primary.withValues(alpha: isLight ? 0.3 : 0.4);
+    final secondaryGlow = scheme.secondary.withValues(alpha: isLight ? 0.25 : 0.35);
+    final errorColor = scheme.error;
+    final surfaceColor = scheme.surface.withValues(alpha: isLight ? 0.7 : 0.5);
+
+    return TopologySpec(
+      // Gateway styles - breathing pulse effect
+      gatewayNormalStyle: NodeStyle(
+        backgroundColor: scheme.primary.withValues(alpha: isLight ? 0.15 : 0.25),
+        borderColor: scheme.primary.withValues(alpha: 0.4),
+        borderWidth: 2.0,
+        borderRadius: 999.0, // Circular
+        glowColor: primaryGlow,
+        glowRadius: 20.0,
+        size: 72.0,
+        iconColor: scheme.primary,
+      ),
+      gatewayHighLoadStyle: NodeStyle(
+        backgroundColor: scheme.tertiary.withValues(alpha: isLight ? 0.2 : 0.3),
+        borderColor: scheme.tertiary.withValues(alpha: 0.5),
+        borderWidth: 2.5,
+        borderRadius: 999.0,
+        glowColor: scheme.tertiary.withValues(alpha: 0.4),
+        glowRadius: 24.0,
+        size: 72.0,
+        iconColor: scheme.tertiary,
+      ),
+      gatewayOfflineStyle: NodeStyle(
+        backgroundColor: scheme.outline.withValues(alpha: 0.1),
+        borderColor: scheme.outline.withValues(alpha: 0.3),
+        borderWidth: 1.5,
+        borderRadius: 999.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 72.0,
+        iconColor: scheme.outline,
+      ),
+
+      // Extender styles - liquid level effect
+      extenderNormalStyle: NodeStyle(
+        backgroundColor: secondaryGlow,
+        borderColor: scheme.secondary.withValues(alpha: 0.3),
+        borderWidth: 1.5,
+        borderRadius: 20.0,
+        glowColor: secondaryGlow,
+        glowRadius: 12.0,
+        size: 56.0,
+        iconColor: scheme.secondary,
+      ),
+      extenderHighLoadStyle: NodeStyle(
+        backgroundColor: scheme.tertiary.withValues(alpha: isLight ? 0.25 : 0.35),
+        borderColor: scheme.tertiary.withValues(alpha: 0.4),
+        borderWidth: 2.0,
+        borderRadius: 20.0,
+        glowColor: scheme.tertiary.withValues(alpha: 0.35),
+        glowRadius: 16.0,
+        size: 56.0,
+        iconColor: scheme.tertiary,
+      ),
+      extenderOfflineStyle: NodeStyle(
+        backgroundColor: scheme.outline.withValues(alpha: 0.08),
+        borderColor: scheme.outline.withValues(alpha: 0.2),
+        borderWidth: 1.0,
+        borderRadius: 20.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 56.0,
+        iconColor: scheme.outline,
+      ),
+
+      // Client styles - orbital satellites
+      clientNormalStyle: NodeStyle(
+        backgroundColor: surfaceColor,
+        borderColor: scheme.outline.withValues(alpha: 0.2),
+        borderWidth: 1.0,
+        borderRadius: 999.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 32.0,
+        iconColor: scheme.onSurface,
+      ),
+      clientOfflineStyle: NodeStyle(
+        backgroundColor: scheme.outline.withValues(alpha: 0.05),
+        borderColor: scheme.outline.withValues(alpha: 0.15),
+        borderWidth: 1.0,
+        borderRadius: 999.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 32.0,
+        iconColor: scheme.outline,
+      ),
+
+      // Link styles
+      ethernetLinkStyle: LinkStyle(
+        color: scheme.outline.withValues(alpha: 0.6),
+        width: 2.0,
+        dashPattern: null, // Solid line
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        animationDuration: Duration.zero,
+      ),
+      wifiStrongStyle: LinkStyle(
+        color: Colors.green.withValues(alpha: 0.7),
+        width: 2.0,
+        dashPattern: const [8.0, 4.0],
+        glowColor: Colors.green.withValues(alpha: 0.2),
+        glowRadius: 4.0,
+        animationDuration: const Duration(milliseconds: 1500),
+      ),
+      wifiMediumStyle: LinkStyle(
+        color: Colors.orange.withValues(alpha: 0.7),
+        width: 2.0,
+        dashPattern: const [6.0, 4.0],
+        glowColor: Colors.orange.withValues(alpha: 0.15),
+        glowRadius: 3.0,
+        animationDuration: const Duration(milliseconds: 2000),
+      ),
+      wifiWeakStyle: LinkStyle(
+        color: errorColor.withValues(alpha: 0.7),
+        width: 1.5,
+        dashPattern: const [4.0, 4.0],
+        glowColor: errorColor.withValues(alpha: 0.1),
+        glowRadius: 2.0,
+        animationDuration: const Duration(milliseconds: 2500),
+      ),
+      wifiUnknownStyle: LinkStyle(
+        color: scheme.outline.withValues(alpha: 0.4),
+        width: 1.5,
+        dashPattern: const [4.0, 6.0],
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        animationDuration: const Duration(milliseconds: 2000),
+      ),
+
+      // Layout
+      nodeSpacing: 100.0,
+      linkCurvature: 0.3,
+      orbitRadius: 60.0,
+      orbitSpeed: const Duration(seconds: 20),
     );
   }
 }

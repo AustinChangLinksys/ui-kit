@@ -186,7 +186,7 @@ Widget buildTabsWithContent(BuildContext context) {
           TabItem(label: 'Tab 3'),
         ],
         displayMode: TabDisplayMode.underline,
-        tabContents: const [
+        tabContents: [
           Center(child: AppText.headlineMedium('Content for Tab 1')),
           Center(child: AppText.headlineMedium('Content for Tab 2')),
           Center(child: AppText.headlineMedium('Content for Tab 3')),

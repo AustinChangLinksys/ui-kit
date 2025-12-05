@@ -38,6 +38,7 @@ class FlatDesignTheme extends AppDesignTheme {
     required super.expansionPanelStyle,
     required super.carouselStyle,
     required super.chipGroupStyle,
+    required super.topologySpec,
   });
 
   factory FlatDesignTheme.light([ColorScheme? scheme]) {
@@ -415,6 +416,7 @@ class FlatDesignTheme extends AppDesignTheme {
         selectedBorderColor: scheme.primary,
         borderRadius: 16.0,
       ),
+      topologySpec: _buildTopologySpec(scheme, isLight: true),
     );
   }
 
@@ -777,6 +779,147 @@ class FlatDesignTheme extends AppDesignTheme {
         selectedBorderColor: scheme.primary,
         borderRadius: 16.0,
       ),
+      topologySpec: _buildTopologySpec(scheme, isLight: false),
+    );
+  }
+
+  /// Builds topology spec for Flat theme with clean, minimal aesthetic.
+  static TopologySpec _buildTopologySpec(ColorScheme scheme,
+      {required bool isLight}) {
+    return TopologySpec(
+      // Gateway styles - clean circles
+      gatewayNormalStyle: NodeStyle(
+        backgroundColor: scheme.primary,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 999.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 64.0,
+        iconColor: scheme.onPrimary,
+      ),
+      gatewayHighLoadStyle: NodeStyle(
+        backgroundColor: scheme.tertiary,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 999.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 64.0,
+        iconColor: scheme.onTertiary,
+      ),
+      gatewayOfflineStyle: NodeStyle(
+        backgroundColor: scheme.surfaceContainerHighest,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 999.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 64.0,
+        iconColor: scheme.onSurfaceVariant,
+      ),
+
+      // Extender styles
+      extenderNormalStyle: NodeStyle(
+        backgroundColor: scheme.secondaryContainer,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 16.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 52.0,
+        iconColor: scheme.onSecondaryContainer,
+      ),
+      extenderHighLoadStyle: NodeStyle(
+        backgroundColor: scheme.tertiaryContainer,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 16.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 52.0,
+        iconColor: scheme.onTertiaryContainer,
+      ),
+      extenderOfflineStyle: NodeStyle(
+        backgroundColor: scheme.surfaceContainerHigh,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 16.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 52.0,
+        iconColor: scheme.onSurfaceVariant,
+      ),
+
+      // Client styles
+      clientNormalStyle: NodeStyle(
+        backgroundColor: scheme.surfaceContainerHighest,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 999.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 32.0,
+        iconColor: scheme.onSurface,
+      ),
+      clientOfflineStyle: NodeStyle(
+        backgroundColor: scheme.surfaceContainerLow,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 999.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 32.0,
+        iconColor: scheme.outlineVariant,
+      ),
+
+      // Link styles - clean lines
+      ethernetLinkStyle: LinkStyle(
+        color: scheme.outline,
+        width: 2.0,
+        dashPattern: null,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        animationDuration: Duration.zero,
+      ),
+      wifiStrongStyle: const LinkStyle(
+        color: Colors.green,
+        width: 2.0,
+        dashPattern: [6.0, 3.0],
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        animationDuration: Duration(milliseconds: 1500),
+      ),
+      wifiMediumStyle: const LinkStyle(
+        color: Colors.orange,
+        width: 2.0,
+        dashPattern: [5.0, 3.0],
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        animationDuration: Duration(milliseconds: 2000),
+      ),
+      wifiWeakStyle: LinkStyle(
+        color: scheme.error,
+        width: 1.5,
+        dashPattern: const [4.0, 3.0],
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        animationDuration: const Duration(milliseconds: 2500),
+      ),
+      wifiUnknownStyle: LinkStyle(
+        color: scheme.outlineVariant,
+        width: 1.5,
+        dashPattern: const [4.0, 4.0],
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        animationDuration: const Duration(milliseconds: 2000),
+      ),
+
+      // Layout
+      nodeSpacing: 90.0,
+      linkCurvature: 0.2,
+      orbitRadius: 55.0,
+      orbitSpeed: const Duration(seconds: 18),
     );
   }
 }

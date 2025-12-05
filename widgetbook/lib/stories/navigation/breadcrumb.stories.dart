@@ -15,7 +15,7 @@ Widget buildBasicBreadcrumb(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AppText.headlineSmall('Basic Breadcrumb'),
+            AppText.headlineSmall('Basic Breadcrumb'),
             const SizedBox(height: 16),
             AppBreadcrumb(
               items: const [
@@ -48,7 +48,7 @@ Widget buildBreadcrumbWithIcons(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AppText.headlineSmall('Breadcrumb with Icons'),
+            AppText.headlineSmall('Breadcrumb with Icons'),
             const SizedBox(height: 16),
             AppBreadcrumb(
               items: const [
@@ -81,7 +81,7 @@ Widget buildLongBreadcrumb(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AppText.headlineSmall('Long Path (Scrollable)'),
+            AppText.headlineSmall('Long Path (Scrollable)'),
             const SizedBox(height: 16),
             AppBreadcrumb(
               items: const [
@@ -117,7 +117,7 @@ Widget buildDisabledBreadcrumb(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AppText.headlineSmall('With Disabled Items'),
+            AppText.headlineSmall('With Disabled Items'),
             const SizedBox(height: 16),
             AppBreadcrumb(
               items: const [
