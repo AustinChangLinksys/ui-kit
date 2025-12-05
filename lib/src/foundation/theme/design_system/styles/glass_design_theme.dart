@@ -25,6 +25,9 @@ class GlassDesignTheme extends AppDesignTheme {
     required super.appBarStyle,
     required super.menuStyle,
     required super.dialogStyle,
+    required super.motion,
+    required super.visualEffects,
+    required super.iconStyle,
   });
 
   // Light Mode (Liquid Water)
@@ -49,6 +52,7 @@ class GlassDesignTheme extends AppDesignTheme {
         blurStrength: 25.0,
         contentColor: scheme.onSurface,
       ),
+      // ... (rest of light factory is mostly same, just confirming no texture usage here)
       surfaceElevated: SurfaceStyle(
         backgroundColor: scheme.surfaceContainerHighest.withValues(alpha: 0.1),
         borderColor: scheme.outline.withValues(alpha: 0.6),
@@ -142,7 +146,8 @@ class GlassDesignTheme extends AppDesignTheme {
           contentColor: scheme.onPrimary,
         ),
         inactiveTrackStyle: SurfaceStyle(
-          backgroundColor: scheme.surfaceContainerHighest.withValues(alpha: 0.1),
+          backgroundColor:
+              scheme.surfaceContainerHighest.withValues(alpha: 0.1),
           borderColor: scheme.outline.withValues(alpha: 0.3),
           borderWidth: 1.0,
           borderRadius: 99.0,
@@ -181,7 +186,8 @@ class GlassDesignTheme extends AppDesignTheme {
         ),
         // Outline Style
         outlineStyle: SurfaceStyle(
-          backgroundColor: scheme.surfaceContainerHighest.withValues(alpha: 0.1),
+          backgroundColor:
+              scheme.surfaceContainerHighest.withValues(alpha: 0.1),
           borderColor: scheme.outline.withValues(alpha: 0.3),
           contentColor: scheme.onSurface,
           borderWidth: 1.0,
@@ -194,7 +200,8 @@ class GlassDesignTheme extends AppDesignTheme {
         ),
         // Filled Style
         filledStyle: SurfaceStyle(
-          backgroundColor: scheme.surfaceContainerHighest.withValues(alpha: 0.05),
+          backgroundColor:
+              scheme.surfaceContainerHighest.withValues(alpha: 0.05),
           borderColor: Colors.transparent,
           contentColor: scheme.onSurface,
           borderWidth: 0,
@@ -239,7 +246,8 @@ class GlassDesignTheme extends AppDesignTheme {
         margin: const EdgeInsets.all(24),
         borderRadius: BorderRadius.circular(16),
         backgroundColor: scheme.surface.withValues(alpha: 0.6),
-        textStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: scheme.onSurface),
+        textStyle: TextStyle(
+            fontSize: 14, fontWeight: FontWeight.w500, color: scheme.onSurface),
         displayDuration: const Duration(seconds: 3),
       ),
       dividerStyle: DividerStyle(
@@ -360,6 +368,10 @@ class GlassDesignTheme extends AppDesignTheme {
         buttonSpacing: 12.0,
         buttonAlignment: MainAxisAlignment.end,
       ),
+      motion: const GlassMotion(),
+      visualEffects: GlobalEffectsType.noiseOverlay,
+      iconStyle: AppIconStyle
+          .thinStroke, // Or vectorFilled, depending on Glass style preference
     );
   }
 
@@ -380,7 +392,8 @@ class GlassDesignTheme extends AppDesignTheme {
         ],
         blurStrength: 25.0,
         contentColor: scheme.onSurface,
-        texture: AppTextures.noise, // Demonstration
+        // UPDATED: Use AppTextureAssets.noise
+        texture: AppTextureAssets.noise, 
         textureOpacity: 0.05,
       ),
       surfaceElevated: SurfaceStyle(
@@ -413,7 +426,8 @@ class GlassDesignTheme extends AppDesignTheme {
           hoverOpacity: 0.9,
           pressedOffset: Offset.zero,
         ),
-        texture: AppTextures.pixelGrid, // Demonstration
+        // UPDATED: Use AppTextureAssets.pixelGrid
+        texture: AppTextureAssets.pixelGrid, 
         textureOpacity: 0.08,
       ),
       // Secondary (Tonal) Surface - Medium emphasis, selected/active states (Dark mode)
@@ -472,7 +486,8 @@ class GlassDesignTheme extends AppDesignTheme {
           contentColor: scheme.onPrimary,
         ),
         inactiveTrackStyle: SurfaceStyle(
-          backgroundColor: scheme.surfaceContainerHighest.withValues(alpha: 0.05),
+          backgroundColor:
+              scheme.surfaceContainerHighest.withValues(alpha: 0.05),
           borderColor: scheme.outline.withValues(alpha: 0.1),
           borderWidth: 1.0,
           borderRadius: 99.0,
@@ -511,7 +526,8 @@ class GlassDesignTheme extends AppDesignTheme {
         ),
         // Outline Style
         outlineStyle: SurfaceStyle(
-          backgroundColor: scheme.surfaceContainerHighest.withValues(alpha: 0.1),
+          backgroundColor:
+              scheme.surfaceContainerHighest.withValues(alpha: 0.1),
           borderColor: scheme.outline.withValues(alpha: 0.3),
           contentColor: scheme.onSurface,
           borderWidth: 1.0,
@@ -524,7 +540,8 @@ class GlassDesignTheme extends AppDesignTheme {
         ),
         // Filled Style
         filledStyle: SurfaceStyle(
-          backgroundColor: scheme.surfaceContainerHighest.withValues(alpha: 0.05),
+          backgroundColor:
+              scheme.surfaceContainerHighest.withValues(alpha: 0.05),
           borderColor: Colors.transparent,
           contentColor: scheme.onSurface,
           borderWidth: 0,
@@ -569,7 +586,8 @@ class GlassDesignTheme extends AppDesignTheme {
         margin: const EdgeInsets.all(24),
         borderRadius: BorderRadius.circular(16),
         backgroundColor: scheme.surface.withValues(alpha: 0.6),
-        textStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: scheme.onSurface),
+        textStyle: TextStyle(
+            fontSize: 14, fontWeight: FontWeight.w500, color: scheme.onSurface),
         displayDuration: const Duration(seconds: 3),
       ),
       dividerStyle: DividerStyle(
@@ -688,6 +706,9 @@ class GlassDesignTheme extends AppDesignTheme {
         buttonSpacing: 12.0,
         buttonAlignment: MainAxisAlignment.end,
       ),
+      motion: const GlassMotion(),
+      visualEffects: GlobalEffectsType.noiseOverlay,
+      iconStyle: AppIconStyle.thinStroke, // Or vectorFilled
     );
   }
 }

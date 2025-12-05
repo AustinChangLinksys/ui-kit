@@ -79,21 +79,21 @@ class _SurfaceStyleEditorState extends State<SurfaceStyleEditor> {
     }
     // Compare texture properties to determine which option is selected
     try {
-      if (_currentStyle.texture == AppTextures.pixelGrid) {
+      if (_currentStyle.texture == AppTextureAssets.pixelGrid) {
         return TextureOption.pixelGrid;
-      } else if (_currentStyle.texture == AppTextures.diagonalLines) {
+      } else if (_currentStyle.texture == AppTextureAssets.diagonalLines) {
         return TextureOption.diagonalLines;
-      } else if (_currentStyle.texture == AppTextures.noise) {
+      } else if (_currentStyle.texture == AppTextureAssets.noise) {
         return TextureOption.noise;
-      } else if (_currentStyle.texture == AppTextures.wood) {
+      } else if (_currentStyle.texture == AppTextureAssets.wood) {
         return TextureOption.wood;
-      } else if (_currentStyle.texture == AppTextures.metal) {
+      } else if (_currentStyle.texture == AppTextureAssets.metal) {
         return TextureOption.metal;
-      } else if (_currentStyle.texture == AppTextures.fabric) {
+      } else if (_currentStyle.texture == AppTextureAssets.fabric) {
         return TextureOption.fabric;
-      } else if (_currentStyle.texture == AppTextures.checkerboard) {
+      } else if (_currentStyle.texture == AppTextureAssets.checkerboard) {
         return TextureOption.checkerboard;
-      } else if (_currentStyle.texture == AppTextures.pixelArt) {
+      } else if (_currentStyle.texture == AppTextureAssets.pixelArt) {
         return TextureOption.pixelArt;
       }
     } catch (_) {

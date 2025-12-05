@@ -54,6 +54,7 @@ class DesignSystemAddon extends WidgetbookAddon<DesignSystemSetting> {
             'Brutal',
             'Flat',
             'Neumorphic',
+            'Pixel',
           ],
           initialValue: 'Glass',
         ),
@@ -95,11 +96,15 @@ class DesignSystemAddon extends WidgetbookAddon<DesignSystemSetting> {
             ? BrutalDesignTheme.light(scheme)
             : BrutalDesignTheme.dark(scheme);
         break;
-
       case 'Neumorphic':
         designThemeBuilder = (scheme) => brightness == Brightness.light
             ? NeumorphicDesignTheme.light(scheme)
             : NeumorphicDesignTheme.dark(scheme);
+        break;
+      case 'Pixel': // Added Pixel logic
+        designThemeBuilder = (scheme) => brightness == Brightness.light
+            ? PixelDesignTheme.light(scheme)
+            : PixelDesignTheme.dark(scheme);
         break;
       case 'Flat':
       default:
@@ -120,10 +125,14 @@ class DesignSystemAddon extends WidgetbookAddon<DesignSystemSetting> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: theme,
+      builder: (context, child) {
+        // Inject GlobalEffectsOverlay here
+        return GlobalEffectsOverlay(
+          child: child ?? const SizedBox.shrink(),
+        );
+      },
       home: Scaffold(
-        backgroundColor: theme.brightness == Brightness.light
-            ? const Color(0xFFF0F2F5)
-            : const Color(0xFF121212),
+        backgroundColor: theme.scaffoldBackgroundColor, // Use theme color
         body: Center(child: child),
       ),
     );

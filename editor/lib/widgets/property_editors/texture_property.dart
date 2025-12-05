@@ -44,21 +44,21 @@ extension TextureOptionDisplay on TextureOption {
       case TextureOption.none:
         return null;
       case TextureOption.pixelGrid:
-        return AppTextures.pixelGrid;
+        return AppTextureAssets.pixelGrid;
       case TextureOption.diagonalLines:
-        return AppTextures.diagonalLines;
+        return AppTextureAssets.diagonalLines;
       case TextureOption.noise:
-        return AppTextures.noise;
+        return AppTextureAssets.noise;
       case TextureOption.wood:
-        return AppTextures.wood;
+        return AppTextureAssets.wood;
       case TextureOption.metal:
-        return AppTextures.metal;
+        return AppTextureAssets.metal;
       case TextureOption.fabric:
-        return AppTextures.fabric;
+        return AppTextureAssets.fabric;
       case TextureOption.checkerboard:
-        return AppTextures.checkerboard;
+        return AppTextureAssets.checkerboard;
       case TextureOption.pixelArt:
-        return AppTextures.pixelArt;
+        return AppTextureAssets.pixelArt;
     }
   }
 }
