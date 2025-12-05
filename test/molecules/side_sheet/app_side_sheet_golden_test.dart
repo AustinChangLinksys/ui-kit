@@ -18,7 +18,7 @@ void main() {
         name: 'Left Overlay',
         width: 400.0,
         height: 300.0,
-        child: AppSideSheet(
+        child: const AppSideSheet(
           position: SideSheetPosition.left,
           displayMode: SideSheetDisplayMode.overlay,
           width: 280,
@@ -52,7 +52,7 @@ void main() {
         name: 'Right Overlay',
         width: 400.0,
         height: 300.0,
-        child: AppSideSheet(
+        child: const AppSideSheet(
           position: SideSheetPosition.right,
           displayMode: SideSheetDisplayMode.overlay,
           width: 280,
@@ -121,7 +121,7 @@ void main() {
         name: 'Drawer',
         width: 400.0,
         height: 300.0,
-        child: AppDrawer(
+        child: const AppDrawer(
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -149,7 +149,7 @@ void main() {
         name: 'Wide',
         width: 400.0,
         height: 300.0,
-        child: AppSideSheet(
+        child: const AppSideSheet(
           position: SideSheetPosition.left,
           displayMode: SideSheetDisplayMode.overlay,
           width: 350,
@@ -174,7 +174,7 @@ void main() {
         name: 'Narrow',
         width: 400.0,
         height: 300.0,
-        child: AppSideSheet(
+        child: const AppSideSheet(
           position: SideSheetPosition.left,
           displayMode: SideSheetDisplayMode.overlay,
           width: 200,
@@ -198,7 +198,7 @@ void main() {
         name: 'Scrollable',
         width: 400.0,
         height: 300.0,
-        child: AppSideSheet(
+        child: const AppSideSheet(
           position: SideSheetPosition.left,
           displayMode: SideSheetDisplayMode.overlay,
           child: SingleChildScrollView(

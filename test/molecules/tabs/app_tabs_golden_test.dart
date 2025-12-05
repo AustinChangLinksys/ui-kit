@@ -106,10 +106,10 @@ void main() {
         width: 400.0,
         height: 100.0,
         child: AppTabs(
-          tabs: [
-            const TabItem(label: 'Active'),
-            const TabItem(label: 'Disabled', enabled: false),
-            const TabItem(label: 'Active'),
+          tabs: const [
+            TabItem(label: 'Active'),
+            TabItem(label: 'Disabled', enabled: false),
+            TabItem(label: 'Active'),
           ],
           initialIndex: 0,
           displayMode: TabDisplayMode.underline,

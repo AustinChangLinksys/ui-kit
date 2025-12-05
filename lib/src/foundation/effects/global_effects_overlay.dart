@@ -1,10 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:ui_kit_library/src/foundation/effects/global_effects_type.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/app_design_theme.dart';
-import 'package:ui_kit_library/src/foundation/effects/noise_overlay.dart';
 
+import 'crt_overlay.dart';
+import 'global_effects_type.dart';
+import 'noise_overlay.dart';
+import '../theme/design_system/app_design_theme.dart';
+
+/// Applies theme-specific visual effects as an overlay on top of the app content.
+///
+/// This widget automatically reads the [GlobalEffectsType] from the current
+/// [AppDesignTheme] and renders the appropriate effect overlay.
+///
+/// Supported effects:
+/// - [GlobalEffectsType.noiseOverlay]: Film grain noise effect (Glass theme)
+/// - [GlobalEffectsType.crtShader]: CRT monitor effect (Pixel theme)
+/// - [GlobalEffectsType.none]: No overlay effect
+///
+/// The overlay is wrapped in [IgnorePointer] to ensure it doesn't
+/// interfere with user interactions.
+///
+/// This widget is automatically included in [DesignSystem.init], so you
+/// typically don't need to use it directly.
 class GlobalEffectsOverlay extends StatelessWidget {
+  /// The content to display beneath the effect overlay.
   final Widget child;
+
+  /// Optional seed for noise generation to ensure consistent patterns.
   final int? noiseSeed;
 
   const GlobalEffectsOverlay({
@@ -15,101 +35,31 @@ class GlobalEffectsOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Use direct theme access if possible, or standard Theme.of(context) extension mechanism
-    // Assuming standard usage:
     final theme = Theme.of(context).extension<AppDesignTheme>();
-    
+
+    // Skip overlay if theme is not available
     if (theme == null) return child;
 
-    final effectType = theme.visualEffects;
+    final overlay = _buildOverlay(theme.visualEffects);
 
-    Widget overlay = const SizedBox.shrink();
-
-    switch (effectType) {
-      case GlobalEffectsType.noiseOverlay:
-        overlay = NoiseOverlay(seed: noiseSeed);
-        break;
-      case GlobalEffectsType.crtShader:
-        overlay = const _CrtOverlay();
-        break;
-      case GlobalEffectsType.none:
-        // No overlay
-        break;
-    }
+    // Optimize: skip Stack if no overlay is needed
+    if (overlay == null) return child;
 
     return Stack(
       fit: StackFit.expand,
       children: [
         child,
-        IgnorePointer(
-          child: overlay,
-        ),
+        IgnorePointer(child: overlay),
       ],
     );
   }
-}
 
-// Remove the inline _NoiseOverlay and _NoisePainter as they are now in noise_overlay.dart
-
-
-class _CrtOverlay extends StatelessWidget {
-  const _CrtOverlay();
-
-  @override
-  Widget build(BuildContext context) {
-    // Reduced Motion check
-    final isReducedMotion = MediaQuery.of(context).disableAnimations;
-    if (isReducedMotion) {
-       // Return static scanlines without flicker if reduced motion, or just nothing
-       return Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Colors.black.withValues(alpha: 0.1),
-              Colors.transparent,
-            ],
-            stops: const [0.0, 0.1],
-            tileMode: TileMode.repeated,
-          ),
-        ),
-      );
-    }
-
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        // Scanlines
-        Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Colors.black.withValues(alpha: 0.1),
-                Colors.transparent,
-              ],
-              stops: const [0.0, 0.5],
-              tileMode: TileMode.repeated,
-            ),
-          ),
-        ),
-        // Vignette
-        Container(
-          decoration: BoxDecoration(
-            gradient: RadialGradient(
-              center: Alignment.center,
-              radius: 1.5,
-              colors: [
-                Colors.transparent,
-                Colors.black.withValues(alpha: 0.3),
-              ],
-              stops: const [0.6, 1.0],
-            ),
-          ),
-        ),
-      ],
-    );
+  /// Builds the appropriate overlay widget based on the effect type.
+  Widget? _buildOverlay(GlobalEffectsType effectType) {
+    return switch (effectType) {
+      GlobalEffectsType.noiseOverlay => NoiseOverlay(seed: noiseSeed),
+      GlobalEffectsType.crtShader => const CrtOverlay(),
+      GlobalEffectsType.none => null,
+    };
   }
 }

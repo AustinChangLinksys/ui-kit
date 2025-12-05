@@ -127,8 +127,8 @@ void main() {
                 children: [
                   // Breadcrumb for navigation hierarchy
                   // Last item has enabled: false to indicate current location
-                  AppBreadcrumb(
-                    items: const [
+                  const AppBreadcrumb(
+                    items: [
                       BreadcrumbItem(label: 'Home'),
                       BreadcrumbItem(label: 'Products'),
                       BreadcrumbItem(label: 'Electronics', enabled: false),
@@ -205,8 +205,8 @@ void main() {
                 const SizedBox(height: 8),
 
                 // 3. AppBreadcrumb
-                AppBreadcrumb(
-                  items: const [
+                const AppBreadcrumb(
+                  items: [
                     BreadcrumbItem(label: 'Root'),
                     BreadcrumbItem(label: 'Current', enabled: false),
                   ],
@@ -214,8 +214,8 @@ void main() {
                 const SizedBox(height: 8),
 
                 // 4. AppChipGroup
-                AppChipGroup(
-                  chips: const [
+                const AppChipGroup(
+                  chips: [
                     ChipItem(label: 'Chip 1'),
                     ChipItem(label: 'Chip 2'),
                   ],
@@ -223,13 +223,13 @@ void main() {
                 const SizedBox(height: 8),
 
                 // 5. AppExpansionPanel
-                SizedBox(
+                const SizedBox(
                   height: 100,
                   child: AppExpansionPanel(
                     panels: [
                       ExpansionPanelItem(
                         headerTitle: 'Panel',
-                        content: const Text('Panel Content'),
+                        content: Text('Panel Content'),
                       ),
                     ],
                   ),
@@ -271,17 +271,17 @@ void main() {
           theme: ThemeData.light().copyWith(
             extensions: [BrutalDesignTheme.light()],
           ),
-          home: Scaffold(
+          home: const Scaffold(
             body: Column(
               children: [
-                const AppStepper(
+                AppStepper(
                   steps: [
                     StepperStep(id: '1', label: 'Step'),
                   ],
                   currentStep: 0,
                 ),
                 AppBreadcrumb(
-                  items: const [
+                  items: [
                     BreadcrumbItem(label: 'Home', enabled: false),
                   ],
                 ),

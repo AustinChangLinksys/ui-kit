@@ -88,13 +88,13 @@ void main() {
         name: 'With Disabled Chip',
         width: 350.0,
         height: 100.0,
-        child: AppChipGroup(
-          chips: const [
+        child: const AppChipGroup(
+          chips: [
             ChipItem(label: 'Active'),
             ChipItem(label: 'Disabled', enabled: false),
             ChipItem(label: 'Active'),
           ],
-          selectedIndices: const {0},
+          selectedIndices: {0},
         ),
       ),
     );
@@ -106,15 +106,15 @@ void main() {
         name: 'Wrapped Layout',
         width: 250.0,
         height: 150.0,
-        child: AppChipGroup(
-          chips: const [
+        child: const AppChipGroup(
+          chips: [
             ChipItem(label: 'Tag 1'),
             ChipItem(label: 'Tag 2'),
             ChipItem(label: 'Tag 3'),
             ChipItem(label: 'Tag 4'),
             ChipItem(label: 'Tag 5'),
           ],
-          selectedIndices: const {0, 3},
+          selectedIndices: {0, 3},
           selectionMode: ChipSelectionMode.multiple,
           wrap: true,
         ),

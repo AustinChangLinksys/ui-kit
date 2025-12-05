@@ -73,14 +73,20 @@ import 'package:widgetbook_workspace/stories/navigation/app_navigation_rail.stor
     as _widgetbook_workspace_stories_navigation_app_navigation_rail_stories;
 import 'package:widgetbook_workspace/stories/navigation/bottom_sheet_story.dart'
     as _widgetbook_workspace_stories_navigation_bottom_sheet_story;
+import 'package:widgetbook_workspace/stories/navigation/breadcrumb_story.dart'
+    as _widgetbook_workspace_stories_navigation_breadcrumb_story;
 import 'package:widgetbook_workspace/stories/navigation/carousel_story.dart'
     as _widgetbook_workspace_stories_navigation_carousel_story;
+import 'package:widgetbook_workspace/stories/navigation/chip_group_story.dart'
+    as _widgetbook_workspace_stories_navigation_chip_group_story;
 import 'package:widgetbook_workspace/stories/navigation/expansion_panel_story.dart'
     as _widgetbook_workspace_stories_navigation_expansion_panel_story;
 import 'package:widgetbook_workspace/stories/navigation/side_sheet_story.dart'
     as _widgetbook_workspace_stories_navigation_side_sheet_story;
 import 'package:widgetbook_workspace/stories/navigation/stepper_story.dart'
     as _widgetbook_workspace_stories_navigation_stepper_story;
+import 'package:widgetbook_workspace/stories/navigation/tabs_story.dart'
+    as _widgetbook_workspace_stories_navigation_tabs_story;
 import 'package:widgetbook_workspace/stories/organisms/app_unified_bar.stories.dart'
     as _widgetbook_workspace_stories_organisms_app_unified_bar_stories;
 import 'package:widgetbook_workspace/stories/organisms/app_unified_sliver_bar.stories.dart'
@@ -426,6 +432,40 @@ final directories = <_widgetbook.WidgetbookNode>[
         ],
       ),
       _widgetbook.WidgetbookFolder(
+        name: 'breadcrumb',
+        children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'AppBreadcrumb',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Basic Navigation',
+                builder:
+                    _widgetbook_workspace_stories_navigation_breadcrumb_story
+                        .buildBasicBreadcrumb,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Disabled Items',
+                builder:
+                    _widgetbook_workspace_stories_navigation_breadcrumb_story
+                        .buildDisabledBreadcrumb,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Long Path',
+                builder:
+                    _widgetbook_workspace_stories_navigation_breadcrumb_story
+                        .buildLongBreadcrumb,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With Icons',
+                builder:
+                    _widgetbook_workspace_stories_navigation_breadcrumb_story
+                        .buildBreadcrumbWithIcons,
+              ),
+            ],
+          )
+        ],
+      ),
+      _widgetbook.WidgetbookFolder(
         name: 'buttons',
         children: [
           _widgetbook.WidgetbookComponent(
@@ -511,6 +551,46 @@ final directories = <_widgetbook.WidgetbookNode>[
                 name: 'With Different Scroll Behaviors',
                 builder: _widgetbook_workspace_stories_navigation_carousel_story
                     .buildScrollBehaviorCarousel,
+              ),
+            ],
+          )
+        ],
+      ),
+      _widgetbook.WidgetbookFolder(
+        name: 'chip_group',
+        children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'AppChipGroup',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Horizontal Scroll',
+                builder:
+                    _widgetbook_workspace_stories_navigation_chip_group_story
+                        .buildHorizontalChipGroup,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Multiple Selection',
+                builder:
+                    _widgetbook_workspace_stories_navigation_chip_group_story
+                        .buildMultipleSelectionChipGroup,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Single Selection',
+                builder:
+                    _widgetbook_workspace_stories_navigation_chip_group_story
+                        .buildSingleSelectionChipGroup,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With Disabled Items',
+                builder:
+                    _widgetbook_workspace_stories_navigation_chip_group_story
+                        .buildDisabledChipGroup,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With Icons',
+                builder:
+                    _widgetbook_workspace_stories_navigation_chip_group_story
+                        .buildChipGroupWithIcons,
               ),
             ],
           )
@@ -1006,6 +1086,46 @@ final directories = <_widgetbook.WidgetbookNode>[
                 name: 'With Disabled Steps',
                 builder: _widgetbook_workspace_stories_navigation_stepper_story
                     .buildWithDisabledSteps,
+              ),
+            ],
+          )
+        ],
+      ),
+      _widgetbook.WidgetbookFolder(
+        name: 'tabs',
+        children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'AppTabs',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Filled Style',
+                builder: _widgetbook_workspace_stories_navigation_tabs_story
+                    .buildFilledTabs,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Segmented Style',
+                builder: _widgetbook_workspace_stories_navigation_tabs_story
+                    .buildSegmentedTabs,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Underline Style',
+                builder: _widgetbook_workspace_stories_navigation_tabs_story
+                    .buildUnderlineTabs,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With Disabled Tab',
+                builder: _widgetbook_workspace_stories_navigation_tabs_story
+                    .buildTabsWithDisabled,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With Icons',
+                builder: _widgetbook_workspace_stories_navigation_tabs_story
+                    .buildTabsWithIcons,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With Tab Content',
+                builder: _widgetbook_workspace_stories_navigation_tabs_story
+                    .buildTabsWithContent,
               ),
             ],
           )

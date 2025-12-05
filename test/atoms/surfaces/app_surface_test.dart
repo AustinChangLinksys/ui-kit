@@ -138,9 +138,11 @@ void main() {
     });
 
     // 5. Graceful Degradation (Texture Load Failure)
+    // Note: Texture is now rendered via _TextureOverlay with CustomPainter (GPU-accelerated),
+    // not via BoxDecoration.image. When texture fails to load, the overlay shows SizedBox.shrink().
     testWidgets('AppSurface structure remains valid even with missing texture asset', (tester) async {
       final themeData = kTestThemeMatrix.values.first;
-      
+
       const badStyle = SurfaceStyle(
         backgroundColor: Colors.red,
         borderColor: Colors.transparent,
@@ -163,18 +165,22 @@ void main() {
           themeData,
           const AppSurface(style: badStyle, child: Text('A')),
         ));
-        
+
         // Allow potential async image loading to fail
         await tester.pump();
 
         // The container should still exist with the correct color
         final container = tester.widget<AnimatedContainer>(find.byType(AnimatedContainer));
         final decoration = container.decoration as BoxDecoration;
-        
+
+        // Verify background color is correct (texture is now rendered separately)
         expect(decoration.color, Colors.red);
-        expect(decoration.image, isNotNull); 
-        
-        // Confirm the child text is still visible
+
+        // Texture is now rendered via CustomPainter overlay, not BoxDecoration.image
+        // When image fails to load, the overlay gracefully shows nothing (SizedBox.shrink)
+        expect(decoration.image, isNull);
+
+        // Confirm the child text is still visible (graceful degradation)
         expect(find.text('A'), findsOneWidget);
       } finally {
         FlutterError.onError = originalOnError;

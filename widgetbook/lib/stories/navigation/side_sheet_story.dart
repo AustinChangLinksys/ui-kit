@@ -26,37 +26,37 @@ Widget buildLeftOverlaySheet(BuildContext context) {
                   data: themeData,
                   child: Builder(
                     builder: (context) => AppSideSheet(
-                    position: SideSheetPosition.left,
-                    displayMode: SideSheetDisplayMode.overlay,
-                    width: 280,
-                    child: Scaffold(
-                      appBar: AppBar(title: const Text('Navigation')),
-                      body: ListView(
-                        children: [
-                          ListTile(
-                            leading: const Icon(Icons.home),
-                            title: const Text('Home'),
-                            onTap: () => Navigator.pop(dialogContext),
-                          ),
-                          ListTile(
-                            leading: const Icon(Icons.business),
-                            title: const Text('Projects'),
-                            onTap: () => Navigator.pop(dialogContext),
-                          ),
-                          ListTile(
-                            leading: const Icon(Icons.person),
-                            title: const Text('Profile'),
-                            onTap: () => Navigator.pop(dialogContext),
-                          ),
-                          ListTile(
-                            leading: const Icon(Icons.settings),
-                            title: const Text('Settings'),
-                            onTap: () => Navigator.pop(dialogContext),
-                          ),
-                        ],
+                      position: SideSheetPosition.left,
+                      displayMode: SideSheetDisplayMode.overlay,
+                      width: 280,
+                      child: Scaffold(
+                        appBar: AppBar(title: const Text('Navigation')),
+                        body: ListView(
+                          children: [
+                            ListTile(
+                              leading: const Icon(Icons.home),
+                              title: const Text('Home'),
+                              onTap: () => Navigator.pop(dialogContext),
+                            ),
+                            ListTile(
+                              leading: const Icon(Icons.business),
+                              title: const Text('Projects'),
+                              onTap: () => Navigator.pop(dialogContext),
+                            ),
+                            ListTile(
+                              leading: const Icon(Icons.person),
+                              title: const Text('Profile'),
+                              onTap: () => Navigator.pop(dialogContext),
+                            ),
+                            ListTile(
+                              leading: const Icon(Icons.settings),
+                              title: const Text('Settings'),
+                              onTap: () => Navigator.pop(dialogContext),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
                   ),
                 );
               },
@@ -93,30 +93,30 @@ Widget buildRightOverlaySheet(BuildContext context) {
                   data: themeData,
                   child: Builder(
                     builder: (context) => AppSideSheet(
-                    position: SideSheetPosition.right,
-                    displayMode: SideSheetDisplayMode.overlay,
-                    width: 320,
-                    child: Scaffold(
-                      appBar: AppBar(title: const Text('Settings')),
-                      body: ListView(
-                        children: [
-                          ListTile(
-                            title: const Text('Dark Mode'),
-                            trailing: Switch(value: false, onChanged: (_) {}),
-                          ),
-                          ListTile(
-                            title: const Text('Notifications'),
-                            trailing: Switch(value: true, onChanged: (_) {}),
-                          ),
-                          ListTile(
-                            title: const Text('Language'),
-                            subtitle: const Text('English'),
-                            trailing: const Icon(Icons.chevron_right),
-                          ),
-                        ],
+                      position: SideSheetPosition.right,
+                      displayMode: SideSheetDisplayMode.overlay,
+                      width: 320,
+                      child: Scaffold(
+                        appBar: AppBar(title: const Text('Settings')),
+                        body: ListView(
+                          children: [
+                            ListTile(
+                              title: const Text('Dark Mode'),
+                              trailing: Switch(value: false, onChanged: (_) {}),
+                            ),
+                            ListTile(
+                              title: const Text('Notifications'),
+                              trailing: Switch(value: true, onChanged: (_) {}),
+                            ),
+                            const ListTile(
+                              title: Text('Language'),
+                              subtitle: Text('English'),
+                              trailing: Icon(Icons.chevron_right),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
                   ),
                 );
               },
@@ -237,11 +237,11 @@ Widget buildPersistentSheet(BuildContext context) {
               ),
             ),
           ),
-          Expanded(
+          const Expanded(
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   AppText(
                     'Main Content Area',
                     variant: AppTextVariant.headlineSmall,
@@ -285,34 +285,34 @@ Widget buildDismissibleSheet(BuildContext context) {
                   data: themeData,
                   child: Builder(
                     builder: (context) => AppSideSheet(
-                    isDismissible: true,
-                    position: SideSheetPosition.left,
-                    displayMode: SideSheetDisplayMode.overlay,
-                    onDismiss: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Sheet dismissed!')),
-                      );
-                    },
-                    child: Scaffold(
-                      appBar: AppBar(title: const Text('Dismissible Sheet')),
-                      body: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              AppText('Tap outside to dismiss'),
-                              SizedBox(height: 16),
-                              AppText(
-                                'Or click the back button',
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
+                      isDismissible: true,
+                      position: SideSheetPosition.left,
+                      displayMode: SideSheetDisplayMode.overlay,
+                      onDismiss: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Sheet dismissed!')),
+                        );
+                      },
+                      child: Scaffold(
+                        appBar: AppBar(title: const Text('Dismissible Sheet')),
+                        body: const Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(16),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                AppText('Tap outside to dismiss'),
+                                SizedBox(height: 16),
+                                AppText(
+                                  'Or click the back button',
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
                   ),
                 );
               },
@@ -349,35 +349,35 @@ Widget buildNonDismissibleSheet(BuildContext context) {
                   data: themeData,
                   child: Builder(
                     builder: (context) => AppSideSheet(
-                    isDismissible: false,
-                    position: SideSheetPosition.left,
-                    displayMode: SideSheetDisplayMode.overlay,
-                    child: Scaffold(
-                      appBar: AppBar(
-                        title: const Text('Settings'),
-                        automaticallyImplyLeading: false,
-                      ),
-                      body: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          children: [
-                            const AppText(
-                              'This sheet cannot be dismissed by tapping outside.',
-                              variant: AppTextVariant.bodyMedium,
-                            ),
-                            const Spacer(),
-                            SizedBox(
-                              width: double.infinity,
-                              child: ElevatedButton(
-                                onPressed: () => Navigator.of(context).pop(),
-                                child: const Text('Close'),
+                      isDismissible: false,
+                      position: SideSheetPosition.left,
+                      displayMode: SideSheetDisplayMode.overlay,
+                      child: Scaffold(
+                        appBar: AppBar(
+                          title: const Text('Settings'),
+                          automaticallyImplyLeading: false,
+                        ),
+                        body: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            children: [
+                              const AppText(
+                                'This sheet cannot be dismissed by tapping outside.',
+                                variant: AppTextVariant.bodyMedium,
                               ),
-                            ),
-                          ],
+                              const Spacer(),
+                              SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  onPressed: () => Navigator.of(context).pop(),
+                                  child: const Text('Close'),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
                   ),
                 );
               },

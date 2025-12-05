@@ -1,4 +1,4 @@
-import 'dart:ui'; // For ImageFilter
+import 'dart:ui' as ui; // For ImageFilter, ImageShader
 import 'package:flutter/material.dart';
 import '../../foundation/theme/design_system/app_design_theme.dart';
 import '../../foundation/theme/design_system/specs/surface_style.dart';
@@ -107,64 +107,82 @@ class _AppSurfaceState extends State<AppSurface> {
     // 4. Build the Render Tree
     // Structure: Padding (Margin) -> Gesture -> Transform (Offset) -> Opacity -> Scale -> Container -> Clip (Blur) -> Content
 
+    // Build decoration WITHOUT texture (texture rendered separately for performance)
+    final decoration = BoxDecoration(
+      color: effectiveStyle.backgroundColor,
+      // Border Logic: Prefer customBorder (e.g. Underline), fallback to uniform border
+      // Note: customBorder (like underline) is ignored for circles - only uniform borders work
+      border: widget.shape == BoxShape.circle
+          ? (effectiveStyle.borderWidth > 0
+              ? Border.all(
+                  color: effectiveStyle.borderColor,
+                  width: effectiveStyle.borderWidth,
+                )
+              : null)
+          : (effectiveStyle.customBorder ??
+              Border.all(
+                color: effectiveStyle.borderColor,
+                width: effectiveStyle.borderWidth,
+                style: effectiveStyle.borderWidth > 0
+                    ? BorderStyle.solid
+                    : BorderStyle.none,
+              )),
+      // Shape Logic: Circles cannot have borderRadius
+      borderRadius: widget.shape == BoxShape.circle
+          ? null
+          : BorderRadius.circular(effectiveStyle.borderRadius),
+      boxShadow: effectiveStyle.shadows,
+      shape: widget.shape,
+    );
+
+    // Child with content color injection
+    final styledChild = IconTheme(
+      data: IconThemeData(
+        color: effectiveStyle.contentColor,
+        size: 24.0, // Default icon size
+      ),
+      child: DefaultTextStyle.merge(
+        style: TextStyle(
+          color: effectiveStyle.contentColor,
+          fontFamily: theme.typography.bodyFontFamily,
+        ),
+        child: widget.child,
+      ),
+    );
+
     Widget content = AnimatedContainer(
       duration: theme.animation.duration,
       curve: theme.animation.curve,
       width: widget.width,
       height: widget.height,
       padding: widget.padding ?? EdgeInsets.zero,
-      decoration: BoxDecoration(
-        color: effectiveStyle.backgroundColor,
-        image: effectiveStyle.texture != null
-            ? DecorationImage(
-                image: effectiveStyle.texture!,
-                opacity: effectiveStyle.textureOpacity,
-                repeat: ImageRepeat.repeat,
-                fit: BoxFit.none,
-                alignment: Alignment.topLeft,
-                filterQuality: FilterQuality.none,
-                matchTextDirection: true,
-              )
-            : null,
-        // Border Logic: Prefer customBorder (e.g. Underline), fallback to uniform border
-        // Note: customBorder (like underline) is ignored for circles - only uniform borders work
-        border: widget.shape == BoxShape.circle
-            ? (effectiveStyle.borderWidth > 0
-                ? Border.all(
-                    color: effectiveStyle.borderColor,
-                    width: effectiveStyle.borderWidth,
-                  )
-                : null)
-            : (effectiveStyle.customBorder ??
-                Border.all(
-                  color: effectiveStyle.borderColor,
-                  width: effectiveStyle.borderWidth,
-                  style: effectiveStyle.borderWidth > 0
-                      ? BorderStyle.solid
-                      : BorderStyle.none,
-                )),
-        // Shape Logic: Circles cannot have borderRadius
-        borderRadius: widget.shape == BoxShape.circle
-            ? null
-            : BorderRadius.circular(effectiveStyle.borderRadius),
-        boxShadow: effectiveStyle.shadows,
-        shape: widget.shape,
-      ),
-      // ✨ Inject Content Color to children (Text & Icons)
-      child: IconTheme(
-        data: IconThemeData(
-          color: effectiveStyle.contentColor,
-          size: 24.0, // Default icon size
-        ),
-        child: DefaultTextStyle.merge(
-          style: TextStyle(
-            color: effectiveStyle.contentColor,
-            fontFamily: theme.typography.bodyFontFamily,
-          ),
-          child: widget.child,
-        ),
-      ),
+      decoration: decoration,
+      child: styledChild,
     );
+
+    // PERFORMANCE: Render texture using CustomPainter with ImageShader (GPU-accelerated)
+    if (effectiveStyle.texture != null) {
+      content = Stack(
+        fit: StackFit.passthrough,
+        children: [
+          content,
+          // Texture overlay using GPU shader
+          Positioned.fill(
+            child: IgnorePointer(
+              child: ClipRRect(
+                borderRadius: widget.shape == BoxShape.circle
+                    ? BorderRadius.circular(9999)
+                    : BorderRadius.circular(effectiveStyle.borderRadius),
+                child: _TextureOverlay(
+                  texture: effectiveStyle.texture!,
+                  opacity: effectiveStyle.textureOpacity,
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    }
 
     // 5. Apply Backdrop Blur (Glassmorphism)
     if (effectiveStyle.blurStrength > 0) {
@@ -174,7 +192,7 @@ class _AppSurfaceState extends State<AppSurface> {
             ? BorderRadius.circular(9999) // Hack for circle clip
             : BorderRadius.circular(effectiveStyle.borderRadius),
         child: BackdropFilter(
-          filter: ImageFilter.blur(
+          filter: ui.ImageFilter.blur(
             sigmaX: effectiveStyle.blurStrength,
             sigmaY: effectiveStyle.blurStrength,
           ),
@@ -246,5 +264,120 @@ class _AppSurfaceState extends State<AppSurface> {
       case SurfaceVariant.accent:
         return theme.surfaceTertiary;
     }
+  }
+}
+
+/// GPU-accelerated texture overlay using ImageShader.
+/// Converts ImageProvider to ui.Image once and tiles efficiently on GPU.
+class _TextureOverlay extends StatefulWidget {
+  final ImageProvider texture;
+  final double opacity;
+
+  const _TextureOverlay({
+    required this.texture,
+    this.opacity = 1.0,
+  });
+
+  @override
+  State<_TextureOverlay> createState() => _TextureOverlayState();
+}
+
+class _TextureOverlayState extends State<_TextureOverlay> {
+  ImageStream? _imageStream;
+  ImageStreamListener? _listener;
+  ui.Image? _cachedImage;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _resolveImage();
+  }
+
+  @override
+  void didUpdateWidget(_TextureOverlay oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.texture != oldWidget.texture) {
+      _stopListening();
+      _resolveImage();
+    }
+  }
+
+  void _resolveImage() {
+    final ImageStream newStream =
+        widget.texture.resolve(createLocalImageConfiguration(context));
+    if (newStream.key != _imageStream?.key) {
+      _stopListening();
+      _imageStream = newStream;
+      _listener = ImageStreamListener(_handleImageFrame);
+      _imageStream!.addListener(_listener!);
+    }
+  }
+
+  void _handleImageFrame(ImageInfo imageInfo, bool synchronousCall) {
+    if (mounted) {
+      setState(() {
+        _cachedImage = imageInfo.image;
+      });
+    }
+  }
+
+  void _stopListening() {
+    if (_listener != null && _imageStream != null) {
+      _imageStream!.removeListener(_listener!);
+    }
+  }
+
+  @override
+  void dispose() {
+    _stopListening();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_cachedImage == null) {
+      return const SizedBox.shrink();
+    }
+
+    return CustomPaint(
+      painter: _TexturePainter(
+        texture: _cachedImage!,
+        opacity: widget.opacity,
+      ),
+      size: Size.infinite,
+    );
+  }
+}
+
+/// Paints a tiled texture using GPU-accelerated ImageShader.
+class _TexturePainter extends CustomPainter {
+  final ui.Image texture;
+  final double opacity;
+
+  _TexturePainter({
+    required this.texture,
+    required this.opacity,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..shader = ImageShader(
+        texture,
+        TileMode.repeated,
+        TileMode.repeated,
+        Matrix4.identity().storage,
+      )
+      ..colorFilter = ColorFilter.mode(
+        Color.fromRGBO(255, 255, 255, opacity),
+        BlendMode.modulate,
+      );
+
+    canvas.drawRect(Offset.zero & size, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant _TexturePainter oldDelegate) {
+    return oldDelegate.texture != texture || oldDelegate.opacity != opacity;
   }
 }
