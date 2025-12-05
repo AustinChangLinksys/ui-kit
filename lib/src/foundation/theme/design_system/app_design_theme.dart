@@ -23,6 +23,7 @@ import 'package:ui_kit_library/src/foundation/theme/design_system/specs/breadcru
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/expansion_panel_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/carousel_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/chip_group_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/topology_style.dart';
 import 'specs/surface_style.dart';
 
 part 'app_design_theme.tailor.dart';
@@ -119,6 +120,9 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
   @override
   final ChipGroupStyle chipGroupStyle;
 
+  @override
+  final TopologySpec topologySpec;
+
   const AppDesignTheme({
     required this.surfaceBase,
     required this.surfaceElevated,
@@ -152,5 +156,6 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
     required this.expansionPanelStyle,
     required this.carouselStyle,
     required this.chipGroupStyle,
+    required this.topologySpec,
   });
 }

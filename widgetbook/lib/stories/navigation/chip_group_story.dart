@@ -15,7 +15,7 @@ Widget buildSingleSelectionChipGroup(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AppText.headlineSmall('Single Selection'),
+            AppText.headlineSmall('Single Selection'),
             const SizedBox(height: 16),
             AppChipGroup(
               chips: const [
@@ -50,7 +50,7 @@ Widget buildMultipleSelectionChipGroup(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AppText.headlineSmall('Multiple Selection'),
+            AppText.headlineSmall('Multiple Selection'),
             const SizedBox(height: 16),
             AppChipGroup(
               chips: const [
@@ -86,7 +86,7 @@ Widget buildChipGroupWithIcons(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AppText.headlineSmall('Chips with Icons'),
+            AppText.headlineSmall('Chips with Icons'),
             const SizedBox(height: 16),
             AppChipGroup(
               chips: const [
@@ -120,7 +120,7 @@ Widget buildHorizontalChipGroup(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AppText.headlineSmall('Horizontal Scroll (No Wrap)'),
+            AppText.headlineSmall('Horizontal Scroll (No Wrap)'),
             const SizedBox(height: 16),
             AppChipGroup(
               chips: const [
@@ -158,7 +158,7 @@ Widget buildDisabledChipGroup(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AppText.headlineSmall('With Disabled Items'),
+            AppText.headlineSmall('With Disabled Items'),
             const SizedBox(height: 16),
             AppChipGroup(
               chips: const [

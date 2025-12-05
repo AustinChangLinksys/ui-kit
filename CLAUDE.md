@@ -228,6 +228,8 @@ Design decisions and architecture documentation are in `specs/`:
 - N/A (conversation state in memory only) (013-genui-phase4-client-architect)
 - Dart 3.x / Flutter 3.13.0+ (015-interaction-navigation)
 - N/A (UI library - no persistence) (015-interaction-navigation)
+- Dart 3.x / Flutter 3.x (SDK >=3.0.0 <4.0.0, Flutter >=3.13.0) + flutter, theme_tailor_annotation, equatable, flutter_animate, alchemist (testing) (016-mesh-topology-view)
+- N/A (UI library, no persistence - data provided by external API) (016-mesh-topology-view)
 
 ## Recent Changes
 - 011-phase2-components: Added Dart 3.x / Flutter 3.x + flutter, theme_tailor_annotation, equatable, flutter_animate, alchemist (testing)
