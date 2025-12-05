@@ -1,8 +1,121 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'app_color_scheme.dart';
 import 'app_theme_config.dart';
 
 class AppColorFactory {
+  /// Creates an [AppColorScheme] from a JSON string.
+  ///
+  /// If the JSON contains a `style` key, it generates the scheme using the corresponding
+  /// factory method (e.g., `generateNeumorphic`) with the provided `config`.
+  ///
+  /// If `style` is not present or is 'custom', it attempts to parse a raw
+  /// scheme definition directly from the JSON fields, falling back to a default
+  /// scheme for any missing fields.
+  static AppColorScheme createSchemeFromJson(String jsonString) {
+    try {
+      final map = jsonDecode(jsonString) as Map<String, dynamic>;
+      final style = map['style'] as String?;
+
+      if (style != null && style != 'custom') {
+        final configMap = map['config'] as Map<String, dynamic>? ?? {};
+        final config = AppThemeConfig.fromJson(configMap);
+
+        switch (style.toLowerCase()) {
+          case 'glass':
+            return generateGlass(config);
+          case 'brutal':
+            return generateBrutal(config);
+          case 'flat':
+            return generateFlat(config);
+          case 'pixel':
+            return generatePixel(config);
+          case 'neumorphic':
+          default:
+            return generateNeumorphic(config);
+        }
+      }
+
+      // Raw/Custom mode: Parse all fields directly
+      // Fallback to a default base scheme (e.g. Neumorphic Light Blue) for missing fields
+      final fallback = generateNeumorphic(const AppThemeConfig(seedColor: Colors.blue));
+
+      Color parse(String key, Color defaultValue) {
+        final value = map[key];
+        if (value is int) return Color(value);
+        if (value is String) {
+          try {
+            final hex = value.replaceAll('#', '');
+            if (hex.length == 6) {
+              return Color(int.parse('FF$hex', radix: 16));
+            } else if (hex.length == 8) {
+              return Color(int.parse(hex, radix: 16));
+            }
+          } catch (_) {}
+        }
+        return defaultValue;
+      }
+
+      return AppColorScheme(
+        // M3 Core
+        primary: parse('primary', fallback.primary),
+        onPrimary: parse('onPrimary', fallback.onPrimary),
+        primaryContainer: parse('primaryContainer', fallback.primaryContainer),
+        onPrimaryContainer: parse('onPrimaryContainer', fallback.onPrimaryContainer),
+        secondary: parse('secondary', fallback.secondary),
+        onSecondary: parse('onSecondary', fallback.onSecondary),
+        secondaryContainer: parse('secondaryContainer', fallback.secondaryContainer),
+        onSecondaryContainer: parse('onSecondaryContainer', fallback.onSecondaryContainer),
+        tertiary: parse('tertiary', fallback.tertiary),
+        onTertiary: parse('onTertiary', fallback.onTertiary),
+        tertiaryContainer: parse('tertiaryContainer', fallback.tertiaryContainer),
+        onTertiaryContainer: parse('onTertiaryContainer', fallback.onTertiaryContainer),
+        error: parse('error', fallback.error),
+        onError: parse('onError', fallback.onError),
+        errorContainer: parse('errorContainer', fallback.errorContainer),
+        onErrorContainer: parse('onErrorContainer', fallback.onErrorContainer),
+        
+        // M3 Surface
+        surface: parse('surface', fallback.surface),
+        onSurface: parse('onSurface', fallback.onSurface),
+        onSurfaceVariant: parse('onSurfaceVariant', fallback.onSurfaceVariant),
+        surfaceTint: parse('surfaceTint', fallback.surfaceTint),
+        surfaceContainer: parse('surfaceContainer', fallback.surfaceContainer),
+        surfaceContainerHigh: parse('surfaceContainerHigh', fallback.surfaceContainerHigh),
+        surfaceContainerHighest: parse('surfaceContainerHighest', fallback.surfaceContainerHighest),
+        surfaceContainerLow: parse('surfaceContainerLow', fallback.surfaceContainerLow),
+        surfaceContainerLowest: parse('surfaceContainerLowest', fallback.surfaceContainerLowest),
+        inverseSurface: parse('inverseSurface', fallback.inverseSurface),
+        onInverseSurface: parse('onInverseSurface', fallback.onInverseSurface),
+        inversePrimary: parse('inversePrimary', fallback.inversePrimary),
+        
+        // M3 Utility
+        outline: parse('outline', fallback.outline),
+        outlineVariant: parse('outlineVariant', fallback.outlineVariant),
+        shadow: parse('shadow', fallback.shadow),
+        scrim: parse('scrim', fallback.scrim),
+
+        // Semantic
+        highContrastBorder: parse('highContrastBorder', fallback.highContrastBorder),
+        subtleBorder: parse('subtleBorder', fallback.subtleBorder),
+        styleBackground: parse('styleBackground', fallback.styleBackground),
+        styleShadow: parse('styleShadow', fallback.styleShadow),
+        glowColor: parse('glowColor', fallback.glowColor),
+        signalStrong: parse('signalStrong', fallback.signalStrong),
+        signalWeak: parse('signalWeak', fallback.signalWeak),
+        signalGlow: parse('signalGlow', fallback.signalGlow),
+        activeFillColor: parse('activeFillColor', fallback.activeFillColor),
+        activeContentColor: parse('activeContentColor', fallback.activeContentColor),
+        overlayColor: parse('overlayColor', fallback.overlayColor),
+      );
+
+    } catch (e) {
+      debugPrint('Error parsing scheme JSON: $e');
+      return generateNeumorphic(const AppThemeConfig(seedColor: Colors.blue));
+    }
+  }
+
   /// Generates an [AppColorScheme] based on the provided [AppThemeConfig].
   static AppColorScheme generateNeumorphic(AppThemeConfig config) {
     final base = _generateBaseScheme(config);
@@ -76,8 +189,8 @@ class AppColorFactory {
     final base = _generateBaseScheme(config);
     final isLight = config.brightness == Brightness.light;
 
-    final solidBlack = Colors.black;
-    final solidWhite = Colors.white;
+    const solidBlack = Colors.black;
+    const solidWhite = Colors.white;
     final highContrast = isLight ? solidBlack : solidWhite;
     final styleShadow = isLight ? solidBlack : solidWhite;
 

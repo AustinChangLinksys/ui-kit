@@ -82,5 +82,39 @@ void main() {
       AppColorFactory.generateFlat(config);
       AppColorFactory.generatePixel(config);
     });
+
+    test('createSchemeFromJson parses raw colors correctly', () {
+      const jsonString = '''
+      {
+        "primary": "#FF0000",
+        "surface": "#FFFFFF",
+        "highContrastBorder": "#000000"
+      }
+      ''';
+
+      final scheme = AppColorFactory.createSchemeFromJson(jsonString);
+
+      expect(scheme.primary, const Color(0xFFFF0000));
+      expect(scheme.surface, const Color(0xFFFFFFFF));
+      expect(scheme.highContrastBorder, const Color(0xFF000000));
+      // Check fallback for missing value (e.g. error color should be from default fallback)
+      expect(scheme.error, isNotNull); 
+    });
+
+    test('createSchemeFromJson supports style parameter', () {
+      const jsonString = '''
+      {
+        "style": "brutal",
+        "config": {
+          "seedColor": "#0000FF"
+        }
+      }
+      ''';
+
+      final scheme = AppColorFactory.createSchemeFromJson(jsonString);
+      
+      // Brutal style has specific traits, e.g. transparent glow
+      expect(scheme.glowColor, Colors.transparent);
+    });
   });
 }
