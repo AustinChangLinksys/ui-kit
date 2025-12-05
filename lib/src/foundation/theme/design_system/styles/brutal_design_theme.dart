@@ -38,7 +38,6 @@ class BrutalDesignTheme extends AppDesignTheme {
 
   factory BrutalDesignTheme.light([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultLightScheme;
-    final overlayColor = Colors.black.withValues(alpha: 0.5);
     final bottomSheetOverlay = Colors.black.withValues(alpha: 0.5);
     final sideSheetOverlay = Colors.black.withValues(alpha: 0.6);
     return BrutalDesignTheme._(
@@ -394,8 +393,6 @@ class BrutalDesignTheme extends AppDesignTheme {
   factory BrutalDesignTheme.dark([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultDarkScheme;
     final black = scheme.onSurface;
-    final overlayColorDark = Colors.white.withValues(alpha: 0.6);
-    final overlayColorLight = Colors.white.withValues(alpha: 0.5);
     final bottomSheetOverlay = Colors.white.withValues(alpha: 0.6);
     final sideSheetOverlay = Colors.white.withValues(alpha: 0.6);
 
