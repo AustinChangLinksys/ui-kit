@@ -77,6 +77,7 @@ export 'src/molecules/stepper/app_stepper.dart' show AppStepper, StepperStep, St
 export 'src/molecules/bottom_sheet/app_bottom_sheet.dart' show AppBottomSheet, BottomSheetDisplayMode;
 export 'src/molecules/side_sheet/app_side_sheet.dart' show AppSideSheet, AppDrawer, SideSheetPosition, SideSheetDisplayMode;
 export 'src/molecules/tabs/app_tabs.dart' show AppTabs, TabItem, TabDisplayMode;
+export 'src/molecules/breadcrumb/app_breadcrumb.dart' show AppBreadcrumb, BreadcrumbItem;
 export 'src/molecules/selection/app_checkbox.dart';
 export 'src/molecules/selection/app_radio.dart';
 export 'src/molecules/selection/app_slider.dart';
