@@ -258,23 +258,21 @@ class _AppCarouselState extends State<AppCarousel>
     required double size,
   }) {
     final theme = Theme.of(context).extension<AppDesignTheme>();
+    final navButtonColor = theme?.carouselStyle.navButtonColor ?? Colors.grey;
 
-    return AppSurface(
-      interactive: onPressed != null,
-      child: InkWell(
+    return Opacity(
+      opacity: onPressed != null ? 1.0 : 0.5,
+      child: AppSurface(
+        variant: SurfaceVariant.elevated,
+        interactive: onPressed != null,
         onTap: onPressed,
-        child: Container(
-          width: size,
-          height: size,
-          decoration: BoxDecoration(
-            color: onPressed != null
-                ? theme?.carouselStyle.navButtonColor ?? Colors.grey
-                : Colors.grey[300],
-            borderRadius: BorderRadius.circular(8),
-          ),
+        width: size,
+        height: size,
+        padding: EdgeInsets.zero,
+        child: Center(
           child: Icon(
             icon,
-            color: onPressed != null ? Colors.white : Colors.grey[600],
+            color: onPressed != null ? navButtonColor : Colors.grey[600],
           ),
         ),
       ),

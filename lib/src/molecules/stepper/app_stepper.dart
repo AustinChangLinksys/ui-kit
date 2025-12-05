@@ -306,22 +306,15 @@ class _AppStepperState extends State<AppStepper> {
     required bool isCurrent,
     required double stepSize,
   }) {
-    return SizedBox(
+    return AppSurface(
+      variant: isCurrent ? SurfaceVariant.highlight : SurfaceVariant.elevated,
+      shape: BoxShape.circle,
       width: stepSize,
       height: stepSize,
       child: Container(
         decoration: BoxDecoration(
           color: indicatorColor,
-          borderRadius: BorderRadius.circular(stepSize / 2),
-          boxShadow: isCurrent
-              ? [
-                  BoxShadow(
-                    color: indicatorColor.withValues(alpha: 0.5),
-                    blurRadius: 8,
-                    spreadRadius: 2,
-                  )
-                ]
-              : [],
+          shape: BoxShape.circle,
         ),
         child: Center(
           child: isCompleted
