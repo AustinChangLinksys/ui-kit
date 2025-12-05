@@ -29,10 +29,19 @@ class PixelDesignTheme extends AppDesignTheme {
     required super.motion,
     required super.visualEffects,
     required super.iconStyle,
+    required super.bottomSheetStyle,
+    required super.sideSheetStyle,
+    required super.tabsStyle,
+    required super.stepperStyle,
+    required super.breadcrumbStyle,
+    required super.expansionPanelStyle,
+    required super.carouselStyle,
+    required super.chipGroupStyle,
   });
 
   factory PixelDesignTheme.light([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultLightScheme;
+    final overlayColor = Colors.black.withValues(alpha: 0.4);
     return PixelDesignTheme._(
       surfaceBase: SurfaceStyle(
         backgroundColor: scheme.surface,
@@ -331,11 +340,75 @@ class PixelDesignTheme extends AppDesignTheme {
       motion: const PixelMotion(),
       visualEffects: GlobalEffectsType.crtShader, // Example of applying CRT to Pixel theme
       iconStyle: AppIconStyle.pixelated,
+      bottomSheetStyle: BottomSheetStyle(
+        overlayColor: overlayColor,
+        animationDuration: const Duration(milliseconds: 100),
+        animationCurve: Curves.linear,
+        topBorderRadius: 0.0,
+        dragHandleHeight: 16.0,
+      ),
+      sideSheetStyle: SideSheetStyle(
+        width: 256.0,
+        overlayColor: overlayColor,
+        animationDuration: const Duration(milliseconds: 100),
+        animationCurve: Curves.linear,
+        blurStrength: 0.0,
+        enableDithering: true,
+      ),
+      tabsStyle: TabsStyle(
+        activeTextColor: Colors.white,
+        inactiveTextColor: Colors.grey.shade400,
+        indicatorColor: Colors.white,
+        tabBackgroundColor: Colors.black,
+        animationDuration: const Duration(milliseconds: 100),
+        indicatorThickness: 4.0,
+      ),
+      stepperStyle: StepperStyle(
+        activeStepColor: Colors.white,
+        completedStepColor: Colors.grey.shade600,
+        pendingStepColor: Colors.grey.shade800,
+        connectorColor: Colors.grey.shade600,
+        stepSize: 48.0,
+        useDashedConnector: true,
+      ),
+      breadcrumbStyle: BreadcrumbStyle(
+        activeLinkColor: Colors.white,
+        inactiveLinkColor: Colors.grey.shade300,
+        separatorColor: Colors.white,
+        separatorText: ' > ',
+        itemTextStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, fontFamily: 'Courier'),
+      ),
+      expansionPanelStyle: ExpansionPanelStyle(
+        headerColor: Colors.black,
+        expandedBackgroundColor: Colors.grey.shade900,
+        headerTextColor: Colors.white,
+        expandIcon: Icons.expand_more,
+        animationDuration: const Duration(milliseconds: 100),
+      ),
+      carouselStyle: CarouselStyle(
+        navButtonColor: Colors.white,
+        navButtonHoverColor: Colors.grey.shade200,
+        previousIcon: Icons.arrow_back,
+        nextIcon: Icons.arrow_forward,
+        animationDuration: const Duration(milliseconds: 100),
+        animationCurve: Curves.linear,
+        useSnapScroll: true,
+        navButtonSize: 64.0,
+      ),
+      chipGroupStyle: ChipGroupStyle(
+        unselectedBackground: Colors.grey.shade800,
+        unselectedText: Colors.white,
+        selectedBackground: Colors.white,
+        selectedText: Colors.black,
+        selectedBorderColor: Colors.white,
+        borderRadius: 0.0,
+      ),
     );
   }
 
   factory PixelDesignTheme.dark([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultDarkScheme;
+    final overlayColor = Colors.white.withValues(alpha: 0.4);
     final black = scheme.onSurface;
 
     return PixelDesignTheme._(
@@ -631,6 +704,69 @@ class PixelDesignTheme extends AppDesignTheme {
       motion: const PixelMotion(),
       visualEffects: GlobalEffectsType.crtShader,
       iconStyle: AppIconStyle.pixelated,
+      bottomSheetStyle: BottomSheetStyle(
+        overlayColor: overlayColor,
+        animationDuration: const Duration(milliseconds: 100),
+        animationCurve: Curves.linear,
+        topBorderRadius: 0.0,
+        dragHandleHeight: 16.0,
+      ),
+      sideSheetStyle: SideSheetStyle(
+        width: 256.0,
+        overlayColor: overlayColor,
+        animationDuration: const Duration(milliseconds: 100),
+        animationCurve: Curves.linear,
+        blurStrength: 0.0,
+        enableDithering: true,
+      ),
+      tabsStyle: TabsStyle(
+        activeTextColor: Colors.white,
+        inactiveTextColor: Colors.grey.shade400,
+        indicatorColor: Colors.white,
+        tabBackgroundColor: Colors.black,
+        animationDuration: const Duration(milliseconds: 100),
+        indicatorThickness: 4.0,
+      ),
+      stepperStyle: StepperStyle(
+        activeStepColor: Colors.white,
+        completedStepColor: Colors.grey.shade600,
+        pendingStepColor: Colors.grey.shade800,
+        connectorColor: Colors.grey.shade600,
+        stepSize: 48.0,
+        useDashedConnector: true,
+      ),
+      breadcrumbStyle: BreadcrumbStyle(
+        activeLinkColor: Colors.white,
+        inactiveLinkColor: Colors.grey.shade300,
+        separatorColor: Colors.white,
+        separatorText: ' > ',
+        itemTextStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, fontFamily: 'Courier'),
+      ),
+      expansionPanelStyle: ExpansionPanelStyle(
+        headerColor: Colors.black,
+        expandedBackgroundColor: Colors.grey.shade900,
+        headerTextColor: Colors.white,
+        expandIcon: Icons.expand_more,
+        animationDuration: const Duration(milliseconds: 100),
+      ),
+      carouselStyle: CarouselStyle(
+        navButtonColor: Colors.white,
+        navButtonHoverColor: Colors.grey.shade200,
+        previousIcon: Icons.arrow_back,
+        nextIcon: Icons.arrow_forward,
+        animationDuration: const Duration(milliseconds: 100),
+        animationCurve: Curves.linear,
+        useSnapScroll: true,
+        navButtonSize: 64.0,
+      ),
+      chipGroupStyle: ChipGroupStyle(
+        unselectedBackground: Colors.grey.shade800,
+        unselectedText: Colors.white,
+        selectedBackground: Colors.white,
+        selectedText: Colors.black,
+        selectedBorderColor: Colors.white,
+        borderRadius: 0.0,
+      ),
     );
   }
 }

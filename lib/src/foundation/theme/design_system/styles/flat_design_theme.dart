@@ -30,10 +30,19 @@ class FlatDesignTheme extends AppDesignTheme {
     required super.motion,
     required super.visualEffects,
     required super.iconStyle,
+    required super.bottomSheetStyle,
+    required super.sideSheetStyle,
+    required super.tabsStyle,
+    required super.stepperStyle,
+    required super.breadcrumbStyle,
+    required super.expansionPanelStyle,
+    required super.carouselStyle,
+    required super.chipGroupStyle,
   });
 
   factory FlatDesignTheme.light([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultLightScheme;
+    final overlayColor = Colors.black.withValues(alpha: 0.15);
     // Define semantic color variables (Token-First)
     final activeColor = scheme.primary;
     final inactiveColor = scheme
@@ -343,11 +352,75 @@ class FlatDesignTheme extends AppDesignTheme {
       motion: const FlatMotion(),
       visualEffects: GlobalEffectsType.none,
       iconStyle: AppIconStyle.vectorFilled,
+      bottomSheetStyle: BottomSheetStyle(
+        overlayColor: overlayColor,
+        animationDuration: const Duration(milliseconds: 300),
+        animationCurve: Curves.easeInOut,
+        topBorderRadius: 12.0,
+        dragHandleHeight: 6.0,
+      ),
+      sideSheetStyle: SideSheetStyle(
+        width: 280.0,
+        overlayColor: overlayColor,
+        animationDuration: const Duration(milliseconds: 300),
+        animationCurve: Curves.easeInOut,
+        blurStrength: 0.0,
+        enableDithering: false,
+      ),
+      tabsStyle: TabsStyle(
+        activeTextColor: scheme.primary,
+        inactiveTextColor: scheme.onSurfaceVariant,
+        indicatorColor: scheme.primary,
+        tabBackgroundColor: scheme.surface,
+        animationDuration: const Duration(milliseconds: 250),
+        indicatorThickness: 2.0,
+      ),
+      stepperStyle: StepperStyle(
+        activeStepColor: scheme.primary,
+        completedStepColor: scheme.secondary,
+        pendingStepColor: scheme.surfaceContainerHighest,
+        connectorColor: scheme.outline,
+        stepSize: 36.0,
+        useDashedConnector: false,
+      ),
+      breadcrumbStyle: BreadcrumbStyle(
+        activeLinkColor: scheme.primary,
+        inactiveLinkColor: scheme.onSurfaceVariant,
+        separatorColor: scheme.outlineVariant,
+        separatorText: ' / ',
+        itemTextStyle: const TextStyle(fontSize: 14),
+      ),
+      expansionPanelStyle: ExpansionPanelStyle(
+        headerColor: scheme.surfaceContainerHighest,
+        expandedBackgroundColor: scheme.surface,
+        headerTextColor: scheme.onSurface,
+        expandIcon: Icons.expand_more,
+        animationDuration: const Duration(milliseconds: 250),
+      ),
+      carouselStyle: CarouselStyle(
+        navButtonColor: scheme.primary,
+        navButtonHoverColor: scheme.primary.withValues(alpha: 0.7),
+        previousIcon: Icons.arrow_back,
+        nextIcon: Icons.arrow_forward,
+        animationDuration: const Duration(milliseconds: 300),
+        animationCurve: Curves.easeInOut,
+        useSnapScroll: false,
+        navButtonSize: 48.0,
+      ),
+      chipGroupStyle: ChipGroupStyle(
+        unselectedBackground: scheme.surfaceContainerHighest,
+        unselectedText: scheme.onSurface,
+        selectedBackground: scheme.primary.withValues(alpha: 0.15),
+        selectedText: scheme.onSurface,
+        selectedBorderColor: scheme.primary,
+        borderRadius: 16.0,
+      ),
     );
   }
 
   factory FlatDesignTheme.dark([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultDarkScheme;
+    final overlayColor = Colors.white.withValues(alpha: 0.15);
     // Dark Mode color mapping
     final activeColor = scheme.primary;
     final inactiveColor = scheme.surfaceContainerHighest;
@@ -641,6 +714,69 @@ class FlatDesignTheme extends AppDesignTheme {
       motion: const FlatMotion(),
       visualEffects: GlobalEffectsType.none,
       iconStyle: AppIconStyle.vectorFilled,
+      bottomSheetStyle: BottomSheetStyle(
+        overlayColor: overlayColor,
+        animationDuration: const Duration(milliseconds: 300),
+        animationCurve: Curves.easeInOut,
+        topBorderRadius: 12.0,
+        dragHandleHeight: 6.0,
+      ),
+      sideSheetStyle: SideSheetStyle(
+        width: 280.0,
+        overlayColor: overlayColor,
+        animationDuration: const Duration(milliseconds: 300),
+        animationCurve: Curves.easeInOut,
+        blurStrength: 0.0,
+        enableDithering: false,
+      ),
+      tabsStyle: TabsStyle(
+        activeTextColor: scheme.primary,
+        inactiveTextColor: scheme.onSurfaceVariant,
+        indicatorColor: scheme.primary,
+        tabBackgroundColor: scheme.surface,
+        animationDuration: const Duration(milliseconds: 250),
+        indicatorThickness: 2.0,
+      ),
+      stepperStyle: StepperStyle(
+        activeStepColor: scheme.primary,
+        completedStepColor: scheme.secondary,
+        pendingStepColor: scheme.surfaceContainerHighest,
+        connectorColor: scheme.outline,
+        stepSize: 36.0,
+        useDashedConnector: false,
+      ),
+      breadcrumbStyle: BreadcrumbStyle(
+        activeLinkColor: scheme.primary,
+        inactiveLinkColor: scheme.onSurfaceVariant,
+        separatorColor: scheme.outlineVariant,
+        separatorText: ' / ',
+        itemTextStyle: const TextStyle(fontSize: 14),
+      ),
+      expansionPanelStyle: ExpansionPanelStyle(
+        headerColor: scheme.surfaceContainerHighest,
+        expandedBackgroundColor: scheme.surface,
+        headerTextColor: scheme.onSurface,
+        expandIcon: Icons.expand_more,
+        animationDuration: const Duration(milliseconds: 250),
+      ),
+      carouselStyle: CarouselStyle(
+        navButtonColor: scheme.primary,
+        navButtonHoverColor: scheme.primary.withValues(alpha: 0.7),
+        previousIcon: Icons.arrow_back,
+        nextIcon: Icons.arrow_forward,
+        animationDuration: const Duration(milliseconds: 300),
+        animationCurve: Curves.easeInOut,
+        useSnapScroll: false,
+        navButtonSize: 48.0,
+      ),
+      chipGroupStyle: ChipGroupStyle(
+        unselectedBackground: scheme.surfaceContainerHighest,
+        unselectedText: scheme.onSurface,
+        selectedBackground: scheme.primary.withValues(alpha: 0.15),
+        selectedText: scheme.onSurface,
+        selectedBorderColor: scheme.primary,
+        borderRadius: 16.0,
+      ),
     );
   }
 }

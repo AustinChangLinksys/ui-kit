@@ -29,11 +29,20 @@ class NeumorphicDesignTheme extends AppDesignTheme {
     required super.motion,
     required super.visualEffects,
     required super.iconStyle,
+    required super.bottomSheetStyle,
+    required super.sideSheetStyle,
+    required super.tabsStyle,
+    required super.stepperStyle,
+    required super.breadcrumbStyle,
+    required super.expansionPanelStyle,
+    required super.carouselStyle,
+    required super.chipGroupStyle,
   });
 
   // Default to Light, providing a default ColorScheme
   factory NeumorphicDesignTheme.light([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultLightScheme;
+    final overlayColor = Colors.black.withValues(alpha: 0.2);
     final lightBaseColor = scheme.surface;
     final lightShadow = Color.alphaBlend(
         scheme.outline.withValues(alpha: 0.5), scheme.surface); // White shadow
@@ -351,11 +360,75 @@ class NeumorphicDesignTheme extends AppDesignTheme {
       motion: const NeumorphicMotion(), // Assuming NeumorphicMotion
       visualEffects: GlobalEffectsType.none,
       iconStyle: AppIconStyle.vectorFilled,
+      bottomSheetStyle: BottomSheetStyle(
+        overlayColor: overlayColor,
+        animationDuration: const Duration(milliseconds: 350),
+        animationCurve: Curves.easeInOutQuad,
+        topBorderRadius: 20.0,
+        dragHandleHeight: 8.0,
+      ),
+      sideSheetStyle: SideSheetStyle(
+        width: 280.0,
+        overlayColor: overlayColor,
+        animationDuration: const Duration(milliseconds: 350),
+        animationCurve: Curves.easeInOutQuad,
+        blurStrength: 0.0,
+        enableDithering: false,
+      ),
+      tabsStyle: TabsStyle(
+        activeTextColor: scheme.primary,
+        inactiveTextColor: scheme.onSurfaceVariant,
+        indicatorColor: scheme.primary,
+        tabBackgroundColor: scheme.surface,
+        animationDuration: const Duration(milliseconds: 300),
+        indicatorThickness: 2.0,
+      ),
+      stepperStyle: StepperStyle(
+        activeStepColor: scheme.primary,
+        completedStepColor: scheme.secondary,
+        pendingStepColor: scheme.outlineVariant,
+        connectorColor: scheme.outline,
+        stepSize: 40.0,
+        useDashedConnector: false,
+      ),
+      breadcrumbStyle: BreadcrumbStyle(
+        activeLinkColor: scheme.primary,
+        inactiveLinkColor: scheme.onSurfaceVariant,
+        separatorColor: scheme.outline,
+        separatorText: ' • ',
+        itemTextStyle: const TextStyle(fontSize: 14),
+      ),
+      expansionPanelStyle: ExpansionPanelStyle(
+        headerColor: scheme.surface,
+        expandedBackgroundColor: scheme.surfaceContainer,
+        headerTextColor: scheme.onSurface,
+        expandIcon: Icons.expand_more,
+        animationDuration: const Duration(milliseconds: 300),
+      ),
+      carouselStyle: CarouselStyle(
+        navButtonColor: scheme.primary,
+        navButtonHoverColor: scheme.primary.withValues(alpha: 0.75),
+        previousIcon: Icons.arrow_back,
+        nextIcon: Icons.arrow_forward,
+        animationDuration: const Duration(milliseconds: 350),
+        animationCurve: Curves.easeInOutQuad,
+        useSnapScroll: false,
+        navButtonSize: 48.0,
+      ),
+      chipGroupStyle: ChipGroupStyle(
+        unselectedBackground: scheme.surface,
+        unselectedText: scheme.onSurface,
+        selectedBackground: scheme.primary.withValues(alpha: 0.12),
+        selectedText: scheme.onSurface,
+        selectedBorderColor: scheme.primary,
+        borderRadius: 18.0,
+      ),
     );
   }
 
   factory NeumorphicDesignTheme.dark([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultDarkScheme;
+    final overlayColor = Colors.white.withValues(alpha: 0.2);
     final darkBaseColor = scheme.surface;
     final darkLightShadow = Color.alphaBlend(
         scheme.outline.withValues(alpha: 0.1), scheme.surface); // Light shadow
@@ -676,6 +749,69 @@ class NeumorphicDesignTheme extends AppDesignTheme {
       motion: const NeumorphicMotion(), // Assuming NeumorphicMotion
       visualEffects: GlobalEffectsType.none,
       iconStyle: AppIconStyle.vectorFilled,
+      bottomSheetStyle: BottomSheetStyle(
+        overlayColor: overlayColor,
+        animationDuration: const Duration(milliseconds: 350),
+        animationCurve: Curves.easeInOutQuad,
+        topBorderRadius: 20.0,
+        dragHandleHeight: 8.0,
+      ),
+      sideSheetStyle: SideSheetStyle(
+        width: 280.0,
+        overlayColor: overlayColor,
+        animationDuration: const Duration(milliseconds: 350),
+        animationCurve: Curves.easeInOutQuad,
+        blurStrength: 0.0,
+        enableDithering: false,
+      ),
+      tabsStyle: TabsStyle(
+        activeTextColor: scheme.primary,
+        inactiveTextColor: scheme.onSurfaceVariant,
+        indicatorColor: scheme.primary,
+        tabBackgroundColor: scheme.surface,
+        animationDuration: const Duration(milliseconds: 300),
+        indicatorThickness: 2.0,
+      ),
+      stepperStyle: StepperStyle(
+        activeStepColor: scheme.primary,
+        completedStepColor: scheme.secondary,
+        pendingStepColor: scheme.outlineVariant,
+        connectorColor: scheme.outline,
+        stepSize: 40.0,
+        useDashedConnector: false,
+      ),
+      breadcrumbStyle: BreadcrumbStyle(
+        activeLinkColor: scheme.primary,
+        inactiveLinkColor: scheme.onSurfaceVariant,
+        separatorColor: scheme.outline,
+        separatorText: ' • ',
+        itemTextStyle: const TextStyle(fontSize: 14),
+      ),
+      expansionPanelStyle: ExpansionPanelStyle(
+        headerColor: scheme.surface,
+        expandedBackgroundColor: scheme.surfaceContainer,
+        headerTextColor: scheme.onSurface,
+        expandIcon: Icons.expand_more,
+        animationDuration: const Duration(milliseconds: 300),
+      ),
+      carouselStyle: CarouselStyle(
+        navButtonColor: scheme.primary,
+        navButtonHoverColor: scheme.primary.withValues(alpha: 0.75),
+        previousIcon: Icons.arrow_back,
+        nextIcon: Icons.arrow_forward,
+        animationDuration: const Duration(milliseconds: 350),
+        animationCurve: Curves.easeInOutQuad,
+        useSnapScroll: false,
+        navButtonSize: 48.0,
+      ),
+      chipGroupStyle: ChipGroupStyle(
+        unselectedBackground: scheme.surface,
+        unselectedText: scheme.onSurface,
+        selectedBackground: scheme.primary.withValues(alpha: 0.12),
+        selectedText: scheme.onSurface,
+        selectedBorderColor: scheme.primary,
+        borderRadius: 18.0,
+      ),
     );
   }
 }

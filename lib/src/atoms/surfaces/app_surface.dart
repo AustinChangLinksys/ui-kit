@@ -127,15 +127,22 @@ class _AppSurfaceState extends State<AppSurface> {
               )
             : null,
         // Border Logic: Prefer customBorder (e.g. Underline), fallback to uniform border
-        border: effectiveStyle.customBorder ??
-            Border.all(
-              color: effectiveStyle.borderColor,
-              width: effectiveStyle.borderWidth,
-              // Brutalism might use 0 width but valid color, checking width > 0 is safer
-              style: effectiveStyle.borderWidth > 0
-                  ? BorderStyle.solid
-                  : BorderStyle.none,
-            ),
+        // Note: customBorder (like underline) is ignored for circles - only uniform borders work
+        border: widget.shape == BoxShape.circle
+            ? (effectiveStyle.borderWidth > 0
+                ? Border.all(
+                    color: effectiveStyle.borderColor,
+                    width: effectiveStyle.borderWidth,
+                  )
+                : null)
+            : (effectiveStyle.customBorder ??
+                Border.all(
+                  color: effectiveStyle.borderColor,
+                  width: effectiveStyle.borderWidth,
+                  style: effectiveStyle.borderWidth > 0
+                      ? BorderStyle.solid
+                      : BorderStyle.none,
+                )),
         // Shape Logic: Circles cannot have borderRadius
         borderRadius: widget.shape == BoxShape.circle
             ? null

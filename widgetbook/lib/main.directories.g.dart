@@ -71,6 +71,16 @@ import 'package:widgetbook_workspace/stories/navigation/app_navigation_bar.story
     as _widgetbook_workspace_stories_navigation_app_navigation_bar_story;
 import 'package:widgetbook_workspace/stories/navigation/app_navigation_rail.stories.dart'
     as _widgetbook_workspace_stories_navigation_app_navigation_rail_stories;
+import 'package:widgetbook_workspace/stories/navigation/bottom_sheet_story.dart'
+    as _widgetbook_workspace_stories_navigation_bottom_sheet_story;
+import 'package:widgetbook_workspace/stories/navigation/carousel_story.dart'
+    as _widgetbook_workspace_stories_navigation_carousel_story;
+import 'package:widgetbook_workspace/stories/navigation/expansion_panel_story.dart'
+    as _widgetbook_workspace_stories_navigation_expansion_panel_story;
+import 'package:widgetbook_workspace/stories/navigation/side_sheet_story.dart'
+    as _widgetbook_workspace_stories_navigation_side_sheet_story;
+import 'package:widgetbook_workspace/stories/navigation/stepper_story.dart'
+    as _widgetbook_workspace_stories_navigation_stepper_story;
 import 'package:widgetbook_workspace/stories/organisms/app_unified_bar.stories.dart'
     as _widgetbook_workspace_stories_organisms_app_unified_bar_stories;
 import 'package:widgetbook_workspace/stories/organisms/app_unified_sliver_bar.stories.dart'
@@ -370,6 +380,52 @@ final directories = <_widgetbook.WidgetbookNode>[
     name: 'molecules',
     children: [
       _widgetbook.WidgetbookFolder(
+        name: 'bottom_sheet',
+        children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'AppBottomSheet',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Basic Content',
+                builder:
+                    _widgetbook_workspace_stories_navigation_bottom_sheet_story
+                        .buildBasicBottomSheet,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Custom Height',
+                builder:
+                    _widgetbook_workspace_stories_navigation_bottom_sheet_story
+                        .buildCustomHeightBottomSheet,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Different Sizes',
+                builder:
+                    _widgetbook_workspace_stories_navigation_bottom_sheet_story
+                        .buildDifferentSizesBottomSheet,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Non-Dismissible',
+                builder:
+                    _widgetbook_workspace_stories_navigation_bottom_sheet_story
+                        .buildNonDismissibleBottomSheet,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With Form',
+                builder:
+                    _widgetbook_workspace_stories_navigation_bottom_sheet_story
+                        .buildFormBottomSheet,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With Long Content',
+                builder:
+                    _widgetbook_workspace_stories_navigation_bottom_sheet_story
+                        .buildLongContentBottomSheet,
+              ),
+            ],
+          )
+        ],
+      ),
+      _widgetbook.WidgetbookFolder(
         name: 'buttons',
         children: [
           _widgetbook.WidgetbookComponent(
@@ -431,6 +487,36 @@ final directories = <_widgetbook.WidgetbookNode>[
         ],
       ),
       _widgetbook.WidgetbookFolder(
+        name: 'carousel',
+        children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'AppCarousel',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Basic Carousel',
+                builder: _widgetbook_workspace_stories_navigation_carousel_story
+                    .buildBasicCarousel,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Image Carousel',
+                builder: _widgetbook_workspace_stories_navigation_carousel_story
+                    .buildImageCarousel,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With Auto-Play',
+                builder: _widgetbook_workspace_stories_navigation_carousel_story
+                    .buildAutoPlayCarousel,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With Different Scroll Behaviors',
+                builder: _widgetbook_workspace_stories_navigation_carousel_story
+                    .buildScrollBehaviorCarousel,
+              ),
+            ],
+          )
+        ],
+      ),
+      _widgetbook.WidgetbookFolder(
         name: 'dialogs',
         children: [
           _widgetbook.WidgetbookComponent(
@@ -481,6 +567,34 @@ final directories = <_widgetbook.WidgetbookNode>[
                 builder:
                     _widgetbook_workspace_stories_molecules_display_app_tooltip_stories
                         .buildTooltipGallery,
+              ),
+            ],
+          )
+        ],
+      ),
+      _widgetbook.WidgetbookFolder(
+        name: 'expansion_panel',
+        children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'AppExpansionPanel',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Multiple Panels',
+                builder:
+                    _widgetbook_workspace_stories_navigation_expansion_panel_story
+                        .buildMultiplePanels,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Single Panel',
+                builder:
+                    _widgetbook_workspace_stories_navigation_expansion_panel_story
+                        .buildSinglePanel,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With Long Content',
+                builder:
+                    _widgetbook_workspace_stories_navigation_expansion_panel_story
+                        .buildLongContent,
               ),
             ],
           )
@@ -741,6 +855,63 @@ final directories = <_widgetbook.WidgetbookNode>[
         ],
       ),
       _widgetbook.WidgetbookFolder(
+        name: 'side_sheet',
+        children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'AppDrawer',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'AppDrawer (Convenience Wrapper)',
+                builder:
+                    _widgetbook_workspace_stories_navigation_side_sheet_story
+                        .buildAppDrawer,
+              )
+            ],
+          ),
+          _widgetbook.WidgetbookComponent(
+            name: 'AppSideSheet',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Custom Width Variations',
+                builder:
+                    _widgetbook_workspace_stories_navigation_side_sheet_story
+                        .buildCustomWidthSheet,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Dismissible (Tap Outside)',
+                builder:
+                    _widgetbook_workspace_stories_navigation_side_sheet_story
+                        .buildDismissibleSheet,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Non-Dismissible (Requires Action)',
+                builder:
+                    _widgetbook_workspace_stories_navigation_side_sheet_story
+                        .buildNonDismissibleSheet,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Overlay Mode - Left',
+                builder:
+                    _widgetbook_workspace_stories_navigation_side_sheet_story
+                        .buildLeftOverlaySheet,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Overlay Mode - Right',
+                builder:
+                    _widgetbook_workspace_stories_navigation_side_sheet_story
+                        .buildRightOverlaySheet,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Persistent Mode',
+                builder:
+                    _widgetbook_workspace_stories_navigation_side_sheet_story
+                        .buildPersistentSheet,
+              ),
+            ],
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookFolder(
         name: 'status',
         children: [
           _widgetbook.WidgetbookComponent(
@@ -788,6 +959,56 @@ final directories = <_widgetbook.WidgetbookNode>[
               ),
             ],
           ),
+        ],
+      ),
+      _widgetbook.WidgetbookFolder(
+        name: 'stepper',
+        children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'AppStepper',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Custom Step Count',
+                builder: _widgetbook_workspace_stories_navigation_stepper_story
+                    .buildCustomStepCount,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Horizontal - Active Step',
+                builder: _widgetbook_workspace_stories_navigation_stepper_story
+                    .buildHorizontalActiveStep,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Horizontal - Completed',
+                builder: _widgetbook_workspace_stories_navigation_stepper_story
+                    .buildHorizontalCompleted,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Horizontal - First Step',
+                builder: _widgetbook_workspace_stories_navigation_stepper_story
+                    .buildHorizontalFirstStep,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Interactive Steps',
+                builder: _widgetbook_workspace_stories_navigation_stepper_story
+                    .buildInteractiveSteps,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Read-Only Mode',
+                builder: _widgetbook_workspace_stories_navigation_stepper_story
+                    .buildReadOnlyMode,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Vertical Layout',
+                builder: _widgetbook_workspace_stories_navigation_stepper_story
+                    .buildVerticalLayout,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With Disabled Steps',
+                builder: _widgetbook_workspace_stories_navigation_stepper_story
+                    .buildWithDisabledSteps,
+              ),
+            ],
+          )
         ],
       ),
       _widgetbook.WidgetbookFolder(

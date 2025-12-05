@@ -30,10 +30,21 @@ class BrutalDesignTheme extends AppDesignTheme {
     required super.motion,
     required super.visualEffects,
     required super.iconStyle,
+    required super.bottomSheetStyle,
+    required super.sideSheetStyle,
+    required super.tabsStyle,
+    required super.stepperStyle,
+    required super.breadcrumbStyle,
+    required super.expansionPanelStyle,
+    required super.carouselStyle,
+    required super.chipGroupStyle,
+
   });
 
   factory BrutalDesignTheme.light([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultLightScheme;
+    final bottomSheetOverlay = Colors.black.withValues(alpha: 0.5);
+    final sideSheetOverlay = Colors.black.withValues(alpha: 0.6);
     return BrutalDesignTheme._(
       surfaceBase: SurfaceStyle(
         backgroundColor: scheme.surface, // Use ColorScheme's surface
@@ -321,12 +332,77 @@ class BrutalDesignTheme extends AppDesignTheme {
       motion: const BrutalMotion(),
       visualEffects: GlobalEffectsType.none,
       iconStyle: AppIconStyle.vectorFilled,
+      bottomSheetStyle: BottomSheetStyle(
+        overlayColor: bottomSheetOverlay,
+        animationDuration: const Duration(milliseconds: 200),
+        animationCurve: Curves.linear,
+        topBorderRadius: 0.0,
+        dragHandleHeight: 12.0,
+      ),
+      sideSheetStyle: SideSheetStyle(
+        width: 280.0,
+        overlayColor: sideSheetOverlay,
+        animationDuration: const Duration(milliseconds: 150),
+        animationCurve: Curves.linear,
+        blurStrength: 0.0,
+        enableDithering: false,
+      ),
+      tabsStyle: TabsStyle(
+        activeTextColor: Colors.white,
+        inactiveTextColor: Colors.grey.shade400,
+        indicatorColor: Colors.white,
+        tabBackgroundColor: Colors.black,
+        animationDuration: const Duration(milliseconds: 150),
+        indicatorThickness: 3.0,
+      ),
+      stepperStyle: StepperStyle(
+        activeStepColor: Colors.white,
+        completedStepColor: Colors.grey.shade700,
+        pendingStepColor: Colors.grey.shade900,
+        connectorColor: Colors.grey.shade600,
+        stepSize: 44.0,
+        useDashedConnector: false,
+      ),
+      breadcrumbStyle: BreadcrumbStyle(
+        activeLinkColor: Colors.white,
+        inactiveLinkColor: Colors.grey.shade300,
+        separatorColor: Colors.white,
+        separatorText: ' > ',
+        itemTextStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+      ),
+      expansionPanelStyle: ExpansionPanelStyle(
+        headerColor: Colors.black,
+        expandedBackgroundColor: Colors.grey.shade900,
+        headerTextColor: Colors.white,
+        expandIcon: Icons.expand_more,
+        animationDuration: const Duration(milliseconds: 150),
+      ),
+      carouselStyle: CarouselStyle(
+        navButtonColor: Colors.white,
+        navButtonHoverColor: Colors.grey.shade200,
+        previousIcon: Icons.arrow_back,
+        nextIcon: Icons.arrow_forward,
+        animationDuration: const Duration(milliseconds: 150),
+        animationCurve: Curves.linear,
+        useSnapScroll: false,
+        navButtonSize: 48.0,
+      ),
+      chipGroupStyle: ChipGroupStyle(
+        unselectedBackground: Colors.grey.shade800,
+        unselectedText: Colors.white,
+        selectedBackground: Colors.white,
+        selectedText: Colors.black,
+        selectedBorderColor: Colors.white,
+        borderRadius: 4.0,
+      ),
     );
   }
 
   factory BrutalDesignTheme.dark([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultDarkScheme;
     final black = scheme.onSurface;
+    final bottomSheetOverlay = Colors.white.withValues(alpha: 0.6);
+    final sideSheetOverlay = Colors.white.withValues(alpha: 0.6);
 
     return BrutalDesignTheme._(
       surfaceBase: SurfaceStyle(
@@ -611,6 +687,69 @@ class BrutalDesignTheme extends AppDesignTheme {
       motion: const BrutalMotion(),
       visualEffects: GlobalEffectsType.none,
       iconStyle: AppIconStyle.vectorFilled,
+      bottomSheetStyle: BottomSheetStyle(
+        overlayColor: bottomSheetOverlay,
+        animationDuration: const Duration(milliseconds: 200),
+        animationCurve: Curves.linear,
+        topBorderRadius: 0.0,
+        dragHandleHeight: 12.0,
+      ),
+      sideSheetStyle: SideSheetStyle(
+        width: 280.0,
+        overlayColor: sideSheetOverlay,
+        animationDuration: const Duration(milliseconds: 150),
+        animationCurve: Curves.linear,
+        blurStrength: 0.0,
+        enableDithering: false,
+      ),
+      tabsStyle: TabsStyle(
+        activeTextColor: Colors.white,
+        inactiveTextColor: Colors.grey.shade400,
+        indicatorColor: Colors.white,
+        tabBackgroundColor: Colors.black,
+        animationDuration: const Duration(milliseconds: 150),
+        indicatorThickness: 3.0,
+      ),
+      stepperStyle: StepperStyle(
+        activeStepColor: Colors.white,
+        completedStepColor: Colors.grey.shade700,
+        pendingStepColor: Colors.grey.shade900,
+        connectorColor: Colors.grey.shade600,
+        stepSize: 44.0,
+        useDashedConnector: false,
+      ),
+      breadcrumbStyle: BreadcrumbStyle(
+        activeLinkColor: Colors.white,
+        inactiveLinkColor: Colors.grey.shade300,
+        separatorColor: Colors.white,
+        separatorText: ' > ',
+        itemTextStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+      ),
+      expansionPanelStyle: ExpansionPanelStyle(
+        headerColor: Colors.black,
+        expandedBackgroundColor: Colors.grey.shade900,
+        headerTextColor: Colors.white,
+        expandIcon: Icons.expand_more,
+        animationDuration: const Duration(milliseconds: 150),
+      ),
+      carouselStyle: CarouselStyle(
+        navButtonColor: Colors.white,
+        navButtonHoverColor: Colors.grey.shade200,
+        previousIcon: Icons.arrow_back,
+        nextIcon: Icons.arrow_forward,
+        animationDuration: const Duration(milliseconds: 150),
+        animationCurve: Curves.linear,
+        useSnapScroll: false,
+        navButtonSize: 48.0,
+      ),
+      chipGroupStyle: ChipGroupStyle(
+        unselectedBackground: Colors.grey.shade800,
+        unselectedText: Colors.white,
+        selectedBackground: Colors.white,
+        selectedText: Colors.black,
+        selectedBorderColor: Colors.white,
+        borderRadius: 4.0,
+      ),
     );
   }
 }

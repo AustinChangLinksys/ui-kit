@@ -28,12 +28,21 @@ class GlassDesignTheme extends AppDesignTheme {
     required super.motion,
     required super.visualEffects,
     required super.iconStyle,
+    required super.bottomSheetStyle,
+    required super.sideSheetStyle,
+    required super.tabsStyle,
+    required super.stepperStyle,
+    required super.breadcrumbStyle,
+    required super.expansionPanelStyle,
+    required super.carouselStyle,
+    required super.chipGroupStyle,
   });
 
   // Light Mode (Liquid Water)
   factory GlassDesignTheme.light([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultLightScheme;
     final glassBaseColor = scheme.surface.withValues(alpha: 0.02);
+    final overlayColor = Colors.black.withValues(alpha: 0.2);
 
     return GlassDesignTheme._(
       surfaceBase: SurfaceStyle(
@@ -372,11 +381,75 @@ class GlassDesignTheme extends AppDesignTheme {
       visualEffects: GlobalEffectsType.noiseOverlay,
       iconStyle: AppIconStyle
           .thinStroke, // Or vectorFilled, depending on Glass style preference
+      bottomSheetStyle: BottomSheetStyle(
+        overlayColor: overlayColor,
+        animationDuration: const Duration(milliseconds: 400),
+        animationCurve: Curves.easeInOutCubic,
+        topBorderRadius: 16.0,
+        dragHandleHeight: 8.0,
+      ),
+      sideSheetStyle: SideSheetStyle(
+        width: 280.0,
+        overlayColor: overlayColor,
+        animationDuration: const Duration(milliseconds: 400),
+        animationCurve: Curves.easeInOutCubic,
+        blurStrength: 20.0,
+        enableDithering: false,
+      ),
+      tabsStyle: TabsStyle(
+        activeTextColor: scheme.primary,
+        inactiveTextColor: scheme.onSurface,
+        indicatorColor: scheme.primary,
+        tabBackgroundColor: scheme.surface,
+        animationDuration: const Duration(milliseconds: 300),
+        indicatorThickness: 2.0,
+      ),
+      stepperStyle: StepperStyle(
+        activeStepColor: scheme.primary,
+        completedStepColor: scheme.secondary,
+        pendingStepColor: scheme.outlineVariant,
+        connectorColor: scheme.outline,
+        stepSize: 40.0,
+        useDashedConnector: false,
+      ),
+      breadcrumbStyle: BreadcrumbStyle(
+        activeLinkColor: scheme.primary,
+        inactiveLinkColor: scheme.onSurfaceVariant,
+        separatorColor: scheme.outline,
+        separatorText: ' / ',
+        itemTextStyle: const TextStyle(fontSize: 14),
+      ),
+      expansionPanelStyle: ExpansionPanelStyle(
+        headerColor: scheme.surfaceContainer,
+        expandedBackgroundColor: scheme.surfaceContainerHigh,
+        headerTextColor: scheme.onSurface,
+        expandIcon: Icons.expand_more,
+        animationDuration: const Duration(milliseconds: 300),
+      ),
+      carouselStyle: CarouselStyle(
+        navButtonColor: scheme.primary,
+        navButtonHoverColor: scheme.primary.withValues(alpha: 0.8),
+        previousIcon: Icons.arrow_back,
+        nextIcon: Icons.arrow_forward,
+        animationDuration: const Duration(milliseconds: 400),
+        animationCurve: Curves.easeInOutCubic,
+        useSnapScroll: false,
+        navButtonSize: 48.0,
+      ),
+      chipGroupStyle: ChipGroupStyle(
+        unselectedBackground: scheme.surfaceContainer,
+        unselectedText: scheme.onSurface,
+        selectedBackground: scheme.primary.withValues(alpha: 0.2),
+        selectedText: scheme.onSurface,
+        selectedBorderColor: scheme.primary,
+        borderRadius: 20.0,
+      ),
     );
   }
 
   factory GlassDesignTheme.dark([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultDarkScheme;
+    final overlayColor = Colors.white.withValues(alpha: 0.2);
     return GlassDesignTheme._(
       surfaceBase: SurfaceStyle(
         backgroundColor: scheme.shadow.withValues(alpha: 0.3),
@@ -709,6 +782,69 @@ class GlassDesignTheme extends AppDesignTheme {
       motion: const GlassMotion(),
       visualEffects: GlobalEffectsType.noiseOverlay,
       iconStyle: AppIconStyle.thinStroke, // Or vectorFilled
+      bottomSheetStyle: BottomSheetStyle(
+        overlayColor: overlayColor,
+        animationDuration: const Duration(milliseconds: 400),
+        animationCurve: Curves.easeInOutCubic,
+        topBorderRadius: 16.0,
+        dragHandleHeight: 8.0,
+      ),
+      sideSheetStyle: SideSheetStyle(
+        width: 280.0,
+        overlayColor: overlayColor,
+        animationDuration: const Duration(milliseconds: 400),
+        animationCurve: Curves.easeInOutCubic,
+        blurStrength: 20.0,
+        enableDithering: false,
+      ),
+      tabsStyle: TabsStyle(
+        activeTextColor: scheme.primary,
+        inactiveTextColor: scheme.onSurface,
+        indicatorColor: scheme.primary,
+        tabBackgroundColor: scheme.surface,
+        animationDuration: const Duration(milliseconds: 300),
+        indicatorThickness: 2.0,
+      ),
+      stepperStyle: StepperStyle(
+        activeStepColor: scheme.primary,
+        completedStepColor: scheme.secondary,
+        pendingStepColor: scheme.outlineVariant,
+        connectorColor: scheme.outline,
+        stepSize: 40.0,
+        useDashedConnector: false,
+      ),
+      breadcrumbStyle: BreadcrumbStyle(
+        activeLinkColor: scheme.primary,
+        inactiveLinkColor: scheme.onSurfaceVariant,
+        separatorColor: scheme.outline,
+        separatorText: ' / ',
+        itemTextStyle: const TextStyle(fontSize: 14),
+      ),
+      expansionPanelStyle: ExpansionPanelStyle(
+        headerColor: scheme.surfaceContainer,
+        expandedBackgroundColor: scheme.surfaceContainerHigh,
+        headerTextColor: scheme.onSurface,
+        expandIcon: Icons.expand_more,
+        animationDuration: const Duration(milliseconds: 300),
+      ),
+      carouselStyle: CarouselStyle(
+        navButtonColor: scheme.primary,
+        navButtonHoverColor: scheme.primary.withValues(alpha: 0.8),
+        previousIcon: Icons.arrow_back,
+        nextIcon: Icons.arrow_forward,
+        animationDuration: const Duration(milliseconds: 400),
+        animationCurve: Curves.easeInOutCubic,
+        useSnapScroll: false,
+        navButtonSize: 48.0,
+      ),
+      chipGroupStyle: ChipGroupStyle(
+        unselectedBackground: scheme.surfaceContainer,
+        unselectedText: scheme.onSurface,
+        selectedBackground: scheme.primary.withValues(alpha: 0.2),
+        selectedText: scheme.onSurface,
+        selectedBorderColor: scheme.primary,
+        borderRadius: 20.0,
+      ),
     );
   }
 }
