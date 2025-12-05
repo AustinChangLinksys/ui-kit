@@ -4,6 +4,507 @@ import 'package:ui_kit_library/ui_kit.dart';
 import 'package:ui_kit_library/src/foundation/motion/neumorphic_motion.dart'; // Assuming NeumorphicMotion is created
 
 class NeumorphicDesignTheme extends AppDesignTheme {
+  // Factory 1: Create from Config (Lazy/Custom Mode)
+  factory NeumorphicDesignTheme.fromConfig(AppThemeConfig config) {
+    final colors = AppColorFactory.generateNeumorphic(config);
+    return NeumorphicDesignTheme._raw(colors);
+  }
+
+  // Factory 2: Raw Mode (Internal Assembly)
+  factory NeumorphicDesignTheme._raw(AppColorScheme colors) {
+    final isLight = colors.surface.computeLuminance() > 0.5; // Approximate check if needed, or rely on colors
+    
+    // Mapping AppColorScheme to Neumorphic Styles
+    // lightShadow (Highlight) -> colors.glowColor
+    // darkShadow (Shadow) -> colors.styleShadow
+    
+    return NeumorphicDesignTheme._(
+      surfaceBase: SurfaceStyle(
+        backgroundColor: colors.styleBackground,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 16.0,
+        shadows: [
+          BoxShadow(
+            color: colors.glowColor,
+            offset: const Offset(-6, -6),
+            blurRadius: 12,
+          ),
+          BoxShadow(
+            color: colors.styleShadow,
+            offset: const Offset(6, 6),
+            blurRadius: 12,
+          ),
+        ],
+        blurStrength: 0.0,
+        contentColor: colors.onSurface,
+      ),
+      surfaceElevated: SurfaceStyle(
+        backgroundColor: colors.styleBackground,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 20.0,
+        shadows: [
+          BoxShadow(
+            color: colors.glowColor.withValues(alpha: isLight ? 0.7 : 0.15), // Adjust strength based on surface assumption or specific color
+            offset: const Offset(-8, -8),
+            blurRadius: 16,
+          ),
+          BoxShadow(
+            color: colors.styleShadow.withValues(alpha: isLight ? 0.3 : 0.8),
+            offset: const Offset(8, 8),
+            blurRadius: 16,
+          ),
+        ],
+        blurStrength: 0.0,
+        contentColor: colors.onSurface,
+      ),
+      surfaceHighlight: SurfaceStyle(
+        backgroundColor: colors.styleBackground,
+        borderColor: colors.highContrastBorder, // Use highContrastBorder for highlight border
+        borderWidth: 1.5,
+        borderRadius: 12.0,
+        shadows: [
+          BoxShadow(
+            color: colors.glowColor,
+            offset: const Offset(-4, -4),
+            blurRadius: 8,
+          ),
+          BoxShadow(
+            color: colors.styleShadow,
+            offset: const Offset(4, 4),
+            blurRadius: 8,
+          ),
+        ],
+        blurStrength: 0.0,
+        contentColor: colors.highContrastBorder,
+        interaction: const InteractionSpec(
+          pressedScale: 0.98,
+          pressedOpacity: 1.0,
+          hoverOpacity: 1.0,
+          pressedOffset: Offset.zero,
+        ),
+      ),
+      surfaceSecondary: SurfaceStyle(
+        backgroundColor: colors.styleBackground,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 14.0,
+        shadows: [
+          BoxShadow(
+            color: colors.glowColor.withValues(alpha: 0.6),
+            offset: const Offset(-3, -3),
+            blurRadius: 5,
+          ),
+          BoxShadow(
+            color: colors.styleShadow.withValues(alpha: 0.15),
+            offset: const Offset(3, 3),
+            blurRadius: 5,
+          ),
+        ],
+        blurStrength: 0.0,
+        contentColor: colors.onSurface,
+      ),
+      surfaceTertiary: SurfaceStyle(
+        backgroundColor: colors.styleBackground,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 14.0,
+        shadows: [
+          BoxShadow(
+            color: colors.glowColor.withValues(alpha: 0.6),
+            offset: const Offset(-2, -2),
+            blurRadius: 5,
+          ),
+          BoxShadow(
+            color: colors.styleShadow.withValues(alpha: 0.15),
+            offset: const Offset(2, 2),
+            blurRadius: 5,
+          ),
+        ],
+        blurStrength: 0.0,
+        contentColor: colors.onSurface,
+      ),
+      toggleStyle: const ToggleStyle(
+        activeType: ToggleContentType.dot,
+        inactiveType: ToggleContentType.dot,
+      ),
+      skeletonStyle: SkeletonStyle(
+        baseColor: colors.styleBackground,
+        highlightColor: colors.styleBackground.withValues(alpha: 0.9),
+        animationType: SkeletonAnimationType.pulse,
+        borderRadius: 12.0,
+      ),
+      inputStyle: InputStyle(
+        outlineStyle: SurfaceStyle(
+          backgroundColor: colors.styleBackground,
+          borderColor: Colors.transparent,
+          contentColor: colors.onSurface,
+          borderWidth: 0.0,
+          borderRadius: 12.0,
+          shadows: [
+            BoxShadow(
+                color: colors.styleShadow.withValues(alpha: 0.3), offset: const Offset(2, 2), blurRadius: 4)
+          ],
+          blurStrength: 0.0,
+        ),
+        underlineStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.transparent,
+          contentColor: colors.onSurface,
+          borderWidth: 0,
+          borderRadius: 0,
+          shadows: const [],
+          blurStrength: 0,
+          customBorder:
+              Border(bottom: BorderSide(color: colors.styleShadow.withValues(alpha: 0.3), width: 1.0)),
+        ),
+        filledStyle: SurfaceStyle(
+          backgroundColor: colors.surfaceContainerHigh,
+          borderColor: Colors.transparent,
+          contentColor: colors.onSurface,
+          borderWidth: 0,
+          borderRadius: 12.0,
+          shadows: const [],
+          blurStrength: 0,
+        ),
+        focusModifier: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: colors.primary,
+          contentColor: colors.primary,
+          shadows: [
+            BoxShadow(
+                color: colors.primary.withValues(alpha: 0.5), blurRadius: 8)
+          ],
+          blurStrength: 0,
+        ),
+        errorModifier: SurfaceStyle(
+          backgroundColor: colors.error.withValues(alpha: 0.05),
+          borderColor: colors.error,
+          contentColor: colors.error,
+          blurStrength: 0,
+        ),
+      ),
+      loaderStyle: LoaderStyle(
+        type: LoaderType.circular,
+        color: colors.primary,
+        backgroundColor: colors.surfaceContainerHighest.withValues(alpha: 0.5),
+        strokeWidth: 6.0,
+        size: 40.0,
+        period: const Duration(milliseconds: 1200),
+      ),
+      toastStyle: ToastStyle(
+        padding: const EdgeInsets.all(20),
+        margin: const EdgeInsets.all(20),
+        borderRadius: BorderRadius.circular(16),
+        backgroundColor: colors.surface,
+        textStyle: TextStyle(
+            fontSize: 15, fontWeight: FontWeight.w600, color: colors.onSurface),
+        displayDuration: const Duration(seconds: 3),
+      ),
+      dividerStyle: DividerStyle(
+        color: colors.styleShadow.withValues(alpha: 0.4),
+        secondaryColor: colors.glowColor.withValues(alpha: 0.5), // Light/Glow for secondary
+        thickness: 1.5,
+        pattern: DividerPattern.solid,
+      ),
+      networkInputStyle: const NetworkInputStyle(
+        ipv4SeparatorStyle: SeparatorStyle.dot,
+        macAddressSeparator: ':',
+      ),
+      typography: const TypographySpec(
+        bodyFontFamily: 'NeueHaasGrotTextRound',
+        displayFontFamily: 'NeueHaasGrotTextRound',
+      ),
+      animation: const AnimationSpec(
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      ),
+      spacingFactor: 1.2,
+      buttonHeight: 52.0,
+      navigationStyle: const NavigationStyle(
+        height: 88.0,
+        isFloating: false,
+        floatingMargin: 0.0,
+        itemSpacing: 12.0,
+      ),
+      layoutSpec: const LayoutSpec(
+        marginMobile: 24.0,
+        marginTablet: 40.0,
+        marginDesktop: 80.0,
+        gutterMobile: 24.0,
+        gutterTablet: 32.0,
+        gutterDesktop: 40.0,
+      ),
+      appBarStyle: AppBarStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: colors.styleBackground,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(color: colors.glowColor, offset: const Offset(-3, -3), blurRadius: 6),
+            BoxShadow(color: colors.styleShadow, offset: const Offset(3, 3), blurRadius: 6),
+          ],
+          blurStrength: 0.0,
+          contentColor: colors.onSurface,
+        ),
+        dividerStyle: DividerStyle(
+          color: colors.subtleBorder,
+          thickness: 1.0,
+          pattern: DividerPattern.solid,
+        ),
+      ),
+      menuStyle: AppMenuStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: colors.styleBackground,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 16.0,
+          shadows: [
+            BoxShadow(color: colors.glowColor, offset: const Offset(-4, -4), blurRadius: 8),
+            BoxShadow(color: colors.styleShadow, offset: const Offset(4, 4), blurRadius: 8),
+          ],
+          blurStrength: 0.0,
+          contentColor: colors.onSurface,
+        ),
+        itemStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.transparent,
+          borderRadius: 12.0,
+          blurStrength: 0.0,
+          contentColor: colors.onSurface,
+        ),
+        itemHoverStyle: SurfaceStyle(
+          backgroundColor: colors.surfaceContainerHighest,
+          borderColor: Colors.transparent,
+          borderRadius: 12.0,
+          blurStrength: 0.0,
+          contentColor: colors.onSurface,
+        ),
+        destructiveItemStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.transparent,
+          borderRadius: 12.0,
+          blurStrength: 0.0,
+          contentColor: colors.error,
+        ),
+      ),
+      dialogStyle: DialogStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: colors.styleBackground,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 24.0,
+          shadows: [
+            BoxShadow(color: colors.glowColor, offset: const Offset(-6, -6), blurRadius: 12),
+            BoxShadow(color: colors.styleShadow, offset: const Offset(6, 6), blurRadius: 12),
+          ],
+          blurStrength: 0.0,
+          contentColor: colors.onSurface,
+        ),
+        barrierColor: colors.overlayColor.withValues(alpha: 0.4),
+        barrierBlur: 0.0,
+      ),
+      motion: const NeumorphicMotion(),
+      visualEffects: GlobalEffectsType.none,
+      iconStyle: AppIconStyle.vectorFilled,
+      bottomSheetStyle: BottomSheetStyle(
+        overlayColor: colors.overlayColor,
+        animationDuration: const Duration(milliseconds: 350),
+        animationCurve: Curves.easeInOutQuad,
+        topBorderRadius: 20.0,
+        dragHandleHeight: 8.0,
+      ),
+      sideSheetStyle: SideSheetStyle(
+        width: 280.0,
+        overlayColor: colors.overlayColor,
+        animationDuration: const Duration(milliseconds: 350),
+        animationCurve: Curves.easeInOutQuad,
+        blurStrength: 0.0,
+        enableDithering: false,
+      ),
+      tabsStyle: TabsStyle(
+        activeTextColor: colors.primary,
+        inactiveTextColor: colors.onSurface.withValues(alpha: 0.6),
+        indicatorColor: colors.primary,
+        tabBackgroundColor: colors.surface,
+        animationDuration: const Duration(milliseconds: 300),
+        indicatorThickness: 2.0,
+      ),
+      stepperStyle: StepperStyle(
+        activeStepColor: colors.primary,
+        completedStepColor: colors.secondary,
+        pendingStepColor: colors.outlineVariant,
+        connectorColor: colors.outline,
+        stepSize: 40.0,
+        useDashedConnector: false,
+      ),
+      breadcrumbStyle: BreadcrumbStyle(
+        activeLinkColor: colors.primary,
+        inactiveLinkColor: colors.onSurface.withValues(alpha: 0.6),
+        separatorColor: colors.outline,
+        separatorText: ' • ',
+        itemTextStyle: const TextStyle(fontSize: 14),
+      ),
+      expansionPanelStyle: ExpansionPanelStyle(
+        headerColor: colors.surface,
+        expandedBackgroundColor: colors.surfaceContainer,
+        headerTextColor: colors.onSurface,
+        expandIcon: Icons.expand_more,
+        animationDuration: const Duration(milliseconds: 300),
+      ),
+      carouselStyle: CarouselStyle(
+        navButtonColor: colors.primary,
+        navButtonHoverColor: colors.primary.withValues(alpha: 0.75),
+        previousIcon: Icons.arrow_back,
+        nextIcon: Icons.arrow_forward,
+        animationDuration: const Duration(milliseconds: 350),
+        animationCurve: Curves.easeInOutQuad,
+        useSnapScroll: false,
+        navButtonSize: 48.0,
+      ),
+      chipGroupStyle: ChipGroupStyle(
+        unselectedBackground: colors.surface,
+        unselectedText: colors.onSurface,
+        selectedBackground: colors.primary.withValues(alpha: 0.12),
+        selectedText: colors.onSurface,
+        selectedBorderColor: colors.primary,
+        borderRadius: 18.0,
+      ),
+      topologySpec: _buildTopologySpecFromColors(colors),
+    );
+  }
+
+  static TopologySpec _buildTopologySpecFromColors(AppColorScheme colors) {
+    return TopologySpec(
+      gatewayNormalStyle: NodeStyle(
+        backgroundColor: colors.styleBackground,
+        borderColor: colors.primary.withValues(alpha: 0.3),
+        borderWidth: 1.0,
+        borderRadius: 999.0,
+        glowColor: colors.glowColor,
+        glowRadius: 8.0,
+        size: 68.0,
+        iconColor: colors.primary,
+      ),
+      gatewayHighLoadStyle: NodeStyle(
+        backgroundColor: colors.styleBackground,
+        borderColor: colors.tertiary.withValues(alpha: 0.4),
+        borderWidth: 1.5,
+        borderRadius: 999.0,
+        glowColor: colors.tertiary.withValues(alpha: 0.2),
+        glowRadius: 10.0,
+        size: 68.0,
+        iconColor: colors.tertiary,
+      ),
+      gatewayOfflineStyle: NodeStyle(
+        backgroundColor: colors.styleBackground,
+        borderColor: colors.outline.withValues(alpha: 0.2),
+        borderWidth: 1.0,
+        borderRadius: 999.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 68.0,
+        iconColor: colors.outline,
+      ),
+      extenderNormalStyle: NodeStyle(
+        backgroundColor: colors.styleBackground,
+        borderColor: colors.secondary.withValues(alpha: 0.2),
+        borderWidth: 1.0,
+        borderRadius: 16.0,
+        glowColor: colors.glowColor,
+        glowRadius: 6.0,
+        size: 54.0,
+        iconColor: colors.secondary,
+      ),
+      extenderHighLoadStyle: NodeStyle(
+        backgroundColor: colors.styleBackground,
+        borderColor: colors.tertiary.withValues(alpha: 0.3),
+        borderWidth: 1.0,
+        borderRadius: 16.0,
+        glowColor: colors.tertiary.withValues(alpha: 0.15),
+        glowRadius: 8.0,
+        size: 54.0,
+        iconColor: colors.tertiary,
+      ),
+      extenderOfflineStyle: NodeStyle(
+        backgroundColor: colors.styleBackground,
+        borderColor: colors.outline.withValues(alpha: 0.15),
+        borderWidth: 1.0,
+        borderRadius: 16.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 54.0,
+        iconColor: colors.outline,
+      ),
+      clientNormalStyle: NodeStyle(
+        backgroundColor: colors.styleBackground,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 999.0,
+        glowColor: colors.glowColor,
+        glowRadius: 4.0,
+        size: 32.0,
+        iconColor: colors.onSurface,
+      ),
+      clientOfflineStyle: NodeStyle(
+        backgroundColor: colors.styleBackground,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 999.0,
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        size: 32.0,
+        iconColor: colors.outline,
+      ),
+      ethernetLinkStyle: LinkStyle(
+        color: colors.outline.withValues(alpha: 0.5),
+        width: 2.0,
+        dashPattern: null,
+        glowColor: colors.glowColor,
+        glowRadius: 2.0,
+        animationDuration: Duration.zero,
+      ),
+      wifiStrongStyle: LinkStyle(
+        color: colors.signalStrong,
+        width: 2.0,
+        dashPattern: const [6.0, 3.0],
+        glowColor: colors.signalGlow,
+        glowRadius: 3.0,
+        animationDuration: const Duration(milliseconds: 1800),
+      ),
+      wifiMediumStyle: LinkStyle(
+        color: Colors.orange.withValues(alpha: 0.6), // Could be generic warning color
+        width: 2.0,
+        dashPattern: const [5.0, 3.0],
+        glowColor: Colors.orange.withValues(alpha: 0.1),
+        glowRadius: 2.0,
+        animationDuration: const Duration(milliseconds: 2200),
+      ),
+      wifiWeakStyle: LinkStyle(
+        color: colors.signalWeak,
+        width: 1.5,
+        dashPattern: const [4.0, 3.0],
+        glowColor: colors.signalWeak.withValues(alpha: 0.15),
+        glowRadius: 2.0,
+        animationDuration: const Duration(milliseconds: 2600),
+      ),
+      wifiUnknownStyle: LinkStyle(
+        color: colors.outline.withValues(alpha: 0.4),
+        width: 1.5,
+        dashPattern: const [4.0, 4.0],
+        glowColor: Colors.transparent,
+        glowRadius: 0.0,
+        animationDuration: const Duration(milliseconds: 2200),
+      ),
+      nodeSpacing: 95.0,
+      linkCurvature: 0.25,
+      orbitRadius: 58.0,
+      orbitSpeed: const Duration(seconds: 22),
+    );
+  }
+
   NeumorphicDesignTheme._({
     required super.surfaceBase,
     required super.surfaceElevated,

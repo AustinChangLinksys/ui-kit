@@ -4,6 +4,368 @@ import 'package:ui_kit_library/src/foundation/theme/design_system/specs/interact
 import 'package:ui_kit_library/ui_kit.dart';
 
 class BrutalDesignTheme extends AppDesignTheme {
+  // Factory 1: Create from Config
+  factory BrutalDesignTheme.fromConfig(AppThemeConfig config) {
+    final colors = AppColorFactory.generateBrutal(config);
+    return BrutalDesignTheme._raw(colors);
+  }
+
+  // Factory 2: Raw Mode (AppColorScheme driven)
+  factory BrutalDesignTheme._raw(AppColorScheme colors) {
+    final isLight = colors.surface.computeLuminance() > 0.5;
+    final bottomSheetOverlay = isLight
+        ? Colors.black.withValues(alpha: 0.5)
+        : Colors.white.withValues(alpha: 0.6);
+    final sideSheetOverlay = isLight
+        ? Colors.black.withValues(alpha: 0.6)
+        : Colors.white.withValues(alpha: 0.6);
+
+    return BrutalDesignTheme._(
+      surfaceBase: SurfaceStyle(
+        backgroundColor: colors.styleBackground,
+        borderColor: colors.highContrastBorder,
+        borderWidth: 3.0,
+        borderRadius: 0.0,
+        shadows: [
+          BoxShadow(
+            color: colors.styleShadow,
+            blurRadius: 0,
+            offset: const Offset(4, 4),
+          )
+        ],
+        blurStrength: 0.0,
+        contentColor: colors.onSurface,
+        texture: AppTextureAssets.diagonalLines,
+        textureOpacity: isLight ? 0.20 : 0.30,
+      ),
+      surfaceElevated: SurfaceStyle(
+        backgroundColor: colors.surfaceContainer,
+        borderColor: colors.highContrastBorder,
+        borderWidth: 3.0,
+        borderRadius: 0.0,
+        shadows: [
+          BoxShadow(
+            color: colors.styleShadow,
+            blurRadius: 0,
+            offset: const Offset(8, 8),
+          )
+        ],
+        blurStrength: 0.0,
+        contentColor: colors.onSurface,
+      ),
+      surfaceHighlight: SurfaceStyle(
+        backgroundColor: colors.error, // Brutal often uses error/warning colors for highlight or primary
+        borderColor: colors.highContrastBorder,
+        borderWidth: 3.0,
+        borderRadius: 4.0,
+        shadows: [
+          BoxShadow(
+            color: colors.styleShadow,
+            blurRadius: 0,
+            offset: const Offset(2, 2),
+          )
+        ],
+        blurStrength: 0.0,
+        contentColor: colors.onError,
+        interaction: const InteractionSpec(
+          pressedScale: 1.0,
+          pressedOpacity: 1.0,
+          hoverOpacity: 1.0,
+          pressedOffset: Offset(4, 4),
+        ),
+      ),
+      surfaceSecondary: SurfaceStyle(
+        backgroundColor: colors.surfaceContainerHighest.withValues(alpha: isLight ? 0.15 : 0.25),
+        borderColor: colors.highContrastBorder,
+        borderWidth: 2.0,
+        borderRadius: 0.0,
+        shadows: [
+          BoxShadow(
+            color: colors.styleShadow,
+            blurRadius: 0,
+            offset: const Offset(2, 2),
+          )
+        ],
+        blurStrength: 0.0,
+        contentColor: colors.onSurface,
+      ),
+      surfaceTertiary: SurfaceStyle(
+        backgroundColor: colors.tertiary.withValues(alpha: 0.2),
+        borderColor: colors.tertiary,
+        borderWidth: 2.0,
+        borderRadius: 0.0,
+        shadows: [
+          BoxShadow(
+            color: colors.tertiary,
+            blurRadius: 0,
+            offset: const Offset(2, 2),
+          )
+        ],
+        blurStrength: 0.0,
+        contentColor: colors.tertiary,
+      ),
+      toggleStyle: const ToggleStyle(
+        activeType: ToggleContentType.text,
+        inactiveType: ToggleContentType.text,
+        activeText: 'I',
+        inactiveText: 'O',
+      ),
+      skeletonStyle: SkeletonStyle(
+        baseColor: colors.shadow.withValues(alpha: 0.15),
+        highlightColor: colors.shadow.withValues(alpha: 0.3),
+        animationType: SkeletonAnimationType.blink,
+        borderRadius: 0.0,
+      ),
+      inputStyle: InputStyle(
+        outlineStyle: SurfaceStyle(
+          backgroundColor: colors.styleBackground,
+          borderColor: colors.highContrastBorder,
+          contentColor: colors.onSurface,
+          borderWidth: 3.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(
+                color: colors.styleShadow,
+                offset: const Offset(4, 4),
+                blurRadius: 0)
+          ],
+          blurStrength: 0.0,
+        ),
+        underlineStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: colors.highContrastBorder,
+          contentColor: colors.onSurface,
+          borderWidth: 0,
+          borderRadius: 0,
+          shadows: const [],
+          blurStrength: 0,
+          customBorder:
+              Border(bottom: BorderSide(color: colors.highContrastBorder, width: 3.0)),
+        ),
+        filledStyle: SurfaceStyle(
+          backgroundColor: colors.surfaceContainerHigh,
+          borderColor: Colors.transparent,
+          contentColor: colors.onSurface,
+          borderWidth: 0,
+          borderRadius: 0,
+          shadows: const [],
+          blurStrength: 0,
+        ),
+        focusModifier: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: colors.primary,
+          contentColor: colors.primary,
+          blurStrength: 0,
+        ),
+        errorModifier: SurfaceStyle(
+          backgroundColor: colors.error.withValues(alpha: 0.05),
+          borderColor: colors.error,
+          contentColor: colors.error,
+          blurStrength: 0,
+        ),
+      ),
+      loaderStyle: LoaderStyle(
+        type: LoaderType.block,
+        color: colors.primary,
+        strokeWidth: 0,
+        size: 32.0,
+        period: const Duration(milliseconds: 800),
+        borderRadius: 0.0,
+        shadows: [
+          BoxShadow(
+              color: colors.styleShadow, offset: const Offset(4, 4), blurRadius: 0),
+        ],
+      ),
+      toastStyle: ToastStyle(
+        padding: const EdgeInsets.all(16),
+        margin: EdgeInsets.zero,
+        borderRadius: BorderRadius.zero,
+        backgroundColor: colors.surface,
+        textStyle: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'NeueHaasGrotTextRound',
+            color: colors.onSurface),
+        displayDuration: const Duration(seconds: 2),
+      ),
+      dividerStyle: DividerStyle(
+        color: colors.highContrastBorder,
+        thickness: 3.0,
+        pattern: DividerPattern.jagged,
+        indent: 0.0,
+        endIndent: 0.0,
+      ),
+      networkInputStyle: const NetworkInputStyle(
+        ipv4SeparatorStyle: SeparatorStyle.squareBlock,
+        macAddressSeparator: '-',
+      ),
+      typography: const TypographySpec(
+        bodyFontFamily: 'NeueHaasGrotTextRound',
+        displayFontFamily: 'NeueHaasGrotTextRound',
+      ),
+      animation: const AnimationSpec(
+        duration: Duration(milliseconds: 150),
+        curve: Curves.elasticOut,
+      ),
+      spacingFactor: 1.5,
+      buttonHeight: 56.0,
+      navigationStyle: const NavigationStyle(
+        height: 80.0,
+        isFloating: false,
+        floatingMargin: 0.0,
+        itemSpacing: 8.0,
+      ),
+      layoutSpec: const LayoutSpec(
+        marginMobile: 24.0,
+        marginTablet: 48.0,
+        marginDesktop: 120.0,
+        gutterMobile: 24.0,
+        gutterTablet: 32.0,
+        gutterDesktop: 40.0,
+      ),
+      appBarStyle: AppBarStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: colors.styleBackground,
+          borderColor: colors.highContrastBorder,
+          borderWidth: 3.0,
+          borderRadius: 0.0,
+          shadows: const [],
+          blurStrength: 0.0,
+          contentColor: colors.onSurface,
+        ),
+        dividerStyle: DividerStyle(
+          color: colors.highContrastBorder,
+          thickness: 3.0,
+          pattern: DividerPattern.solid,
+        ),
+      ),
+      menuStyle: AppMenuStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: colors.styleBackground,
+          borderColor: colors.highContrastBorder,
+          borderWidth: 3.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(
+              color: colors.styleShadow,
+              blurRadius: 0,
+              offset: const Offset(4, 4),
+            ),
+          ],
+          blurStrength: 0.0,
+          contentColor: colors.onSurface,
+        ),
+        itemStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.transparent,
+          borderRadius: 0.0,
+          blurStrength: 0.0,
+          contentColor: colors.onSurface,
+        ),
+        itemHoverStyle: SurfaceStyle(
+          backgroundColor: colors.onSurface,
+          borderColor: Colors.transparent,
+          borderRadius: 0.0,
+          blurStrength: 0.0,
+          contentColor: colors.surface,
+        ),
+        destructiveItemStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.transparent,
+          borderRadius: 0.0,
+          blurStrength: 0.0,
+          contentColor: colors.error,
+        ),
+      ),
+      dialogStyle: DialogStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: colors.styleBackground,
+          borderColor: colors.highContrastBorder,
+          borderWidth: 3.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(
+              color: colors.highContrastBorder,
+              blurRadius: 0,
+              offset: const Offset(6, 6),
+            ),
+          ],
+          blurStrength: 0.0,
+          contentColor: colors.onSurface,
+        ),
+        barrierColor: bottomSheetOverlay,
+        barrierBlur: 0.0,
+      ),
+      motion: const BrutalMotion(),
+      visualEffects: GlobalEffectsType.none,
+      iconStyle: AppIconStyle.vectorFilled,
+      bottomSheetStyle: BottomSheetStyle(
+        overlayColor: bottomSheetOverlay,
+        animationDuration: const Duration(milliseconds: 200),
+        animationCurve: Curves.linear,
+        topBorderRadius: 0.0,
+        dragHandleHeight: 12.0,
+      ),
+      sideSheetStyle: SideSheetStyle(
+        width: 280.0,
+        overlayColor: sideSheetOverlay,
+        animationDuration: const Duration(milliseconds: 150),
+        animationCurve: Curves.linear,
+        blurStrength: 0.0,
+        enableDithering: false,
+      ),
+      tabsStyle: TabsStyle(
+        activeTextColor: colors.onPrimary, // Assuming White/Black
+        inactiveTextColor: colors.onSurface.withValues(alpha: 0.5),
+        indicatorColor: colors.onPrimary,
+        tabBackgroundColor: colors.primary, // Black tabs?
+        animationDuration: const Duration(milliseconds: 150),
+        indicatorThickness: 3.0,
+      ),
+      stepperStyle: StepperStyle(
+        activeStepColor: colors.primary,
+        completedStepColor: colors.secondary,
+        pendingStepColor: colors.surfaceContainerHighest,
+        connectorColor: colors.outline,
+        stepSize: 44.0,
+        useDashedConnector: false,
+      ),
+      breadcrumbStyle: BreadcrumbStyle(
+        activeLinkColor: colors.primary,
+        inactiveLinkColor: colors.onSurface.withValues(alpha: 0.5),
+        separatorColor: colors.primary,
+        separatorText: ' > ',
+        itemTextStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+      ),
+      expansionPanelStyle: ExpansionPanelStyle(
+        headerColor: colors.surface,
+        expandedBackgroundColor: colors.surfaceContainer,
+        headerTextColor: colors.onSurface,
+        expandIcon: Icons.expand_more,
+        animationDuration: const Duration(milliseconds: 150),
+      ),
+      carouselStyle: CarouselStyle(
+        navButtonColor: colors.onSurface,
+        navButtonHoverColor: colors.outline,
+        previousIcon: Icons.arrow_back,
+        nextIcon: Icons.arrow_forward,
+        animationDuration: const Duration(milliseconds: 150),
+        animationCurve: Curves.linear,
+        useSnapScroll: false,
+        navButtonSize: 48.0,
+      ),
+      chipGroupStyle: ChipGroupStyle(
+        unselectedBackground: colors.surfaceContainer,
+        unselectedText: colors.onSurface,
+        selectedBackground: colors.primary,
+        selectedText: colors.onPrimary,
+        selectedBorderColor: colors.highContrastBorder,
+        borderRadius: 4.0,
+      ),
+      topologySpec: _buildTopologySpec(colors.toMaterialScheme(brightness: isLight ? Brightness.light : Brightness.dark), isLight: isLight),
+    );
+  }
+
   // Private constructor, used to receive all properties and can be called by Factory
   const BrutalDesignTheme._({
     required super.surfaceBase,

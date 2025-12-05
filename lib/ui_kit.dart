@@ -64,6 +64,11 @@ export 'src/foundation/icons/app_font_icons.dart';
 export 'src/atoms/images/theme_aware_svg.dart';
 export 'src/atoms/images/theme_aware_image.dart';
 
+// --- NEW APP COLOR SYSTEM EXPORTS ---
+export 'src/foundation/theme/app_theme_config.dart';
+export 'src/foundation/theme/app_color_scheme.dart';
+export 'src/foundation/theme/app_color_factory.dart';
+
 // -----------------------------------------------------------------------------
 // Atoms (Atomic Components)
 // Contains: buttons, icons, images, labels

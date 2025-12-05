@@ -13,7 +13,7 @@ It features a **Data-Driven Strategy (DDS)** that allows runtime switching betwe
 
 This project is structured using **Atomic Design** with strict architectural boundaries:
 
-- **Foundation** (`lib/src/foundation`): The brain of the system. Contains `AppDesignTheme` contracts, `Specs` (Layout, Interaction, Typography), and Tokens.
+- **Foundation** (`lib/src/foundation`): The brain of the system. Contains `AppDesignTheme` contracts, `Specs` (Layout, Interaction, Typography), and Tokens. **Crucially, it now includes the App Unified Color System (v1.2) (`AppColorScheme`, `AppThemeConfig`, `AppColorFactory`), providing a comprehensive and reactive color management layer fully compatible with Material 3.**
 - **Atoms** (`lib/src/atoms`): The primitives.
     - **`AppSurface`**: The core renderer handling physics, borders, shadows, and blur.
     - Includes `AppText`, `AppGap`, `AppSkeleton`.
@@ -24,7 +24,8 @@ This project is structured using **Atomic Design** with strict architectural bou
 
 ## 🌟 Key Features (v2.0)
 
-* **Multi-Paradigm Support**: Seamlessly switch between **Glass** (Liquid), **Brutal** (Mechanical), **Flat** (Standard), **Neumorphic** (Tactile), and **Pixel** (Retro) themes.
+* **App Unified Color System (v1.2)**: A comprehensive and reactive color management layer fully compatible with Material 3. It allows seamless configuration where changes to Material colors (e.g., Primary) automatically propagate to derived Style colors (e.g., Glow), while also supporting explicit style overrides.
+* **Multi-Paradigm Support**: Seamlessly switch between **Glass** (Liquid), **Brutal** (Mechanical), **Flat** (Standard), **Neumorphic** (Tactile), and **Pixel** (Retro) themes, now all powered by the Unified Color System.
 * **Physics-Based Interaction**: Components inherit physical behaviors (Scale, Glow, Offset) from the active theme via `InteractionSpec`.
 * **Smart Layouts**: Spacing and margins automatically adapt to the theme's density using `spacingFactor`.
 * **Safe Mode Testing**: Automated Golden Tests covering the full 10-style matrix (5 themes × Light/Dark).
@@ -204,6 +205,7 @@ Detailed architecture decisions can be found in the `specs/` directory:
 
   - `specs/002-unified-design-system`: Core Architecture & Data Model.
   - `specs/003-ui-kit-molecules`: Component Implementation Plans.
+  - **`specs/017-unified-color-system`**: Details the App Unified Color System (v1.2), covering Material 3 integration, seamless configuration, and multi-theme support.
 
 ## 📦 Dependencies
 
@@ -213,4 +215,3 @@ Key packages used:
   - **Layout**: `flutter_portal`, `gap`
   - **Testing**: `alchemist`, `widgetbook`
   - **Utils**: `equatable`, `flutter_animate`
-

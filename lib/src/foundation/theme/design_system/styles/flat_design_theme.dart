@@ -5,6 +5,384 @@ import 'package:ui_kit_library/ui_kit.dart';
 // Import AppIconStyle
 
 class FlatDesignTheme extends AppDesignTheme {
+  // Factory 1: Create from Config
+  factory FlatDesignTheme.fromConfig(AppThemeConfig config) {
+    final colors = AppColorFactory.generateFlat(config);
+    return FlatDesignTheme._raw(colors);
+  }
+
+  // Factory 2: Raw Mode (AppColorScheme driven)
+  factory FlatDesignTheme._raw(AppColorScheme colors) {
+    final overlayColor = colors.overlayColor; // Use from scheme
+    
+    return FlatDesignTheme._(
+      // 1. Global Surface Definition (for Card, Dialog, etc.)
+      surfaceBase: SurfaceStyle(
+        backgroundColor: colors.styleBackground,
+        borderColor: colors.subtleBorder, // Use semantic border color
+        borderWidth: 1.0,
+        borderRadius: 8.0,
+        shadows: const [], // Flat style usually has no shadows
+        blurStrength: 0.0,
+        contentColor: colors.onSurface,
+      ),
+      surfaceElevated: SurfaceStyle(
+        backgroundColor: colors.surfaceContainerLow,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 8.0,
+        shadows: [
+          BoxShadow(
+            color: colors.shadow.withValues(alpha: 0.05), // Very faint natural shadow for elevation
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          )
+        ],
+        blurStrength: 0.0,
+        contentColor: colors.onSurface,
+      ),
+      surfaceHighlight: SurfaceStyle(
+        backgroundColor: colors.primary,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 8.0,
+        shadows: const [],
+        blurStrength: 0.0,
+        contentColor: colors.onPrimary,
+        interaction: const InteractionSpec(
+          pressedScale: 1.0,
+          pressedOpacity: 0.6,
+          hoverOpacity: 0.9,
+          pressedOffset: Offset.zero,
+        ),
+      ),
+      surfaceSecondary: SurfaceStyle(
+        backgroundColor: colors.secondaryContainer,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 8.0,
+        shadows: const [],
+        blurStrength: 0.0,
+        contentColor: colors.onSecondaryContainer,
+      ),
+      surfaceTertiary: SurfaceStyle(
+        backgroundColor: colors.tertiaryContainer,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 8.0,
+        shadows: const [],
+        blurStrength: 0.0,
+        contentColor: colors.onTertiaryContainer,
+      ),
+
+      // 2. Toggle Specialization (iOS Style)
+      toggleStyle: ToggleStyle(
+        // Content settings: iOS style is clean, no Icon or text
+        activeType: ToggleContentType.none,
+        inactiveType: ToggleContentType.none,
+
+        // Style override: Active Track (on state)
+        activeTrackStyle: SurfaceStyle(
+          backgroundColor: colors.primary,
+          borderColor: Colors.transparent,
+          borderWidth: 0,
+          borderRadius: 99,
+          shadows: const [],
+          blurStrength: 0,
+          contentColor: colors.onPrimary,
+        ),
+
+        // Style override: Inactive Track (off state)
+        inactiveTrackStyle: SurfaceStyle(
+          backgroundColor: colors.surfaceContainerHighest,
+          borderColor: Colors.transparent,
+          borderWidth: 0,
+          borderRadius: 99,
+          shadows: const [],
+          blurStrength: 0,
+          contentColor: colors.onSurfaceVariant,
+        ),
+
+        // Style override: Thumb (white sphere usually)
+        thumbStyle: SurfaceStyle(
+          backgroundColor: Colors.white, // Thumb usually pure white in Flat/iOS
+          borderColor: Colors.transparent,
+          borderWidth: 0,
+          borderRadius: 99,
+          shadows: [
+            BoxShadow(
+              color: colors.shadow.withValues(alpha: 0.15),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            )
+          ],
+          blurStrength: 0,
+          contentColor: colors.primary, // If Thumb has content, use primary color
+        ),
+      ),
+      skeletonStyle: SkeletonStyle(
+        baseColor: colors.onSurface.withValues(alpha: 0.08),
+        highlightColor: colors.onSurface.withValues(alpha: 0.2),
+        animationType: SkeletonAnimationType.shimmer,
+        borderRadius: 8.0,
+      ),
+      inputStyle: InputStyle(
+        // Outline Style
+        outlineStyle: SurfaceStyle(
+          backgroundColor: colors.surfaceContainerHighest,
+          borderColor: colors.outlineVariant,
+          contentColor: colors.onSurface,
+          borderWidth: 1.0,
+          borderRadius: 8.0,
+          shadows: const [],
+          blurStrength: 0.0,
+        ),
+        // Underline Style
+        underlineStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: colors.outlineVariant,
+          contentColor: colors.onSurface,
+          borderWidth: 0,
+          borderRadius: 0,
+          shadows: const [],
+          blurStrength: 0,
+          customBorder:
+              Border(bottom: BorderSide(color: colors.outlineVariant, width: 1.0)),
+        ),
+        // Filled Style
+        filledStyle: SurfaceStyle(
+          backgroundColor: colors.surfaceContainerHighest,
+          borderColor: Colors.transparent,
+          contentColor: colors.onSurface,
+          borderWidth: 0,
+          borderRadius: 8.0,
+          shadows: const [],
+          blurStrength: 0,
+        ),
+
+        focusModifier: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: colors.primary,
+          contentColor: colors.primary,
+          blurStrength: 0,
+        ),
+        errorModifier: SurfaceStyle(
+          backgroundColor: colors.error.withValues(alpha: 0.05),
+          borderColor: colors.error,
+          contentColor: colors.error,
+          blurStrength: 0,
+        ),
+      ),
+      loaderStyle: LoaderStyle(
+        type: LoaderType.circular,
+        color: colors.primary,
+        strokeWidth: 4.0,
+        size: 32.0,
+        period: const Duration(seconds: 1),
+      ),
+      toastStyle: ToastStyle(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        margin: const EdgeInsets.all(16),
+        borderRadius: BorderRadius.circular(8),
+        backgroundColor: colors.scrim, // inverseSurface often map to scrim or distinct
+        textStyle: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.normal,
+            color: colors.surface), // onInverseSurface
+        displayDuration: const Duration(seconds: 3),
+      ),
+      dividerStyle: DividerStyle(
+        color: colors.outlineVariant,
+        thickness: 1.0,
+        pattern: DividerPattern.solid,
+        indent: 16.0,
+        endIndent: 16.0,
+      ),
+      networkInputStyle: const NetworkInputStyle(
+        ipv4SeparatorStyle: SeparatorStyle.dot,
+        macAddressSeparator: '-',
+      ),
+      // 3. Other Global Settings
+      typography: const TypographySpec(
+        bodyFontFamily: 'NeueHaasGrotTextRound',
+        displayFontFamily: 'NeueHaasGrotTextRound',
+      ),
+      animation: const AnimationSpec(
+        duration: Duration(milliseconds: 250),
+        curve: Curves.easeInOut, // Smooth curve
+      ),
+      spacingFactor: 1.0,
+      buttonHeight: 48.0,
+      navigationStyle: const NavigationStyle(
+        height: 64.0,
+        isFloating: false,
+        floatingMargin: 0.0,
+        itemSpacing: 0.0,
+      ),
+      layoutSpec: const LayoutSpec(
+        marginMobile: 16.0,
+        marginTablet: 24.0,
+        marginDesktop: 64.0,
+        gutterMobile: 16.0,
+        gutterTablet: 24.0,
+        gutterDesktop: 24.0,
+      ),
+
+      // Phase 2: AppBar, Menu, Dialog styles
+      appBarStyle: AppBarStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: colors.surface,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 0.0,
+          shadows: const [],
+          blurStrength: 0.0,
+          contentColor: colors.onSurface,
+        ),
+        dividerStyle: DividerStyle(
+          color: colors.outlineVariant,
+          thickness: 1.0,
+          pattern: DividerPattern.solid,
+        ),
+        height: 56.0,
+        collapsedHeight: 56.0,
+        expandedHeight: 200.0,
+        flexibleSpaceBlur: 0.0,
+      ),
+      menuStyle: AppMenuStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: colors.surfaceContainerLow,
+          borderColor: colors.outlineVariant,
+          borderWidth: 1.0,
+          borderRadius: 8.0,
+          shadows: [
+            BoxShadow(
+              color: colors.shadow.withValues(alpha: 0.1),
+              blurRadius: 8,
+              offset: const Offset(0, 4),
+            ),
+          ],
+          blurStrength: 0.0,
+          contentColor: colors.onSurface,
+        ),
+        itemStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 4.0,
+          blurStrength: 0.0,
+          contentColor: colors.onSurface,
+        ),
+        itemHoverStyle: SurfaceStyle(
+          backgroundColor: colors.surfaceContainerHighest,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 4.0,
+          blurStrength: 0.0,
+          contentColor: colors.onSurface,
+        ),
+        destructiveItemStyle: SurfaceStyle(
+          backgroundColor: Colors.transparent,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 4.0,
+          blurStrength: 0.0,
+          contentColor: colors.error,
+        ),
+      ),
+      dialogStyle: DialogStyle(
+        containerStyle: SurfaceStyle(
+          backgroundColor: colors.surfaceContainerLow,
+          borderColor: colors.outlineVariant,
+          borderWidth: 1.0,
+          borderRadius: 16.0,
+          shadows: [
+            BoxShadow(
+              color: colors.shadow.withValues(alpha: 0.15),
+              blurRadius: 16,
+              offset: const Offset(0, 8),
+            ),
+          ],
+          blurStrength: 0.0,
+          contentColor: colors.onSurface,
+        ),
+        barrierColor: colors.overlayColor,
+        barrierBlur: 0.0,
+        maxWidth: 400.0,
+        padding: const EdgeInsets.all(24.0),
+        buttonSpacing: 8.0,
+        buttonAlignment: MainAxisAlignment.end,
+      ),
+      motion: const FlatMotion(),
+      visualEffects: GlobalEffectsType.none,
+      iconStyle: AppIconStyle.vectorFilled,
+      bottomSheetStyle: BottomSheetStyle(
+        overlayColor: overlayColor,
+        animationDuration: const Duration(milliseconds: 300),
+        animationCurve: Curves.easeInOut,
+        topBorderRadius: 12.0,
+        dragHandleHeight: 6.0,
+      ),
+      sideSheetStyle: SideSheetStyle(
+        width: 280.0,
+        overlayColor: overlayColor,
+        animationDuration: const Duration(milliseconds: 300),
+        animationCurve: Curves.easeInOut,
+        blurStrength: 0.0,
+        enableDithering: false,
+      ),
+      tabsStyle: TabsStyle(
+        activeTextColor: colors.primary,
+        inactiveTextColor: colors.onSurfaceVariant,
+        indicatorColor: colors.primary,
+        tabBackgroundColor: colors.surface,
+        animationDuration: const Duration(milliseconds: 250),
+        indicatorThickness: 2.0,
+      ),
+      stepperStyle: StepperStyle(
+        activeStepColor: colors.primary,
+        completedStepColor: colors.secondary,
+        pendingStepColor: colors.surfaceContainerHighest,
+        connectorColor: colors.outline,
+        stepSize: 36.0,
+        useDashedConnector: false,
+      ),
+      breadcrumbStyle: BreadcrumbStyle(
+        activeLinkColor: colors.primary,
+        inactiveLinkColor: colors.onSurfaceVariant,
+        separatorColor: colors.outlineVariant,
+        separatorText: ' / ',
+        itemTextStyle: const TextStyle(fontSize: 14),
+      ),
+      expansionPanelStyle: ExpansionPanelStyle(
+        headerColor: colors.surfaceContainerHighest,
+        expandedBackgroundColor: colors.surface,
+        headerTextColor: colors.onSurface,
+        expandIcon: Icons.expand_more,
+        animationDuration: const Duration(milliseconds: 250),
+      ),
+      carouselStyle: CarouselStyle(
+        navButtonColor: colors.primary,
+        navButtonHoverColor: colors.primary.withValues(alpha: 0.7),
+        previousIcon: Icons.arrow_back,
+        nextIcon: Icons.arrow_forward,
+        animationDuration: const Duration(milliseconds: 300),
+        animationCurve: Curves.easeInOut,
+        useSnapScroll: false,
+        navButtonSize: 48.0,
+      ),
+      chipGroupStyle: ChipGroupStyle(
+        unselectedBackground: colors.surfaceContainerHighest,
+        unselectedText: colors.onSurface,
+        selectedBackground: colors.primary.withValues(alpha: 0.15),
+        selectedText: colors.onSurface,
+        selectedBorderColor: colors.primary,
+        borderRadius: 16.0,
+      ),
+      topologySpec: _buildTopologySpec(colors.toMaterialScheme(brightness: Brightness.light), isLight: true), // Temp until topology update
+    );
+  }
+
   const FlatDesignTheme._({
     required super.surfaceBase,
     required super.surfaceElevated,
