@@ -306,33 +306,25 @@ class _AppStepperState extends State<AppStepper> {
     required bool isCurrent,
     required double stepSize,
   }) {
-    // Note: Using Container instead of AppSurface for circular indicators
-    // AppSurface is designed for rectangular surfaces and has border rendering
-    // issues with BoxShape.circle
-    return Container(
+    return AppSurface(
+      variant: isCurrent ? SurfaceVariant.highlight : SurfaceVariant.elevated,
+      shape: BoxShape.circle,
       width: stepSize,
       height: stepSize,
-      decoration: BoxDecoration(
-        color: indicatorColor,
-        shape: BoxShape.circle,
-        boxShadow: isCurrent
-            ? [
-                BoxShadow(
-                  color: indicatorColor.withValues(alpha: 0.4),
-                  blurRadius: 8,
-                  spreadRadius: 2,
-                )
-              ]
-            : null,
-      ),
-      child: Center(
-        child: isCompleted
-            ? const Icon(Icons.check, color: Colors.white, size: 16)
-            : AppText(
-                stepNumber.toString(),
-                color: Colors.white,
-                fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal,
-              ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: indicatorColor,
+          shape: BoxShape.circle,
+        ),
+        child: Center(
+          child: isCompleted
+              ? const Icon(Icons.check, color: Colors.white, size: 16)
+              : AppText(
+                  stepNumber.toString(),
+                  color: Colors.white,
+                  fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal,
+                ),
+        ),
       ),
     );
   }
