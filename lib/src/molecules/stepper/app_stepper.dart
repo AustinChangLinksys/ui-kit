@@ -209,7 +209,8 @@ class _AppStepperState extends State<AppStepper> {
       indicatorColor = _style.pendingStepColor;
     }
 
-    return Column(
+    // Horizontal stepper: connector is placed to the right of each step (in a Row)
+    return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -306,25 +307,29 @@ class _AppStepperState extends State<AppStepper> {
     required bool isCurrent,
     required double stepSize,
   }) {
+    // Get base style from theme and customize for step indicator
+    // Constitution 4.1: Use theme-derived style with semantic overrides
+    final theme = Theme.of(context).extension<AppDesignTheme>()!;
+    final baseStyle = isCurrent ? theme.surfaceHighlight : theme.surfaceElevated;
+    final stepStyle = baseStyle.copyWith(
+      backgroundColor: indicatorColor,
+      borderWidth: 0, // No border for circular step indicators
+      customBorder: null,
+    );
+
     return AppSurface(
-      variant: isCurrent ? SurfaceVariant.highlight : SurfaceVariant.elevated,
+      style: stepStyle,
       shape: BoxShape.circle,
       width: stepSize,
       height: stepSize,
-      child: Container(
-        decoration: BoxDecoration(
-          color: indicatorColor,
-          shape: BoxShape.circle,
-        ),
-        child: Center(
-          child: isCompleted
-              ? const Icon(Icons.check, color: Colors.white, size: 16)
-              : AppText(
-                  stepNumber.toString(),
-                  color: Colors.white,
-                  fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal,
-                ),
-        ),
+      child: Center(
+        child: isCompleted
+            ? const Icon(Icons.check, color: Colors.white, size: 16)
+            : AppText(
+                stepNumber.toString(),
+                color: Colors.white,
+                fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal,
+              ),
       ),
     );
   }
