@@ -32,7 +32,6 @@ Dart (SDK >=3.2.0 <4.0.0), Flutter (SDK >=3.22.0): Follow standard conventions
 ## Recent Changes
 - 017-unified-color-system: Added [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
 - 016-mesh-topology-view: Added Dart 3.x / Flutter 3.x (SDK >=3.0.0 <4.0.0, Flutter >=3.13.0) + flutter, theme_tailor_annotation, equatable, flutter_animate, alchemist (testing)
-- 010-surface-textures: Added Dart 3.0+ / Flutter 3.10+ + `flutter` (widgets, painting)
 
 
 <!-- MANUAL ADDITIONS START -->
