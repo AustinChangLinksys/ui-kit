@@ -385,16 +385,8 @@ extension TopologySpecBuildContextProps on BuildContext {
   LinkStyle get wifiMediumStyle => topologySpec.wifiMediumStyle;
   LinkStyle get wifiWeakStyle => topologySpec.wifiWeakStyle;
   LinkStyle get wifiUnknownStyle => topologySpec.wifiUnknownStyle;
-
-  /// Spacing between nodes in graph view.
   double get nodeSpacing => topologySpec.nodeSpacing;
-
-  /// Curvature of links (0.0 for straight, higher for more curved).
   double get linkCurvature => topologySpec.linkCurvature;
-
-  /// Radius for client orbit around parent nodes.
   double get orbitRadius => topologySpec.orbitRadius;
-
-  /// Duration for one complete orbit cycle.
   Duration get orbitSpeed => topologySpec.orbitSpeed;
 }

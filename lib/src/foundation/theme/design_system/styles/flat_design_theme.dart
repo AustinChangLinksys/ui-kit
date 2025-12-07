@@ -393,6 +393,50 @@ class FlatDesignTheme extends AppDesignTheme {
         modeTransitionDuration: const Duration(milliseconds: 200),
       ),
       topologySpec: _buildTopologySpec(colors.toMaterialScheme(brightness: Brightness.light), isLight: true), // Temp until topology update
+      slideActionStyle: SlideActionStyle(
+        standardStyle: SurfaceStyle(
+          backgroundColor: colors.surfaceContainer,
+          borderColor: colors.subtleBorder,
+          borderWidth: 0.0,
+          borderRadius: 0.0,
+          shadows: const [],
+          blurStrength: 0.0,
+          contentColor: colors.onSurface,
+        ),
+        destructiveStyle: SurfaceStyle(
+          backgroundColor: colors.error,
+          borderColor: colors.subtleBorder,
+          borderWidth: 0.0,
+          borderRadius: 0.0,
+          shadows: const [],
+          blurStrength: 0.0,
+          contentColor: colors.onError,
+        ),
+        borderRadius: BorderRadius.circular(8.0), // Subtle rounding
+        contentColor: colors.onSurface,
+        iconSize: 24.0,
+        animationDuration: const Duration(milliseconds: 300),
+        animationCurve: Curves.easeOut,
+      ),
+      expandableFabStyle: ExpandableFabStyle(
+        shape: BoxShape.circle,
+        distance: 80.0,
+        type: FabAnimationType.fanOut,
+        overlayColor: colors.scrim.withValues(alpha: 0.3),
+        enableBlur: false,
+        showDitherPattern: false,
+        glowEffect: false,
+        highContrastBorder: false,
+      ),
+      gaugeStyle: GaugeStyle(
+        type: GaugeRenderType.gradient,
+        cap: GaugeCapType.round,
+        trackColor: colors.outlineVariant.withValues(alpha: 0.3),
+        indicatorColor: colors.primary, // Theme primary for Flat
+        showTicks: false,
+        strokeWidth: 12.0,
+        enableGlow: false,
+      ),
     );
   }
 
@@ -431,6 +475,9 @@ class FlatDesignTheme extends AppDesignTheme {
     required super.chipGroupStyle,
     required super.tableStyle,
     required super.topologySpec,
+    required super.slideActionStyle,
+    required super.expandableFabStyle,
+    required super.gaugeStyle,
   });
 
   factory FlatDesignTheme.light([ColorScheme? scheme]) {
@@ -822,6 +869,50 @@ class FlatDesignTheme extends AppDesignTheme {
         modeTransitionDuration: const Duration(milliseconds: 200),
       ),
       topologySpec: _buildTopologySpec(scheme, isLight: true),
+      slideActionStyle: SlideActionStyle(
+        standardStyle: SurfaceStyle(
+          backgroundColor: scheme.surfaceContainer,
+          borderColor: greyOutline,
+          borderWidth: 0.0,
+          borderRadius: 0.0,
+          shadows: const [],
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        destructiveStyle: SurfaceStyle(
+          backgroundColor: scheme.error,
+          borderColor: greyOutline,
+          borderWidth: 0.0,
+          borderRadius: 0.0,
+          shadows: const [],
+          blurStrength: 0.0,
+          contentColor: scheme.onError,
+        ),
+        borderRadius: BorderRadius.circular(8.0),
+        contentColor: scheme.onSurface,
+        iconSize: 24.0,
+        animationDuration: const Duration(milliseconds: 300),
+        animationCurve: Curves.easeOut,
+      ),
+      expandableFabStyle: ExpandableFabStyle(
+        shape: BoxShape.circle,
+        distance: 80.0,
+        type: FabAnimationType.fanOut,
+        overlayColor: scheme.scrim.withValues(alpha: 0.3),
+        enableBlur: false,
+        showDitherPattern: false,
+        glowEffect: false,
+        highContrastBorder: false,
+      ),
+      gaugeStyle: GaugeStyle(
+        type: GaugeRenderType.gradient,
+        cap: GaugeCapType.round,
+        trackColor: scheme.outlineVariant.withValues(alpha: 0.3),
+        indicatorColor: scheme.primary,
+        showTicks: false,
+        strokeWidth: 12.0,
+        enableGlow: false,
+      ),
     );
   }
 
@@ -1198,6 +1289,50 @@ class FlatDesignTheme extends AppDesignTheme {
         modeTransitionDuration: const Duration(milliseconds: 200),
       ),
       topologySpec: _buildTopologySpec(scheme, isLight: false),
+      slideActionStyle: SlideActionStyle(
+        standardStyle: SurfaceStyle(
+          backgroundColor: scheme.surfaceContainer,
+          borderColor: greyOutline,
+          borderWidth: 0.0,
+          borderRadius: 0.0,
+          shadows: const [],
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        destructiveStyle: SurfaceStyle(
+          backgroundColor: scheme.error,
+          borderColor: greyOutline,
+          borderWidth: 0.0,
+          borderRadius: 0.0,
+          shadows: const [],
+          blurStrength: 0.0,
+          contentColor: scheme.onError,
+        ),
+        borderRadius: BorderRadius.circular(8.0),
+        contentColor: scheme.onSurface,
+        iconSize: 24.0,
+        animationDuration: const Duration(milliseconds: 300),
+        animationCurve: Curves.easeOut,
+      ),
+      expandableFabStyle: ExpandableFabStyle(
+        shape: BoxShape.circle,
+        distance: 80.0,
+        type: FabAnimationType.fanOut,
+        overlayColor: scheme.scrim.withValues(alpha: 0.3),
+        enableBlur: false,
+        showDitherPattern: false,
+        glowEffect: false,
+        highContrastBorder: false,
+      ),
+      gaugeStyle: GaugeStyle(
+        type: GaugeRenderType.gradient,
+        cap: GaugeCapType.round,
+        trackColor: scheme.outlineVariant.withValues(alpha: 0.3),
+        indicatorColor: scheme.primary,
+        showTicks: false,
+        strokeWidth: 12.0,
+        enableGlow: false,
+      ),
     );
   }
 

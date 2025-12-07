@@ -388,6 +388,60 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         modeTransitionDuration: const Duration(milliseconds: 200),
       ),
       topologySpec: _buildTopologySpecFromColors(colors),
+      slideActionStyle: SlideActionStyle(
+        standardStyle: SurfaceStyle(
+          backgroundColor: colors.styleBackground,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(
+                color: colors.glowColor.withValues(alpha: 0.6), offset: const Offset(-3, -3), blurRadius: 5),
+            BoxShadow(
+                color: colors.styleShadow.withValues(alpha: 0.15), offset: const Offset(3, 3), blurRadius: 5)
+          ],
+          blurStrength: 0.0,
+          contentColor: colors.onSurface,
+        ),
+        destructiveStyle: SurfaceStyle(
+          backgroundColor: colors.error.withValues(alpha: 0.15),
+          borderColor: colors.error,
+          borderWidth: 1.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(
+                color: colors.glowColor.withValues(alpha: 0.3), offset: const Offset(-2, -2), blurRadius: 4),
+            BoxShadow(
+                color: colors.styleShadow.withValues(alpha: 0.3), offset: const Offset(2, 2), blurRadius: 4)
+          ],
+          blurStrength: 0.0,
+          contentColor: colors.onError,
+        ),
+        borderRadius: BorderRadius.circular(12.0), // Medium soft rounding
+        contentColor: colors.onSurface,
+        iconSize: 24.0,
+        animationDuration: const Duration(milliseconds: 300),
+        animationCurve: Curves.easeOut,
+      ),
+      expandableFabStyle: ExpandableFabStyle(
+        shape: BoxShape.circle, // Soft circle usually
+        distance: 80.0,
+        type: FabAnimationType.fanOut, // Or easeOut
+        overlayColor: colors.scrim.withValues(alpha: 0.2),
+        enableBlur: false,
+        showDitherPattern: false,
+        glowEffect: false,
+        highContrastBorder: false,
+      ),
+      gaugeStyle: GaugeStyle(
+        type: GaugeRenderType.solid, // Or convex fill if custom painter supports it
+        cap: GaugeCapType.bead, // Bead at tip
+        trackColor: colors.styleShadow.withValues(alpha: 0.2), // Inner shadow track usually
+        indicatorColor: colors.primary, // Soft primary for Neumorphic
+        showTicks: false,
+        strokeWidth: 14.0,
+        enableGlow: false,
+      ),
     );
   }
 
@@ -555,6 +609,9 @@ class NeumorphicDesignTheme extends AppDesignTheme {
     required super.chipGroupStyle,
     required super.tableStyle,
     required super.topologySpec,
+    required super.slideActionStyle,
+    required super.expandableFabStyle,
+    required super.gaugeStyle,
   });
 
   // Default to Light, providing a default ColorScheme
@@ -957,6 +1014,60 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         modeTransitionDuration: const Duration(milliseconds: 200),
       ),
       topologySpec: _buildTopologySpec(scheme, isLight: true),
+      slideActionStyle: SlideActionStyle(
+        standardStyle: SurfaceStyle(
+          backgroundColor: scheme.surface,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(
+                color: lightShadow, offset: const Offset(-3, -3), blurRadius: 5),
+            BoxShadow(
+                color: darkShadow, offset: const Offset(3, 3), blurRadius: 5)
+          ],
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        destructiveStyle: SurfaceStyle(
+          backgroundColor: scheme.error.withValues(alpha: 0.15),
+          borderColor: scheme.error,
+          borderWidth: 1.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(
+                color: lightShadow.withValues(alpha: 0.3), offset: const Offset(-2, -2), blurRadius: 4),
+            BoxShadow(
+                color: darkShadow.withValues(alpha: 0.3), offset: const Offset(2, 2), blurRadius: 4)
+          ],
+          blurStrength: 0.0,
+          contentColor: scheme.onError,
+        ),
+        borderRadius: BorderRadius.circular(12.0),
+        contentColor: scheme.onSurface,
+        iconSize: 24.0,
+        animationDuration: const Duration(milliseconds: 300),
+        animationCurve: Curves.easeOut,
+      ),
+      expandableFabStyle: ExpandableFabStyle(
+        shape: BoxShape.circle,
+        distance: 80.0,
+        type: FabAnimationType.fanOut,
+        overlayColor: scheme.scrim.withValues(alpha: 0.2),
+        enableBlur: false,
+        showDitherPattern: false,
+        glowEffect: false,
+        highContrastBorder: false,
+      ),
+      gaugeStyle: GaugeStyle(
+        type: GaugeRenderType.solid,
+        cap: GaugeCapType.bead,
+        trackColor: AppPalette.neumorphicLightShadow.withValues(alpha: 0.2),
+        indicatorColor: Colors.indigo, // Soft indigo for Neumorphic theme
+        showTicks: false,
+        strokeWidth: 14.0,
+        enableGlow: false,
+      ),
     );
   }
 
@@ -1362,6 +1473,60 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         modeTransitionDuration: const Duration(milliseconds: 200),
       ),
       topologySpec: _buildTopologySpec(scheme, isLight: false),
+      slideActionStyle: SlideActionStyle(
+        standardStyle: SurfaceStyle(
+          backgroundColor: scheme.surface,
+          borderColor: Colors.transparent,
+          borderWidth: 0.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(
+                color: darkLightShadow, offset: const Offset(-3, -3), blurRadius: 5),
+            BoxShadow(
+                color: darkDarkShadow, offset: const Offset(3, 3), blurRadius: 5)
+          ],
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        destructiveStyle: SurfaceStyle(
+          backgroundColor: scheme.error.withValues(alpha: 0.15),
+          borderColor: scheme.error,
+          borderWidth: 1.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(
+                color: darkLightShadow.withValues(alpha: 0.3), offset: const Offset(-2, -2), blurRadius: 4),
+            BoxShadow(
+                color: darkDarkShadow.withValues(alpha: 0.3), offset: const Offset(2, 2), blurRadius: 4)
+          ],
+          blurStrength: 0.0,
+          contentColor: scheme.onError,
+        ),
+        borderRadius: BorderRadius.circular(12.0),
+        contentColor: scheme.onSurface,
+        iconSize: 24.0,
+        animationDuration: const Duration(milliseconds: 300),
+        animationCurve: Curves.easeOut,
+      ),
+      expandableFabStyle: ExpandableFabStyle(
+        shape: BoxShape.circle,
+        distance: 80.0,
+        type: FabAnimationType.fanOut,
+        overlayColor: scheme.scrim.withValues(alpha: 0.2),
+        enableBlur: false,
+        showDitherPattern: false,
+        glowEffect: false,
+        highContrastBorder: false,
+      ),
+      gaugeStyle: GaugeStyle(
+        type: GaugeRenderType.solid,
+        cap: GaugeCapType.bead,
+        trackColor: scheme.shadow.withValues(alpha: 0.2),
+        indicatorColor: scheme.primary,
+        showTicks: false,
+        strokeWidth: 14.0,
+        enableGlow: false,
+      ),
     );
   }
 

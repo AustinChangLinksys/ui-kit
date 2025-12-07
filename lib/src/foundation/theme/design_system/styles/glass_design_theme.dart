@@ -415,6 +415,50 @@ class GlassDesignTheme extends AppDesignTheme {
         modeTransitionDuration: const Duration(milliseconds: 500),
       ),
       topologySpec: _buildTopologySpec(colors.toMaterialScheme(brightness: Brightness.light), isLight: true), // Temporary until topology uses AppColorScheme
+      slideActionStyle: SlideActionStyle(
+        standardStyle: SurfaceStyle(
+          backgroundColor: colors.surface.withValues(alpha: 0.2), // Translucent
+          borderColor: colors.subtleBorder,
+          borderWidth: 1.0,
+          borderRadius: 0.0,
+          shadows: const [],
+          blurStrength: 20.0,
+          contentColor: colors.onSurface,
+        ),
+        destructiveStyle: SurfaceStyle(
+          backgroundColor: colors.error.withValues(alpha: 0.6), // Translucent error
+          borderColor: colors.error,
+          borderWidth: 1.0,
+          borderRadius: 0.0,
+          shadows: const [],
+          blurStrength: 20.0,
+          contentColor: colors.onError,
+        ),
+        borderRadius: BorderRadius.circular(16.0), // Organic rounded shape
+        contentColor: colors.onSurface,
+        iconSize: 24.0,
+        animationDuration: const Duration(milliseconds: 500),
+        animationCurve: Curves.easeOutExpo, // Fluid
+      ),
+      expandableFabStyle: ExpandableFabStyle(
+        shape: BoxShape.circle,
+        distance: 100.0,
+        type: FabAnimationType.float, // Bubble effect
+        overlayColor: colors.scrim.withValues(alpha: 0.2),
+        enableBlur: true,
+        showDitherPattern: false,
+        glowEffect: true,
+        highContrastBorder: false,
+      ),
+      gaugeStyle: GaugeStyle(
+        type: GaugeRenderType.gradient, // Neon gradient
+        cap: GaugeCapType.comet, // Comet tail
+        trackColor: colors.outline.withValues(alpha: 0.1),
+        indicatorColor: Colors.cyan, // Neon cyan for Glass theme
+        showTicks: false,
+        strokeWidth: 16.0,
+        enableGlow: true, // Neon glow
+      ),
     );
   }
 
@@ -453,6 +497,9 @@ class GlassDesignTheme extends AppDesignTheme {
     required super.chipGroupStyle,
     required super.tableStyle,
     required super.topologySpec,
+    required super.slideActionStyle,
+    required super.expandableFabStyle,
+    required super.gaugeStyle,
   });
 
   // Light Mode (Liquid Water)
@@ -877,6 +924,50 @@ class GlassDesignTheme extends AppDesignTheme {
         modeTransitionDuration: const Duration(milliseconds: 500),
       ),
       topologySpec: _buildTopologySpec(scheme, isLight: true),
+      slideActionStyle: SlideActionStyle(
+        standardStyle: SurfaceStyle(
+          backgroundColor: scheme.surface.withValues(alpha: 0.2),
+          borderColor: scheme.outline.withValues(alpha: 0.3),
+          borderWidth: 1.0,
+          borderRadius: 0.0,
+          shadows: const [],
+          blurStrength: 20.0,
+          contentColor: scheme.onSurface,
+        ),
+        destructiveStyle: SurfaceStyle(
+          backgroundColor: scheme.error.withValues(alpha: 0.6),
+          borderColor: scheme.error.withValues(alpha: 0.5),
+          borderWidth: 1.0,
+          borderRadius: 0.0,
+          shadows: const [],
+          blurStrength: 20.0,
+          contentColor: scheme.onError,
+        ),
+        borderRadius: BorderRadius.circular(16.0),
+        contentColor: scheme.onSurface,
+        iconSize: 24.0,
+        animationDuration: const Duration(milliseconds: 500),
+        animationCurve: Curves.easeOutExpo,
+      ),
+      expandableFabStyle: ExpandableFabStyle(
+        shape: BoxShape.circle,
+        distance: 100.0,
+        type: FabAnimationType.float,
+        overlayColor: scheme.scrim.withValues(alpha: 0.2),
+        enableBlur: true,
+        showDitherPattern: false,
+        glowEffect: true,
+        highContrastBorder: false,
+      ),
+      gaugeStyle: GaugeStyle(
+        type: GaugeRenderType.gradient,
+        cap: GaugeCapType.comet,
+        trackColor: scheme.outline.withValues(alpha: 0.1),
+        indicatorColor: Colors.cyan,
+        showTicks: false,
+        strokeWidth: 16.0,
+        enableGlow: true,
+      ),
     );
   }
 
@@ -1294,6 +1385,50 @@ class GlassDesignTheme extends AppDesignTheme {
         modeTransitionDuration: const Duration(milliseconds: 500),
       ),
       topologySpec: _buildTopologySpec(scheme, isLight: false),
+      slideActionStyle: SlideActionStyle(
+        standardStyle: SurfaceStyle(
+          backgroundColor: scheme.surface.withValues(alpha: 0.2),
+          borderColor: scheme.outline.withValues(alpha: 0.3),
+          borderWidth: 1.0,
+          borderRadius: 0.0,
+          shadows: const [],
+          blurStrength: 20.0,
+          contentColor: scheme.onSurface,
+        ),
+        destructiveStyle: SurfaceStyle(
+          backgroundColor: scheme.error.withValues(alpha: 0.6),
+          borderColor: scheme.error.withValues(alpha: 0.5),
+          borderWidth: 1.0,
+          borderRadius: 0.0,
+          shadows: const [],
+          blurStrength: 20.0,
+          contentColor: scheme.onError,
+        ),
+        borderRadius: BorderRadius.circular(16.0),
+        contentColor: scheme.onSurface,
+        iconSize: 24.0,
+        animationDuration: const Duration(milliseconds: 500),
+        animationCurve: Curves.easeOutExpo,
+      ),
+      expandableFabStyle: ExpandableFabStyle(
+        shape: BoxShape.circle,
+        distance: 100.0,
+        type: FabAnimationType.float,
+        overlayColor: scheme.scrim.withValues(alpha: 0.2),
+        enableBlur: true,
+        showDitherPattern: false,
+        glowEffect: true,
+        highContrastBorder: false,
+      ),
+      gaugeStyle: GaugeStyle(
+        type: GaugeRenderType.gradient,
+        cap: GaugeCapType.comet,
+        trackColor: scheme.outline.withValues(alpha: 0.1),
+        indicatorColor: Colors.cyan,
+        showTicks: false,
+        strokeWidth: 16.0,
+        enableGlow: true,
+      ),
     );
   }
 

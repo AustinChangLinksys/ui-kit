@@ -44,6 +44,9 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
   ChipGroupStyle get chipGroupStyle;
   TopologySpec get topologySpec;
   TableStyle get tableStyle;
+  SlideActionStyle get slideActionStyle;
+  ExpandableFabStyle get expandableFabStyle;
+  GaugeStyle get gaugeStyle;
 
   @override
   AppDesignTheme copyWith({
@@ -81,6 +84,9 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
     ChipGroupStyle? chipGroupStyle,
     TopologySpec? topologySpec,
     TableStyle? tableStyle,
+    SlideActionStyle? slideActionStyle,
+    ExpandableFabStyle? expandableFabStyle,
+    GaugeStyle? gaugeStyle,
   }) {
     return AppDesignTheme(
       toggleStyle: toggleStyle ?? this.toggleStyle,
@@ -117,6 +123,9 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       chipGroupStyle: chipGroupStyle ?? this.chipGroupStyle,
       topologySpec: topologySpec ?? this.topologySpec,
       tableStyle: tableStyle ?? this.tableStyle,
+      slideActionStyle: slideActionStyle ?? this.slideActionStyle,
+      expandableFabStyle: expandableFabStyle ?? this.expandableFabStyle,
+      gaugeStyle: gaugeStyle ?? this.gaugeStyle,
     );
   }
 
@@ -160,6 +169,9 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       chipGroupStyle: chipGroupStyle.lerp(other.chipGroupStyle, t),
       topologySpec: topologySpec.lerp(other.topologySpec, t),
       tableStyle: tableStyle.lerp(other.tableStyle, t),
+      slideActionStyle: slideActionStyle.lerp(other.slideActionStyle, t),
+      expandableFabStyle: expandableFabStyle.lerp(other.expandableFabStyle, t),
+      gaugeStyle: gaugeStyle.lerp(other.gaugeStyle, t),
     );
   }
 
@@ -230,7 +242,13 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
             const DeepCollectionEquality()
                 .equals(topologySpec, other.topologySpec) &&
             const DeepCollectionEquality()
-                .equals(tableStyle, other.tableStyle));
+                .equals(tableStyle, other.tableStyle) &&
+            const DeepCollectionEquality()
+                .equals(slideActionStyle, other.slideActionStyle) &&
+            const DeepCollectionEquality()
+                .equals(expandableFabStyle, other.expandableFabStyle) &&
+            const DeepCollectionEquality()
+                .equals(gaugeStyle, other.gaugeStyle));
   }
 
   @override
@@ -271,6 +289,9 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       const DeepCollectionEquality().hash(chipGroupStyle),
       const DeepCollectionEquality().hash(topologySpec),
       const DeepCollectionEquality().hash(tableStyle),
+      const DeepCollectionEquality().hash(slideActionStyle),
+      const DeepCollectionEquality().hash(expandableFabStyle),
+      const DeepCollectionEquality().hash(gaugeStyle),
     ]);
   }
 }
@@ -313,4 +334,8 @@ extension AppDesignThemeBuildContextProps on BuildContext {
   ChipGroupStyle get chipGroupStyle => appDesignTheme.chipGroupStyle;
   TopologySpec get topologySpec => appDesignTheme.topologySpec;
   TableStyle get tableStyle => appDesignTheme.tableStyle;
+  SlideActionStyle get slideActionStyle => appDesignTheme.slideActionStyle;
+  ExpandableFabStyle get expandableFabStyle =>
+      appDesignTheme.expandableFabStyle;
+  GaugeStyle get gaugeStyle => appDesignTheme.gaugeStyle;
 }
