@@ -105,7 +105,7 @@ class FlatDesignTheme extends AppDesignTheme {
 
         // Style override: Thumb (white sphere usually)
         thumbStyle: SurfaceStyle(
-          backgroundColor: Colors.white, // Thumb usually pure white in Flat/iOS
+          backgroundColor: colors.surface, // Thumb usually pure white in Flat/iOS
           borderColor: Colors.transparent,
           borderWidth: 0,
           borderRadius: 99,
@@ -185,10 +185,7 @@ class FlatDesignTheme extends AppDesignTheme {
         margin: const EdgeInsets.all(16),
         borderRadius: BorderRadius.circular(8),
         backgroundColor: colors.scrim, // inverseSurface often map to scrim or distinct
-        textStyle: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.normal,
-            color: colors.surface), // onInverseSurface
+        textStyle: appTextTheme.bodyMedium!.copyWith(color: colors.surface), // onInverseSurface
         displayDuration: const Duration(seconds: 3),
       ),
       dividerStyle: DividerStyle(
@@ -352,7 +349,7 @@ class FlatDesignTheme extends AppDesignTheme {
         inactiveLinkColor: colors.onSurfaceVariant,
         separatorColor: colors.outlineVariant,
         separatorText: ' / ',
-        itemTextStyle: const TextStyle(fontSize: 14),
+        itemTextStyle: appTextTheme.bodyMedium!,
       ),
       expansionPanelStyle: ExpansionPanelStyle(
         headerColor: colors.surfaceContainerHighest,
@@ -378,6 +375,22 @@ class FlatDesignTheme extends AppDesignTheme {
         selectedText: colors.onSurface,
         selectedBorderColor: colors.primary,
         borderRadius: 16.0,
+      ),
+      tableStyle: TableStyle(
+        headerBackground: colors.surfaceContainerLow,
+        rowBackground: colors.surface,
+        gridColor: colors.outlineVariant,
+        gridWidth: 1.0,
+        showVerticalGrid: false,
+        cellPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
+        rowHeight: 52.0,
+        headerTextStyle: appTextTheme.labelLarge!.copyWith(color: colors.onSurface),
+        cellTextStyle: appTextTheme.bodyMedium!.copyWith(color: colors.onSurface),
+        invertRowOnHover: false,
+        glowRowOnHover: false,
+        hoverRowBackground: colors.surfaceContainerHighest,
+        hoverRowContentColor: null,
+        modeTransitionDuration: const Duration(milliseconds: 200),
       ),
       topologySpec: _buildTopologySpec(colors.toMaterialScheme(brightness: Brightness.light), isLight: true), // Temp until topology update
     );
@@ -416,18 +429,19 @@ class FlatDesignTheme extends AppDesignTheme {
     required super.expansionPanelStyle,
     required super.carouselStyle,
     required super.chipGroupStyle,
+    required super.tableStyle,
     required super.topologySpec,
   });
 
   factory FlatDesignTheme.light([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultLightScheme;
-    final overlayColor = Colors.black.withValues(alpha: 0.15);
+    final overlayColor = scheme.scrim.withValues(alpha: 0.15);
     // Define semantic color variables (Token-First)
     final activeColor = scheme.primary;
     final inactiveColor = scheme
         .surfaceContainerHighest; // Neutral gray, suitable for unselected tracks
-    const thumbColor =
-        Colors.white; // iOS style Thumb usually remains pure white
+    final thumbColor =
+        scheme.surface; // iOS style Thumb usually remains pure white
     final faintFill = scheme.surfaceContainerHighest;
     final greyOutline = scheme.outlineVariant;
     return FlatDesignTheme._(
@@ -600,10 +614,7 @@ class FlatDesignTheme extends AppDesignTheme {
         margin: const EdgeInsets.all(16),
         borderRadius: BorderRadius.circular(8),
         backgroundColor: scheme.inverseSurface,
-        textStyle: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.normal,
-            color: scheme.onInverseSurface),
+        textStyle: appTextTheme.bodyMedium!.copyWith(color: scheme.onInverseSurface),
         displayDuration: const Duration(seconds: 3),
       ),
       dividerStyle: DividerStyle(
@@ -721,7 +732,7 @@ class FlatDesignTheme extends AppDesignTheme {
           blurStrength: 0.0,
           contentColor: scheme.onSurface,
         ),
-        barrierColor: Colors.black.withValues(alpha: 0.5),
+        barrierColor: scheme.scrim.withValues(alpha: 0.5),
         barrierBlur: 0.0,
         maxWidth: 400.0,
         padding: const EdgeInsets.all(24.0),
@@ -767,7 +778,7 @@ class FlatDesignTheme extends AppDesignTheme {
         inactiveLinkColor: scheme.onSurfaceVariant,
         separatorColor: scheme.outlineVariant,
         separatorText: ' / ',
-        itemTextStyle: const TextStyle(fontSize: 14),
+        itemTextStyle: appTextTheme.bodyMedium!,
       ),
       expansionPanelStyle: ExpansionPanelStyle(
         headerColor: scheme.surfaceContainerHighest,
@@ -794,18 +805,34 @@ class FlatDesignTheme extends AppDesignTheme {
         selectedBorderColor: scheme.primary,
         borderRadius: 16.0,
       ),
+      tableStyle: TableStyle(
+        headerBackground: scheme.surfaceContainerLow,
+        rowBackground: scheme.surface,
+        gridColor: scheme.outlineVariant,
+        gridWidth: 1.0,
+        showVerticalGrid: false,
+        cellPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
+        rowHeight: 52.0,
+        headerTextStyle: appTextTheme.labelLarge!.copyWith(color: scheme.onSurface),
+        cellTextStyle: appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
+        invertRowOnHover: false,
+        glowRowOnHover: false,
+        hoverRowBackground: scheme.surfaceContainerHighest,
+        hoverRowContentColor: null,
+        modeTransitionDuration: const Duration(milliseconds: 200),
+      ),
       topologySpec: _buildTopologySpec(scheme, isLight: true),
     );
   }
 
   factory FlatDesignTheme.dark([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultDarkScheme;
-    final overlayColor = Colors.white.withValues(alpha: 0.15);
+    final overlayColor = scheme.inverseSurface.withValues(alpha: 0.15);
     // Dark Mode color mapping
     final activeColor = scheme.primary;
     final inactiveColor = scheme.surfaceContainerHighest;
-    const thumbColor =
-        Colors.white; // Thumb remains white in Dark Mode to maintain contrast
+    final thumbColor =
+        scheme.surface; // Thumb remains white in Dark Mode to maintain contrast
     final faintFill = scheme.surfaceContainerHighest;
     final greyOutline = scheme.outlineVariant;
 
@@ -964,10 +991,7 @@ class FlatDesignTheme extends AppDesignTheme {
         margin: const EdgeInsets.all(16),
         borderRadius: BorderRadius.circular(8),
         backgroundColor: scheme.inverseSurface,
-        textStyle: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.normal,
-            color: scheme.onInverseSurface),
+        textStyle: appTextTheme.bodyMedium!.copyWith(color: scheme.onInverseSurface),
         displayDuration: const Duration(seconds: 3),
       ),
       dividerStyle: DividerStyle(
@@ -1084,7 +1108,7 @@ class FlatDesignTheme extends AppDesignTheme {
           blurStrength: 0.0,
           contentColor: scheme.onSurface,
         ),
-        barrierColor: Colors.black.withValues(alpha: 0.6),
+        barrierColor: scheme.scrim.withValues(alpha: 0.6),
         barrierBlur: 0.0,
         maxWidth: 400.0,
         padding: const EdgeInsets.all(24.0),
@@ -1130,7 +1154,7 @@ class FlatDesignTheme extends AppDesignTheme {
         inactiveLinkColor: scheme.onSurfaceVariant,
         separatorColor: scheme.outlineVariant,
         separatorText: ' / ',
-        itemTextStyle: const TextStyle(fontSize: 14),
+        itemTextStyle: appTextTheme.bodyMedium!,
       ),
       expansionPanelStyle: ExpansionPanelStyle(
         headerColor: scheme.surfaceContainerHighest,
@@ -1156,6 +1180,22 @@ class FlatDesignTheme extends AppDesignTheme {
         selectedText: scheme.onSurface,
         selectedBorderColor: scheme.primary,
         borderRadius: 16.0,
+      ),
+      tableStyle: TableStyle(
+        headerBackground: scheme.surfaceContainerLow,
+        rowBackground: scheme.surface,
+        gridColor: scheme.outlineVariant,
+        gridWidth: 1.0,
+        showVerticalGrid: false,
+        cellPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
+        rowHeight: 52.0,
+        headerTextStyle: appTextTheme.labelLarge!.copyWith(color: scheme.onSurface),
+        cellTextStyle: appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
+        invertRowOnHover: false,
+        glowRowOnHover: false,
+        hoverRowBackground: scheme.surfaceContainerHighest,
+        hoverRowContentColor: null,
+        modeTransitionDuration: const Duration(milliseconds: 200),
       ),
       topologySpec: _buildTopologySpec(scheme, isLight: false),
     );
@@ -1260,21 +1300,21 @@ class FlatDesignTheme extends AppDesignTheme {
         glowRadius: 0.0,
         animationDuration: Duration.zero,
       ),
-      wifiStrongStyle: const LinkStyle(
-        color: Colors.green,
+      wifiStrongStyle: LinkStyle(
+        color: scheme.tertiary,
         width: 2.0,
-        dashPattern: [6.0, 3.0],
+        dashPattern: const [6.0, 3.0],
         glowColor: Colors.transparent,
         glowRadius: 0.0,
-        animationDuration: Duration(milliseconds: 1500),
+        animationDuration: const Duration(milliseconds: 1500),
       ),
-      wifiMediumStyle: const LinkStyle(
-        color: Colors.orange,
+      wifiMediumStyle: LinkStyle(
+        color: scheme.tertiaryContainer,
         width: 2.0,
-        dashPattern: [5.0, 3.0],
+        dashPattern: const [5.0, 3.0],
         glowColor: Colors.transparent,
         glowRadius: 0.0,
-        animationDuration: Duration(milliseconds: 2000),
+        animationDuration: const Duration(milliseconds: 2000),
       ),
       wifiWeakStyle: LinkStyle(
         color: scheme.error,

@@ -2,6 +2,7 @@
 
 import 'package:alchemist/alchemist.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_portal/flutter_portal.dart';
 
 /// Unified Golden Test scenario builder for the project
 ///
@@ -9,7 +10,8 @@ import 'package:flutter/material.dart';
 /// 1. Forced size constraint (SizedBox) - prevents Layout Overflow / Infinite Size
 /// 2. Automatic background color injection (ColoredBox) - ensures Glass/Neumorphic visibility
 /// 3. Automatic theme injection (Theme)
-/// 4. Animation disabled by default (TickerMode) - prevents Skeleton/Loading from causing Timeout
+/// 4. Portal wrapper for flutter_portal based components (AppTooltip, AppDropdown)
+/// 5. Animation disabled by default (TickerMode) - prevents Skeleton/Loading from causing Timeout
 GoldenTestScenario buildSafeScenario({
   required String name,
   required ThemeData theme,
@@ -27,11 +29,14 @@ GoldenTestScenario buildSafeScenario({
         color: theme.scaffoldBackgroundColor,
         child: Theme(
           data: theme,
-          child: Builder(
-            builder: (context) => Center(
-              child: TickerMode(
-                enabled: !disableAnimation,
-                child: child,
+          // Portal required for flutter_portal based components (AppTooltip, AppDropdown)
+          child: Portal(
+            child: Builder(
+              builder: (context) => Center(
+                child: TickerMode(
+                  enabled: !disableAnimation,
+                  child: child,
+                ),
               ),
             ),
           ),

@@ -28,6 +28,7 @@ class AppIpv4TextField extends FormField<String> {
             final state = field as _AppIpv4TextFieldState;
             final theme = AppTheme.of(field.context);
             final hasError = field.hasError;
+            final scheme = Theme.of(field.context).colorScheme;
 
             final separatorStyle = theme.networkInputStyle.ipv4SeparatorStyle;
 
@@ -42,7 +43,7 @@ class AppIpv4TextField extends FormField<String> {
                   ),
                 ],
 
-                // Segmented input area
+                // Segmented input area with error icon (No Layout Shift Policy)
                 Row(
                   children: [
                     Expanded(child: state._buildSegment(0)),
@@ -52,26 +53,22 @@ class AppIpv4TextField extends FormField<String> {
                     Expanded(child: state._buildSegment(2)),
                     state._buildSeparator(separatorStyle, theme),
                     Expanded(child: state._buildSegment(3)),
+
+                    // Error Icon with Tooltip (No Layout Shift)
+                    if (hasError) ...[
+                      SizedBox(width: theme.spacingFactor * 8),
+                      AppTooltip(
+                        message: field.errorText,
+                        position: AxisDirection.up,
+                        child: Icon(
+                          Icons.error_outline,
+                          color: scheme.error,
+                          size: 18,
+                        ),
+                      ),
+                    ],
                   ],
                 ),
-
-                // Error message
-                if (hasError) ...[
-                  SizedBox(height: theme.spacingFactor * 4),
-                  Padding(
-                    padding: EdgeInsets.only(left: theme.spacingFactor * 4),
-                    child: Text(
-                      field.errorText!,
-                      style: Theme.of(field.context)
-                          .textTheme
-                          .labelSmall
-                          ?.copyWith(
-                            color: Theme.of(field.context).colorScheme.error,
-                            fontWeight: FontWeight.w600,
-                          ),
-                    ),
-                  ),
-                ],
               ],
             );
           },

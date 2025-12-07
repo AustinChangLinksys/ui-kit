@@ -1,21 +1,19 @@
-
-
 -----
 
 # 📜 Flutter UI Component Library Charter (ui\_kit)
 
-**Version**: 2.1.0
-**Effective Date**: 2025-11-28
+**Version**: 3.0.0
+**Effective Date**: 2025-12-06
 **Scope**: All contributors and maintainers of the UI Library
 
 -----
 
 ## 1\. Vision & Scope
 
-This library aims to provide a **High Cohesion, Logic-Free, Theme-Driven** set of UI components. It serves as the **Single Source of Truth** for the application's visual presentation, supporting **Multi-Paradigm Visual Styles** (e.g., Glassmorphism, Neo-Brutalism).
+This library aims to provide a **High Cohesion, Logic-Free, Configurable** set of UI components. It serves as the **Single Source of Truth** for the application's visual presentation, supporting **Multi-Paradigm Visual Styles** (e.g., Flat, Glass, Pixel, Neumorphic) through a unified configuration system.
 
-  - **Scope**: Atomic components (Atoms), composite components (Molecules), theme definitions (Theming), icon assets (Assets), and basic layout logic (Layout).
-  - **Out of Scope**: API connectivity, state management (Bloc/Provider), routing logic (Routing), and business data models (Data Models).
+  * **Scope**: Atomic components (Atoms), composite components (Molecules), theme definitions (Theming), icon assets (Assets), interaction systems (Motion/Feedback), and layout logic.
+  * **Out of Scope**: API connectivity, state management (Bloc/Provider), routing logic, and business data models.
 
 -----
 
@@ -23,22 +21,22 @@ This library aims to provide a **High Cohesion, Logic-Free, Theme-Driven** set o
 
 ### 2.1 Physical Isolation
 
-  - The library must exist as an **independent Dart Package**, physically enforced to decouple it from the main app.
+The library must exist as an **independent Dart Package**, physically enforced to decouple it from the main app.
 
 ### 2.2 Dependency Hygiene
 
-  - ❌ **Forbidden**: Dependencies containing business logic or backend connectivity are strictly prohibited (e.g., `bloc`, `provider`, `riverpod`, `http`, `dio`, `firebase`, `shared_preferences`).
-  - ✅ **Allowed**: UI and utility packages only (e.g., `flutter`, `intl`, `vector_math`, `google_fonts`, `flutter_svg`, `rive`, `theme_tailor`, `flutter_animate`, `flutter_gen`).
+  * ❌ **Forbidden**: Dependencies containing business logic or backend connectivity are strictly prohibited (e.g., `bloc`, `provider`, `riverpod`, `http`, `dio`, `firebase`, `shared_preferences`).
+  * ✅ **Allowed**: UI and utility packages only (e.g., `flutter`, `intl`, `vector_math`, `google_fonts`, `flutter_svg`, `rive`, `theme_tailor`, `flutter_animate`, `flutter_gen`).
 
 ### 2.3 Directory Structure
 
 Adopts a variation of **Atomic Design**:
 
-  - `src/foundation/`: Base styles (Theme Contracts, Specs, Colors, Typography).
-  - `src/atoms/`: Indivisible minimal units (AppSurface, Button, Icon).
-  - `src/molecules/`: Simple combinations (ListTile, InputField, Toggles).
-  - `src/organisms/`: Complex blocks (AppBar, ProductCard).
-  - `src/layout/`: Responsive layout helpers.
+  * `src/foundation/`: Base styles (Theme Contracts, Colors, Motion, Feedback, Specs).
+  * `src/atoms/`: Indivisible minimal units (AppSurface, Button, Icon).
+  * `src/molecules/`: Simple combinations (ListTile, InputField, Toggles).
+  * `src/organisms/`: Complex blocks (AppBar, ProductCard, BottomSheet).
+  * `src/layout/`: Responsive layout helpers.
 
 -----
 
@@ -48,414 +46,330 @@ To maintain long-term maintainability and support multi-style switching, all dev
 
 ### 3.1 Inversion of Control (IoC)
 
-  - **Definition**: Components must not determine their own specific appearance, nor should they inquire about the identity of the current theme. Control is inverted to the **Theme**.
-  - **Practice**:
-      - **Ask "How", not "Who"**: Components ask the Theme "How should I look?" (e.g., color, shape), never "Who are you?" (e.g., "Are you Brutal style?").
-      - **Theme as Configuration**: `AppDesignTheme` acts as a rendering configuration file containing all visual parameters.
+  * **Definition**: Components must not determine their own specific appearance. Control is inverted to the **Theme**.
+  * **Practice**: Components ask the Theme "How should I look?" (e.g., color, shape), never "Who are you?" (e.g., "Are you Brutal style?").
 
 ### 3.2 Data-Driven Strategy (DDS)
 
-  - **Definition**: Eliminate hard-coded logic branches when handling structural or behavioral differences between styles. Use data structures (Specs) instead.
-  - **Practice**:
-      - **Spec over Logic**: Instead of writing `if/else` or `switch` statements for style differences, define a **Spec** or **Enum** in the Theme (e.g., `ToggleStyle`, `InteractionSpec`).
-      - **Renderer Pattern**: Components render content based on data within the Spec. Adding a new style involves injecting new data, not modifying component code.
+  * **Definition**: Eliminate hard-coded logic branches when handling structural differences. Use data structures (Specs) instead.
+  * **Practice**: Use the **Renderer Pattern**. Components render content based on data within a Spec (e.g., `ToggleStyle`), not `if/else` statements.
 
 ### 3.3 Zero Internal Defaults
 
-  - **Definition**: Components **MUST NOT** contain fallback values or default style methods (e.g., `_defaultStyle()`) for visual properties.
-  - **Fail Fast**: If a required `ThemeExtension` is missing from the Context, the component must explicitly throw an exception to force a configuration fix at the AppTheme level, rather than degrading silently.
-  - **Rationale**: Internal defaults create "Ghost Styles" that are untracked, inconsistent, and hard to maintain.
+  * **Definition**: Components **MUST NOT** contain fallback values or default style methods.
+  * **Fail Fast**: If a required `ThemeExtension` is missing, the component must explicitly throw an exception to force a configuration fix.
+
+### 3.4 Configuration Injection
+
+  * **Definition**: The generation of the Theme and Color System must strictly adhere to the **"Configuration Priority"** principle.
+  * **Rule**:
+      * **High Priority (Override)**: Explicit override values passed via `AppThemeConfig` (e.g., `customSignalStrong`, `primary`) must always take precedence.
+      * **Low Priority (Derived)**: Derived values generated by the Factory algorithm based on `Seed Color` are only used when no override is present.
+  * **Rationale**: Supports both **"Lazy Mode"** (Seed-based generation) and **"Expert Mode"** (Full Customization).
 
 -----
 
 ## 4\. Theming & Styling
 
-### 4.1 The Contract: AppDesignTheme
+### 4.1 The Single Source of Truth: AppColorScheme
 
-  - **Single Source of Truth**: `AppDesignTheme` is the sole source for the visual language. All visual properties (colors, radii, animation curves, spacing factors) must be retrieved from here.
-  - **Material Quarantine**: Accessing Flutter's native Material theme properties (e.g., `Theme.of(context).primaryColor`, `scaffoldBackgroundColor`, `textTheme`) is **STRICTLY PROHIBITED**. Custom components must rely solely on `AppDesignTheme`.
-  - **Token-First**: Hardcoding `Color(0xFF...)` or `Colors.red` inside components is strictly prohibited.
+  * **Rule**: All color access within the system **MUST** occur exclusively through the `AppColorScheme` interface (which unifies Material Standard and App Semantic colors).
+  * **Constraint**:
+      * ❌ **Strictly Prohibited**: Using hardcoded colors like `Colors.red` or `Colors.black` in widgets.
+      * ❌ **Strictly Prohibited**: Relying directly on Flutter's native `ColorScheme` for styling custom components (except for standard Material widgets). Always prefer `AppColorScheme` semantic properties.
 
-### 4.2 Config Separation
+### 4.2 Semantic Layer Architecture
 
-  - **AppPalette**: Brand colors and the base palette should be defined in `AppPalette` (Config) and injected via the `AppTheme` Factory. The Theme implementation layer is responsible for "logic mapping," not "defining color values."
+  * **Rule**: Non-Material colors must be categorized into five distinct semantic layers. Mixing layers is prohibited:
+    1.  **Structure**: `highContrastBorder`, `subtleBorder`, `styleBackground` (Defines shape/boundaries).
+    2.  **Decoration**: `styleShadow`, `glowColor` (Defines depth/lighting).
+    3.  **Signal & Data**: `signalStrong`, `signalWeak`, `signalGlow` (Defines data state).
+    4.  **State**: `activeFillColor`, `activeContentColor` (Defines interaction feedback).
+    5.  **Utility**: `overlayColor` (Defines atmosphere/masking).
+  * **Constraint**: **Color Harmonization** is mandatory for Signal and Barrier colors. Pure raw colors (e.g., pure Green/Red) are forbidden; they must be blended with the `Seed Color` to ensure visual consistency.
 
-### 4.3 Semantic Architecture
+### 4.3 Design Style Strategies
 
-  - **Intent Naming**: `ThemeExtension` variables must describe "usage" (e.g., `success`, `surfaceContainer`), **NOT** "appearance" (e.g., `green`, `orange`).
+  * **Rule**: The UI Kit must support and strictly distinguish between four rendering strategies. Widgets must respond to `AppTheme.style` with distinct behaviors:
+      * **Flat**: Relies on solid color blocks and standard radii.
+      * **Glass**: Relies on Opacity, Blur, and Glow. **Constraint**: Background visibility is mandatory.
+      * **Pixel**: Relies on Solid Colors, High Contrast Borders, and Aliased shapes. **Constraint**: Gradients and Blur are strictly prohibited.
+      * **Neumorphic**: Relies on Double Shadows (Light/Dark) and Embossed/Debossed effects.
 
-### 4.4 Automation & Tooling
+### 4.4 Global Visual Effects
 
-  - **Theme Tailor**: The `theme_tailor` package must be used to generate `ThemeExtension` classes.
-  - **Annotation**: The **`@TailorMixin`** annotation (replacing the deprecated `@Tailor`) must be used for automatic generation.
-  - **Prohibition**: Hand-writing `copyWith` and `lerp` methods is prohibited to reduce maintenance errors.
+  * **Rule**: An `AppEffectLayer` must be injected at the application root to simulate medium textures.
+      * **Glass Mode**: Must apply a **Noise Overlay** to prevent color banding.
+      * **Pixel Mode**: Must apply a **CRT Shader** (Scanlines, Vignette, RGB Split).
 
-### 4.5 Typography
+### 4.5 Automation & Tooling
 
-  - Follow the **DRY Principle**. Create a unified `BaseTextStyle` to manage `fontFamily` and package paths. Do not repeat font parameters in individual styles.
+  * **Theme Tailor**: The `theme_tailor` package with **`@TailorMixin`** MUST be used to generate `ThemeExtension` classes. Hand-writing `copyWith` and `lerp` is prohibited.
 
------
+### 4.6 Typography
 
-## 5\. Component Design & Primitives
+  * Follow the **DRY Principle**. Create a unified `BaseTextStyle` to manage `fontFamily` and package paths.
 
-### 5.1 The Primitive: AppSurface
+#### 4.6.1 The Single Source of Truth: appTextTheme
 
-  - **Mandatory Usage (Composition)**: All containers possessing visual background, borders, shadows, blur, or interaction effects **MUST** compose `AppSurface` as the root or child node.
-  - **No Native Containers**: Business components must not directly use Flutter's native `Container` + `BoxDecoration` for visual styling.
+  * **Rule**: All text styling within Design Theme files **MUST** occur exclusively through the `appTextTheme` object defined in `app_typography.dart`.
+  * **Constraint**:
+      * ❌ **Strictly Prohibited**: Using hardcoded `TextStyle()` with manual `fontSize`, `fontWeight`, `fontFamily` in Design Theme files.
+      * ❌ **Strictly Prohibited**: Defining inline text styles in component Spec definitions.
+  * **Practice**: Use `appTextTheme.<variant>!.copyWith(color: scheme.onSurface)` pattern.
 
-### 5.2 Dumb Components
+#### 4.6.2 Typography Token Mapping
 
-  - Components receive data via **Constructor** and pass events via **Callback** (`VoidCallback`, `ValueChanged`).
-  - Components must not hold business state, only UI transient state (e.g., ScrollOffset).
+| Token | Size | Weight | Usage |
+|-------|------|--------|-------|
+| `displayLarge` | 57px | w400 | Hero text |
+| `headlineLarge` | 32px | w700 | Page titles |
+| `titleMedium` | 16px | w700 | Section headers, Brutal table headers |
+| `labelLarge` | 14px | w700 | Bold labels, table headers |
+| `labelMedium` | 12px | w700 | Small bold text, Pixel toast |
+| `bodyMedium` | 14px | w400 | Body text, table cells, breadcrumbs |
+| `bodySmall` | 12px | w400 | Captions |
 
-### 5.3 Composition over Inheritance
+#### 4.6.3 Theme-Specific Typography Customization
 
-  - Use the **Slots Pattern** (e.g., `child`, `leading`, `trailing`, `content`).
-  - Avoid `MyRedButton`; prefer `MyButton(style: MyButtonStyle.danger())`.
-
------
-
-## 6\. Expansion Protocols
-
-### 6.1 Component Expansion Protocol
-
-When developing new UI components:
-
-1.  **Composition First**: Prioritize using `AppSurface`.
-2.  **No Runtime Type Checks**: Code **MUST NOT** contain checks like `if (theme is BrutalDesignTheme)`.
-3.  **Renderer Separation**: Complex drawing logic (e.g., specific Toggle icons) **MUST** be extracted into an independent **Renderer Widget** (e.g., `ToggleContentRenderer`), driven by the Theme Spec.
-
-### 6.2 Style Expansion Protocol
-
-When introducing a new design language (e.g., Neumorphic):
-
-1.  **Zero-Touch Policy**: Adding a new style **MUST NOT** require modifying the source code of existing components.
-2.  **Full Compliance**: New styles must fully implement `AppDesignTheme`. Unsupported features (e.g., Blur in Brutalism) must provide **Graceful Degradation** (e.g., `blurStrength: 0.0`).
-3.  **Semantic Consistency**: Strictly adhere to `SurfaceVariant` semantics (Base/Elevated/Highlight).
-
------
-
-## 7\. Assets Management
-
-### 7.1 Access Control
-
-  - **Strong Typing**: String paths are prohibited. Use objects generated by **`flutter_gen`** (e.g., `MyAssets.icons.home`).
-
-### 7.2 Formats
-
-  - **Icons**: Use **SVG**. Remove color attributes (`fill`) within the file; control color via `IconTheme`.
-  - **Product Images**: Prefer **WebP**.
-  - **Dark Mode**: Use `ColorFilter` for icons. For product images, use `ColorFiltered` with a semi-transparent black overlay (Dimming).
+  * **Rule**: Themes may customize typography via `.copyWith()` while preserving the base token.
+  * **Examples**:
+      * **Pixel Theme**: `appTextTheme.labelLarge!.copyWith(fontFamily: 'Courier')` for retro monospace effect.
+      * **Brutal Theme**: Use `titleMedium` (16px) for headers instead of `labelLarge` (14px) for bolder impact.
+      * **Neumorphic Theme**: Use `onSurfaceVariant` color for subdued headers.
 
 -----
 
-## 8\. Animation Strategy
+## 5\. Interaction & Immersion
 
-### 8.1 Technology Selection
+### 5.1 The Unified Motion System
 
-  - **Level 1 (Micro-interactions)**: Use **`flutter_animate`** or native code.
-  - **Level 2 (State-Driven)**: Complex state icons use **Rive (.riv)**.
-  - **Prohibited**: **Lottie** is not used due to file size and maintenance costs.
+  * **Rule**: Animation durations and curves **MUST NOT** be hardcoded. They must be retrieved via the `AppMotion` interface (`motion.fast`, `motion.medium`, `motion.slow`).
+  * **Style-Aware Behavior**: Motion physics must adapt to the active Design Style:
+      * **Pixel Mode**: Must enforce **0ms (Instant Snap)** or **Stepped Curves**. Interpolation is strictly prohibited.
+      * **Glass Mode**: Must use Fluid curves (`easeOutExpo`) with longer durations to simulate floating/underwater physics.
+      * **Flat/Neumorphic**: Uses standard Material Easing.
 
-### 8.2 Rive Standards
+### 5.2 The Feedback System
 
-  - Use **State Machines** to encapsulate multiple states in a single file. Export as binary `.riv`.
-
------
-
-## 9\. Layout & Responsiveness
-
-### 9.1 No Global State
-
-  - **Strictly Prohibited**: Using Singletons to store screen size. All layout calculations must rely on `BuildContext` and `MediaQuery`.
-
-### 9.2 Centralized Config
-
-  - Breakpoints, Columns, and Gutters must be defined in **ThemeExtension** (`AppLayout`), not scattered across Widgets.
+  * **Rule**: All interactive components (Buttons, Toggles, Inputs, Table Edit) must request feedback via the `AppFeedback` interface upon user interaction.
+  * **Constraint**:
+      * **Pixel Mode**: Must provide **"Heavy Impact"** (strong haptic) and Mechanical/8-bit audio feedback.
+      * **Glass Mode**: Must provide **"Crisp/Light"** (light haptic) and Glass/Ethereal audio feedback.
 
 -----
 
-## 10\. Accessibility & Internationalization
+## 6\. Component Design & Primitives
 
-### 10.1 A11y
+### 6.1 The Primitive: AppSurface
 
-  - Interactive components must wrap `Semantics` and declare correct `label`, `value`, and `onTap`.
-  - Touch targets must be at least **44x44 (iOS)** or **48x48 (Android)**.
+  * **Mandatory Usage**: All visual containers **MUST** compose `AppSurface` as the root or child node.
+  * **No Native Containers**: Business components must not directly use `Container` + `BoxDecoration`.
 
-### 10.2 i18n
+### 6.2 Dumb Components
 
-  - **No String Policy**: The library **MUST NOT** contain hardcoded display text. All labels must be passed from the outside.
-  - **RTL Support**: Use `Directionality`-safe properties (e.g., `EdgeInsetsDirectional.start`).
+  * Components receive data via **Constructor** and pass events via **Callback**. They must not hold business state.
 
------
+### 6.3 Composition over Inheritance
 
-## 11\. Performance
+  * Use the **Slots Pattern** (e.g., `child`, `leading`, `trailing`). Avoid monolithic widgets.
 
-  - **Repaint Boundary**: Wrap frequently changing components (e.g., Loaders) in `RepaintBoundary`.
-  - **Expensive Operations**: Use `Opacity` and `BackdropFilter` sparingly.
+### 6.4 Overlay Component Wrapper Requirements
 
------
-
-## 12\. Quality Assurance & Testing
-
-### 12.1 Widgetbook
-
-  - **Mandatory**: All public components must have a UseCase in Widgetbook with configurable Knobs.
-  - **Visual Verification**: Before submission, components must be verified by switching through all Design Languages (Glass, Brutal, etc.) to ensure no breakage.
-
-### 12.2 Golden Tests
-
-  - **Test Matrix**: Core components must include screenshot tests covering:
-      - **Theme**: Light / Dark.
-      - **Styles**: Glass / Brutal / Flat / Neumorphic (Full Matrix coverage).
-      - **Text Scale**: Standard (1.0) / Accessibility (1.5).
-  - **Test Isolation Protocol**:
-      - **Explicit Constraints**: All test scenarios **MUST** be wrapped in fixed-size containers (e.g., `SizedBox`). Relying on infinite constraints is strictly prohibited to prevent layout overflows and crashes.
-      - **Background Visibility**: Scenarios **MUST** use `ColoredBox` injected with `theme.scaffoldBackgroundColor` to ensure Glass and Neumorphic effects are visible.
-      - **Animation Freezing**: Tests involving infinite animations (Loading/Skeleton) **MUST** use `TickerMode(enabled: false)` or manual pump control to prevent timeouts.
-  - **Zero Overflow**: At 1.5x text scale, screenshots must not show overflow warnings.
-
-### 12.3 Auxiliary Verification Applications
-
-To ensure component robustness in extreme and dynamic environments, developers must synchronously maintain both **Widgetbook** and the **Theme Editor**. These applications serve as mandatory acceptance criteria for visual correctness.
-
-1.  **Widgetbook (Isolation Verification)**
-
-      - **Mandatory UseCases**: All new components must establish corresponding UseCases within Widgetbook.
-      - **Boundary Testing**: Layout flexibility must be verified by simulating extreme content via **Knobs** (e.g., multi-line text wrapping, missing icons, minimal dimensions).
-      - **Goal**: To ensure the structural integrity and correct interaction states (Hover, Press, Disabled) of a "single component" in an isolated environment.
-
-2.  **Theme Editor (Integration Verification)**
-
-      - **Implementation Synchronization**: Whenever a Theme Spec is added or modified (e.g., adding a new `ToggleStyle`), the parameter control panel in the Editor must be updated synchronously.
-      - **Dynamic Stress Testing**: Acceptance must involve dynamic, drastic runtime adjustments of theme parameters via the Editor (e.g., drastically increasing global corner radius from 8px to 50px, or pushing color contrast to limits).
-      - **Goal**: To verify strict adherence to **[3.1 IoC]** and **[3.2 DDS]** principles.
-          - *Criteria*: If a component fails to update instantly or breaks visually when Editor parameters change, it indicates the presence of internal hard-coded logic and is deemed **Non-Compliant**.
+  * **Rule**: Modal overlays (`showAppDialog`, `showAppBottomSheet`) **MUST** wrap content with the following hierarchy:
+    ```
+    Theme → Portal → Material → Content
+    ```
+  * **Rationale**:
+      * **Theme**: Ensures design tokens are available in the overlay context.
+      * **Portal**: Required for `flutter_portal` based components (e.g., `AppDropdown`) to function.
+      * **Material**: Required for Material-based widgets (e.g., `TextField`, `InkWell`) to render correctly.
+  * **Constraint**: Never assume the calling context provides these wrappers. Overlays must be self-contained.
 
 -----
 
-## 13\. Governance
+## 7\. Expansion Protocols
 
-### 13.1 Constitution Version
+### 7.1 Component Expansion
 
-2.1.0
+  * **Composition First**: Prioritize using `AppSurface`.
+  * **No Runtime Checks**: Code **MUST NOT** contain checks like `if (theme is BrutalDesignTheme)`. Use the Renderer Pattern.
 
-### 13.2 Ratification Date
+### 7.2 Style Expansion
 
-2025-11-28
-
-### 13.3 Amendment Procedure
-
-Amendments to this constitution require a consensus among core maintainers. Proposed changes must be thoroughly documented, reviewed, and approved before being incorporated. Minor clarifications and typo fixes may be applied by any maintainer.
-
-### 13.4 Compliance Review
-
-Adherence to these principles will be reviewed periodically during code reviews, architectural discussions, and sprint retrospectives. Non-compliance must be addressed and resolved promptly.
+  * **Zero-Touch Policy**: Adding a new style **MUST NOT** require modifying the source code of existing components.
+  * **Full Compliance**: New styles must fully implement `AppDesignTheme` and `AppColorScheme`.
 
 -----
 
-## Appendix A: Developer Implementation Guide (The Cookbook)
+## 8\. Assets Management
 
-*This appendix provides concrete code examples to translate architectural principles into daily development habits. Deviating from the "Standard Pattern" requires strong justification.*
+### 8.1 Access Control
 
-### A.1 Containers & Styling
+  * **Strong Typing**: String paths are prohibited. Use objects generated by **`flutter_gen`** (e.g., `MyAssets.icons.home`).
 
-**Principle**: [2.1 The Primitive], [4.1 Token-First]
+### 8.2 Formats
 
-  - **❌ Anti-Pattern (Old Habit)**:
+  * **Icons**: Use **SVG** with color control via `IconTheme`.
+  * **Pixel Mode**: Icons must switch to Bitmap/Aliased versions or adapt via `AppIcon` logic.
 
-      - Using `Container`, `DecoratedBox`, or `Material` for visual containers.
-      - Hardcoding colors or border radii.
+-----
 
-    <!-- end list -->
+## 9\. Animation Strategy
 
-    ```dart
-    // 🚫 BAD: Styles are locked. Cannot adapt to Glass/Brutal.
-    Container(
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.black),
+  * **Micro-interactions**: Use `flutter_animate`.
+  * **State-Driven**: Use **Rive**.
+  * **Prohibited**: Lottie is not used.
+
+-----
+
+## 10\. Layout & Responsiveness
+
+  * **No Global State**: Use `LayoutBuilder` or `MediaQuery`, never Singletons.
+  * **Centralized Config**: Breakpoints and Gutters must be defined in `AppLayout` ThemeExtension.
+
+### 10.1 Responsive Breakpoints
+
+| Breakpoint | Width Range | Primary Use Case |
+|------------|-------------|------------------|
+| Mobile | < 600px | Single column, bottom sheets |
+| Tablet | 600px - 1200px | Dual column, side sheets |
+| Desktop | > 1200px | Multi-column, inline dialogs |
+
+### 10.2 Responsive Edit Mode Strategy
+
+  * **Rule**: Components with edit modes (e.g., Tables) must adapt their editing UX based on screen size.
+  * **Desktop (>1200px)**: Inline editing with Save/Cancel buttons directly in the component.
+  * **Tablet (600-1200px)**: Modal dialogs for edit forms.
+  * **Mobile (<600px)**: Full-screen bottom sheets for edit forms.
+  * **Constraint**: Edit action buttons must conditionally render based on `isEditing && isDesktop`.
+
+-----
+
+## 11\. Accessibility & Internationalization
+
+  * **A11y**: Interactive components must wrap `Semantics`. Minimum touch target 44px/48px.
+  * **i18n**: No hardcoded strings. All labels must be passed via constructor.
+
+-----
+
+## 12\. Performance
+
+  * **Repaint Boundary**: Wrap frequently changing components (e.g., Loaders) in `RepaintBoundary`.
+  * **Expensive Operations**: Use `Opacity` and `BackdropFilter` sparingly (except where mandated by Glass Style).
+
+-----
+
+## 13\. Quality Assurance & Testing
+
+### 13.1 Widgetbook
+
+  * **Mandatory**: All public components must have a UseCase in Widgetbook with configurable Knobs.
+
+### 13.2 Golden Tests
+
+  * **Test Matrix**: Light/Dark x Flat/Glass/Pixel/Neumorphic x Scale 1.0/1.5.
+  * **Safe Mode Protocol**: (See Appendix B).
+
+### 13.3 Theme Editor
+
+  * **Integration Verification**: Components must update instantly when theme parameters change in the Theme Editor, verifying adherence to IoC.
+
+-----
+
+## 14\. Governance
+
+### 14.1 Constitution Version
+
+3.0.0
+
+### 14.2 Ratification Date
+
+2025-12-06
+
+### 14.3 Amendment Procedure
+
+Amendments require consensus among core maintainers.
+
+### 14.4 Compliance Review
+
+Adherence will be reviewed during code reviews. Non-compliance must be resolved promptly.
+
+-----
+
+## Appendix A: Developer Implementation Guide
+
+### A.1 Style-Aware Colors
+
+```dart
+// ✅ GOOD: Using Semantic Colors
+Container(
+  decoration: BoxDecoration(
+    color: theme.appColors.styleBackground,
+    border: Border.all(color: theme.appColors.highContrastBorder),
+  )
+)
+```
+
+### A.2 Unified Motion
+
+```dart
+// ✅ GOOD: Using Motion Tokens
+AnimatedContainer(
+  duration: theme.motion.medium.duration, // 0ms for Pixel, 500ms for Glass
+  curve: theme.motion.medium.curve,
+  ...
+)
+```
+
+### A.3 Typography in Design Themes
+
+```dart
+// ✅ GOOD: Using appTextTheme tokens
+tableStyle: TableStyle(
+  headerTextStyle: appTextTheme.labelLarge!.copyWith(color: scheme.onSurface),
+  cellTextStyle: appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
+),
+
+// ✅ GOOD: Theme-specific customization preserving base token
+breadcrumbStyle: BreadcrumbStyle(
+  itemTextStyle: appTextTheme.labelLarge!.copyWith(fontFamily: 'Courier'), // Pixel theme
+),
+
+// ❌ BAD: Hardcoded TextStyle
+tableStyle: TableStyle(
+  headerTextStyle: TextStyle(
+    fontFamily: 'NeueHaasGrotTextRound',
+    fontWeight: FontWeight.bold,
+    fontSize: 14,
+  ),
+),
+```
+
+### A.4 Overlay Component Implementation
+
+```dart
+// ✅ GOOD: Proper wrapper hierarchy in showAppDialog
+pageBuilder: (dialogContext, animation, secondaryAnimation) {
+  return Theme(
+    data: themeData,
+    child: Portal(
+      child: Material(
+        type: MaterialType.transparency,
+        child: builder(dialogContext),
       ),
-      child: ...
-    )
-    ```
-
-  - **✅ Standard Pattern**:
-
-      - **Always** compose with `AppSurface`.
-      - Rely on `variant` (semantic) or `style` (injected spec).
-
-    <!-- end list -->
-
-    ```dart
-    // ✅ GOOD: Automatically applies Blur, Border, Shadow, and Colors from Theme.
-    AppSurface(
-      variant: SurfaceVariant.highlight,
-      child: ...
-    )
-    // OR (for specific overrides from Spec)
-    AppSurface(
-      style: theme.toggleStyle.activeTrackStyle,
-      child: ...
-    )
-    ```
-
-### A.2 Logic & Differentiation
-
-**Principle**: [1.2 Data-Driven Strategy], [3.2 Style Expansion]
-
-  - **❌ Anti-Pattern (Old Habit)**:
-
-      - Checking `runtimeType` to render different content.
-
-    <!-- end list -->
-
-    ```dart
-    // 🚫 BAD: Violates Open/Closed Principle. Breaks when adding 'Neumorphic'.
-    if (theme is BrutalDesignTheme) {
-      return Text("I");
-    } else {
-      return Icon(Icons.check);
-    }
-    ```
-
-  - **✅ Standard Pattern**:
-
-      - Use the **Renderer Pattern**. Ask the Theme *what* to render via Specs.
-
-    <!-- end list -->
-
-    ```dart
-    // ✅ GOOD: The Theme configures the type; the Component just renders it.
-    ToggleContentRenderer(
-      type: theme.toggleStyle.activeType, // text, icon, or dot?
-      text: theme.toggleStyle.activeText,
-      icon: theme.toggleStyle.activeIcon,
-    )
-    ```
-
-### A.3 Interaction & Physics
-
-**Principle**: [3.1 Inversion of Control]
-
-  - **❌ Anti-Pattern (Old Habit)**:
-
-      - Manually handling `GestureDetector` to implement press effects.
-
-    <!-- end list -->
-
-    ```dart
-    // 🚫 BAD: Re-implementing physics. Inconsistent across themes.
-    GestureDetector(
-      onTapDown: (_) => setState(() => _scale = 0.9),
-      child: Transform.scale(...)
-    )
-    ```
-
-  - **✅ Standard Pattern**:
-
-      - Enable `interactive` on `AppSurface`.
-
-    <!-- end list -->
-
-    ```dart
-    // ✅ GOOD: Inherits Theme-defined physics (Glass=Glow, Brutal=Offset).
-    AppSurface(
-      interactive: true,
-      onTap: () { ... },
-      child: ...
-    )
-    ```
-
-### A.4 Layout & Metrics
-
-**Principle**: [9.2 Centralized Config]
-
-  - **❌ Anti-Pattern (Old Habit)**:
-
-      - Hardcoding pixel values for padding or spacing.
-
-    <!-- end list -->
-
-    ```dart
-    // 🚫 BAD: Looks cramped in Brutalism, too loose in Dense themes.
-    Padding(
-      padding: EdgeInsets.all(16.0),
-      child: ...
-    )
-    ```
-
-  - **✅ Standard Pattern**:
-
-      - Scale values using `spacingFactor`.
-
-    <!-- end list -->
-
-    ```dart
-    // ✅ GOOD: Scales automatically (e.g., 1.0x for Glass, 1.5x for Brutal).
-    Padding(
-      padding: EdgeInsets.all(16.0 * theme.spacingFactor),
-      child: ...
-    )
-    ```
-
-### A.5 Loading States
-
-**Principle**: [5. Component Design]
-
-  - **❌ Anti-Pattern (Old Habit)**:
-
-      - Using `CircularProgressIndicator` directly inside components.
-      - Using static gray boxes.
-
-    <!-- end list -->
-
-    ```dart
-    // 🚫 BAD: Native spinner style clashes with custom themes.
-    if (isLoading) return CircularProgressIndicator();
-    ```
-
-  - **✅ Standard Pattern**:
-
-      - Use `AppSkeleton` which adapts animation (Pulse/Blink) to the theme.
-
-    <!-- end list -->
-
-    ```dart
-    // ✅ GOOD: "Breathing" for Glass, "Blinking" for Brutal.
-    if (isLoading) return AppSkeleton.circular(size: 24);
-    ```
-
-### A.6 Theme Access & Null Handling
-
-**Principle**: [3.3 Zero Internal Defaults]
-
-  - **❌ Anti-Pattern (Old Habit)**:
-      - Creating internal default styles to handle null themes.
-    <!-- end list -->
-    ```dart
-    // 🚫 BAD: Creates a hidden design specification (Grey, Radius 8).
-    final style = theme?.bottomSheetStyle ??
-        BottomSheetStyle(color: Colors.grey, radius: 8);
-    ```
-  - **✅ Standard Pattern**:
-      - Assume the Theme exists. If not, crash immediately to alert the developer.
-    <!-- end list -->
-    ```dart
-    // ✅ GOOD: Fail fast. Forces the developer to fix the root cause (Config).
-    final theme = Theme.of(context).extension<AppDesignTheme>();
-    if (theme == null) throw FlutterError('AppDesignTheme not found in context');
-    final style = widget.style ?? theme.bottomSheetStyle;
-    ```
+    ),
+  );
+},
+```
 
 -----
 
-# Appendix B: Golden Test Standard Protocol
+## Appendix B: Golden Test Standard Protocol
 
 **Goal**: To ensure the **Stability**, **Consistency**, and **Readability** of visual regression tests across the entire UI library.
 
-## B.1 Core Architecture
+### B.1 Core Architecture
 
 All Golden Test files must adhere to the following structure to ensure proper resource loading and test matrix generation.
 
@@ -469,7 +383,6 @@ void main() {
 
   group('Component Golden Tests', () {
     // 2. Use the Matrix Factory
-    // Hand-writing multiple goldenTest calls is prohibited.
     // You MUST use the matrix to generate all 8 styles (4 Themes x 2 Modes) at once.
     goldenTest(
       'Component - State Name',
@@ -485,57 +398,45 @@ void main() {
 }
 ```
 
-## B.2 Safe Mode Protocol
+### B.2 Safe Mode Protocol
 
 To prevent CI/CD failures, all test scenarios generated by `buildThemeMatrix` (and the underlying `buildSafeScenario`) must enforce the following protections:
 
-### 1\. Explicit Constraints (Size Lock)
+1.  **Explicit Constraints (Size Lock)**
 
-  - **Rule**: Every test scenario **MUST** be wrapped in a fixed-size container (e.g., `SizedBox`).
-  - **Reason**: Prevents `RenderFlex overflow` errors and `BoxConstraints(biggest)` infinite expansion crashes.
-  - **Standard Sizes**:
-      - Buttons/Inputs: `width: 300`, `height: 100`
-      - Cards: `width: 300`, `height: auto`
-      - Screens/Pages: `width: 375`, `height: 667`
+      * **Rule**: Every test scenario **MUST** be wrapped in a fixed-size container (e.g., `SizedBox`).
+      * **Reason**: Prevents `RenderFlex overflow` errors and `BoxConstraints(biggest)` infinite expansion crashes.
+      * **Standard Sizes**:
+          * Buttons/Inputs: `width: 300`, `height: 100`
+          * Cards: `width: 300`, `height: auto`
+          * Screens/Pages: `width: 375`, `height: 667`
 
-### 2\. Background Visibility
+2.  **Background Visibility**
 
-  - **Rule**: Every scenario **MUST** wrap the component in a `ColoredBox` injected with `theme.scaffoldBackgroundColor`.
-  - **Reason**:
-      - **Glass Theme**: Requires a dark/colored background to show translucency and blur.
-      - **Neumorphic Theme**: Requires specific grey tones to show shadow depth.
-      - Transparent backgrounds make these themes invisible.
+      * **Rule**: Every scenario **MUST** wrap the component in a `ColoredBox` injected with `theme.scaffoldBackgroundColor` (derived from `AppColorScheme.styleBackground` or similar).
+      * **Reason**:
+          * **Glass Theme**: Requires a colored background to show translucency and blur.
+          * **Neumorphic Theme**: Requires specific grey tones to show shadow depth.
+          * **Pixel Theme**: Requires contrast to show the aliased borders.
+          * Transparent backgrounds make these themes invisible or incorrect in screenshots.
 
-### 3\. Animation Freezing
+3.  **Animation Freezing**
 
-  - **Rule**: Scenarios are wrapped in `TickerMode(enabled: false)` by default.
-  - **Exception**: If testing an active animation sequence (e.g., Tooltip popping up), animation must be explicitly enabled, and time must be advanced manually via `pump()`.
-  - **Reason**: Prevents timeouts caused by infinite looping animations (e.g., `AppSkeleton` pulse, `AppLoader` spin) blocking `pumpAndSettle`.
+      * **Rule**: Scenarios are wrapped in `TickerMode(enabled: false)` by default.
+      * **Exception**: If testing an active animation sequence (e.g., Tooltip popping up), animation must be explicitly enabled, and time must be advanced manually via `pump()`.
+      * **Reason**: Prevents timeouts caused by infinite looping animations (e.g., `AppSkeleton` pulse, `AppLoader` spin) blocking `pumpAndSettle`.
 
-## B.3 Interaction Strategy
+### B.3 Interaction Strategy
 
 For components requiring interaction to appear (e.g., Tooltips, Dialogs), prioritize **State Injection** over simulation.
 
-  - **✅ Recommended: State Injection**
-      - Expose an `initiallyVisible` or `forceState` parameter in the component.
-      - Usage: `AppTooltip(initiallyVisible: true, ...)`
-      - **Benefit**: 100% stability, zero race conditions.
-  - **⚠️ Alternative: Simulated Interaction**
-      - Use only when State Injection is impossible.
-      - Must use the `pumpWidget` callback to manually trigger the event:
-        ```dart
-        pumpWidget: (tester, widget) async {
-          await tester.pumpWidget(widget);
-          await tester.longPress(find.byType(TargetWidget));
-          await tester.pumpAndSettle();
-        }
-        ```
-
-## B.4 Assets & Typography
-
-  - **Fonts**: Must use `test/test_utils/font_loader.dart` to register `NeueHaasGrot` and `LinksysIcons`.
-  - **Defensive Registration**: The loader must register both the `FamilyName` and `packages/ui_kit_library/FamilyName` to handle Flutter Test's path resolution behavior.
-  - **Icons**: Prefer using `Icon(Icons.xxx)` widgets, which automatically inherit the correct `contentColor` from `AppSurface`. Avoid hardcoded colors in SVGs.
+  * **✅ Recommended: State Injection**
+      * Expose an `initiallyVisible` or `forceState` parameter in the component.
+      * Usage: `AppTooltip(initiallyVisible: true, ...)`
+      * **Benefit**: 100% stability, zero race conditions.
+  * **⚠️ Alternative: Simulated Interaction**
+      * Use only when State Injection is impossible.
+      * Must use the `pumpWidget` callback to manually trigger the event.
 
 -----
 
@@ -543,12 +444,16 @@ For components requiring interaction to appear (e.g., Tooltips, Dialogs), priori
 
 Reviewers shall inspect code based on the following:
 
-  - [ ] **Architecture**: Is `AppSurface` used instead of `Container`?
-  - [ ] **Material Quarantine**: Are native Material properties (e.g. `scaffoldBackgroundColor`) avoided?
-  - [ ] **Zero Defaults**: Does the component throw an error when Theme is missing (instead of using default styles)?
-  - [ ] **IoC/DDS**: Are `runtimeType` checks avoided? Is divergent logic moved to Theme Specs?
-  - [ ] **Automation**: Is `@TailorMixin` used for the theme class?
-  - [ ] **Completeness**: Is a Widgetbook Story added covering all interaction states?
-  - [ ] **Semantics**: Are `SurfaceVariant` and `spacingFactor` used correctly?
-  - [ ] **Verification**: Has the component been visually verified across all Design Languages?
-  - [ ] **Testing**: Do Golden Tests use the "Safe Mode" pattern (Explicit Sizing + Background Color + Animation Freezing)?
+  * [ ] **Architecture**: Is `AppSurface` used instead of `Container`?
+  * [ ] **Color System**: Are `AppColorScheme` semantic properties used instead of raw colors?
+  * [ ] **Harmonization**: Are Signal/Barrier colors harmonized with the Seed color via Factory logic?
+  * [ ] **Motion**: Is `AppMotion` used? Does Pixel mode snap instantly (0ms)?
+  * [ ] **Feedback**: Does the component trigger `AppFeedback` on interaction?
+  * [ ] **Styles**: Does the component render correctly in Neumorphic (Double Shadow) and Pixel (High Contrast) modes?
+  * [ ] **Configurability**: Does the component respect overrides from `AppThemeConfig`?
+  * [ ] **Automation**: Is `@TailorMixin` used for all theme extensions?
+  * [ ] **Testing**: Do Golden Tests use the "Safe Mode" pattern?
+  * [ ] **Typography**: Are `appTextTheme` tokens used instead of hardcoded `TextStyle()`?
+  * [ ] **Typography Customization**: Do theme-specific text styles use `.copyWith()` on base tokens?
+  * [ ] **Overlay Wrappers**: Do `showAppDialog`/`showAppBottomSheet` wrap content with Theme → Portal → Material?
+  * [ ] **Responsive Edit**: Do edit mode buttons conditionally render based on `isEditing && isDesktop`?

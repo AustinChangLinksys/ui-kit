@@ -46,21 +46,33 @@ class AppTextField extends StatefulWidget {
 
 class _AppTextFieldState extends State<AppTextField> {
   late FocusNode _focusNode;
+  bool _showErrorTooltip = false;
 
   @override
   void initState() {
     super.initState();
     // IoC: Prioritize externally passed FocusNode
     _focusNode = widget.focusNode ?? FocusNode();
+    _focusNode.addListener(_onFocusChange);
   }
 
   @override
   void dispose() {
+    _focusNode.removeListener(_onFocusChange);
     // Only dispose if FocusNode was created by itself
     if (widget.focusNode == null) {
       _focusNode.dispose();
     }
     super.dispose();
+  }
+
+  void _onFocusChange() {
+    // Show error tooltip when input gains focus and has error
+    if (_focusNode.hasFocus && widget.errorText != null) {
+      setState(() => _showErrorTooltip = true);
+    } else if (!_focusNode.hasFocus) {
+      setState(() => _showErrorTooltip = false);
+    }
   }
 
   @override
@@ -105,104 +117,98 @@ class _AppTextFieldState extends State<AppTextField> {
           );
         }
 
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // --- Input Container ---
-            AppSurface(
-              style: targetStyle,
-              interactive: true, // Enable physical feedback on click
-              onTap: () => _focusNode.requestFocus(),
+        // No Layout Shift Policy: Error is shown via icon + tooltip, not text below
+        return AppSurface(
+          style: targetStyle,
+          interactive: true, // Enable physical feedback on click
+          onTap: () => _focusNode.requestFocus(),
 
-              // Layout: left and right padding, top and bottom expanded by TextField
-              padding: EdgeInsets.symmetric(
-                horizontal: theme.spacingFactor * 12,
-                vertical: 0,
-              ),
+          // Layout: left and right padding, top and bottom expanded by TextField
+          padding: EdgeInsets.symmetric(
+            horizontal: theme.spacingFactor * 12,
+            vertical: 0,
+          ),
 
-              child: Row(
-                children: [
-                  // Prefix Slot
-                  if (widget.prefixIcon != null) ...[
-                    IconTheme(
-                      data: IconThemeData(
-                        color: targetStyle.contentColor,
-                        // Icon size slightly adjusted with text size (approx. 1.2 times)
-                        size: (baseTextStyle.fontSize ?? 14.0) * 1.2,
-                      ),
-                      child: widget.prefixIcon!,
+          child: Row(
+            children: [
+              // Prefix Slot
+              if (widget.prefixIcon != null) ...[
+                IconTheme(
+                  data: IconThemeData(
+                    color: targetStyle.contentColor,
+                    // Icon size slightly adjusted with text size (approx. 1.2 times)
+                    size: (baseTextStyle.fontSize ?? 14.0) * 1.2,
+                  ),
+                  child: widget.prefixIcon!,
+                ),
+                SizedBox(width: theme.spacingFactor * 8),
+              ],
+
+              // The Actual Input
+              Expanded(
+                child: TextField(
+                  controller: widget.controller,
+                  focusNode: _focusNode,
+                  onChanged: widget.onChanged,
+                  obscureText: widget.obscureText,
+                  keyboardType: widget.keyboardType,
+                  inputFormatters: widget.inputFormatters,
+
+                  // Style: Inherit Surface color + externally specified Typography
+                  style: baseTextStyle.copyWith(
+                    color: targetStyle.contentColor,
+                  ),
+                  cursorColor: targetStyle.contentColor,
+
+                  decoration: InputDecoration(
+                    isDense: true,
+                    hintText: widget.hintText,
+                    hintStyle: baseTextStyle.copyWith(
+                      color: targetStyle.contentColor.withValues(alpha: 0.5),
                     ),
-                    SizedBox(width: theme.spacingFactor * 8),
-                  ],
-
-                  // The Actual Input
-                  Expanded(
-                    child: TextField(
-                      controller: widget.controller,
-                      focusNode: _focusNode,
-                      onChanged: widget.onChanged,
-                      obscureText: widget.obscureText,
-                      keyboardType: widget.keyboardType,
-                      inputFormatters: widget.inputFormatters,
-
-                      // Style: Inherit Surface color + externally specified Typography
-                      style: baseTextStyle.copyWith(
-                        color: targetStyle.contentColor,
-                      ),
-                      cursorColor: targetStyle.contentColor,
-
-                      decoration: InputDecoration(
-                        isDense: true,
-                        hintText: widget.hintText,
-                        hintStyle: baseTextStyle.copyWith(
-                          color:
-                              targetStyle.contentColor.withValues(alpha: 0.5),
-                        ),
-                        // Remove all native decorations, fully delegate to AppSurface
-                        border: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        errorBorder: InputBorder.none,
-                        disabledBorder: InputBorder.none,
-                        // Vertical centering and height control
-                        contentPadding: EdgeInsets.symmetric(
-                          vertical: theme.spacingFactor * 12,
-                        ),
-                      ),
+                    // Remove all native decorations, fully delegate to AppSurface
+                    border: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    // Vertical centering and height control
+                    contentPadding: EdgeInsets.symmetric(
+                      vertical: theme.spacingFactor * 12,
                     ),
                   ),
-
-                  // Suffix Slot
-                  if (widget.suffixIcon != null) ...[
-                    SizedBox(width: theme.spacingFactor * 8),
-                    IconTheme(
-                      data: IconThemeData(
-                        color: targetStyle.contentColor,
-                        size: (baseTextStyle.fontSize ?? 14.0) * 1.2,
-                      ),
-                      child: widget.suffixIcon!,
-                    ),
-                  ],
-                ],
-              ),
-            ),
-
-            // --- Error Message ---
-            if (hasError) ...[
-              SizedBox(height: theme.spacingFactor * 4),
-              Padding(
-                padding: EdgeInsets.only(left: theme.spacingFactor * 4),
-                child: Text(
-                  widget.errorText!,
-                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                        color: scheme.error,
-                        fontWeight: FontWeight.w600,
-                      ),
                 ),
               ),
+
+              // Suffix Slot (user-provided icon)
+              if (widget.suffixIcon != null) ...[
+                SizedBox(width: theme.spacingFactor * 8),
+                IconTheme(
+                  data: IconThemeData(
+                    color: targetStyle.contentColor,
+                    size: (baseTextStyle.fontSize ?? 14.0) * 1.2,
+                  ),
+                  child: widget.suffixIcon!,
+                ),
+              ],
+
+              // Error Icon with Tooltip (No Layout Shift)
+              // Shows when hasError, tooltip visible on hover/tap or when focused
+              if (hasError) ...[
+                SizedBox(width: theme.spacingFactor * 8),
+                AppTooltip(
+                  message: widget.errorText,
+                  position: AxisDirection.up,
+                  visible: _showErrorTooltip ? true : null, // Show on focus, else use internal hover state
+                  child: Icon(
+                    Icons.error_outline,
+                    color: scheme.error,
+                    size: (baseTextStyle.fontSize ?? 14.0) * 1.2,
+                  ),
+                ),
+              ],
             ],
-          ],
+          ),
         );
       },
     );

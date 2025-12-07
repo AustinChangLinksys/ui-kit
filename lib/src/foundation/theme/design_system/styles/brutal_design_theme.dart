@@ -14,11 +14,11 @@ class BrutalDesignTheme extends AppDesignTheme {
   factory BrutalDesignTheme._raw(AppColorScheme colors) {
     final isLight = colors.surface.computeLuminance() > 0.5;
     final bottomSheetOverlay = isLight
-        ? Colors.black.withValues(alpha: 0.5)
-        : Colors.white.withValues(alpha: 0.6);
+        ? colors.onSurface.withValues(alpha: 0.5)
+        : colors.surface.withValues(alpha: 0.6);
     final sideSheetOverlay = isLight
-        ? Colors.black.withValues(alpha: 0.6)
-        : Colors.white.withValues(alpha: 0.6);
+        ? colors.onSurface.withValues(alpha: 0.6)
+        : colors.surface.withValues(alpha: 0.6);
 
     return BrutalDesignTheme._(
       surfaceBase: SurfaceStyle(
@@ -75,7 +75,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         ),
       ),
       surfaceSecondary: SurfaceStyle(
-        backgroundColor: colors.surfaceContainerHighest.withValues(alpha: isLight ? 0.15 : 0.25),
+        backgroundColor: colors.surfaceContainerHighest,  // Solid color for better contrast in Brutal
         borderColor: colors.highContrastBorder,
         borderWidth: 2.0,
         borderRadius: 0.0,
@@ -181,11 +181,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         margin: EdgeInsets.zero,
         borderRadius: BorderRadius.zero,
         backgroundColor: colors.surface,
-        textStyle: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'NeueHaasGrotTextRound',
-            color: colors.onSurface),
+        textStyle: appTextTheme.titleMedium!.copyWith(color: colors.onSurface),
         displayDuration: const Duration(seconds: 2),
       ),
       dividerStyle: DividerStyle(
@@ -335,7 +331,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         inactiveLinkColor: colors.onSurface.withValues(alpha: 0.5),
         separatorColor: colors.primary,
         separatorText: ' > ',
-        itemTextStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+        itemTextStyle: appTextTheme.labelLarge!,
       ),
       expansionPanelStyle: ExpansionPanelStyle(
         headerColor: colors.surface,
@@ -361,6 +357,22 @@ class BrutalDesignTheme extends AppDesignTheme {
         selectedText: colors.onPrimary,
         selectedBorderColor: colors.highContrastBorder,
         borderRadius: 4.0,
+      ),
+      tableStyle: TableStyle(
+        headerBackground: colors.surface,
+        rowBackground: colors.surface,
+        gridColor: colors.highContrastBorder,
+        gridWidth: 3.0,
+        showVerticalGrid: true,
+        cellPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
+        rowHeight: 56.0,
+        headerTextStyle: appTextTheme.titleMedium!.copyWith(color: colors.onSurface),
+        cellTextStyle: appTextTheme.labelLarge!.copyWith(color: colors.onSurface),
+        invertRowOnHover: false,
+        glowRowOnHover: false,
+        hoverRowBackground: colors.surfaceContainerHighest,
+        hoverRowContentColor: null,
+        modeTransitionDuration: const Duration(milliseconds: 200),
       ),
       topologySpec: _buildTopologySpec(colors.toMaterialScheme(brightness: isLight ? Brightness.light : Brightness.dark), isLight: isLight),
     );
@@ -400,13 +412,14 @@ class BrutalDesignTheme extends AppDesignTheme {
     required super.expansionPanelStyle,
     required super.carouselStyle,
     required super.chipGroupStyle,
+    required super.tableStyle,
     required super.topologySpec,
   });
 
   factory BrutalDesignTheme.light([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultLightScheme;
-    final bottomSheetOverlay = Colors.black.withValues(alpha: 0.5);
-    final sideSheetOverlay = Colors.black.withValues(alpha: 0.6);
+    final bottomSheetOverlay = scheme.onSurface.withValues(alpha: 0.5);
+    final sideSheetOverlay = scheme.onSurface.withValues(alpha: 0.6);
     return BrutalDesignTheme._(
       surfaceBase: SurfaceStyle(
         backgroundColor: scheme.surface, // Use ColorScheme's surface
@@ -464,7 +477,7 @@ class BrutalDesignTheme extends AppDesignTheme {
       ),
       // Secondary (Tonal) Surface - Medium emphasis with mechanical aesthetic
       surfaceSecondary: SurfaceStyle(
-        backgroundColor: scheme.surfaceContainerHighest.withValues(alpha: 0.15),
+        backgroundColor: scheme.surfaceContainerHighest,  // Solid color for better contrast in Brutal
         borderColor: scheme.onSurface,
         borderWidth: 2.0,
         borderRadius: 0.0,
@@ -565,8 +578,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         period: const Duration(milliseconds: 800),
         borderRadius: 0.0,
         shadows: [
-          const BoxShadow(
-              color: Colors.black, offset: Offset(4, 4), blurRadius: 0),
+          BoxShadow(
+              color: scheme.onSurface, offset: const Offset(4, 4), blurRadius: 0),
         ],
       ),
       toastStyle: ToastStyle(
@@ -574,11 +587,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         margin: EdgeInsets.zero,
         borderRadius: BorderRadius.zero,
         backgroundColor: scheme.surface,
-        textStyle: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'NeueHaasGrotTextRound',
-            color: scheme.onSurface),
+        textStyle: appTextTheme.titleMedium!.copyWith(color: scheme.onSurface),
         displayDuration: const Duration(seconds: 2),
       ),
       dividerStyle: DividerStyle(
@@ -688,7 +697,7 @@ class BrutalDesignTheme extends AppDesignTheme {
           blurStrength: 0.0,
           contentColor: scheme.onSurface,
         ),
-        barrierColor: Colors.black.withValues(alpha: 0.5),
+        barrierColor: scheme.onSurface.withValues(alpha: 0.5),
         barrierBlur: 0.0,
       ),
       motion: const BrutalMotion(),
@@ -710,38 +719,38 @@ class BrutalDesignTheme extends AppDesignTheme {
         enableDithering: false,
       ),
       tabsStyle: TabsStyle(
-        activeTextColor: Colors.white,
-        inactiveTextColor: Colors.grey.shade400,
-        indicatorColor: Colors.white,
-        tabBackgroundColor: Colors.black,
+        activeTextColor: scheme.onPrimary,
+        inactiveTextColor: scheme.onSurface.withValues(alpha: 0.6),
+        indicatorColor: scheme.onPrimary,
+        tabBackgroundColor: scheme.primary,
         animationDuration: const Duration(milliseconds: 150),
         indicatorThickness: 3.0,
       ),
       stepperStyle: StepperStyle(
-        activeStepColor: Colors.white,
-        completedStepColor: Colors.grey.shade700,
-        pendingStepColor: Colors.grey.shade900,
-        connectorColor: Colors.grey.shade600,
+        activeStepColor: scheme.primary,
+        completedStepColor: scheme.secondary,
+        pendingStepColor: scheme.surfaceContainerHighest,
+        connectorColor: scheme.outline,
         stepSize: 44.0,
         useDashedConnector: false,
       ),
       breadcrumbStyle: BreadcrumbStyle(
-        activeLinkColor: Colors.white,
-        inactiveLinkColor: Colors.grey.shade300,
-        separatorColor: Colors.white,
+        activeLinkColor: scheme.primary,
+        inactiveLinkColor: scheme.onSurface.withValues(alpha: 0.5),
+        separatorColor: scheme.primary,
         separatorText: ' > ',
-        itemTextStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+        itemTextStyle: appTextTheme.labelLarge!,
       ),
       expansionPanelStyle: ExpansionPanelStyle(
-        headerColor: Colors.black,
-        expandedBackgroundColor: Colors.grey.shade900,
-        headerTextColor: Colors.white,
+        headerColor: scheme.surface,
+        expandedBackgroundColor: scheme.surfaceContainer,
+        headerTextColor: scheme.onSurface,
         expandIcon: Icons.expand_more,
         animationDuration: const Duration(milliseconds: 150),
       ),
       carouselStyle: CarouselStyle(
-        navButtonColor: Colors.white,
-        navButtonHoverColor: Colors.grey.shade200,
+        navButtonColor: scheme.onSurface,
+        navButtonHoverColor: scheme.outline,
         previousIcon: Icons.arrow_back,
         nextIcon: Icons.arrow_forward,
         animationDuration: const Duration(milliseconds: 150),
@@ -750,12 +759,28 @@ class BrutalDesignTheme extends AppDesignTheme {
         navButtonSize: 48.0,
       ),
       chipGroupStyle: ChipGroupStyle(
-        unselectedBackground: Colors.grey.shade800,
-        unselectedText: Colors.white,
-        selectedBackground: Colors.white,
-        selectedText: Colors.black,
-        selectedBorderColor: Colors.white,
+        unselectedBackground: scheme.surfaceContainer,
+        unselectedText: scheme.onSurface,
+        selectedBackground: scheme.primary,
+        selectedText: scheme.onPrimary,
+        selectedBorderColor: scheme.primary,
         borderRadius: 4.0,
+      ),
+      tableStyle: TableStyle(
+        headerBackground: scheme.surface,
+        rowBackground: scheme.surface,
+        gridColor: scheme.onSurface,
+        gridWidth: 3.0,
+        showVerticalGrid: true,
+        cellPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
+        rowHeight: 56.0,
+        headerTextStyle: appTextTheme.titleMedium!.copyWith(color: scheme.onSurface),
+        cellTextStyle: appTextTheme.labelLarge!.copyWith(color: scheme.onSurface),
+        invertRowOnHover: false,
+        glowRowOnHover: false,
+        hoverRowBackground: scheme.surfaceContainerHighest,
+        hoverRowContentColor: null,
+        modeTransitionDuration: const Duration(milliseconds: 200),
       ),
       topologySpec: _buildTopologySpec(scheme, isLight: true),
     );
@@ -764,8 +789,8 @@ class BrutalDesignTheme extends AppDesignTheme {
   factory BrutalDesignTheme.dark([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultDarkScheme;
     final black = scheme.onSurface;
-    final bottomSheetOverlay = Colors.white.withValues(alpha: 0.6);
-    final sideSheetOverlay = Colors.white.withValues(alpha: 0.6);
+    final bottomSheetOverlay = scheme.surface.withValues(alpha: 0.6);
+    final sideSheetOverlay = scheme.surface.withValues(alpha: 0.6);
 
     return BrutalDesignTheme._(
       surfaceBase: SurfaceStyle(
@@ -824,8 +849,8 @@ class BrutalDesignTheme extends AppDesignTheme {
       ),
       // Secondary (Tonal) Surface - Medium emphasis with mechanical aesthetic (Dark mode)
       surfaceSecondary: SurfaceStyle(
-        backgroundColor: scheme.surfaceContainerHighest.withValues(alpha: 0.25),
-        borderColor: scheme.outline.withValues(alpha: 0.3),
+        backgroundColor: scheme.surfaceContainerHighest,  // Solid color for better contrast in Brutal
+        borderColor: scheme.outline,
         borderWidth: 2.0,
         borderRadius: 0.0,
         shadows: [
@@ -836,7 +861,7 @@ class BrutalDesignTheme extends AppDesignTheme {
           )
         ],
         blurStrength: 0.0,
-        contentColor: scheme.outline.withValues(alpha: 0.8),
+        contentColor: scheme.onSurface,
       ),
       // Tertiary (Accent) Surface - Decorative with mechanical aesthetic (Dark mode)
       surfaceTertiary: SurfaceStyle(
@@ -921,8 +946,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         period: const Duration(milliseconds: 800),
         borderRadius: 0.0,
         shadows: [
-          const BoxShadow(
-              color: Colors.black, offset: Offset(4, 4), blurRadius: 0),
+          BoxShadow(
+              color: scheme.onSurface, offset: const Offset(4, 4), blurRadius: 0),
         ],
       ),
       toastStyle: ToastStyle(
@@ -930,11 +955,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         margin: EdgeInsets.zero,
         borderRadius: BorderRadius.zero,
         backgroundColor: scheme.surface,
-        textStyle: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'NeueHaasGrotTextRound',
-            color: scheme.onSurface),
+        textStyle: appTextTheme.titleMedium!.copyWith(color: scheme.onSurface),
         displayDuration: const Duration(seconds: 2),
       ),
       dividerStyle: DividerStyle(
@@ -1044,7 +1065,7 @@ class BrutalDesignTheme extends AppDesignTheme {
           blurStrength: 0.0,
           contentColor: black,
         ),
-        barrierColor: Colors.black.withValues(alpha: 0.6),
+        barrierColor: scheme.scrim.withValues(alpha: 0.6),
         barrierBlur: 0.0,
       ),
       motion: const BrutalMotion(),
@@ -1066,38 +1087,38 @@ class BrutalDesignTheme extends AppDesignTheme {
         enableDithering: false,
       ),
       tabsStyle: TabsStyle(
-        activeTextColor: Colors.white,
-        inactiveTextColor: Colors.grey.shade400,
-        indicatorColor: Colors.white,
-        tabBackgroundColor: Colors.black,
+        activeTextColor: scheme.onPrimary,
+        inactiveTextColor: scheme.onSurface.withValues(alpha: 0.6),
+        indicatorColor: scheme.onPrimary,
+        tabBackgroundColor: scheme.primary,
         animationDuration: const Duration(milliseconds: 150),
         indicatorThickness: 3.0,
       ),
       stepperStyle: StepperStyle(
-        activeStepColor: Colors.white,
-        completedStepColor: Colors.grey.shade700,
-        pendingStepColor: Colors.grey.shade900,
-        connectorColor: Colors.grey.shade600,
+        activeStepColor: scheme.primary,
+        completedStepColor: scheme.secondary,
+        pendingStepColor: scheme.surfaceContainerHighest,
+        connectorColor: scheme.outline,
         stepSize: 44.0,
         useDashedConnector: false,
       ),
       breadcrumbStyle: BreadcrumbStyle(
-        activeLinkColor: Colors.white,
-        inactiveLinkColor: Colors.grey.shade300,
-        separatorColor: Colors.white,
+        activeLinkColor: scheme.primary,
+        inactiveLinkColor: scheme.onSurface.withValues(alpha: 0.5),
+        separatorColor: scheme.primary,
         separatorText: ' > ',
-        itemTextStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+        itemTextStyle: appTextTheme.labelLarge!,
       ),
       expansionPanelStyle: ExpansionPanelStyle(
-        headerColor: Colors.black,
-        expandedBackgroundColor: Colors.grey.shade900,
-        headerTextColor: Colors.white,
+        headerColor: scheme.surface,
+        expandedBackgroundColor: scheme.surfaceContainer,
+        headerTextColor: scheme.onSurface,
         expandIcon: Icons.expand_more,
         animationDuration: const Duration(milliseconds: 150),
       ),
       carouselStyle: CarouselStyle(
-        navButtonColor: Colors.white,
-        navButtonHoverColor: Colors.grey.shade200,
+        navButtonColor: scheme.onSurface,
+        navButtonHoverColor: scheme.outline,
         previousIcon: Icons.arrow_back,
         nextIcon: Icons.arrow_forward,
         animationDuration: const Duration(milliseconds: 150),
@@ -1106,12 +1127,28 @@ class BrutalDesignTheme extends AppDesignTheme {
         navButtonSize: 48.0,
       ),
       chipGroupStyle: ChipGroupStyle(
-        unselectedBackground: Colors.grey.shade800,
-        unselectedText: Colors.white,
-        selectedBackground: Colors.white,
-        selectedText: Colors.black,
-        selectedBorderColor: Colors.white,
+        unselectedBackground: scheme.surfaceContainer,
+        unselectedText: scheme.onSurface,
+        selectedBackground: scheme.primary,
+        selectedText: scheme.onPrimary,
+        selectedBorderColor: scheme.primary,
         borderRadius: 4.0,
+      ),
+      tableStyle: TableStyle(
+        headerBackground: scheme.surface,
+        rowBackground: scheme.surface,
+        gridColor: black,
+        gridWidth: 3.0,
+        showVerticalGrid: true,
+        cellPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
+        rowHeight: 56.0,
+        headerTextStyle: appTextTheme.titleMedium!.copyWith(color: black),
+        cellTextStyle: appTextTheme.labelLarge!.copyWith(color: black),
+        invertRowOnHover: false,
+        glowRowOnHover: false,
+        hoverRowBackground: scheme.surfaceContainerHighest,
+        hoverRowContentColor: null,
+        modeTransitionDuration: const Duration(milliseconds: 200),
       ),
       topologySpec: _buildTopologySpec(scheme, isLight: false),
     );
@@ -1210,8 +1247,8 @@ class BrutalDesignTheme extends AppDesignTheme {
       ),
 
       // Link styles - industrial connections
-      ethernetLinkStyle: const LinkStyle(
-        color: Colors.black,
+      ethernetLinkStyle: LinkStyle(
+        color: borderColor,
         width: 3.0,
         dashPattern: null,
         glowColor: Colors.transparent,
@@ -1219,7 +1256,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         animationDuration: Duration.zero,
       ),
       wifiStrongStyle: LinkStyle(
-        color: Colors.green.shade700,
+        color: scheme.tertiary,
         width: 3.0,
         dashPattern: const [8.0, 4.0],
         glowColor: Colors.transparent,
@@ -1227,7 +1264,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         animationDuration: const Duration(milliseconds: 800),
       ),
       wifiMediumStyle: LinkStyle(
-        color: Colors.orange.shade700,
+        color: scheme.secondary,
         width: 3.0,
         dashPattern: const [6.0, 4.0],
         glowColor: Colors.transparent,

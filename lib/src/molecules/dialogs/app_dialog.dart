@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_portal/flutter_portal.dart';
 import '../../atoms/surfaces/app_surface.dart';
 import '../../foundation/theme/design_system/app_design_theme.dart';
 
@@ -209,10 +210,18 @@ Future<T?> showAppDialog<T>({
       return content;
     },
     pageBuilder: (dialogContext, animation, secondaryAnimation) {
-      // Wrap with Theme to propagate the design theme to the dialog
+      // Wrap with Theme, Portal, and Material to:
+      // - Propagate design theme
+      // - Provide Portal ancestor for components like AppDropdown
+      // - Provide Material ancestor for TextField
       return Theme(
         data: themeData,
-        child: builder(dialogContext),
+        child: Portal(
+          child: Material(
+            type: MaterialType.transparency,
+            child: builder(dialogContext),
+          ),
+        ),
       );
     },
   );

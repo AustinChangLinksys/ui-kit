@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_portal/flutter_portal.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
 /// Configuration for bottom sheet display
@@ -206,6 +207,56 @@ class _AppBottomSheetState extends State<AppBottomSheet>
       ),
     );
   }
+}
+
+/// Shows a theme-aware bottom sheet.
+///
+/// Returns a [Future] that completes with the value passed to [Navigator.pop]
+/// when the sheet is dismissed.
+Future<T?> showAppBottomSheet<T>({
+  required BuildContext context,
+  required Widget child,
+  double? maxHeight,
+  double? minHeight,
+  EdgeInsets padding = const EdgeInsets.all(16),
+  bool isDismissible = true,
+  bool enableDrag = true,
+  BottomSheetDisplayMode displayMode = BottomSheetDisplayMode.intrinsic,
+  BottomSheetStyle? style,
+}) {
+  // Capture theme data to propagate to the bottom sheet
+  final themeData = Theme.of(context);
+
+  return Navigator.of(context).push<T>(
+    PageRouteBuilder<T>(
+      opaque: false,
+      barrierDismissible: isDismissible,
+      pageBuilder: (context, animation, secondaryAnimation) {
+        // Wrap with Theme, Portal, and Material to:
+        // - Propagate design theme
+        // - Provide Portal ancestor for components like AppDropdown
+        // - Provide Material ancestor for TextField
+        return Theme(
+          data: themeData,
+          child: Portal(
+            child: Material(
+              type: MaterialType.transparency,
+              child: AppBottomSheet(
+                maxHeight: maxHeight,
+                minHeight: minHeight,
+                padding: padding,
+                isDismissible: isDismissible,
+                enableDrag: enableDrag,
+                displayMode: displayMode,
+                style: style,
+                child: child,
+              ),
+            ),
+          ),
+        );
+      },
+    ),
+  );
 }
 
 /// Draggable handle at the top of the bottom sheet
