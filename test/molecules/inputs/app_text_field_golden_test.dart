@@ -37,7 +37,7 @@ void main() {
             AppTextField(hintText: 'Focused Text'),
             SizedBox(height: 10),
 
-            // 3. Error State
+            // 3. Error State (No Layout Shift - icon + tooltip instead of text below)
             AppTextField(
               hintText: 'Required',
               errorText: 'This field is required.',
@@ -64,6 +64,37 @@ void main() {
               textVariant: AppTextVariant.headlineSmall,
               prefixIcon: Icon(Icons.title),
               variant: AppInputVariant.underline,
+            ),
+          ],
+        ),
+      ),
+    );
+
+    // Dedicated test for No Layout Shift error handling
+    goldenTest(
+      'AppTextField Error States - No Layout Shift',
+      fileName: 'app_text_field_error_no_shift',
+      builder: () => buildThemeMatrix(
+        name: 'Error No Shift',
+        width: 300,
+        height: 200,
+        child: const Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Row 1: Normal state
+            AppTextField(hintText: 'Normal input'),
+            SizedBox(height: 8),
+            // Row 2: Error state - should have SAME height as normal
+            AppTextField(
+              hintText: 'Error input',
+              errorText: 'Error message shown in tooltip',
+            ),
+            SizedBox(height: 8),
+            // Row 3: Underline with error
+            AppTextField(
+              variant: AppInputVariant.underline,
+              hintText: 'Underline error',
+              errorText: 'Border turns red + icon appears',
             ),
           ],
         ),

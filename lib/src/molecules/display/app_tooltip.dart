@@ -13,6 +13,7 @@ class AppTooltip extends StatefulWidget {
     this.maxHeight,
     this.padding,
     this.initiallyVisible = false,
+    this.visible,
     super.key,
   }) : assert(message != null || content != null,
             'Must provide message or content');
@@ -26,7 +27,12 @@ class AppTooltip extends StatefulWidget {
   final double? maxHeight;
   final EdgeInsetsGeometry? padding;
 
+  /// Initial visibility state (used when [visible] is null)
   final bool initiallyVisible;
+
+  /// External visibility control. When non-null, overrides internal state.
+  /// Use this for programmatic control (e.g., show on focus, show on error).
+  final bool? visible;
 
   @override
   State<AppTooltip> createState() => _AppTooltipState();
@@ -47,15 +53,22 @@ class _AppTooltipState extends State<AppTooltip> {
   Widget build(BuildContext context) {
     final theme = AppTheme.of(context);
 
+    // External visibility overrides internal state
+    final isVisible = widget.visible ?? _isVisible;
+
     return MouseRegion(
       onEnter: (_) => setState(() => _isVisible = true),
       onExit: (_) => setState(() => _isVisible = false),
       child: GestureDetector(
         onLongPress: () => setState(() => _isVisible = true),
         onLongPressUp: () => setState(() => _isVisible = false),
+        // Support tap to toggle for touch devices
+        onTap: widget.visible == null
+            ? () => setState(() => _isVisible = !_isVisible)
+            : null,
 
         child: PortalTarget(
-          visible: _isVisible,
+          visible: isVisible,
           anchor: _resolveAnchor(),
           portalFollower: _buildPopup(theme),
           child: widget.child,

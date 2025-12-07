@@ -24,6 +24,7 @@ import 'package:ui_kit_library/src/foundation/theme/design_system/specs/expansio
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/carousel_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/chip_group_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/topology_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/styles/table_style.dart';
 import 'specs/surface_style.dart';
 
 part 'app_design_theme.tailor.dart';
@@ -123,6 +124,9 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
   @override
   final TopologySpec topologySpec;
 
+  @override
+  final TableStyle tableStyle;
+
   const AppDesignTheme({
     required this.surfaceBase,
     required this.surfaceElevated,
@@ -157,5 +161,6 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
     required this.carouselStyle,
     required this.chipGroupStyle,
     required this.topologySpec,
+    required this.tableStyle,
   });
 }

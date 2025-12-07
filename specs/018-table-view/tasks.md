@@ -21,10 +21,10 @@ description: "Task list for Table View Component implementation"
 
 **Purpose**: Project initialization and theme infrastructure
 
-- [ ] T001 Create feature directory structure in `lib/src/molecules/table/`
-- [ ] T002 Define `TableStyle` class in `lib/src/foundation/theme/styles/table_style.dart`
-- [ ] T003 Update `ThemeFactory` to inject `TableStyle` into `NeumorphicDesignTheme` and `PixelDesignTheme`
-- [ ] T004 Run `build_runner` to generate theme extensions
+- [x] T001 Create feature directory structure in `lib/src/molecules/table/`
+- [x] T002 Define `TableStyle` class in `lib/src/foundation/theme/styles/table_style.dart`
+- [x] T003 Update `ThemeFactory` to inject `TableStyle` into `NeumorphicDesignTheme` and `PixelDesignTheme`
+- [x] T004 Run `build_runner` to generate theme extensions
 
 ---
 
@@ -32,10 +32,10 @@ description: "Task list for Table View Component implementation"
 
 **Purpose**: Core infrastructure that MUST be complete before ANY user story can be implemented
 
-- [ ] T005 Create `AppDataTable` widget scaffold in `lib/src/molecules/table/app_data_table.dart`
-- [ ] T006 Create `AppTableColumn` definition in `lib/src/molecules/table/table_column.dart`
-- [ ] T007 [P] Implement `_TableHeader` component in `lib/src/molecules/table/widgets/table_header.dart`
-- [ ] T008 [P] Implement `_TablePagination` component in `lib/src/molecules/table/widgets/table_pagination.dart`
+- [x] T005 Create `AppDataTable` widget scaffold in `lib/src/molecules/table/app_data_table.dart`
+- [x] T006 Create `AppTableColumn` definition in `lib/src/molecules/table/table_column.dart`
+- [x] T007 [P] Implement `_TableHeader` component in `lib/src/molecules/table/widgets/table_header.dart`
+- [x] T008 [P] Implement `_TablePagination` component in `lib/src/molecules/table/widgets/table_pagination.dart`
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -49,12 +49,12 @@ description: "Task list for Table View Component implementation"
 
 ### Implementation for User Story 1
 
-- [ ] T009 [US1] Implement `_GridRenderer` for Desktop/Laptop in `lib/src/molecules/table/renderers/grid_renderer.dart`
-- [ ] T010 [US1] Implement `_CardRenderer` for Mobile in `lib/src/molecules/table/renderers/card_renderer.dart`
-- [ ] T011 [US1] Implement `LayoutBuilder` logic in `AppDataTable` to switch renderers based on breakpoint
-- [ ] T012 [US1] Apply `TableStyle` (Pixel grid vs Glass blur) to rows in `_GridRenderer`
-- [ ] T013 [US1] Implement text truncation and tooltip logic for long content in `_DataRow`
-- [ ] T014 [US1] Implement embedded component scaling logic in cell builders
+- [x] T009 [US1] Implement `_GridRenderer` for Desktop/Laptop in `lib/src/molecules/table/renderers/grid_renderer.dart`
+- [x] T010 [US1] Implement `_CardRenderer` for Mobile in `lib/src/molecules/table/renderers/card_renderer.dart`
+- [x] T011 [US1] Implement `LayoutBuilder` logic in `AppDataTable` to switch renderers based on breakpoint
+- [x] T012 [US1] Apply `TableStyle` (Pixel grid vs Glass blur) to rows in `_GridRenderer`
+- [x] T013 [US1] Implement text truncation and tooltip logic for long content in `_DataRow`
+- [x] T014 [US1] Implement embedded component scaling logic in cell builders
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
@@ -68,12 +68,12 @@ description: "Task list for Table View Component implementation"
 
 ### Implementation for User Story 2
 
-- [ ] T015 [US2] Implement internal state management for `editingRowIndex` in `AppDataTable`
-- [ ] T016 [US2] Implement "Edit", "Delete", and "Cancel" action buttons in `_DataRow` and `_CardRenderer`
-- [ ] T017 [US2] Implement `editBuilder` support in `_DataRow` to render custom input widgets
-- [ ] T018 [US2] Implement fallback `AppTextFormField` logic when `editBuilder` is null
-- [ ] T019 [US2] Implement row dimming/disabling logic for non-editing rows
-- [ ] T020 [US2] Apply theme-specific motion (Instant vs Fluid) for mode transitions
+- [x] T015 [US2] Implement internal state management for `editingRowIndex` in `AppDataTable`
+- [x] T016 [US2] Implement "Edit", "Delete", and "Cancel" action buttons in `_DataRow` and `_CardRenderer`
+- [x] T017 [US2] Implement `editBuilder` support in `_DataRow` to render custom input widgets
+- [x] T018 [US2] Implement fallback `AppTextFormField` logic when `editBuilder` is null
+- [x] T019 [US2] Implement row dimming/disabling logic for non-editing rows
+- [x] T020 [US2] Apply theme-specific motion (Instant vs Fluid) for mode transitions
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
@@ -85,11 +85,30 @@ description: "Task list for Table View Component implementation"
 
 **Independent Test**: Trigger validation errors and verify layout stability and visual indicators.
 
-### Implementation for User Story 3
+### 5.1 Core Error Handling (No Layout Shift Policy)
 
-- [ ] T021 [US3] Integrate validation logic into `AppTextFormField` within table rows
-- [ ] T022 [US3] Implement error visual indicators (border color, icon) using `AppColorScheme.error`
-- [ ] T023 [US3] Ensure validation error tooltip appears on interaction
+**Principle**: 不佔位原則 - Validation errors MUST NOT expand space below input fields.
+
+- [x] T021 [US3] Refactor `AppTextField` to remove error text below input (lines 191-204)
+- [x] T022 [US3] Add error warning icon in suffix position when `errorText` is present
+- [x] T023 [US3] Implement `AppTooltip` for error message display on icon click/tap
+- [x] T024 [US3] Implement error tooltip display on input focus (alternative trigger)
+- [x] T025 [US3] Ensure border color changes to `AppColorScheme.error` (already implemented, verify)
+
+### 5.2 Diverse Input Field Support
+
+**Goal**: Support specialized input types within table edit mode.
+
+- [x] T026 [US3] Refactor `AppIPv4TextField` follows no-layout-shift error handling
+- [x] T027 [US3] Verify `AppIPv6TextField` follows no-layout-shift error handling (uses AppTextFormField)
+- [x] T028 [US3] Verify `AppMacAddressTextField` follows no-layout-shift error handling (uses AppTextFormField)
+- [x] T029 [US3] Create `AppNumberTextField` with separator support (e.g., "1,000,000")
+- [x] T030 [US3] Document `editBuilder` usage examples for all input types in Widgetbook
+
+### 5.3 Golden Tests for Error States
+
+- [x] T031 [US3] Add golden test for input error state (icon visible, no layout shift)
+- [x] T032 [US3] Add golden test for error tooltip display (covered by existing test + Portal fix)
 
 **Checkpoint**: All user stories should now be independently functional
 
@@ -99,12 +118,12 @@ description: "Task list for Table View Component implementation"
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T024 [P] Implement haptic feedback for key actions (Edit, Save)
-- [ ] T025 [P] Implement sound cues for Pixel theme success/failure
-- [ ] T026 Create Widgetbook stories in `widgetbook/lib/stories/table_stories.dart`
-- [ ] T027 [Constitution] Implement Golden Tests (Light/Dark, Pixel/Glass, Scale 1.0/1.5) in `test/molecules/table_golden_test.dart`
-- [ ] T028 [Constitution] Integrate `TableStyle` parameters into Theme Editor control panel
-- [ ] T029 Code cleanup and final lint check
+- [x] T033 [P] Implement haptic feedback for key actions (Edit, Save)
+- [x] T034 [P] Implement sound cues for Pixel theme success/failure
+- [x] T035 Create Widgetbook stories in `widgetbook/lib/stories/table_stories.dart`
+- [x] T036 [Constitution] Implement Golden Tests (Light/Dark, Pixel/Glass, Scale 1.0/1.5) in `test/molecules/table_golden_test.dart`
+- [x] T037 [Constitution] Integrate `TableStyle` parameters into Theme Editor control panel
+- [x] T038 Code cleanup and final lint check
 
 ---
 

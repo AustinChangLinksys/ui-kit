@@ -13,8 +13,8 @@ class PixelDesignTheme extends AppDesignTheme {
   factory PixelDesignTheme._raw(AppColorScheme colors) {
     final isLight = colors.surface.computeLuminance() > 0.5;
     final overlayColor = isLight
-        ? Colors.black.withValues(alpha: 0.4)
-        : Colors.white.withValues(alpha: 0.4);
+        ? colors.onSurface.withValues(alpha: 0.4)
+        : colors.surface.withValues(alpha: 0.4);
 
     return PixelDesignTheme._(
       surfaceBase: SurfaceStyle(
@@ -182,11 +182,7 @@ class PixelDesignTheme extends AppDesignTheme {
         margin: EdgeInsets.zero,
         borderRadius: BorderRadius.zero,
         backgroundColor: colors.surface,
-        textStyle: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'NeueHaasGrotTextRound',
-            color: colors.onSurface),
+        textStyle: appTextTheme.labelMedium!.copyWith(color: colors.onSurface),
         displayDuration: const Duration(seconds: 2),
       ),
       dividerStyle: DividerStyle(
@@ -344,8 +340,7 @@ class PixelDesignTheme extends AppDesignTheme {
         inactiveLinkColor: colors.onSurface.withValues(alpha: 0.5),
         separatorColor: colors.primary,
         separatorText: ' > ',
-        itemTextStyle: const TextStyle(
-            fontSize: 14, fontWeight: FontWeight.bold, fontFamily: 'Courier'),
+        itemTextStyle: appTextTheme.labelLarge!.copyWith(fontFamily: 'Courier'),
       ),
       expansionPanelStyle: ExpansionPanelStyle(
         headerColor: colors.surface, // Or black
@@ -371,6 +366,22 @@ class PixelDesignTheme extends AppDesignTheme {
         selectedText: colors.onPrimary,
         selectedBorderColor: colors.highContrastBorder,
         borderRadius: 0.0,
+      ),
+      tableStyle: TableStyle(
+        headerBackground: colors.surface,
+        rowBackground: colors.surface,
+        gridColor: colors.highContrastBorder,
+        gridWidth: 1.0,
+        showVerticalGrid: true,
+        cellPadding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
+        rowHeight: 48.0,
+        headerTextStyle: appTextTheme.labelLarge!.copyWith(color: colors.onSurface),
+        cellTextStyle: appTextTheme.bodyMedium!.copyWith(color: colors.onSurface),
+        invertRowOnHover: true,
+        glowRowOnHover: false,
+        hoverRowBackground: colors.onSurface,
+        hoverRowContentColor: colors.surface,
+        modeTransitionDuration: Duration.zero,
       ),
       topologySpec: _buildTopologySpec(colors.toMaterialScheme(brightness: isLight ? Brightness.light : Brightness.dark), isLight: isLight),
     );
@@ -410,12 +421,13 @@ class PixelDesignTheme extends AppDesignTheme {
     required super.expansionPanelStyle,
     required super.carouselStyle,
     required super.chipGroupStyle,
+    required super.tableStyle,
     required super.topologySpec,
   });
 
   factory PixelDesignTheme.light([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultLightScheme;
-    final overlayColor = Colors.black.withValues(alpha: 0.4);
+    final overlayColor = scheme.scrim.withValues(alpha: 0.4);
     return PixelDesignTheme._(
       surfaceBase: SurfaceStyle(
         backgroundColor: scheme.surface,
@@ -583,11 +595,7 @@ class PixelDesignTheme extends AppDesignTheme {
         margin: EdgeInsets.zero,
         borderRadius: BorderRadius.zero,
         backgroundColor: scheme.surface,
-        textStyle: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'NeueHaasGrotTextRound',
-            color: scheme.onSurface),
+        textStyle: appTextTheme.labelMedium!.copyWith(color: scheme.onSurface),
         displayDuration: const Duration(seconds: 2),
       ),
       dividerStyle: DividerStyle(
@@ -704,7 +712,7 @@ class PixelDesignTheme extends AppDesignTheme {
           blurStrength: 0.0,
           contentColor: scheme.onSurface,
         ),
-        barrierColor: Colors.black.withValues(alpha: 0.5),
+        barrierColor: scheme.scrim.withValues(alpha: 0.5),
         barrierBlur: 0.0,
         maxWidth: 400.0,
         padding: const EdgeInsets.all(16.0),
@@ -731,39 +739,38 @@ class PixelDesignTheme extends AppDesignTheme {
         enableDithering: true,
       ),
       tabsStyle: TabsStyle(
-        activeTextColor: Colors.white,
-        inactiveTextColor: Colors.grey.shade400,
-        indicatorColor: Colors.white,
-        tabBackgroundColor: Colors.black,
+        activeTextColor: scheme.surface,
+        inactiveTextColor: scheme.outline,
+        indicatorColor: scheme.surface,
+        tabBackgroundColor: scheme.onSurface,
         animationDuration: const Duration(milliseconds: 100),
         indicatorThickness: 4.0,
       ),
       stepperStyle: StepperStyle(
-        activeStepColor: Colors.white,
-        completedStepColor: Colors.grey.shade600,
-        pendingStepColor: Colors.grey.shade800,
-        connectorColor: Colors.grey.shade600,
+        activeStepColor: scheme.surface,
+        completedStepColor: scheme.outline,
+        pendingStepColor: scheme.surfaceContainerHighest,
+        connectorColor: scheme.outline,
         stepSize: 48.0,
         useDashedConnector: true,
       ),
       breadcrumbStyle: BreadcrumbStyle(
-        activeLinkColor: Colors.white,
-        inactiveLinkColor: Colors.grey.shade300,
-        separatorColor: Colors.white,
+        activeLinkColor: scheme.surface,
+        inactiveLinkColor: scheme.outline,
+        separatorColor: scheme.surface,
         separatorText: ' > ',
-        itemTextStyle: const TextStyle(
-            fontSize: 14, fontWeight: FontWeight.bold, fontFamily: 'Courier'),
+        itemTextStyle: appTextTheme.labelLarge!.copyWith(fontFamily: 'Courier'),
       ),
       expansionPanelStyle: ExpansionPanelStyle(
-        headerColor: Colors.black,
-        expandedBackgroundColor: Colors.grey.shade900,
-        headerTextColor: Colors.white,
+        headerColor: scheme.onSurface,
+        expandedBackgroundColor: scheme.surfaceContainerHighest,
+        headerTextColor: scheme.surface,
         expandIcon: Icons.expand_more,
         animationDuration: const Duration(milliseconds: 100),
       ),
       carouselStyle: CarouselStyle(
-        navButtonColor: Colors.white,
-        navButtonHoverColor: Colors.grey.shade200,
+        navButtonColor: scheme.surface,
+        navButtonHoverColor: scheme.surfaceContainer,
         previousIcon: Icons.arrow_back,
         nextIcon: Icons.arrow_forward,
         animationDuration: const Duration(milliseconds: 100),
@@ -772,12 +779,28 @@ class PixelDesignTheme extends AppDesignTheme {
         navButtonSize: 64.0,
       ),
       chipGroupStyle: ChipGroupStyle(
-        unselectedBackground: Colors.grey.shade800,
-        unselectedText: Colors.white,
-        selectedBackground: Colors.white,
-        selectedText: Colors.black,
-        selectedBorderColor: Colors.white,
+        unselectedBackground: scheme.surfaceContainerHighest,
+        unselectedText: scheme.surface,
+        selectedBackground: scheme.surface,
+        selectedText: scheme.onSurface,
+        selectedBorderColor: scheme.surface,
         borderRadius: 0.0,
+      ),
+      tableStyle: TableStyle(
+        headerBackground: scheme.surface,
+        rowBackground: scheme.surface,
+        gridColor: scheme.onSurface,
+        gridWidth: 1.0,
+        showVerticalGrid: true,
+        cellPadding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
+        rowHeight: 48.0,
+        headerTextStyle: appTextTheme.labelLarge!.copyWith(color: scheme.onSurface),
+        cellTextStyle: appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
+        invertRowOnHover: true,
+        glowRowOnHover: false,
+        hoverRowBackground: scheme.onSurface,
+        hoverRowContentColor: scheme.surface,
+        modeTransitionDuration: Duration.zero,
       ),
       topologySpec: _buildTopologySpec(scheme, isLight: true),
     );
@@ -785,7 +808,7 @@ class PixelDesignTheme extends AppDesignTheme {
 
   factory PixelDesignTheme.dark([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultDarkScheme;
-    final overlayColor = Colors.white.withValues(alpha: 0.4);
+    final overlayColor = scheme.inverseSurface.withValues(alpha: 0.4);
     final black = scheme.onSurface;
 
     return PixelDesignTheme._(
@@ -950,11 +973,7 @@ class PixelDesignTheme extends AppDesignTheme {
         margin: EdgeInsets.zero,
         borderRadius: BorderRadius.zero,
         backgroundColor: scheme.surface,
-        textStyle: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'NeueHaasGrotTextRound',
-            color: black),
+        textStyle: appTextTheme.labelMedium!.copyWith(color: black),
         displayDuration: const Duration(seconds: 2),
       ),
       dividerStyle: DividerStyle(
@@ -1071,7 +1090,7 @@ class PixelDesignTheme extends AppDesignTheme {
           blurStrength: 0.0,
           contentColor: black,
         ),
-        barrierColor: Colors.black.withValues(alpha: 0.6),
+        barrierColor: scheme.scrim.withValues(alpha: 0.6),
         barrierBlur: 0.0,
         maxWidth: 400.0,
         padding: const EdgeInsets.all(16.0),
@@ -1097,39 +1116,38 @@ class PixelDesignTheme extends AppDesignTheme {
         enableDithering: true,
       ),
       tabsStyle: TabsStyle(
-        activeTextColor: Colors.white,
-        inactiveTextColor: Colors.grey.shade400,
-        indicatorColor: Colors.white,
-        tabBackgroundColor: Colors.black,
+        activeTextColor: scheme.inverseSurface,
+        inactiveTextColor: scheme.outline,
+        indicatorColor: scheme.inverseSurface,
+        tabBackgroundColor: scheme.surface,
         animationDuration: const Duration(milliseconds: 100),
         indicatorThickness: 4.0,
       ),
       stepperStyle: StepperStyle(
-        activeStepColor: Colors.white,
-        completedStepColor: Colors.grey.shade600,
-        pendingStepColor: Colors.grey.shade800,
-        connectorColor: Colors.grey.shade600,
+        activeStepColor: scheme.inverseSurface,
+        completedStepColor: scheme.outline,
+        pendingStepColor: scheme.surfaceContainerHighest,
+        connectorColor: scheme.outline,
         stepSize: 48.0,
         useDashedConnector: true,
       ),
       breadcrumbStyle: BreadcrumbStyle(
-        activeLinkColor: Colors.white,
-        inactiveLinkColor: Colors.grey.shade300,
-        separatorColor: Colors.white,
+        activeLinkColor: scheme.inverseSurface,
+        inactiveLinkColor: scheme.outline,
+        separatorColor: scheme.inverseSurface,
         separatorText: ' > ',
-        itemTextStyle: const TextStyle(
-            fontSize: 14, fontWeight: FontWeight.bold, fontFamily: 'Courier'),
+        itemTextStyle: appTextTheme.labelLarge!.copyWith(fontFamily: 'Courier'),
       ),
       expansionPanelStyle: ExpansionPanelStyle(
-        headerColor: Colors.black,
-        expandedBackgroundColor: Colors.grey.shade900,
-        headerTextColor: Colors.white,
+        headerColor: scheme.surface,
+        expandedBackgroundColor: scheme.surfaceContainerHighest,
+        headerTextColor: scheme.inverseSurface,
         expandIcon: Icons.expand_more,
         animationDuration: const Duration(milliseconds: 100),
       ),
       carouselStyle: CarouselStyle(
-        navButtonColor: Colors.white,
-        navButtonHoverColor: Colors.grey.shade200,
+        navButtonColor: scheme.inverseSurface,
+        navButtonHoverColor: scheme.surfaceContainer,
         previousIcon: Icons.arrow_back,
         nextIcon: Icons.arrow_forward,
         animationDuration: const Duration(milliseconds: 100),
@@ -1138,12 +1156,28 @@ class PixelDesignTheme extends AppDesignTheme {
         navButtonSize: 64.0,
       ),
       chipGroupStyle: ChipGroupStyle(
-        unselectedBackground: Colors.grey.shade800,
-        unselectedText: Colors.white,
-        selectedBackground: Colors.white,
-        selectedText: Colors.black,
-        selectedBorderColor: Colors.white,
+        unselectedBackground: scheme.surfaceContainerHighest,
+        unselectedText: scheme.inverseSurface,
+        selectedBackground: scheme.inverseSurface,
+        selectedText: scheme.surface,
+        selectedBorderColor: scheme.inverseSurface,
         borderRadius: 0.0,
+      ),
+      tableStyle: TableStyle(
+        headerBackground: scheme.surface,
+        rowBackground: scheme.surface,
+        gridColor: black,
+        gridWidth: 1.0,
+        showVerticalGrid: true,
+        cellPadding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
+        rowHeight: 48.0,
+        headerTextStyle: appTextTheme.labelLarge!.copyWith(color: black),
+        cellTextStyle: appTextTheme.bodyMedium!.copyWith(color: black),
+        invertRowOnHover: true,
+        glowRowOnHover: false,
+        hoverRowBackground: black,
+        hoverRowContentColor: scheme.surface,
+        modeTransitionDuration: Duration.zero,
       ),
       topologySpec: _buildTopologySpec(scheme, isLight: false),
     );
@@ -1251,21 +1285,21 @@ class PixelDesignTheme extends AppDesignTheme {
         glowRadius: 0.0,
         animationDuration: Duration.zero,
       ),
-      wifiStrongStyle: const LinkStyle(
-        color: Colors.green,
+      wifiStrongStyle: LinkStyle(
+        color: scheme.primary,
         width: 2.0,
-        dashPattern: [4.0, 2.0], // Shorter dashes for pixel feel
+        dashPattern: const [4.0, 2.0], // Shorter dashes for pixel feel
         glowColor: Colors.transparent,
         glowRadius: 0.0,
-        animationDuration: Duration(milliseconds: 600),
+        animationDuration: const Duration(milliseconds: 600),
       ),
-      wifiMediumStyle: const LinkStyle(
-        color: Colors.orange,
+      wifiMediumStyle: LinkStyle(
+        color: scheme.tertiary,
         width: 2.0,
-        dashPattern: [4.0, 2.0],
+        dashPattern: const [4.0, 2.0],
         glowColor: Colors.transparent,
         glowRadius: 0.0,
-        animationDuration: Duration(milliseconds: 800),
+        animationDuration: const Duration(milliseconds: 800),
       ),
       wifiWeakStyle: LinkStyle(
         color: errorColor,

@@ -198,8 +198,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         margin: const EdgeInsets.all(20),
         borderRadius: BorderRadius.circular(16),
         backgroundColor: colors.surface,
-        textStyle: TextStyle(
-            fontSize: 15, fontWeight: FontWeight.w600, color: colors.onSurface),
+        textStyle: appTextTheme.bodyMedium!.copyWith(color: colors.onSurface),
         displayDuration: const Duration(seconds: 3),
       ),
       dividerStyle: DividerStyle(
@@ -345,7 +344,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         inactiveLinkColor: colors.onSurface.withValues(alpha: 0.6),
         separatorColor: colors.outline,
         separatorText: ' • ',
-        itemTextStyle: const TextStyle(fontSize: 14),
+        itemTextStyle: appTextTheme.bodyMedium!,
       ),
       expansionPanelStyle: ExpansionPanelStyle(
         headerColor: colors.surface,
@@ -371,6 +370,22 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         selectedText: colors.onSurface,
         selectedBorderColor: colors.primary,
         borderRadius: 18.0,
+      ),
+      tableStyle: TableStyle(
+        headerBackground: null,
+        rowBackground: Colors.transparent,
+        gridColor: Colors.transparent,
+        gridWidth: 0.0,
+        showVerticalGrid: false,
+        cellPadding: const EdgeInsets.all(16.0),
+        rowHeight: 56.0,
+        headerTextStyle: appTextTheme.labelLarge!.copyWith(color: colors.onSurfaceVariant),
+        cellTextStyle: appTextTheme.bodyMedium!.copyWith(color: colors.onSurface),
+        invertRowOnHover: false,
+        glowRowOnHover: false,
+        hoverRowBackground: colors.surfaceContainerHighest,
+        hoverRowContentColor: null,
+        modeTransitionDuration: const Duration(milliseconds: 200),
       ),
       topologySpec: _buildTopologySpecFromColors(colors),
     );
@@ -475,10 +490,10 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         animationDuration: const Duration(milliseconds: 1800),
       ),
       wifiMediumStyle: LinkStyle(
-        color: Colors.orange.withValues(alpha: 0.6), // Could be generic warning color
+        color: colors.tertiaryContainer.withValues(alpha: 0.8),
         width: 2.0,
         dashPattern: const [5.0, 3.0],
-        glowColor: Colors.orange.withValues(alpha: 0.1),
+        glowColor: colors.tertiaryContainer.withValues(alpha: 0.2),
         glowRadius: 2.0,
         animationDuration: const Duration(milliseconds: 2200),
       ),
@@ -538,13 +553,14 @@ class NeumorphicDesignTheme extends AppDesignTheme {
     required super.expansionPanelStyle,
     required super.carouselStyle,
     required super.chipGroupStyle,
+    required super.tableStyle,
     required super.topologySpec,
   });
 
   // Default to Light, providing a default ColorScheme
   factory NeumorphicDesignTheme.light([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultLightScheme;
-    final overlayColor = Colors.black.withValues(alpha: 0.2);
+    final overlayColor = scheme.scrim.withValues(alpha: 0.2);
     final lightBaseColor = scheme.surface;
     final lightShadow = Color.alphaBlend(
         scheme.outline.withValues(alpha: 0.5), scheme.surface); // White shadow
@@ -744,13 +760,12 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         margin: const EdgeInsets.all(20),
         borderRadius: BorderRadius.circular(16),
         backgroundColor: scheme.surface,
-        textStyle: TextStyle(
-            fontSize: 15, fontWeight: FontWeight.w600, color: scheme.onSurface),
+        textStyle: appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
         displayDuration: const Duration(seconds: 3),
       ),
       dividerStyle: DividerStyle(
         color: AppPalette.neumorphicLightShadow.withValues(alpha: 0.4),
-        secondaryColor: Colors.white,
+        secondaryColor: scheme.surface,
         thickness: 1.5,
         pattern: DividerPattern.solid,
       ),
@@ -856,7 +871,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           blurStrength: 0.0,
           contentColor: scheme.onSurface,
         ),
-        barrierColor: Colors.black.withValues(alpha: 0.4),
+        barrierColor: scheme.scrim.withValues(alpha: 0.4),
         barrierBlur: 0.0,
       ),
       motion: const NeumorphicMotion(), // Assuming NeumorphicMotion
@@ -898,7 +913,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         inactiveLinkColor: scheme.onSurfaceVariant,
         separatorColor: scheme.outline,
         separatorText: ' • ',
-        itemTextStyle: const TextStyle(fontSize: 14),
+        itemTextStyle: appTextTheme.bodyMedium!,
       ),
       expansionPanelStyle: ExpansionPanelStyle(
         headerColor: scheme.surface,
@@ -925,13 +940,29 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         selectedBorderColor: scheme.primary,
         borderRadius: 18.0,
       ),
+      tableStyle: TableStyle(
+        headerBackground: null,
+        rowBackground: Colors.transparent,
+        gridColor: Colors.transparent,
+        gridWidth: 0.0,
+        showVerticalGrid: false,
+        cellPadding: const EdgeInsets.all(16.0),
+        rowHeight: 56.0,
+        headerTextStyle: appTextTheme.labelLarge!.copyWith(color: scheme.onSurfaceVariant),
+        cellTextStyle: appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
+        invertRowOnHover: false,
+        glowRowOnHover: false,
+        hoverRowBackground: scheme.surfaceContainerHighest,
+        hoverRowContentColor: null,
+        modeTransitionDuration: const Duration(milliseconds: 200),
+      ),
       topologySpec: _buildTopologySpec(scheme, isLight: true),
     );
   }
 
   factory NeumorphicDesignTheme.dark([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultDarkScheme;
-    final overlayColor = Colors.white.withValues(alpha: 0.2);
+    final overlayColor = scheme.inverseSurface.withValues(alpha: 0.2);
     final darkBaseColor = scheme.surface;
     final darkLightShadow = Color.alphaBlend(
         scheme.outline.withValues(alpha: 0.1), scheme.surface); // Light shadow
@@ -1133,8 +1164,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         margin: const EdgeInsets.all(20),
         borderRadius: BorderRadius.circular(16),
         backgroundColor: scheme.surface,
-        textStyle: TextStyle(
-            fontSize: 15, fontWeight: FontWeight.w600, color: scheme.onSurface),
+        textStyle: appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
         displayDuration: const Duration(seconds: 3),
       ),
       dividerStyle: DividerStyle(
@@ -1246,7 +1276,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           blurStrength: 0.0,
           contentColor: scheme.onSurface,
         ),
-        barrierColor: Colors.black.withValues(alpha: 0.5),
+        barrierColor: scheme.scrim.withValues(alpha: 0.5),
         barrierBlur: 0.0,
       ),
       motion: const NeumorphicMotion(), // Assuming NeumorphicMotion
@@ -1288,7 +1318,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         inactiveLinkColor: scheme.onSurfaceVariant,
         separatorColor: scheme.outline,
         separatorText: ' • ',
-        itemTextStyle: const TextStyle(fontSize: 14),
+        itemTextStyle: appTextTheme.bodyMedium!,
       ),
       expansionPanelStyle: ExpansionPanelStyle(
         headerColor: scheme.surface,
@@ -1314,6 +1344,22 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         selectedText: scheme.onSurface,
         selectedBorderColor: scheme.primary,
         borderRadius: 18.0,
+      ),
+      tableStyle: TableStyle(
+        headerBackground: null,
+        rowBackground: Colors.transparent,
+        gridColor: Colors.transparent,
+        gridWidth: 0.0,
+        showVerticalGrid: false,
+        cellPadding: const EdgeInsets.all(16.0),
+        rowHeight: 56.0,
+        headerTextStyle: appTextTheme.labelLarge!.copyWith(color: scheme.onSurfaceVariant),
+        cellTextStyle: appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
+        invertRowOnHover: false,
+        glowRowOnHover: false,
+        hoverRowBackground: scheme.surfaceContainerHighest,
+        hoverRowContentColor: null,
+        modeTransitionDuration: const Duration(milliseconds: 200),
       ),
       topologySpec: _buildTopologySpec(scheme, isLight: false),
     );
@@ -1423,18 +1469,18 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         animationDuration: Duration.zero,
       ),
       wifiStrongStyle: LinkStyle(
-        color: Colors.green.withValues(alpha: 0.6),
+        color: scheme.tertiary.withValues(alpha: 0.6),
         width: 2.0,
         dashPattern: const [6.0, 3.0],
-        glowColor: Colors.green.withValues(alpha: 0.1),
+        glowColor: scheme.tertiary.withValues(alpha: 0.1),
         glowRadius: 3.0,
         animationDuration: const Duration(milliseconds: 1800),
       ),
       wifiMediumStyle: LinkStyle(
-        color: Colors.orange.withValues(alpha: 0.6),
+        color: scheme.tertiaryContainer.withValues(alpha: 0.8),
         width: 2.0,
         dashPattern: const [5.0, 3.0],
-        glowColor: Colors.orange.withValues(alpha: 0.1),
+        glowColor: scheme.tertiaryContainer.withValues(alpha: 0.2),
         glowRadius: 2.0,
         animationDuration: const Duration(milliseconds: 2200),
       ),

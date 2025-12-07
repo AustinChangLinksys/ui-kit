@@ -1,3 +1,9 @@
+# Table View Contracts
+
+This file defines the contract interfaces for the Table View feature.
+*Note: This is a specification file. Actual implementation is in `lib/src/molecules/table/` and `lib/src/foundation/theme/styles/table_style.dart`.*
+
+```dart
 import 'package:flutter/widgets.dart';
 import 'package:theme_tailor/theme_tailor.dart';
 
@@ -110,3 +116,4 @@ class AppDataTable<T> extends StatelessWidget {
     throw UnimplementedError();
   }
 }
+```

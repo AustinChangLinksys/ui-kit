@@ -110,6 +110,34 @@ To maintain long-term maintainability and support multi-style switching, all dev
 
   * Follow the **DRY Principle**. Create a unified `BaseTextStyle` to manage `fontFamily` and package paths.
 
+#### 4.6.1 The Single Source of Truth: appTextTheme
+
+  * **Rule**: All text styling within Design Theme files **MUST** occur exclusively through the `appTextTheme` object defined in `app_typography.dart`.
+  * **Constraint**:
+      * ❌ **Strictly Prohibited**: Using hardcoded `TextStyle()` with manual `fontSize`, `fontWeight`, `fontFamily` in Design Theme files.
+      * ❌ **Strictly Prohibited**: Defining inline text styles in component Spec definitions.
+  * **Practice**: Use `appTextTheme.<variant>!.copyWith(color: scheme.onSurface)` pattern.
+
+#### 4.6.2 Typography Token Mapping
+
+| Token | Size | Weight | Usage |
+|-------|------|--------|-------|
+| `displayLarge` | 57px | w400 | Hero text |
+| `headlineLarge` | 32px | w700 | Page titles |
+| `titleMedium` | 16px | w700 | Section headers, Brutal table headers |
+| `labelLarge` | 14px | w700 | Bold labels, table headers |
+| `labelMedium` | 12px | w700 | Small bold text, Pixel toast |
+| `bodyMedium` | 14px | w400 | Body text, table cells, breadcrumbs |
+| `bodySmall` | 12px | w400 | Captions |
+
+#### 4.6.3 Theme-Specific Typography Customization
+
+  * **Rule**: Themes may customize typography via `.copyWith()` while preserving the base token.
+  * **Examples**:
+      * **Pixel Theme**: `appTextTheme.labelLarge!.copyWith(fontFamily: 'Courier')` for retro monospace effect.
+      * **Brutal Theme**: Use `titleMedium` (16px) for headers instead of `labelLarge` (14px) for bolder impact.
+      * **Neumorphic Theme**: Use `onSurfaceVariant` color for subdued headers.
+
 -----
 
 ## 5\. Interaction & Immersion
@@ -145,6 +173,18 @@ To maintain long-term maintainability and support multi-style switching, all dev
 ### 6.3 Composition over Inheritance
 
   * Use the **Slots Pattern** (e.g., `child`, `leading`, `trailing`). Avoid monolithic widgets.
+
+### 6.4 Overlay Component Wrapper Requirements
+
+  * **Rule**: Modal overlays (`showAppDialog`, `showAppBottomSheet`) **MUST** wrap content with the following hierarchy:
+    ```
+    Theme → Portal → Material → Content
+    ```
+  * **Rationale**:
+      * **Theme**: Ensures design tokens are available in the overlay context.
+      * **Portal**: Required for `flutter_portal` based components (e.g., `AppDropdown`) to function.
+      * **Material**: Required for Material-based widgets (e.g., `TextField`, `InkWell`) to render correctly.
+  * **Constraint**: Never assume the calling context provides these wrappers. Overlays must be self-contained.
 
 -----
 
@@ -187,6 +227,22 @@ To maintain long-term maintainability and support multi-style switching, all dev
 
   * **No Global State**: Use `LayoutBuilder` or `MediaQuery`, never Singletons.
   * **Centralized Config**: Breakpoints and Gutters must be defined in `AppLayout` ThemeExtension.
+
+### 10.1 Responsive Breakpoints
+
+| Breakpoint | Width Range | Primary Use Case |
+|------------|-------------|------------------|
+| Mobile | < 600px | Single column, bottom sheets |
+| Tablet | 600px - 1200px | Dual column, side sheets |
+| Desktop | > 1200px | Multi-column, inline dialogs |
+
+### 10.2 Responsive Edit Mode Strategy
+
+  * **Rule**: Components with edit modes (e.g., Tables) must adapt their editing UX based on screen size.
+  * **Desktop (>1200px)**: Inline editing with Save/Cancel buttons directly in the component.
+  * **Tablet (600-1200px)**: Modal dialogs for edit forms.
+  * **Mobile (<600px)**: Full-screen bottom sheets for edit forms.
+  * **Constraint**: Edit action buttons must conditionally render based on `isEditing && isDesktop`.
 
 -----
 
@@ -264,6 +320,47 @@ AnimatedContainer(
   curve: theme.motion.medium.curve,
   ...
 )
+```
+
+### A.3 Typography in Design Themes
+
+```dart
+// ✅ GOOD: Using appTextTheme tokens
+tableStyle: TableStyle(
+  headerTextStyle: appTextTheme.labelLarge!.copyWith(color: scheme.onSurface),
+  cellTextStyle: appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
+),
+
+// ✅ GOOD: Theme-specific customization preserving base token
+breadcrumbStyle: BreadcrumbStyle(
+  itemTextStyle: appTextTheme.labelLarge!.copyWith(fontFamily: 'Courier'), // Pixel theme
+),
+
+// ❌ BAD: Hardcoded TextStyle
+tableStyle: TableStyle(
+  headerTextStyle: TextStyle(
+    fontFamily: 'NeueHaasGrotTextRound',
+    fontWeight: FontWeight.bold,
+    fontSize: 14,
+  ),
+),
+```
+
+### A.4 Overlay Component Implementation
+
+```dart
+// ✅ GOOD: Proper wrapper hierarchy in showAppDialog
+pageBuilder: (dialogContext, animation, secondaryAnimation) {
+  return Theme(
+    data: themeData,
+    child: Portal(
+      child: Material(
+        type: MaterialType.transparency,
+        child: builder(dialogContext),
+      ),
+    ),
+  );
+},
 ```
 
 -----
@@ -356,3 +453,7 @@ Reviewers shall inspect code based on the following:
   * [ ] **Configurability**: Does the component respect overrides from `AppThemeConfig`?
   * [ ] **Automation**: Is `@TailorMixin` used for all theme extensions?
   * [ ] **Testing**: Do Golden Tests use the "Safe Mode" pattern?
+  * [ ] **Typography**: Are `appTextTheme` tokens used instead of hardcoded `TextStyle()`?
+  * [ ] **Typography Customization**: Do theme-specific text styles use `.copyWith()` on base tokens?
+  * [ ] **Overlay Wrappers**: Do `showAppDialog`/`showAppBottomSheet` wrap content with Theme → Portal → Material?
+  * [ ] **Responsive Edit**: Do edit mode buttons conditionally render based on `isEditing && isDesktop`?

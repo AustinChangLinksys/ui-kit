@@ -213,8 +213,7 @@ class GlassDesignTheme extends AppDesignTheme {
         margin: const EdgeInsets.all(24),
         borderRadius: BorderRadius.circular(16),
         backgroundColor: colors.surface.withValues(alpha: 0.6),
-        textStyle: TextStyle(
-            fontSize: 14, fontWeight: FontWeight.w500, color: colors.onSurface),
+        textStyle: appTextTheme.bodyMedium!.copyWith(color: colors.onSurface),
         displayDuration: const Duration(seconds: 3),
       ),
       dividerStyle: DividerStyle(
@@ -372,7 +371,7 @@ class GlassDesignTheme extends AppDesignTheme {
         inactiveLinkColor: colors.onSurfaceVariant,
         separatorColor: colors.outline,
         separatorText: ' / ',
-        itemTextStyle: const TextStyle(fontSize: 14),
+        itemTextStyle: appTextTheme.bodyMedium!,
       ),
       expansionPanelStyle: ExpansionPanelStyle(
         headerColor: colors.surfaceContainer,
@@ -398,6 +397,22 @@ class GlassDesignTheme extends AppDesignTheme {
         selectedText: colors.onSurface,
         selectedBorderColor: colors.primary,
         borderRadius: 20.0,
+      ),
+      tableStyle: TableStyle(
+        headerBackground: null,
+        rowBackground: colors.surface.withValues(alpha: 0.05),
+        gridColor: Colors.transparent,
+        gridWidth: 0.0,
+        showVerticalGrid: false,
+        cellPadding: const EdgeInsets.all(16.0),
+        rowHeight: 64.0,
+        headerTextStyle: appTextTheme.labelLarge!.copyWith(color: colors.onSurface),
+        cellTextStyle: appTextTheme.bodyMedium!.copyWith(color: colors.onSurface),
+        invertRowOnHover: false,
+        glowRowOnHover: true,
+        hoverRowBackground: colors.primary.withValues(alpha: 0.1),
+        hoverRowContentColor: null,
+        modeTransitionDuration: const Duration(milliseconds: 500),
       ),
       topologySpec: _buildTopologySpec(colors.toMaterialScheme(brightness: Brightness.light), isLight: true), // Temporary until topology uses AppColorScheme
     );
@@ -436,6 +451,7 @@ class GlassDesignTheme extends AppDesignTheme {
     required super.expansionPanelStyle,
     required super.carouselStyle,
     required super.chipGroupStyle,
+    required super.tableStyle,
     required super.topologySpec,
   });
 
@@ -443,7 +459,7 @@ class GlassDesignTheme extends AppDesignTheme {
   factory GlassDesignTheme.light([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultLightScheme;
     final glassBaseColor = scheme.surface.withValues(alpha: 0.02);
-    final overlayColor = Colors.black.withValues(alpha: 0.2);
+    final overlayColor = scheme.scrim.withValues(alpha: 0.2);
 
     return GlassDesignTheme._(
       surfaceBase: SurfaceStyle(
@@ -656,8 +672,7 @@ class GlassDesignTheme extends AppDesignTheme {
         margin: const EdgeInsets.all(24),
         borderRadius: BorderRadius.circular(16),
         backgroundColor: scheme.surface.withValues(alpha: 0.6),
-        textStyle: TextStyle(
-            fontSize: 14, fontWeight: FontWeight.w500, color: scheme.onSurface),
+        textStyle: appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
         displayDuration: const Duration(seconds: 3),
       ),
       dividerStyle: DividerStyle(
@@ -771,7 +786,7 @@ class GlassDesignTheme extends AppDesignTheme {
           blurStrength: 30.0,
           contentColor: scheme.onSurface,
         ),
-        barrierColor: Colors.black.withValues(alpha: 0.3),
+        barrierColor: scheme.scrim.withValues(alpha: 0.3),
         barrierBlur: 10.0,
         maxWidth: 400.0,
         padding: const EdgeInsets.all(24.0),
@@ -818,7 +833,7 @@ class GlassDesignTheme extends AppDesignTheme {
         inactiveLinkColor: scheme.onSurfaceVariant,
         separatorColor: scheme.outline,
         separatorText: ' / ',
-        itemTextStyle: const TextStyle(fontSize: 14),
+        itemTextStyle: appTextTheme.bodyMedium!,
       ),
       expansionPanelStyle: ExpansionPanelStyle(
         headerColor: scheme.surfaceContainer,
@@ -845,13 +860,29 @@ class GlassDesignTheme extends AppDesignTheme {
         selectedBorderColor: scheme.primary,
         borderRadius: 20.0,
       ),
+      tableStyle: TableStyle(
+        headerBackground: null,
+        rowBackground: scheme.surface.withValues(alpha: 0.05),
+        gridColor: Colors.transparent,
+        gridWidth: 0.0,
+        showVerticalGrid: false,
+        cellPadding: const EdgeInsets.all(16.0),
+        rowHeight: 64.0,
+        headerTextStyle: appTextTheme.labelLarge!.copyWith(color: scheme.onSurface),
+        cellTextStyle: appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
+        invertRowOnHover: false,
+        glowRowOnHover: true,
+        hoverRowBackground: scheme.primary.withValues(alpha: 0.1),
+        hoverRowContentColor: null,
+        modeTransitionDuration: const Duration(milliseconds: 500),
+      ),
       topologySpec: _buildTopologySpec(scheme, isLight: true),
     );
   }
 
   factory GlassDesignTheme.dark([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultDarkScheme;
-    final overlayColor = Colors.white.withValues(alpha: 0.2);
+    final overlayColor = scheme.inverseSurface.withValues(alpha: 0.2);
     return GlassDesignTheme._(
       surfaceBase: SurfaceStyle(
         backgroundColor: scheme.shadow.withValues(alpha: 0.3),
@@ -1061,8 +1092,7 @@ class GlassDesignTheme extends AppDesignTheme {
         margin: const EdgeInsets.all(24),
         borderRadius: BorderRadius.circular(16),
         backgroundColor: scheme.surface.withValues(alpha: 0.6),
-        textStyle: TextStyle(
-            fontSize: 14, fontWeight: FontWeight.w500, color: scheme.onSurface),
+        textStyle: appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
         displayDuration: const Duration(seconds: 3),
       ),
       dividerStyle: DividerStyle(
@@ -1174,7 +1204,7 @@ class GlassDesignTheme extends AppDesignTheme {
           blurStrength: 30.0,
           contentColor: scheme.onSurface,
         ),
-        barrierColor: Colors.black.withValues(alpha: 0.4),
+        barrierColor: scheme.scrim.withValues(alpha: 0.4),
         barrierBlur: 10.0,
         maxWidth: 400.0,
         padding: const EdgeInsets.all(24.0),
@@ -1220,7 +1250,7 @@ class GlassDesignTheme extends AppDesignTheme {
         inactiveLinkColor: scheme.onSurfaceVariant,
         separatorColor: scheme.outline,
         separatorText: ' / ',
-        itemTextStyle: const TextStyle(fontSize: 14),
+        itemTextStyle: appTextTheme.bodyMedium!,
       ),
       expansionPanelStyle: ExpansionPanelStyle(
         headerColor: scheme.surfaceContainer,
@@ -1247,6 +1277,22 @@ class GlassDesignTheme extends AppDesignTheme {
         selectedBorderColor: scheme.primary,
         borderRadius: 20.0,
       ),
+      tableStyle: TableStyle(
+        headerBackground: null,
+        rowBackground: scheme.surface.withValues(alpha: 0.05),
+        gridColor: Colors.transparent,
+        gridWidth: 0.0,
+        showVerticalGrid: false,
+        cellPadding: const EdgeInsets.all(16.0),
+        rowHeight: 64.0,
+        headerTextStyle: appTextTheme.labelLarge!.copyWith(color: scheme.onSurface),
+        cellTextStyle: appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
+        invertRowOnHover: false,
+        glowRowOnHover: true,
+        hoverRowBackground: scheme.primary.withValues(alpha: 0.1),
+        hoverRowContentColor: null,
+        modeTransitionDuration: const Duration(milliseconds: 500),
+      ),
       topologySpec: _buildTopologySpec(scheme, isLight: false),
     );
   }
@@ -1257,6 +1303,12 @@ class GlassDesignTheme extends AppDesignTheme {
     final secondaryGlow = scheme.secondary.withValues(alpha: isLight ? 0.25 : 0.35);
     final errorColor = scheme.error;
     final surfaceColor = scheme.surface.withValues(alpha: isLight ? 0.7 : 0.5);
+    final successColor = isLight
+        ? const Color(0xFF4CAF50) // Material Green for light mode
+        : const Color(0xFF66BB6A); // Lighter green for dark mode
+    final warningColor = isLight
+        ? const Color(0xFFFF9800) // Material Orange for light mode
+        : const Color(0xFFFFB74D); // Lighter orange for dark mode
 
     return TopologySpec(
       // Gateway styles - breathing pulse effect
@@ -1355,18 +1407,18 @@ class GlassDesignTheme extends AppDesignTheme {
         animationDuration: Duration.zero,
       ),
       wifiStrongStyle: LinkStyle(
-        color: Colors.green.withValues(alpha: 0.7),
+        color: successColor.withValues(alpha: 0.7),
         width: 2.0,
         dashPattern: const [8.0, 4.0],
-        glowColor: Colors.green.withValues(alpha: 0.2),
+        glowColor: successColor.withValues(alpha: 0.2),
         glowRadius: 4.0,
         animationDuration: const Duration(milliseconds: 1500),
       ),
       wifiMediumStyle: LinkStyle(
-        color: Colors.orange.withValues(alpha: 0.7),
+        color: warningColor.withValues(alpha: 0.7),
         width: 2.0,
         dashPattern: const [6.0, 4.0],
-        glowColor: Colors.orange.withValues(alpha: 0.15),
+        glowColor: warningColor.withValues(alpha: 0.15),
         glowRadius: 3.0,
         animationDuration: const Duration(milliseconds: 2000),
       ),

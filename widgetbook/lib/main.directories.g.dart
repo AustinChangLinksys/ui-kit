@@ -67,6 +67,8 @@ import 'package:widgetbook_workspace/stories/molecules/layout/app_list_tile.stor
     as _widgetbook_workspace_stories_molecules_layout_app_list_tile_stories;
 import 'package:widgetbook_workspace/stories/molecules/menu/app_popup_menu.stories.dart'
     as _widgetbook_workspace_stories_molecules_menu_app_popup_menu_stories;
+import 'package:widgetbook_workspace/stories/molecules/table/table_stories.dart'
+    as _widgetbook_workspace_stories_molecules_table_table_stories;
 import 'package:widgetbook_workspace/stories/molecules/toggles/app_switch.stories.dart'
     as _widgetbook_workspace_stories_molecules_toggles_app_switch_stories;
 import 'package:widgetbook_workspace/stories/navigation/app_navigation_bar.stories.dart'
@@ -759,6 +761,28 @@ final directories = <_widgetbook.WidgetbookNode>[
       _widgetbook.WidgetbookFolder(
         name: 'inputs',
         children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'AppNumberTextField',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Number Input',
+                builder:
+                    _widgetbook_workspace_stories_molecules_inputs_network_inputs_stories
+                        .buildNumberInputUseCase,
+              )
+            ],
+          ),
+          _widgetbook.WidgetbookComponent(
+            name: 'AppTextField',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Error States',
+                builder:
+                    _widgetbook_workspace_stories_molecules_inputs_network_inputs_stories
+                        .buildErrorStatesUseCase,
+              )
+            ],
+          ),
           _widgetbook.WidgetbookFolder(
             name: 'network',
             children: [
@@ -774,7 +798,7 @@ final directories = <_widgetbook.WidgetbookNode>[
                 ],
               )
             ],
-          )
+          ),
         ],
       ),
       _widgetbook.WidgetbookFolder(
@@ -1119,6 +1143,85 @@ final directories = <_widgetbook.WidgetbookNode>[
               ),
             ],
           )
+        ],
+      ),
+      _widgetbook.WidgetbookFolder(
+        name: 'table',
+        children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'AppDataTable',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Desktop - Inline Edit',
+                builder:
+                    _widgetbook_workspace_stories_molecules_table_table_stories
+                        .desktopInlineEdit,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Empty State',
+                builder:
+                    _widgetbook_workspace_stories_molecules_table_table_stories
+                        .emptyState,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Mobile - BottomSheet Edit',
+                builder:
+                    _widgetbook_workspace_stories_molecules_table_table_stories
+                        .mobileBottomSheetEdit,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Responsive Table',
+                builder:
+                    _widgetbook_workspace_stories_molecules_table_table_stories
+                        .responsiveTable,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Tablet - Dialog Edit',
+                builder:
+                    _widgetbook_workspace_stories_molecules_table_table_stories
+                        .tabletDialogEdit,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With Pagination',
+                builder:
+                    _widgetbook_workspace_stories_molecules_table_table_stories
+                        .withPagination,
+              ),
+            ],
+          ),
+          _widgetbook.WidgetbookFolder(
+            name: 'renderers',
+            children: [
+              _widgetbook.WidgetbookComponent(
+                name: 'CardRenderer',
+                useCases: [
+                  _widgetbook.WidgetbookUseCase(
+                    name: 'Card View',
+                    builder:
+                        _widgetbook_workspace_stories_molecules_table_table_stories
+                            .cardView,
+                  )
+                ],
+              ),
+              _widgetbook.WidgetbookComponent(
+                name: 'GridRenderer',
+                useCases: [
+                  _widgetbook.WidgetbookUseCase(
+                    name: 'Grid - Dialog Edit State',
+                    builder:
+                        _widgetbook_workspace_stories_molecules_table_table_stories
+                            .gridDialogEditState,
+                  ),
+                  _widgetbook.WidgetbookUseCase(
+                    name: 'Grid - Inline Edit Mode',
+                    builder:
+                        _widgetbook_workspace_stories_molecules_table_table_stories
+                            .gridInlineEditMode,
+                  ),
+                ],
+              ),
+            ],
+          ),
         ],
       ),
       _widgetbook.WidgetbookFolder(

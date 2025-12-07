@@ -60,5 +60,25 @@ void main() {
         ),
       ),
     );
+
+    // 4. Error State - No Layout Shift Policy
+    // Error shown via icon + tooltip, not text below
+    goldenTest(
+      'AppIPv6TextField - Error State',
+      fileName: 'app_ipv6_text_field_error',
+      builder: () => buildThemeMatrix(
+        name: 'Error',
+        width: 400.0,
+        height: 100.0,
+        child: Form(
+          autovalidateMode: AutovalidateMode.always,
+          child: AppIPv6TextField(
+            label: 'IPv6 Address',
+            invalidFormatMessage: 'Invalid IPv6 format',
+            controller: TextEditingController(text: 'invalid'),
+          ),
+        ),
+      ),
+    );
   });
 }
