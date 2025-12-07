@@ -384,6 +384,62 @@ class PixelDesignTheme extends AppDesignTheme {
         modeTransitionDuration: Duration.zero,
       ),
       topologySpec: _buildTopologySpec(colors.toMaterialScheme(brightness: isLight ? Brightness.light : Brightness.dark), isLight: isLight),
+      slideActionStyle: SlideActionStyle(
+        standardStyle: SurfaceStyle(
+          backgroundColor: colors.surface,
+          borderColor: colors.highContrastBorder,
+          borderWidth: 2.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(
+              color: colors.styleShadow.withValues(alpha: 0.3),
+              blurRadius: 0,
+              offset: const Offset(2, 2),
+            )
+          ],
+          blurStrength: 0.0,
+          contentColor: colors.onSurface,
+        ),
+        destructiveStyle: SurfaceStyle(
+          backgroundColor: colors.error,
+          borderColor: colors.highContrastBorder,
+          borderWidth: 2.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(
+              color: colors.styleShadow.withValues(alpha: 0.3),
+              blurRadius: 0,
+              offset: const Offset(2, 2),
+            )
+          ],
+          blurStrength: 0.0,
+          contentColor: colors.onError,
+        ),
+        borderRadius: BorderRadius.circular(2.0), // Sharp pixel corners
+        contentColor: colors.onSurface,
+        iconSize: 24.0,
+        animationDuration: Duration.zero, // Instant Snap
+        animationCurve: Curves.linear,
+      ),
+      expandableFabStyle: ExpandableFabStyle(
+        shape: BoxShape.rectangle, // Square
+        distance: 80.0,
+        type: FabAnimationType.gridSnap,
+        overlayColor: overlayColor,
+        enableBlur: false,
+        showDitherPattern: true,
+        glowEffect: false,
+        highContrastBorder: true,
+      ),
+      gaugeStyle: GaugeStyle(
+        type: GaugeRenderType.segmented,
+        cap: GaugeCapType.butt,
+        trackColor: colors.highContrastBorder,
+        indicatorColor: Colors.green, // Retro green for Pixel theme
+        showTicks: true,
+        strokeWidth: 16.0,
+        enableGlow: false,
+      ),
     );
   }
 
@@ -423,6 +479,9 @@ class PixelDesignTheme extends AppDesignTheme {
     required super.chipGroupStyle,
     required super.tableStyle,
     required super.topologySpec,
+    required super.slideActionStyle,
+    required super.expandableFabStyle,
+    required super.gaugeStyle,
   });
 
   factory PixelDesignTheme.light([ColorScheme? scheme]) {
@@ -803,6 +862,62 @@ class PixelDesignTheme extends AppDesignTheme {
         modeTransitionDuration: Duration.zero,
       ),
       topologySpec: _buildTopologySpec(scheme, isLight: true),
+      slideActionStyle: SlideActionStyle(
+        standardStyle: SurfaceStyle(
+          backgroundColor: scheme.surface,
+          borderColor: scheme.onSurface,
+          borderWidth: 2.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(
+              color: scheme.onSurface.withValues(alpha: 0.3),
+              blurRadius: 0,
+              offset: const Offset(2, 2),
+            )
+          ],
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        destructiveStyle: SurfaceStyle(
+          backgroundColor: scheme.error,
+          borderColor: scheme.onSurface,
+          borderWidth: 2.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(
+              color: scheme.onSurface.withValues(alpha: 0.3),
+              blurRadius: 0,
+              offset: const Offset(2, 2),
+            )
+          ],
+          blurStrength: 0.0,
+          contentColor: scheme.onError,
+        ),
+        borderRadius: BorderRadius.circular(2.0),
+        contentColor: scheme.onSurface,
+        iconSize: 24.0,
+        animationDuration: Duration.zero,
+        animationCurve: Curves.linear,
+      ),
+      expandableFabStyle: ExpandableFabStyle(
+        shape: BoxShape.rectangle,
+        distance: 80.0,
+        type: FabAnimationType.gridSnap,
+        overlayColor: overlayColor,
+        enableBlur: false,
+        showDitherPattern: true,
+        glowEffect: false,
+        highContrastBorder: true,
+      ),
+      gaugeStyle: GaugeStyle(
+        type: GaugeRenderType.segmented,
+        cap: GaugeCapType.butt,
+        trackColor: scheme.onSurface,
+        indicatorColor: Colors.green,
+        showTicks: true,
+        strokeWidth: 16.0,
+        enableGlow: false,
+      ),
     );
   }
 
@@ -1180,6 +1295,62 @@ class PixelDesignTheme extends AppDesignTheme {
         modeTransitionDuration: Duration.zero,
       ),
       topologySpec: _buildTopologySpec(scheme, isLight: false),
+      slideActionStyle: SlideActionStyle(
+        standardStyle: SurfaceStyle(
+          backgroundColor: scheme.surface,
+          borderColor: black,
+          borderWidth: 2.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(
+              color: black.withValues(alpha: 0.3),
+              blurRadius: 0,
+              offset: const Offset(2, 2),
+            )
+          ],
+          blurStrength: 0.0,
+          contentColor: black,
+        ),
+        destructiveStyle: SurfaceStyle(
+          backgroundColor: scheme.error,
+          borderColor: black,
+          borderWidth: 2.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(
+              color: black.withValues(alpha: 0.3),
+              blurRadius: 0,
+              offset: const Offset(2, 2),
+            )
+          ],
+          blurStrength: 0.0,
+          contentColor: scheme.onError,
+        ),
+        borderRadius: BorderRadius.circular(2.0),
+        contentColor: black,
+        iconSize: 24.0,
+        animationDuration: Duration.zero,
+        animationCurve: Curves.linear,
+      ),
+      expandableFabStyle: ExpandableFabStyle(
+        shape: BoxShape.rectangle,
+        distance: 80.0,
+        type: FabAnimationType.gridSnap,
+        overlayColor: overlayColor,
+        enableBlur: false,
+        showDitherPattern: true,
+        glowEffect: false,
+        highContrastBorder: true,
+      ),
+      gaugeStyle: GaugeStyle(
+        type: GaugeRenderType.segmented,
+        cap: GaugeCapType.butt,
+        trackColor: black,
+        indicatorColor: Colors.green,
+        showTicks: true,
+        strokeWidth: 16.0,
+        enableGlow: false,
+      ),
     );
   }
 

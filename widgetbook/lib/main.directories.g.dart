@@ -67,6 +67,8 @@ import 'package:widgetbook_workspace/stories/molecules/layout/app_list_tile.stor
     as _widgetbook_workspace_stories_molecules_layout_app_list_tile_stories;
 import 'package:widgetbook_workspace/stories/molecules/menu/app_popup_menu.stories.dart'
     as _widgetbook_workspace_stories_molecules_menu_app_popup_menu_stories;
+import 'package:widgetbook_workspace/stories/molecules/slide_action/slide_action_stories.dart'
+    as _widgetbook_workspace_stories_molecules_slide_action_slide_action_stories;
 import 'package:widgetbook_workspace/stories/molecules/table/table_stories.dart'
     as _widgetbook_workspace_stories_molecules_table_table_stories;
 import 'package:widgetbook_workspace/stories/molecules/toggles/app_switch.stories.dart'
@@ -95,6 +97,10 @@ import 'package:widgetbook_workspace/stories/organisms/app_unified_bar.stories.d
     as _widgetbook_workspace_stories_organisms_app_unified_bar_stories;
 import 'package:widgetbook_workspace/stories/organisms/app_unified_sliver_bar.stories.dart'
     as _widgetbook_workspace_stories_organisms_app_unified_sliver_bar_stories;
+import 'package:widgetbook_workspace/stories/organisms/expandable_fab/expandable_fab_stories.dart'
+    as _widgetbook_workspace_stories_organisms_expandable_fab_expandable_fab_stories;
+import 'package:widgetbook_workspace/stories/organisms/gauge/gauge_stories.dart'
+    as _widgetbook_workspace_stories_organisms_gauge_gauge_stories;
 import 'package:widgetbook_workspace/stories/organisms/topology/app_topology.stories.dart'
     as _widgetbook_workspace_stories_organisms_topology_app_topology_stories;
 import 'package:widgetbook_workspace/stories/organisms/topology/cluster_badge.stories.dart'
@@ -1038,6 +1044,34 @@ final directories = <_widgetbook.WidgetbookNode>[
         ],
       ),
       _widgetbook.WidgetbookFolder(
+        name: 'slide_action',
+        children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'AppSlideAction',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Basic Surface',
+                builder:
+                    _widgetbook_workspace_stories_molecules_slide_action_slide_action_stories
+                        .appSlideActionBasicUseCase,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Single Action',
+                builder:
+                    _widgetbook_workspace_stories_molecules_slide_action_slide_action_stories
+                        .appSlideActionSingleUseCase,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With AppListTile',
+                builder:
+                    _widgetbook_workspace_stories_molecules_slide_action_slide_action_stories
+                        .appSlideActionListTileUseCase,
+              ),
+            ],
+          )
+        ],
+      ),
+      _widgetbook.WidgetbookFolder(
         name: 'status',
         children: [
           _widgetbook.WidgetbookComponent(
@@ -1394,6 +1428,56 @@ final directories = <_widgetbook.WidgetbookNode>[
               ),
             ],
           ),
+        ],
+      ),
+      _widgetbook.WidgetbookFolder(
+        name: 'expandable_fab',
+        children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'AppExpandableFab',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'AppExpandableFab',
+                builder:
+                    _widgetbook_workspace_stories_organisms_expandable_fab_expandable_fab_stories
+                        .appExpandableFabUseCase,
+              )
+            ],
+          )
+        ],
+      ),
+      _widgetbook.WidgetbookFolder(
+        name: 'gauge',
+        children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'AppGauge',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Default',
+                builder:
+                    _widgetbook_workspace_stories_organisms_gauge_gauge_stories
+                        .appGaugeUseCase,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Minimal (No Markers)',
+                builder:
+                    _widgetbook_workspace_stories_organisms_gauge_gauge_stories
+                        .appGaugeMinimalUseCase,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Speed Test Animation',
+                builder:
+                    _widgetbook_workspace_stories_organisms_gauge_gauge_stories
+                        .appGaugeSpeedTestUseCase,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With Default Markers',
+                builder:
+                    _widgetbook_workspace_stories_organisms_gauge_gauge_stories
+                        .appGaugeWithDefaultMarkersUseCase,
+              ),
+            ],
+          )
         ],
       ),
       _widgetbook.WidgetbookFolder(

@@ -42,8 +42,11 @@ export 'src/foundation/theme/design_system/specs/expansion_panel_style.dart';
 export 'src/foundation/theme/design_system/specs/carousel_style.dart';
 export 'src/foundation/theme/design_system/specs/chip_group_style.dart';
 export 'src/foundation/theme/design_system/specs/topology_style.dart';
+export 'src/foundation/theme/design_system/specs/table_style.dart'; // New export
+export 'src/foundation/theme/design_system/specs/slide_action_style.dart'; // New export
+export 'src/foundation/theme/design_system/specs/expandable_fab_style.dart'; // New export
+export 'src/foundation/theme/design_system/specs/gauge_style.dart'; // New export
 export 'src/foundation/theme/tokens/app_textures.dart';
-export 'src/foundation/theme/styles/table_style.dart';
 export 'src/foundation/feedback/app_feedback.dart';
 
 // Motion System
@@ -126,6 +129,11 @@ export 'src/molecules/feedback/app_loader.dart';
 export 'src/molecules/feedback/app_toast.dart';
 export 'src/molecules/layout/app_list_tile.dart';
 export 'src/molecules/display/app_tooltip.dart';
+export 'src/molecules/slide_action/app_slide_action.dart';
+export 'src/molecules/slide_action/slide_action_item.dart';
+export 'src/organisms/expandable_fab/app_expandable_fab.dart';
+export 'src/organisms/gauge/app_gauge.dart';
+export 'src/organisms/gauge/gauge_painter.dart';
 
 export 'src/molecules/menu/app_popup_menu_item.dart';
 export 'src/molecules/menu/app_popup_menu.dart';

@@ -24,7 +24,10 @@ import 'package:ui_kit_library/src/foundation/theme/design_system/specs/expansio
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/carousel_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/chip_group_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/topology_style.dart';
-import 'package:ui_kit_library/src/foundation/theme/styles/table_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/table_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/slide_action_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/expandable_fab_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/gauge_style.dart';
 import 'specs/surface_style.dart';
 
 part 'app_design_theme.tailor.dart';
@@ -127,6 +130,15 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
   @override
   final TableStyle tableStyle;
 
+  @override
+  final SlideActionStyle slideActionStyle;
+
+  @override
+  final ExpandableFabStyle expandableFabStyle;
+
+  @override
+  final GaugeStyle gaugeStyle;
+
   const AppDesignTheme({
     required this.surfaceBase,
     required this.surfaceElevated,
@@ -162,5 +174,22 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
     required this.chipGroupStyle,
     required this.topologySpec,
     required this.tableStyle,
+    required this.slideActionStyle,
+    required this.expandableFabStyle,
+    required this.gaugeStyle,
   });
+
+  /// Helper method to easily access the theme from the context.
+  /// Throws a detailed error if the theme is not found in the context.
+  static AppDesignTheme of(BuildContext context) {
+    final theme = Theme.of(context).extension<AppDesignTheme>();
+    if (theme == null) {
+      throw FlutterError(
+        'AppDesignTheme operation requested with a context that does not include an AppDesignTheme.\n'
+        'The context used was: $context. \n'
+        'Make sure that your MaterialApp theme data includes the AppDesignTheme extension.',
+      );
+    }
+    return theme;
+  }
 }

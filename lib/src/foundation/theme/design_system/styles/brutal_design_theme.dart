@@ -375,6 +375,62 @@ class BrutalDesignTheme extends AppDesignTheme {
         modeTransitionDuration: const Duration(milliseconds: 200),
       ),
       topologySpec: _buildTopologySpec(colors.toMaterialScheme(brightness: isLight ? Brightness.light : Brightness.dark), isLight: isLight),
+      slideActionStyle: SlideActionStyle(
+        standardStyle: SurfaceStyle(
+          backgroundColor: colors.surfaceContainer,
+          borderColor: colors.highContrastBorder,
+          borderWidth: 3.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(
+              color: colors.styleShadow,
+              blurRadius: 0,
+              offset: const Offset(4, 4),
+            )
+          ],
+          blurStrength: 0.0,
+          contentColor: colors.onSurface,
+        ),
+        destructiveStyle: SurfaceStyle(
+          backgroundColor: colors.error,
+          borderColor: colors.highContrastBorder,
+          borderWidth: 3.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(
+              color: colors.styleShadow,
+              blurRadius: 0,
+              offset: const Offset(4, 4),
+            )
+          ],
+          blurStrength: 0.0,
+          contentColor: colors.onError,
+        ),
+        borderRadius: BorderRadius.zero, // Sharp corners
+        contentColor: colors.onSurface,
+        iconSize: 24.0,
+        animationDuration: const Duration(milliseconds: 400), // Heavy Elastic
+        animationCurve: Curves.elasticOut,
+      ),
+      expandableFabStyle: ExpandableFabStyle(
+        shape: BoxShape.rectangle, // Or geometric mix
+        distance: 80.0,
+        type: FabAnimationType.spring, // Heavy bounce
+        overlayColor: colors.scrim.withValues(alpha: 0.5), // High contrast
+        enableBlur: false,
+        showDitherPattern: false,
+        glowEffect: false,
+        highContrastBorder: true,
+      ),
+      gaugeStyle: GaugeStyle(
+        type: GaugeRenderType.solid, // Solid stroke
+        cap: GaugeCapType.butt, // Sharp cut-off
+        trackColor: colors.highContrastBorder, // Thick outline
+        indicatorColor: Colors.yellow, // Bold red for Brutal theme
+        showTicks: false,
+        strokeWidth: 20.0,
+        enableGlow: false,
+      ),
     );
   }
 
@@ -414,6 +470,9 @@ class BrutalDesignTheme extends AppDesignTheme {
     required super.chipGroupStyle,
     required super.tableStyle,
     required super.topologySpec,
+    required super.slideActionStyle,
+    required super.expandableFabStyle,
+    required super.gaugeStyle,
   });
 
   factory BrutalDesignTheme.light([ColorScheme? scheme]) {
@@ -783,6 +842,62 @@ class BrutalDesignTheme extends AppDesignTheme {
         modeTransitionDuration: const Duration(milliseconds: 200),
       ),
       topologySpec: _buildTopologySpec(scheme, isLight: true),
+      slideActionStyle: SlideActionStyle(
+        standardStyle: SurfaceStyle(
+          backgroundColor: scheme.surfaceContainer,
+          borderColor: scheme.onSurface,
+          borderWidth: 3.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(
+              color: scheme.onSurface,
+              blurRadius: 0,
+              offset: const Offset(4, 4),
+            )
+          ],
+          blurStrength: 0.0,
+          contentColor: scheme.onSurface,
+        ),
+        destructiveStyle: SurfaceStyle(
+          backgroundColor: scheme.error,
+          borderColor: scheme.onSurface,
+          borderWidth: 3.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(
+              color: scheme.onSurface,
+              blurRadius: 0,
+              offset: const Offset(4, 4),
+            )
+          ],
+          blurStrength: 0.0,
+          contentColor: scheme.onError,
+        ),
+        borderRadius: BorderRadius.zero,
+        contentColor: scheme.onSurface,
+        iconSize: 24.0,
+        animationDuration: const Duration(milliseconds: 400),
+        animationCurve: Curves.elasticOut,
+      ),
+      expandableFabStyle: ExpandableFabStyle(
+        shape: BoxShape.rectangle,
+        distance: 80.0,
+        type: FabAnimationType.spring,
+        overlayColor: scheme.scrim.withValues(alpha: 0.5),
+        enableBlur: false,
+        showDitherPattern: false,
+        glowEffect: false,
+        highContrastBorder: true,
+      ),
+      gaugeStyle: GaugeStyle(
+        type: GaugeRenderType.solid,
+        cap: GaugeCapType.butt,
+        trackColor: scheme.onSurface,
+        indicatorColor: Colors.yellow,
+        showTicks: false,
+        strokeWidth: 20.0,
+        enableGlow: false,
+      ),
     );
   }
 
@@ -1151,6 +1266,62 @@ class BrutalDesignTheme extends AppDesignTheme {
         modeTransitionDuration: const Duration(milliseconds: 200),
       ),
       topologySpec: _buildTopologySpec(scheme, isLight: false),
+      slideActionStyle: SlideActionStyle(
+        standardStyle: SurfaceStyle(
+          backgroundColor: scheme.surfaceContainer,
+          borderColor: black,
+          borderWidth: 3.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(
+              color: black,
+              blurRadius: 0,
+              offset: const Offset(4, 4),
+            )
+          ],
+          blurStrength: 0.0,
+          contentColor: black,
+        ),
+        destructiveStyle: SurfaceStyle(
+          backgroundColor: scheme.error,
+          borderColor: black,
+          borderWidth: 3.0,
+          borderRadius: 0.0,
+          shadows: [
+            BoxShadow(
+              color: black,
+              blurRadius: 0,
+              offset: const Offset(4, 4),
+            )
+          ],
+          blurStrength: 0.0,
+          contentColor: scheme.onError,
+        ),
+        borderRadius: BorderRadius.zero,
+        contentColor: black,
+        iconSize: 24.0,
+        animationDuration: const Duration(milliseconds: 400),
+        animationCurve: Curves.elasticOut,
+      ),
+      expandableFabStyle: ExpandableFabStyle(
+        shape: BoxShape.rectangle,
+        distance: 80.0,
+        type: FabAnimationType.spring,
+        overlayColor: scheme.scrim.withValues(alpha: 0.5),
+        enableBlur: false,
+        showDitherPattern: false,
+        glowEffect: false,
+        highContrastBorder: true,
+      ),
+      gaugeStyle: GaugeStyle(
+        type: GaugeRenderType.solid,
+        cap: GaugeCapType.butt,
+        trackColor: scheme.onSurface,
+        indicatorColor: Colors.yellow,
+        showTicks: false,
+        strokeWidth: 20.0,
+        enableGlow: false,
+      ),
     );
   }
 
