@@ -10,25 +10,26 @@ part of 'tabs_style.dart';
 // **************************************************************************
 
 mixin _$TabsStyleTailorMixin on ThemeExtension<TabsStyle> {
-  Color get activeTextColor;
-  Color get inactiveTextColor;
+  StateColorSpec get textColors;
   Color get indicatorColor;
   Color get tabBackgroundColor;
   Duration get animationDuration;
   double get indicatorThickness;
+  Color get activeTextColor;
+  Color get inactiveTextColor;
 
   @override
   TabsStyle copyWith({
-    Color? activeTextColor,
-    Color? inactiveTextColor,
+    StateColorSpec? textColors,
     Color? indicatorColor,
     Color? tabBackgroundColor,
     Duration? animationDuration,
     double? indicatorThickness,
+    Color? activeTextColor,
+    Color? inactiveTextColor,
   }) {
     return TabsStyle(
-      activeTextColor: activeTextColor ?? this.activeTextColor,
-      inactiveTextColor: inactiveTextColor ?? this.inactiveTextColor,
+      textColors: textColors ?? this.textColors,
       indicatorColor: indicatorColor ?? this.indicatorColor,
       tabBackgroundColor: tabBackgroundColor ?? this.tabBackgroundColor,
       animationDuration: animationDuration ?? this.animationDuration,
@@ -40,9 +41,7 @@ mixin _$TabsStyleTailorMixin on ThemeExtension<TabsStyle> {
   TabsStyle lerp(covariant ThemeExtension<TabsStyle>? other, double t) {
     if (other is! TabsStyle) return this as TabsStyle;
     return TabsStyle(
-      activeTextColor: Color.lerp(activeTextColor, other.activeTextColor, t)!,
-      inactiveTextColor:
-          Color.lerp(inactiveTextColor, other.inactiveTextColor, t)!,
+      textColors: textColors.lerp(other.textColors, t),
       indicatorColor: Color.lerp(indicatorColor, other.indicatorColor, t)!,
       tabBackgroundColor:
           Color.lerp(tabBackgroundColor, other.tabBackgroundColor, t)!,
@@ -58,9 +57,7 @@ mixin _$TabsStyleTailorMixin on ThemeExtension<TabsStyle> {
         (other.runtimeType == runtimeType &&
             other is TabsStyle &&
             const DeepCollectionEquality()
-                .equals(activeTextColor, other.activeTextColor) &&
-            const DeepCollectionEquality()
-                .equals(inactiveTextColor, other.inactiveTextColor) &&
+                .equals(textColors, other.textColors) &&
             const DeepCollectionEquality()
                 .equals(indicatorColor, other.indicatorColor) &&
             const DeepCollectionEquality()
@@ -68,19 +65,24 @@ mixin _$TabsStyleTailorMixin on ThemeExtension<TabsStyle> {
             const DeepCollectionEquality()
                 .equals(animationDuration, other.animationDuration) &&
             const DeepCollectionEquality()
-                .equals(indicatorThickness, other.indicatorThickness));
+                .equals(indicatorThickness, other.indicatorThickness) &&
+            const DeepCollectionEquality()
+                .equals(activeTextColor, other.activeTextColor) &&
+            const DeepCollectionEquality()
+                .equals(inactiveTextColor, other.inactiveTextColor));
   }
 
   @override
   int get hashCode {
     return Object.hash(
       runtimeType.hashCode,
-      const DeepCollectionEquality().hash(activeTextColor),
-      const DeepCollectionEquality().hash(inactiveTextColor),
+      const DeepCollectionEquality().hash(textColors),
       const DeepCollectionEquality().hash(indicatorColor),
       const DeepCollectionEquality().hash(tabBackgroundColor),
       const DeepCollectionEquality().hash(animationDuration),
       const DeepCollectionEquality().hash(indicatorThickness),
+      const DeepCollectionEquality().hash(activeTextColor),
+      const DeepCollectionEquality().hash(inactiveTextColor),
     );
   }
 }
@@ -88,11 +90,9 @@ mixin _$TabsStyleTailorMixin on ThemeExtension<TabsStyle> {
 extension TabsStyleBuildContextProps on BuildContext {
   TabsStyle get tabsStyle => Theme.of(this).extension<TabsStyle>()!;
 
-  /// Text color for active tab
-  Color get activeTextColor => tabsStyle.activeTextColor;
-
-  /// Text color for inactive tabs
-  Color get inactiveTextColor => tabsStyle.inactiveTextColor;
+  /// State-based colors for tab text.
+  /// Use [textColors.resolve(isActive: isSelected)] to get the appropriate color.
+  StateColorSpec get textColors => tabsStyle.textColors;
 
   /// Color of the active indicator (underline or background)
   Color get indicatorColor => tabsStyle.indicatorColor;
@@ -105,4 +105,6 @@ extension TabsStyleBuildContextProps on BuildContext {
 
   /// Thickness of the indicator line
   double get indicatorThickness => tabsStyle.indicatorThickness;
+  Color get activeTextColor => tabsStyle.activeTextColor;
+  Color get inactiveTextColor => tabsStyle.inactiveTextColor;
 }

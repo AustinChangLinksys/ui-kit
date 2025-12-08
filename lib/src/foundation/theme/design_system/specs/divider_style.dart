@@ -1,60 +1,63 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:theme_tailor_annotation/theme_tailor_annotation.dart';
 
+part 'divider_style.tailor.dart';
+
+/// Pattern for divider lines.
 enum DividerPattern {
   solid,
   dashed,
   jagged,
 }
 
-class DividerStyle extends Equatable {
-  final Color color;
-  final Color? secondaryColor;
-  final double thickness;
-  final double indent;
-  final double endIndent;
-  final double glowStrength;
-  final DividerPattern pattern;
-
+/// Style specification for divider components.
+///
+/// Example:
+/// ```dart
+/// DividerStyle(
+///   color: Colors.grey,
+///   thickness: 1.0,
+///   pattern: DividerPattern.solid,
+/// )
+/// ```
+@TailorMixin()
+class DividerStyle extends ThemeExtension<DividerStyle>
+    with _$DividerStyleTailorMixin {
   const DividerStyle({
     required this.color,
     this.secondaryColor,
-    this.thickness = 1.0,
+    required this.thickness,
     this.indent = 0.0,
     this.endIndent = 0.0,
     this.glowStrength = 0.0,
-    this.pattern = DividerPattern.solid,
+    required this.pattern,
   });
 
-  /// Create a copy of this DividerStyle with modified properties
-  DividerStyle copyWith({
-    Color? color,
-    Color? secondaryColor,
-    double? thickness,
-    double? indent,
-    double? endIndent,
-    double? glowStrength,
-    DividerPattern? pattern,
-  }) {
-    return DividerStyle(
-      color: color ?? this.color,
-      secondaryColor: secondaryColor ?? this.secondaryColor,
-      thickness: thickness ?? this.thickness,
-      indent: indent ?? this.indent,
-      endIndent: endIndent ?? this.endIndent,
-      glowStrength: glowStrength ?? this.glowStrength,
-      pattern: pattern ?? this.pattern,
-    );
-  }
-
+  /// Primary divider color.
   @override
-  List<Object?> get props => [
-        color,
-        secondaryColor,
-        thickness,
-        indent,
-        endIndent,
-        glowStrength,
-        pattern,
-      ];
+  final Color color;
+
+  /// Secondary color for gradient or pattern effects.
+  @override
+  final Color? secondaryColor;
+
+  /// Divider line thickness.
+  @override
+  final double thickness;
+
+  /// Left/start indent.
+  @override
+  final double indent;
+
+  /// Right/end indent.
+  @override
+  final double endIndent;
+
+  /// Glow effect strength (0 for none).
+  @override
+  final double glowStrength;
+
+  /// Divider line pattern (solid, dashed, jagged).
+  @override
+  final DividerPattern pattern;
 }

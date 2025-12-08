@@ -15,6 +15,7 @@ mixin _$SlideActionStyleTailorMixin on ThemeExtension<SlideActionStyle> {
   BorderRadius get borderRadius;
   Color get contentColor;
   double get iconSize;
+  AnimationSpec get animation;
   Duration get animationDuration;
   Curve get animationCurve;
 
@@ -25,6 +26,7 @@ mixin _$SlideActionStyleTailorMixin on ThemeExtension<SlideActionStyle> {
     BorderRadius? borderRadius,
     Color? contentColor,
     double? iconSize,
+    AnimationSpec? animation,
     Duration? animationDuration,
     Curve? animationCurve,
   }) {
@@ -34,8 +36,7 @@ mixin _$SlideActionStyleTailorMixin on ThemeExtension<SlideActionStyle> {
       borderRadius: borderRadius ?? this.borderRadius,
       contentColor: contentColor ?? this.contentColor,
       iconSize: iconSize ?? this.iconSize,
-      animationDuration: animationDuration ?? this.animationDuration,
-      animationCurve: animationCurve ?? this.animationCurve,
+      animation: animation ?? this.animation,
     );
   }
 
@@ -49,8 +50,7 @@ mixin _$SlideActionStyleTailorMixin on ThemeExtension<SlideActionStyle> {
       borderRadius: t < 0.5 ? borderRadius : other.borderRadius,
       contentColor: Color.lerp(contentColor, other.contentColor, t)!,
       iconSize: t < 0.5 ? iconSize : other.iconSize,
-      animationDuration: t < 0.5 ? animationDuration : other.animationDuration,
-      animationCurve: t < 0.5 ? animationCurve : other.animationCurve,
+      animation: animation.lerp(other.animation, t),
     );
   }
 
@@ -68,6 +68,7 @@ mixin _$SlideActionStyleTailorMixin on ThemeExtension<SlideActionStyle> {
             const DeepCollectionEquality()
                 .equals(contentColor, other.contentColor) &&
             const DeepCollectionEquality().equals(iconSize, other.iconSize) &&
+            const DeepCollectionEquality().equals(animation, other.animation) &&
             const DeepCollectionEquality()
                 .equals(animationDuration, other.animationDuration) &&
             const DeepCollectionEquality()
@@ -83,6 +84,7 @@ mixin _$SlideActionStyleTailorMixin on ThemeExtension<SlideActionStyle> {
       const DeepCollectionEquality().hash(borderRadius),
       const DeepCollectionEquality().hash(contentColor),
       const DeepCollectionEquality().hash(iconSize),
+      const DeepCollectionEquality().hash(animation),
       const DeepCollectionEquality().hash(animationDuration),
       const DeepCollectionEquality().hash(animationCurve),
     );
@@ -92,11 +94,20 @@ mixin _$SlideActionStyleTailorMixin on ThemeExtension<SlideActionStyle> {
 extension SlideActionStyleBuildContextProps on BuildContext {
   SlideActionStyle get slideActionStyle =>
       Theme.of(this).extension<SlideActionStyle>()!;
+
+  /// Appearance - now directly SurfaceStyle
   SurfaceStyle get standardStyle => slideActionStyle.standardStyle;
   SurfaceStyle get destructiveStyle => slideActionStyle.destructiveStyle;
+
+  /// Shape - border radius for the action container
   BorderRadius get borderRadius => slideActionStyle.borderRadius;
+
+  /// Content color for icons/text inside the actions
   Color get contentColor => slideActionStyle.contentColor;
   double get iconSize => slideActionStyle.iconSize;
+
+  /// Animation timing for slide transitions
+  AnimationSpec get animation => slideActionStyle.animation;
   Duration get animationDuration => slideActionStyle.animationDuration;
   Curve get animationCurve => slideActionStyle.animationCurve;
 }

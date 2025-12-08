@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portal/flutter_portal.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/shared/animation_spec.dart'
+    as shared;
 import 'package:ui_kit_library/ui_kit.dart';
 
 /// Configuration for bottom sheet display
@@ -44,8 +46,14 @@ class AppBottomSheet extends StatefulWidget {
   /// Display mode for sheet sizing
   final BottomSheetDisplayMode displayMode;
 
-  /// Optional style override
-  final BottomSheetStyle? style;
+  /// Optional animation override for this specific instance.
+  /// Takes precedence over StyleOverride and theme defaults.
+  ///
+  /// Resolution priority:
+  /// 1. animationOverride (this parameter)
+  /// 2. StyleOverride.resolveSpec<AnimationSpec>(context)
+  /// 3. theme.sheetStyle.overlay.animation
+  final shared.AnimationSpec? animationOverride;
 
   const AppBottomSheet({
     super.key,
@@ -57,7 +65,7 @@ class AppBottomSheet extends StatefulWidget {
     this.isDismissible = true,
     this.enableDrag = true,
     this.displayMode = BottomSheetDisplayMode.intrinsic,
-    this.style,
+    this.animationOverride,
   });
 
   @override
@@ -66,7 +74,7 @@ class AppBottomSheet extends StatefulWidget {
 
 class _AppBottomSheetState extends State<AppBottomSheet>
     with TickerProviderStateMixin {
-  late BottomSheetStyle _style;
+  late SheetStyle _sheetStyle;
   late AnimationController _animationController;
   bool _hasCheckedTickerMode = false;
 
@@ -80,6 +88,27 @@ class _AppBottomSheetState extends State<AppBottomSheet>
     _animationController.forward();
   }
 
+  /// Resolve animation spec with priority:
+  /// 1. Component parameter (animationOverride)
+  /// 2. StyleOverride ancestor
+  /// 3. Theme default (sheetStyle.overlay.animation)
+  shared.AnimationSpec _resolveAnimation(BuildContext context) {
+    // 1. Direct component override
+    if (widget.animationOverride != null) {
+      return widget.animationOverride!;
+    }
+
+    // 2. StyleOverride from ancestor
+    final styleOverride =
+        StyleOverride.resolveSpec<shared.AnimationSpec>(context);
+    if (styleOverride != null) {
+      return styleOverride;
+    }
+
+    // 3. Theme default
+    return _sheetStyle.overlay.animation;
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -90,7 +119,12 @@ class _AppBottomSheetState extends State<AppBottomSheet>
       'AppBottomSheet requires DesignSystem initialization. '
       'Call DesignSystem.init() in MaterialApp.builder.',
     );
-    _style = widget.style ?? theme!.bottomSheetStyle;
+
+    _sheetStyle = theme!.sheetStyle;
+
+    // Update animation controller duration from resolved animation
+    final animation = _resolveAnimation(context);
+    _animationController.duration = animation.duration;
 
     // When TickerMode is disabled (e.g., in golden tests), animations won't tick.
     // Force the animation to complete so the widget renders in its final state.
@@ -139,7 +173,7 @@ class _AppBottomSheetState extends State<AppBottomSheet>
                 ),
                 alignment: Alignment.center,
                 child: Container(
-                  color: _style.overlayColor,
+                  color: _sheetStyle.overlay.scrimColor,
                 ),
               ),
 
@@ -151,7 +185,7 @@ class _AppBottomSheetState extends State<AppBottomSheet>
                 ).animate(
                   CurvedAnimation(
                     parent: _animationController,
-                    curve: _style.animationCurve,
+                    curve: _resolveAnimation(context).curve,
                   ),
                 ),
                 child: GestureDetector(
@@ -165,8 +199,8 @@ class _AppBottomSheetState extends State<AppBottomSheet>
                     // AppSurface provides theme-specific styling (colors, blur, shadows)
                     child: ClipRRect(
                       borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(_style.topBorderRadius),
-                        topRight: Radius.circular(_style.topBorderRadius),
+                        topLeft: Radius.circular(_sheetStyle.borderRadius),
+                        topRight: Radius.circular(_sheetStyle.borderRadius),
                       ),
                       child: AppSurface(
                         // Elevated variant for floating panel with theme-specific styling
@@ -177,7 +211,7 @@ class _AppBottomSheetState extends State<AppBottomSheet>
                           // Draggable handle
                           if (widget.enableDrag)
                             _BottomSheetHandle(
-                              height: _style.dragHandleHeight,
+                              height: _sheetStyle.dragHandleHeight,
                               onDragUpdate: (details) {
                                 if (details.delta.dy > 10) {
                                   _dismiss();
@@ -222,7 +256,7 @@ Future<T?> showAppBottomSheet<T>({
   bool isDismissible = true,
   bool enableDrag = true,
   BottomSheetDisplayMode displayMode = BottomSheetDisplayMode.intrinsic,
-  BottomSheetStyle? style,
+  shared.AnimationSpec? animationOverride,
 }) {
   // Capture theme data to propagate to the bottom sheet
   final themeData = Theme.of(context);
@@ -248,7 +282,7 @@ Future<T?> showAppBottomSheet<T>({
                 isDismissible: isDismissible,
                 enableDrag: enableDrag,
                 displayMode: displayMode,
-                style: style,
+                animationOverride: animationOverride,
                 child: child,
               ),
             ),

@@ -1,29 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:theme_tailor_annotation/theme_tailor_annotation.dart';
 
+import 'shared/animation_spec.dart';
+import 'shared/state_color_spec.dart';
+
 part 'carousel_style.tailor.dart';
 
 @TailorMixin()
 class CarouselStyle extends ThemeExtension<CarouselStyle>
     with _$CarouselStyleTailorMixin {
   const CarouselStyle({
-    required this.navButtonColor,
-    required this.navButtonHoverColor,
+    required this.navButtonColors,
     required this.previousIcon,
     required this.nextIcon,
-    required this.animationDuration,
-    required this.animationCurve,
+    required this.animation,
     this.useSnapScroll = false,
     this.navButtonSize = 48.0,
   });
 
-  /// Color of navigation buttons
+  /// Navigation button colors (inactive/hover states)
   @override
-  final Color navButtonColor;
-
-  /// Color of navigation buttons on hover
-  @override
-  final Color navButtonHoverColor;
+  final StateColorSpec navButtonColors;
 
   /// Icon for previous button
   @override
@@ -33,13 +30,9 @@ class CarouselStyle extends ThemeExtension<CarouselStyle>
   @override
   final IconData nextIcon;
 
-  /// Animation duration for item transitions
+  /// Animation timing for item transitions
   @override
-  final Duration animationDuration;
-
-  /// Animation curve for item transitions
-  @override
-  final Curve animationCurve;
+  final AnimationSpec animation;
 
   /// Use snap scroll instead of smooth scroll (Pixel theme)
   @override
@@ -48,4 +41,23 @@ class CarouselStyle extends ThemeExtension<CarouselStyle>
   /// Size of navigation buttons (Pixel theme has larger buttons)
   @override
   final double navButtonSize;
+
+  // --- Backward Compatibility Getters ---
+
+  /// Animation duration (convenience getter for backward compatibility)
+  @override
+  Duration get animationDuration => animation.duration;
+
+  /// Animation curve (convenience getter for backward compatibility)
+  @override
+  Curve get animationCurve => animation.curve;
+
+  /// Navigation button color (convenience getter for backward compatibility)
+  @override
+  Color get navButtonColor => navButtonColors.inactive;
+
+  /// Navigation button hover color (convenience getter for backward compatibility)
+  @override
+  Color get navButtonHoverColor =>
+      navButtonColors.hover ?? navButtonColors.active;
 }

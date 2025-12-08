@@ -1,43 +1,78 @@
-import 'dart:ui' as ui;
+import 'package:flutter/material.dart';
+import 'package:theme_tailor_annotation/theme_tailor_annotation.dart';
 
-class NavigationStyle {
-  final double height;
-  final bool isFloating;
-  final double floatingMargin;
-  final double itemSpacing;
+import 'shared/shared_specs.dart';
 
+part 'navigation_style.tailor.dart';
+
+/// Style specification for navigation components (AppNavigationBar, AppNavigationRail).
+///
+/// Composes [AnimationSpec] for transition timing and [StateColorSpec] for
+/// selected/unselected item colors.
+///
+/// Example:
+/// ```dart
+/// NavigationStyle(
+///   height: 80.0,
+///   isFloating: true,
+///   animation: AnimationSpec.standard,
+///   itemColors: StateColorSpec(
+///     active: Colors.blue,
+///     inactive: Colors.grey,
+///   ),
+/// )
+/// ```
+@TailorMixin()
+class NavigationStyle extends ThemeExtension<NavigationStyle>
+    with _$NavigationStyleTailorMixin {
   const NavigationStyle({
-    this.height = 80.0,
-    this.isFloating = false,
-    this.floatingMargin = 16.0,
-    this.itemSpacing = 8.0,
+    required this.height,
+    required this.isFloating,
+    required this.floatingMargin,
+    required this.itemSpacing,
+    required this.animation,
+    required this.itemColors,
   });
 
-  NavigationStyle copyWith({
-    double? height,
-    bool? isFloating,
-    double? floatingMargin,
-    double? itemSpacing,
-  }) {
-    return NavigationStyle(
-      height: height ?? this.height,
-      isFloating: isFloating ?? this.isFloating,
-      floatingMargin: floatingMargin ?? this.floatingMargin,
-      itemSpacing: itemSpacing ?? this.itemSpacing,
-    );
-  }
+  /// Height of the navigation bar
+  @override
+  final double height;
 
-  // Option: if you insist on animating height transitions, you can write a lerp manually
-  // But for this kind of structural change, we usually accept instantaneous switching
-  static NavigationStyle lerp(NavigationStyle a, NavigationStyle b, double t) {
-    return NavigationStyle(
-      // Numeric types can transition
-      height: ui.lerpDouble(a.height, b.height, t)!,
-      floatingMargin: ui.lerpDouble(a.floatingMargin, b.floatingMargin, t)!,
-      itemSpacing: ui.lerpDouble(a.itemSpacing, b.itemSpacing, t)!,
+  /// Whether the navigation bar floats above content (Glass style)
+  @override
+  final bool isFloating;
 
-      // Boolean values cannot transition, t < 0.5 remains unchanged, t >= 0.5 switches
-      isFloating: t < 0.5 ? a.isFloating : b.isFloating,
-    );
-  }
+  /// Margin around floating navigation bar
+  @override
+  final double floatingMargin;
+
+  /// Spacing between navigation items
+  @override
+  final double itemSpacing;
+
+  /// Animation timing for navigation transitions
+  @override
+  final AnimationSpec animation;
+
+  /// Colors for navigation items (selected/unselected states)
+  @override
+  final StateColorSpec itemColors;
+
+  // --- Backward Compatibility Getters ---
+
+  /// @deprecated Use [animation.duration] instead
+  @override
+  Duration get animationDuration => animation.duration;
+
+  /// @deprecated Use [animation.curve] instead
+  @override
+  Curve get animationCurve => animation.curve;
+
+  /// @deprecated Use [itemColors.active] instead
+  @override
+  Color get selectedColor => itemColors.active;
+
+  /// @deprecated Use [itemColors.inactive] instead
+  @override
+  Color get unselectedColor => itemColors.inactive;
 }

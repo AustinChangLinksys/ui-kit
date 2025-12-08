@@ -14,6 +14,7 @@ mixin _$ExpansionPanelStyleTailorMixin on ThemeExtension<ExpansionPanelStyle> {
   Color get expandedBackgroundColor;
   Color get headerTextColor;
   IconData get expandIcon;
+  AnimationSpec get animation;
   Duration get animationDuration;
 
   @override
@@ -22,6 +23,7 @@ mixin _$ExpansionPanelStyleTailorMixin on ThemeExtension<ExpansionPanelStyle> {
     Color? expandedBackgroundColor,
     Color? headerTextColor,
     IconData? expandIcon,
+    AnimationSpec? animation,
     Duration? animationDuration,
   }) {
     return ExpansionPanelStyle(
@@ -30,7 +32,7 @@ mixin _$ExpansionPanelStyleTailorMixin on ThemeExtension<ExpansionPanelStyle> {
           expandedBackgroundColor ?? this.expandedBackgroundColor,
       headerTextColor: headerTextColor ?? this.headerTextColor,
       expandIcon: expandIcon ?? this.expandIcon,
-      animationDuration: animationDuration ?? this.animationDuration,
+      animation: animation ?? this.animation,
     );
   }
 
@@ -44,7 +46,7 @@ mixin _$ExpansionPanelStyleTailorMixin on ThemeExtension<ExpansionPanelStyle> {
           expandedBackgroundColor, other.expandedBackgroundColor, t)!,
       headerTextColor: Color.lerp(headerTextColor, other.headerTextColor, t)!,
       expandIcon: t < 0.5 ? expandIcon : other.expandIcon,
-      animationDuration: t < 0.5 ? animationDuration : other.animationDuration,
+      animation: animation.lerp(other.animation, t),
     );
   }
 
@@ -61,6 +63,7 @@ mixin _$ExpansionPanelStyleTailorMixin on ThemeExtension<ExpansionPanelStyle> {
                 .equals(headerTextColor, other.headerTextColor) &&
             const DeepCollectionEquality()
                 .equals(expandIcon, other.expandIcon) &&
+            const DeepCollectionEquality().equals(animation, other.animation) &&
             const DeepCollectionEquality()
                 .equals(animationDuration, other.animationDuration));
   }
@@ -73,6 +76,7 @@ mixin _$ExpansionPanelStyleTailorMixin on ThemeExtension<ExpansionPanelStyle> {
       const DeepCollectionEquality().hash(expandedBackgroundColor),
       const DeepCollectionEquality().hash(headerTextColor),
       const DeepCollectionEquality().hash(expandIcon),
+      const DeepCollectionEquality().hash(animation),
       const DeepCollectionEquality().hash(animationDuration),
     );
   }
@@ -95,6 +99,7 @@ extension ExpansionPanelStyleBuildContextProps on BuildContext {
   /// Icon used for expand/collapse indicator
   IconData get expandIcon => expansionPanelStyle.expandIcon;
 
-  /// Animation duration for expand/collapse
+  /// Animation timing for expand/collapse
+  AnimationSpec get animation => expansionPanelStyle.animation;
   Duration get animationDuration => expansionPanelStyle.animationDuration;
 }

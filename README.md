@@ -44,7 +44,267 @@ Add this package to your `pubspec.yaml`:
 dependencies:
   ui_kit_library:
     path: packages/ui_kit # Or git url
-````
+```
+
+### Basic Usage
+
+Initialize the Design System in your `MaterialApp`:
+
+```dart
+import 'package:ui_kit_library/ui_kit.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      builder: DesignSystem.init,
+      theme: ThemeData(
+        extensions: [GlassDesignTheme.light()],
+      ),
+      darkTheme: ThemeData(
+        extensions: [GlassDesignTheme.dark()],
+      ),
+      home: HomePage(),
+    );
+  }
+}
+```
+
+### Available Design Themes
+
+| Theme | Light | Dark | Visual Style |
+|-------|-------|------|--------------|
+| **Glass** | `GlassDesignTheme.light()` | `GlassDesignTheme.dark()` | Glassmorphism with blur and translucency |
+| **Brutal** | `BrutalDesignTheme.light()` | `BrutalDesignTheme.dark()` | Neo-Brutalism with bold borders |
+| **Flat** | `FlatDesignTheme.light()` | `FlatDesignTheme.dark()` | Clean Material-style surfaces |
+| **Neumorphic** | `NeumorphicDesignTheme.light()` | `NeumorphicDesignTheme.dark()` | Soft shadows and embossed effects |
+| **Pixel** | `PixelDesignTheme.light()` | `PixelDesignTheme.dark()` | Retro 8-bit with instant animations |
+
+### String-Based Theme Selection
+
+For dynamic theme switching (e.g., from user preferences or remote config), use a helper function:
+
+```dart
+/// Parse theme name string to AppDesignTheme
+AppDesignTheme getDesignTheme(String themeName, {bool isDark = false}) {
+  switch (themeName.toLowerCase()) {
+    case 'glass':
+      return isDark ? GlassDesignTheme.dark() : GlassDesignTheme.light();
+    case 'brutal':
+      return isDark ? BrutalDesignTheme.dark() : BrutalDesignTheme.light();
+    case 'flat':
+      return isDark ? FlatDesignTheme.dark() : FlatDesignTheme.light();
+    case 'neumorphic':
+      return isDark ? NeumorphicDesignTheme.dark() : NeumorphicDesignTheme.light();
+    case 'pixel':
+      return isDark ? PixelDesignTheme.dark() : PixelDesignTheme.light();
+    default:
+      return isDark ? FlatDesignTheme.dark() : FlatDesignTheme.light();
+  }
+}
+
+// Usage with SharedPreferences or remote config
+final themeName = prefs.getString('theme') ?? 'flat';
+final isDark = prefs.getBool('darkMode') ?? false;
+
+MaterialApp(
+  builder: DesignSystem.init,
+  theme: ThemeData(
+    extensions: [getDesignTheme(themeName, isDark: false)],
+  ),
+  darkTheme: ThemeData(
+    extensions: [getDesignTheme(themeName, isDark: true)],
+  ),
+  themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
+  // ...
+);
+```
+
+### Remote Theme Configuration
+
+For server-driven theming (e.g., Firebase Remote Config, REST API), use `CustomDesignTheme.fromJson`:
+
+```dart
+import 'package:ui_kit_library/ui_kit.dart';
+
+// Complete JSON from remote config (includes style selection)
+final themeJson = {
+  'style': 'glass',             // 'glass', 'flat', 'brutal', 'neumorphic', 'pixel'
+  'brightness': 'light',        // 'light' or 'dark'
+  'seedColor': '#6750A4',       // Hex color (6 or 8 digits)
+  'primary': '#2196F3',         // Override Material primary
+  'secondary': '#FF9800',       // Override Material secondary
+  'customSignalStrong': '#4CAF50', // Override signal colors
+  'customGlowColor': '#E91E63',    // Override glow effect
+};
+
+// Single entry point - creates the appropriate theme
+final theme = CustomDesignTheme.fromJson(themeJson);
+
+MaterialApp(
+  builder: DesignSystem.init,
+  theme: ThemeData(extensions: [theme]),
+  // ...
+);
+```
+
+#### Alternative: Separate Style and Config
+
+```dart
+// When style selection is separate from config
+final style = prefs.getString('style') ?? 'flat';
+final config = AppThemeConfig.fromJson(colorConfigJson);
+
+final theme = CustomDesignTheme.fromConfig(
+  style: style,
+  config: config,
+);
+```
+
+#### Complete JSON Example
+
+```json
+{
+  "style": "glass",
+  "brightness": "light",
+  "seedColor": "#6750A4",
+  "primary": "#2196F3",
+  "secondary": "#FF9800",
+  "tertiary": "#9C27B0",
+  "surface": "#FAFAFA",
+  "error": "#F44336",
+  "customSignalStrong": "#4CAF50",
+  "customSignalWeak": "#FFC107",
+  "customOverlayColor": "#000000",
+  "customGlowColor": "#E91E63",
+  "customHighContrastBorder": "#212121"
+}
+```
+
+#### CustomDesignTheme JSON Schema
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `style` | `String` | Design style: `'glass'`, `'flat'`, `'brutal'`, `'neumorphic'`, `'pixel'` |
+| `brightness` | `String` | `'light'` or `'dark'` |
+| `seedColor` | `String\|int` | Base color for generation (hex `#RRGGBB` or `#AARRGGBB`, or int) |
+| `primary` | `String\|int` | Override Material primary color |
+| `secondary` | `String\|int` | Override Material secondary color |
+| `tertiary` | `String\|int` | Override Material tertiary color |
+| `surface` | `String\|int` | Override surface color |
+| `error` | `String\|int` | Override error color |
+| `customSignalStrong` | `String\|int` | Override signal strong (success) color |
+| `customSignalWeak` | `String\|int` | Override signal weak (warning) color |
+| `customOverlayColor` | `String\|int` | Override overlay/scrim color |
+| `customGlowColor` | `String\|int` | Override glow effect color |
+| `customHighContrastBorder` | `String\|int` | Override high contrast border color |
+
+#### Configuration Priority
+
+The theme system follows **Configuration Injection** (Constitution 3.4):
+
+1. **High Priority (Override)**: Explicit values in `AppThemeConfig` always take precedence
+2. **Low Priority (Derived)**: Factory-generated values from `seedColor` are used when no override exists
+
+This supports both **"Lazy Mode"** (seed-based generation) and **"Expert Mode"** (full customization).
+
+### Custom Design Style
+
+Create your own design theme by extending `AppDesignTheme`:
+
+```dart
+import 'package:ui_kit_library/ui_kit.dart';
+
+class CustomDesignTheme extends AppDesignTheme {
+  factory CustomDesignTheme.light() {
+    final scheme = ColorScheme.fromSeed(seedColor: Colors.teal);
+
+    return CustomDesignTheme._(
+      // Core surfaces - required
+      surfaceBase: SurfaceStyle(
+        backgroundColor: scheme.surface,
+        borderColor: scheme.outline,
+        borderWidth: 2.0,
+        borderRadius: 16.0,
+        shadows: const [],
+        blurStrength: 0.0,
+        contentColor: scheme.onSurface,
+      ),
+      surfaceElevated: SurfaceStyle(
+        backgroundColor: scheme.surfaceContainerLow,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 16.0,
+        shadows: [
+          BoxShadow(
+            color: scheme.shadow.withOpacity(0.1),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+        blurStrength: 0.0,
+        contentColor: scheme.onSurface,
+      ),
+      surfaceHighlight: SurfaceStyle(
+        backgroundColor: scheme.primary,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 16.0,
+        shadows: const [],
+        blurStrength: 0.0,
+        contentColor: scheme.onPrimary,
+      ),
+      // ... other required surfaces and specs
+
+      // Animation using shared spec
+      animation: AnimationSpec.standard,
+
+      // Sheet style with OverlaySpec composition
+      sheetStyle: SheetStyle(
+        overlay: OverlaySpec.standard,
+        borderRadius: 24.0,
+        width: 320.0,
+        dragHandleHeight: 4.0,
+        enableDithering: false,
+      ),
+
+      // Tabs with StateColorSpec composition
+      tabsStyle: TabsStyle(
+        textColors: StateColorSpec(
+          active: scheme.primary,
+          inactive: scheme.onSurfaceVariant,
+        ),
+        indicatorColor: scheme.primary,
+        tabBackgroundColor: scheme.surface,
+        animationDuration: const Duration(milliseconds: 250),
+        indicatorThickness: 2.0,
+      ),
+
+      // ... other component styles
+    );
+  }
+
+  const CustomDesignTheme._({
+    required super.surfaceBase,
+    required super.surfaceElevated,
+    required super.surfaceHighlight,
+    // ... all required parameters
+  });
+}
+```
+
+#### Key Points for Custom Themes
+
+1. **Compose Shared Specs**: Use `AnimationSpec`, `StateColorSpec`, `OverlaySpec` instead of duplicating properties
+2. **Full Compliance**: Implement all required fields in `AppDesignTheme`
+3. **No Runtime Checks**: Components should adapt based on spec values, not theme type checks
+4. **Use AppColorScheme**: Derive colors from `ColorScheme` for Material 3 compatibility
+
+See existing theme files in `lib/src/foundation/theme/design_system/styles/` for complete examples.
 
 ## 🛠 Development
 
@@ -276,6 +536,358 @@ Below is the summary of components available in our system:
 | **AppGauge** | Organism | Visualization meter. | `value`, `min`, `max`, `style` (solid/gradient/segmented) |
 | **TopologyGraphView** | Organism | Network mesh graph. | `nodes`, `links`, `onNodeTap`, `onLinkTap` |
 | **AppDataTable** | Organism | Responsive data table. | `columns`, `rows`, `sortColumnIndex`, `sortAscending`, `onSelectAll` |
+
+---
+
+## 🎨 Widget Styles Reference
+
+All component styles are defined in `lib/src/foundation/theme/design_system/specs/` and accessed via `AppDesignTheme`. Styles use `@TailorMixin` for theme extension generation.
+
+### Shared Specs (Composable Building Blocks)
+
+These specs are designed to be composed into component styles, reducing duplication and ensuring consistency.
+
+#### AnimationSpec
+Shared animation timing specification. Composes into component styles for consistent motion.
+
+- **Parameters**:
+  - `duration` (`Duration`, required) - Animation duration
+  - `curve` (`Curve`, required) - Animation curve
+
+- **Presets**: `instant` (0ms), `fast` (150ms), `standard` (300ms), `slow` (500ms)
+
+- **Methods**: `withOverride({duration?, curve?})`
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `duration` | `Duration` | ✓ | - | Animation duration |
+| `curve` | `Curve` | ✓ | - | Animation curve (easing) |
+
+---
+
+#### StateColorSpec
+State-based color specification with `resolve()` method for ergonomic color selection.
+
+- **Parameters**:
+  - `active` (`Color`, required) - Color when active/selected
+  - `inactive` (`Color`, required) - Color when inactive/unselected
+  - `hover` (`Color?`) - Color on hover (optional)
+  - `pressed` (`Color?`) - Color when pressed (optional)
+  - `disabled` (`Color?`) - Color when disabled (optional)
+  - `error` (`Color?`) - Color for error state (optional)
+
+- **Methods**:
+  - `resolve({isActive, isHovered?, isPressed?, isDisabled?, hasError?})` - Returns appropriate color based on state
+  - `withOverride({active?, inactive?, hover?, pressed?, disabled?, error?})`
+
+- **Priority**: error > disabled > pressed > hover > active/inactive
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `active` | `Color` | ✓ | - | Active/selected state color |
+| `inactive` | `Color` | ✓ | - | Inactive/unselected state color |
+| `hover` | `Color?` | - | `null` | Hover state color |
+| `pressed` | `Color?` | - | `null` | Pressed state color |
+| `disabled` | `Color?` | - | `null` | Disabled state color |
+| `error` | `Color?` | - | `null` | Error state color |
+
+---
+
+#### OverlaySpec
+Overlay/backdrop specification for modal components (sheets, dialogs). Composes `AnimationSpec`.
+
+- **Parameters**:
+  - `scrimColor` (`Color`, required) - Backdrop color
+  - `blurStrength` (`double`) - Blur sigma (Glass theme uses blur)
+  - `animation` (`AnimationSpec`, required) - Overlay transition timing
+
+- **Presets**: `standard`, `glass`, `pixel`
+
+- **Methods**: `withOverride({scrimColor?, blurStrength?, animation?})`
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `scrimColor` | `Color` | ✓ | - | Scrim/backdrop color |
+| `blurStrength` | `double` | - | `0.0` | Blur effect strength |
+| `animation` | `AnimationSpec` | ✓ | - | Overlay animation timing |
+
+---
+
+### Component Styles
+
+#### SurfaceStyle
+Core visual appearance for container components.
+
+- **Parameters**:
+  - `backgroundColor` (`Color`, required) - Background color
+  - `borderColor` (`Color`, required) - Border color
+  - `borderWidth` (`double`) - Border thickness
+  - `borderRadius` (`double`) - Corner radius
+  - `shadows` (`List<BoxShadow>`) - Shadow effects
+  - `blurStrength` (`double`) - Backdrop blur (Glass)
+  - `contentColor` (`Color`, required) - Default text/icon color
+  - `interaction` (`InteractionSpec?`) - Physical interaction effects
+  - `texture` (`ImageProvider?`) - Surface texture
+  - `textureOpacity` (`double`) - Texture overlay opacity
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `backgroundColor` | `Color` | ✓ | - | Surface background |
+| `borderColor` | `Color` | ✓ | - | Border color |
+| `borderWidth` | `double` | - | `0.0` | Border thickness |
+| `borderRadius` | `double` | - | `0.0` | Corner radius |
+| `shadows` | `List<BoxShadow>` | - | `[]` | Drop shadows |
+| `blurStrength` | `double` | - | `0.0` | Backdrop blur sigma |
+| `contentColor` | `Color` | ✓ | - | Content color |
+| `texture` | `ImageProvider?` | - | `null` | Surface texture |
+| `textureOpacity` | `double` | - | `1.0` | Texture opacity |
+
+---
+
+#### SheetStyle
+Unified style for bottom sheets and side sheets. Composes `OverlaySpec`.
+
+- **Parameters**:
+  - `overlay` (`OverlaySpec`, required) - Backdrop appearance and animation
+  - `borderRadius` (`double`, required) - Corner radius
+  - `width` (`double?`) - Sheet width (side sheets)
+  - `dragHandleHeight` (`double`) - Drag handle indicator height
+  - `enableDithering` (`bool`) - Enable dither pattern (Pixel)
+
+- **Methods**: `withOverride({overlay?, borderRadius?, width?, dragHandleHeight?, enableDithering?})`
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `overlay` | `OverlaySpec` | ✓ | - | Overlay spec (scrim, blur, animation) |
+| `borderRadius` | `double` | ✓ | - | Corner radius |
+| `width` | `double?` | - | `null` | Sheet width (side sheets) |
+| `dragHandleHeight` | `double` | - | `4.0` | Drag handle height |
+| `enableDithering` | `bool` | - | `false` | Pixel theme dithering |
+
+---
+
+#### DialogStyle
+Modal dialog appearance. Composes `OverlaySpec` and `SurfaceStyle`.
+
+- **Parameters**:
+  - `containerStyle` (`SurfaceStyle`, required) - Dialog container appearance
+  - `overlay` (`OverlaySpec`, required) - Backdrop specification
+  - `maxWidth` (`double`) - Maximum dialog width
+  - `padding` (`EdgeInsets`) - Content padding
+  - `buttonSpacing` (`double`) - Gap between action buttons
+  - `buttonAlignment` (`MainAxisAlignment`) - Button row alignment
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `containerStyle` | `SurfaceStyle` | ✓ | - | Dialog box appearance |
+| `overlay` | `OverlaySpec` | ✓ | - | Backdrop specification |
+| `maxWidth` | `double` | - | `400.0` | Maximum width |
+| `padding` | `EdgeInsets` | - | `all(24.0)` | Content padding |
+| `buttonSpacing` | `double` | - | `8.0` | Button gap |
+| `buttonAlignment` | `MainAxisAlignment` | - | `end` | Button alignment |
+
+---
+
+#### TabsStyle
+Tab navigation appearance. Composes `StateColorSpec`.
+
+- **Parameters**:
+  - `textColors` (`StateColorSpec`, required) - Tab text colors (active/inactive)
+  - `indicatorColor` (`Color`, required) - Active indicator color
+  - `tabBackgroundColor` (`Color`, required) - Tab button background
+  - `animationDuration` (`Duration`, required) - Indicator transition duration
+  - `indicatorThickness` (`double`, required) - Indicator line thickness
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `textColors` | `StateColorSpec` | ✓ | - | Text colors by state |
+| `indicatorColor` | `Color` | ✓ | - | Active indicator color |
+| `tabBackgroundColor` | `Color` | ✓ | - | Tab background |
+| `animationDuration` | `Duration` | ✓ | - | Animation duration |
+| `indicatorThickness` | `double` | ✓ | - | Indicator thickness |
+
+---
+
+#### CarouselStyle
+Carousel/slider appearance. Composes `AnimationSpec` and `StateColorSpec`.
+
+- **Parameters**:
+  - `navButtonColors` (`StateColorSpec`, required) - Navigation button colors
+  - `previousIcon` (`IconData`, required) - Previous button icon
+  - `nextIcon` (`IconData`, required) - Next button icon
+  - `animation` (`AnimationSpec`, required) - Item transition timing
+  - `useSnapScroll` (`bool`) - Snap scroll behavior (Pixel)
+  - `navButtonSize` (`double`) - Navigation button size
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `navButtonColors` | `StateColorSpec` | ✓ | - | Nav button colors |
+| `previousIcon` | `IconData` | ✓ | - | Previous icon |
+| `nextIcon` | `IconData` | ✓ | - | Next icon |
+| `animation` | `AnimationSpec` | ✓ | - | Transition animation |
+| `useSnapScroll` | `bool` | - | `false` | Snap scroll mode |
+| `navButtonSize` | `double` | - | `48.0` | Button size |
+
+---
+
+#### InputStyle
+Text input field appearance with variant support.
+
+- **Parameters**:
+  - `outlineStyle` (`SurfaceStyle`, required) - Outlined variant appearance
+  - `underlineStyle` (`SurfaceStyle`, required) - Underlined variant appearance
+  - `filledStyle` (`SurfaceStyle`, required) - Filled variant appearance
+  - `focusModifier` (`SurfaceStyle`, required) - Focus state overlay
+  - `errorModifier` (`SurfaceStyle`, required) - Error state overlay
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `outlineStyle` | `SurfaceStyle` | ✓ | - | Outline variant style |
+| `underlineStyle` | `SurfaceStyle` | ✓ | - | Underline variant style |
+| `filledStyle` | `SurfaceStyle` | ✓ | - | Filled variant style |
+| `focusModifier` | `SurfaceStyle` | ✓ | - | Focus state modifier |
+| `errorModifier` | `SurfaceStyle` | ✓ | - | Error state modifier |
+
+---
+
+#### ToggleStyle
+Switch/toggle appearance with content renderer support.
+
+- **Parameters**:
+  - `activeType` (`ToggleContentType`) - Content type when active
+  - `inactiveType` (`ToggleContentType`) - Content type when inactive
+  - `activeText` / `inactiveText` (`String?`) - Text content
+  - `activeIcon` / `inactiveIcon` (`IconData?`) - Icon content
+  - `activeTrackStyle` (`SurfaceStyle?`) - Track when on
+  - `inactiveTrackStyle` (`SurfaceStyle?`) - Track when off
+  - `thumbStyle` (`SurfaceStyle?`) - Thumb appearance
+
+- **Content Types**: `none`, `text`, `icon`, `grip`, `dot`
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `activeType` | `ToggleContentType` | - | `none` | Active content type |
+| `inactiveType` | `ToggleContentType` | - | `none` | Inactive content type |
+| `activeTrackStyle` | `SurfaceStyle?` | - | `null` | Active track style |
+| `inactiveTrackStyle` | `SurfaceStyle?` | - | `null` | Inactive track style |
+| `thumbStyle` | `SurfaceStyle?` | - | `null` | Thumb style |
+
+---
+
+#### TableStyle
+Data table appearance. Composes `AnimationSpec`.
+
+- **Parameters**:
+  - `headerBackground` (`Color?`) - Header row background
+  - `rowBackground` (`Color`) - Data row background
+  - `gridColor` (`Color`) - Grid line color
+  - `gridWidth` (`double`) - Grid line width
+  - `showVerticalGrid` (`bool`) - Show vertical grid lines
+  - `cellPadding` (`EdgeInsetsGeometry`) - Cell padding
+  - `rowHeight` (`double`) - Row height
+  - `headerTextStyle` / `cellTextStyle` (`TextStyle`) - Text styles
+  - `invertRowOnHover` (`bool`) - Invert colors on hover (Pixel)
+  - `glowRowOnHover` (`bool`) - Glow effect on hover (Glass)
+  - `hoverRowBackground` / `hoverRowContentColor` (`Color?`) - Hover colors
+  - `modeTransition` (`AnimationSpec`) - Mode switch animation
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `headerBackground` | `Color?` | - | - | Header background |
+| `rowBackground` | `Color` | ✓ | - | Row background |
+| `gridColor` | `Color` | ✓ | - | Grid line color |
+| `gridWidth` | `double` | ✓ | - | Grid line width |
+| `showVerticalGrid` | `bool` | ✓ | - | Vertical grid lines |
+| `cellPadding` | `EdgeInsetsGeometry` | ✓ | - | Cell padding |
+| `rowHeight` | `double` | ✓ | - | Row height |
+| `modeTransition` | `AnimationSpec` | ✓ | - | Mode transition animation |
+
+---
+
+#### GaugeStyle
+Gauge/meter visualization. Composes `AnimationSpec`.
+
+- **Parameters**:
+  - `type` (`GaugeRenderType`) - Rendering style: `gradient`, `segmented`, `solid`
+  - `cap` (`GaugeCapType`) - Line cap style: `round`, `butt`, `comet`, `bead`
+  - `trackColor` (`Color`) - Background track color
+  - `indicatorColor` (`Color`) - Progress indicator color
+  - `showTicks` (`bool`) - Show tick marks
+  - `strokeWidth` (`double`) - Arc stroke width
+  - `enableGlow` (`bool`) - Enable glow effect
+  - `animation` (`AnimationSpec`) - Value transition animation
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `type` | `GaugeRenderType` | ✓ | - | Render type |
+| `cap` | `GaugeCapType` | ✓ | - | Cap style |
+| `trackColor` | `Color` | ✓ | - | Track color |
+| `indicatorColor` | `Color` | ✓ | - | Indicator color |
+| `showTicks` | `bool` | ✓ | - | Show ticks |
+| `strokeWidth` | `double` | ✓ | - | Stroke width |
+| `enableGlow` | `bool` | ✓ | - | Enable glow |
+| `animation` | `AnimationSpec` | ✓ | - | Animation timing |
+
+---
+
+### Quick Reference Table
+
+| Style | Composes | Used By | Key Features |
+|-------|----------|---------|--------------|
+| **AnimationSpec** | - | All animated components | Duration, Curve, Presets |
+| **StateColorSpec** | - | Tabs, Carousel, Chips, Breadcrumb | State-based color resolution |
+| **OverlaySpec** | AnimationSpec | Sheet, Dialog, ExpandableFab | Scrim, Blur, Animation |
+| **SurfaceStyle** | InteractionSpec | AppSurface, Cards, Inputs | Background, Border, Shadow |
+| **SheetStyle** | OverlaySpec | AppBottomSheet, AppSideSheet | Unified sheet styling |
+| **DialogStyle** | OverlaySpec, SurfaceStyle | AppDialog | Modal dialog appearance |
+| **TabsStyle** | StateColorSpec | AppTabs | Tab navigation |
+| **CarouselStyle** | AnimationSpec, StateColorSpec | AppCarousel | Item slider |
+| **InputStyle** | SurfaceStyle | AppTextField, Form inputs | Input field variants |
+| **ToggleStyle** | SurfaceStyle | AppSwitch | Toggle with renderers |
+| **TableStyle** | AnimationSpec | AppDataTable | Data table styling |
+| **GaugeStyle** | AnimationSpec | AppGauge | Meter visualization |
+
+---
+
+### Integration Status
+
+Shows which styles have been migrated to use shared specs (`@TailorMixin`, `AnimationSpec`, `StateColorSpec`, `OverlaySpec`).
+
+#### ✅ Fully Integrated
+
+| Style | @TailorMixin | AnimationSpec | StateColorSpec | OverlaySpec |
+|-------|:------------:|:-------------:|:--------------:|:-----------:|
+| SheetStyle | ✅ | ✅ | - | ✅ |
+| DialogStyle | ✅ | ✅ | - | ✅ |
+| TabsStyle | ✅ | - | ✅ | - |
+| BreadcrumbStyle | ✅ | - | ✅ | - |
+| ChipGroupStyle | ✅ | - | ✅ | - |
+| CarouselStyle | ✅ | ✅ | ✅ | - |
+| ExpansionPanelStyle | ✅ | ✅ | - | - |
+| SlideActionStyle | ✅ | ✅ | - | - |
+| TableStyle | ✅ | ✅ | - | - |
+| GaugeStyle | ✅ | ✅ | - | - |
+| ExpandableFabStyle | ✅ | ✅ | - | ✅ |
+| TopologySpec | ✅ | ✅ | - | - |
+| LoaderStyle | ✅ | - | - | - |
+| ToastStyle | ✅ | - | - | - |
+
+#### ⏳ Pending Integration
+
+| Style | Issue | Target Integration |
+|-------|-------|-------------------|
+| **NavigationStyle** | No @TailorMixin, manual lerp | AnimationSpec, StateColorSpec |
+| **StepperStyle** | Standalone Duration field | AnimationSpec |
+| **SkeletonStyle** | No @TailorMixin | AnimationSpec |
+| **AppBarStyle** | Equatable, manual lerp | @TailorMixin (optional) |
+| **AppMenuStyle** | Equatable, manual lerp | @TailorMixin, AnimationSpec (optional) |
+| **DividerStyle** | Equatable | @TailorMixin (optional) |
+| **InputStyle** | Equatable | @TailorMixin (optional) |
+| **ToggleStyle** | Plain class | @TailorMixin (optional) |
+
+> See `specs/021-spec-consolidation/tasks.md` Phase 11-14 for detailed integration tasks.
+
+---
 
 ## 📚 Documentation
 

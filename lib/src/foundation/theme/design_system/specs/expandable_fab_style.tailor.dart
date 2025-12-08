@@ -13,29 +13,30 @@ mixin _$ExpandableFabStyleTailorMixin on ThemeExtension<ExpandableFabStyle> {
   BoxShape get shape;
   double get distance;
   FabAnimationType get type;
-  Color get overlayColor;
-  bool get enableBlur;
+  OverlaySpec get overlay;
   bool get showDitherPattern;
   bool get glowEffect;
   bool get highContrastBorder;
+  Color get overlayColor;
+  bool get enableBlur;
 
   @override
   ExpandableFabStyle copyWith({
     BoxShape? shape,
     double? distance,
     FabAnimationType? type,
-    Color? overlayColor,
-    bool? enableBlur,
+    OverlaySpec? overlay,
     bool? showDitherPattern,
     bool? glowEffect,
     bool? highContrastBorder,
+    Color? overlayColor,
+    bool? enableBlur,
   }) {
     return ExpandableFabStyle(
       shape: shape ?? this.shape,
       distance: distance ?? this.distance,
       type: type ?? this.type,
-      overlayColor: overlayColor ?? this.overlayColor,
-      enableBlur: enableBlur ?? this.enableBlur,
+      overlay: overlay ?? this.overlay,
       showDitherPattern: showDitherPattern ?? this.showDitherPattern,
       glowEffect: glowEffect ?? this.glowEffect,
       highContrastBorder: highContrastBorder ?? this.highContrastBorder,
@@ -50,8 +51,7 @@ mixin _$ExpandableFabStyleTailorMixin on ThemeExtension<ExpandableFabStyle> {
       shape: t < 0.5 ? shape : other.shape,
       distance: t < 0.5 ? distance : other.distance,
       type: t < 0.5 ? type : other.type,
-      overlayColor: Color.lerp(overlayColor, other.overlayColor, t)!,
-      enableBlur: t < 0.5 ? enableBlur : other.enableBlur,
+      overlay: overlay.lerp(other.overlay, t),
       showDitherPattern: t < 0.5 ? showDitherPattern : other.showDitherPattern,
       glowEffect: t < 0.5 ? glowEffect : other.glowEffect,
       highContrastBorder:
@@ -67,16 +67,17 @@ mixin _$ExpandableFabStyleTailorMixin on ThemeExtension<ExpandableFabStyle> {
             const DeepCollectionEquality().equals(shape, other.shape) &&
             const DeepCollectionEquality().equals(distance, other.distance) &&
             const DeepCollectionEquality().equals(type, other.type) &&
-            const DeepCollectionEquality()
-                .equals(overlayColor, other.overlayColor) &&
-            const DeepCollectionEquality()
-                .equals(enableBlur, other.enableBlur) &&
+            const DeepCollectionEquality().equals(overlay, other.overlay) &&
             const DeepCollectionEquality()
                 .equals(showDitherPattern, other.showDitherPattern) &&
             const DeepCollectionEquality()
                 .equals(glowEffect, other.glowEffect) &&
             const DeepCollectionEquality()
-                .equals(highContrastBorder, other.highContrastBorder));
+                .equals(highContrastBorder, other.highContrastBorder) &&
+            const DeepCollectionEquality()
+                .equals(overlayColor, other.overlayColor) &&
+            const DeepCollectionEquality()
+                .equals(enableBlur, other.enableBlur));
   }
 
   @override
@@ -86,11 +87,12 @@ mixin _$ExpandableFabStyleTailorMixin on ThemeExtension<ExpandableFabStyle> {
       const DeepCollectionEquality().hash(shape),
       const DeepCollectionEquality().hash(distance),
       const DeepCollectionEquality().hash(type),
-      const DeepCollectionEquality().hash(overlayColor),
-      const DeepCollectionEquality().hash(enableBlur),
+      const DeepCollectionEquality().hash(overlay),
       const DeepCollectionEquality().hash(showDitherPattern),
       const DeepCollectionEquality().hash(glowEffect),
       const DeepCollectionEquality().hash(highContrastBorder),
+      const DeepCollectionEquality().hash(overlayColor),
+      const DeepCollectionEquality().hash(enableBlur),
     );
   }
 }
@@ -98,12 +100,27 @@ mixin _$ExpandableFabStyleTailorMixin on ThemeExtension<ExpandableFabStyle> {
 extension ExpandableFabStyleBuildContextProps on BuildContext {
   ExpandableFabStyle get expandableFabStyle =>
       Theme.of(this).extension<ExpandableFabStyle>()!;
+
+  /// Shape & Geometry - Circle vs Square
   BoxShape get shape => expandableFabStyle.shape;
+
+  /// Distance of satellite actions
   double get distance => expandableFabStyle.distance;
+
+  /// Animation strategy
   FabAnimationType get type => expandableFabStyle.type;
+
+  /// Overlay appearance (scrim, blur, animation)
+  OverlaySpec get overlay => expandableFabStyle.overlay;
+
+  /// Pixel theme dither pattern
+  bool get showDitherPattern => expandableFabStyle.showDitherPattern;
+
+  /// Glass theme glow effect
+  bool get glowEffect => expandableFabStyle.glowEffect;
+
+  /// Pixel/Brutal high contrast border
+  bool get highContrastBorder => expandableFabStyle.highContrastBorder;
   Color get overlayColor => expandableFabStyle.overlayColor;
   bool get enableBlur => expandableFabStyle.enableBlur;
-  bool get showDitherPattern => expandableFabStyle.showDitherPattern;
-  bool get glowEffect => expandableFabStyle.glowEffect;
-  bool get highContrastBorder => expandableFabStyle.highContrastBorder;
 }

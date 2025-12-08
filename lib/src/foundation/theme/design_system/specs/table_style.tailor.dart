@@ -23,6 +23,7 @@ mixin _$TableStyleTailorMixin on ThemeExtension<TableStyle> {
   TextStyle get cellTextStyle;
   bool get invertRowOnHover;
   bool get glowRowOnHover;
+  AnimationSpec get modeTransition;
   Duration get modeTransitionDuration;
 
   @override
@@ -40,6 +41,7 @@ mixin _$TableStyleTailorMixin on ThemeExtension<TableStyle> {
     TextStyle? cellTextStyle,
     bool? invertRowOnHover,
     bool? glowRowOnHover,
+    AnimationSpec? modeTransition,
     Duration? modeTransitionDuration,
   }) {
     return TableStyle(
@@ -56,8 +58,7 @@ mixin _$TableStyleTailorMixin on ThemeExtension<TableStyle> {
       cellTextStyle: cellTextStyle ?? this.cellTextStyle,
       invertRowOnHover: invertRowOnHover ?? this.invertRowOnHover,
       glowRowOnHover: glowRowOnHover ?? this.glowRowOnHover,
-      modeTransitionDuration:
-          modeTransitionDuration ?? this.modeTransitionDuration,
+      modeTransition: modeTransition ?? this.modeTransition,
     );
   }
 
@@ -81,8 +82,7 @@ mixin _$TableStyleTailorMixin on ThemeExtension<TableStyle> {
       cellTextStyle: TextStyle.lerp(cellTextStyle, other.cellTextStyle, t)!,
       invertRowOnHover: t < 0.5 ? invertRowOnHover : other.invertRowOnHover,
       glowRowOnHover: t < 0.5 ? glowRowOnHover : other.glowRowOnHover,
-      modeTransitionDuration:
-          t < 0.5 ? modeTransitionDuration : other.modeTransitionDuration,
+      modeTransition: modeTransition.lerp(other.modeTransition, t),
     );
   }
 
@@ -115,6 +115,8 @@ mixin _$TableStyleTailorMixin on ThemeExtension<TableStyle> {
             const DeepCollectionEquality()
                 .equals(glowRowOnHover, other.glowRowOnHover) &&
             const DeepCollectionEquality()
+                .equals(modeTransition, other.modeTransition) &&
+            const DeepCollectionEquality()
                 .equals(modeTransitionDuration, other.modeTransitionDuration));
   }
 
@@ -135,6 +137,7 @@ mixin _$TableStyleTailorMixin on ThemeExtension<TableStyle> {
       const DeepCollectionEquality().hash(cellTextStyle),
       const DeepCollectionEquality().hash(invertRowOnHover),
       const DeepCollectionEquality().hash(glowRowOnHover),
+      const DeepCollectionEquality().hash(modeTransition),
       const DeepCollectionEquality().hash(modeTransitionDuration),
     );
   }
@@ -142,18 +145,31 @@ mixin _$TableStyleTailorMixin on ThemeExtension<TableStyle> {
 
 extension TableStyleBuildContextProps on BuildContext {
   TableStyle get tableStyle => Theme.of(this).extension<TableStyle>()!;
+
+  /// Nullable for Glass (transparent)
   Color? get headerBackground => tableStyle.headerBackground;
   Color get rowBackground => tableStyle.rowBackground;
   Color get gridColor => tableStyle.gridColor;
+
+  /// 0.0 for Glass, 1.0+ for Pixel
   double get gridWidth => tableStyle.gridWidth;
   bool get showVerticalGrid => tableStyle.showVerticalGrid;
   Color? get hoverRowBackground => tableStyle.hoverRowBackground;
   Color? get hoverRowContentColor => tableStyle.hoverRowContentColor;
+
+  /// Dense vs Spacious
   EdgeInsetsGeometry get cellPadding => tableStyle.cellPadding;
   double get rowHeight => tableStyle.rowHeight;
   TextStyle get headerTextStyle => tableStyle.headerTextStyle;
   TextStyle get cellTextStyle => tableStyle.cellTextStyle;
+
+  /// For Pixel style
   bool get invertRowOnHover => tableStyle.invertRowOnHover;
+
+  /// For Glass style
   bool get glowRowOnHover => tableStyle.glowRowOnHover;
+
+  /// Animation timing for mode transitions (0ms for Pixel, 500ms for Glass)
+  AnimationSpec get modeTransition => tableStyle.modeTransition;
   Duration get modeTransitionDuration => tableStyle.modeTransitionDuration;
 }

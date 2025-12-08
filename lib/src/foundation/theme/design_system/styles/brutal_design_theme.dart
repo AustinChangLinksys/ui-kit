@@ -4,6 +4,8 @@ import 'package:ui_kit_library/src/foundation/theme/design_system/specs/interact
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/password_input_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/pin_input_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/range_input_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/shared/animation_spec.dart'
+    as shared;
 import 'package:ui_kit_library/ui_kit.dart';
 
 class BrutalDesignTheme extends AppDesignTheme {
@@ -16,12 +18,6 @@ class BrutalDesignTheme extends AppDesignTheme {
   // Factory 2: Raw Mode (AppColorScheme driven)
   factory BrutalDesignTheme._raw(AppColorScheme colors) {
     final isLight = colors.surface.computeLuminance() > 0.5;
-    final bottomSheetOverlay = isLight
-        ? colors.onSurface.withValues(alpha: 0.5)
-        : colors.surface.withValues(alpha: 0.6);
-    final sideSheetOverlay = isLight
-        ? colors.onSurface.withValues(alpha: 0.6)
-        : colors.surface.withValues(alpha: 0.6);
 
     return BrutalDesignTheme._(
       surfaceBase: SurfaceStyle(
@@ -118,6 +114,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         highlightColor: colors.shadow.withValues(alpha: 0.3),
         animationType: SkeletonAnimationType.blink,
         borderRadius: 0.0,
+        animation: AnimationSpec.fast,
       ),
       inputStyle: InputStyle(
         outlineStyle: SurfaceStyle(
@@ -208,11 +205,16 @@ class BrutalDesignTheme extends AppDesignTheme {
       ),
       spacingFactor: 1.5,
       buttonHeight: 56.0,
-      navigationStyle: const NavigationStyle(
+      navigationStyle: NavigationStyle(
         height: 80.0,
         isFloating: false,
         floatingMargin: 0.0,
         itemSpacing: 8.0,
+        animation: AnimationSpec.fast,
+        itemColors: StateColorSpec(
+          active: colors.onSurface,
+          inactive: colors.onSurface.withValues(alpha: 0.5),
+        ),
       ),
       layoutSpec: const LayoutSpec(
         marginMobile: 24.0,
@@ -292,30 +294,29 @@ class BrutalDesignTheme extends AppDesignTheme {
           blurStrength: 0.0,
           contentColor: colors.onSurface,
         ),
-        barrierColor: bottomSheetOverlay,
-        barrierBlur: 0.0,
+        overlay: OverlaySpec(
+          scrimColor: isLight
+              ? colors.onSurface.withValues(alpha: 0.5)
+              : colors.surface.withValues(alpha: 0.6),
+          blurStrength: 0.0,
+          animation: shared.AnimationSpec.standard,
+        ),
       ),
       motion: const BrutalMotion(),
       visualEffects: GlobalEffectsType.none,
       iconStyle: AppIconStyle.vectorFilled,
-      bottomSheetStyle: BottomSheetStyle(
-        overlayColor: bottomSheetOverlay,
-        animationDuration: const Duration(milliseconds: 200),
-        animationCurve: Curves.linear,
-        topBorderRadius: 0.0,
-        dragHandleHeight: 12.0,
-      ),
-      sideSheetStyle: SideSheetStyle(
+      sheetStyle: const SheetStyle(
+        overlay: OverlaySpec.standard,
+        borderRadius: 0.0,  // Brutal has sharp corners
         width: 280.0,
-        overlayColor: sideSheetOverlay,
-        animationDuration: const Duration(milliseconds: 150),
-        animationCurve: Curves.linear,
-        blurStrength: 0.0,
+        dragHandleHeight: 6.0,
         enableDithering: false,
       ),
       tabsStyle: TabsStyle(
-        activeTextColor: colors.onPrimary, // Assuming White/Black
-        inactiveTextColor: colors.onSurface.withValues(alpha: 0.5),
+        textColors: StateColorSpec(
+          active: colors.onPrimary, // Assuming White/Black
+          inactive: colors.onSurface.withValues(alpha: 0.5),
+        ),
         indicatorColor: colors.onPrimary,
         tabBackgroundColor: colors.primary, // Black tabs?
         animationDuration: const Duration(milliseconds: 150),
@@ -328,10 +329,13 @@ class BrutalDesignTheme extends AppDesignTheme {
         connectorColor: colors.outline,
         stepSize: 44.0,
         useDashedConnector: false,
+        animation: AnimationSpec.fast,
       ),
       breadcrumbStyle: BreadcrumbStyle(
-        activeLinkColor: colors.primary,
-        inactiveLinkColor: colors.onSurface.withValues(alpha: 0.5),
+        linkColors: StateColorSpec(
+          active: colors.primary,
+          inactive: colors.onSurface.withValues(alpha: 0.5),
+        ),
         separatorColor: colors.primary,
         separatorText: ' > ',
         itemTextStyle: appTextTheme.labelLarge!,
@@ -341,23 +345,29 @@ class BrutalDesignTheme extends AppDesignTheme {
         expandedBackgroundColor: colors.surfaceContainer,
         headerTextColor: colors.onSurface,
         expandIcon: Icons.expand_more,
-        animationDuration: const Duration(milliseconds: 150),
+        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 150), curve: Curves.easeInOut),
       ),
       carouselStyle: CarouselStyle(
-        navButtonColor: colors.onSurface,
-        navButtonHoverColor: colors.outline,
+        navButtonColors: StateColorSpec(
+          active: colors.primary,
+          inactive: colors.primary,
+          hover: colors.primary.withValues(alpha: 0.8),
+        ),
         previousIcon: Icons.arrow_back,
         nextIcon: Icons.arrow_forward,
-        animationDuration: const Duration(milliseconds: 150),
-        animationCurve: Curves.linear,
+        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 150), curve: Curves.easeOut),
         useSnapScroll: false,
         navButtonSize: 48.0,
       ),
       chipGroupStyle: ChipGroupStyle(
-        unselectedBackground: colors.surfaceContainer,
-        unselectedText: colors.onSurface,
-        selectedBackground: colors.primary,
-        selectedText: colors.onPrimary,
+        backgroundColors: StateColorSpec(
+          active: colors.primary,
+          inactive: colors.surfaceContainer,
+        ),
+        textColors: StateColorSpec(
+          active: colors.onPrimary,
+          inactive: colors.onSurface,
+        ),
         selectedBorderColor: colors.highContrastBorder,
         borderRadius: 4.0,
       ),
@@ -375,7 +385,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         glowRowOnHover: false,
         hoverRowBackground: colors.surfaceContainerHighest,
         hoverRowContentColor: null,
-        modeTransitionDuration: const Duration(milliseconds: 200),
+        modeTransition: const shared.AnimationSpec(duration: Duration(milliseconds: 200), curve: Curves.easeInOut),
       ),
       topologySpec: _buildTopologySpec(colors.toMaterialScheme(brightness: isLight ? Brightness.light : Brightness.dark), isLight: isLight),
       slideActionStyle: SlideActionStyle(
@@ -412,15 +422,17 @@ class BrutalDesignTheme extends AppDesignTheme {
         borderRadius: BorderRadius.zero, // Sharp corners
         contentColor: colors.onSurface,
         iconSize: 24.0,
-        animationDuration: const Duration(milliseconds: 400), // Heavy Elastic
-        animationCurve: Curves.elasticOut,
+        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 400), curve: Curves.elasticOut),
       ),
       expandableFabStyle: ExpandableFabStyle(
         shape: BoxShape.rectangle, // Or geometric mix
         distance: 80.0,
         type: FabAnimationType.spring, // Heavy bounce
-        overlayColor: colors.scrim.withValues(alpha: 0.5), // High contrast
-        enableBlur: false,
+        overlay: OverlaySpec(
+          scrimColor: colors.scrim.withValues(alpha: 0.5),
+          blurStrength: 0.0,
+          animation: const shared.AnimationSpec(duration: Duration(milliseconds: 200), curve: Curves.easeOut),
+        ),
         showDitherPattern: false,
         glowEffect: false,
         highContrastBorder: true,
@@ -433,6 +445,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         showTicks: false,
         strokeWidth: 20.0,
         enableGlow: false,
+        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 100), curve: Curves.linear),
       ),
       rangeInputStyle: RangeInputStyle(
         mergeContainers: false,
@@ -485,8 +498,7 @@ class BrutalDesignTheme extends AppDesignTheme {
     required super.motion,
     required super.visualEffects,
     required super.iconStyle,
-    required super.bottomSheetStyle,
-    required super.sideSheetStyle,
+    required super.sheetStyle,
     required super.tabsStyle,
     required super.stepperStyle,
     required super.breadcrumbStyle,
@@ -505,8 +517,6 @@ class BrutalDesignTheme extends AppDesignTheme {
 
   factory BrutalDesignTheme.light([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultLightScheme;
-    final bottomSheetOverlay = scheme.onSurface.withValues(alpha: 0.5);
-    final sideSheetOverlay = scheme.onSurface.withValues(alpha: 0.6);
     return BrutalDesignTheme._(
       surfaceBase: SurfaceStyle(
         backgroundColor: scheme.surface, // Use ColorScheme's surface
@@ -605,6 +615,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         highlightColor: scheme.shadow.withValues(alpha: 0.3),
         animationType: SkeletonAnimationType.blink,
         borderRadius: 0.0,
+        animation: AnimationSpec.fast,
       ),
       inputStyle: InputStyle(
         // Outline Style
@@ -698,11 +709,16 @@ class BrutalDesignTheme extends AppDesignTheme {
       ),
       spacingFactor: 1.5,
       buttonHeight: 56.0,
-      navigationStyle: const NavigationStyle(
+      navigationStyle: NavigationStyle(
         height: 80.0,
         isFloating: false,
         floatingMargin: 0.0,
         itemSpacing: 8.0,
+        animation: AnimationSpec.fast,
+        itemColors: StateColorSpec(
+          active: scheme.onSurface,
+          inactive: scheme.onSurface.withValues(alpha: 0.5),
+        ),
       ),
       layoutSpec: const LayoutSpec(
         marginMobile: 24.0,
@@ -784,30 +800,27 @@ class BrutalDesignTheme extends AppDesignTheme {
           blurStrength: 0.0,
           contentColor: scheme.onSurface,
         ),
-        barrierColor: scheme.onSurface.withValues(alpha: 0.5),
-        barrierBlur: 0.0,
+        overlay: OverlaySpec(
+          scrimColor: scheme.onSurface.withValues(alpha: 0.5),
+          blurStrength: 0.0,
+          animation: shared.AnimationSpec.standard,
+        ),
       ),
       motion: const BrutalMotion(),
       visualEffects: GlobalEffectsType.none,
       iconStyle: AppIconStyle.vectorFilled,
-      bottomSheetStyle: BottomSheetStyle(
-        overlayColor: bottomSheetOverlay,
-        animationDuration: const Duration(milliseconds: 200),
-        animationCurve: Curves.linear,
-        topBorderRadius: 0.0,
-        dragHandleHeight: 12.0,
-      ),
-      sideSheetStyle: SideSheetStyle(
+      sheetStyle: const SheetStyle(
+        overlay: OverlaySpec.standard,
+        borderRadius: 0.0,  // Brutal has sharp corners
         width: 280.0,
-        overlayColor: sideSheetOverlay,
-        animationDuration: const Duration(milliseconds: 150),
-        animationCurve: Curves.linear,
-        blurStrength: 0.0,
+        dragHandleHeight: 6.0,
         enableDithering: false,
       ),
       tabsStyle: TabsStyle(
-        activeTextColor: scheme.onPrimary,
-        inactiveTextColor: scheme.onSurface.withValues(alpha: 0.6),
+        textColors: StateColorSpec(
+          active: scheme.onPrimary,
+          inactive: scheme.onSurface.withValues(alpha: 0.6),
+        ),
         indicatorColor: scheme.onPrimary,
         tabBackgroundColor: scheme.primary,
         animationDuration: const Duration(milliseconds: 150),
@@ -820,10 +833,13 @@ class BrutalDesignTheme extends AppDesignTheme {
         connectorColor: scheme.outline,
         stepSize: 44.0,
         useDashedConnector: false,
+        animation: AnimationSpec.fast,
       ),
       breadcrumbStyle: BreadcrumbStyle(
-        activeLinkColor: scheme.primary,
-        inactiveLinkColor: scheme.onSurface.withValues(alpha: 0.5),
+        linkColors: StateColorSpec(
+          active: scheme.primary,
+          inactive: scheme.onSurface.withValues(alpha: 0.5),
+        ),
         separatorColor: scheme.primary,
         separatorText: ' > ',
         itemTextStyle: appTextTheme.labelLarge!,
@@ -833,23 +849,29 @@ class BrutalDesignTheme extends AppDesignTheme {
         expandedBackgroundColor: scheme.surfaceContainer,
         headerTextColor: scheme.onSurface,
         expandIcon: Icons.expand_more,
-        animationDuration: const Duration(milliseconds: 150),
+        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 150), curve: Curves.easeInOut),
       ),
       carouselStyle: CarouselStyle(
-        navButtonColor: scheme.onSurface,
-        navButtonHoverColor: scheme.outline,
+        navButtonColors: StateColorSpec(
+          active: scheme.primary,
+          inactive: scheme.primary,
+          hover: scheme.primary.withValues(alpha: 0.8),
+        ),
         previousIcon: Icons.arrow_back,
         nextIcon: Icons.arrow_forward,
-        animationDuration: const Duration(milliseconds: 150),
-        animationCurve: Curves.linear,
+        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 150), curve: Curves.easeOut),
         useSnapScroll: false,
         navButtonSize: 48.0,
       ),
       chipGroupStyle: ChipGroupStyle(
-        unselectedBackground: scheme.surfaceContainer,
-        unselectedText: scheme.onSurface,
-        selectedBackground: scheme.primary,
-        selectedText: scheme.onPrimary,
+        backgroundColors: StateColorSpec(
+          active: scheme.primary,
+          inactive: scheme.surfaceContainer,
+        ),
+        textColors: StateColorSpec(
+          active: scheme.onPrimary,
+          inactive: scheme.onSurface,
+        ),
         selectedBorderColor: scheme.primary,
         borderRadius: 4.0,
       ),
@@ -867,7 +889,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         glowRowOnHover: false,
         hoverRowBackground: scheme.surfaceContainerHighest,
         hoverRowContentColor: null,
-        modeTransitionDuration: const Duration(milliseconds: 200),
+        modeTransition: const shared.AnimationSpec(duration: Duration(milliseconds: 200), curve: Curves.easeInOut),
       ),
       topologySpec: _buildTopologySpec(scheme, isLight: true),
       slideActionStyle: SlideActionStyle(
@@ -904,15 +926,17 @@ class BrutalDesignTheme extends AppDesignTheme {
         borderRadius: BorderRadius.zero,
         contentColor: scheme.onSurface,
         iconSize: 24.0,
-        animationDuration: const Duration(milliseconds: 400),
-        animationCurve: Curves.elasticOut,
+        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 400), curve: Curves.elasticOut),
       ),
       expandableFabStyle: ExpandableFabStyle(
         shape: BoxShape.rectangle,
         distance: 80.0,
         type: FabAnimationType.spring,
-        overlayColor: scheme.scrim.withValues(alpha: 0.5),
-        enableBlur: false,
+        overlay: OverlaySpec(
+          scrimColor: scheme.scrim.withValues(alpha: 0.5),
+          blurStrength: 0.0,
+          animation: const shared.AnimationSpec(duration: Duration(milliseconds: 200), curve: Curves.easeOut),
+        ),
         showDitherPattern: false,
         glowEffect: false,
         highContrastBorder: true,
@@ -925,6 +949,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         showTicks: false,
         strokeWidth: 20.0,
         enableGlow: false,
+        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 100), curve: Curves.linear),
       ),
       rangeInputStyle: RangeInputStyle(
         mergeContainers: false,
@@ -954,8 +979,6 @@ class BrutalDesignTheme extends AppDesignTheme {
   factory BrutalDesignTheme.dark([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultDarkScheme;
     final black = scheme.onSurface;
-    final bottomSheetOverlay = scheme.surface.withValues(alpha: 0.6);
-    final sideSheetOverlay = scheme.surface.withValues(alpha: 0.6);
 
     return BrutalDesignTheme._(
       surfaceBase: SurfaceStyle(
@@ -1055,6 +1078,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         highlightColor: scheme.onSurface.withValues(alpha: 0.4),
         animationType: SkeletonAnimationType.blink,
         borderRadius: 0.0,
+        animation: AnimationSpec.fast,
       ),
       inputStyle: InputStyle(
         // Outline Style
@@ -1144,11 +1168,16 @@ class BrutalDesignTheme extends AppDesignTheme {
       ),
       spacingFactor: 1.5,
       buttonHeight: 56.0,
-      navigationStyle: const NavigationStyle(
+      navigationStyle: NavigationStyle(
         height: 80.0,
         isFloating: false,
         floatingMargin: 0.0,
         itemSpacing: 8.0,
+        animation: AnimationSpec.fast,
+        itemColors: StateColorSpec(
+          active: scheme.onSurface,
+          inactive: scheme.onSurface.withValues(alpha: 0.5),
+        ),
       ),
       layoutSpec: const LayoutSpec(
         marginMobile: 24.0,
@@ -1230,30 +1259,27 @@ class BrutalDesignTheme extends AppDesignTheme {
           blurStrength: 0.0,
           contentColor: black,
         ),
-        barrierColor: scheme.scrim.withValues(alpha: 0.6),
-        barrierBlur: 0.0,
+        overlay: OverlaySpec(
+          scrimColor: scheme.scrim.withValues(alpha: 0.6),
+          blurStrength: 0.0,
+          animation: shared.AnimationSpec.standard,
+        ),
       ),
       motion: const BrutalMotion(),
       visualEffects: GlobalEffectsType.none,
       iconStyle: AppIconStyle.vectorFilled,
-      bottomSheetStyle: BottomSheetStyle(
-        overlayColor: bottomSheetOverlay,
-        animationDuration: const Duration(milliseconds: 200),
-        animationCurve: Curves.linear,
-        topBorderRadius: 0.0,
-        dragHandleHeight: 12.0,
-      ),
-      sideSheetStyle: SideSheetStyle(
+      sheetStyle: const SheetStyle(
+        overlay: OverlaySpec.standard,
+        borderRadius: 0.0,  // Brutal has sharp corners
         width: 280.0,
-        overlayColor: sideSheetOverlay,
-        animationDuration: const Duration(milliseconds: 150),
-        animationCurve: Curves.linear,
-        blurStrength: 0.0,
+        dragHandleHeight: 6.0,
         enableDithering: false,
       ),
       tabsStyle: TabsStyle(
-        activeTextColor: scheme.onPrimary,
-        inactiveTextColor: scheme.onSurface.withValues(alpha: 0.6),
+        textColors: StateColorSpec(
+          active: scheme.onPrimary,
+          inactive: scheme.onSurface.withValues(alpha: 0.6),
+        ),
         indicatorColor: scheme.onPrimary,
         tabBackgroundColor: scheme.primary,
         animationDuration: const Duration(milliseconds: 150),
@@ -1266,10 +1292,13 @@ class BrutalDesignTheme extends AppDesignTheme {
         connectorColor: scheme.outline,
         stepSize: 44.0,
         useDashedConnector: false,
+        animation: AnimationSpec.fast,
       ),
       breadcrumbStyle: BreadcrumbStyle(
-        activeLinkColor: scheme.primary,
-        inactiveLinkColor: scheme.onSurface.withValues(alpha: 0.5),
+        linkColors: StateColorSpec(
+          active: scheme.primary,
+          inactive: scheme.onSurface.withValues(alpha: 0.5),
+        ),
         separatorColor: scheme.primary,
         separatorText: ' > ',
         itemTextStyle: appTextTheme.labelLarge!,
@@ -1279,23 +1308,29 @@ class BrutalDesignTheme extends AppDesignTheme {
         expandedBackgroundColor: scheme.surfaceContainer,
         headerTextColor: scheme.onSurface,
         expandIcon: Icons.expand_more,
-        animationDuration: const Duration(milliseconds: 150),
+        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 150), curve: Curves.easeInOut),
       ),
       carouselStyle: CarouselStyle(
-        navButtonColor: scheme.onSurface,
-        navButtonHoverColor: scheme.outline,
+        navButtonColors: StateColorSpec(
+          active: scheme.primary,
+          inactive: scheme.primary,
+          hover: scheme.primary.withValues(alpha: 0.8),
+        ),
         previousIcon: Icons.arrow_back,
         nextIcon: Icons.arrow_forward,
-        animationDuration: const Duration(milliseconds: 150),
-        animationCurve: Curves.linear,
+        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 150), curve: Curves.easeOut),
         useSnapScroll: false,
         navButtonSize: 48.0,
       ),
       chipGroupStyle: ChipGroupStyle(
-        unselectedBackground: scheme.surfaceContainer,
-        unselectedText: scheme.onSurface,
-        selectedBackground: scheme.primary,
-        selectedText: scheme.onPrimary,
+        backgroundColors: StateColorSpec(
+          active: scheme.primary,
+          inactive: scheme.surfaceContainer,
+        ),
+        textColors: StateColorSpec(
+          active: scheme.onPrimary,
+          inactive: scheme.onSurface,
+        ),
         selectedBorderColor: scheme.primary,
         borderRadius: 4.0,
       ),
@@ -1313,7 +1348,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         glowRowOnHover: false,
         hoverRowBackground: scheme.surfaceContainerHighest,
         hoverRowContentColor: null,
-        modeTransitionDuration: const Duration(milliseconds: 200),
+        modeTransition: const shared.AnimationSpec(duration: Duration(milliseconds: 200), curve: Curves.easeInOut),
       ),
       topologySpec: _buildTopologySpec(scheme, isLight: false),
       slideActionStyle: SlideActionStyle(
@@ -1350,15 +1385,17 @@ class BrutalDesignTheme extends AppDesignTheme {
         borderRadius: BorderRadius.zero,
         contentColor: black,
         iconSize: 24.0,
-        animationDuration: const Duration(milliseconds: 400),
-        animationCurve: Curves.elasticOut,
+        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 400), curve: Curves.elasticOut),
       ),
       expandableFabStyle: ExpandableFabStyle(
         shape: BoxShape.rectangle,
         distance: 80.0,
         type: FabAnimationType.spring,
-        overlayColor: scheme.scrim.withValues(alpha: 0.5),
-        enableBlur: false,
+        overlay: OverlaySpec(
+          scrimColor: scheme.scrim.withValues(alpha: 0.5),
+          blurStrength: 0.0,
+          animation: const shared.AnimationSpec(duration: Duration(milliseconds: 200), curve: Curves.easeOut),
+        ),
         showDitherPattern: false,
         glowEffect: false,
         highContrastBorder: true,
@@ -1371,6 +1408,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         showTicks: false,
         strokeWidth: 20.0,
         enableGlow: false,
+        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 100), curve: Curves.linear),
       ),
       rangeInputStyle: RangeInputStyle(
         mergeContainers: false,
@@ -1496,7 +1534,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         dashPattern: null,
         glowColor: Colors.transparent,
         glowRadius: 0.0,
-        animationDuration: Duration.zero,
+        animation: const shared.AnimationSpec(duration: Duration.zero, curve: Curves.linear),
       ),
       wifiStrongStyle: LinkStyle(
         color: scheme.tertiary,
@@ -1504,7 +1542,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         dashPattern: const [8.0, 4.0],
         glowColor: Colors.transparent,
         glowRadius: 0.0,
-        animationDuration: const Duration(milliseconds: 800),
+        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 800), curve: Curves.linear),
       ),
       wifiMediumStyle: LinkStyle(
         color: scheme.secondary,
@@ -1512,7 +1550,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         dashPattern: const [6.0, 4.0],
         glowColor: Colors.transparent,
         glowRadius: 0.0,
-        animationDuration: const Duration(milliseconds: 1000),
+        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 1000), curve: Curves.linear),
       ),
       wifiWeakStyle: LinkStyle(
         color: errorColor,
@@ -1520,7 +1558,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         dashPattern: const [4.0, 4.0],
         glowColor: Colors.transparent,
         glowRadius: 0.0,
-        animationDuration: const Duration(milliseconds: 1200),
+        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 1200), curve: Curves.linear),
       ),
       wifiUnknownStyle: LinkStyle(
         color: scheme.outline,
@@ -1528,7 +1566,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         dashPattern: const [4.0, 6.0],
         glowColor: Colors.transparent,
         glowRadius: 0.0,
-        animationDuration: const Duration(milliseconds: 1000),
+        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 1000), curve: Curves.linear),
       ),
 
       // Layout - grid-based

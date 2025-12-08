@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/shared/animation_spec.dart'
+    as shared;
 import 'package:ui_kit_library/ui_kit.dart';
 
 /// Position where the side sheet slides in from
@@ -46,8 +48,14 @@ class AppSideSheet extends StatefulWidget {
   /// Whether the sheet can be dismissed by tapping outside (overlay mode only)
   final bool isDismissible;
 
-  /// Optional style override
-  final SideSheetStyle? style;
+  /// Optional animation override for this specific instance.
+  /// Takes precedence over StyleOverride and theme defaults.
+  ///
+  /// Resolution priority:
+  /// 1. animationOverride (this parameter)
+  /// 2. StyleOverride.resolveSpec<AnimationSpec>(context)
+  /// 3. theme.sheetStyle.overlay.animation
+  final shared.AnimationSpec? animationOverride;
 
   const AppSideSheet({
     super.key,
@@ -57,7 +65,7 @@ class AppSideSheet extends StatefulWidget {
     this.displayMode = SideSheetDisplayMode.overlay,
     this.onDismiss,
     this.isDismissible = true,
-    this.style,
+    this.animationOverride,
   });
 
   @override
@@ -66,7 +74,7 @@ class AppSideSheet extends StatefulWidget {
 
 class _AppSideSheetState extends State<AppSideSheet>
     with TickerProviderStateMixin {
-  late SideSheetStyle _style;
+  late SheetStyle _sheetStyle;
   late AnimationController _animationController;
   bool _hasCheckedTickerMode = false;
 
@@ -80,6 +88,27 @@ class _AppSideSheetState extends State<AppSideSheet>
     _animationController.forward();
   }
 
+  /// Resolve animation spec with priority:
+  /// 1. Component parameter (animationOverride)
+  /// 2. StyleOverride ancestor
+  /// 3. Theme default (sheetStyle.overlay.animation)
+  shared.AnimationSpec _resolveAnimation(BuildContext context) {
+    // 1. Direct component override
+    if (widget.animationOverride != null) {
+      return widget.animationOverride!;
+    }
+
+    // 2. StyleOverride from ancestor
+    final styleOverride =
+        StyleOverride.resolveSpec<shared.AnimationSpec>(context);
+    if (styleOverride != null) {
+      return styleOverride;
+    }
+
+    // 3. Theme default
+    return _sheetStyle.overlay.animation;
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -91,7 +120,12 @@ class _AppSideSheetState extends State<AppSideSheet>
       'AppSideSheet requires DesignSystem initialization. '
       'Call DesignSystem.init() in MaterialApp.builder.',
     );
-    _style = widget.style ?? theme!.sideSheetStyle;
+
+    _sheetStyle = theme!.sheetStyle;
+
+    // Update animation controller duration from resolved animation
+    final animation = _resolveAnimation(context);
+    _animationController.duration = animation.duration;
 
     // When TickerMode is disabled (e.g., in golden tests), animations won't tick.
     // Force the animation to complete so the widget renders in its final state.
@@ -121,7 +155,7 @@ class _AppSideSheetState extends State<AppSideSheet>
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final screenWidth = mediaQuery.size.width;
-    final sheetWidth = widget.width ?? _style.width;
+    final sheetWidth = widget.width ?? _sheetStyle.width ?? 280.0;
 
     if (widget.displayMode == SideSheetDisplayMode.persistent) {
       return _buildPersistentSheet(sheetWidth);
@@ -137,7 +171,10 @@ class _AppSideSheetState extends State<AppSideSheet>
           : const Offset(1, 0),
       end: Offset.zero,
     ).animate(
-      CurvedAnimation(parent: _animationController, curve: _style.animationCurve),
+      CurvedAnimation(
+        parent: _animationController,
+        curve: _resolveAnimation(context).curve,
+      ),
     );
 
     return SlideTransition(
@@ -170,7 +207,10 @@ class _AppSideSheetState extends State<AppSideSheet>
           : const Offset(1, 0),
       end: Offset.zero,
     ).animate(
-      CurvedAnimation(parent: _animationController, curve: _style.animationCurve),
+      CurvedAnimation(
+        parent: _animationController,
+        curve: _resolveAnimation(context).curve,
+      ),
     );
 
     return Stack(
@@ -182,7 +222,7 @@ class _AppSideSheetState extends State<AppSideSheet>
             child: GestureDetector(
               onTap: _handleDismiss,
               child: Container(
-                color: _style.overlayColor,
+                color: _sheetStyle.overlay.scrimColor,
               ),
             ),
           ),
@@ -226,8 +266,8 @@ class AppDrawer extends StatelessWidget {
   /// Whether the drawer can be dismissed by tapping outside
   final bool isDismissible;
 
-  /// Optional style override
-  final SideSheetStyle? style;
+  /// Optional animation override for this specific instance.
+  final shared.AnimationSpec? animationOverride;
 
   const AppDrawer({
     super.key,
@@ -235,7 +275,7 @@ class AppDrawer extends StatelessWidget {
     this.width,
     this.onDismiss,
     this.isDismissible = true,
-    this.style,
+    this.animationOverride,
   });
 
   @override
@@ -246,7 +286,7 @@ class AppDrawer extends StatelessWidget {
       displayMode: SideSheetDisplayMode.overlay,
       onDismiss: onDismiss,
       isDismissible: isDismissible,
-      style: style,
+      animationOverride: animationOverride,
       child: child,
     );
   }

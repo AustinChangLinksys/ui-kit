@@ -135,6 +135,10 @@ class _RailItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Use itemColors from NavigationStyle for consistent color resolution
+    final navSpec = theme.navigationStyle;
+    final color = navSpec.itemColors.resolve(isActive: isSelected);
+
     // Selected items use Tonal pill indicator (like AppNavigationBar)
     // Unselected items use reduced opacity text/icons
     if (isSelected) {
@@ -156,7 +160,7 @@ class _RailItem extends StatelessWidget {
             children: [
               IconTheme(
                 data: IconThemeData(
-                  color: theme.surfaceSecondary.contentColor,
+                  color: color,
                   size: 24,
                 ),
                 child: item.activeIcon ?? item.icon,
@@ -165,7 +169,7 @@ class _RailItem extends StatelessWidget {
               Text(
                 item.label,
                 style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                      color: theme.surfaceSecondary.contentColor,
+                      color: color,
                       fontWeight: FontWeight.w600,
                       fontSize: 10,
                     ),
@@ -178,7 +182,6 @@ class _RailItem extends StatelessWidget {
     }
 
     // Unselected items: reduced opacity text/icons on transparent background
-    final color = theme.surfaceBase.contentColor.withValues(alpha: 0.6);
     return GestureDetector(
       onTap: onTap,
       behavior: HitTestBehavior.opaque,

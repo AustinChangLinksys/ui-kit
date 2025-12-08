@@ -75,11 +75,21 @@ class _NavButton extends StatefulWidget {
 
 class _NavButtonState extends State<_NavButton> {
   bool _isHovered = false;
+  bool _isPressed = false;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).extension<AppDesignTheme>();
     final isEnabled = widget.onPressed != null;
+
+    // Use StateColorSpec.resolve() for proper state-based color resolution
+    final buttonColor = theme?.carouselStyle.navButtonColors.resolve(
+          isActive: isEnabled,
+          isHovered: _isHovered,
+          isPressed: _isPressed,
+          isDisabled: !isEnabled,
+        ) ??
+        (isEnabled ? Colors.grey : Colors.grey[300]!);
 
     return AppSurface(
       interactive: isEnabled,
@@ -88,16 +98,14 @@ class _NavButtonState extends State<_NavButton> {
         onExit: (_) => setState(() => _isHovered = false),
         child: GestureDetector(
           onTap: widget.onPressed,
+          onTapDown: (_) => setState(() => _isPressed = true),
+          onTapUp: (_) => setState(() => _isPressed = false),
+          onTapCancel: () => setState(() => _isPressed = false),
           child: Container(
             width: widget.size,
             height: widget.size,
             decoration: BoxDecoration(
-              color: isEnabled
-                  ? (_isHovered
-                      ? theme?.carouselStyle.navButtonHoverColor ??
-                          Colors.grey[400]
-                      : theme?.carouselStyle.navButtonColor ?? Colors.grey)
-                  : Colors.grey[300],
+              color: buttonColor,
               borderRadius: BorderRadius.circular(8),
             ),
             child: Icon(

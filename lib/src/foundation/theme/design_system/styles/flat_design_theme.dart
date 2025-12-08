@@ -4,6 +4,8 @@ import 'package:ui_kit_library/ui_kit.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/range_input_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/pin_input_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/password_input_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/shared/animation_spec.dart'
+    as shared;
 // Import AppIconStyle
 
 class FlatDesignTheme extends AppDesignTheme {
@@ -15,7 +17,6 @@ class FlatDesignTheme extends AppDesignTheme {
 
   // Factory 2: Raw Mode (AppColorScheme driven)
   factory FlatDesignTheme._raw(AppColorScheme colors) {
-    final overlayColor = colors.overlayColor; // Use from scheme
 
     return FlatDesignTheme._(
       // 1. Global Surface Definition (for Card, Dialog, etc.)
@@ -130,6 +131,7 @@ class FlatDesignTheme extends AppDesignTheme {
         highlightColor: colors.onSurface.withValues(alpha: 0.2),
         animationType: SkeletonAnimationType.shimmer,
         borderRadius: 8.0,
+        animation: AnimationSpec.standard,
       ),
       inputStyle: InputStyle(
         // Outline Style
@@ -217,11 +219,16 @@ class FlatDesignTheme extends AppDesignTheme {
       ),
       spacingFactor: 1.0,
       buttonHeight: 48.0,
-      navigationStyle: const NavigationStyle(
+      navigationStyle: NavigationStyle(
         height: 64.0,
         isFloating: false,
         floatingMargin: 0.0,
         itemSpacing: 0.0,
+        animation: AnimationSpec.standard,
+        itemColors: StateColorSpec(
+          active: colors.primary,
+          inactive: colors.onSurface.withValues(alpha: 0.6),
+        ),
       ),
       layoutSpec: const LayoutSpec(
         marginMobile: 16.0,
@@ -310,8 +317,11 @@ class FlatDesignTheme extends AppDesignTheme {
           blurStrength: 0.0,
           contentColor: colors.onSurface,
         ),
-        barrierColor: colors.overlayColor,
-        barrierBlur: 0.0,
+        overlay: OverlaySpec(
+          scrimColor: colors.overlayColor,
+          blurStrength: 0.0,
+          animation: shared.AnimationSpec.standard,
+        ),
         maxWidth: 400.0,
         padding: const EdgeInsets.all(24.0),
         buttonSpacing: 8.0,
@@ -320,24 +330,18 @@ class FlatDesignTheme extends AppDesignTheme {
       motion: const FlatMotion(),
       visualEffects: GlobalEffectsType.none,
       iconStyle: AppIconStyle.vectorFilled,
-      bottomSheetStyle: BottomSheetStyle(
-        overlayColor: overlayColor,
-        animationDuration: const Duration(milliseconds: 300),
-        animationCurve: Curves.easeInOut,
-        topBorderRadius: 12.0,
-        dragHandleHeight: 6.0,
-      ),
-      sideSheetStyle: SideSheetStyle(
+      sheetStyle: const SheetStyle(
+        overlay: OverlaySpec.standard,
+        borderRadius: 12.0,
         width: 280.0,
-        overlayColor: overlayColor,
-        animationDuration: const Duration(milliseconds: 300),
-        animationCurve: Curves.easeInOut,
-        blurStrength: 0.0,
+        dragHandleHeight: 4.0,
         enableDithering: false,
       ),
       tabsStyle: TabsStyle(
-        activeTextColor: colors.primary,
-        inactiveTextColor: colors.onSurfaceVariant,
+        textColors: StateColorSpec(
+          active: colors.primary,
+          inactive: colors.onSurfaceVariant,
+        ),
         indicatorColor: colors.primary,
         tabBackgroundColor: colors.surface,
         animationDuration: const Duration(milliseconds: 250),
@@ -350,10 +354,13 @@ class FlatDesignTheme extends AppDesignTheme {
         connectorColor: colors.outline,
         stepSize: 36.0,
         useDashedConnector: false,
+        animation: AnimationSpec.standard,
       ),
       breadcrumbStyle: BreadcrumbStyle(
-        activeLinkColor: colors.primary,
-        inactiveLinkColor: colors.onSurfaceVariant,
+        linkColors: StateColorSpec(
+          active: colors.primary,
+          inactive: colors.onSurfaceVariant,
+        ),
         separatorColor: colors.outlineVariant,
         separatorText: ' / ',
         itemTextStyle: appTextTheme.bodyMedium!,
@@ -363,23 +370,35 @@ class FlatDesignTheme extends AppDesignTheme {
         expandedBackgroundColor: colors.surface,
         headerTextColor: colors.onSurface,
         expandIcon: Icons.expand_more,
-        animationDuration: const Duration(milliseconds: 250),
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 250),
+          curve: Curves.easeInOut,
+        ),
       ),
       carouselStyle: CarouselStyle(
-        navButtonColor: colors.primary,
-        navButtonHoverColor: colors.primary.withValues(alpha: 0.7),
+        navButtonColors: StateColorSpec(
+          active: colors.primary,
+          inactive: colors.primary.withValues(alpha: 0.7),
+          hover: colors.primary.withValues(alpha: 0.7),
+        ),
         previousIcon: Icons.arrow_back,
         nextIcon: Icons.arrow_forward,
-        animationDuration: const Duration(milliseconds: 300),
-        animationCurve: Curves.easeInOut,
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        ),
         useSnapScroll: false,
         navButtonSize: 48.0,
       ),
       chipGroupStyle: ChipGroupStyle(
-        unselectedBackground: colors.surfaceContainerHighest,
-        unselectedText: colors.onSurface,
-        selectedBackground: colors.primary.withValues(alpha: 0.15),
-        selectedText: colors.onSurface,
+        backgroundColors: StateColorSpec(
+          active: colors.primary.withValues(alpha: 0.15),
+          inactive: colors.surfaceContainerHighest,
+        ),
+        textColors: StateColorSpec(
+          active: colors.onSurface,
+          inactive: colors.onSurface,
+        ),
         selectedBorderColor: colors.primary,
         borderRadius: 16.0,
       ),
@@ -400,7 +419,10 @@ class FlatDesignTheme extends AppDesignTheme {
         glowRowOnHover: false,
         hoverRowBackground: colors.surfaceContainerHighest,
         hoverRowContentColor: null,
-        modeTransitionDuration: const Duration(milliseconds: 200),
+        modeTransition: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 200),
+          curve: Curves.easeInOut,
+        ),
       ),
       topologySpec: _buildTopologySpec(
           colors.toMaterialScheme(brightness: Brightness.light),
@@ -427,15 +449,20 @@ class FlatDesignTheme extends AppDesignTheme {
         borderRadius: BorderRadius.circular(8.0), // Subtle rounding
         contentColor: colors.onSurface,
         iconSize: 24.0,
-        animationDuration: const Duration(milliseconds: 300),
-        animationCurve: Curves.easeOut,
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        ),
       ),
       expandableFabStyle: ExpandableFabStyle(
         shape: BoxShape.circle,
         distance: 80.0,
         type: FabAnimationType.fanOut,
-        overlayColor: colors.scrim.withValues(alpha: 0.3),
-        enableBlur: false,
+        overlay: OverlaySpec(
+          scrimColor: colors.scrim.withValues(alpha: 0.3),
+          blurStrength: 0.0,
+          animation: shared.AnimationSpec.standard,
+        ),
         showDitherPattern: false,
         glowEffect: false,
         highContrastBorder: false,
@@ -448,6 +475,10 @@ class FlatDesignTheme extends AppDesignTheme {
         strokeWidth: 12.0,
         enableGlow: false,
         indicatorColor: colors.primary, // Theme primary for Flat
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 200),
+          curve: Curves.easeOut,
+        ),
       ),
       rangeInputStyle: RangeInputStyle(
         mergeContainers: true, // Unified Box
@@ -502,8 +533,7 @@ class FlatDesignTheme extends AppDesignTheme {
     required super.motion,
     required super.visualEffects,
     required super.iconStyle,
-    required super.bottomSheetStyle,
-    required super.sideSheetStyle,
+    required super.sheetStyle,
     required super.tabsStyle,
     required super.stepperStyle,
     required super.breadcrumbStyle,
@@ -522,7 +552,7 @@ class FlatDesignTheme extends AppDesignTheme {
 
   factory FlatDesignTheme.light([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultLightScheme;
-    final overlayColor = scheme.scrim.withValues(alpha: 0.15);
+
     // Define semantic color variables (Token-First)
     final activeColor = scheme.primary;
     final inactiveColor = scheme
@@ -641,6 +671,7 @@ class FlatDesignTheme extends AppDesignTheme {
         highlightColor: scheme.onSurface.withValues(alpha: 0.2),
         animationType: SkeletonAnimationType.shimmer,
         borderRadius: 8.0,
+        animation: AnimationSpec.standard,
       ),
       inputStyle: InputStyle(
         // Outline Style
@@ -727,11 +758,16 @@ class FlatDesignTheme extends AppDesignTheme {
       ),
       spacingFactor: 1.0,
       buttonHeight: 48.0,
-      navigationStyle: const NavigationStyle(
+      navigationStyle: NavigationStyle(
         height: 64.0,
         isFloating: false,
         floatingMargin: 0.0,
         itemSpacing: 0.0,
+        animation: AnimationSpec.standard,
+        itemColors: StateColorSpec(
+          active: scheme.primary,
+          inactive: scheme.onSurface.withValues(alpha: 0.6),
+        ),
       ),
       layoutSpec: const LayoutSpec(
         marginMobile: 16.0,
@@ -820,8 +856,11 @@ class FlatDesignTheme extends AppDesignTheme {
           blurStrength: 0.0,
           contentColor: scheme.onSurface,
         ),
-        barrierColor: scheme.scrim.withValues(alpha: 0.5),
-        barrierBlur: 0.0,
+        overlay: OverlaySpec(
+          scrimColor: scheme.scrim.withValues(alpha: 0.5),
+          blurStrength: 0.0,
+          animation: shared.AnimationSpec.standard,
+        ),
         maxWidth: 400.0,
         padding: const EdgeInsets.all(24.0),
         buttonSpacing: 8.0,
@@ -830,24 +869,18 @@ class FlatDesignTheme extends AppDesignTheme {
       motion: const FlatMotion(),
       visualEffects: GlobalEffectsType.none,
       iconStyle: AppIconStyle.vectorFilled,
-      bottomSheetStyle: BottomSheetStyle(
-        overlayColor: overlayColor,
-        animationDuration: const Duration(milliseconds: 300),
-        animationCurve: Curves.easeInOut,
-        topBorderRadius: 12.0,
-        dragHandleHeight: 6.0,
-      ),
-      sideSheetStyle: SideSheetStyle(
+      sheetStyle: const SheetStyle(
+        overlay: OverlaySpec.standard,
+        borderRadius: 12.0,
         width: 280.0,
-        overlayColor: overlayColor,
-        animationDuration: const Duration(milliseconds: 300),
-        animationCurve: Curves.easeInOut,
-        blurStrength: 0.0,
+        dragHandleHeight: 4.0,
         enableDithering: false,
       ),
       tabsStyle: TabsStyle(
-        activeTextColor: scheme.primary,
-        inactiveTextColor: scheme.onSurfaceVariant,
+        textColors: StateColorSpec(
+          active: scheme.primary,
+          inactive: scheme.onSurfaceVariant,
+        ),
         indicatorColor: scheme.primary,
         tabBackgroundColor: scheme.surface,
         animationDuration: const Duration(milliseconds: 250),
@@ -860,10 +893,13 @@ class FlatDesignTheme extends AppDesignTheme {
         connectorColor: scheme.outline,
         stepSize: 36.0,
         useDashedConnector: false,
+        animation: AnimationSpec.standard,
       ),
       breadcrumbStyle: BreadcrumbStyle(
-        activeLinkColor: scheme.primary,
-        inactiveLinkColor: scheme.onSurfaceVariant,
+        linkColors: StateColorSpec(
+          active: scheme.primary,
+          inactive: scheme.onSurfaceVariant,
+        ),
         separatorColor: scheme.outlineVariant,
         separatorText: ' / ',
         itemTextStyle: appTextTheme.bodyMedium!,
@@ -873,23 +909,35 @@ class FlatDesignTheme extends AppDesignTheme {
         expandedBackgroundColor: scheme.surface,
         headerTextColor: scheme.onSurface,
         expandIcon: Icons.expand_more,
-        animationDuration: const Duration(milliseconds: 250),
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 250),
+          curve: Curves.easeInOut,
+        ),
       ),
       carouselStyle: CarouselStyle(
-        navButtonColor: scheme.primary,
-        navButtonHoverColor: scheme.primary.withValues(alpha: 0.7),
+        navButtonColors: StateColorSpec(
+          active: scheme.primary,
+          inactive: scheme.primary.withValues(alpha: 0.7),
+          hover: scheme.primary.withValues(alpha: 0.7),
+        ),
         previousIcon: Icons.arrow_back,
         nextIcon: Icons.arrow_forward,
-        animationDuration: const Duration(milliseconds: 300),
-        animationCurve: Curves.easeInOut,
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        ),
         useSnapScroll: false,
         navButtonSize: 48.0,
       ),
       chipGroupStyle: ChipGroupStyle(
-        unselectedBackground: scheme.surfaceContainerHighest,
-        unselectedText: scheme.onSurface,
-        selectedBackground: scheme.primary.withValues(alpha: 0.15),
-        selectedText: scheme.onSurface,
+        backgroundColors: StateColorSpec(
+          active: scheme.primary.withValues(alpha: 0.15),
+          inactive: scheme.surfaceContainerHighest,
+        ),
+        textColors: StateColorSpec(
+          active: scheme.onSurface,
+          inactive: scheme.onSurface,
+        ),
         selectedBorderColor: scheme.primary,
         borderRadius: 16.0,
       ),
@@ -910,7 +958,10 @@ class FlatDesignTheme extends AppDesignTheme {
         glowRowOnHover: false,
         hoverRowBackground: scheme.surfaceContainerHighest,
         hoverRowContentColor: null,
-        modeTransitionDuration: const Duration(milliseconds: 200),
+        modeTransition: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 200),
+          curve: Curves.easeInOut,
+        ),
       ),
       topologySpec: _buildTopologySpec(scheme, isLight: true),
       slideActionStyle: SlideActionStyle(
@@ -935,15 +986,20 @@ class FlatDesignTheme extends AppDesignTheme {
         borderRadius: BorderRadius.circular(8.0),
         contentColor: scheme.onSurface,
         iconSize: 24.0,
-        animationDuration: const Duration(milliseconds: 300),
-        animationCurve: Curves.easeOut,
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        ),
       ),
       expandableFabStyle: ExpandableFabStyle(
         shape: BoxShape.circle,
         distance: 80.0,
         type: FabAnimationType.fanOut,
-        overlayColor: scheme.scrim.withValues(alpha: 0.3),
-        enableBlur: false,
+        overlay: OverlaySpec(
+          scrimColor: scheme.scrim.withValues(alpha: 0.3),
+          blurStrength: 0.0,
+          animation: shared.AnimationSpec.standard,
+        ),
         showDitherPattern: false,
         glowEffect: false,
         highContrastBorder: false,
@@ -956,6 +1012,10 @@ class FlatDesignTheme extends AppDesignTheme {
         showTicks: false,
         strokeWidth: 12.0,
         enableGlow: false,
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 200),
+          curve: Curves.easeOut,
+        ),
       ),
       rangeInputStyle: RangeInputStyle(
         mergeContainers: true,
@@ -986,7 +1046,7 @@ class FlatDesignTheme extends AppDesignTheme {
 
   factory FlatDesignTheme.dark([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultDarkScheme;
-    final overlayColor = scheme.inverseSurface.withValues(alpha: 0.15);
+
     // Dark Mode color mapping
     final activeColor = scheme.primary;
     final inactiveColor = scheme.surfaceContainerHighest;
@@ -1090,6 +1150,7 @@ class FlatDesignTheme extends AppDesignTheme {
             scheme.surfaceContainerHighest.withValues(alpha: 0.5).withBlue(255),
         animationType: SkeletonAnimationType.shimmer,
         borderRadius: 8.0,
+        animation: AnimationSpec.standard,
       ),
       inputStyle: InputStyle(
         // Outline Style
@@ -1175,11 +1236,16 @@ class FlatDesignTheme extends AppDesignTheme {
       ),
       spacingFactor: 1.0,
       buttonHeight: 48.0,
-      navigationStyle: const NavigationStyle(
+      navigationStyle: NavigationStyle(
         height: 64.0,
         isFloating: false,
         floatingMargin: 0.0,
         itemSpacing: 0.0,
+        animation: AnimationSpec.standard,
+        itemColors: StateColorSpec(
+          active: scheme.primary,
+          inactive: scheme.onSurface.withValues(alpha: 0.6),
+        ),
       ),
       layoutSpec: const LayoutSpec(
         marginMobile: 16.0,
@@ -1268,8 +1334,11 @@ class FlatDesignTheme extends AppDesignTheme {
           blurStrength: 0.0,
           contentColor: scheme.onSurface,
         ),
-        barrierColor: scheme.scrim.withValues(alpha: 0.6),
-        barrierBlur: 0.0,
+        overlay: OverlaySpec(
+          scrimColor: scheme.scrim.withValues(alpha: 0.6),
+          blurStrength: 0.0,
+          animation: shared.AnimationSpec.standard,
+        ),
         maxWidth: 400.0,
         padding: const EdgeInsets.all(24.0),
         buttonSpacing: 8.0,
@@ -1278,24 +1347,18 @@ class FlatDesignTheme extends AppDesignTheme {
       motion: const FlatMotion(),
       visualEffects: GlobalEffectsType.none,
       iconStyle: AppIconStyle.vectorFilled,
-      bottomSheetStyle: BottomSheetStyle(
-        overlayColor: overlayColor,
-        animationDuration: const Duration(milliseconds: 300),
-        animationCurve: Curves.easeInOut,
-        topBorderRadius: 12.0,
-        dragHandleHeight: 6.0,
-      ),
-      sideSheetStyle: SideSheetStyle(
+      sheetStyle: const SheetStyle(
+        overlay: OverlaySpec.standard,
+        borderRadius: 12.0,
         width: 280.0,
-        overlayColor: overlayColor,
-        animationDuration: const Duration(milliseconds: 300),
-        animationCurve: Curves.easeInOut,
-        blurStrength: 0.0,
+        dragHandleHeight: 4.0,
         enableDithering: false,
       ),
       tabsStyle: TabsStyle(
-        activeTextColor: scheme.primary,
-        inactiveTextColor: scheme.onSurfaceVariant,
+        textColors: StateColorSpec(
+          active: scheme.primary,
+          inactive: scheme.onSurfaceVariant,
+        ),
         indicatorColor: scheme.primary,
         tabBackgroundColor: scheme.surface,
         animationDuration: const Duration(milliseconds: 250),
@@ -1308,10 +1371,13 @@ class FlatDesignTheme extends AppDesignTheme {
         connectorColor: scheme.outline,
         stepSize: 36.0,
         useDashedConnector: false,
+        animation: AnimationSpec.standard,
       ),
       breadcrumbStyle: BreadcrumbStyle(
-        activeLinkColor: scheme.primary,
-        inactiveLinkColor: scheme.onSurfaceVariant,
+        linkColors: StateColorSpec(
+          active: scheme.primary,
+          inactive: scheme.onSurfaceVariant,
+        ),
         separatorColor: scheme.outlineVariant,
         separatorText: ' / ',
         itemTextStyle: appTextTheme.bodyMedium!,
@@ -1321,23 +1387,35 @@ class FlatDesignTheme extends AppDesignTheme {
         expandedBackgroundColor: scheme.surface,
         headerTextColor: scheme.onSurface,
         expandIcon: Icons.expand_more,
-        animationDuration: const Duration(milliseconds: 250),
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 250),
+          curve: Curves.easeInOut,
+        ),
       ),
       carouselStyle: CarouselStyle(
-        navButtonColor: scheme.primary,
-        navButtonHoverColor: scheme.primary.withValues(alpha: 0.7),
+        navButtonColors: StateColorSpec(
+          active: scheme.primary,
+          inactive: scheme.primary.withValues(alpha: 0.7),
+          hover: scheme.primary.withValues(alpha: 0.7),
+        ),
         previousIcon: Icons.arrow_back,
         nextIcon: Icons.arrow_forward,
-        animationDuration: const Duration(milliseconds: 300),
-        animationCurve: Curves.easeInOut,
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        ),
         useSnapScroll: false,
         navButtonSize: 48.0,
       ),
       chipGroupStyle: ChipGroupStyle(
-        unselectedBackground: scheme.surfaceContainerHighest,
-        unselectedText: scheme.onSurface,
-        selectedBackground: scheme.primary.withValues(alpha: 0.15),
-        selectedText: scheme.onSurface,
+        backgroundColors: StateColorSpec(
+          active: scheme.primary.withValues(alpha: 0.15),
+          inactive: scheme.surfaceContainerHighest,
+        ),
+        textColors: StateColorSpec(
+          active: scheme.onSurface,
+          inactive: scheme.onSurface,
+        ),
         selectedBorderColor: scheme.primary,
         borderRadius: 16.0,
       ),
@@ -1358,7 +1436,10 @@ class FlatDesignTheme extends AppDesignTheme {
         glowRowOnHover: false,
         hoverRowBackground: scheme.surfaceContainerHighest,
         hoverRowContentColor: null,
-        modeTransitionDuration: const Duration(milliseconds: 200),
+        modeTransition: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 200),
+          curve: Curves.easeInOut,
+        ),
       ),
       topologySpec: _buildTopologySpec(scheme, isLight: false),
       slideActionStyle: SlideActionStyle(
@@ -1383,15 +1464,20 @@ class FlatDesignTheme extends AppDesignTheme {
         borderRadius: BorderRadius.circular(8.0),
         contentColor: scheme.onSurface,
         iconSize: 24.0,
-        animationDuration: const Duration(milliseconds: 300),
-        animationCurve: Curves.easeOut,
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        ),
       ),
       expandableFabStyle: ExpandableFabStyle(
         shape: BoxShape.circle,
         distance: 80.0,
         type: FabAnimationType.fanOut,
-        overlayColor: scheme.scrim.withValues(alpha: 0.3),
-        enableBlur: false,
+        overlay: OverlaySpec(
+          scrimColor: scheme.scrim.withValues(alpha: 0.3),
+          blurStrength: 0.0,
+          animation: shared.AnimationSpec.standard,
+        ),
         showDitherPattern: false,
         glowEffect: false,
         highContrastBorder: false,
@@ -1404,6 +1490,10 @@ class FlatDesignTheme extends AppDesignTheme {
         showTicks: false,
         strokeWidth: 12.0,
         enableGlow: false,
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 200),
+          curve: Curves.easeOut,
+        ),
       ),
       rangeInputStyle: RangeInputStyle(
         mergeContainers: true,
@@ -1529,7 +1619,10 @@ class FlatDesignTheme extends AppDesignTheme {
         dashPattern: null,
         glowColor: Colors.transparent,
         glowRadius: 0.0,
-        animationDuration: Duration.zero,
+        animation: const shared.AnimationSpec(
+          duration: Duration.zero,
+          curve: Curves.linear,
+        ),
       ),
       wifiStrongStyle: LinkStyle(
         color: scheme.tertiary,
@@ -1537,7 +1630,10 @@ class FlatDesignTheme extends AppDesignTheme {
         dashPattern: const [6.0, 3.0],
         glowColor: Colors.transparent,
         glowRadius: 0.0,
-        animationDuration: const Duration(milliseconds: 1500),
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 1500),
+          curve: Curves.linear,
+        ),
       ),
       wifiMediumStyle: LinkStyle(
         color: scheme.tertiaryContainer,
@@ -1545,7 +1641,10 @@ class FlatDesignTheme extends AppDesignTheme {
         dashPattern: const [5.0, 3.0],
         glowColor: Colors.transparent,
         glowRadius: 0.0,
-        animationDuration: const Duration(milliseconds: 2000),
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 2000),
+          curve: Curves.linear,
+        ),
       ),
       wifiWeakStyle: LinkStyle(
         color: scheme.error,
@@ -1553,7 +1652,10 @@ class FlatDesignTheme extends AppDesignTheme {
         dashPattern: const [4.0, 3.0],
         glowColor: Colors.transparent,
         glowRadius: 0.0,
-        animationDuration: const Duration(milliseconds: 2500),
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 2500),
+          curve: Curves.linear,
+        ),
       ),
       wifiUnknownStyle: LinkStyle(
         color: scheme.outlineVariant,
@@ -1561,7 +1663,10 @@ class FlatDesignTheme extends AppDesignTheme {
         dashPattern: const [4.0, 4.0],
         glowColor: Colors.transparent,
         glowRadius: 0.0,
-        animationDuration: const Duration(milliseconds: 2000),
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 2000),
+          curve: Curves.linear,
+        ),
       ),
 
       // Layout

@@ -1,30 +1,27 @@
-import 'package:equatable/equatable.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/specs/divider_style.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/specs/surface_style.dart';
+import 'package:flutter/material.dart';
+import 'package:theme_tailor_annotation/theme_tailor_annotation.dart';
 
-/// Defines visual properties for AppBar and SliverAppBar components.
-class AppBarStyle extends Equatable {
-  /// Background, border, shadow for main AppBar container.
-  final SurfaceStyle containerStyle;
+import 'divider_style.dart';
+import 'surface_style.dart';
 
-  /// Style for bottom area (TabBar container).
-  final SurfaceStyle? bottomContainerStyle;
+part 'app_bar_style.tailor.dart';
 
-  /// Bottom divider (hairline for Flat, thick for Pixel).
-  final DividerStyle dividerStyle;
-
-  /// Standard AppBar height.
-  final double height;
-
-  /// Minimum height when SliverAppBar collapsed.
-  final double collapsedHeight;
-
-  /// Maximum height when SliverAppBar expanded.
-  final double expandedHeight;
-
-  /// Blur sigma for Glass mode flexibleSpace overlay (0 for non-Glass).
-  final double flexibleSpaceBlur;
-
+/// Style specification for AppBar and SliverAppBar components.
+///
+/// Example:
+/// ```dart
+/// AppBarStyle(
+///   containerStyle: SurfaceStyle(...),
+///   dividerStyle: DividerStyle(...),
+///   height: 56.0,
+///   collapsedHeight: 56.0,
+///   expandedHeight: 200.0,
+///   flexibleSpaceBlur: 0.0,
+/// )
+/// ```
+@TailorMixin()
+class AppBarStyle extends ThemeExtension<AppBarStyle>
+    with _$AppBarStyleTailorMixin {
   const AppBarStyle({
     required this.containerStyle,
     this.bottomContainerStyle,
@@ -35,53 +32,31 @@ class AppBarStyle extends Equatable {
     this.flexibleSpaceBlur = 0.0,
   });
 
-  AppBarStyle copyWith({
-    SurfaceStyle? containerStyle,
-    SurfaceStyle? bottomContainerStyle,
-    DividerStyle? dividerStyle,
-    double? height,
-    double? collapsedHeight,
-    double? expandedHeight,
-    double? flexibleSpaceBlur,
-  }) {
-    return AppBarStyle(
-      containerStyle: containerStyle ?? this.containerStyle,
-      bottomContainerStyle: bottomContainerStyle ?? this.bottomContainerStyle,
-      dividerStyle: dividerStyle ?? this.dividerStyle,
-      height: height ?? this.height,
-      collapsedHeight: collapsedHeight ?? this.collapsedHeight,
-      expandedHeight: expandedHeight ?? this.expandedHeight,
-      flexibleSpaceBlur: flexibleSpaceBlur ?? this.flexibleSpaceBlur,
-    );
-  }
-
-  static AppBarStyle lerp(AppBarStyle a, AppBarStyle b, double t) {
-    return AppBarStyle(
-      containerStyle: a.containerStyle,
-      bottomContainerStyle: a.bottomContainerStyle,
-      dividerStyle: a.dividerStyle,
-      height: lerpDouble(a.height, b.height, t) ?? a.height,
-      collapsedHeight:
-          lerpDouble(a.collapsedHeight, b.collapsedHeight, t) ?? a.collapsedHeight,
-      expandedHeight:
-          lerpDouble(a.expandedHeight, b.expandedHeight, t) ?? a.expandedHeight,
-      flexibleSpaceBlur:
-          lerpDouble(a.flexibleSpaceBlur, b.flexibleSpaceBlur, t) ?? a.flexibleSpaceBlur,
-    );
-  }
-
+  /// Background, border, shadow for main AppBar container.
   @override
-  List<Object?> get props => [
-        containerStyle,
-        bottomContainerStyle,
-        dividerStyle,
-        height,
-        collapsedHeight,
-        expandedHeight,
-        flexibleSpaceBlur,
-      ];
-}
+  final SurfaceStyle containerStyle;
 
-double? lerpDouble(double a, double b, double t) {
-  return a + (b - a) * t;
+  /// Style for bottom area (TabBar container).
+  @override
+  final SurfaceStyle? bottomContainerStyle;
+
+  /// Bottom divider (hairline for Flat, thick for Pixel).
+  @override
+  final DividerStyle dividerStyle;
+
+  /// Standard AppBar height.
+  @override
+  final double height;
+
+  /// Minimum height when SliverAppBar collapsed.
+  @override
+  final double collapsedHeight;
+
+  /// Maximum height when SliverAppBar expanded.
+  @override
+  final double expandedHeight;
+
+  /// Blur sigma for Glass mode flexibleSpace overlay (0 for non-Glass).
+  @override
+  final double flexibleSpaceBlur;
 }

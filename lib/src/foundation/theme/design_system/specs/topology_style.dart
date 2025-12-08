@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:theme_tailor_annotation/theme_tailor_annotation.dart';
 
+import 'shared/animation_spec.dart';
+
 part 'topology_style.tailor.dart';
 
 /// Visual parameters for a mesh node.
@@ -9,6 +11,17 @@ part 'topology_style.tailor.dart';
 /// Extender, and Client nodes in various states.
 @TailorMixin()
 class NodeStyle extends ThemeExtension<NodeStyle> with _$NodeStyleTailorMixin {
+  const NodeStyle({
+    required this.backgroundColor,
+    required this.borderColor,
+    required this.borderWidth,
+    required this.borderRadius,
+    required this.glowRadius,
+    required this.glowColor,
+    required this.size,
+    required this.iconColor,
+  });
+
   /// Background color of the node.
   @override
   final Color backgroundColor;
@@ -40,17 +53,6 @@ class NodeStyle extends ThemeExtension<NodeStyle> with _$NodeStyleTailorMixin {
   /// Icon/content color inside node.
   @override
   final Color iconColor;
-
-  const NodeStyle({
-    required this.backgroundColor,
-    required this.borderColor,
-    required this.borderWidth,
-    required this.borderRadius,
-    required this.glowRadius,
-    required this.glowColor,
-    required this.size,
-    required this.iconColor,
-  });
 }
 
 /// Visual parameters for a mesh link.
@@ -59,6 +61,15 @@ class NodeStyle extends ThemeExtension<NodeStyle> with _$NodeStyleTailorMixin {
 /// Ethernet and WiFi connections.
 @TailorMixin()
 class LinkStyle extends ThemeExtension<LinkStyle> with _$LinkStyleTailorMixin {
+  const LinkStyle({
+    required this.color,
+    required this.width,
+    this.dashPattern,
+    required this.glowColor,
+    required this.glowRadius,
+    required this.animation,
+  });
+
   /// Line color.
   @override
   final Color color;
@@ -80,18 +91,15 @@ class LinkStyle extends ThemeExtension<LinkStyle> with _$LinkStyleTailorMixin {
   @override
   final Color glowColor;
 
-  /// Duration for flow animation. Duration.zero for no animation.
+  /// Animation timing for flow effects. Duration.zero for no animation.
   @override
-  final Duration animationDuration;
+  final AnimationSpec animation;
 
-  const LinkStyle({
-    required this.color,
-    required this.width,
-    this.dashPattern,
-    required this.glowColor,
-    required this.glowRadius,
-    required this.animationDuration,
-  });
+  // --- Backward Compatibility Getters ---
+
+  /// Animation duration (convenience getter for backward compatibility)
+  @override
+  Duration get animationDuration => animation.duration;
 }
 
 /// Theme specification for mesh topology visualization.
@@ -101,6 +109,26 @@ class LinkStyle extends ThemeExtension<LinkStyle> with _$LinkStyleTailorMixin {
 @TailorMixin()
 class TopologySpec extends ThemeExtension<TopologySpec>
     with _$TopologySpecTailorMixin {
+  const TopologySpec({
+    required this.gatewayNormalStyle,
+    required this.gatewayHighLoadStyle,
+    required this.gatewayOfflineStyle,
+    required this.extenderNormalStyle,
+    required this.extenderHighLoadStyle,
+    required this.extenderOfflineStyle,
+    required this.clientNormalStyle,
+    required this.clientOfflineStyle,
+    required this.ethernetLinkStyle,
+    required this.wifiStrongStyle,
+    required this.wifiMediumStyle,
+    required this.wifiWeakStyle,
+    required this.wifiUnknownStyle,
+    required this.nodeSpacing,
+    required this.linkCurvature,
+    required this.orbitRadius,
+    required this.orbitSpeed,
+  });
+
   // Node styles per type and status
   @override
   final NodeStyle gatewayNormalStyle;
@@ -145,26 +173,6 @@ class TopologySpec extends ThemeExtension<TopologySpec>
 
   @override
   final Duration orbitSpeed;
-
-  const TopologySpec({
-    required this.gatewayNormalStyle,
-    required this.gatewayHighLoadStyle,
-    required this.gatewayOfflineStyle,
-    required this.extenderNormalStyle,
-    required this.extenderHighLoadStyle,
-    required this.extenderOfflineStyle,
-    required this.clientNormalStyle,
-    required this.clientOfflineStyle,
-    required this.ethernetLinkStyle,
-    required this.wifiStrongStyle,
-    required this.wifiMediumStyle,
-    required this.wifiWeakStyle,
-    required this.wifiUnknownStyle,
-    required this.nodeSpacing,
-    required this.linkCurvature,
-    required this.orbitRadius,
-    required this.orbitSpeed,
-  });
 
   /// Get node style based on type and status.
   ///

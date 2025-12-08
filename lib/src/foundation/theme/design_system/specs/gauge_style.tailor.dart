@@ -26,6 +26,7 @@ mixin _$GaugeStyleTailorMixin on ThemeExtension<GaugeStyle> {
   Color get markerColor;
   double get innerGlowWidth;
   double get innerGlowOpacity;
+  AnimationSpec get animation;
   Duration get animationDuration;
   Curve get animationCurve;
 
@@ -47,6 +48,7 @@ mixin _$GaugeStyleTailorMixin on ThemeExtension<GaugeStyle> {
     Color? markerColor,
     double? innerGlowWidth,
     double? innerGlowOpacity,
+    AnimationSpec? animation,
     Duration? animationDuration,
     Curve? animationCurve,
   }) {
@@ -67,8 +69,7 @@ mixin _$GaugeStyleTailorMixin on ThemeExtension<GaugeStyle> {
       markerColor: markerColor ?? this.markerColor,
       innerGlowWidth: innerGlowWidth ?? this.innerGlowWidth,
       innerGlowOpacity: innerGlowOpacity ?? this.innerGlowOpacity,
-      animationDuration: animationDuration ?? this.animationDuration,
-      animationCurve: animationCurve ?? this.animationCurve,
+      animation: animation ?? this.animation,
     );
   }
 
@@ -93,8 +94,7 @@ mixin _$GaugeStyleTailorMixin on ThemeExtension<GaugeStyle> {
       markerColor: Color.lerp(markerColor, other.markerColor, t)!,
       innerGlowWidth: t < 0.5 ? innerGlowWidth : other.innerGlowWidth,
       innerGlowOpacity: t < 0.5 ? innerGlowOpacity : other.innerGlowOpacity,
-      animationDuration: t < 0.5 ? animationDuration : other.animationDuration,
-      animationCurve: t < 0.5 ? animationCurve : other.animationCurve,
+      animation: animation.lerp(other.animation, t),
     );
   }
 
@@ -130,6 +130,7 @@ mixin _$GaugeStyleTailorMixin on ThemeExtension<GaugeStyle> {
                 .equals(innerGlowWidth, other.innerGlowWidth) &&
             const DeepCollectionEquality()
                 .equals(innerGlowOpacity, other.innerGlowOpacity) &&
+            const DeepCollectionEquality().equals(animation, other.animation) &&
             const DeepCollectionEquality()
                 .equals(animationDuration, other.animationDuration) &&
             const DeepCollectionEquality()
@@ -156,6 +157,7 @@ mixin _$GaugeStyleTailorMixin on ThemeExtension<GaugeStyle> {
       const DeepCollectionEquality().hash(markerColor),
       const DeepCollectionEquality().hash(innerGlowWidth),
       const DeepCollectionEquality().hash(innerGlowOpacity),
+      const DeepCollectionEquality().hash(animation),
       const DeepCollectionEquality().hash(animationDuration),
       const DeepCollectionEquality().hash(animationCurve),
     );
@@ -167,19 +169,28 @@ extension GaugeStyleBuildContextProps on BuildContext {
   GaugeRenderType get type => gaugeStyle.type;
   GaugeCapType get cap => gaugeStyle.cap;
   Color get trackColor => gaugeStyle.trackColor;
+
+  /// Primary indicator color for the progress arc
   Color get indicatorColor => gaugeStyle.indicatorColor;
   bool get showTicks => gaugeStyle.showTicks;
   int? get tickCount => gaugeStyle.tickCount;
   double? get tickInterval => gaugeStyle.tickInterval;
   double get strokeWidth => gaugeStyle.strokeWidth;
   bool get enableGlow => gaugeStyle.enableGlow;
+
+  /// 0.8 = 288 degrees (like old AnimatedMeter)
   double get fillRatio => gaugeStyle.fillRatio;
+
+  /// Starting offset angle
   double get offsetAngle => gaugeStyle.offsetAngle;
   double get markerRadius => gaugeStyle.markerRadius;
   bool get displayMarkerValues => gaugeStyle.displayMarkerValues;
   Color get markerColor => gaugeStyle.markerColor;
   double get innerGlowWidth => gaugeStyle.innerGlowWidth;
   double get innerGlowOpacity => gaugeStyle.innerGlowOpacity;
+
+  /// Animation timing for gauge transitions
+  AnimationSpec get animation => gaugeStyle.animation;
   Duration get animationDuration => gaugeStyle.animationDuration;
   Curve get animationCurve => gaugeStyle.animationCurve;
 }

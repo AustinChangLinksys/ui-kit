@@ -127,6 +127,7 @@ mixin _$LinkStyleTailorMixin on ThemeExtension<LinkStyle> {
   List<double>? get dashPattern;
   double get glowRadius;
   Color get glowColor;
+  AnimationSpec get animation;
   Duration get animationDuration;
 
   @override
@@ -136,6 +137,7 @@ mixin _$LinkStyleTailorMixin on ThemeExtension<LinkStyle> {
     List<double>? dashPattern,
     double? glowRadius,
     Color? glowColor,
+    AnimationSpec? animation,
     Duration? animationDuration,
   }) {
     return LinkStyle(
@@ -144,7 +146,7 @@ mixin _$LinkStyleTailorMixin on ThemeExtension<LinkStyle> {
       dashPattern: dashPattern ?? this.dashPattern,
       glowRadius: glowRadius ?? this.glowRadius,
       glowColor: glowColor ?? this.glowColor,
-      animationDuration: animationDuration ?? this.animationDuration,
+      animation: animation ?? this.animation,
     );
   }
 
@@ -157,7 +159,7 @@ mixin _$LinkStyleTailorMixin on ThemeExtension<LinkStyle> {
       dashPattern: t < 0.5 ? dashPattern : other.dashPattern,
       glowRadius: t < 0.5 ? glowRadius : other.glowRadius,
       glowColor: Color.lerp(glowColor, other.glowColor, t)!,
-      animationDuration: t < 0.5 ? animationDuration : other.animationDuration,
+      animation: animation.lerp(other.animation, t),
     );
   }
 
@@ -173,6 +175,7 @@ mixin _$LinkStyleTailorMixin on ThemeExtension<LinkStyle> {
             const DeepCollectionEquality()
                 .equals(glowRadius, other.glowRadius) &&
             const DeepCollectionEquality().equals(glowColor, other.glowColor) &&
+            const DeepCollectionEquality().equals(animation, other.animation) &&
             const DeepCollectionEquality()
                 .equals(animationDuration, other.animationDuration));
   }
@@ -186,6 +189,7 @@ mixin _$LinkStyleTailorMixin on ThemeExtension<LinkStyle> {
       const DeepCollectionEquality().hash(dashPattern),
       const DeepCollectionEquality().hash(glowRadius),
       const DeepCollectionEquality().hash(glowColor),
+      const DeepCollectionEquality().hash(animation),
       const DeepCollectionEquality().hash(animationDuration),
     );
   }
@@ -210,7 +214,8 @@ extension LinkStyleBuildContextProps on BuildContext {
   /// Glow color.
   Color get glowColor => linkStyle.glowColor;
 
-  /// Duration for flow animation. Duration.zero for no animation.
+  /// Animation timing for flow effects. Duration.zero for no animation.
+  AnimationSpec get animation => linkStyle.animation;
   Duration get animationDuration => linkStyle.animationDuration;
 }
 

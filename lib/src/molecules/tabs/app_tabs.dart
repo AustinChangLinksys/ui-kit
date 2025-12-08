@@ -269,17 +269,13 @@ class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
                 Icon(
                   tab.icon,
                   size: 18,
-                  color: isSelected
-                      ? _style.activeTextColor
-                      : _style.inactiveTextColor,
+                  color: _style.textColors.resolve(isActive: isSelected),
                 ),
                 const SizedBox(width: 8),
               ],
               AppText(
                 tab.label,
-                color: isSelected
-                    ? _style.activeTextColor
-                    : _style.inactiveTextColor,
+                color: _style.textColors.resolve(isActive: isSelected),
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               ),
             ],
@@ -314,17 +310,13 @@ class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
             Icon(
               tab.icon,
               size: 18,
-              color: isSelected
-                  ? _style.activeTextColor
-                  : _style.inactiveTextColor,
+              color: _style.textColors.resolve(isActive: isSelected),
             ),
             const SizedBox(width: 8),
           ],
           AppText(
             tab.label,
-            color: isSelected
-                ? _style.activeTextColor
-                : _style.inactiveTextColor,
+            color: _style.textColors.resolve(isActive: isSelected),
             fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
           ),
         ],
@@ -344,17 +336,13 @@ class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
             Icon(
               tab.icon,
               size: 18,
-              color: isSelected
-                  ? _style.activeTextColor
-                  : _style.inactiveTextColor,
+              color: _style.textColors.resolve(isActive: isSelected),
             ),
             const SizedBox(width: 8),
           ],
           AppText(
             tab.label,
-            color: isSelected
-                ? _style.activeTextColor
-                : _style.inactiveTextColor,
+            color: _style.textColors.resolve(isActive: isSelected),
             fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
           ),
         ],

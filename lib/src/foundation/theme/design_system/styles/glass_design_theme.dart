@@ -3,6 +3,8 @@ import 'package:ui_kit_library/src/foundation/theme/design_system/specs/interact
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/range_input_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/pin_input_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/password_input_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/shared/animation_spec.dart'
+    as shared;
 import 'package:ui_kit_library/ui_kit.dart';
 
 class GlassDesignTheme extends AppDesignTheme {
@@ -107,6 +109,7 @@ class GlassDesignTheme extends AppDesignTheme {
         highlightColor: colors.primary.withValues(alpha: 0.12),
         animationType: SkeletonAnimationType.pulse,
         borderRadius: 24.0,
+        animation: AnimationSpec.slow,
       ),
       toggleStyle: ToggleStyle(
         activeType: ToggleContentType.grip,
@@ -237,11 +240,16 @@ class GlassDesignTheme extends AppDesignTheme {
       ),
       spacingFactor: 1.0,
       buttonHeight: 44.0,
-      navigationStyle: const NavigationStyle(
+      navigationStyle: NavigationStyle(
         height: 72.0,
         isFloating: true,
         floatingMargin: 24.0,
         itemSpacing: 16.0,
+        animation: AnimationSpec.slow,
+        itemColors: StateColorSpec(
+          active: colors.primary,
+          inactive: colors.onSurface.withValues(alpha: 0.6),
+        ),
       ),
       layoutSpec: const LayoutSpec(
         marginMobile: 20.0,
@@ -329,8 +337,14 @@ class GlassDesignTheme extends AppDesignTheme {
           blurStrength: 30.0,
           contentColor: colors.onSurface,
         ),
-        barrierColor: colors.overlayColor,
-        barrierBlur: 10.0,
+        overlay: OverlaySpec(
+          scrimColor: colors.overlayColor,
+          blurStrength: 10.0,
+          animation: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 500),
+            curve: Curves.easeOutExpo,
+          ),
+        ),
         maxWidth: 400.0,
         padding: const EdgeInsets.all(24.0),
         buttonSpacing: 12.0,
@@ -339,24 +353,18 @@ class GlassDesignTheme extends AppDesignTheme {
       motion: const GlassMotion(),
       visualEffects: GlobalEffectsType.noiseOverlay,
       iconStyle: AppIconStyle.thinStroke,
-      bottomSheetStyle: BottomSheetStyle(
-        overlayColor: colors.overlayColor,
-        animationDuration: const Duration(milliseconds: 400),
-        animationCurve: Curves.easeInOutCubic,
-        topBorderRadius: 16.0,
-        dragHandleHeight: 8.0,
-      ),
-      sideSheetStyle: SideSheetStyle(
+      sheetStyle: const SheetStyle(
+        overlay: OverlaySpec.glass,
+        borderRadius: 16.0,
         width: 280.0,
-        overlayColor: colors.overlayColor,
-        animationDuration: const Duration(milliseconds: 400),
-        animationCurve: Curves.easeInOutCubic,
-        blurStrength: 20.0,
+        dragHandleHeight: 8.0,
         enableDithering: false,
       ),
       tabsStyle: TabsStyle(
-        activeTextColor: colors.primary,
-        inactiveTextColor: colors.onSurface,
+        textColors: StateColorSpec(
+          active: colors.primary,
+          inactive: colors.onSurface,
+        ),
         indicatorColor: colors.primary,
         tabBackgroundColor: colors.surface,
         animationDuration: const Duration(milliseconds: 300),
@@ -369,10 +377,13 @@ class GlassDesignTheme extends AppDesignTheme {
         connectorColor: colors.outline,
         stepSize: 40.0,
         useDashedConnector: false,
+        animation: AnimationSpec.slow,
       ),
       breadcrumbStyle: BreadcrumbStyle(
-        activeLinkColor: colors.primary,
-        inactiveLinkColor: colors.onSurfaceVariant,
+        linkColors: StateColorSpec(
+          active: colors.primary,
+          inactive: colors.onSurfaceVariant,
+        ),
         separatorColor: colors.outline,
         separatorText: ' / ',
         itemTextStyle: appTextTheme.bodyMedium!,
@@ -382,23 +393,35 @@ class GlassDesignTheme extends AppDesignTheme {
         expandedBackgroundColor: colors.surfaceContainerHigh,
         headerTextColor: colors.onSurface,
         expandIcon: Icons.expand_more,
-        animationDuration: const Duration(milliseconds: 300),
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        ),
       ),
       carouselStyle: CarouselStyle(
-        navButtonColor: colors.primary,
-        navButtonHoverColor: colors.primary.withValues(alpha: 0.8),
+        navButtonColors: StateColorSpec(
+          active: colors.primary,
+          inactive: colors.primary,
+          hover: colors.primary.withValues(alpha: 0.8),
+        ),
         previousIcon: Icons.arrow_back,
         nextIcon: Icons.arrow_forward,
-        animationDuration: const Duration(milliseconds: 400),
-        animationCurve: Curves.easeInOutCubic,
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 400),
+          curve: Curves.easeInOutCubic,
+        ),
         useSnapScroll: false,
         navButtonSize: 48.0,
       ),
       chipGroupStyle: ChipGroupStyle(
-        unselectedBackground: colors.surfaceContainer,
-        unselectedText: colors.onSurface,
-        selectedBackground: colors.primary.withValues(alpha: 0.2),
-        selectedText: colors.onSurface,
+        backgroundColors: StateColorSpec(
+          active: colors.primary.withValues(alpha: 0.2),
+          inactive: colors.surfaceContainer,
+        ),
+        textColors: StateColorSpec(
+          active: colors.onSurface,
+          inactive: colors.onSurface,
+        ),
         selectedBorderColor: colors.primary,
         borderRadius: 20.0,
       ),
@@ -418,7 +441,10 @@ class GlassDesignTheme extends AppDesignTheme {
         glowRowOnHover: true,
         hoverRowBackground: colors.primary.withValues(alpha: 0.1),
         hoverRowContentColor: null,
-        modeTransitionDuration: const Duration(milliseconds: 500),
+        modeTransition: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        ),
       ),
       topologySpec: _buildTopologySpec(
           colors.toMaterialScheme(brightness: Brightness.light),
@@ -446,15 +472,23 @@ class GlassDesignTheme extends AppDesignTheme {
         borderRadius: BorderRadius.circular(16.0), // Organic rounded shape
         contentColor: colors.onSurface,
         iconSize: 24.0,
-        animationDuration: const Duration(milliseconds: 500),
-        animationCurve: Curves.easeOutExpo, // Fluid
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 500),
+          curve: Curves.easeOutExpo,
+        ), // Fluid
       ),
       expandableFabStyle: ExpandableFabStyle(
         shape: BoxShape.circle,
         distance: 100.0,
         type: FabAnimationType.float, // Bubble effect
-        overlayColor: colors.scrim.withValues(alpha: 0.2),
-        enableBlur: true,
+        overlay: OverlaySpec(
+          scrimColor: colors.scrim.withValues(alpha: 0.2),
+          blurStrength: 10.0,
+          animation: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 500),
+            curve: Curves.easeOutExpo,
+          ),
+        ),
         showDitherPattern: false,
         glowEffect: true,
         highContrastBorder: false,
@@ -467,6 +501,10 @@ class GlassDesignTheme extends AppDesignTheme {
         showTicks: false,
         strokeWidth: 16.0,
         enableGlow: true, // Neon glow
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        ),
       ),
       rangeInputStyle: RangeInputStyle(
         mergeContainers: false, // Separated boxes
@@ -520,8 +558,7 @@ class GlassDesignTheme extends AppDesignTheme {
     required super.motion,
     required super.visualEffects,
     required super.iconStyle,
-    required super.bottomSheetStyle,
-    required super.sideSheetStyle,
+    required super.sheetStyle,
     required super.tabsStyle,
     required super.stepperStyle,
     required super.breadcrumbStyle,
@@ -542,7 +579,6 @@ class GlassDesignTheme extends AppDesignTheme {
   factory GlassDesignTheme.light([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultLightScheme;
     final glassBaseColor = scheme.surface.withValues(alpha: 0.02);
-    final overlayColor = scheme.scrim.withValues(alpha: 0.2);
 
     return GlassDesignTheme._(
       surfaceBase: SurfaceStyle(
@@ -638,6 +674,7 @@ class GlassDesignTheme extends AppDesignTheme {
         highlightColor: scheme.primary.withValues(alpha: 0.12),
         animationType: SkeletonAnimationType.pulse,
         borderRadius: 24.0,
+        animation: AnimationSpec.slow,
       ),
       toggleStyle: ToggleStyle(
         activeType: ToggleContentType.grip,
@@ -775,11 +812,16 @@ class GlassDesignTheme extends AppDesignTheme {
       ),
       spacingFactor: 1.0,
       buttonHeight: 44.0,
-      navigationStyle: const NavigationStyle(
+      navigationStyle: NavigationStyle(
         height: 72.0,
         isFloating: true,
         floatingMargin: 24.0,
         itemSpacing: 16.0,
+        animation: AnimationSpec.slow,
+        itemColors: StateColorSpec(
+          active: scheme.primary,
+          inactive: scheme.onSurface.withValues(alpha: 0.6),
+        ),
       ),
       layoutSpec: const LayoutSpec(
         marginMobile: 20.0,
@@ -869,8 +911,14 @@ class GlassDesignTheme extends AppDesignTheme {
           blurStrength: 30.0,
           contentColor: scheme.onSurface,
         ),
-        barrierColor: scheme.scrim.withValues(alpha: 0.3),
-        barrierBlur: 10.0,
+        overlay: OverlaySpec(
+          scrimColor: scheme.scrim.withValues(alpha: 0.3),
+          blurStrength: 10.0,
+          animation: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 500),
+            curve: Curves.easeOutExpo,
+          ),
+        ),
         maxWidth: 400.0,
         padding: const EdgeInsets.all(24.0),
         buttonSpacing: 12.0,
@@ -880,24 +928,18 @@ class GlassDesignTheme extends AppDesignTheme {
       visualEffects: GlobalEffectsType.noiseOverlay,
       iconStyle: AppIconStyle
           .thinStroke, // Or vectorFilled, depending on Glass style preference
-      bottomSheetStyle: BottomSheetStyle(
-        overlayColor: overlayColor,
-        animationDuration: const Duration(milliseconds: 400),
-        animationCurve: Curves.easeInOutCubic,
-        topBorderRadius: 16.0,
-        dragHandleHeight: 8.0,
-      ),
-      sideSheetStyle: SideSheetStyle(
+      sheetStyle: const SheetStyle(
+        overlay: OverlaySpec.glass,
+        borderRadius: 16.0,
         width: 280.0,
-        overlayColor: overlayColor,
-        animationDuration: const Duration(milliseconds: 400),
-        animationCurve: Curves.easeInOutCubic,
-        blurStrength: 20.0,
+        dragHandleHeight: 8.0,
         enableDithering: false,
       ),
       tabsStyle: TabsStyle(
-        activeTextColor: scheme.primary,
-        inactiveTextColor: scheme.onSurface,
+        textColors: StateColorSpec(
+          active: scheme.primary,
+          inactive: scheme.onSurface,
+        ),
         indicatorColor: scheme.primary,
         tabBackgroundColor: scheme.surface,
         animationDuration: const Duration(milliseconds: 300),
@@ -910,10 +952,13 @@ class GlassDesignTheme extends AppDesignTheme {
         connectorColor: scheme.outline,
         stepSize: 40.0,
         useDashedConnector: false,
+        animation: AnimationSpec.slow,
       ),
       breadcrumbStyle: BreadcrumbStyle(
-        activeLinkColor: scheme.primary,
-        inactiveLinkColor: scheme.onSurfaceVariant,
+        linkColors: StateColorSpec(
+          active: scheme.primary,
+          inactive: scheme.onSurfaceVariant,
+        ),
         separatorColor: scheme.outline,
         separatorText: ' / ',
         itemTextStyle: appTextTheme.bodyMedium!,
@@ -923,23 +968,35 @@ class GlassDesignTheme extends AppDesignTheme {
         expandedBackgroundColor: scheme.surfaceContainerHigh,
         headerTextColor: scheme.onSurface,
         expandIcon: Icons.expand_more,
-        animationDuration: const Duration(milliseconds: 300),
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        ),
       ),
       carouselStyle: CarouselStyle(
-        navButtonColor: scheme.primary,
-        navButtonHoverColor: scheme.primary.withValues(alpha: 0.8),
+        navButtonColors: StateColorSpec(
+          active: scheme.primary,
+          inactive: scheme.primary,
+          hover: scheme.primary.withValues(alpha: 0.8),
+        ),
         previousIcon: Icons.arrow_back,
         nextIcon: Icons.arrow_forward,
-        animationDuration: const Duration(milliseconds: 400),
-        animationCurve: Curves.easeInOutCubic,
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 400),
+          curve: Curves.easeInOutCubic,
+        ),
         useSnapScroll: false,
         navButtonSize: 48.0,
       ),
       chipGroupStyle: ChipGroupStyle(
-        unselectedBackground: scheme.surfaceContainer,
-        unselectedText: scheme.onSurface,
-        selectedBackground: scheme.primary.withValues(alpha: 0.2),
-        selectedText: scheme.onSurface,
+        backgroundColors: StateColorSpec(
+          active: scheme.primary.withValues(alpha: 0.2),
+          inactive: scheme.surfaceContainer,
+        ),
+        textColors: StateColorSpec(
+          active: scheme.onSurface,
+          inactive: scheme.onSurface,
+        ),
         selectedBorderColor: scheme.primary,
         borderRadius: 20.0,
       ),
@@ -959,7 +1016,10 @@ class GlassDesignTheme extends AppDesignTheme {
         glowRowOnHover: true,
         hoverRowBackground: scheme.primary.withValues(alpha: 0.1),
         hoverRowContentColor: null,
-        modeTransitionDuration: const Duration(milliseconds: 500),
+        modeTransition: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        ),
       ),
       topologySpec: _buildTopologySpec(scheme, isLight: true),
       slideActionStyle: SlideActionStyle(
@@ -984,15 +1044,23 @@ class GlassDesignTheme extends AppDesignTheme {
         borderRadius: BorderRadius.circular(16.0),
         contentColor: scheme.onSurface,
         iconSize: 24.0,
-        animationDuration: const Duration(milliseconds: 500),
-        animationCurve: Curves.easeOutExpo,
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 500),
+          curve: Curves.easeOutExpo,
+        ),
       ),
       expandableFabStyle: ExpandableFabStyle(
         shape: BoxShape.circle,
         distance: 100.0,
         type: FabAnimationType.float,
-        overlayColor: scheme.scrim.withValues(alpha: 0.2),
-        enableBlur: true,
+        overlay: OverlaySpec(
+          scrimColor: scheme.scrim.withValues(alpha: 0.2),
+          blurStrength: 10.0,
+          animation: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 500),
+            curve: Curves.easeOutExpo,
+          ),
+        ),
         showDitherPattern: false,
         glowEffect: true,
         highContrastBorder: false,
@@ -1005,6 +1073,10 @@ class GlassDesignTheme extends AppDesignTheme {
         showTicks: false,
         strokeWidth: 16.0,
         enableGlow: true,
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        ),
       ),
       rangeInputStyle: RangeInputStyle(
         mergeContainers: false,
@@ -1032,9 +1104,9 @@ class GlassDesignTheme extends AppDesignTheme {
     );
   }
 
+  // Dark Mode (Deep Ocean Glass)
   factory GlassDesignTheme.dark([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultDarkScheme;
-    final overlayColor = scheme.inverseSurface.withValues(alpha: 0.2);
     return GlassDesignTheme._(
       surfaceBase: SurfaceStyle(
         backgroundColor: scheme.shadow.withValues(alpha: 0.3),
@@ -1127,6 +1199,7 @@ class GlassDesignTheme extends AppDesignTheme {
         highlightColor: scheme.primary.withValues(alpha: 0.2),
         animationType: SkeletonAnimationType.pulse,
         borderRadius: 24.0,
+        animation: AnimationSpec.slow,
       ),
       toggleStyle: ToggleStyle(
         activeType: ToggleContentType.grip,
@@ -1264,11 +1337,16 @@ class GlassDesignTheme extends AppDesignTheme {
       ),
       spacingFactor: 1.0,
       buttonHeight: 44.0,
-      navigationStyle: const NavigationStyle(
+      navigationStyle: NavigationStyle(
         height: 72.0,
         isFloating: true,
         floatingMargin: 24.0,
         itemSpacing: 16.0,
+        animation: AnimationSpec.slow,
+        itemColors: StateColorSpec(
+          active: scheme.primary,
+          inactive: scheme.onSurface.withValues(alpha: 0.6),
+        ),
       ),
       layoutSpec: const LayoutSpec(
         marginMobile: 20.0,
@@ -1356,8 +1434,14 @@ class GlassDesignTheme extends AppDesignTheme {
           blurStrength: 30.0,
           contentColor: scheme.onSurface,
         ),
-        barrierColor: scheme.scrim.withValues(alpha: 0.4),
-        barrierBlur: 10.0,
+        overlay: OverlaySpec(
+          scrimColor: scheme.scrim.withValues(alpha: 0.4),
+          blurStrength: 10.0,
+          animation: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 500),
+            curve: Curves.easeOutExpo,
+          ),
+        ),
         maxWidth: 400.0,
         padding: const EdgeInsets.all(24.0),
         buttonSpacing: 12.0,
@@ -1366,24 +1450,18 @@ class GlassDesignTheme extends AppDesignTheme {
       motion: const GlassMotion(),
       visualEffects: GlobalEffectsType.noiseOverlay,
       iconStyle: AppIconStyle.thinStroke, // Or vectorFilled
-      bottomSheetStyle: BottomSheetStyle(
-        overlayColor: overlayColor,
-        animationDuration: const Duration(milliseconds: 400),
-        animationCurve: Curves.easeInOutCubic,
-        topBorderRadius: 16.0,
-        dragHandleHeight: 8.0,
-      ),
-      sideSheetStyle: SideSheetStyle(
+      sheetStyle: const SheetStyle(
+        overlay: OverlaySpec.glass,
+        borderRadius: 16.0,
         width: 280.0,
-        overlayColor: overlayColor,
-        animationDuration: const Duration(milliseconds: 400),
-        animationCurve: Curves.easeInOutCubic,
-        blurStrength: 20.0,
+        dragHandleHeight: 8.0,
         enableDithering: false,
       ),
       tabsStyle: TabsStyle(
-        activeTextColor: scheme.primary,
-        inactiveTextColor: scheme.onSurface,
+        textColors: StateColorSpec(
+          active: scheme.primary,
+          inactive: scheme.onSurface,
+        ),
         indicatorColor: scheme.primary,
         tabBackgroundColor: scheme.surface,
         animationDuration: const Duration(milliseconds: 300),
@@ -1396,10 +1474,13 @@ class GlassDesignTheme extends AppDesignTheme {
         connectorColor: scheme.outline,
         stepSize: 40.0,
         useDashedConnector: false,
+        animation: AnimationSpec.slow,
       ),
       breadcrumbStyle: BreadcrumbStyle(
-        activeLinkColor: scheme.primary,
-        inactiveLinkColor: scheme.onSurfaceVariant,
+        linkColors: StateColorSpec(
+          active: scheme.primary,
+          inactive: scheme.onSurfaceVariant,
+        ),
         separatorColor: scheme.outline,
         separatorText: ' / ',
         itemTextStyle: appTextTheme.bodyMedium!,
@@ -1409,23 +1490,35 @@ class GlassDesignTheme extends AppDesignTheme {
         expandedBackgroundColor: scheme.surfaceContainerHigh,
         headerTextColor: scheme.onSurface,
         expandIcon: Icons.expand_more,
-        animationDuration: const Duration(milliseconds: 300),
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        ),
       ),
       carouselStyle: CarouselStyle(
-        navButtonColor: scheme.primary,
-        navButtonHoverColor: scheme.primary.withValues(alpha: 0.8),
+        navButtonColors: StateColorSpec(
+          active: scheme.primary,
+          inactive: scheme.primary,
+          hover: scheme.primary.withValues(alpha: 0.8),
+        ),
         previousIcon: Icons.arrow_back,
         nextIcon: Icons.arrow_forward,
-        animationDuration: const Duration(milliseconds: 400),
-        animationCurve: Curves.easeInOutCubic,
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 400),
+          curve: Curves.easeInOutCubic,
+        ),
         useSnapScroll: false,
         navButtonSize: 48.0,
       ),
       chipGroupStyle: ChipGroupStyle(
-        unselectedBackground: scheme.surfaceContainer,
-        unselectedText: scheme.onSurface,
-        selectedBackground: scheme.primary.withValues(alpha: 0.2),
-        selectedText: scheme.onSurface,
+        backgroundColors: StateColorSpec(
+          active: scheme.primary.withValues(alpha: 0.2),
+          inactive: scheme.surfaceContainer,
+        ),
+        textColors: StateColorSpec(
+          active: scheme.onSurface,
+          inactive: scheme.onSurface,
+        ),
         selectedBorderColor: scheme.primary,
         borderRadius: 20.0,
       ),
@@ -1445,7 +1538,10 @@ class GlassDesignTheme extends AppDesignTheme {
         glowRowOnHover: true,
         hoverRowBackground: scheme.primary.withValues(alpha: 0.1),
         hoverRowContentColor: null,
-        modeTransitionDuration: const Duration(milliseconds: 500),
+        modeTransition: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        ),
       ),
       topologySpec: _buildTopologySpec(scheme, isLight: false),
       slideActionStyle: SlideActionStyle(
@@ -1470,15 +1566,23 @@ class GlassDesignTheme extends AppDesignTheme {
         borderRadius: BorderRadius.circular(16.0),
         contentColor: scheme.onSurface,
         iconSize: 24.0,
-        animationDuration: const Duration(milliseconds: 500),
-        animationCurve: Curves.easeOutExpo,
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 500),
+          curve: Curves.easeOutExpo,
+        ),
       ),
       expandableFabStyle: ExpandableFabStyle(
         shape: BoxShape.circle,
         distance: 100.0,
         type: FabAnimationType.float,
-        overlayColor: scheme.scrim.withValues(alpha: 0.2),
-        enableBlur: true,
+        overlay: OverlaySpec(
+          scrimColor: scheme.scrim.withValues(alpha: 0.2),
+          blurStrength: 10.0,
+          animation: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 500),
+            curve: Curves.easeOutExpo,
+          ),
+        ),
         showDitherPattern: false,
         glowEffect: true,
         highContrastBorder: false,
@@ -1491,6 +1595,10 @@ class GlassDesignTheme extends AppDesignTheme {
         showTicks: false,
         strokeWidth: 16.0,
         enableGlow: true,
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        ),
       ),
       rangeInputStyle: RangeInputStyle(
         mergeContainers: false,
@@ -1629,7 +1737,10 @@ class GlassDesignTheme extends AppDesignTheme {
         dashPattern: null, // Solid line
         glowColor: Colors.transparent,
         glowRadius: 0.0,
-        animationDuration: Duration.zero,
+        animation: const shared.AnimationSpec(
+          duration: Duration.zero,
+          curve: Curves.linear,
+        ),
       ),
       wifiStrongStyle: LinkStyle(
         color: successColor.withValues(alpha: 0.7),
@@ -1637,7 +1748,10 @@ class GlassDesignTheme extends AppDesignTheme {
         dashPattern: const [8.0, 4.0],
         glowColor: successColor.withValues(alpha: 0.2),
         glowRadius: 4.0,
-        animationDuration: const Duration(milliseconds: 1500),
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 1500),
+          curve: Curves.linear,
+        ),
       ),
       wifiMediumStyle: LinkStyle(
         color: warningColor.withValues(alpha: 0.7),
@@ -1645,7 +1759,10 @@ class GlassDesignTheme extends AppDesignTheme {
         dashPattern: const [6.0, 4.0],
         glowColor: warningColor.withValues(alpha: 0.15),
         glowRadius: 3.0,
-        animationDuration: const Duration(milliseconds: 2000),
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 2000),
+          curve: Curves.linear,
+        ),
       ),
       wifiWeakStyle: LinkStyle(
         color: errorColor.withValues(alpha: 0.7),
@@ -1653,7 +1770,10 @@ class GlassDesignTheme extends AppDesignTheme {
         dashPattern: const [4.0, 4.0],
         glowColor: errorColor.withValues(alpha: 0.1),
         glowRadius: 2.0,
-        animationDuration: const Duration(milliseconds: 2500),
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 2500),
+          curve: Curves.linear,
+        ),
       ),
       wifiUnknownStyle: LinkStyle(
         color: scheme.outline.withValues(alpha: 0.4),
@@ -1661,7 +1781,10 @@ class GlassDesignTheme extends AppDesignTheme {
         dashPattern: const [4.0, 6.0],
         glowColor: Colors.transparent,
         glowRadius: 0.0,
-        animationDuration: const Duration(milliseconds: 2000),
+        animation: const shared.AnimationSpec(
+          duration: Duration(milliseconds: 2000),
+          curve: Curves.linear,
+        ),
       ),
 
       // Layout
