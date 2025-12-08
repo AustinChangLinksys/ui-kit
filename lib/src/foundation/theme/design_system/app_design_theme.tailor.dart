@@ -47,6 +47,9 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
   SlideActionStyle get slideActionStyle;
   ExpandableFabStyle get expandableFabStyle;
   GaugeStyle get gaugeStyle;
+  RangeInputStyle get rangeInputStyle;
+  PinInputStyle get pinInputStyle;
+  PasswordInputStyle get passwordInputStyle;
 
   @override
   AppDesignTheme copyWith({
@@ -87,6 +90,9 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
     SlideActionStyle? slideActionStyle,
     ExpandableFabStyle? expandableFabStyle,
     GaugeStyle? gaugeStyle,
+    RangeInputStyle? rangeInputStyle,
+    PinInputStyle? pinInputStyle,
+    PasswordInputStyle? passwordInputStyle,
   }) {
     return AppDesignTheme(
       toggleStyle: toggleStyle ?? this.toggleStyle,
@@ -126,6 +132,9 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       slideActionStyle: slideActionStyle ?? this.slideActionStyle,
       expandableFabStyle: expandableFabStyle ?? this.expandableFabStyle,
       gaugeStyle: gaugeStyle ?? this.gaugeStyle,
+      rangeInputStyle: rangeInputStyle ?? this.rangeInputStyle,
+      pinInputStyle: pinInputStyle ?? this.pinInputStyle,
+      passwordInputStyle: passwordInputStyle ?? this.passwordInputStyle,
     );
   }
 
@@ -172,6 +181,10 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       slideActionStyle: slideActionStyle.lerp(other.slideActionStyle, t),
       expandableFabStyle: expandableFabStyle.lerp(other.expandableFabStyle, t),
       gaugeStyle: gaugeStyle.lerp(other.gaugeStyle, t),
+      rangeInputStyle: t < 0.5 ? rangeInputStyle : other.rangeInputStyle,
+      pinInputStyle: t < 0.5 ? pinInputStyle : other.pinInputStyle,
+      passwordInputStyle:
+          t < 0.5 ? passwordInputStyle : other.passwordInputStyle,
     );
   }
 
@@ -248,7 +261,13 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
             const DeepCollectionEquality()
                 .equals(expandableFabStyle, other.expandableFabStyle) &&
             const DeepCollectionEquality()
-                .equals(gaugeStyle, other.gaugeStyle));
+                .equals(gaugeStyle, other.gaugeStyle) &&
+            const DeepCollectionEquality()
+                .equals(rangeInputStyle, other.rangeInputStyle) &&
+            const DeepCollectionEquality()
+                .equals(pinInputStyle, other.pinInputStyle) &&
+            const DeepCollectionEquality()
+                .equals(passwordInputStyle, other.passwordInputStyle));
   }
 
   @override
@@ -292,6 +311,9 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       const DeepCollectionEquality().hash(slideActionStyle),
       const DeepCollectionEquality().hash(expandableFabStyle),
       const DeepCollectionEquality().hash(gaugeStyle),
+      const DeepCollectionEquality().hash(rangeInputStyle),
+      const DeepCollectionEquality().hash(pinInputStyle),
+      const DeepCollectionEquality().hash(passwordInputStyle),
     ]);
   }
 }
@@ -338,4 +360,8 @@ extension AppDesignThemeBuildContextProps on BuildContext {
   ExpandableFabStyle get expandableFabStyle =>
       appDesignTheme.expandableFabStyle;
   GaugeStyle get gaugeStyle => appDesignTheme.gaugeStyle;
+  RangeInputStyle get rangeInputStyle => appDesignTheme.rangeInputStyle;
+  PinInputStyle get pinInputStyle => appDesignTheme.pinInputStyle;
+  PasswordInputStyle get passwordInputStyle =>
+      appDesignTheme.passwordInputStyle;
 }

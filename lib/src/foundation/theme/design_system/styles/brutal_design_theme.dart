@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ui_kit_library/src/foundation/motion/brutal_motion.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/interaction_spec.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/password_input_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/pin_input_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/range_input_style.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
 class BrutalDesignTheme extends AppDesignTheme {
@@ -426,10 +429,32 @@ class BrutalDesignTheme extends AppDesignTheme {
         type: GaugeRenderType.solid, // Solid stroke
         cap: GaugeCapType.butt, // Sharp cut-off
         trackColor: colors.highContrastBorder, // Thick outline
-        indicatorColor: Colors.yellow, // Bold red for Brutal theme
+        indicatorColor: colors.tertiary, // Bold accent for Brutal theme
         showTicks: false,
         strokeWidth: 20.0,
         enableGlow: false,
+      ),
+      rangeInputStyle: RangeInputStyle(
+        mergeContainers: false,
+        customSeparator: null,
+        activeBorderColor: colors.highContrastBorder,
+        spacing: 8.0,
+      ),
+      pinInputStyle: PinInputStyle(
+        cellShape: PinCellShape.box,
+        fillOnInput: true,
+        glowOnActive: false,
+        textStyle: appTextTheme.headlineMedium!.copyWith(color: colors.onSurface),
+        cellSpacing: 8.0,
+        cellSize: 56.0,
+      ),
+      passwordInputStyle: PasswordInputStyle(
+        validIcon: Icons.check_box,
+        pendingIcon: Icons.check_box_outline_blank,
+        ruleTextStyle: appTextTheme.bodySmall!.copyWith(fontWeight: FontWeight.bold, color: colors.onSurface),
+        showRuleListBackground: false,
+        validColor: colors.onSurface,
+        pendingColor: colors.onSurface.withValues(alpha: 0.5),
       ),
     );
   }
@@ -473,6 +498,9 @@ class BrutalDesignTheme extends AppDesignTheme {
     required super.slideActionStyle,
     required super.expandableFabStyle,
     required super.gaugeStyle,
+    required super.rangeInputStyle,
+    required super.pinInputStyle,
+    required super.passwordInputStyle,
   });
 
   factory BrutalDesignTheme.light([ColorScheme? scheme]) {
@@ -893,10 +921,32 @@ class BrutalDesignTheme extends AppDesignTheme {
         type: GaugeRenderType.solid,
         cap: GaugeCapType.butt,
         trackColor: scheme.onSurface,
-        indicatorColor: Colors.yellow,
+        indicatorColor: scheme.tertiary, // Bold accent for Brutal theme
         showTicks: false,
         strokeWidth: 20.0,
         enableGlow: false,
+      ),
+      rangeInputStyle: RangeInputStyle(
+        mergeContainers: false,
+        customSeparator: null,
+        activeBorderColor: scheme.onSurface,
+        spacing: 8.0,
+      ),
+      pinInputStyle: PinInputStyle(
+        cellShape: PinCellShape.box,
+        fillOnInput: true,
+        glowOnActive: false,
+        textStyle: appTextTheme.headlineMedium!.copyWith(color: scheme.onSurface),
+        cellSpacing: 8.0,
+        cellSize: 56.0,
+      ),
+      passwordInputStyle: PasswordInputStyle(
+        validIcon: Icons.check_box,
+        pendingIcon: Icons.check_box_outline_blank,
+        ruleTextStyle: appTextTheme.bodySmall!.copyWith(fontWeight: FontWeight.bold, color: scheme.onSurface),
+        showRuleListBackground: false,
+        validColor: scheme.onSurface,
+        pendingColor: scheme.onSurface.withValues(alpha: 0.5),
       ),
     );
   }
@@ -1316,11 +1366,33 @@ class BrutalDesignTheme extends AppDesignTheme {
       gaugeStyle: GaugeStyle(
         type: GaugeRenderType.solid,
         cap: GaugeCapType.butt,
-        trackColor: scheme.onSurface,
-        indicatorColor: Colors.yellow,
+        trackColor: black,
+        indicatorColor: scheme.tertiary, // Bold accent for Brutal theme
         showTicks: false,
         strokeWidth: 20.0,
         enableGlow: false,
+      ),
+      rangeInputStyle: RangeInputStyle(
+        mergeContainers: false,
+        customSeparator: null,
+        activeBorderColor: black,
+        spacing: 8.0,
+      ),
+      pinInputStyle: PinInputStyle(
+        cellShape: PinCellShape.box,
+        fillOnInput: true,
+        glowOnActive: false,
+        textStyle: appTextTheme.headlineMedium!.copyWith(color: scheme.onSurface),
+        cellSpacing: 8.0,
+        cellSize: 56.0,
+      ),
+      passwordInputStyle: PasswordInputStyle(
+        validIcon: Icons.check_box,
+        pendingIcon: Icons.check_box_outline_blank,
+        ruleTextStyle: appTextTheme.bodySmall!.copyWith(fontWeight: FontWeight.bold, color: black),
+        showRuleListBackground: false,
+        validColor: black,
+        pendingColor: black.withValues(alpha: 0.5),
       ),
     );
   }

@@ -28,6 +28,9 @@ import 'package:ui_kit_library/src/foundation/theme/design_system/specs/table_st
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/slide_action_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/expandable_fab_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/gauge_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/range_input_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/pin_input_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/password_input_style.dart';
 import 'specs/surface_style.dart';
 
 part 'app_design_theme.tailor.dart';
@@ -139,6 +142,15 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
   @override
   final GaugeStyle gaugeStyle;
 
+  @override
+  final RangeInputStyle rangeInputStyle;
+
+  @override
+  final PinInputStyle pinInputStyle;
+
+  @override
+  final PasswordInputStyle passwordInputStyle;
+
   const AppDesignTheme({
     required this.surfaceBase,
     required this.surfaceElevated,
@@ -177,6 +189,9 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
     required this.slideActionStyle,
     required this.expandableFabStyle,
     required this.gaugeStyle,
+    required this.rangeInputStyle,
+    required this.pinInputStyle,
+    required this.passwordInputStyle,
   });
 
   /// Helper method to easily access the theme from the context.

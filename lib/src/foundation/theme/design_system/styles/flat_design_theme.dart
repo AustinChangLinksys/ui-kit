@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/interaction_spec.dart';
 import 'package:ui_kit_library/ui_kit.dart';
-// Import GlobalEffectsType
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/range_input_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/pin_input_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/password_input_style.dart';
 // Import AppIconStyle
 
 class FlatDesignTheme extends AppDesignTheme {
@@ -14,7 +16,7 @@ class FlatDesignTheme extends AppDesignTheme {
   // Factory 2: Raw Mode (AppColorScheme driven)
   factory FlatDesignTheme._raw(AppColorScheme colors) {
     final overlayColor = colors.overlayColor; // Use from scheme
-    
+
     return FlatDesignTheme._(
       // 1. Global Surface Definition (for Card, Dialog, etc.)
       surfaceBase: SurfaceStyle(
@@ -33,7 +35,8 @@ class FlatDesignTheme extends AppDesignTheme {
         borderRadius: 8.0,
         shadows: [
           BoxShadow(
-            color: colors.shadow.withValues(alpha: 0.05), // Very faint natural shadow for elevation
+            color: colors.shadow.withValues(
+                alpha: 0.05), // Very faint natural shadow for elevation
             blurRadius: 10,
             offset: const Offset(0, 4),
           )
@@ -105,7 +108,8 @@ class FlatDesignTheme extends AppDesignTheme {
 
         // Style override: Thumb (white sphere usually)
         thumbStyle: SurfaceStyle(
-          backgroundColor: colors.surface, // Thumb usually pure white in Flat/iOS
+          backgroundColor:
+              colors.surface, // Thumb usually pure white in Flat/iOS
           borderColor: Colors.transparent,
           borderWidth: 0,
           borderRadius: 99,
@@ -117,7 +121,8 @@ class FlatDesignTheme extends AppDesignTheme {
             )
           ],
           blurStrength: 0,
-          contentColor: colors.primary, // If Thumb has content, use primary color
+          contentColor:
+              colors.primary, // If Thumb has content, use primary color
         ),
       ),
       skeletonStyle: SkeletonStyle(
@@ -146,8 +151,8 @@ class FlatDesignTheme extends AppDesignTheme {
           borderRadius: 0,
           shadows: const [],
           blurStrength: 0,
-          customBorder:
-              Border(bottom: BorderSide(color: colors.outlineVariant, width: 1.0)),
+          customBorder: Border(
+              bottom: BorderSide(color: colors.outlineVariant, width: 1.0)),
         ),
         // Filled Style
         filledStyle: SurfaceStyle(
@@ -184,8 +189,10 @@ class FlatDesignTheme extends AppDesignTheme {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         margin: const EdgeInsets.all(16),
         borderRadius: BorderRadius.circular(8),
-        backgroundColor: colors.scrim, // inverseSurface often map to scrim or distinct
-        textStyle: appTextTheme.bodyMedium!.copyWith(color: colors.surface), // onInverseSurface
+        backgroundColor:
+            colors.scrim, // inverseSurface often map to scrim or distinct
+        textStyle: appTextTheme.bodyMedium!
+            .copyWith(color: colors.surface), // onInverseSurface
         displayDuration: const Duration(seconds: 3),
       ),
       dividerStyle: DividerStyle(
@@ -382,17 +389,22 @@ class FlatDesignTheme extends AppDesignTheme {
         gridColor: colors.outlineVariant,
         gridWidth: 1.0,
         showVerticalGrid: false,
-        cellPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
+        cellPadding:
+            const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
         rowHeight: 52.0,
-        headerTextStyle: appTextTheme.labelLarge!.copyWith(color: colors.onSurface),
-        cellTextStyle: appTextTheme.bodyMedium!.copyWith(color: colors.onSurface),
+        headerTextStyle:
+            appTextTheme.labelLarge!.copyWith(color: colors.onSurface),
+        cellTextStyle:
+            appTextTheme.bodyMedium!.copyWith(color: colors.onSurface),
         invertRowOnHover: false,
         glowRowOnHover: false,
         hoverRowBackground: colors.surfaceContainerHighest,
         hoverRowContentColor: null,
         modeTransitionDuration: const Duration(milliseconds: 200),
       ),
-      topologySpec: _buildTopologySpec(colors.toMaterialScheme(brightness: Brightness.light), isLight: true), // Temp until topology update
+      topologySpec: _buildTopologySpec(
+          colors.toMaterialScheme(brightness: Brightness.light),
+          isLight: true), // Temp until topology update
       slideActionStyle: SlideActionStyle(
         standardStyle: SurfaceStyle(
           backgroundColor: colors.surfaceContainer,
@@ -432,10 +444,35 @@ class FlatDesignTheme extends AppDesignTheme {
         type: GaugeRenderType.gradient,
         cap: GaugeCapType.round,
         trackColor: colors.outlineVariant.withValues(alpha: 0.3),
-        indicatorColor: colors.primary, // Theme primary for Flat
         showTicks: false,
         strokeWidth: 12.0,
         enableGlow: false,
+        indicatorColor: colors.primary, // Theme primary for Flat
+      ),
+      rangeInputStyle: RangeInputStyle(
+        mergeContainers: true, // Unified Box
+        customSeparator: null,
+        activeBorderColor: colors.primary,
+        spacing: 0.0,
+      ),
+      pinInputStyle: PinInputStyle(
+        cellShape: PinCellShape.underline,
+        fillOnInput: false,
+        glowOnActive: false,
+        textStyle:
+            appTextTheme.headlineMedium!.copyWith(color: colors.onSurface),
+        cellSpacing: 16.0,
+        cellSize: 48.0,
+      ),
+      passwordInputStyle: PasswordInputStyle(
+        validIcon: Icons.check_circle_outline,
+        pendingIcon: Icons.radio_button_unchecked,
+        ruleTextStyle:
+            appTextTheme.bodySmall!.copyWith(color: colors.onSurfaceVariant),
+        showRuleListBackground: false,
+        validColor: colors
+            .primary, // Green usually, but primary for flat consistency? Spec says primary for Active/Focus. Rules say green. Let's use SignalStrong/Primary.
+        pendingColor: colors.onSurfaceVariant,
       ),
     );
   }
@@ -478,6 +515,9 @@ class FlatDesignTheme extends AppDesignTheme {
     required super.slideActionStyle,
     required super.expandableFabStyle,
     required super.gaugeStyle,
+    required super.rangeInputStyle,
+    required super.pinInputStyle,
+    required super.passwordInputStyle,
   });
 
   factory FlatDesignTheme.light([ColorScheme? scheme]) {
@@ -661,7 +701,8 @@ class FlatDesignTheme extends AppDesignTheme {
         margin: const EdgeInsets.all(16),
         borderRadius: BorderRadius.circular(8),
         backgroundColor: scheme.inverseSurface,
-        textStyle: appTextTheme.bodyMedium!.copyWith(color: scheme.onInverseSurface),
+        textStyle:
+            appTextTheme.bodyMedium!.copyWith(color: scheme.onInverseSurface),
         displayDuration: const Duration(seconds: 3),
       ),
       dividerStyle: DividerStyle(
@@ -858,10 +899,13 @@ class FlatDesignTheme extends AppDesignTheme {
         gridColor: scheme.outlineVariant,
         gridWidth: 1.0,
         showVerticalGrid: false,
-        cellPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
+        cellPadding:
+            const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
         rowHeight: 52.0,
-        headerTextStyle: appTextTheme.labelLarge!.copyWith(color: scheme.onSurface),
-        cellTextStyle: appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
+        headerTextStyle:
+            appTextTheme.labelLarge!.copyWith(color: scheme.onSurface),
+        cellTextStyle:
+            appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
         invertRowOnHover: false,
         glowRowOnHover: false,
         hoverRowBackground: scheme.surfaceContainerHighest,
@@ -912,6 +956,30 @@ class FlatDesignTheme extends AppDesignTheme {
         showTicks: false,
         strokeWidth: 12.0,
         enableGlow: false,
+      ),
+      rangeInputStyle: RangeInputStyle(
+        mergeContainers: true,
+        customSeparator: null,
+        activeBorderColor: scheme.primary,
+        spacing: 0.0,
+      ),
+      pinInputStyle: PinInputStyle(
+        cellShape: PinCellShape.underline,
+        fillOnInput: false,
+        glowOnActive: false,
+        textStyle:
+            appTextTheme.headlineMedium!.copyWith(color: scheme.onSurface),
+        cellSpacing: 16.0,
+        cellSize: 48.0,
+      ),
+      passwordInputStyle: PasswordInputStyle(
+        validIcon: Icons.check_circle_outline,
+        pendingIcon: Icons.radio_button_unchecked,
+        ruleTextStyle:
+            appTextTheme.bodySmall!.copyWith(color: scheme.onSurfaceVariant),
+        showRuleListBackground: false,
+        validColor: scheme.primary,
+        pendingColor: scheme.onSurfaceVariant,
       ),
     );
   }
@@ -1082,7 +1150,8 @@ class FlatDesignTheme extends AppDesignTheme {
         margin: const EdgeInsets.all(16),
         borderRadius: BorderRadius.circular(8),
         backgroundColor: scheme.inverseSurface,
-        textStyle: appTextTheme.bodyMedium!.copyWith(color: scheme.onInverseSurface),
+        textStyle:
+            appTextTheme.bodyMedium!.copyWith(color: scheme.onInverseSurface),
         displayDuration: const Duration(seconds: 3),
       ),
       dividerStyle: DividerStyle(
@@ -1278,10 +1347,13 @@ class FlatDesignTheme extends AppDesignTheme {
         gridColor: scheme.outlineVariant,
         gridWidth: 1.0,
         showVerticalGrid: false,
-        cellPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
+        cellPadding:
+            const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
         rowHeight: 52.0,
-        headerTextStyle: appTextTheme.labelLarge!.copyWith(color: scheme.onSurface),
-        cellTextStyle: appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
+        headerTextStyle:
+            appTextTheme.labelLarge!.copyWith(color: scheme.onSurface),
+        cellTextStyle:
+            appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
         invertRowOnHover: false,
         glowRowOnHover: false,
         hoverRowBackground: scheme.surfaceContainerHighest,
@@ -1332,6 +1404,30 @@ class FlatDesignTheme extends AppDesignTheme {
         showTicks: false,
         strokeWidth: 12.0,
         enableGlow: false,
+      ),
+      rangeInputStyle: RangeInputStyle(
+        mergeContainers: true,
+        customSeparator: null,
+        activeBorderColor: scheme.primary,
+        spacing: 0.0,
+      ),
+      pinInputStyle: PinInputStyle(
+        cellShape: PinCellShape.underline,
+        fillOnInput: false,
+        glowOnActive: false,
+        textStyle:
+            appTextTheme.headlineMedium!.copyWith(color: scheme.onSurface),
+        cellSpacing: 16.0,
+        cellSize: 48.0,
+      ),
+      passwordInputStyle: PasswordInputStyle(
+        validIcon: Icons.check_circle_outline,
+        pendingIcon: Icons.radio_button_unchecked,
+        ruleTextStyle:
+            appTextTheme.bodySmall!.copyWith(color: scheme.onSurfaceVariant),
+        showRuleListBackground: false,
+        validColor: scheme.primary,
+        pendingColor: scheme.onSurfaceVariant,
       ),
     );
   }

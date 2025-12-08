@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/interaction_spec.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/range_input_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/pin_input_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/password_input_style.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
 class GlassDesignTheme extends AppDesignTheme {
@@ -30,7 +33,8 @@ class GlassDesignTheme extends AppDesignTheme {
         contentColor: colors.onSurface,
       ),
       surfaceElevated: SurfaceStyle(
-        backgroundColor: colors.styleBackground.withValues(alpha: 0.15), // Slightly more opaque
+        backgroundColor: colors.styleBackground
+            .withValues(alpha: 0.15), // Slightly more opaque
         borderColor: colors.subtleBorder,
         borderWidth: 1.5,
         borderRadius: 24.0,
@@ -153,8 +157,7 @@ class GlassDesignTheme extends AppDesignTheme {
           blurStrength: 0,
           shadows: const [],
           customBorder: Border(
-              bottom: BorderSide(
-                  color: colors.subtleBorder, width: 1.5)),
+              bottom: BorderSide(color: colors.subtleBorder, width: 1.5)),
         ),
         outlineStyle: SurfaceStyle(
           backgroundColor: colors.styleBackground,
@@ -164,7 +167,8 @@ class GlassDesignTheme extends AppDesignTheme {
           borderRadius: 8.0,
           shadows: [
             BoxShadow(
-                color: colors.styleShadow.withValues(alpha: 0.05), blurRadius: 8)
+                color: colors.styleShadow.withValues(alpha: 0.05),
+                blurRadius: 8)
           ],
           blurStrength: 10.0,
         ),
@@ -406,15 +410,19 @@ class GlassDesignTheme extends AppDesignTheme {
         showVerticalGrid: false,
         cellPadding: const EdgeInsets.all(16.0),
         rowHeight: 64.0,
-        headerTextStyle: appTextTheme.labelLarge!.copyWith(color: colors.onSurface),
-        cellTextStyle: appTextTheme.bodyMedium!.copyWith(color: colors.onSurface),
+        headerTextStyle:
+            appTextTheme.labelLarge!.copyWith(color: colors.onSurface),
+        cellTextStyle:
+            appTextTheme.bodyMedium!.copyWith(color: colors.onSurface),
         invertRowOnHover: false,
         glowRowOnHover: true,
         hoverRowBackground: colors.primary.withValues(alpha: 0.1),
         hoverRowContentColor: null,
         modeTransitionDuration: const Duration(milliseconds: 500),
       ),
-      topologySpec: _buildTopologySpec(colors.toMaterialScheme(brightness: Brightness.light), isLight: true), // Temporary until topology uses AppColorScheme
+      topologySpec: _buildTopologySpec(
+          colors.toMaterialScheme(brightness: Brightness.light),
+          isLight: true), // Temporary until topology uses AppColorScheme
       slideActionStyle: SlideActionStyle(
         standardStyle: SurfaceStyle(
           backgroundColor: colors.surface.withValues(alpha: 0.2), // Translucent
@@ -426,7 +434,8 @@ class GlassDesignTheme extends AppDesignTheme {
           contentColor: colors.onSurface,
         ),
         destructiveStyle: SurfaceStyle(
-          backgroundColor: colors.error.withValues(alpha: 0.6), // Translucent error
+          backgroundColor:
+              colors.error.withValues(alpha: 0.6), // Translucent error
           borderColor: colors.error,
           borderWidth: 1.0,
           borderRadius: 0.0,
@@ -454,10 +463,34 @@ class GlassDesignTheme extends AppDesignTheme {
         type: GaugeRenderType.gradient, // Neon gradient
         cap: GaugeCapType.comet, // Comet tail
         trackColor: colors.outline.withValues(alpha: 0.1),
-        indicatorColor: Colors.cyan, // Neon cyan for Glass theme
+        indicatorColor: colors.signalStrong,
         showTicks: false,
         strokeWidth: 16.0,
         enableGlow: true, // Neon glow
+      ),
+      rangeInputStyle: RangeInputStyle(
+        mergeContainers: false, // Separated boxes
+        customSeparator: null, // Glowing beam handled by renderer
+        activeBorderColor: colors.signalStrong, // Neon glow
+        spacing: 8.0,
+      ),
+      pinInputStyle: PinInputStyle(
+        cellShape: PinCellShape.circle, // Orb
+        fillOnInput: false,
+        glowOnActive: true, // Pulse
+        textStyle:
+            appTextTheme.headlineMedium!.copyWith(color: colors.signalStrong),
+        cellSpacing: 12.0,
+        cellSize: 56.0,
+      ),
+      passwordInputStyle: PasswordInputStyle(
+        validIcon: Icons.check_circle_outline, // Glowing check
+        pendingIcon: Icons.circle_outlined,
+        ruleTextStyle: appTextTheme.bodySmall!
+            .copyWith(color: colors.onSurface.withValues(alpha: 0.7)),
+        showRuleListBackground: true, // Glass panel
+        validColor: colors.signalStrong, // Neon green
+        pendingColor: colors.onSurface.withValues(alpha: 0.5),
       ),
     );
   }
@@ -500,6 +533,9 @@ class GlassDesignTheme extends AppDesignTheme {
     required super.slideActionStyle,
     required super.expandableFabStyle,
     required super.gaugeStyle,
+    required super.rangeInputStyle,
+    required super.pinInputStyle,
+    required super.passwordInputStyle,
   });
 
   // Light Mode (Liquid Water)
@@ -915,8 +951,10 @@ class GlassDesignTheme extends AppDesignTheme {
         showVerticalGrid: false,
         cellPadding: const EdgeInsets.all(16.0),
         rowHeight: 64.0,
-        headerTextStyle: appTextTheme.labelLarge!.copyWith(color: scheme.onSurface),
-        cellTextStyle: appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
+        headerTextStyle:
+            appTextTheme.labelLarge!.copyWith(color: scheme.onSurface),
+        cellTextStyle:
+            appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
         invertRowOnHover: false,
         glowRowOnHover: true,
         hoverRowBackground: scheme.primary.withValues(alpha: 0.1),
@@ -963,10 +1001,33 @@ class GlassDesignTheme extends AppDesignTheme {
         type: GaugeRenderType.gradient,
         cap: GaugeCapType.comet,
         trackColor: scheme.outline.withValues(alpha: 0.1),
-        indicatorColor: Colors.cyan,
+        indicatorColor: scheme.primary,
         showTicks: false,
         strokeWidth: 16.0,
         enableGlow: true,
+      ),
+      rangeInputStyle: RangeInputStyle(
+        mergeContainers: false,
+        customSeparator: null,
+        activeBorderColor: scheme.primary,
+        spacing: 8.0,
+      ),
+      pinInputStyle: PinInputStyle(
+        cellShape: PinCellShape.circle,
+        fillOnInput: false,
+        glowOnActive: true,
+        textStyle: appTextTheme.headlineMedium!.copyWith(color: scheme.primary),
+        cellSpacing: 12.0,
+        cellSize: 56.0,
+      ),
+      passwordInputStyle: PasswordInputStyle(
+        validIcon: Icons.check_circle_outline,
+        pendingIcon: Icons.circle_outlined,
+        ruleTextStyle: appTextTheme.bodySmall!
+            .copyWith(color: scheme.onSurface.withValues(alpha: 0.7)),
+        showRuleListBackground: true,
+        validColor: scheme.primary,
+        pendingColor: scheme.onSurface.withValues(alpha: 0.5),
       ),
     );
   }
@@ -990,7 +1051,7 @@ class GlassDesignTheme extends AppDesignTheme {
         blurStrength: 25.0,
         contentColor: scheme.onSurface,
         // UPDATED: Use AppTextureAssets.noise
-        texture: AppTextureAssets.noise, 
+        texture: AppTextureAssets.noise,
         textureOpacity: 0.05,
       ),
       surfaceElevated: SurfaceStyle(
@@ -1024,7 +1085,7 @@ class GlassDesignTheme extends AppDesignTheme {
           pressedOffset: Offset.zero,
         ),
         // UPDATED: Use AppTextureAssets.pixelGrid
-        texture: AppTextureAssets.pixelGrid, 
+        texture: AppTextureAssets.pixelGrid,
         textureOpacity: 0.08,
       ),
       // Secondary (Tonal) Surface - Medium emphasis, selected/active states (Dark mode)
@@ -1376,8 +1437,10 @@ class GlassDesignTheme extends AppDesignTheme {
         showVerticalGrid: false,
         cellPadding: const EdgeInsets.all(16.0),
         rowHeight: 64.0,
-        headerTextStyle: appTextTheme.labelLarge!.copyWith(color: scheme.onSurface),
-        cellTextStyle: appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
+        headerTextStyle:
+            appTextTheme.labelLarge!.copyWith(color: scheme.onSurface),
+        cellTextStyle:
+            appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
         invertRowOnHover: false,
         glowRowOnHover: true,
         hoverRowBackground: scheme.primary.withValues(alpha: 0.1),
@@ -1424,18 +1487,43 @@ class GlassDesignTheme extends AppDesignTheme {
         type: GaugeRenderType.gradient,
         cap: GaugeCapType.comet,
         trackColor: scheme.outline.withValues(alpha: 0.1),
-        indicatorColor: Colors.cyan,
+        indicatorColor: scheme.primary,
         showTicks: false,
         strokeWidth: 16.0,
         enableGlow: true,
+      ),
+      rangeInputStyle: RangeInputStyle(
+        mergeContainers: false,
+        customSeparator: null,
+        activeBorderColor: scheme.primary,
+        spacing: 8.0,
+      ),
+      pinInputStyle: PinInputStyle(
+        cellShape: PinCellShape.circle,
+        fillOnInput: false,
+        glowOnActive: true,
+        textStyle: appTextTheme.headlineMedium!.copyWith(color: scheme.primary),
+        cellSpacing: 12.0,
+        cellSize: 56.0,
+      ),
+      passwordInputStyle: PasswordInputStyle(
+        validIcon: Icons.check_circle_outline,
+        pendingIcon: Icons.circle_outlined,
+        ruleTextStyle: appTextTheme.bodySmall!
+            .copyWith(color: scheme.onSurface.withValues(alpha: 0.7)),
+        showRuleListBackground: true,
+        validColor: scheme.primary,
+        pendingColor: scheme.onSurface.withValues(alpha: 0.5),
       ),
     );
   }
 
   /// Builds topology spec for Glass theme with organic, fluid visual language.
-  static TopologySpec _buildTopologySpec(ColorScheme scheme, {required bool isLight}) {
+  static TopologySpec _buildTopologySpec(ColorScheme scheme,
+      {required bool isLight}) {
     final primaryGlow = scheme.primary.withValues(alpha: isLight ? 0.3 : 0.4);
-    final secondaryGlow = scheme.secondary.withValues(alpha: isLight ? 0.25 : 0.35);
+    final secondaryGlow =
+        scheme.secondary.withValues(alpha: isLight ? 0.25 : 0.35);
     final errorColor = scheme.error;
     final surfaceColor = scheme.surface.withValues(alpha: isLight ? 0.7 : 0.5);
     final successColor = isLight
@@ -1448,7 +1536,8 @@ class GlassDesignTheme extends AppDesignTheme {
     return TopologySpec(
       // Gateway styles - breathing pulse effect
       gatewayNormalStyle: NodeStyle(
-        backgroundColor: scheme.primary.withValues(alpha: isLight ? 0.15 : 0.25),
+        backgroundColor:
+            scheme.primary.withValues(alpha: isLight ? 0.15 : 0.25),
         borderColor: scheme.primary.withValues(alpha: 0.4),
         borderWidth: 2.0,
         borderRadius: 999.0, // Circular
@@ -1490,7 +1579,8 @@ class GlassDesignTheme extends AppDesignTheme {
         iconColor: scheme.secondary,
       ),
       extenderHighLoadStyle: NodeStyle(
-        backgroundColor: scheme.tertiary.withValues(alpha: isLight ? 0.25 : 0.35),
+        backgroundColor:
+            scheme.tertiary.withValues(alpha: isLight ? 0.25 : 0.35),
         borderColor: scheme.tertiary.withValues(alpha: 0.4),
         borderWidth: 2.0,
         borderRadius: 20.0,

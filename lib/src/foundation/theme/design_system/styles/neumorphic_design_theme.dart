@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/interaction_spec.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/password_input_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/pin_input_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/range_input_style.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 import 'package:ui_kit_library/src/foundation/motion/neumorphic_motion.dart'; // Assuming NeumorphicMotion is created
 
@@ -12,12 +15,13 @@ class NeumorphicDesignTheme extends AppDesignTheme {
 
   // Factory 2: Raw Mode (Internal Assembly)
   factory NeumorphicDesignTheme._raw(AppColorScheme colors) {
-    final isLight = colors.surface.computeLuminance() > 0.5; // Approximate check if needed, or rely on colors
-    
+    final isLight = colors.surface.computeLuminance() >
+        0.5; // Approximate check if needed, or rely on colors
+
     // Mapping AppColorScheme to Neumorphic Styles
     // lightShadow (Highlight) -> colors.glowColor
     // darkShadow (Shadow) -> colors.styleShadow
-    
+
     return NeumorphicDesignTheme._(
       surfaceBase: SurfaceStyle(
         backgroundColor: colors.styleBackground,
@@ -46,7 +50,10 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         borderRadius: 20.0,
         shadows: [
           BoxShadow(
-            color: colors.glowColor.withValues(alpha: isLight ? 0.7 : 0.15), // Adjust strength based on surface assumption or specific color
+            color: colors.glowColor.withValues(
+                alpha: isLight
+                    ? 0.7
+                    : 0.15), // Adjust strength based on surface assumption or specific color
             offset: const Offset(-8, -8),
             blurRadius: 16,
           ),
@@ -61,7 +68,8 @@ class NeumorphicDesignTheme extends AppDesignTheme {
       ),
       surfaceHighlight: SurfaceStyle(
         backgroundColor: colors.styleBackground,
-        borderColor: colors.highContrastBorder, // Use highContrastBorder for highlight border
+        borderColor: colors
+            .highContrastBorder, // Use highContrastBorder for highlight border
         borderWidth: 1.5,
         borderRadius: 12.0,
         shadows: [
@@ -144,7 +152,9 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           borderRadius: 12.0,
           shadows: [
             BoxShadow(
-                color: colors.styleShadow.withValues(alpha: 0.3), offset: const Offset(2, 2), blurRadius: 4)
+                color: colors.styleShadow.withValues(alpha: 0.3),
+                offset: const Offset(2, 2),
+                blurRadius: 4)
           ],
           blurStrength: 0.0,
         ),
@@ -156,8 +166,10 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           borderRadius: 0,
           shadows: const [],
           blurStrength: 0,
-          customBorder:
-              Border(bottom: BorderSide(color: colors.styleShadow.withValues(alpha: 0.3), width: 1.0)),
+          customBorder: Border(
+              bottom: BorderSide(
+                  color: colors.styleShadow.withValues(alpha: 0.3),
+                  width: 1.0)),
         ),
         filledStyle: SurfaceStyle(
           backgroundColor: colors.surfaceContainerHigh,
@@ -203,7 +215,8 @@ class NeumorphicDesignTheme extends AppDesignTheme {
       ),
       dividerStyle: DividerStyle(
         color: colors.styleShadow.withValues(alpha: 0.4),
-        secondaryColor: colors.glowColor.withValues(alpha: 0.5), // Light/Glow for secondary
+        secondaryColor:
+            colors.glowColor.withValues(alpha: 0.5), // Light/Glow for secondary
         thickness: 1.5,
         pattern: DividerPattern.solid,
       ),
@@ -242,8 +255,14 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           borderWidth: 0.0,
           borderRadius: 0.0,
           shadows: [
-            BoxShadow(color: colors.glowColor, offset: const Offset(-3, -3), blurRadius: 6),
-            BoxShadow(color: colors.styleShadow, offset: const Offset(3, 3), blurRadius: 6),
+            BoxShadow(
+                color: colors.glowColor,
+                offset: const Offset(-3, -3),
+                blurRadius: 6),
+            BoxShadow(
+                color: colors.styleShadow,
+                offset: const Offset(3, 3),
+                blurRadius: 6),
           ],
           blurStrength: 0.0,
           contentColor: colors.onSurface,
@@ -261,8 +280,14 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           borderWidth: 0.0,
           borderRadius: 16.0,
           shadows: [
-            BoxShadow(color: colors.glowColor, offset: const Offset(-4, -4), blurRadius: 8),
-            BoxShadow(color: colors.styleShadow, offset: const Offset(4, 4), blurRadius: 8),
+            BoxShadow(
+                color: colors.glowColor,
+                offset: const Offset(-4, -4),
+                blurRadius: 8),
+            BoxShadow(
+                color: colors.styleShadow,
+                offset: const Offset(4, 4),
+                blurRadius: 8),
           ],
           blurStrength: 0.0,
           contentColor: colors.onSurface,
@@ -296,8 +321,14 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           borderWidth: 0.0,
           borderRadius: 24.0,
           shadows: [
-            BoxShadow(color: colors.glowColor, offset: const Offset(-6, -6), blurRadius: 12),
-            BoxShadow(color: colors.styleShadow, offset: const Offset(6, 6), blurRadius: 12),
+            BoxShadow(
+                color: colors.glowColor,
+                offset: const Offset(-6, -6),
+                blurRadius: 12),
+            BoxShadow(
+                color: colors.styleShadow,
+                offset: const Offset(6, 6),
+                blurRadius: 12),
           ],
           blurStrength: 0.0,
           contentColor: colors.onSurface,
@@ -379,8 +410,10 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         showVerticalGrid: false,
         cellPadding: const EdgeInsets.all(16.0),
         rowHeight: 56.0,
-        headerTextStyle: appTextTheme.labelLarge!.copyWith(color: colors.onSurfaceVariant),
-        cellTextStyle: appTextTheme.bodyMedium!.copyWith(color: colors.onSurface),
+        headerTextStyle:
+            appTextTheme.labelLarge!.copyWith(color: colors.onSurfaceVariant),
+        cellTextStyle:
+            appTextTheme.bodyMedium!.copyWith(color: colors.onSurface),
         invertRowOnHover: false,
         glowRowOnHover: false,
         hoverRowBackground: colors.surfaceContainerHighest,
@@ -396,9 +429,13 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           borderRadius: 0.0,
           shadows: [
             BoxShadow(
-                color: colors.glowColor.withValues(alpha: 0.6), offset: const Offset(-3, -3), blurRadius: 5),
+                color: colors.glowColor.withValues(alpha: 0.6),
+                offset: const Offset(-3, -3),
+                blurRadius: 5),
             BoxShadow(
-                color: colors.styleShadow.withValues(alpha: 0.15), offset: const Offset(3, 3), blurRadius: 5)
+                color: colors.styleShadow.withValues(alpha: 0.15),
+                offset: const Offset(3, 3),
+                blurRadius: 5)
           ],
           blurStrength: 0.0,
           contentColor: colors.onSurface,
@@ -410,14 +447,18 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           borderRadius: 0.0,
           shadows: [
             BoxShadow(
-                color: colors.glowColor.withValues(alpha: 0.3), offset: const Offset(-2, -2), blurRadius: 4),
+                color: colors.glowColor.withValues(alpha: 0.3),
+                offset: const Offset(-2, -2),
+                blurRadius: 4),
             BoxShadow(
-                color: colors.styleShadow.withValues(alpha: 0.3), offset: const Offset(2, 2), blurRadius: 4)
+                color: colors.styleShadow.withValues(alpha: 0.3),
+                offset: const Offset(2, 2),
+                blurRadius: 4)
           ],
           blurStrength: 0.0,
           contentColor: colors.onError,
         ),
-        borderRadius: BorderRadius.circular(12.0), // Medium soft rounding
+        borderRadius: BorderRadius.circular(12.0),
         contentColor: colors.onSurface,
         iconSize: 24.0,
         animationDuration: const Duration(milliseconds: 300),
@@ -434,13 +475,37 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         highContrastBorder: false,
       ),
       gaugeStyle: GaugeStyle(
-        type: GaugeRenderType.solid, // Or convex fill if custom painter supports it
+        type: GaugeRenderType
+            .solid, // Or convex fill if custom painter supports it
         cap: GaugeCapType.bead, // Bead at tip
-        trackColor: colors.styleShadow.withValues(alpha: 0.2), // Inner shadow track usually
+        trackColor: colors.styleShadow
+            .withValues(alpha: 0.2), // Inner shadow track usually
         indicatorColor: colors.primary, // Soft primary for Neumorphic
         showTicks: false,
         strokeWidth: 14.0,
         enableGlow: false,
+      ),
+      rangeInputStyle: RangeInputStyle(
+        mergeContainers: false,
+        customSeparator: null,
+        activeBorderColor: colors.primary,
+        spacing: 12.0,
+      ),
+      pinInputStyle: PinInputStyle(
+        cellShape: PinCellShape.recess,
+        fillOnInput: false,
+        glowOnActive: true,
+        textStyle: appTextTheme.headlineMedium!.copyWith(color: colors.onSurface),
+        cellSpacing: 12.0,
+        cellSize: 52.0,
+      ),
+      passwordInputStyle: PasswordInputStyle(
+        validIcon: Icons.check_circle_outline,
+        pendingIcon: Icons.radio_button_unchecked,
+        ruleTextStyle: appTextTheme.bodySmall!.copyWith(color: colors.onSurfaceVariant),
+        showRuleListBackground: false,
+        validColor: colors.primary,
+        pendingColor: colors.onSurfaceVariant,
       ),
     );
   }
@@ -612,6 +677,9 @@ class NeumorphicDesignTheme extends AppDesignTheme {
     required super.slideActionStyle,
     required super.expandableFabStyle,
     required super.gaugeStyle,
+    required super.rangeInputStyle,
+    required super.pinInputStyle,
+    required super.passwordInputStyle,
   });
 
   // Default to Light, providing a default ColorScheme
@@ -625,7 +693,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         scheme.shadow.withValues(alpha: 0.2), scheme.surface); // Black shadow
     final highlightBorderColor = scheme.primary;
     final neuBase = scheme.surface;
-    final neuShadow = AppPalette.neumorphicLightShadow.withValues(alpha: 0.3);
+    final neuShadow = scheme.shadow.withValues(alpha: 0.3);
     return NeumorphicDesignTheme._(
       surfaceBase: SurfaceStyle(
         backgroundColor: lightBaseColor,
@@ -821,7 +889,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         displayDuration: const Duration(seconds: 3),
       ),
       dividerStyle: DividerStyle(
-        color: AppPalette.neumorphicLightShadow.withValues(alpha: 0.4),
+        color: scheme.shadow.withValues(alpha: 0.4),
         secondaryColor: scheme.surface,
         thickness: 1.5,
         pattern: DividerPattern.solid,
@@ -868,8 +936,12 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           borderWidth: 0.0,
           borderRadius: 0.0,
           shadows: [
-            BoxShadow(color: lightShadow, offset: const Offset(-3, -3), blurRadius: 6),
-            BoxShadow(color: darkShadow, offset: const Offset(3, 3), blurRadius: 6),
+            BoxShadow(
+                color: lightShadow,
+                offset: const Offset(-3, -3),
+                blurRadius: 6),
+            BoxShadow(
+                color: darkShadow, offset: const Offset(3, 3), blurRadius: 6),
           ],
           blurStrength: 0.0,
           contentColor: scheme.onSurface,
@@ -887,8 +959,12 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           borderWidth: 0.0,
           borderRadius: 16.0,
           shadows: [
-            BoxShadow(color: lightShadow, offset: const Offset(-4, -4), blurRadius: 8),
-            BoxShadow(color: darkShadow, offset: const Offset(4, 4), blurRadius: 8),
+            BoxShadow(
+                color: lightShadow,
+                offset: const Offset(-4, -4),
+                blurRadius: 8),
+            BoxShadow(
+                color: darkShadow, offset: const Offset(4, 4), blurRadius: 8),
           ],
           blurStrength: 0.0,
           contentColor: scheme.onSurface,
@@ -922,8 +998,12 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           borderWidth: 0.0,
           borderRadius: 24.0,
           shadows: [
-            BoxShadow(color: lightShadow, offset: const Offset(-6, -6), blurRadius: 12),
-            BoxShadow(color: darkShadow, offset: const Offset(6, 6), blurRadius: 12),
+            BoxShadow(
+                color: lightShadow,
+                offset: const Offset(-6, -6),
+                blurRadius: 12),
+            BoxShadow(
+                color: darkShadow, offset: const Offset(6, 6), blurRadius: 12),
           ],
           blurStrength: 0.0,
           contentColor: scheme.onSurface,
@@ -1005,8 +1085,10 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         showVerticalGrid: false,
         cellPadding: const EdgeInsets.all(16.0),
         rowHeight: 56.0,
-        headerTextStyle: appTextTheme.labelLarge!.copyWith(color: scheme.onSurfaceVariant),
-        cellTextStyle: appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
+        headerTextStyle:
+            appTextTheme.labelLarge!.copyWith(color: scheme.onSurfaceVariant),
+        cellTextStyle:
+            appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
         invertRowOnHover: false,
         glowRowOnHover: false,
         hoverRowBackground: scheme.surfaceContainerHighest,
@@ -1022,7 +1104,9 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           borderRadius: 0.0,
           shadows: [
             BoxShadow(
-                color: lightShadow, offset: const Offset(-3, -3), blurRadius: 5),
+                color: lightShadow,
+                offset: const Offset(-3, -3),
+                blurRadius: 5),
             BoxShadow(
                 color: darkShadow, offset: const Offset(3, 3), blurRadius: 5)
           ],
@@ -1036,9 +1120,13 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           borderRadius: 0.0,
           shadows: [
             BoxShadow(
-                color: lightShadow.withValues(alpha: 0.3), offset: const Offset(-2, -2), blurRadius: 4),
+                color: lightShadow.withValues(alpha: 0.3),
+                offset: const Offset(-2, -2),
+                blurRadius: 4),
             BoxShadow(
-                color: darkShadow.withValues(alpha: 0.3), offset: const Offset(2, 2), blurRadius: 4)
+                color: darkShadow.withValues(alpha: 0.3),
+                offset: const Offset(2, 2),
+                blurRadius: 4)
           ],
           blurStrength: 0.0,
           contentColor: scheme.onError,
@@ -1062,11 +1150,33 @@ class NeumorphicDesignTheme extends AppDesignTheme {
       gaugeStyle: GaugeStyle(
         type: GaugeRenderType.solid,
         cap: GaugeCapType.bead,
-        trackColor: AppPalette.neumorphicLightShadow.withValues(alpha: 0.2),
-        indicatorColor: Colors.indigo, // Soft indigo for Neumorphic theme
+        trackColor: scheme.shadow.withValues(alpha: 0.2),
+        indicatorColor: scheme.primary, // Soft primary for Neumorphic theme
         showTicks: false,
         strokeWidth: 14.0,
         enableGlow: false,
+      ),
+      rangeInputStyle: RangeInputStyle(
+        mergeContainers: false,
+        customSeparator: null,
+        activeBorderColor: scheme.primary,
+        spacing: 12.0,
+      ),
+      pinInputStyle: PinInputStyle(
+        cellShape: PinCellShape.recess,
+        fillOnInput: false,
+        glowOnActive: true,
+        textStyle: appTextTheme.headlineMedium!.copyWith(color: scheme.onSurface),
+        cellSpacing: 12.0,
+        cellSize: 52.0,
+      ),
+      passwordInputStyle: PasswordInputStyle(
+        validIcon: Icons.check_circle_outline,
+        pendingIcon: Icons.radio_button_unchecked,
+        ruleTextStyle: appTextTheme.bodySmall!.copyWith(color: scheme.onSurfaceVariant),
+        showRuleListBackground: false,
+        validColor: scheme.primary,
+        pendingColor: scheme.onSurfaceVariant,
       ),
     );
   }
@@ -1081,7 +1191,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         scheme.shadow.withValues(alpha: 0.6), scheme.surface); // Dark shadow
     final darkHighlightBorderColor = scheme.primary;
     final neuBase = scheme.surface;
-    final neuShadow = AppPalette.neumorphicLightShadow.withValues(alpha: 0.3);
+    final neuShadow = scheme.shadow.withValues(alpha: 0.3);
 
     return NeumorphicDesignTheme._(
       surfaceBase: SurfaceStyle(
@@ -1327,8 +1437,14 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           borderWidth: 0.0,
           borderRadius: 0.0,
           shadows: [
-            BoxShadow(color: darkLightShadow, offset: const Offset(-3, -3), blurRadius: 6),
-            BoxShadow(color: darkDarkShadow, offset: const Offset(3, 3), blurRadius: 6),
+            BoxShadow(
+                color: darkLightShadow,
+                offset: const Offset(-3, -3),
+                blurRadius: 6),
+            BoxShadow(
+                color: darkDarkShadow,
+                offset: const Offset(3, 3),
+                blurRadius: 6),
           ],
           blurStrength: 0.0,
           contentColor: scheme.onSurface,
@@ -1346,8 +1462,14 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           borderWidth: 0.0,
           borderRadius: 16.0,
           shadows: [
-            BoxShadow(color: darkLightShadow, offset: const Offset(-4, -4), blurRadius: 8),
-            BoxShadow(color: darkDarkShadow, offset: const Offset(4, 4), blurRadius: 8),
+            BoxShadow(
+                color: darkLightShadow,
+                offset: const Offset(-4, -4),
+                blurRadius: 8),
+            BoxShadow(
+                color: darkDarkShadow,
+                offset: const Offset(4, 4),
+                blurRadius: 8),
           ],
           blurStrength: 0.0,
           contentColor: scheme.onSurface,
@@ -1381,8 +1503,14 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           borderWidth: 0.0,
           borderRadius: 24.0,
           shadows: [
-            BoxShadow(color: darkLightShadow, offset: const Offset(-6, -6), blurRadius: 12),
-            BoxShadow(color: darkDarkShadow, offset: const Offset(6, 6), blurRadius: 12),
+            BoxShadow(
+                color: darkLightShadow,
+                offset: const Offset(-6, -6),
+                blurRadius: 12),
+            BoxShadow(
+                color: darkDarkShadow,
+                offset: const Offset(6, 6),
+                blurRadius: 12),
           ],
           blurStrength: 0.0,
           contentColor: scheme.onSurface,
@@ -1464,8 +1592,10 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         showVerticalGrid: false,
         cellPadding: const EdgeInsets.all(16.0),
         rowHeight: 56.0,
-        headerTextStyle: appTextTheme.labelLarge!.copyWith(color: scheme.onSurfaceVariant),
-        cellTextStyle: appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
+        headerTextStyle:
+            appTextTheme.labelLarge!.copyWith(color: scheme.onSurfaceVariant),
+        cellTextStyle:
+            appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
         invertRowOnHover: false,
         glowRowOnHover: false,
         hoverRowBackground: scheme.surfaceContainerHighest,
@@ -1481,9 +1611,13 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           borderRadius: 0.0,
           shadows: [
             BoxShadow(
-                color: darkLightShadow, offset: const Offset(-3, -3), blurRadius: 5),
+                color: darkLightShadow,
+                offset: const Offset(-3, -3),
+                blurRadius: 5),
             BoxShadow(
-                color: darkDarkShadow, offset: const Offset(3, 3), blurRadius: 5)
+                color: darkDarkShadow,
+                offset: const Offset(3, 3),
+                blurRadius: 5)
           ],
           blurStrength: 0.0,
           contentColor: scheme.onSurface,
@@ -1495,9 +1629,13 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           borderRadius: 0.0,
           shadows: [
             BoxShadow(
-                color: darkLightShadow.withValues(alpha: 0.3), offset: const Offset(-2, -2), blurRadius: 4),
+                color: darkLightShadow.withValues(alpha: 0.3),
+                offset: const Offset(-2, -2),
+                blurRadius: 4),
             BoxShadow(
-                color: darkDarkShadow.withValues(alpha: 0.3), offset: const Offset(2, 2), blurRadius: 4)
+                color: darkDarkShadow.withValues(alpha: 0.3),
+                offset: const Offset(2, 2),
+                blurRadius: 4)
           ],
           blurStrength: 0.0,
           contentColor: scheme.onError,
@@ -1527,15 +1665,40 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         strokeWidth: 14.0,
         enableGlow: false,
       ),
+      rangeInputStyle: RangeInputStyle(
+        mergeContainers: false,
+        customSeparator: null,
+        activeBorderColor: scheme.primary,
+        spacing: 12.0,
+      ),
+      pinInputStyle: PinInputStyle(
+        cellShape: PinCellShape.recess,
+        fillOnInput: false,
+        glowOnActive: true,
+        textStyle: appTextTheme.headlineMedium!.copyWith(color: scheme.onSurface),
+        cellSpacing: 12.0,
+        cellSize: 52.0,
+      ),
+      passwordInputStyle: PasswordInputStyle(
+        validIcon: Icons.check_circle_outline,
+        pendingIcon: Icons.radio_button_unchecked,
+        ruleTextStyle: appTextTheme.bodySmall!.copyWith(color: scheme.onSurfaceVariant),
+        showRuleListBackground: false,
+        validColor: scheme.primary,
+        pendingColor: scheme.onSurfaceVariant,
+      ),
     );
   }
 
   /// Builds topology spec for Neumorphic theme with soft, embossed aesthetic.
-  static TopologySpec _buildTopologySpec(ColorScheme scheme, {required bool isLight}) {
+  static TopologySpec _buildTopologySpec(ColorScheme scheme,
+      {required bool isLight}) {
     final baseColor = scheme.surface;
     final lightShadow = isLight
-        ? Color.alphaBlend(scheme.outline.withValues(alpha: 0.5), scheme.surface)
-        : Color.alphaBlend(scheme.outline.withValues(alpha: 0.1), scheme.surface);
+        ? Color.alphaBlend(
+            scheme.outline.withValues(alpha: 0.5), scheme.surface)
+        : Color.alphaBlend(
+            scheme.outline.withValues(alpha: 0.1), scheme.surface);
 
     return TopologySpec(
       // Gateway styles - soft embossed circles

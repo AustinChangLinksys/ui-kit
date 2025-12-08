@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/interaction_spec.dart';
 import 'package:ui_kit_library/ui_kit.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/range_input_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/pin_input_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/password_input_style.dart';
 
 class PixelDesignTheme extends AppDesignTheme {
   // Factory 1: Create from Config
@@ -50,7 +53,8 @@ class PixelDesignTheme extends AppDesignTheme {
         contentColor: colors.onSurface,
       ),
       surfaceHighlight: SurfaceStyle(
-        backgroundColor: colors.error, // Pixel theme often uses bold colors like error for highlight
+        backgroundColor: colors
+            .error, // Pixel theme often uses bold colors like error for highlight
         borderColor: colors.highContrastBorder,
         borderWidth: 2.0,
         borderRadius: 2.0,
@@ -71,7 +75,8 @@ class PixelDesignTheme extends AppDesignTheme {
         ),
       ),
       surfaceSecondary: SurfaceStyle(
-        backgroundColor: colors.surfaceContainerHighest, // Just using container colors
+        backgroundColor:
+            colors.surfaceContainerHighest, // Just using container colors
         borderColor: colors.highContrastBorder,
         borderWidth: 2.0,
         borderRadius: 2.0,
@@ -136,8 +141,8 @@ class PixelDesignTheme extends AppDesignTheme {
           borderRadius: 0,
           shadows: const [],
           blurStrength: 0,
-          customBorder:
-              Border(bottom: BorderSide(color: colors.highContrastBorder, width: 2.0)),
+          customBorder: Border(
+              bottom: BorderSide(color: colors.highContrastBorder, width: 2.0)),
         ),
         // Filled Style
         filledStyle: SurfaceStyle(
@@ -373,17 +378,23 @@ class PixelDesignTheme extends AppDesignTheme {
         gridColor: colors.highContrastBorder,
         gridWidth: 1.0,
         showVerticalGrid: true,
-        cellPadding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
+        cellPadding:
+            const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
         rowHeight: 48.0,
-        headerTextStyle: appTextTheme.labelLarge!.copyWith(color: colors.onSurface),
-        cellTextStyle: appTextTheme.bodyMedium!.copyWith(color: colors.onSurface),
+        headerTextStyle:
+            appTextTheme.labelLarge!.copyWith(color: colors.onSurface),
+        cellTextStyle:
+            appTextTheme.bodyMedium!.copyWith(color: colors.onSurface),
         invertRowOnHover: true,
         glowRowOnHover: false,
         hoverRowBackground: colors.onSurface,
         hoverRowContentColor: colors.surface,
         modeTransitionDuration: Duration.zero,
       ),
-      topologySpec: _buildTopologySpec(colors.toMaterialScheme(brightness: isLight ? Brightness.light : Brightness.dark), isLight: isLight),
+      topologySpec: _buildTopologySpec(
+          colors.toMaterialScheme(
+              brightness: isLight ? Brightness.light : Brightness.dark),
+          isLight: isLight),
       slideActionStyle: SlideActionStyle(
         standardStyle: SurfaceStyle(
           backgroundColor: colors.surface,
@@ -435,10 +446,36 @@ class PixelDesignTheme extends AppDesignTheme {
         type: GaugeRenderType.segmented,
         cap: GaugeCapType.butt,
         trackColor: colors.highContrastBorder,
-        indicatorColor: Colors.green, // Retro green for Pixel theme
+        indicatorColor: colors.primary,
         showTicks: true,
         strokeWidth: 16.0,
         enableGlow: false,
+      ),
+      rangeInputStyle: RangeInputStyle(
+        mergeContainers: false, // Dual blocks
+        customSeparator: Text('~',
+            style: appTextTheme.titleLarge!
+                .copyWith(color: colors.onSurface)), // ASCII separator
+        activeBorderColor: colors.onSurface,
+        spacing: 12.0,
+      ),
+      pinInputStyle: PinInputStyle(
+        cellShape: PinCellShape.box,
+        fillOnInput: true, // Inverted color
+        glowOnActive: false,
+        textStyle: appTextTheme.headlineMedium!
+            .copyWith(color: colors.onSurface), // Use onSurface for visibility
+        cellSpacing: 12.0,
+        cellSize: 56.0,
+      ),
+      passwordInputStyle: PasswordInputStyle(
+        validIcon: Icons.check_box, // [x]
+        pendingIcon: Icons.check_box_outline_blank, // [ ]
+        ruleTextStyle: appTextTheme.bodySmall!
+            .copyWith(color: colors.onSurface),
+        showRuleListBackground: false,
+        validColor: colors.onSurface, // High contrast
+        pendingColor: colors.onSurface.withValues(alpha: 0.5),
       ),
     );
   }
@@ -482,6 +519,9 @@ class PixelDesignTheme extends AppDesignTheme {
     required super.slideActionStyle,
     required super.expandableFabStyle,
     required super.gaugeStyle,
+    required super.rangeInputStyle,
+    required super.pinInputStyle,
+    required super.passwordInputStyle,
   });
 
   factory PixelDesignTheme.light([ColorScheme? scheme]) {
@@ -851,10 +891,13 @@ class PixelDesignTheme extends AppDesignTheme {
         gridColor: scheme.onSurface,
         gridWidth: 1.0,
         showVerticalGrid: true,
-        cellPadding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
+        cellPadding:
+            const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
         rowHeight: 48.0,
-        headerTextStyle: appTextTheme.labelLarge!.copyWith(color: scheme.onSurface),
-        cellTextStyle: appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
+        headerTextStyle:
+            appTextTheme.labelLarge!.copyWith(color: scheme.onSurface),
+        cellTextStyle:
+            appTextTheme.bodyMedium!.copyWith(color: scheme.onSurface),
         invertRowOnHover: true,
         glowRowOnHover: false,
         hoverRowBackground: scheme.onSurface,
@@ -913,10 +956,34 @@ class PixelDesignTheme extends AppDesignTheme {
         type: GaugeRenderType.segmented,
         cap: GaugeCapType.butt,
         trackColor: scheme.onSurface,
-        indicatorColor: Colors.green,
+        indicatorColor: scheme.primary,
         showTicks: true,
         strokeWidth: 16.0,
         enableGlow: false,
+      ),
+      rangeInputStyle: RangeInputStyle(
+        mergeContainers: false,
+        customSeparator: Text('~',
+            style: appTextTheme.titleLarge!.copyWith(color: scheme.onSurface)),
+        activeBorderColor: scheme.onSurface,
+        spacing: 12.0,
+      ),
+      pinInputStyle: PinInputStyle(
+        cellShape: PinCellShape.box,
+        fillOnInput: true,
+        glowOnActive: false,
+        textStyle: appTextTheme.headlineMedium!.copyWith(color: scheme.onSurface),
+        cellSpacing: 12.0,
+        cellSize: 56.0,
+      ),
+      passwordInputStyle: PasswordInputStyle(
+        validIcon: Icons.check_box,
+        pendingIcon: Icons.check_box_outline_blank,
+        ruleTextStyle: appTextTheme.bodySmall!
+            .copyWith(color: scheme.onSurface),
+        showRuleListBackground: false,
+        validColor: scheme.onSurface,
+        pendingColor: scheme.onSurface.withValues(alpha: 0.5),
       ),
     );
   }
@@ -1284,7 +1351,8 @@ class PixelDesignTheme extends AppDesignTheme {
         gridColor: black,
         gridWidth: 1.0,
         showVerticalGrid: true,
-        cellPadding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
+        cellPadding:
+            const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
         rowHeight: 48.0,
         headerTextStyle: appTextTheme.labelLarge!.copyWith(color: black),
         cellTextStyle: appTextTheme.bodyMedium!.copyWith(color: black),
@@ -1346,10 +1414,34 @@ class PixelDesignTheme extends AppDesignTheme {
         type: GaugeRenderType.segmented,
         cap: GaugeCapType.butt,
         trackColor: black,
-        indicatorColor: Colors.green,
+        indicatorColor: scheme.primary,
         showTicks: true,
         strokeWidth: 16.0,
         enableGlow: false,
+      ),
+      rangeInputStyle: RangeInputStyle(
+        mergeContainers: false,
+        customSeparator:
+            Text('~', style: appTextTheme.titleLarge!.copyWith(color: black)),
+        activeBorderColor: black,
+        spacing: 12.0,
+      ),
+      pinInputStyle: PinInputStyle(
+        cellShape: PinCellShape.box,
+        fillOnInput: true,
+        glowOnActive: false,
+        textStyle: appTextTheme.headlineMedium!.copyWith(color: scheme.onSurface),
+        cellSpacing: 12.0,
+        cellSize: 56.0,
+      ),
+      passwordInputStyle: PasswordInputStyle(
+        validIcon: Icons.check_box,
+        pendingIcon: Icons.check_box_outline_blank,
+        ruleTextStyle: appTextTheme.bodySmall!
+            .copyWith(color: black),
+        showRuleListBackground: false,
+        validColor: black,
+        pendingColor: black.withValues(alpha: 0.5),
       ),
     );
   }
