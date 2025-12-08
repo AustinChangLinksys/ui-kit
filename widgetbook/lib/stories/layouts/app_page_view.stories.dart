@@ -29,13 +29,13 @@ Widget buildDesktopDashboard(BuildContext context) {
     sideMenu: Container(
       color: Theme.of(context).colorScheme.surfaceContainerLow,
       padding: const EdgeInsets.all(16),
-      child: Column(
+      child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _MenuLink(icon: Icons.home, label: 'Home', active: true),
           _MenuLink(icon: Icons.analytics, label: 'Analytics'),
           _MenuLink(icon: Icons.people, label: 'Users'),
-          const Spacer(),
+          Spacer(),
           _MenuLink(icon: Icons.settings, label: 'Settings'),
         ],
       ),
@@ -69,7 +69,7 @@ class _MenuLink extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 8),
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
       decoration: BoxDecoration(
-        color: active ? Theme.of(context).colorScheme.primary.withOpacity(0.1) : null,
+        color: active ? Theme.of(context).colorScheme.primaryContainer : Colors.transparent,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
