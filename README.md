@@ -16,9 +16,9 @@ This project is structured using **Atomic Design** with strict architectural bou
 - **Foundation** (`lib/src/foundation`): The brain of the system. Contains `AppDesignTheme` contracts, `Specs` (Layout, Interaction, Typography), and Tokens. **Crucially, it now includes the App Unified Color System (v1.2) (`AppColorScheme`, `AppThemeConfig`, `AppColorFactory`), providing a comprehensive and reactive color management layer fully compatible with Material 3.**
 - **Atoms** (`lib/src/atoms`): The primitives.
     - **`AppSurface`**: The core renderer handling physics, borders, shadows, and blur.
-    - Includes `AppText`, `AppGap`, `AppSkeleton`.
+    - Includes `AppText`, `AppGap`, `AppSkeleton`, `AppIcon`, `AppDivider`.
 - **Molecules** (`lib/src/molecules`): Semantic components composed of atoms.
-    - Buttons, Inputs, Toggles, Cards, Navigation.
+    - Buttons, Inputs, Toggles, Cards, Navigation, Feedback.
 - **Organisms** (`lib/src/organisms`): Complex, standalone UI sections.
 - **Layout** (`lib/src/layout`): Responsive wrappers.
 
@@ -158,17 +158,20 @@ Below is the summary of components available in our system:
   - **AppText**: Supports the full Material 3 typography scale and semantic shortcuts (`.headline`, `.body`, `.tiny`).
   - **AppGap**: Smart spacing component demonstrating various sizes (xxs-xxxl) and responsive gutters.
   - **AppSkeleton**: Smart loading placeholder showcasing Pulse (Glass) and Blink (Brutal) animations.
-  - **Assets**: Showcases `AppIcon` and `ThemeAwareSvg` with automatic color adaptation.
+  - **AppIcon**: Supports SVG and Font icons with theme-aware tinting.
+  - **AppDivider**: Visual separator supporting horizontal and vertical axes.
 
 ### Molecules (Functional Components)
 
   - **Buttons**:
       - **AppButton**: Supports Size Variants (S/M/L), Loading states, and icon combinations.
       - **AppIconButton**: Enforced 1:1 aspect ratio, shape adapts automatically to theme (Circle/Square).
-  - **Forms**:
+  - **Forms & Inputs**:
       - **AppTextFormField**: Form-integrated input with validation support.
-      - **AppDropdown**: Theme-aware selection menu mimicking text fields.
       - **AppTextField**: Supports Outline, Underline, and Filled variants, plus Focus/Error states.
+      - **AppNumberTextField**: Specialized input for formatted numeric data.
+      - **Network Inputs**: `AppIpv4TextField`, `AppIPv6TextField`, `AppMacAddressTextField`.
+      - **AppDropdown**: Theme-aware selection menu mimicking text fields.
       - **AppSlider**: Supports continuous sliding and discrete steps (Divisions).
       - **AppSwitch**: Demonstrates the Renderer Pattern (Texture/Text/Icon/Dot).
       - **AppCheckbox / AppRadio**: State-driven selection controls.
@@ -181,22 +184,28 @@ Below is the summary of components available in our system:
       - **AppTooltip**: Supports multi-directional positioning and rich content popovers.
   - **Layout**:
       - **AppListTile**: Standardized list row with slots for leading/trailing content.
+      - **AppSlideAction**: Swipeable list item with theme-aware physics (Fluid/Snap).
 
 ### Navigation
 
   - **AppNavigationBar**: Bottom navigation bar showcasing the layout difference between Glass (Floating) and Brutal (Fixed).
   - **AppNavigationRail**: Vertical side navigation for desktop/tablet layouts.
+  - **AppTabs**: Tab switching supporting Underline, Filled, and Segmented styles.
+  - **AppStepper**: Multi-step progress indicator (Horizontal/Vertical).
+  - **AppBreadcrumb**: Hierarchical navigation path display.
+  - **AppCarousel**: Sequential item browsing with auto-play and snap behavior.
+  - **AppChipGroup**: Quick filtering interface with single/multiple selection.
+  - **AppSideSheet / AppDrawer**: Side navigation panel (Overlay/Persistent).
+  - **AppBottomSheet**: Bottom slide-up panel.
 
 ### Organisms (Complex Components)
 
-  - **AppUnifiedBar**: Theme-aware standard AppBar implementing `PreferredSizeWidget`. Supports title, actions, leading widget, and bottom tabs with style-aware dividers.
-  - **AppUnifiedSliverBar**: Collapsible sliver AppBar with pinned/floating/snap behaviors. Features blur overlay for Glass style and smooth collapse/expand animations.
-  - **AppPopupMenu**: Theme-aware popup menu with overlay management. Supports destructive items, hover states, and configurable positioning.
-  - **AppDialog**: Modal dialog with structured button API and isDestructive flag. Features backdrop blur for Glass mode and scrollable content support.
-  - **Legacy Migration**:
-      - **AppSlideAction**: Swipeable list item with theme-aware physics (Fluid/Snap).
-      - **AppExpandableFab**: Radial menu with overlay and theme-specific expansion animations.
-      - **AppGauge**: Data visualization meter supporting Gradient, Segmented, and Solid styles.
+  - **AppUnifiedBar**: Theme-aware standard AppBar implementing `PreferredSizeWidget`.
+  - **AppUnifiedSliverBar**: Collapsible sliver AppBar with pinned/floating/snap behaviors.
+  - **AppPopupMenu**: Theme-aware popup menu with overlay management.
+  - **AppDialog**: Modal dialog with structured button API and isDestructive flag.
+  - **AppExpandableFab**: Radial menu with overlay and theme-specific expansion animations.
+  - **AppGauge**: Data visualization meter supporting Gradient, Segmented, and Solid styles.
 
 ### Topology Visualization
 
@@ -208,8 +217,6 @@ Below is the summary of components available in our system:
 ### Data Display
 
   - **AppDataTable**: Responsive data table with `CardRenderer` (Mobile) and `GridRenderer` (Desktop).
-  - **AppNumberTextField**: Specialized input for formatted numeric data.
-  - **Network Inputs**: `AppIpv4TextField`, `AppIPv6TextField`, `AppMacAddressTextField`.
 
 ### Examples (Scenarios)
 

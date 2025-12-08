@@ -400,10 +400,15 @@ final directories = <_widgetbook.WidgetbookNode>[
         name: 'AppPageView',
         useCases: [
           _widgetbook.WidgetbookUseCase(
-            name: 'Grid Layout Playground',
+            name: 'Desktop Dashboard (Fixed Header + Menu)',
             builder: _widgetbook_workspace_stories_layouts_app_page_view_stories
-                .buildAppPageView,
-          )
+                .buildDesktopDashboard,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Mobile Feed (Sliver Header)',
+            builder: _widgetbook_workspace_stories_layouts_app_page_view_stories
+                .buildMobileFeed,
+          ),
         ],
       )
     ],

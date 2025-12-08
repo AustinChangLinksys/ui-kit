@@ -1,49 +1,44 @@
 import 'package:flutter/material.dart';
-import 'layout_extensions.dart'; // Import our math logic
-import 'grid_debug_overlay.dart'; // Import debug grid
+import 'layout_extensions.dart'; // Ensure correct path
+import 'grid_debug_overlay.dart'; // Ensure correct path
 
-/// A standardized page container that integrates a responsive grid system.
-///
-/// Features:
-/// - Automatically handles responsive page margins
-/// - Integrates pull-to-refresh
-/// - Integrates scroll view
-/// - Provides debug overlay
-/// - Full Scaffold support (AppBar, FAB, BottomNav)
+/// A standardized page container integrating a responsive Grid System,
+/// Desktop Side Menu, and dual Sliver/Box layout modes.
 class AppPageView extends StatelessWidget {
-  /// Page main content
+  /// The main content of the page.
   final Widget child;
 
-  /// AppBar (optional)
-  final PreferredSizeWidget? appBar;
+  /// Page Header.
+  final Widget? header;
 
-  /// Background color (defaults to Theme.colorScheme.surface)
+  /// Side Menu (Desktop Only).
+  final Widget? sideMenu;
+
+  /// Whether to use CustomScrollView (Sliver) layout logic.
+  final bool useSlivers;
+
+  /// Background color.
   final Color? backgroundColor;
 
-  /// Whether it is scrollable (defaults to false)
-  /// If true, content will be wrapped in a SingleChildScrollView
+  /// Whether the content is scrollable.
   final bool scrollable;
 
-  /// Scroll controller (only effective when scrollable=true)
+  /// Scroll controller.
   final ScrollController? scrollController;
 
-  /// Pull-to-refresh callback (optional)
-  /// If this callback is provided, RefreshIndicator will be automatically enabled
+  /// Pull-to-refresh callback.
   final Future<void> Function()? onRefresh;
 
-  /// Additional Padding
-  /// This is layered on top of the Grid Margin. For example: you need Grid Margin + an additional 16px
+  /// Additional Padding (layered on top of Grid Margins).
   final EdgeInsets? padding;
 
-  /// Whether to apply responsive Grid Margin (defaults to true)
-  /// - true: Content will be inset and aligned with the grid system.
-  /// - false: Content will align with the screen edges (suitable for full-width maps, images, or custom layouts).
+  /// Whether to apply responsive Grid Margins.
   final bool useContentPadding;
 
-  /// Whether to show the debug grid (usually controlled by external variables, such as Environment.isDebug)
+  /// Whether to show the Grid Debug Overlay.
   final bool showGridOverlay;
 
-  /// SafeArea settings (all enabled by default)
+  /// SafeArea settings.
   final ({bool left, bool top, bool right, bool bottom}) enableSafeArea;
 
   // --- Scaffold related properties ---
@@ -56,9 +51,11 @@ class AppPageView extends StatelessWidget {
   const AppPageView({
     super.key,
     required this.child,
-    this.appBar,
+    this.header,
+    this.sideMenu,
+    this.useSlivers = true,
     this.backgroundColor,
-    this.scrollable = false,
+    this.scrollable = true,
     this.scrollController,
     this.onRefresh,
     this.padding,
@@ -74,96 +71,203 @@ class AppPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 1. Create content layer
-    Widget content = child;
-
-    // A. Apply Grid Margin (responsive margins)
-    // This is the core of the Grid System: (total width - margin) = content area
-    if (useContentPadding) {
-      content = Padding(
-        padding: EdgeInsets.symmetric(horizontal: context.pageMargin),
-        child: content,
-      );
-    }
-
-    // B. Apply additional Padding
-    if (padding != null) {
-      content = Padding(padding: padding!, child: content);
-    }
-
-    // C. Handle scrolling behavior
-    if (scrollable) {
-      content = SingleChildScrollView(
-        controller: scrollController,
-        // AlwaysScrollable ensures that pull-to-refresh can be triggered even with less content, and conforms to physical properties
-        physics: const AlwaysScrollableScrollPhysics(),
-        child: ConstrainedBox(
-          // Ensure that the content area at least fills the "visible height"
-          // This is very important for UI like "Footer" that needs to be at the bottom
-          constraints: BoxConstraints(
-            minHeight: _calculateMinHeight(context),
-          ),
-          child: content,
-        ),
-      );
-    }
-
-    // D. Handle pull-to-refresh
-    if (onRefresh != null) {
-      content = RefreshIndicator(
-        onRefresh: onRefresh!,
-        child: content,
-      );
-    }
-
-    // E. Overlay debug grid
-    // We wrap it in the outermost layer (but inside SafeArea) to ensure the grid correctly covers the content
-    content = GridDebugOverlay(
-      visible: showGridOverlay,
-      // Key: Pass the padding status to the Overlay so it knows whether to draw the green Margin
-      useMargins: useContentPadding,
-      child: content,
-    );
-
-    // 2. Construct SafeArea
-    // Decide whether to wrap SafeArea based on settings
-    if (enableSafeArea.left ||
-        enableSafeArea.top ||
-        enableSafeArea.right ||
-        enableSafeArea.bottom) {
-      content = SafeArea(
-        left: enableSafeArea.left,
-        top: enableSafeArea.top,
-        right: enableSafeArea.right,
-        bottom: enableSafeArea.bottom,
-        child: content,
-      );
-    }
-
-    // 3. Final assembly (Scaffold)
     return PageLayoutScope(
       useContentPadding: useContentPadding,
-      child: Scaffold(
-        backgroundColor: backgroundColor, // If null, Scaffold automatically takes Theme.colorScheme.surface
-        appBar: appBar,
-        body: content,
-        bottomNavigationBar: bottomNavigationBar,
-        bottomSheet: bottomSheet,
-        floatingActionButton: floatingActionButton,
-        floatingActionButtonLocation: floatingActionButtonLocation,
-        floatingActionButtonAnimator: floatingActionButtonAnimator,
+      child: Builder(
+        builder: (innerContext) {
+          final bool isDesktop = innerContext.currentMaxColumns >= 12;
+
+          Widget contentLayer;
+
+          if (useSlivers) {
+            contentLayer = _buildSliverLayout(innerContext, isDesktop);
+          } else {
+            contentLayer = _buildBoxLayout(innerContext, isDesktop);
+          }
+
+          if (enableSafeArea.left ||
+              enableSafeArea.top ||
+              enableSafeArea.right ||
+              enableSafeArea.bottom) {
+            contentLayer = SafeArea(
+              left: enableSafeArea.left,
+              top: enableSafeArea.top,
+              right: enableSafeArea.right,
+              bottom: enableSafeArea.bottom,
+              child: contentLayer,
+            );
+          }
+
+          final scaffold = Scaffold(
+            backgroundColor: backgroundColor,
+            body: contentLayer,
+            bottomNavigationBar: bottomNavigationBar,
+            bottomSheet: bottomSheet,
+            floatingActionButton: floatingActionButton,
+            floatingActionButtonLocation: floatingActionButtonLocation,
+            floatingActionButtonAnimator: floatingActionButtonAnimator,
+          );
+
+          if (!showGridOverlay) return scaffold;
+
+          return Stack(
+            children: [
+              scaffold,
+              Positioned.fill(
+                child: IgnorePointer(
+                  child: SafeArea(
+                    left: enableSafeArea.left,
+                    top: enableSafeArea.top,
+                    right: enableSafeArea.right,
+                    bottom: enableSafeArea.bottom,
+                    child: Padding(
+                      // Ensure Overlay padding matches the content padding
+                      padding: EdgeInsets.symmetric(
+                        horizontal:
+                            useContentPadding ? innerContext.pageMargin : 0.0,
+                      ),
+                      child: GridDebugOverlay(
+                        visible: true,
+                        useMargins: false,
+                        child: Container(),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
 
-  /// Calculate the minimum height of the content area
-  /// (Screen height - AppBar height - StatusBar height)
-  double _calculateMinHeight(BuildContext context) {
-    final double screenHeight = MediaQuery.sizeOf(context).height;
-    final double appBarHeight = appBar?.preferredSize.height ?? 0;
-    final double topPadding = MediaQuery.paddingOf(context).top;
+  // ===========================================================================
+  // Layout Strategy A: Sliver Mode
+  // ===========================================================================
+  Widget _buildSliverLayout(BuildContext context, bool isDesktop) {
+    List<Widget> slivers = [];
 
-    // If there is a BottomNavBar, it should also be deducted. Here, a simple calculation is temporarily performed.
-    return screenHeight - appBarHeight - topPadding;
+    if (header != null) {
+      slivers.add(header!);
+    }
+
+    // 1. Start with the raw child (No padding yet)
+    Widget contentBlock = child;
+
+    // 2. Combine with Menu if Desktop (Structure first)
+    // Structure: [Menu] [Gutter] [Content]
+    if (isDesktop && sideMenu != null) {
+      contentBlock = _buildDesktopRow(context, contentBlock);
+    }
+
+    // 3. Apply Padding to the WHOLE structure
+    // This ensures Menu is also pushed by the page margin
+    if (useContentPadding) {
+      contentBlock = Padding(
+        padding: EdgeInsets.symmetric(horizontal: context.pageMargin),
+        child: contentBlock,
+      );
+    }
+
+    if (padding != null) {
+      contentBlock = Padding(padding: padding!, child: contentBlock);
+    }
+
+    slivers.add(SliverToBoxAdapter(child: contentBlock));
+
+    Widget scrollView = CustomScrollView(
+      controller: scrollController,
+      physics: const AlwaysScrollableScrollPhysics(),
+      slivers: slivers,
+    );
+
+    if (onRefresh != null) {
+      return RefreshIndicator(onRefresh: onRefresh!, child: scrollView);
+    }
+
+    return scrollView;
+  }
+
+  // ===========================================================================
+  // Layout Strategy B: Box Mode
+  // ===========================================================================
+  Widget _buildBoxLayout(BuildContext context, bool isDesktop) {
+    // 1. Prepare Scrollable Content (Right Side)
+    Widget mainContent = child;
+
+    // Note: In Box Mode, we do NOT apply padding to 'mainContent' immediately
+    // because we want the padding to wrap the Menu+Content group later.
+
+    if (scrollable) {
+      mainContent = SingleChildScrollView(
+        controller: scrollController,
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            minHeight: MediaQuery.sizeOf(context).height,
+          ),
+          child: mainContent,
+        ),
+      );
+    }
+
+    if (onRefresh != null) {
+      mainContent = RefreshIndicator(onRefresh: onRefresh!, child: mainContent);
+    }
+
+    // 2. Compose Menu + Content
+    Widget finalBody;
+    if (isDesktop && sideMenu != null) {
+      finalBody = _buildDesktopRow(context, mainContent);
+    } else {
+      finalBody = mainContent;
+    }
+
+    // 3. Apply Padding to the Final Body (Menu + Content)
+    // This moves the Menu inwards, respecting the Grid Margin
+    if (useContentPadding) {
+      finalBody = Padding(
+        padding: EdgeInsets.symmetric(horizontal: context.pageMargin),
+        child: finalBody,
+      );
+    }
+
+    // Apply additional padding
+    if (padding != null) {
+      finalBody = Padding(padding: padding!, child: finalBody);
+    }
+
+    // 4. Add Header
+    if (header != null) {
+      return Column(
+        children: [
+          header!,
+          Expanded(child: finalBody),
+        ],
+      );
+    }
+
+    return finalBody;
+  }
+
+  //Helper: Desktop Row Builder
+  Widget _buildDesktopRow(BuildContext context, Widget contentWidget) {
+    final double menuWidth = context.colWidth(4);
+    final double gutter = context.currentGutter;
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          width: menuWidth,
+          child: sideMenu,
+        ),
+        SizedBox(width: gutter),
+        Expanded(
+          child: contentWidget,
+        ),
+      ],
+    );
   }
 }
