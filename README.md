@@ -193,6 +193,23 @@ Below is the summary of components available in our system:
   - **AppUnifiedSliverBar**: Collapsible sliver AppBar with pinned/floating/snap behaviors. Features blur overlay for Glass style and smooth collapse/expand animations.
   - **AppPopupMenu**: Theme-aware popup menu with overlay management. Supports destructive items, hover states, and configurable positioning.
   - **AppDialog**: Modal dialog with structured button API and isDestructive flag. Features backdrop blur for Glass mode and scrollable content support.
+  - **Legacy Migration**:
+      - **AppSlideAction**: Swipeable list item with theme-aware physics (Fluid/Snap).
+      - **AppExpandableFab**: Radial menu with overlay and theme-specific expansion animations.
+      - **AppGauge**: Data visualization meter supporting Gradient, Segmented, and Solid styles.
+
+### Topology Visualization
+
+  - **TopologyGraphView**: Interactive mesh network visualization with auto-layout.
+  - **TopologyTreeView**: Hierarchical view of network nodes.
+  - **Nodes**: `OrbitNode`, `PulseNode`, `LiquidNode` with status-driven styles.
+  - **Links**: Dynamic link rendering visualizing signal strength.
+
+### Data Display
+
+  - **AppDataTable**: Responsive data table with `CardRenderer` (Mobile) and `GridRenderer` (Desktop).
+  - **AppNumberTextField**: Specialized input for formatted numeric data.
+  - **Network Inputs**: `AppIpv4TextField`, `AppIPv6TextField`, `AppMacAddressTextField`.
 
 ### Examples (Scenarios)
 
@@ -206,6 +223,7 @@ Detailed architecture decisions can be found in the `specs/` directory:
   - `specs/002-unified-design-system`: Core Architecture & Data Model.
   - `specs/003-ui-kit-molecules`: Component Implementation Plans.
   - **`specs/017-unified-color-system`**: Details the App Unified Color System (v1.2), covering Material 3 integration, seamless configuration, and multi-theme support.
+  - **`specs/019-legacy-migration`**: Migration strategy for legacy components (`AppSlideAction`, `AppExpandableFab`, `AppGauge`) with IoC compliance.
 
 ## 📦 Dependencies
 
