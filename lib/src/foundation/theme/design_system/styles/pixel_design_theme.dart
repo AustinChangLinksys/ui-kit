@@ -1631,6 +1631,12 @@ class PixelDesignTheme extends AppDesignTheme {
       linkCurvature: 0.0, // Straight lines for pixel art
       orbitRadius: 50.0,
       orbitSpeed: const Duration(seconds: 12), // Faster for retro feel
+
+      // View transition animation - instant snap for Pixel theme (Constitution 5.1)
+      viewTransition: const shared.AnimationSpec(
+        duration: Duration.zero,
+        curve: Curves.linear,
+      ),
     );
   }
 }

@@ -1674,6 +1674,12 @@ class FlatDesignTheme extends AppDesignTheme {
       linkCurvature: 0.2,
       orbitRadius: 55.0,
       orbitSpeed: const Duration(seconds: 18),
+
+      // View transition animation - clean, standard timing for Flat theme
+      viewTransition: const shared.AnimationSpec(
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      ),
     );
   }
 }

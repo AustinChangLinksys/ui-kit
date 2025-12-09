@@ -59,6 +59,28 @@ To maintain long-term maintainability and support multi-style switching, all dev
   * **Definition**: Components **MUST NOT** contain fallback values or default style methods.
   * **Fail Fast**: If a required `ThemeExtension` is missing, the component must explicitly throw an exception to force a configuration fix.
 
+### 3.3.1 Default Value Type Classification
+
+To clarify the scope of Section 3.3, defaults are categorized as follows:
+
+  * **Style Defaults** ❌ **PROHIBITED**: Any default values that affect visual appearance, theming, or styling.
+    ```dart
+    // ❌ VIOLATION: Style defaults
+    final Color color = widget.color ?? Colors.blue;
+    final BorderRadius radius = widget.radius ?? BorderRadius.circular(8);
+    static const TextStyle defaultTextStyle = TextStyle(fontSize: 14);
+    ```
+
+  * **API Behavior Defaults** ✅ **ALLOWED**: Default values that control component functional behavior, not appearance.
+    ```dart
+    // ✅ COMPLIANT: API behavior defaults
+    final bool scrollable = widget.scrollable ?? true;
+    final bool useSlivers = widget.useSlivers ?? true;
+    final bool useContentPadding = widget.useContentPadding ?? true;
+    ```
+
+  * **Rationale**: API behavior defaults enhance usability and follow Flutter ecosystem conventions, while style defaults violate the Inversion of Control principle by making visual decisions independently of the theme system.
+
 ### 3.4 Configuration Injection
 
   * **Definition**: The generation of the Theme and Color System must strictly adhere to the **"Configuration Priority"** principle.
@@ -269,6 +291,51 @@ final width = theme.sheetStyle.width;
 
   * **Mandatory Usage**: All visual containers **MUST** compose `AppSurface` as the root or child node.
   * **No Native Containers**: Business components must not directly use `Container` + `BoxDecoration`.
+
+### 6.1.1 Container Type Classification
+
+To clarify the scope of Section 6.1, containers are categorized as follows:
+
+  * **Visual Containers** → **MUST use AppSurface**: Components that create visual surfaces, decorations, or styled presentations.
+    ```dart
+    // ❌ VIOLATION: Visual container using native decoration
+    Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [BoxShadow(...)],
+      ),
+      child: content,
+    )
+
+    // ✅ COMPLIANT: Visual container using AppSurface
+    AppSurface(
+      style: theme.cardStyle,
+      child: content,
+    )
+    ```
+
+  * **Structural Containers** → **MAY use System Widgets**: Components that provide layout logic, system integration, or architectural scaffolding without visual decoration.
+    ```dart
+    // ✅ COMPLIANT: Structural container for page layout
+    Scaffold(
+      backgroundColor: backgroundColor,
+      body: contentLayer,
+      bottomNavigationBar: bottomNavigationBar,
+      floatingActionButton: floatingActionButton,
+    )
+
+    // ✅ COMPLIANT: Layout management
+    Row(children: [...])
+    Column(children: [...])
+    SafeArea(child: content)
+    ```
+
+  * **Examples by Category**:
+    - **Visual**: Cards, Buttons, Chips, Badges, Dialogs, Sheets, Surfaces with styling
+    - **Structural**: Page layouts, Grid systems, Responsive wrappers, Navigation scaffolding
+
+  * **Rationale**: Visual containers require theme integration and consistent styling across design systems, while structural containers serve architectural purposes and may need to leverage Flutter's native layout and system integration capabilities.
 
 ### 6.2 Dumb Components
 

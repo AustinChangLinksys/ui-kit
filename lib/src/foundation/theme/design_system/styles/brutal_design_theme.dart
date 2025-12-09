@@ -1574,6 +1574,12 @@ class BrutalDesignTheme extends AppDesignTheme {
       linkCurvature: 0.0, // Straight lines
       orbitRadius: 70.0,
       orbitSpeed: const Duration(seconds: 15),
+
+      // View transition animation - quick, sharp timing for Brutal theme
+      viewTransition: const shared.AnimationSpec(
+        duration: Duration(milliseconds: 200),
+        curve: Curves.easeOut,
+      ),
     );
   }
 }

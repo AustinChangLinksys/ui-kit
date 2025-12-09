@@ -127,6 +127,7 @@ class TopologySpec extends ThemeExtension<TopologySpec>
     required this.linkCurvature,
     required this.orbitRadius,
     required this.orbitSpeed,
+    required this.viewTransition,
   });
 
   // Node styles per type and status
@@ -173,6 +174,11 @@ class TopologySpec extends ThemeExtension<TopologySpec>
 
   @override
   final Duration orbitSpeed;
+
+  /// Animation specification for view transitions (tree ↔ graph).
+  /// Constitution 5.1 compliance - no hardcoded durations.
+  @override
+  final AnimationSpec viewTransition;
 
   /// Get node style based on type and status.
   ///

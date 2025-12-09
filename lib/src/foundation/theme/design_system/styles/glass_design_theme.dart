@@ -1792,6 +1792,12 @@ class GlassDesignTheme extends AppDesignTheme {
       linkCurvature: 0.3,
       orbitRadius: 60.0,
       orbitSpeed: const Duration(seconds: 20),
+
+      // View transition animation - fluid, slower timing for Glass theme
+      viewTransition: const shared.AnimationSpec(
+        duration: Duration(milliseconds: 500),
+        curve: Curves.easeOutExpo,
+      ),
     );
   }
 }

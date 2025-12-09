@@ -683,6 +683,12 @@ class NeumorphicDesignTheme extends AppDesignTheme {
       linkCurvature: 0.25,
       orbitRadius: 58.0,
       orbitSpeed: const Duration(seconds: 22),
+
+      // View transition animation - smooth, gradual timing for Neumorphic theme
+      viewTransition: const shared.AnimationSpec(
+        duration: Duration(milliseconds: 400),
+        curve: Curves.easeInOut,
+      ),
     );
   }
 
@@ -1953,6 +1959,12 @@ class NeumorphicDesignTheme extends AppDesignTheme {
       linkCurvature: 0.25,
       orbitRadius: 58.0,
       orbitSpeed: const Duration(seconds: 22),
+
+      // View transition animation - smooth, gradual timing for Neumorphic theme
+      viewTransition: const shared.AnimationSpec(
+        duration: Duration(milliseconds: 400),
+        curve: Curves.easeInOut,
+      ),
     );
   }
 }

@@ -27,8 +27,8 @@ import 'app_button.dart'; // Import AppButtonSize enum
 ///
 /// // Highlight for critical action (delete)
 /// AppIconButton(
-///   icon: Icon(Icons.delete, color: Colors.red),
-///   variant: SurfaceVariant.highlight,
+///   icon: Icon(Icons.delete),
+///   variant: SurfaceVariant.highlight, // Use semantic variant for visual hierarchy
 ///   onTap: () => deleteItem(),
 /// )
 /// ```
@@ -64,7 +64,8 @@ class AppIconButton extends StatelessWidget {
     final theme = Theme.of(context).extension<AppDesignTheme>()!;
     
     // 1. Resolve exact pixel size based on enum
-    final double pixelSize = _resolveSize(size) * theme.spacingFactor;
+    // Constitution 3.3 compliance: Use theme buttonHeight instead of hardcoded values
+    final double pixelSize = _resolveSize(size, theme.buttonHeight) * theme.spacingFactor;
 
     Widget content = AppSurface(
       // 2. IoC: Pass variant directly, let Surface decide look
@@ -103,11 +104,17 @@ class AppIconButton extends StatelessWidget {
     return content;
   }
 
-  double _resolveSize(AppButtonSize size) {
+  // Constitution 3.3 compliance: Use theme values instead of hardcoded sizes
+  double _resolveSize(AppButtonSize size, double themeButtonHeight) {
+    // Use theme buttonHeight as medium baseline, apply size ratios
+    // Icon buttons maintain 1:1 aspect ratio using height as both width and height
     switch (size) {
-      case AppButtonSize.small: return 32.0;
-      case AppButtonSize.medium: return 48.0;
-      case AppButtonSize.large: return 56.0;
+      case AppButtonSize.small:
+        return themeButtonHeight * 0.67; // ~2/3 of medium size
+      case AppButtonSize.medium:
+        return themeButtonHeight; // Use theme value directly
+      case AppButtonSize.large:
+        return themeButtonHeight * 1.17; // ~1.17x of medium size
     }
   }
 }

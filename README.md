@@ -11,21 +11,28 @@ It features a **Data-Driven Strategy (DDS)** that allows runtime switching betwe
 
 ## 🏗 Architecture
 
-This project is structured using **Atomic Design** with strict architectural boundaries:
+This project is structured using **Atomic Design** with strict architectural boundaries, governed by the **UI Kit Constitution (v3.1.0)**:
 
 - **Foundation** (`lib/src/foundation`): The brain of the system. Contains `AppDesignTheme` contracts, `Specs` (Layout, Interaction, Typography), and Tokens. **Crucially, it now includes the App Unified Color System (v1.2) (`AppColorScheme`, `AppThemeConfig`, `AppColorFactory`), providing a comprehensive and reactive color management layer fully compatible with Material 3.**
+  - **Theme Specifications**: All theme specs use `@TailorMixin()` for automated generation
+  - **Shared Specs**: `AnimationSpec`, `StateColorSpec`, `OverlaySpec` for consistent composition
+  - **Zero Defaults**: All styling values provided by theme system, no hardcoded fallbacks
 - **Atoms** (`lib/src/atoms`): The primitives.
-    - **`AppSurface`**: The core renderer handling physics, borders, shadows, and blur.
-    - Includes `AppText`, `AppGap`, `AppSkeleton`, `AppIcon`, `AppDivider`.
+    - **`AppSurface`**: The constitutional core renderer handling physics, borders, shadows, and blur
+    - Includes `AppText`, `AppGap`, `AppSkeleton`, `AppIcon`, `AppDivider`
 - **Molecules** (`lib/src/molecules`): Semantic components composed of atoms.
-    - Buttons, Inputs, Toggles, Cards, Navigation, Feedback.
+    - **Constitutionally Compliant**: All buttons use theme-based sizing, no hardcoded values
+    - Buttons, Inputs, Toggles, Cards, Navigation, Feedback
 - **Organisms** (`lib/src/organisms`): Complex, standalone UI sections.
+    - **Theme-Aware Animations**: Components like `AppTopology` use `AnimationSpec` from themes
 - **Layout** (`lib/src/layout`): Responsive wrappers.
 
 ## 🌟 Key Features (v2.0)
 
+* **Constitutional Compliance**: All components adhere to the **UI Kit Constitution (v3.1.0)**, ensuring zero internal defaults, proper theme integration, and consistent architectural patterns across the entire library.
 * **App Unified Color System (v1.2)**: A comprehensive and reactive color management layer fully compatible with Material 3. It allows seamless configuration where changes to Material colors (e.g., Primary) automatically propagate to derived Style colors (e.g., Glow), while also supporting explicit style overrides.
 * **Multi-Paradigm Support**: Seamlessly switch between **Glass** (Liquid), **Brutal** (Mechanical), **Flat** (Standard), **Neumorphic** (Tactile), and **Pixel** (Retro) themes, now all powered by the Unified Color System.
+* **Theme-Aware Animation System**: All animations use `AnimationSpec` from the theme system, with theme-specific behaviors (e.g., Pixel mode instant snapping, Glass mode fluid transitions).
 * **Physics-Based Interaction**: Components inherit physical behaviors (Scale, Glow, Offset) from the active theme via `InteractionSpec`.
 * **Smart Layouts**: Spacing and margins automatically adapt to the theme's density using `spacingFactor`.
 * **Safe Mode Testing**: Automated Golden Tests covering the full 10-style matrix (5 themes × Light/Dark).
@@ -306,6 +313,34 @@ class CustomDesignTheme extends AppDesignTheme {
 
 See existing theme files in `lib/src/foundation/theme/design_system/styles/` for complete examples.
 
+## ⚖️ Constitutional Compliance
+
+This UI Kit follows the **UI Kit Constitution (v3.1.0)**, a comprehensive set of architectural principles and coding standards that ensure:
+
+- **Zero Internal Defaults**: Components receive all styling from the theme system, never hardcoded values
+- **@TailorMixin Integration**: All theme extensions use automated generation via `theme_tailor`
+- **AnimationSpec Composition**: Animations use shared specifications instead of hardcoded durations
+- **AppSurface Architecture**: Visual containers use `AppSurface` rather than native Flutter containers
+- **Data-Driven Strategy**: Components render based on theme specs, not runtime type checks
+
+### Constitution Reviews
+
+Components undergo rigorous constitutional compliance reviews using the `/uikit.review` tool:
+
+```bash
+# Review a specific component
+/uikit.review lib/src/molecules/buttons/app_button.dart
+
+# Review a theme specification
+/uikit.review lib/src/foundation/theme/design_system/specs/topology_style.dart
+```
+
+**Recent compliance achievements:**
+- **AppButton**: 100% compliant (fixed hardcoded sizing)
+- **AppIconButton**: 100% compliant (fixed hardcoded sizing and colors)
+- **AppTopology**: 100% compliant (integrated theme animation system)
+- **TopologyStyle**: 100% compliant (constitutional exemplar)
+
 ## 🛠 Development
 
 ### Code Generation
@@ -471,8 +506,9 @@ Below is the summary of components available in our system:
 
   - **TopologyGraphView**: Interactive mesh network visualization with auto-layout.
   - **TopologyTreeView**: Hierarchical view of network nodes.
+  - **AppTopology**: **100% Constitutional Compliance** - Main entry point with theme-aware view transitions using `AnimationSpec`.
   - **Nodes**: `OrbitNode`, `PulseNode`, `LiquidNode` with status-driven styles.
-  - **Links**: Dynamic link rendering visualizing signal strength.
+  - **Links**: Dynamic link rendering visualizing signal strength with theme-based animations.
 
 ### Data Display
 
@@ -493,8 +529,8 @@ Below is the summary of components available in our system:
 | **AppDivider** | Atom | Visual separator. | `direction` (horizontal/vertical), `thickness`, `color`, `indent`, `endIndent` |
 | **AppIcon** | Atom | Theme-aware icon renderer. | `icon`, `size`, `color`, `semanticLabel` |
 | **AppSkeleton** | Atom | Loading placeholder with theme animations. | `width`, `height`, `shape` (circle/rect), `style` |
-| **AppButton** | Molecule | Interactive button with various styles. | `onPressed`, `label`, `icon`, `variant` (primary/secondary/ghost), `size`, `isLoading`, `isDisabled` |
-| **AppIconButton** | Molecule | Icon-only button. | `onPressed`, `icon`, `variant`, `size`, `isLoading`, `tooltip` |
+| **AppButton** | Molecule | **100% Constitutional Compliance** - Interactive button with theme-based sizing. | `onPressed`, `label`, `icon`, `variant` (primary/secondary/ghost), `size`, `isLoading`, `isDisabled` |
+| **AppIconButton** | Molecule | **100% Constitutional Compliance** - Icon-only button with theme-based sizing. | `onPressed`, `icon`, `variant`, `size`, `isLoading`, `tooltip` |
 | **AppTextFormField** | Molecule | Form field with validation. | `controller`, `validator`, `label`, `hint`, `obscureText`, `keyboardType`, `onChanged`, `enabled` |
 | **AppTextField** | Molecule | Basic text input. | `controller`, `label`, `hint`, `errorText`, `onChanged`, `enabled`, `prefix/suffixIcon` |
 | **AppNumberTextField** | Molecule | Numeric input with formatting. | `controller`, `label`, `onChanged`, `allowDecimals`, `min/max` |
@@ -868,9 +904,11 @@ Shows which styles have been migrated to use shared specs (`@TailorMixin`, `Anim
 | TableStyle | ✅ | ✅ | - | - |
 | GaugeStyle | ✅ | ✅ | - | - |
 | ExpandableFabStyle | ✅ | ✅ | - | ✅ |
-| TopologySpec | ✅ | ✅ | - | - |
+| **TopologySpec** ⭐ | ✅ | ✅ | - | - |
 | LoaderStyle | ✅ | - | - | - |
 | ToastStyle | ✅ | - | - | - |
+
+**⭐ TopologySpec**: Constitutional exemplar with perfect compliance (100% score)
 
 #### ⏳ Pending Integration
 
@@ -893,10 +931,15 @@ Shows which styles have been migrated to use shared specs (`@TailorMixin`, `Anim
 
 Detailed architecture decisions can be found in the `specs/` directory:
 
+  - **`.specify/memory/constitution.md`**: The **UI Kit Constitution (v3.1.0)** - comprehensive architectural principles and coding standards
   - `specs/002-unified-design-system`: Core Architecture & Data Model.
   - `specs/003-ui-kit-molecules`: Component Implementation Plans.
   - **`specs/017-unified-color-system`**: Details the App Unified Color System (v1.2), covering Material 3 integration, seamless configuration, and multi-theme support.
   - **`specs/019-legacy-migration`**: Migration strategy for legacy components (`AppSlideAction`, `AppExpandableFab`, `AppGauge`) with IoC compliance.
+
+### Constitution Reviews
+
+Use the built-in `/uikit.review` tool to verify constitutional compliance for any component or theme specification. The tool provides detailed compliance reports with specific line references and actionable fixes.
 
 ## 📦 Dependencies
 

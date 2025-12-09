@@ -62,8 +62,9 @@ class AppButton extends StatelessWidget {
     final theme = Theme.of(context).extension<AppDesignTheme>()!;
 
     // 1. Determine height and padding based on Size Enum (DDS)
-    final double height = _resolveHeight(size) * theme.spacingFactor;
-    final double paddingX = _resolvePadding(size) * theme.spacingFactor;
+    // Constitution 3.3 compliance: Use theme buttonHeight instead of hardcoded values
+    final double height = _resolveHeight(size, theme.buttonHeight) * theme.spacingFactor;
+    final double paddingX = _resolvePadding(size, theme.buttonHeight) * theme.spacingFactor;
 
     // 2. Handle Disabled state (Opacity)
     return Opacity(
@@ -102,26 +103,30 @@ class AppButton extends StatelessWidget {
   }
 
   // --- Helper Methods (encapsulate size logic) ---
+  // Constitution 3.3 compliance: Use theme values instead of hardcoded sizes
 
-  double _resolveHeight(AppButtonSize size) {
+  double _resolveHeight(AppButtonSize size, double themeButtonHeight) {
+    // Use theme buttonHeight as medium baseline, apply size ratios
     switch (size) {
       case AppButtonSize.small:
-        return 32.0;
+        return themeButtonHeight * 0.67; // ~2/3 of medium size
       case AppButtonSize.medium:
-        return 48.0;
+        return themeButtonHeight; // Use theme value directly
       case AppButtonSize.large:
-        return 56.0;
+        return themeButtonHeight * 1.17; // ~1.17x of medium size
     }
   }
 
-  double _resolvePadding(AppButtonSize size) {
+  double _resolvePadding(AppButtonSize size, double themeButtonHeight) {
+    // Padding scales with height proportionally
+    const baseRatio = 0.5; // Base ratio: padding = height * 0.5
     switch (size) {
       case AppButtonSize.small:
-        return 16.0;
+        return (themeButtonHeight * 0.67) * baseRatio;
       case AppButtonSize.medium:
-        return 24.0;
+        return themeButtonHeight * baseRatio;
       case AppButtonSize.large:
-        return 32.0;
+        return (themeButtonHeight * 1.17) * baseRatio;
     }
   }
 

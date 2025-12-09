@@ -237,6 +237,7 @@ mixin _$TopologySpecTailorMixin on ThemeExtension<TopologySpec> {
   double get linkCurvature;
   double get orbitRadius;
   Duration get orbitSpeed;
+  AnimationSpec get viewTransition;
 
   @override
   TopologySpec copyWith({
@@ -257,6 +258,7 @@ mixin _$TopologySpecTailorMixin on ThemeExtension<TopologySpec> {
     double? linkCurvature,
     double? orbitRadius,
     Duration? orbitSpeed,
+    AnimationSpec? viewTransition,
   }) {
     return TopologySpec(
       gatewayNormalStyle: gatewayNormalStyle ?? this.gatewayNormalStyle,
@@ -277,6 +279,7 @@ mixin _$TopologySpecTailorMixin on ThemeExtension<TopologySpec> {
       linkCurvature: linkCurvature ?? this.linkCurvature,
       orbitRadius: orbitRadius ?? this.orbitRadius,
       orbitSpeed: orbitSpeed ?? this.orbitSpeed,
+      viewTransition: viewTransition ?? this.viewTransition,
     );
   }
 
@@ -306,6 +309,7 @@ mixin _$TopologySpecTailorMixin on ThemeExtension<TopologySpec> {
       linkCurvature: t < 0.5 ? linkCurvature : other.linkCurvature,
       orbitRadius: t < 0.5 ? orbitRadius : other.orbitRadius,
       orbitSpeed: t < 0.5 ? orbitSpeed : other.orbitSpeed,
+      viewTransition: viewTransition.lerp(other.viewTransition, t),
     );
   }
 
@@ -347,7 +351,9 @@ mixin _$TopologySpecTailorMixin on ThemeExtension<TopologySpec> {
             const DeepCollectionEquality()
                 .equals(orbitRadius, other.orbitRadius) &&
             const DeepCollectionEquality()
-                .equals(orbitSpeed, other.orbitSpeed));
+                .equals(orbitSpeed, other.orbitSpeed) &&
+            const DeepCollectionEquality()
+                .equals(viewTransition, other.viewTransition));
   }
 
   @override
@@ -371,6 +377,7 @@ mixin _$TopologySpecTailorMixin on ThemeExtension<TopologySpec> {
       const DeepCollectionEquality().hash(linkCurvature),
       const DeepCollectionEquality().hash(orbitRadius),
       const DeepCollectionEquality().hash(orbitSpeed),
+      const DeepCollectionEquality().hash(viewTransition),
     );
   }
 }
@@ -394,4 +401,8 @@ extension TopologySpecBuildContextProps on BuildContext {
   double get linkCurvature => topologySpec.linkCurvature;
   double get orbitRadius => topologySpec.orbitRadius;
   Duration get orbitSpeed => topologySpec.orbitSpeed;
+
+  /// Animation specification for view transitions (tree ↔ graph).
+  /// Constitution 5.1 compliance - no hardcoded durations.
+  AnimationSpec get viewTransition => topologySpec.viewTransition;
 }
