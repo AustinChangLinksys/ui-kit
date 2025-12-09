@@ -74,20 +74,6 @@ class SurfaceStyle extends Equatable {
   }
 }
 
-/// Defines motion physics.
-class AnimationSpec extends Equatable {
-  final Duration duration;
-  final Curve curve;
-
-  const AnimationSpec({
-    required this.duration,
-    required this.curve,
-  });
-
-  @override
-  List<Object?> get props => [duration, curve];
-}
-
 /// Defines font choices.
 class TypographySpec extends Equatable {
   final String? bodyFontFamily;

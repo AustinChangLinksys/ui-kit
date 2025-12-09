@@ -1,8 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:theme_tailor_annotation/theme_tailor_annotation.dart';
 
+import 'shared/shared_specs.dart';
+
 part 'stepper_style.tailor.dart';
 
+/// Style specification for stepper components (AppStepper).
+///
+/// Composes [AnimationSpec] for transition timing.
+///
+/// Example:
+/// ```dart
+/// StepperStyle(
+///   activeStepColor: Colors.blue,
+///   completedStepColor: Colors.green,
+///   pendingStepColor: Colors.grey,
+///   connectorColor: Colors.blue,
+///   stepSize: 48.0,
+///   useDashedConnector: false,
+///   animation: AnimationSpec.standard,
+/// )
+/// ```
 @TailorMixin()
 class StepperStyle extends ThemeExtension<StepperStyle>
     with _$StepperStyleTailorMixin {
@@ -13,7 +31,7 @@ class StepperStyle extends ThemeExtension<StepperStyle>
     required this.connectorColor,
     required this.stepSize,
     required this.useDashedConnector,
-    this.animationDuration = const Duration(milliseconds: 300),
+    required this.animation,
   });
 
   /// Color of the active step indicator
@@ -40,18 +58,17 @@ class StepperStyle extends ThemeExtension<StepperStyle>
   @override
   final bool useDashedConnector;
 
-  /// Animation duration for step transitions
+  /// Animation timing for step transitions
   @override
-  final Duration animationDuration;
+  final AnimationSpec animation;
 
-  /// Default style for fallback when theme is not available
-  static const defaultStyle = StepperStyle(
-    activeStepColor: Color(0xFF2196F3),
-    completedStepColor: Color(0xFF4CAF50),
-    pendingStepColor: Color(0xFFBDBDBD),
-    connectorColor: Color(0xFF2196F3),
-    stepSize: 48,
-    useDashedConnector: false,
-    animationDuration: Duration(milliseconds: 300),
-  );
+  // --- Backward Compatibility Getters ---
+
+  /// @deprecated Use [animation.duration] instead
+  @override
+  Duration get animationDuration => animation.duration;
+
+  /// @deprecated Use [animation.curve] instead
+  @override
+  Curve get animationCurve => animation.curve;
 }

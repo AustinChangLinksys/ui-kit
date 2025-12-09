@@ -17,6 +17,8 @@ import 'package:widgetbook_workspace/stories/atoms/icons/app_icon.stories.dart'
     as _widgetbook_workspace_stories_atoms_icons_app_icon_stories;
 import 'package:widgetbook_workspace/stories/atoms/layout/app_divider.stories.dart'
     as _widgetbook_workspace_stories_atoms_layout_app_divider_stories;
+import 'package:widgetbook_workspace/stories/atoms/layout/app_gap.stories.dart'
+    as _widgetbook_workspace_stories_atoms_layout_app_gap_stories;
 import 'package:widgetbook_workspace/stories/atoms/loading/app_skeleton.stories.dart'
     as _widgetbook_workspace_stories_atoms_loading_app_skeleton_stories;
 import 'package:widgetbook_workspace/stories/atoms/selection/app_checkbox.stories.dart'
@@ -37,14 +39,10 @@ import 'package:widgetbook_workspace/stories/examples/internet_settings_page.sto
     as _widgetbook_workspace_stories_examples_internet_settings_page_stories;
 import 'package:widgetbook_workspace/stories/examples/mockup_page.stories.dart'
     as _widgetbook_workspace_stories_examples_mockup_page_stories;
-import 'package:widgetbook_workspace/stories/foundation/color_json_story.dart'
-    as _widgetbook_workspace_stories_foundation_color_json_story;
+import 'package:widgetbook_workspace/stories/foundation/color_json.stories.dart'
+    as _widgetbook_workspace_stories_foundation_color_json_stories;
 import 'package:widgetbook_workspace/stories/foundation/effects/global_effects_overlay.stories.dart'
     as _widgetbook_workspace_stories_foundation_effects_global_effects_overlay_stories;
-import 'package:widgetbook_workspace/stories/layouts/app_gap.stories.dart'
-    as _widgetbook_workspace_stories_layouts_app_gap_stories;
-import 'package:widgetbook_workspace/stories/layouts/app_page_view.stories.dart'
-    as _widgetbook_workspace_stories_layouts_app_page_view_stories;
 import 'package:widgetbook_workspace/stories/molecules/buttons/app_buttons.stories.dart'
     as _widgetbook_workspace_stories_molecules_buttons_app_buttons_stories;
 import 'package:widgetbook_workspace/stories/molecules/cards/app_card.stories.dart'
@@ -63,44 +61,60 @@ import 'package:widgetbook_workspace/stories/molecules/forms/app_text_form_field
     as _widgetbook_workspace_stories_molecules_forms_app_text_form_field_stories;
 import 'package:widgetbook_workspace/stories/molecules/inputs/network_inputs.stories.dart'
     as _widgetbook_workspace_stories_molecules_inputs_network_inputs_stories;
+import 'package:widgetbook_workspace/stories/molecules/inputs/password_input.stories.dart'
+    as _widgetbook_workspace_stories_molecules_inputs_password_input_stories;
+import 'package:widgetbook_workspace/stories/molecules/inputs/pin_input.stories.dart'
+    as _widgetbook_workspace_stories_molecules_inputs_pin_input_stories;
+import 'package:widgetbook_workspace/stories/molecules/inputs/range_input.stories.dart'
+    as _widgetbook_workspace_stories_molecules_inputs_range_input_stories;
 import 'package:widgetbook_workspace/stories/molecules/layout/app_list_tile.stories.dart'
     as _widgetbook_workspace_stories_molecules_layout_app_list_tile_stories;
+import 'package:widgetbook_workspace/stories/molecules/layout/app_page_view.stories.dart'
+    as _widgetbook_workspace_stories_molecules_layout_app_page_view_stories;
 import 'package:widgetbook_workspace/stories/molecules/menu/app_popup_menu.stories.dart'
     as _widgetbook_workspace_stories_molecules_menu_app_popup_menu_stories;
-import 'package:widgetbook_workspace/stories/molecules/slide_action/slide_action_stories.dart'
-    as _widgetbook_workspace_stories_molecules_slide_action_slide_action_stories;
-import 'package:widgetbook_workspace/stories/molecules/table/table_stories.dart'
-    as _widgetbook_workspace_stories_molecules_table_table_stories;
+import 'package:widgetbook_workspace/stories/molecules/navigation/app_bottom_sheet.stories.dart'
+    as _widgetbook_workspace_stories_molecules_navigation_app_bottom_sheet_stories;
+import 'package:widgetbook_workspace/stories/molecules/navigation/app_breadcrumb.stories.dart'
+    as _widgetbook_workspace_stories_molecules_navigation_app_breadcrumb_stories;
+import 'package:widgetbook_workspace/stories/molecules/navigation/app_carousel.stories.dart'
+    as _widgetbook_workspace_stories_molecules_navigation_app_carousel_stories;
+import 'package:widgetbook_workspace/stories/molecules/navigation/app_chip_group.stories.dart'
+    as _widgetbook_workspace_stories_molecules_navigation_app_chip_group_stories;
+import 'package:widgetbook_workspace/stories/molecules/navigation/app_expansion_panel.stories.dart'
+    as _widgetbook_workspace_stories_molecules_navigation_app_expansion_panel_stories;
+import 'package:widgetbook_workspace/stories/molecules/navigation/app_navigation_bar.stories.dart'
+    as _widgetbook_workspace_stories_molecules_navigation_app_navigation_bar_stories;
+import 'package:widgetbook_workspace/stories/molecules/navigation/app_navigation_rail.stories.dart'
+    as _widgetbook_workspace_stories_molecules_navigation_app_navigation_rail_stories;
+import 'package:widgetbook_workspace/stories/molecules/navigation/app_side_sheet.stories.dart'
+    as _widgetbook_workspace_stories_molecules_navigation_app_side_sheet_stories;
+import 'package:widgetbook_workspace/stories/molecules/navigation/app_stepper.stories.dart'
+    as _widgetbook_workspace_stories_molecules_navigation_app_stepper_stories;
+import 'package:widgetbook_workspace/stories/molecules/navigation/app_tabs.stories.dart'
+    as _widgetbook_workspace_stories_molecules_navigation_app_tabs_stories;
+import 'package:widgetbook_workspace/stories/molecules/slide_action/app_slide_action.stories.dart'
+    as _widgetbook_workspace_stories_molecules_slide_action_app_slide_action_stories;
+import 'package:widgetbook_workspace/stories/molecules/status/app_avatar.stories.dart'
+    as _widgetbook_workspace_stories_molecules_status_app_avatar_stories;
+import 'package:widgetbook_workspace/stories/molecules/status/app_badge.stories.dart'
+    as _widgetbook_workspace_stories_molecules_status_app_badge_stories;
+import 'package:widgetbook_workspace/stories/molecules/status/app_tag.stories.dart'
+    as _widgetbook_workspace_stories_molecules_status_app_tag_stories;
+import 'package:widgetbook_workspace/stories/molecules/table/app_data_table.stories.dart'
+    as _widgetbook_workspace_stories_molecules_table_app_data_table_stories;
 import 'package:widgetbook_workspace/stories/molecules/toggles/app_switch.stories.dart'
     as _widgetbook_workspace_stories_molecules_toggles_app_switch_stories;
-import 'package:widgetbook_workspace/stories/navigation/app_navigation_bar.stories.dart'
-    as _widgetbook_workspace_stories_navigation_app_navigation_bar_stories;
-import 'package:widgetbook_workspace/stories/navigation/app_navigation_rail.stories.dart'
-    as _widgetbook_workspace_stories_navigation_app_navigation_rail_stories;
-import 'package:widgetbook_workspace/stories/navigation/bottom_sheet.stories.dart'
-    as _widgetbook_workspace_stories_navigation_bottom_sheet_stories;
-import 'package:widgetbook_workspace/stories/navigation/breadcrumb.stories.dart'
-    as _widgetbook_workspace_stories_navigation_breadcrumb_stories;
-import 'package:widgetbook_workspace/stories/navigation/carousel.stories.dart'
-    as _widgetbook_workspace_stories_navigation_carousel_stories;
-import 'package:widgetbook_workspace/stories/navigation/chip_group.stories.dart'
-    as _widgetbook_workspace_stories_navigation_chip_group_stories;
-import 'package:widgetbook_workspace/stories/navigation/expansion_panel.stories.dart'
-    as _widgetbook_workspace_stories_navigation_expansion_panel_stories;
-import 'package:widgetbook_workspace/stories/navigation/side_sheet.stories.dart'
-    as _widgetbook_workspace_stories_navigation_side_sheet_stories;
-import 'package:widgetbook_workspace/stories/navigation/stepper.stories.dart'
-    as _widgetbook_workspace_stories_navigation_stepper_stories;
-import 'package:widgetbook_workspace/stories/navigation/tabs.stories.dart'
-    as _widgetbook_workspace_stories_navigation_tabs_stories;
+import 'package:widgetbook_workspace/stories/molecules/typography/app_styled_text.stories.dart'
+    as _widgetbook_workspace_stories_molecules_typography_app_styled_text_stories;
 import 'package:widgetbook_workspace/stories/organisms/app_unified_bar.stories.dart'
     as _widgetbook_workspace_stories_organisms_app_unified_bar_stories;
 import 'package:widgetbook_workspace/stories/organisms/app_unified_sliver_bar.stories.dart'
     as _widgetbook_workspace_stories_organisms_app_unified_sliver_bar_stories;
-import 'package:widgetbook_workspace/stories/organisms/expandable_fab/expandable_fab_stories.dart'
-    as _widgetbook_workspace_stories_organisms_expandable_fab_expandable_fab_stories;
-import 'package:widgetbook_workspace/stories/organisms/gauge/gauge_stories.dart'
-    as _widgetbook_workspace_stories_organisms_gauge_gauge_stories;
+import 'package:widgetbook_workspace/stories/organisms/expandable_fab/app_expandable_fab.stories.dart'
+    as _widgetbook_workspace_stories_organisms_expandable_fab_app_expandable_fab_stories;
+import 'package:widgetbook_workspace/stories/organisms/gauge/app_gauge.stories.dart'
+    as _widgetbook_workspace_stories_organisms_gauge_app_gauge_stories;
 import 'package:widgetbook_workspace/stories/organisms/topology/app_topology.stories.dart'
     as _widgetbook_workspace_stories_organisms_topology_app_topology_stories;
 import 'package:widgetbook_workspace/stories/organisms/topology/cluster_badge.stories.dart'
@@ -117,12 +131,6 @@ import 'package:widgetbook_workspace/stories/organisms/topology/pulse_node.stori
     as _widgetbook_workspace_stories_organisms_topology_pulse_node_stories;
 import 'package:widgetbook_workspace/stories/organisms/topology/tree_view.stories.dart'
     as _widgetbook_workspace_stories_organisms_topology_tree_view_stories;
-import 'package:widgetbook_workspace/stories/status/app_avatar.stories.dart'
-    as _widgetbook_workspace_stories_status_app_avatar_stories;
-import 'package:widgetbook_workspace/stories/status/app_badge.stories.dart'
-    as _widgetbook_workspace_stories_status_app_badge_stories;
-import 'package:widgetbook_workspace/stories/status/app_tag.stories.dart'
-    as _widgetbook_workspace_stories_status_app_tag_stories;
 
 final directories = <_widgetbook.WidgetbookNode>[
   _widgetbook.WidgetbookFolder(
@@ -280,13 +288,15 @@ final directories = <_widgetbook.WidgetbookNode>[
             useCases: [
               _widgetbook.WidgetbookUseCase(
                 name: 'Interactive Playground',
-                builder: _widgetbook_workspace_stories_layouts_app_gap_stories
-                    .buildInteractiveGap,
+                builder:
+                    _widgetbook_workspace_stories_atoms_layout_app_gap_stories
+                        .buildInteractiveGap,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Size Gallery',
-                builder: _widgetbook_workspace_stories_layouts_app_gap_stories
-                    .buildGapGallery,
+                builder:
+                    _widgetbook_workspace_stories_atoms_layout_app_gap_stories
+                        .buildGapGallery,
               ),
             ],
           ),
@@ -401,13 +411,15 @@ final directories = <_widgetbook.WidgetbookNode>[
         useCases: [
           _widgetbook.WidgetbookUseCase(
             name: 'Desktop Dashboard (Fixed Header + Menu)',
-            builder: _widgetbook_workspace_stories_layouts_app_page_view_stories
-                .buildDesktopDashboard,
+            builder:
+                _widgetbook_workspace_stories_molecules_layout_app_page_view_stories
+                    .buildDesktopDashboard,
           ),
           _widgetbook.WidgetbookUseCase(
             name: 'Mobile Feed (Sliver Header)',
-            builder: _widgetbook_workspace_stories_layouts_app_page_view_stories
-                .buildMobileFeed,
+            builder:
+                _widgetbook_workspace_stories_molecules_layout_app_page_view_stories
+                    .buildMobileFeed,
           ),
         ],
       )
@@ -425,37 +437,37 @@ final directories = <_widgetbook.WidgetbookNode>[
               _widgetbook.WidgetbookUseCase(
                 name: 'Basic Content',
                 builder:
-                    _widgetbook_workspace_stories_navigation_bottom_sheet_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_bottom_sheet_stories
                         .buildBasicBottomSheet,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Custom Height',
                 builder:
-                    _widgetbook_workspace_stories_navigation_bottom_sheet_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_bottom_sheet_stories
                         .buildCustomHeightBottomSheet,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Different Sizes',
                 builder:
-                    _widgetbook_workspace_stories_navigation_bottom_sheet_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_bottom_sheet_stories
                         .buildDifferentSizesBottomSheet,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Non-Dismissible',
                 builder:
-                    _widgetbook_workspace_stories_navigation_bottom_sheet_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_bottom_sheet_stories
                         .buildNonDismissibleBottomSheet,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'With Form',
                 builder:
-                    _widgetbook_workspace_stories_navigation_bottom_sheet_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_bottom_sheet_stories
                         .buildFormBottomSheet,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'With Long Content',
                 builder:
-                    _widgetbook_workspace_stories_navigation_bottom_sheet_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_bottom_sheet_stories
                         .buildLongContentBottomSheet,
               ),
             ],
@@ -471,25 +483,25 @@ final directories = <_widgetbook.WidgetbookNode>[
               _widgetbook.WidgetbookUseCase(
                 name: 'Basic Navigation',
                 builder:
-                    _widgetbook_workspace_stories_navigation_breadcrumb_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_breadcrumb_stories
                         .buildBasicBreadcrumb,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Disabled Items',
                 builder:
-                    _widgetbook_workspace_stories_navigation_breadcrumb_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_breadcrumb_stories
                         .buildDisabledBreadcrumb,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Long Path',
                 builder:
-                    _widgetbook_workspace_stories_navigation_breadcrumb_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_breadcrumb_stories
                         .buildLongBreadcrumb,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'With Icons',
                 builder:
-                    _widgetbook_workspace_stories_navigation_breadcrumb_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_breadcrumb_stories
                         .buildBreadcrumbWithIcons,
               ),
             ],
@@ -566,25 +578,25 @@ final directories = <_widgetbook.WidgetbookNode>[
               _widgetbook.WidgetbookUseCase(
                 name: 'Basic Carousel',
                 builder:
-                    _widgetbook_workspace_stories_navigation_carousel_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_carousel_stories
                         .buildBasicCarousel,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Image Carousel',
                 builder:
-                    _widgetbook_workspace_stories_navigation_carousel_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_carousel_stories
                         .buildImageCarousel,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'With Auto-Play',
                 builder:
-                    _widgetbook_workspace_stories_navigation_carousel_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_carousel_stories
                         .buildAutoPlayCarousel,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'With Different Scroll Behaviors',
                 builder:
-                    _widgetbook_workspace_stories_navigation_carousel_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_carousel_stories
                         .buildScrollBehaviorCarousel,
               ),
             ],
@@ -600,31 +612,31 @@ final directories = <_widgetbook.WidgetbookNode>[
               _widgetbook.WidgetbookUseCase(
                 name: 'Horizontal Scroll',
                 builder:
-                    _widgetbook_workspace_stories_navigation_chip_group_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_chip_group_stories
                         .buildHorizontalChipGroup,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Multiple Selection',
                 builder:
-                    _widgetbook_workspace_stories_navigation_chip_group_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_chip_group_stories
                         .buildMultipleSelectionChipGroup,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Single Selection',
                 builder:
-                    _widgetbook_workspace_stories_navigation_chip_group_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_chip_group_stories
                         .buildSingleSelectionChipGroup,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'With Disabled Items',
                 builder:
-                    _widgetbook_workspace_stories_navigation_chip_group_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_chip_group_stories
                         .buildDisabledChipGroup,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'With Icons',
                 builder:
-                    _widgetbook_workspace_stories_navigation_chip_group_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_chip_group_stories
                         .buildChipGroupWithIcons,
               ),
             ],
@@ -696,19 +708,19 @@ final directories = <_widgetbook.WidgetbookNode>[
               _widgetbook.WidgetbookUseCase(
                 name: 'Multiple Panels',
                 builder:
-                    _widgetbook_workspace_stories_navigation_expansion_panel_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_expansion_panel_stories
                         .buildMultiplePanels,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Single Panel',
                 builder:
-                    _widgetbook_workspace_stories_navigation_expansion_panel_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_expansion_panel_stories
                         .buildSinglePanel,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'With Long Content',
                 builder:
-                    _widgetbook_workspace_stories_navigation_expansion_panel_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_expansion_panel_stories
                         .buildLongContent,
               ),
             ],
@@ -805,6 +817,54 @@ final directories = <_widgetbook.WidgetbookNode>[
                     builder:
                         _widgetbook_workspace_stories_molecules_inputs_network_inputs_stories
                             .buildNetworkInputsUseCase,
+                  )
+                ],
+              )
+            ],
+          ),
+          _widgetbook.WidgetbookFolder(
+            name: 'password',
+            children: [
+              _widgetbook.WidgetbookComponent(
+                name: 'AppPasswordInput',
+                useCases: [
+                  _widgetbook.WidgetbookUseCase(
+                    name: 'AppPasswordInput',
+                    builder:
+                        _widgetbook_workspace_stories_molecules_inputs_password_input_stories
+                            .appPasswordInputUseCase,
+                  )
+                ],
+              )
+            ],
+          ),
+          _widgetbook.WidgetbookFolder(
+            name: 'pin',
+            children: [
+              _widgetbook.WidgetbookComponent(
+                name: 'AppPinInput',
+                useCases: [
+                  _widgetbook.WidgetbookUseCase(
+                    name: 'AppPinInput',
+                    builder:
+                        _widgetbook_workspace_stories_molecules_inputs_pin_input_stories
+                            .appPinInputUseCase,
+                  )
+                ],
+              )
+            ],
+          ),
+          _widgetbook.WidgetbookFolder(
+            name: 'range',
+            children: [
+              _widgetbook.WidgetbookComponent(
+                name: 'AppRangeInput',
+                useCases: [
+                  _widgetbook.WidgetbookUseCase(
+                    name: 'AppRangeInput',
+                    builder:
+                        _widgetbook_workspace_stories_molecules_inputs_range_input_stories
+                            .appRangeInputUseCase,
                   )
                 ],
               )
@@ -917,7 +977,7 @@ final directories = <_widgetbook.WidgetbookNode>[
               _widgetbook.WidgetbookUseCase(
                 name: 'Interactive Playground',
                 builder:
-                    _widgetbook_workspace_stories_navigation_app_navigation_bar_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_navigation_bar_stories
                         .buildAppNavigationBar,
               )
             ],
@@ -928,7 +988,7 @@ final directories = <_widgetbook.WidgetbookNode>[
               _widgetbook.WidgetbookUseCase(
                 name: 'Interactive Rail (Desktop Layout)',
                 builder:
-                    _widgetbook_workspace_stories_navigation_app_navigation_rail_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_navigation_rail_stories
                         .buildNavigationRail,
               )
             ],
@@ -1000,7 +1060,7 @@ final directories = <_widgetbook.WidgetbookNode>[
               _widgetbook.WidgetbookUseCase(
                 name: 'AppDrawer (Convenience Wrapper)',
                 builder:
-                    _widgetbook_workspace_stories_navigation_side_sheet_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_side_sheet_stories
                         .buildAppDrawer,
               )
             ],
@@ -1011,37 +1071,37 @@ final directories = <_widgetbook.WidgetbookNode>[
               _widgetbook.WidgetbookUseCase(
                 name: 'Custom Width Variations',
                 builder:
-                    _widgetbook_workspace_stories_navigation_side_sheet_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_side_sheet_stories
                         .buildCustomWidthSheet,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Dismissible (Tap Outside)',
                 builder:
-                    _widgetbook_workspace_stories_navigation_side_sheet_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_side_sheet_stories
                         .buildDismissibleSheet,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Non-Dismissible (Requires Action)',
                 builder:
-                    _widgetbook_workspace_stories_navigation_side_sheet_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_side_sheet_stories
                         .buildNonDismissibleSheet,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Overlay Mode - Left',
                 builder:
-                    _widgetbook_workspace_stories_navigation_side_sheet_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_side_sheet_stories
                         .buildLeftOverlaySheet,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Overlay Mode - Right',
                 builder:
-                    _widgetbook_workspace_stories_navigation_side_sheet_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_side_sheet_stories
                         .buildRightOverlaySheet,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Persistent Mode',
                 builder:
-                    _widgetbook_workspace_stories_navigation_side_sheet_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_side_sheet_stories
                         .buildPersistentSheet,
               ),
             ],
@@ -1057,19 +1117,19 @@ final directories = <_widgetbook.WidgetbookNode>[
               _widgetbook.WidgetbookUseCase(
                 name: 'Basic Surface',
                 builder:
-                    _widgetbook_workspace_stories_molecules_slide_action_slide_action_stories
+                    _widgetbook_workspace_stories_molecules_slide_action_app_slide_action_stories
                         .appSlideActionBasicUseCase,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Single Action',
                 builder:
-                    _widgetbook_workspace_stories_molecules_slide_action_slide_action_stories
+                    _widgetbook_workspace_stories_molecules_slide_action_app_slide_action_stories
                         .appSlideActionSingleUseCase,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'With AppListTile',
                 builder:
-                    _widgetbook_workspace_stories_molecules_slide_action_slide_action_stories
+                    _widgetbook_workspace_stories_molecules_slide_action_app_slide_action_stories
                         .appSlideActionListTileUseCase,
               ),
             ],
@@ -1084,13 +1144,15 @@ final directories = <_widgetbook.WidgetbookNode>[
             useCases: [
               _widgetbook.WidgetbookUseCase(
                 name: 'All States (Static)',
-                builder: _widgetbook_workspace_stories_status_app_avatar_stories
-                    .buildAvatarStates,
+                builder:
+                    _widgetbook_workspace_stories_molecules_status_app_avatar_stories
+                        .buildAvatarStates,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Interactive Avatar',
-                builder: _widgetbook_workspace_stories_status_app_avatar_stories
-                    .buildInteractiveAvatar,
+                builder:
+                    _widgetbook_workspace_stories_molecules_status_app_avatar_stories
+                        .buildInteractiveAvatar,
               ),
             ],
           ),
@@ -1099,13 +1161,15 @@ final directories = <_widgetbook.WidgetbookNode>[
             useCases: [
               _widgetbook.WidgetbookUseCase(
                 name: 'All States (Static)',
-                builder: _widgetbook_workspace_stories_status_app_badge_stories
-                    .buildBadgeStates,
+                builder:
+                    _widgetbook_workspace_stories_molecules_status_app_badge_stories
+                        .buildBadgeStates,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Interactive Badge',
-                builder: _widgetbook_workspace_stories_status_app_badge_stories
-                    .buildInteractiveBadge,
+                builder:
+                    _widgetbook_workspace_stories_molecules_status_app_badge_stories
+                        .buildInteractiveBadge,
               ),
             ],
           ),
@@ -1114,13 +1178,15 @@ final directories = <_widgetbook.WidgetbookNode>[
             useCases: [
               _widgetbook.WidgetbookUseCase(
                 name: 'All States (Static)',
-                builder: _widgetbook_workspace_stories_status_app_tag_stories
-                    .buildTagStates,
+                builder:
+                    _widgetbook_workspace_stories_molecules_status_app_tag_stories
+                        .buildTagStates,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Interactive Tag',
-                builder: _widgetbook_workspace_stories_status_app_tag_stories
-                    .buildInteractiveTag,
+                builder:
+                    _widgetbook_workspace_stories_molecules_status_app_tag_stories
+                        .buildInteractiveTag,
               ),
             ],
           ),
@@ -1135,49 +1201,49 @@ final directories = <_widgetbook.WidgetbookNode>[
               _widgetbook.WidgetbookUseCase(
                 name: 'Custom Step Count',
                 builder:
-                    _widgetbook_workspace_stories_navigation_stepper_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_stepper_stories
                         .buildCustomStepCount,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Horizontal - Active Step',
                 builder:
-                    _widgetbook_workspace_stories_navigation_stepper_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_stepper_stories
                         .buildHorizontalActiveStep,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Horizontal - Completed',
                 builder:
-                    _widgetbook_workspace_stories_navigation_stepper_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_stepper_stories
                         .buildHorizontalCompleted,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Horizontal - First Step',
                 builder:
-                    _widgetbook_workspace_stories_navigation_stepper_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_stepper_stories
                         .buildHorizontalFirstStep,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Interactive Steps',
                 builder:
-                    _widgetbook_workspace_stories_navigation_stepper_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_stepper_stories
                         .buildInteractiveSteps,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Read-Only Mode',
                 builder:
-                    _widgetbook_workspace_stories_navigation_stepper_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_stepper_stories
                         .buildReadOnlyMode,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Vertical Layout',
                 builder:
-                    _widgetbook_workspace_stories_navigation_stepper_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_stepper_stories
                         .buildVerticalLayout,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'With Disabled Steps',
                 builder:
-                    _widgetbook_workspace_stories_navigation_stepper_stories
+                    _widgetbook_workspace_stories_molecules_navigation_app_stepper_stories
                         .buildWithDisabledSteps,
               ),
             ],
@@ -1193,37 +1259,37 @@ final directories = <_widgetbook.WidgetbookNode>[
               _widgetbook.WidgetbookUseCase(
                 name: 'Desktop - Inline Edit',
                 builder:
-                    _widgetbook_workspace_stories_molecules_table_table_stories
+                    _widgetbook_workspace_stories_molecules_table_app_data_table_stories
                         .desktopInlineEdit,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Empty State',
                 builder:
-                    _widgetbook_workspace_stories_molecules_table_table_stories
+                    _widgetbook_workspace_stories_molecules_table_app_data_table_stories
                         .emptyState,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Mobile - BottomSheet Edit',
                 builder:
-                    _widgetbook_workspace_stories_molecules_table_table_stories
+                    _widgetbook_workspace_stories_molecules_table_app_data_table_stories
                         .mobileBottomSheetEdit,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Responsive Table',
                 builder:
-                    _widgetbook_workspace_stories_molecules_table_table_stories
+                    _widgetbook_workspace_stories_molecules_table_app_data_table_stories
                         .responsiveTable,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Tablet - Dialog Edit',
                 builder:
-                    _widgetbook_workspace_stories_molecules_table_table_stories
+                    _widgetbook_workspace_stories_molecules_table_app_data_table_stories
                         .tabletDialogEdit,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'With Pagination',
                 builder:
-                    _widgetbook_workspace_stories_molecules_table_table_stories
+                    _widgetbook_workspace_stories_molecules_table_app_data_table_stories
                         .withPagination,
               ),
             ],
@@ -1237,7 +1303,7 @@ final directories = <_widgetbook.WidgetbookNode>[
                   _widgetbook.WidgetbookUseCase(
                     name: 'Card View',
                     builder:
-                        _widgetbook_workspace_stories_molecules_table_table_stories
+                        _widgetbook_workspace_stories_molecules_table_app_data_table_stories
                             .cardView,
                   )
                 ],
@@ -1248,13 +1314,13 @@ final directories = <_widgetbook.WidgetbookNode>[
                   _widgetbook.WidgetbookUseCase(
                     name: 'Grid - Dialog Edit State',
                     builder:
-                        _widgetbook_workspace_stories_molecules_table_table_stories
+                        _widgetbook_workspace_stories_molecules_table_app_data_table_stories
                             .gridDialogEditState,
                   ),
                   _widgetbook.WidgetbookUseCase(
                     name: 'Grid - Inline Edit Mode',
                     builder:
-                        _widgetbook_workspace_stories_molecules_table_table_stories
+                        _widgetbook_workspace_stories_molecules_table_app_data_table_stories
                             .gridInlineEditMode,
                   ),
                 ],
@@ -1271,33 +1337,39 @@ final directories = <_widgetbook.WidgetbookNode>[
             useCases: [
               _widgetbook.WidgetbookUseCase(
                 name: 'Filled Style',
-                builder: _widgetbook_workspace_stories_navigation_tabs_stories
-                    .buildFilledTabs,
+                builder:
+                    _widgetbook_workspace_stories_molecules_navigation_app_tabs_stories
+                        .buildFilledTabs,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Segmented Style',
-                builder: _widgetbook_workspace_stories_navigation_tabs_stories
-                    .buildSegmentedTabs,
+                builder:
+                    _widgetbook_workspace_stories_molecules_navigation_app_tabs_stories
+                        .buildSegmentedTabs,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Underline Style',
-                builder: _widgetbook_workspace_stories_navigation_tabs_stories
-                    .buildUnderlineTabs,
+                builder:
+                    _widgetbook_workspace_stories_molecules_navigation_app_tabs_stories
+                        .buildUnderlineTabs,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'With Disabled Tab',
-                builder: _widgetbook_workspace_stories_navigation_tabs_stories
-                    .buildTabsWithDisabled,
+                builder:
+                    _widgetbook_workspace_stories_molecules_navigation_app_tabs_stories
+                        .buildTabsWithDisabled,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'With Icons',
-                builder: _widgetbook_workspace_stories_navigation_tabs_stories
-                    .buildTabsWithIcons,
+                builder:
+                    _widgetbook_workspace_stories_molecules_navigation_app_tabs_stories
+                        .buildTabsWithIcons,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'With Tab Content',
-                builder: _widgetbook_workspace_stories_navigation_tabs_stories
-                    .buildTabsWithContent,
+                builder:
+                    _widgetbook_workspace_stories_molecules_navigation_app_tabs_stories
+                        .buildTabsWithContent,
               ),
             ],
           )
@@ -1320,6 +1392,46 @@ final directories = <_widgetbook.WidgetbookNode>[
                 builder:
                     _widgetbook_workspace_stories_molecules_toggles_app_switch_stories
                         .interactiveAppSwitch,
+              ),
+            ],
+          )
+        ],
+      ),
+      _widgetbook.WidgetbookFolder(
+        name: 'typography',
+        children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'AppStyledText',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Default',
+                builder:
+                    _widgetbook_workspace_stories_molecules_typography_app_styled_text_stories
+                        .buildAppStyledTextUseCase,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Mixed Format Demo',
+                builder:
+                    _widgetbook_workspace_stories_molecules_typography_app_styled_text_stories
+                        .buildAppStyledTextMixedUseCase,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Parametrized Tags Demo',
+                builder:
+                    _widgetbook_workspace_stories_molecules_typography_app_styled_text_stories
+                        .buildAppStyledTextParametrizedUseCase,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Theme Adaptation',
+                builder:
+                    _widgetbook_workspace_stories_molecules_typography_app_styled_text_stories
+                        .buildAppStyledTextThemeAdaptationUseCase,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'XML Tags Demo',
+                builder:
+                    _widgetbook_workspace_stories_molecules_typography_app_styled_text_stories
+                        .buildAppStyledTextXmlUseCase,
               ),
             ],
           )
@@ -1444,7 +1556,7 @@ final directories = <_widgetbook.WidgetbookNode>[
               _widgetbook.WidgetbookUseCase(
                 name: 'AppExpandableFab',
                 builder:
-                    _widgetbook_workspace_stories_organisms_expandable_fab_expandable_fab_stories
+                    _widgetbook_workspace_stories_organisms_expandable_fab_app_expandable_fab_stories
                         .appExpandableFabUseCase,
               )
             ],
@@ -1460,25 +1572,25 @@ final directories = <_widgetbook.WidgetbookNode>[
               _widgetbook.WidgetbookUseCase(
                 name: 'Default',
                 builder:
-                    _widgetbook_workspace_stories_organisms_gauge_gauge_stories
+                    _widgetbook_workspace_stories_organisms_gauge_app_gauge_stories
                         .appGaugeUseCase,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Minimal (No Markers)',
                 builder:
-                    _widgetbook_workspace_stories_organisms_gauge_gauge_stories
+                    _widgetbook_workspace_stories_organisms_gauge_app_gauge_stories
                         .appGaugeMinimalUseCase,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'Speed Test Animation',
                 builder:
-                    _widgetbook_workspace_stories_organisms_gauge_gauge_stories
+                    _widgetbook_workspace_stories_organisms_gauge_app_gauge_stories
                         .appGaugeSpeedTestUseCase,
               ),
               _widgetbook.WidgetbookUseCase(
                 name: 'With Default Markers',
                 builder:
-                    _widgetbook_workspace_stories_organisms_gauge_gauge_stories
+                    _widgetbook_workspace_stories_organisms_gauge_app_gauge_stories
                         .appGaugeWithDefaultMarkersUseCase,
               ),
             ],
@@ -1784,7 +1896,7 @@ final directories = <_widgetbook.WidgetbookNode>[
               _widgetbook.WidgetbookUseCase(
                 name: 'Custom Theme via JSON',
                 builder:
-                    _widgetbook_workspace_stories_foundation_color_json_story
+                    _widgetbook_workspace_stories_foundation_color_json_stories
                         .buildColorJsonStory,
               )
             ],

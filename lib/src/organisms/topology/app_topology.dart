@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../atoms/icons/app_icon.dart';
+import '../../molecules/feedback/app_loader.dart';
+import '../../foundation/theme/design_system/app_design_theme.dart';
 import 'models/mesh_topology.dart';
 import 'nodes/pulse_node.dart' show NodeContentBuilder;
 import 'types/topology_types.dart';
@@ -39,10 +42,6 @@ class AppTopology extends StatelessWidget {
   /// Breakpoint for view switching in logical pixels.
   /// Defaults to 600px.
   final double breakpoint;
-
-  /// Duration for view transition animation.
-  /// Defaults to 300ms.
-  final Duration transitionDuration;
 
   /// Callback when a node is tapped.
   final void Function(String nodeId)? onNodeTap;
@@ -118,7 +117,6 @@ class AppTopology extends StatelessWidget {
     this.topology,
     this.viewMode = TopologyViewMode.auto,
     this.breakpoint = defaultBreakpoint,
-    this.transitionDuration = const Duration(milliseconds: 300),
     this.onNodeTap,
     this.onTopologyChanged,
     this.nodeMenuBuilder,
@@ -141,6 +139,13 @@ class AppTopology extends StatelessWidget {
     if (topology!.nodes.isEmpty) {
       return emptyStateWidget ?? _buildDefaultEmptyState(context);
     }
+
+    // Get theme extension for animation specification
+    final theme = Theme.of(context).extension<AppDesignTheme>();
+    assert(theme != null, 'AppDesignTheme not found in context');
+
+    final topologySpec = theme!.topologySpec;
+    final viewTransitionSpec = topologySpec.viewTransition;
 
     // Check for reduced motion preference (T111)
     final reduceMotion = MediaQuery.maybeDisableAnimationsOf(context) ?? false;
@@ -175,10 +180,11 @@ class AppTopology extends StatelessWidget {
         }
 
         // Wrap with AnimatedSwitcher for smooth transitions
+        // Constitution 5.1 compliance: Use theme animation specification
         return AnimatedSwitcher(
-          duration: effectiveAnimation ? transitionDuration : Duration.zero,
-          switchInCurve: Curves.easeInOut,
-          switchOutCurve: Curves.easeInOut,
+          duration: effectiveAnimation ? viewTransitionSpec.duration : Duration.zero,
+          switchInCurve: viewTransitionSpec.curve,
+          switchOutCurve: viewTransitionSpec.curve,
           transitionBuilder: (child, animation) {
             return FadeTransition(
               opacity: animation,
@@ -210,7 +216,7 @@ class AppTopology extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const CircularProgressIndicator(),
+          const AppLoader(),
           const SizedBox(height: 16),
           Text(
             'Loading topology...',
@@ -227,7 +233,7 @@ class AppTopology extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
+          AppIcon.font(
             Icons.device_hub,
             size: 64,
             color: Theme.of(context).colorScheme.outline,

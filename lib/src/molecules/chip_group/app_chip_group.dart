@@ -191,9 +191,7 @@ class _AppChipGroupState extends State<AppChipGroup> {
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               decoration: BoxDecoration(
-                color: isSelected
-                    ? _style.selectedBackground
-                    : _style.unselectedBackground,
+                color: _style.backgroundColors.resolve(isActive: isSelected),
                 borderRadius: BorderRadius.circular(_style.borderRadius),
                 border: isSelected
                     ? Border.all(color: _style.selectedBorderColor, width: 2)
@@ -207,17 +205,13 @@ class _AppChipGroupState extends State<AppChipGroup> {
                     Icon(
                       chip.icon,
                       size: 16,
-                      color: isSelected
-                          ? _style.selectedText
-                          : _style.unselectedText,
+                      color: _style.textColors.resolve(isActive: isSelected),
                     ),
                     const SizedBox(width: 6),
                   ],
                   AppText(
                     chip.label,
-                    color: isSelected
-                        ? _style.selectedText
-                        : _style.unselectedText,
+                    color: _style.textColors.resolve(isActive: isSelected),
                     fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                   ),
                 ],

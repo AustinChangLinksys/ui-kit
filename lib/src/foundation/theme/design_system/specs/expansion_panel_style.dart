@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:theme_tailor_annotation/theme_tailor_annotation.dart';
 
+import 'shared/animation_spec.dart';
+
 part 'expansion_panel_style.tailor.dart';
 
 @TailorMixin()
@@ -11,7 +13,7 @@ class ExpansionPanelStyle extends ThemeExtension<ExpansionPanelStyle>
     required this.expandedBackgroundColor,
     required this.headerTextColor,
     required this.expandIcon,
-    required this.animationDuration,
+    required this.animation,
   });
 
   /// Background color of panel headers
@@ -30,7 +32,13 @@ class ExpansionPanelStyle extends ThemeExtension<ExpansionPanelStyle>
   @override
   final IconData expandIcon;
 
-  /// Animation duration for expand/collapse
+  /// Animation timing for expand/collapse
   @override
-  final Duration animationDuration;
+  final AnimationSpec animation;
+
+  // --- Backward Compatibility Getters ---
+
+  /// Animation duration (convenience getter for backward compatibility)
+  @override
+  Duration get animationDuration => animation.duration;
 }

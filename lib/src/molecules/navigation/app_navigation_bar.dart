@@ -72,12 +72,8 @@ class AppNavigationBar extends StatelessWidget {
           final item = items[index];
           final isSelected = index == currentIndex;
 
-          // Color logic:
-          // - Selected: Use Tonal surface for visual distinction
-          // - Unselected: Use Base's text color with reduced opacity
-          final color = isSelected
-              ? theme.surfaceSecondary.contentColor
-              : theme.surfaceBase.contentColor.withValues(alpha: 0.6);
+          // Color logic: Use itemColors from NavigationStyle
+          final color = navSpec.itemColors.resolve(isActive: isSelected);
 
           // Use Expanded to ensure click area is evenly distributed
           return Expanded(

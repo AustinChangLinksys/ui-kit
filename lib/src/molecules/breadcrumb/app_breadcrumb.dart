@@ -123,7 +123,8 @@ class _AppBreadcrumbState extends State<AppBreadcrumb> {
     bool isLast,
     bool isClickable,
   ) {
-    final color = isLast ? _style.inactiveLinkColor : _style.activeLinkColor;
+    // isLast = current location (inactive), others are clickable (active)
+    final color = _style.linkColors.resolve(isActive: !isLast);
 
     return Semantics(
       label: isLast

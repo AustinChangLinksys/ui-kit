@@ -1,0 +1,264 @@
+description = "Generate a Theme Extension style spec using @TailorMixin and Shared Specs composition."
+
+prompt = """
+---
+description = "Generate a Theme Extension style spec using @TailorMixin and Shared Specs composition."
+---
+
+## User Input
+
+```text
+{{args}}
+```
+
+You **MUST** parse the user input for:
+- **Style name** (e.g., `TimePicker`, `Rating`, `Sidebar`)
+- **Required properties** (optional, will ask if not specified)
+
+If missing style name, ask the user.
+
+## Goal
+
+Generate a Constitution-compliant Theme Extension style spec that:
+1. Uses `@TailorMixin()` for code generation (4.5)
+2. Composes Shared Specs instead of duplicating properties (4.6)
+3. Follows the established naming conventions
+
+## Operating Constraints
+
+**Constitution 4.5**: MUST use `@TailorMixin()` - hand-writing `copyWith`/`lerp` is prohibited.
+
+**Constitution 4.6**: MUST compose `AnimationSpec`, `StateColorSpec`, `OverlaySpec` when applicable.
+
+**NO GUESSING POLICY**:
+- **NEVER** assume which properties a style needs without explicit user input
+- **NEVER** generate style specs with assumed color/animation values
+- **ALWAYS** ask the user which Shared Specs to include if unclear
+
+**AMBIGUITY RESOLUTION**:
+When encountering any of these situations, **STOP immediately and ask the user**:
+1. Style name is missing or unclear
+2. Required properties are not specified
+3. Unsure whether to include AnimationSpec, StateColorSpec, or OverlaySpec
+4. Property types are ambiguous (e.g., Color vs StateColorSpec)
+5. Similar style already exists - ask if updating or creating new
+6. Component this style is for is not clear
+
+## Shared Specs Decision Matrix
+
+| Component Need | Shared Spec | When to Use |
+|----------------|-------------|-------------|
+| Transitions | `AnimationSpec` | Any animated state changes |
+| Active/Inactive colors | `StateColorSpec` | Selection, toggle, tabs |
+| Modal backdrop | `OverlaySpec` | Sheets, dialogs, popups |
+
+## Execution Steps
+
+### 1. Analyze Requirements
+
+Ask or infer what the style needs:
+
+| Property Type | Example Properties |
+|---------------|-------------------|
+| Colors | `backgroundColor`, `borderColor`, `textColor` |
+| Dimensions | `borderRadius`, `height`, `width`, `spacing` |
+| Typography | Use `TextStyle` reference to `appTextTheme` |
+| Animation | Compose `AnimationSpec` |
+| State Colors | Compose `StateColorSpec` |
+| Overlay | Compose `OverlaySpec` |
+
+### 2. Generate Style File
+
+Create `lib/src/foundation/theme/design_system/specs/{style_snake}_style.dart`:
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:theme_tailor_annotation/theme_tailor_annotation.dart';
+
+import 'shared/shared_specs.dart';
+
+part '{style_snake}_style.tailor.dart';
+
+/// Style specification for {StyleName} components.
+///
+/// Constitution compliance:
+/// - Uses @TailorMixin (4.5)
+/// - Composes AnimationSpec for transitions (4.6)
+/// - Composes StateColorSpec for state-based colors (4.6)
+///
+/// Example:
+/// ```dart
+/// {StyleName}Style(
+///   animation: AnimationSpec.standard,
+///   itemColors: StateColorSpec(
+///     active: scheme.primary,
+///     inactive: scheme.onSurfaceVariant,
+///   ),
+///   // ... other properties
+/// )
+/// ```
+@TailorMixin()
+class {StyleName}Style extends ThemeExtension<{StyleName}Style>
+    with _${StyleName}StyleTailorMixin {
+  const {StyleName}Style({
+    required this.animation,
+    required this.itemColors,
+    // Add other required properties
+  });
+
+  // ============================================
+  // Shared Specs (Constitution 4.6)
+  // ============================================
+
+  /// Animation timing for transitions
+  @override
+  final AnimationSpec animation;
+
+  /// State-based colors for items
+  @override
+  final StateColorSpec itemColors;
+
+  // ============================================
+  // Component-Specific Properties
+  // ============================================
+
+  // Add component-specific properties here
+  // Example:
+  // @override
+  // final double borderRadius;
+  //
+  // @override
+  // final Color backgroundColor;
+}
+```
+
+### 3. Generate Theme Configuration Snippet
+
+Provide copy-paste snippets for all 5 theme files:
+
+```dart
+// ============================================
+// Add to AppDesignTheme (app_design_theme.dart)
+// ============================================
+
+// In the class definition, add:
+final {StyleName}Style {styleName}Style;
+
+// In the constructor, add:
+required this.{styleName}Style,
+
+// ============================================
+// Flat Theme (flat_design_theme.dart)
+// ============================================
+{styleName}Style: {StyleName}Style(
+  animation: AnimationSpec.standard,
+  itemColors: StateColorSpec(
+    active: colors.primary,
+    inactive: colors.onSurfaceVariant,
+  ),
+),
+
+// ============================================
+// Glass Theme (glass_design_theme.dart)
+// ============================================
+{styleName}Style: {StyleName}Style(
+  animation: AnimationSpec.slow,  // Glass uses slower animations
+  itemColors: StateColorSpec(
+    active: colors.primary,
+    inactive: colors.onSurfaceVariant.withOpacity(0.7),
+  ),
+),
+
+// ============================================
+// Brutal Theme (brutal_design_theme.dart)
+// ============================================
+{styleName}Style: {StyleName}Style(
+  animation: AnimationSpec.fast,  // Brutal uses snappy animations
+  itemColors: StateColorSpec(
+    active: colors.primary,
+    inactive: colors.onSurface,
+  ),
+),
+
+// ============================================
+// Neumorphic Theme (neumorphic_design_theme.dart)
+// ============================================
+{styleName}Style: {StyleName}Style(
+  animation: AnimationSpec.standard,
+  itemColors: StateColorSpec(
+    active: colors.primary,
+    inactive: colors.onSurfaceVariant,
+  ),
+),
+
+// ============================================
+// Pixel Theme (pixel_design_theme.dart)
+// ============================================
+{styleName}Style: {StyleName}Style(
+  animation: AnimationSpec.instant,  // Pixel uses instant transitions
+  itemColors: StateColorSpec(
+    active: colors.primary,
+    inactive: colors.onSurface,
+  ),
+),
+```
+
+### 4. Update Exports
+
+Add to `lib/ui_kit.dart`:
+
+```dart
+export 'src/foundation/theme/design_system/specs/{style_snake}_style.dart';
+```
+
+### 5. Output Summary
+
+```markdown
+## Style Generated: {StyleName}Style
+
+### File Created
+`lib/src/foundation/theme/design_system/specs/{style_snake}_style.dart`
+
+### Shared Specs Used
+- [x] AnimationSpec
+- [x] StateColorSpec
+- [ ] OverlaySpec (not needed)
+
+### Next Steps
+
+1. **Run code generation**:
+   ```bash
+   dart run build_runner build --delete-conflicting-outputs
+   ```
+
+2. **Add to AppDesignTheme** (`app_design_theme.dart`):
+   - Add field declaration
+   - Add constructor parameter
+
+3. **Configure in all 5 theme files**:
+   - [ ] flat_design_theme.dart
+   - [ ] glass_design_theme.dart
+   - [ ] brutal_design_theme.dart
+   - [ ] neumorphic_design_theme.dart
+   - [ ] pixel_design_theme.dart
+
+4. **Add export** to `lib/ui_kit.dart`
+
+5. **Verify**:
+   ```bash
+   flutter analyze
+   ```
+```
+
+## Example Usage
+
+```
+/uikit.style TimePicker --props animation,hourColor,minuteColor,dialBackground
+/uikit.style Rating
+/uikit.style Sidebar --with-overlay
+```
+
+## Context
+
+{{ arguments }}
+"""

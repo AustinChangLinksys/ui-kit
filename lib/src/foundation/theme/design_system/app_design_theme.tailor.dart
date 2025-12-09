@@ -34,8 +34,6 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
   AppMotion get motion;
   GlobalEffectsType get visualEffects;
   AppIconStyle get iconStyle;
-  BottomSheetStyle get bottomSheetStyle;
-  SideSheetStyle get sideSheetStyle;
   TabsStyle get tabsStyle;
   StepperStyle get stepperStyle;
   BreadcrumbStyle get breadcrumbStyle;
@@ -50,6 +48,7 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
   RangeInputStyle get rangeInputStyle;
   PinInputStyle get pinInputStyle;
   PasswordInputStyle get passwordInputStyle;
+  SheetStyle get sheetStyle;
 
   @override
   AppDesignTheme copyWith({
@@ -77,8 +76,6 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
     AppMotion? motion,
     GlobalEffectsType? visualEffects,
     AppIconStyle? iconStyle,
-    BottomSheetStyle? bottomSheetStyle,
-    SideSheetStyle? sideSheetStyle,
     TabsStyle? tabsStyle,
     StepperStyle? stepperStyle,
     BreadcrumbStyle? breadcrumbStyle,
@@ -93,6 +90,7 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
     RangeInputStyle? rangeInputStyle,
     PinInputStyle? pinInputStyle,
     PasswordInputStyle? passwordInputStyle,
+    SheetStyle? sheetStyle,
   }) {
     return AppDesignTheme(
       toggleStyle: toggleStyle ?? this.toggleStyle,
@@ -119,8 +117,6 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       motion: motion ?? this.motion,
       visualEffects: visualEffects ?? this.visualEffects,
       iconStyle: iconStyle ?? this.iconStyle,
-      bottomSheetStyle: bottomSheetStyle ?? this.bottomSheetStyle,
-      sideSheetStyle: sideSheetStyle ?? this.sideSheetStyle,
       tabsStyle: tabsStyle ?? this.tabsStyle,
       stepperStyle: stepperStyle ?? this.stepperStyle,
       breadcrumbStyle: breadcrumbStyle ?? this.breadcrumbStyle,
@@ -135,6 +131,7 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       rangeInputStyle: rangeInputStyle ?? this.rangeInputStyle,
       pinInputStyle: pinInputStyle ?? this.pinInputStyle,
       passwordInputStyle: passwordInputStyle ?? this.passwordInputStyle,
+      sheetStyle: sheetStyle ?? this.sheetStyle,
     );
   }
 
@@ -143,12 +140,12 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       covariant ThemeExtension<AppDesignTheme>? other, double t) {
     if (other is! AppDesignTheme) return this as AppDesignTheme;
     return AppDesignTheme(
-      toggleStyle: t < 0.5 ? toggleStyle : other.toggleStyle,
-      skeletonStyle: t < 0.5 ? skeletonStyle : other.skeletonStyle,
-      inputStyle: t < 0.5 ? inputStyle : other.inputStyle,
+      toggleStyle: toggleStyle.lerp(other.toggleStyle, t),
+      skeletonStyle: skeletonStyle.lerp(other.skeletonStyle, t),
+      inputStyle: inputStyle.lerp(other.inputStyle, t),
       loaderStyle: loaderStyle.lerp(other.loaderStyle, t),
       toastStyle: toastStyle.lerp(other.toastStyle, t),
-      dividerStyle: t < 0.5 ? dividerStyle : other.dividerStyle,
+      dividerStyle: dividerStyle.lerp(other.dividerStyle, t),
       networkInputStyle: t < 0.5 ? networkInputStyle : other.networkInputStyle,
       surfaceBase: t < 0.5 ? surfaceBase : other.surfaceBase,
       surfaceElevated: t < 0.5 ? surfaceElevated : other.surfaceElevated,
@@ -156,19 +153,17 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       surfaceSecondary: t < 0.5 ? surfaceSecondary : other.surfaceSecondary,
       surfaceTertiary: t < 0.5 ? surfaceTertiary : other.surfaceTertiary,
       typography: t < 0.5 ? typography : other.typography,
-      animation: t < 0.5 ? animation : other.animation,
+      animation: animation.lerp(other.animation, t),
       spacingFactor: t < 0.5 ? spacingFactor : other.spacingFactor,
       layoutSpec: t < 0.5 ? layoutSpec : other.layoutSpec,
       buttonHeight: t < 0.5 ? buttonHeight : other.buttonHeight,
-      navigationStyle: t < 0.5 ? navigationStyle : other.navigationStyle,
-      appBarStyle: t < 0.5 ? appBarStyle : other.appBarStyle,
-      menuStyle: t < 0.5 ? menuStyle : other.menuStyle,
-      dialogStyle: t < 0.5 ? dialogStyle : other.dialogStyle,
+      navigationStyle: navigationStyle.lerp(other.navigationStyle, t),
+      appBarStyle: appBarStyle.lerp(other.appBarStyle, t),
+      menuStyle: menuStyle.lerp(other.menuStyle, t),
+      dialogStyle: dialogStyle.lerp(other.dialogStyle, t),
       motion: t < 0.5 ? motion : other.motion,
       visualEffects: t < 0.5 ? visualEffects : other.visualEffects,
       iconStyle: t < 0.5 ? iconStyle : other.iconStyle,
-      bottomSheetStyle: bottomSheetStyle.lerp(other.bottomSheetStyle, t),
-      sideSheetStyle: sideSheetStyle.lerp(other.sideSheetStyle, t),
       tabsStyle: tabsStyle.lerp(other.tabsStyle, t),
       stepperStyle: stepperStyle.lerp(other.stepperStyle, t),
       breadcrumbStyle: breadcrumbStyle.lerp(other.breadcrumbStyle, t),
@@ -181,10 +176,10 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       slideActionStyle: slideActionStyle.lerp(other.slideActionStyle, t),
       expandableFabStyle: expandableFabStyle.lerp(other.expandableFabStyle, t),
       gaugeStyle: gaugeStyle.lerp(other.gaugeStyle, t),
-      rangeInputStyle: t < 0.5 ? rangeInputStyle : other.rangeInputStyle,
-      pinInputStyle: t < 0.5 ? pinInputStyle : other.pinInputStyle,
-      passwordInputStyle:
-          t < 0.5 ? passwordInputStyle : other.passwordInputStyle,
+      rangeInputStyle: rangeInputStyle.lerp(other.rangeInputStyle, t),
+      pinInputStyle: pinInputStyle.lerp(other.pinInputStyle, t),
+      passwordInputStyle: passwordInputStyle.lerp(other.passwordInputStyle, t),
+      sheetStyle: sheetStyle.lerp(other.sheetStyle, t),
     );
   }
 
@@ -237,10 +232,6 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
             const DeepCollectionEquality()
                 .equals(visualEffects, other.visualEffects) &&
             const DeepCollectionEquality().equals(iconStyle, other.iconStyle) &&
-            const DeepCollectionEquality()
-                .equals(bottomSheetStyle, other.bottomSheetStyle) &&
-            const DeepCollectionEquality()
-                .equals(sideSheetStyle, other.sideSheetStyle) &&
             const DeepCollectionEquality().equals(tabsStyle, other.tabsStyle) &&
             const DeepCollectionEquality()
                 .equals(stepperStyle, other.stepperStyle) &&
@@ -267,7 +258,9 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
             const DeepCollectionEquality()
                 .equals(pinInputStyle, other.pinInputStyle) &&
             const DeepCollectionEquality()
-                .equals(passwordInputStyle, other.passwordInputStyle));
+                .equals(passwordInputStyle, other.passwordInputStyle) &&
+            const DeepCollectionEquality()
+                .equals(sheetStyle, other.sheetStyle));
   }
 
   @override
@@ -298,8 +291,6 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       const DeepCollectionEquality().hash(motion),
       const DeepCollectionEquality().hash(visualEffects),
       const DeepCollectionEquality().hash(iconStyle),
-      const DeepCollectionEquality().hash(bottomSheetStyle),
-      const DeepCollectionEquality().hash(sideSheetStyle),
       const DeepCollectionEquality().hash(tabsStyle),
       const DeepCollectionEquality().hash(stepperStyle),
       const DeepCollectionEquality().hash(breadcrumbStyle),
@@ -314,6 +305,7 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       const DeepCollectionEquality().hash(rangeInputStyle),
       const DeepCollectionEquality().hash(pinInputStyle),
       const DeepCollectionEquality().hash(passwordInputStyle),
+      const DeepCollectionEquality().hash(sheetStyle),
     ]);
   }
 }
@@ -345,8 +337,6 @@ extension AppDesignThemeBuildContextProps on BuildContext {
   AppMotion get motion => appDesignTheme.motion;
   GlobalEffectsType get visualEffects => appDesignTheme.visualEffects;
   AppIconStyle get iconStyle => appDesignTheme.iconStyle;
-  BottomSheetStyle get bottomSheetStyle => appDesignTheme.bottomSheetStyle;
-  SideSheetStyle get sideSheetStyle => appDesignTheme.sideSheetStyle;
   TabsStyle get tabsStyle => appDesignTheme.tabsStyle;
   StepperStyle get stepperStyle => appDesignTheme.stepperStyle;
   BreadcrumbStyle get breadcrumbStyle => appDesignTheme.breadcrumbStyle;
@@ -364,4 +354,10 @@ extension AppDesignThemeBuildContextProps on BuildContext {
   PinInputStyle get pinInputStyle => appDesignTheme.pinInputStyle;
   PasswordInputStyle get passwordInputStyle =>
       appDesignTheme.passwordInputStyle;
+
+  /// Unified sheet style for both bottom sheets and side sheets.
+  ///
+  /// Composes [OverlaySpec] for overlay appearance and animation.
+  /// Use this instead of [bottomSheetStyle] and [sideSheetStyle] for new code.
+  SheetStyle get sheetStyle => appDesignTheme.sheetStyle;
 }

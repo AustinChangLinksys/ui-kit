@@ -90,8 +90,14 @@ class _AppStepperState extends State<AppStepper> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    // Constitution 3.3: Zero Internal Defaults - Fail Fast if theme missing
     final theme = Theme.of(context).extension<AppDesignTheme>();
-    _style = widget.style ?? theme?.stepperStyle ?? StepperStyle.defaultStyle;
+    assert(
+      theme != null,
+      'AppStepper requires DesignSystem initialization. '
+      'Call DesignSystem.init() in MaterialApp.builder.',
+    );
+    _style = widget.style ?? theme!.stepperStyle;
   }
 
   @override

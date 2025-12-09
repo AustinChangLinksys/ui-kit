@@ -15,8 +15,6 @@ import 'package:ui_kit_library/src/foundation/theme/design_system/specs/toggle_s
 import 'package:ui_kit_library/src/foundation/motion/app_motion.dart';
 import 'package:ui_kit_library/src/foundation/effects/global_effects_type.dart';
 import 'package:ui_kit_library/src/foundation/icons/app_icon_style.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/specs/bottom_sheet_style.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/specs/side_sheet_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/tabs_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/stepper_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/breadcrumb_style.dart';
@@ -31,6 +29,8 @@ import 'package:ui_kit_library/src/foundation/theme/design_system/specs/gauge_st
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/range_input_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/pin_input_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/password_input_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/sheet_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/shared/animation_spec.dart';
 import 'specs/surface_style.dart';
 
 part 'app_design_theme.tailor.dart';
@@ -104,12 +104,6 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
   final AppIconStyle iconStyle;
 
   @override
-  final BottomSheetStyle bottomSheetStyle;
-
-  @override
-  final SideSheetStyle sideSheetStyle;
-
-  @override
   final TabsStyle tabsStyle;
 
   @override
@@ -151,6 +145,13 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
   @override
   final PasswordInputStyle passwordInputStyle;
 
+  /// Unified sheet style for both bottom sheets and side sheets.
+  ///
+  /// Composes [OverlaySpec] for overlay appearance and animation.
+  /// Use this instead of [bottomSheetStyle] and [sideSheetStyle] for new code.
+  @override
+  final SheetStyle sheetStyle;
+
   const AppDesignTheme({
     required this.surfaceBase,
     required this.surfaceElevated,
@@ -176,8 +177,6 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
     required this.motion,
     required this.visualEffects,
     required this.iconStyle,
-    required this.bottomSheetStyle,
-    required this.sideSheetStyle,
     required this.tabsStyle,
     required this.stepperStyle,
     required this.breadcrumbStyle,
@@ -192,6 +191,7 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
     required this.rangeInputStyle,
     required this.pinInputStyle,
     required this.passwordInputStyle,
+    required this.sheetStyle,
   });
 
   /// Helper method to easily access the theme from the context.

@@ -16,6 +16,13 @@ export 'src/foundation/design_system.dart';
 // Unified Design System
 export 'src/foundation/theme/design_system/app_design_theme.dart';
 export 'src/foundation/theme/design_system/specs/surface_style.dart';
+
+// Shared Specs (for component style composition)
+export 'src/foundation/theme/design_system/specs/shared/shared_specs.dart';
+export 'src/foundation/theme/design_system/specs/sheet_style.dart';
+
+// Style Override (for local spec overrides)
+export 'src/foundation/style_override.dart';
 export 'src/foundation/theme/design_system/specs/loader_style.dart';
 export 'src/foundation/theme/design_system/specs/toast_style.dart';
 export 'src/foundation/theme/design_system/specs/divider_style.dart';
@@ -28,13 +35,12 @@ export 'src/foundation/theme/design_system/styles/brutal_design_theme.dart';
 export 'src/foundation/theme/design_system/styles/flat_design_theme.dart';
 export 'src/foundation/theme/design_system/styles/neumorphic_design_theme.dart';
 export 'src/foundation/theme/design_system/styles/pixel_design_theme.dart';
+export 'src/foundation/theme/design_system/styles/custom_design_theme.dart';
 export 'src/foundation/theme/design_system/specs/skeleton_style.dart';
 export 'src/foundation/theme/design_system/specs/layout_spec.dart';
 export 'src/foundation/theme/design_system/specs/app_bar_style.dart';
 export 'src/foundation/theme/design_system/specs/app_menu_style.dart';
 export 'src/foundation/theme/design_system/specs/dialog_style.dart';
-export 'src/foundation/theme/design_system/specs/bottom_sheet_style.dart';
-export 'src/foundation/theme/design_system/specs/side_sheet_style.dart';
 export 'src/foundation/theme/design_system/specs/tabs_style.dart';
 export 'src/foundation/theme/design_system/specs/stepper_style.dart';
 export 'src/foundation/theme/design_system/specs/breadcrumb_style.dart';
@@ -118,6 +124,7 @@ export 'src/molecules/selection/app_slider.dart';
 export 'src/molecules/status/app_tag.dart';
 export 'src/molecules/status/app_badge.dart';
 export 'src/molecules/status/app_avatar.dart';
+export 'src/molecules/typography/app_styled_text.dart';
 export 'src/molecules/inputs/app_text_field.dart';
 export 'src/molecules/forms/app_text_form_field.dart';
 export 'src/molecules/forms/app_dropdown.dart';

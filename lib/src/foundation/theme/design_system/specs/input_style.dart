@@ -1,17 +1,25 @@
-import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+import 'package:theme_tailor_annotation/theme_tailor_annotation.dart';
+
 import 'surface_style.dart';
 
+part 'input_style.tailor.dart';
+
 /// Defines four basic variants and state modifiers for input fields.
-class InputStyle extends Equatable {
-  // Basic variants (determined by AppTextField.variant)
-  final SurfaceStyle outlineStyle;
-  final SurfaceStyle underlineStyle;
-  final SurfaceStyle filledStyle;
-
-  // State modifiers (determined by AppTextField internal state, overlaid when Focused)
-  final SurfaceStyle focusModifier;
-  final SurfaceStyle errorModifier;
-
+///
+/// Example:
+/// ```dart
+/// InputStyle(
+///   outlineStyle: SurfaceStyle(...),
+///   underlineStyle: SurfaceStyle(...),
+///   filledStyle: SurfaceStyle(...),
+///   focusModifier: SurfaceStyle(...),
+///   errorModifier: SurfaceStyle(...),
+/// )
+/// ```
+@TailorMixin()
+class InputStyle extends ThemeExtension<InputStyle>
+    with _$InputStyleTailorMixin {
   const InputStyle({
     required this.outlineStyle,
     required this.underlineStyle,
@@ -20,28 +28,25 @@ class InputStyle extends Equatable {
     required this.errorModifier,
   });
 
-  InputStyle copyWith({
-    SurfaceStyle? outlineStyle,
-    SurfaceStyle? underlineStyle,
-    SurfaceStyle? filledStyle,
-    SurfaceStyle? focusModifier,
-    SurfaceStyle? errorModifier,
-  }) {
-    return InputStyle(
-      outlineStyle: outlineStyle ?? this.outlineStyle,
-      underlineStyle: underlineStyle ?? this.underlineStyle,
-      filledStyle: filledStyle ?? this.filledStyle,
-      focusModifier: focusModifier ?? this.focusModifier,
-      errorModifier: errorModifier ?? this.errorModifier,
-    );
-  }
-
+  // Basic variants (determined by AppTextField.variant)
+  /// Outline style variant for input fields.
   @override
-  List<Object?> get props => [
-        outlineStyle,
-        underlineStyle,
-        filledStyle,
-        focusModifier,
-        errorModifier,
-      ];
+  final SurfaceStyle outlineStyle;
+
+  /// Underline style variant for input fields.
+  @override
+  final SurfaceStyle underlineStyle;
+
+  /// Filled style variant for input fields.
+  @override
+  final SurfaceStyle filledStyle;
+
+  // State modifiers (determined by AppTextField internal state, overlaid when Focused)
+  /// Style modifier applied when input is focused.
+  @override
+  final SurfaceStyle focusModifier;
+
+  /// Style modifier applied when input has an error.
+  @override
+  final SurfaceStyle errorModifier;
 }

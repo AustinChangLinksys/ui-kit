@@ -127,6 +127,7 @@ mixin _$LinkStyleTailorMixin on ThemeExtension<LinkStyle> {
   List<double>? get dashPattern;
   double get glowRadius;
   Color get glowColor;
+  AnimationSpec get animation;
   Duration get animationDuration;
 
   @override
@@ -136,6 +137,7 @@ mixin _$LinkStyleTailorMixin on ThemeExtension<LinkStyle> {
     List<double>? dashPattern,
     double? glowRadius,
     Color? glowColor,
+    AnimationSpec? animation,
     Duration? animationDuration,
   }) {
     return LinkStyle(
@@ -144,7 +146,7 @@ mixin _$LinkStyleTailorMixin on ThemeExtension<LinkStyle> {
       dashPattern: dashPattern ?? this.dashPattern,
       glowRadius: glowRadius ?? this.glowRadius,
       glowColor: glowColor ?? this.glowColor,
-      animationDuration: animationDuration ?? this.animationDuration,
+      animation: animation ?? this.animation,
     );
   }
 
@@ -157,7 +159,7 @@ mixin _$LinkStyleTailorMixin on ThemeExtension<LinkStyle> {
       dashPattern: t < 0.5 ? dashPattern : other.dashPattern,
       glowRadius: t < 0.5 ? glowRadius : other.glowRadius,
       glowColor: Color.lerp(glowColor, other.glowColor, t)!,
-      animationDuration: t < 0.5 ? animationDuration : other.animationDuration,
+      animation: animation.lerp(other.animation, t),
     );
   }
 
@@ -173,6 +175,7 @@ mixin _$LinkStyleTailorMixin on ThemeExtension<LinkStyle> {
             const DeepCollectionEquality()
                 .equals(glowRadius, other.glowRadius) &&
             const DeepCollectionEquality().equals(glowColor, other.glowColor) &&
+            const DeepCollectionEquality().equals(animation, other.animation) &&
             const DeepCollectionEquality()
                 .equals(animationDuration, other.animationDuration));
   }
@@ -186,6 +189,7 @@ mixin _$LinkStyleTailorMixin on ThemeExtension<LinkStyle> {
       const DeepCollectionEquality().hash(dashPattern),
       const DeepCollectionEquality().hash(glowRadius),
       const DeepCollectionEquality().hash(glowColor),
+      const DeepCollectionEquality().hash(animation),
       const DeepCollectionEquality().hash(animationDuration),
     );
   }
@@ -210,7 +214,8 @@ extension LinkStyleBuildContextProps on BuildContext {
   /// Glow color.
   Color get glowColor => linkStyle.glowColor;
 
-  /// Duration for flow animation. Duration.zero for no animation.
+  /// Animation timing for flow effects. Duration.zero for no animation.
+  AnimationSpec get animation => linkStyle.animation;
   Duration get animationDuration => linkStyle.animationDuration;
 }
 
@@ -232,6 +237,7 @@ mixin _$TopologySpecTailorMixin on ThemeExtension<TopologySpec> {
   double get linkCurvature;
   double get orbitRadius;
   Duration get orbitSpeed;
+  AnimationSpec get viewTransition;
 
   @override
   TopologySpec copyWith({
@@ -252,6 +258,7 @@ mixin _$TopologySpecTailorMixin on ThemeExtension<TopologySpec> {
     double? linkCurvature,
     double? orbitRadius,
     Duration? orbitSpeed,
+    AnimationSpec? viewTransition,
   }) {
     return TopologySpec(
       gatewayNormalStyle: gatewayNormalStyle ?? this.gatewayNormalStyle,
@@ -272,6 +279,7 @@ mixin _$TopologySpecTailorMixin on ThemeExtension<TopologySpec> {
       linkCurvature: linkCurvature ?? this.linkCurvature,
       orbitRadius: orbitRadius ?? this.orbitRadius,
       orbitSpeed: orbitSpeed ?? this.orbitSpeed,
+      viewTransition: viewTransition ?? this.viewTransition,
     );
   }
 
@@ -301,6 +309,7 @@ mixin _$TopologySpecTailorMixin on ThemeExtension<TopologySpec> {
       linkCurvature: t < 0.5 ? linkCurvature : other.linkCurvature,
       orbitRadius: t < 0.5 ? orbitRadius : other.orbitRadius,
       orbitSpeed: t < 0.5 ? orbitSpeed : other.orbitSpeed,
+      viewTransition: viewTransition.lerp(other.viewTransition, t),
     );
   }
 
@@ -342,7 +351,9 @@ mixin _$TopologySpecTailorMixin on ThemeExtension<TopologySpec> {
             const DeepCollectionEquality()
                 .equals(orbitRadius, other.orbitRadius) &&
             const DeepCollectionEquality()
-                .equals(orbitSpeed, other.orbitSpeed));
+                .equals(orbitSpeed, other.orbitSpeed) &&
+            const DeepCollectionEquality()
+                .equals(viewTransition, other.viewTransition));
   }
 
   @override
@@ -366,6 +377,7 @@ mixin _$TopologySpecTailorMixin on ThemeExtension<TopologySpec> {
       const DeepCollectionEquality().hash(linkCurvature),
       const DeepCollectionEquality().hash(orbitRadius),
       const DeepCollectionEquality().hash(orbitSpeed),
+      const DeepCollectionEquality().hash(viewTransition),
     );
   }
 }
@@ -389,4 +401,8 @@ extension TopologySpecBuildContextProps on BuildContext {
   double get linkCurvature => topologySpec.linkCurvature;
   double get orbitRadius => topologySpec.orbitRadius;
   Duration get orbitSpeed => topologySpec.orbitSpeed;
+
+  /// Animation specification for view transitions (tree ↔ graph).
+  /// Constitution 5.1 compliance - no hardcoded durations.
+  AnimationSpec get viewTransition => topologySpec.viewTransition;
 }

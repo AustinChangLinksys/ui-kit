@@ -10,33 +10,35 @@ part of 'carousel_style.dart';
 // **************************************************************************
 
 mixin _$CarouselStyleTailorMixin on ThemeExtension<CarouselStyle> {
-  Color get navButtonColor;
-  Color get navButtonHoverColor;
+  StateColorSpec get navButtonColors;
   IconData get previousIcon;
   IconData get nextIcon;
-  Duration get animationDuration;
-  Curve get animationCurve;
+  AnimationSpec get animation;
   bool get useSnapScroll;
   double get navButtonSize;
+  Duration get animationDuration;
+  Curve get animationCurve;
+  Color get navButtonColor;
+  Color get navButtonHoverColor;
 
   @override
   CarouselStyle copyWith({
-    Color? navButtonColor,
-    Color? navButtonHoverColor,
+    StateColorSpec? navButtonColors,
     IconData? previousIcon,
     IconData? nextIcon,
-    Duration? animationDuration,
-    Curve? animationCurve,
+    AnimationSpec? animation,
     bool? useSnapScroll,
     double? navButtonSize,
+    Duration? animationDuration,
+    Curve? animationCurve,
+    Color? navButtonColor,
+    Color? navButtonHoverColor,
   }) {
     return CarouselStyle(
-      navButtonColor: navButtonColor ?? this.navButtonColor,
-      navButtonHoverColor: navButtonHoverColor ?? this.navButtonHoverColor,
+      navButtonColors: navButtonColors ?? this.navButtonColors,
       previousIcon: previousIcon ?? this.previousIcon,
       nextIcon: nextIcon ?? this.nextIcon,
-      animationDuration: animationDuration ?? this.animationDuration,
-      animationCurve: animationCurve ?? this.animationCurve,
+      animation: animation ?? this.animation,
       useSnapScroll: useSnapScroll ?? this.useSnapScroll,
       navButtonSize: navButtonSize ?? this.navButtonSize,
     );
@@ -46,13 +48,10 @@ mixin _$CarouselStyleTailorMixin on ThemeExtension<CarouselStyle> {
   CarouselStyle lerp(covariant ThemeExtension<CarouselStyle>? other, double t) {
     if (other is! CarouselStyle) return this as CarouselStyle;
     return CarouselStyle(
-      navButtonColor: Color.lerp(navButtonColor, other.navButtonColor, t)!,
-      navButtonHoverColor:
-          Color.lerp(navButtonHoverColor, other.navButtonHoverColor, t)!,
+      navButtonColors: navButtonColors.lerp(other.navButtonColors, t),
       previousIcon: t < 0.5 ? previousIcon : other.previousIcon,
       nextIcon: t < 0.5 ? nextIcon : other.nextIcon,
-      animationDuration: t < 0.5 ? animationDuration : other.animationDuration,
-      animationCurve: t < 0.5 ? animationCurve : other.animationCurve,
+      animation: animation.lerp(other.animation, t),
       useSnapScroll: t < 0.5 ? useSnapScroll : other.useSnapScroll,
       navButtonSize: t < 0.5 ? navButtonSize : other.navButtonSize,
     );
@@ -64,34 +63,39 @@ mixin _$CarouselStyleTailorMixin on ThemeExtension<CarouselStyle> {
         (other.runtimeType == runtimeType &&
             other is CarouselStyle &&
             const DeepCollectionEquality()
-                .equals(navButtonColor, other.navButtonColor) &&
-            const DeepCollectionEquality()
-                .equals(navButtonHoverColor, other.navButtonHoverColor) &&
+                .equals(navButtonColors, other.navButtonColors) &&
             const DeepCollectionEquality()
                 .equals(previousIcon, other.previousIcon) &&
             const DeepCollectionEquality().equals(nextIcon, other.nextIcon) &&
+            const DeepCollectionEquality().equals(animation, other.animation) &&
+            const DeepCollectionEquality()
+                .equals(useSnapScroll, other.useSnapScroll) &&
+            const DeepCollectionEquality()
+                .equals(navButtonSize, other.navButtonSize) &&
             const DeepCollectionEquality()
                 .equals(animationDuration, other.animationDuration) &&
             const DeepCollectionEquality()
                 .equals(animationCurve, other.animationCurve) &&
             const DeepCollectionEquality()
-                .equals(useSnapScroll, other.useSnapScroll) &&
+                .equals(navButtonColor, other.navButtonColor) &&
             const DeepCollectionEquality()
-                .equals(navButtonSize, other.navButtonSize));
+                .equals(navButtonHoverColor, other.navButtonHoverColor));
   }
 
   @override
   int get hashCode {
     return Object.hash(
       runtimeType.hashCode,
-      const DeepCollectionEquality().hash(navButtonColor),
-      const DeepCollectionEquality().hash(navButtonHoverColor),
+      const DeepCollectionEquality().hash(navButtonColors),
       const DeepCollectionEquality().hash(previousIcon),
       const DeepCollectionEquality().hash(nextIcon),
-      const DeepCollectionEquality().hash(animationDuration),
-      const DeepCollectionEquality().hash(animationCurve),
+      const DeepCollectionEquality().hash(animation),
       const DeepCollectionEquality().hash(useSnapScroll),
       const DeepCollectionEquality().hash(navButtonSize),
+      const DeepCollectionEquality().hash(animationDuration),
+      const DeepCollectionEquality().hash(animationCurve),
+      const DeepCollectionEquality().hash(navButtonColor),
+      const DeepCollectionEquality().hash(navButtonHoverColor),
     );
   }
 }
@@ -99,11 +103,8 @@ mixin _$CarouselStyleTailorMixin on ThemeExtension<CarouselStyle> {
 extension CarouselStyleBuildContextProps on BuildContext {
   CarouselStyle get carouselStyle => Theme.of(this).extension<CarouselStyle>()!;
 
-  /// Color of navigation buttons
-  Color get navButtonColor => carouselStyle.navButtonColor;
-
-  /// Color of navigation buttons on hover
-  Color get navButtonHoverColor => carouselStyle.navButtonHoverColor;
+  /// Navigation button colors (inactive/hover states)
+  StateColorSpec get navButtonColors => carouselStyle.navButtonColors;
 
   /// Icon for previous button
   IconData get previousIcon => carouselStyle.previousIcon;
@@ -111,15 +112,16 @@ extension CarouselStyleBuildContextProps on BuildContext {
   /// Icon for next button
   IconData get nextIcon => carouselStyle.nextIcon;
 
-  /// Animation duration for item transitions
-  Duration get animationDuration => carouselStyle.animationDuration;
-
-  /// Animation curve for item transitions
-  Curve get animationCurve => carouselStyle.animationCurve;
+  /// Animation timing for item transitions
+  AnimationSpec get animation => carouselStyle.animation;
 
   /// Use snap scroll instead of smooth scroll (Pixel theme)
   bool get useSnapScroll => carouselStyle.useSnapScroll;
 
   /// Size of navigation buttons (Pixel theme has larger buttons)
   double get navButtonSize => carouselStyle.navButtonSize;
+  Duration get animationDuration => carouselStyle.animationDuration;
+  Curve get animationCurve => carouselStyle.animationCurve;
+  Color get navButtonColor => carouselStyle.navButtonColor;
+  Color get navButtonHoverColor => carouselStyle.navButtonHoverColor;
 }
