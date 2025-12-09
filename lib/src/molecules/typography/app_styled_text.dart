@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:ui_kit_library/ui_kit.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/styled_text_style.dart';
 
 /// A rich text component with tag-based rendering support.
 ///
@@ -27,11 +28,13 @@ import 'package:ui_kit_library/ui_kit.dart';
 /// - Uses theme-driven styling (3.1 IoC)
 /// - Dumb component pattern (6.2)
 /// - Zero internal defaults (3.3)
+/// - Constitution 4.6: Uses StyledTextStyle from theme system
+/// - Constitution 7.1: No runtime type checking
 class AppStyledText extends StatelessWidget {
   const AppStyledText({
     required this.text,
     this.onTapHandlers = const {},
-    this.baseStyle,
+    this.background, // New: Optional background support
     this.textAlign = TextAlign.start,
     this.maxLines,
     this.overflow = TextOverflow.clip,
@@ -50,8 +53,10 @@ class AppStyledText extends StatelessWidget {
   /// Used with parametrized tags: `{{terms:Terms of Service}}`
   final Map<String, VoidCallback> onTapHandlers;
 
-  /// Base text style. Defaults to theme's bodyMedium.
-  final TextStyle? baseStyle;
+  /// Optional background styling using AppSurface.
+  /// When provided, wraps the text in an AppSurface container.
+  /// Constitution 6.1: AppSurface usage for visual containers.
+  final AppSurface? background;
 
   /// Text alignment
   final TextAlign textAlign;
@@ -72,29 +77,33 @@ class AppStyledText extends StatelessWidget {
       'Call DesignSystem.init() in MaterialApp.builder.',
     );
 
-    final effectiveBaseStyle = baseStyle ??
-        Theme.of(context).textTheme.bodyMedium?.copyWith(
-          color: theme!.surfaceBase.contentColor,
-        );
+    final spans = _parseText(context, theme!);
 
-    final spans = _parseText(context, theme!, effectiveBaseStyle!);
-
-    return RichText(
+    final richText = RichText(
       text: TextSpan(children: spans),
       textAlign: textAlign,
       maxLines: maxLines,
       overflow: overflow,
     );
+
+    // Constitution 6.1: Optional AppSurface wrapper for visual containers
+    if (background != null) {
+      return AppSurface(
+        style: background!.style,
+        child: richText,
+      );
+    }
+
+    return richText;
   }
 
   /// Parse text and convert tags to TextSpans
   List<InlineSpan> _parseText(
     BuildContext context,
     AppDesignTheme theme,
-    TextStyle baseStyle,
   ) {
     final spans = <InlineSpan>[];
-    final colorScheme = Theme.of(context).colorScheme;
+    final style = theme.styledTextStyle;
 
     // First pass: Handle parametrized tags {{key:text}}
     final paramPattern = RegExp(r'\{\{(\w+):(.*?)\}\}');
@@ -106,18 +115,30 @@ class AppStyledText extends StatelessWidget {
       // Add text before the match
       if (match.start > offset) {
         final beforeText = text.substring(offset, match.start);
-        spans.addAll(_parseXmlTags(beforeText, baseStyle, colorScheme, theme));
+        spans.addAll(_parseXmlTags(beforeText, style));
       }
 
       final key = match.group(1)!;
       final displayText = match.group(2)!;
       final handler = onTapHandlers[key];
 
-      // Create clickable span for parametrized tags
+      // Constitution 4.6.4: Use StateColorSpec.resolve() for state-based color resolution
+      final linkColor = style.linkColors.resolve(
+        isActive: handler != null,
+        isDisabled: handler == null,
+      );
+
+      // Create clickable span for parametrized tags using theme styling
       spans.add(
         TextSpan(
           text: displayText,
-          style: _getLinkStyle(baseStyle, colorScheme, theme),
+          style: style.baseTextStyle.copyWith(
+            color: linkColor,
+            decoration: style.linkDecoration,
+            decorationThickness: style.linkDecorationThickness,
+            shadows: style.linkShadows,
+            backgroundColor: style.linkBackgroundColor,
+          ),
           recognizer: handler != null
               ? (TapGestureRecognizer()..onTap = handler)
               : null,
@@ -130,18 +151,17 @@ class AppStyledText extends StatelessWidget {
     // Add remaining text
     if (offset < text.length) {
       final remainingText = text.substring(offset);
-      spans.addAll(_parseXmlTags(remainingText, baseStyle, colorScheme, theme));
+      spans.addAll(_parseXmlTags(remainingText, style));
     }
 
     return spans;
   }
 
   /// Parse XML-like tags in text
+  /// Constitution 4.9: Uses typography tokens instead of hardcoded font sizes
   List<InlineSpan> _parseXmlTags(
     String text,
-    TextStyle baseStyle,
-    ColorScheme colorScheme,
-    AppDesignTheme theme,
+    StyledTextStyle style,
   ) {
     if (text.isEmpty) return [];
 
@@ -156,13 +176,13 @@ class AppStyledText extends StatelessWidget {
       if (match.start > offset) {
         spans.add(TextSpan(
           text: text.substring(offset, match.start),
-          style: baseStyle,
+          style: style.baseTextStyle,
         ));
       }
 
       final tag = match.group(1)!;
       final content = match.group(2)!;
-      final tagStyle = _getXmlTagStyle(tag, baseStyle, colorScheme, theme);
+      final tagStyle = _getXmlTagStyle(tag, style);
 
       spans.add(TextSpan(
         text: content,
@@ -176,7 +196,7 @@ class AppStyledText extends StatelessWidget {
     if (offset < text.length) {
       spans.add(TextSpan(
         text: text.substring(offset),
-        style: baseStyle,
+        style: style.baseTextStyle,
       ));
     }
 
@@ -184,94 +204,36 @@ class AppStyledText extends StatelessWidget {
   }
 
   /// Get style for XML tags based on tag name
+  /// Constitution 4.9: Uses typography tokens instead of hardcoded calculations
   TextStyle _getXmlTagStyle(
     String tag,
-    TextStyle baseStyle,
-    ColorScheme colorScheme,
-    AppDesignTheme theme,
+    StyledTextStyle style,
   ) {
     switch (tag.toLowerCase()) {
       case 'b':
       case 'bold':
-        return baseStyle.copyWith(fontWeight: FontWeight.bold);
+        return style.boldTextStyle;
 
       case 'i':
       case 'italic':
-        return baseStyle.copyWith(fontStyle: FontStyle.italic);
+        return style.italicTextStyle;
 
       case 'u':
       case 'underline':
-        return baseStyle.copyWith(decoration: TextDecoration.underline);
+        return style.underlineTextStyle;
 
       case 'color':
-        return _getColorStyle(baseStyle, colorScheme, theme);
+        return style.colorTextStyle;
 
       case 'large':
-        return baseStyle.copyWith(
-          fontSize: (baseStyle.fontSize ?? 14.0) * 1.2,
-          height: 1.4,
-        );
+        return style.largeTextStyle;
 
       case 'small':
-        return baseStyle.copyWith(
-          fontSize: (baseStyle.fontSize ?? 14.0) * 0.85,
-          height: 1.2,
-        );
+        return style.smallTextStyle;
 
       default:
-        return baseStyle;
+        return style.baseTextStyle;
     }
   }
 
-  /// Get link style based on current theme
-  TextStyle _getLinkStyle(
-    TextStyle baseStyle,
-    ColorScheme colorScheme,
-    AppDesignTheme theme,
-  ) {
-    // Theme-adaptive link styling per Constitution
-    switch (theme.runtimeType.toString()) {
-      case 'PixelDesignTheme':
-        return baseStyle.copyWith(
-          color: colorScheme.primary,
-          decoration: TextDecoration.underline,
-          decorationStyle: TextDecorationStyle.solid,
-          decorationThickness: 2.0,
-        );
-
-      case 'GlassDesignTheme':
-        return baseStyle.copyWith(
-          color: colorScheme.primary,
-          shadows: [
-            Shadow(
-              color: colorScheme.primary.withValues(alpha: 0.3),
-              blurRadius: 4.0,
-            ),
-          ],
-        );
-
-      case 'BrutalDesignTheme':
-        return baseStyle.copyWith(
-          color: colorScheme.onSurface,
-          backgroundColor: colorScheme.primary,
-          fontWeight: FontWeight.bold,
-        );
-
-      default:
-        return baseStyle.copyWith(
-          color: colorScheme.primary,
-          decoration: TextDecoration.underline,
-        );
-    }
-  }
-
-  /// Get color style based on theme
-  TextStyle _getColorStyle(
-    TextStyle baseStyle,
-    ColorScheme colorScheme,
-    AppDesignTheme theme,
-  ) {
-    // Use theme's primary color for semantic color tags
-    return baseStyle.copyWith(color: colorScheme.primary);
-  }
 }

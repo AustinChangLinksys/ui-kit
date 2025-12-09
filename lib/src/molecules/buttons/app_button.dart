@@ -79,7 +79,7 @@ class AppButton extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: paddingX),
 
         child: Row(
-          mainAxisSize: MainAxisSize.min, // Hug Content
+          mainAxisSize: MainAxisSize.max, // Fill available space to prevent overflow
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (isLoading)
@@ -90,10 +90,13 @@ class AppButton extends StatelessWidget {
                 icon!,
                 SizedBox(width: 8 * theme.spacingFactor),
               ],
-              AppText(
-                label,
-                variant: _resolveTextVariant(size),
-                fontWeight: FontWeight.bold,
+              Flexible(
+                child: AppText(
+                  label,
+                  variant: _resolveTextVariant(size),
+                  fontWeight: FontWeight.bold,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ],
           ],

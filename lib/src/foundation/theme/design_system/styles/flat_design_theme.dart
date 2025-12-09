@@ -6,6 +6,7 @@ import 'package:ui_kit_library/src/foundation/theme/design_system/specs/pin_inpu
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/password_input_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/shared/animation_spec.dart'
     as shared;
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/styled_text_style.dart';
 // Import AppIconStyle
 
 class FlatDesignTheme extends AppDesignTheme {
@@ -505,6 +506,8 @@ class FlatDesignTheme extends AppDesignTheme {
             .primary, // Green usually, but primary for flat consistency? Spec says primary for Active/Focus. Rules say green. Let's use SignalStrong/Primary.
         pendingColor: colors.onSurfaceVariant,
       ),
+      styledTextStyle: _createFlatStyledTextStyle(colors, appTextTheme),
+      textButtonStyle: _createFlatTextButtonStyle(colors, appTextTheme),
     );
   }
 
@@ -548,6 +551,8 @@ class FlatDesignTheme extends AppDesignTheme {
     required super.rangeInputStyle,
     required super.pinInputStyle,
     required super.passwordInputStyle,
+    required super.styledTextStyle,
+    required super.textButtonStyle,
   });
 
   factory FlatDesignTheme.light([ColorScheme? scheme]) {
@@ -1041,6 +1046,8 @@ class FlatDesignTheme extends AppDesignTheme {
         validColor: scheme.primary,
         pendingColor: scheme.onSurfaceVariant,
       ),
+      styledTextStyle: _createFlatStyledTextStyleForScheme(scheme, appTextTheme),
+      textButtonStyle: _createFlatTextButtonStyleForScheme(scheme, appTextTheme),
     );
   }
 
@@ -1519,6 +1526,8 @@ class FlatDesignTheme extends AppDesignTheme {
         validColor: scheme.primary,
         pendingColor: scheme.onSurfaceVariant,
       ),
+      styledTextStyle: _createFlatStyledTextStyleForDark(scheme, appTextTheme),
+      textButtonStyle: _createFlatTextButtonStyleForScheme(scheme, appTextTheme),
     );
   }
 
@@ -1679,6 +1688,265 @@ class FlatDesignTheme extends AppDesignTheme {
       viewTransition: const shared.AnimationSpec(
         duration: Duration(milliseconds: 300),
         curve: Curves.easeInOut,
+      ),
+    );
+  }
+
+  /// Creates StyledTextStyle for Flat theme with AppColorScheme (fromConfig factory)
+  /// Flat theme: Clean, minimal, solid colors with standard radius
+  static StyledTextStyle _createFlatStyledTextStyle(
+    AppColorScheme colors,
+    TextTheme textTheme,
+  ) {
+    return StyledTextStyle(
+      baseTextStyle: textTheme.bodyMedium!.copyWith(
+        color: colors.onSurface,
+      ),
+      linkColors: StateColorSpec(
+        active: colors.primary,
+        inactive: colors.primary,
+        hover: colors.primary,
+        pressed: colors.primary,
+      ),
+      linkAnimation: const shared.AnimationSpec(
+        duration: Duration(milliseconds: 300), // Flat theme standard Material timing
+        curve: Curves.easeInOut,
+      ),
+      largeTextStyle: textTheme.titleMedium!.copyWith(
+        color: colors.onSurface,
+      ),
+      smallTextStyle: textTheme.bodySmall!.copyWith(
+        color: colors.onSurfaceVariant,
+      ),
+      boldTextStyle: textTheme.labelLarge!.copyWith(
+        color: colors.onSurface,
+        fontWeight: FontWeight.bold,
+      ),
+      italicTextStyle: textTheme.bodyMedium!.copyWith(
+        color: colors.onSurface,
+        fontStyle: FontStyle.italic,
+      ),
+      underlineTextStyle: textTheme.bodyMedium!.copyWith(
+        color: colors.onSurface,
+        decoration: TextDecoration.underline,
+      ),
+      colorTextStyle: textTheme.bodyMedium!.copyWith(
+        color: colors.primary,
+      ),
+      linkDecoration: TextDecoration.underline,
+      linkDecorationThickness: 1.0, // Standard thin underline
+    );
+  }
+
+  /// Creates StyledTextStyle for Flat theme with ColorScheme (light factory)
+  static StyledTextStyle _createFlatStyledTextStyleForScheme(
+    ColorScheme scheme,
+    TextTheme textTheme,
+  ) {
+    return StyledTextStyle(
+      baseTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+      ),
+      linkColors: StateColorSpec(
+        active: scheme.primary,
+        inactive: scheme.primary,
+        hover: scheme.primary,
+        pressed: scheme.primary,
+      ),
+      linkAnimation: const shared.AnimationSpec(
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      ),
+      largeTextStyle: textTheme.titleMedium!.copyWith(
+        color: scheme.onSurface,
+      ),
+      smallTextStyle: textTheme.bodySmall!.copyWith(
+        color: scheme.onSurfaceVariant,
+      ),
+      boldTextStyle: textTheme.labelLarge!.copyWith(
+        color: scheme.onSurface,
+        fontWeight: FontWeight.bold,
+      ),
+      italicTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+        fontStyle: FontStyle.italic,
+      ),
+      underlineTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+        decoration: TextDecoration.underline,
+      ),
+      colorTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.primary,
+      ),
+      linkDecoration: TextDecoration.underline,
+      linkDecorationThickness: 1.0,
+    );
+  }
+
+  /// Creates StyledTextStyle for Flat theme dark mode
+  static StyledTextStyle _createFlatStyledTextStyleForDark(
+    ColorScheme scheme,
+    TextTheme textTheme,
+  ) {
+    return StyledTextStyle(
+      baseTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+      ),
+      linkColors: StateColorSpec(
+        active: scheme.primary,
+        inactive: scheme.primary,
+        hover: scheme.primary,
+        pressed: scheme.primary,
+      ),
+      linkAnimation: const shared.AnimationSpec(
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      ),
+      largeTextStyle: textTheme.titleMedium!.copyWith(
+        color: scheme.onSurface,
+      ),
+      smallTextStyle: textTheme.bodySmall!.copyWith(
+        color: scheme.onSurfaceVariant,
+      ),
+      boldTextStyle: textTheme.labelLarge!.copyWith(
+        color: scheme.onSurface,
+        fontWeight: FontWeight.bold,
+      ),
+      italicTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+        fontStyle: FontStyle.italic,
+      ),
+      underlineTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+        decoration: TextDecoration.underline,
+      ),
+      colorTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.primary,
+      ),
+      linkDecoration: TextDecoration.underline,
+      linkDecorationThickness: 1.0,
+    );
+  }
+
+  /// Creates TextButtonStyle for Flat theme with AppColorScheme (fromConfig factory)
+  /// Flat theme: Clean lines (4.0 radius), minimal shadows, solid colors, simple interactions
+  static TextButtonStyle _createFlatTextButtonStyle(
+    AppColorScheme colors,
+    TextTheme textTheme,
+  ) {
+    return TextButtonStyle(
+      enabledStyle: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 4.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary,
+      ),
+      disabledStyle: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 4.0,
+        blurStrength: 0.0,
+        contentColor: colors.onSurface.withValues(alpha: 0.38),
+      ),
+      hoverStyle: SurfaceStyle(
+        backgroundColor: colors.primary.withValues(alpha: 0.08),
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 4.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary,
+      ),
+      pressedStyle: SurfaceStyle(
+        backgroundColor: colors.primary.withValues(alpha: 0.12),
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 4.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary,
+      ),
+      enabledContentColor: colors.primary,
+      disabledContentColor: colors.onSurface.withValues(alpha: 0.38),
+      smallTextStyle: textTheme.labelMedium!.copyWith(
+        color: colors.primary,
+        fontWeight: FontWeight.w500,
+      ),
+      mediumTextStyle: textTheme.labelLarge!.copyWith(
+        color: colors.primary,
+        fontWeight: FontWeight.w500,
+      ),
+      largeTextStyle: textTheme.titleMedium!.copyWith(
+        color: colors.primary,
+        fontWeight: FontWeight.w500,
+      ),
+      interaction: const InteractionSpec(
+        pressedScale: 1.0,
+        pressedOpacity: 1.0,
+        hoverOpacity: 1.0,
+        pressedOffset: Offset.zero,
+      ),
+    );
+  }
+
+  /// Creates TextButtonStyle for Flat theme with ColorScheme (light/dark factories)
+  static TextButtonStyle _createFlatTextButtonStyleForScheme(
+    ColorScheme scheme,
+    TextTheme textTheme,
+  ) {
+    return TextButtonStyle(
+      enabledStyle: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 4.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+      ),
+      disabledStyle: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 4.0,
+        blurStrength: 0.0,
+        contentColor: scheme.onSurface.withValues(alpha: 0.38),
+      ),
+      hoverStyle: SurfaceStyle(
+        backgroundColor: scheme.primary.withValues(alpha: 0.08),
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 4.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+      ),
+      pressedStyle: SurfaceStyle(
+        backgroundColor: scheme.primary.withValues(alpha: 0.12),
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 4.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+      ),
+      enabledContentColor: scheme.primary,
+      disabledContentColor: scheme.onSurface.withValues(alpha: 0.38),
+      smallTextStyle: textTheme.labelMedium!.copyWith(
+        color: scheme.primary,
+        fontWeight: FontWeight.w500,
+      ),
+      mediumTextStyle: textTheme.labelLarge!.copyWith(
+        color: scheme.primary,
+        fontWeight: FontWeight.w500,
+      ),
+      largeTextStyle: textTheme.titleMedium!.copyWith(
+        color: scheme.primary,
+        fontWeight: FontWeight.w500,
+      ),
+      interaction: const InteractionSpec(
+        pressedScale: 1.0,
+        pressedOpacity: 1.0,
+        hoverOpacity: 1.0,
+        pressedOffset: Offset.zero,
       ),
     );
   }

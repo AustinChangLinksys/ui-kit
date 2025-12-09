@@ -4,7 +4,9 @@ import 'package:ui_kit_library/ui_kit.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/range_input_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/pin_input_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/password_input_style.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/specs/shared/animation_spec.dart' as shared;
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/shared/animation_spec.dart'
+    as shared;
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/styled_text_style.dart';
 
 class PixelDesignTheme extends AppDesignTheme {
   // Factory 1: Create from Config
@@ -321,10 +323,10 @@ class PixelDesignTheme extends AppDesignTheme {
       iconStyle: AppIconStyle.pixelated,
       sheetStyle: const SheetStyle(
         overlay: OverlaySpec.pixel,
-        borderRadius: 0.0,  // Pixel has sharp, retro corners
+        borderRadius: 0.0, // Pixel has sharp, retro corners
         width: 280.0,
         dragHandleHeight: 4.0,
-        enableDithering: true,  // Pixel theme uses dithering
+        enableDithering: true, // Pixel theme uses dithering
       ),
       tabsStyle: TabsStyle(
         textColors: StateColorSpec(
@@ -359,7 +361,8 @@ class PixelDesignTheme extends AppDesignTheme {
         expandedBackgroundColor: colors.surfaceContainer,
         headerTextColor: colors.onSurface, // Or white
         expandIcon: Icons.expand_more,
-        animation: const shared.AnimationSpec(duration: Duration.zero, curve: Curves.linear),
+        animation: const shared.AnimationSpec(
+            duration: Duration.zero, curve: Curves.linear),
       ),
       carouselStyle: CarouselStyle(
         navButtonColors: StateColorSpec(
@@ -369,7 +372,8 @@ class PixelDesignTheme extends AppDesignTheme {
         ),
         previousIcon: Icons.arrow_back,
         nextIcon: Icons.arrow_forward,
-        animation: const shared.AnimationSpec(duration: Duration.zero, curve: Curves.linear),
+        animation: const shared.AnimationSpec(
+            duration: Duration.zero, curve: Curves.linear),
         useSnapScroll: true,
         navButtonSize: 64.0,
       ),
@@ -402,7 +406,8 @@ class PixelDesignTheme extends AppDesignTheme {
         glowRowOnHover: false,
         hoverRowBackground: colors.onSurface,
         hoverRowContentColor: colors.surface,
-        modeTransition: const shared.AnimationSpec(duration: Duration.zero, curve: Curves.linear),
+        modeTransition: const shared.AnimationSpec(
+            duration: Duration.zero, curve: Curves.linear),
       ),
       topologySpec: _buildTopologySpec(
           colors.toMaterialScheme(
@@ -442,7 +447,8 @@ class PixelDesignTheme extends AppDesignTheme {
         borderRadius: BorderRadius.circular(2.0), // Sharp pixel corners
         contentColor: colors.onSurface,
         iconSize: 24.0,
-        animation: const shared.AnimationSpec(duration: Duration.zero, curve: Curves.linear),
+        animation: const shared.AnimationSpec(
+            duration: Duration.zero, curve: Curves.linear),
       ),
       expandableFabStyle: ExpandableFabStyle(
         shape: BoxShape.rectangle, // Square
@@ -465,7 +471,8 @@ class PixelDesignTheme extends AppDesignTheme {
         showTicks: true,
         strokeWidth: 16.0,
         enableGlow: false,
-        animation: const shared.AnimationSpec(duration: Duration.zero, curve: Curves.linear),
+        animation: const shared.AnimationSpec(
+            duration: Duration.zero, curve: Curves.linear),
       ),
       rangeInputStyle: RangeInputStyle(
         mergeContainers: false, // Dual blocks
@@ -487,12 +494,14 @@ class PixelDesignTheme extends AppDesignTheme {
       passwordInputStyle: PasswordInputStyle(
         validIcon: Icons.check_box, // [x]
         pendingIcon: Icons.check_box_outline_blank, // [ ]
-        ruleTextStyle: appTextTheme.bodySmall!
-            .copyWith(color: colors.onSurface),
+        ruleTextStyle:
+            appTextTheme.bodySmall!.copyWith(color: colors.onSurface),
         showRuleListBackground: false,
         validColor: colors.onSurface, // High contrast
         pendingColor: colors.onSurface.withValues(alpha: 0.5),
       ),
+      styledTextStyle: _createStyledTextStyle(colors, appTextTheme),
+      textButtonStyle: _createPixelTextButtonStyle(colors, appTextTheme),
     );
   }
 
@@ -537,6 +546,8 @@ class PixelDesignTheme extends AppDesignTheme {
     required super.rangeInputStyle,
     required super.pinInputStyle,
     required super.passwordInputStyle,
+    required super.styledTextStyle,
+    required super.textButtonStyle,
   });
 
   factory PixelDesignTheme.light([ColorScheme? scheme]) {
@@ -848,10 +859,10 @@ class PixelDesignTheme extends AppDesignTheme {
       iconStyle: AppIconStyle.pixelated,
       sheetStyle: const SheetStyle(
         overlay: OverlaySpec.pixel,
-        borderRadius: 0.0,  // Pixel has sharp, retro corners
+        borderRadius: 0.0, // Pixel has sharp, retro corners
         width: 280.0,
         dragHandleHeight: 4.0,
-        enableDithering: true,  // Pixel theme uses dithering
+        enableDithering: true, // Pixel theme uses dithering
       ),
       tabsStyle: TabsStyle(
         textColors: StateColorSpec(
@@ -886,7 +897,8 @@ class PixelDesignTheme extends AppDesignTheme {
         expandedBackgroundColor: scheme.surfaceContainerHighest,
         headerTextColor: scheme.surface,
         expandIcon: Icons.expand_more,
-        animation: const shared.AnimationSpec(duration: Duration.zero, curve: Curves.linear),
+        animation: const shared.AnimationSpec(
+            duration: Duration.zero, curve: Curves.linear),
       ),
       carouselStyle: CarouselStyle(
         navButtonColors: StateColorSpec(
@@ -896,7 +908,8 @@ class PixelDesignTheme extends AppDesignTheme {
         ),
         previousIcon: Icons.arrow_back,
         nextIcon: Icons.arrow_forward,
-        animation: const shared.AnimationSpec(duration: Duration.zero, curve: Curves.linear),
+        animation: const shared.AnimationSpec(
+            duration: Duration.zero, curve: Curves.linear),
         useSnapScroll: true,
         navButtonSize: 64.0,
       ),
@@ -929,7 +942,8 @@ class PixelDesignTheme extends AppDesignTheme {
         glowRowOnHover: false,
         hoverRowBackground: scheme.onSurface,
         hoverRowContentColor: scheme.surface,
-        modeTransition: const shared.AnimationSpec(duration: Duration.zero, curve: Curves.linear),
+        modeTransition: const shared.AnimationSpec(
+            duration: Duration.zero, curve: Curves.linear),
       ),
       topologySpec: _buildTopologySpec(scheme, isLight: true),
       slideActionStyle: SlideActionStyle(
@@ -966,7 +980,8 @@ class PixelDesignTheme extends AppDesignTheme {
         borderRadius: BorderRadius.circular(2.0),
         contentColor: scheme.onSurface,
         iconSize: 24.0,
-        animation: const shared.AnimationSpec(duration: Duration.zero, curve: Curves.linear),
+        animation: const shared.AnimationSpec(
+            duration: Duration.zero, curve: Curves.linear),
       ),
       expandableFabStyle: ExpandableFabStyle(
         shape: BoxShape.rectangle,
@@ -989,7 +1004,8 @@ class PixelDesignTheme extends AppDesignTheme {
         showTicks: true,
         strokeWidth: 16.0,
         enableGlow: false,
-        animation: const shared.AnimationSpec(duration: Duration.zero, curve: Curves.linear),
+        animation: const shared.AnimationSpec(
+            duration: Duration.zero, curve: Curves.linear),
       ),
       rangeInputStyle: RangeInputStyle(
         mergeContainers: false,
@@ -1002,19 +1018,23 @@ class PixelDesignTheme extends AppDesignTheme {
         cellShape: PinCellShape.box,
         fillOnInput: true,
         glowOnActive: false,
-        textStyle: appTextTheme.headlineMedium!.copyWith(color: scheme.onSurface),
+        textStyle:
+            appTextTheme.headlineMedium!.copyWith(color: scheme.onSurface),
         cellSpacing: 12.0,
         cellSize: 56.0,
       ),
       passwordInputStyle: PasswordInputStyle(
         validIcon: Icons.check_box,
         pendingIcon: Icons.check_box_outline_blank,
-        ruleTextStyle: appTextTheme.bodySmall!
-            .copyWith(color: scheme.onSurface),
+        ruleTextStyle:
+            appTextTheme.bodySmall!.copyWith(color: scheme.onSurface),
         showRuleListBackground: false,
         validColor: scheme.onSurface,
         pendingColor: scheme.onSurface.withValues(alpha: 0.5),
       ),
+      styledTextStyle: _createStyledTextStyleForScheme(scheme, appTextTheme),
+      textButtonStyle:
+          _createPixelTextButtonStyleForScheme(scheme, appTextTheme),
     );
   }
 
@@ -1323,10 +1343,10 @@ class PixelDesignTheme extends AppDesignTheme {
       iconStyle: AppIconStyle.pixelated,
       sheetStyle: const SheetStyle(
         overlay: OverlaySpec.pixel,
-        borderRadius: 0.0,  // Pixel has sharp, retro corners
+        borderRadius: 0.0, // Pixel has sharp, retro corners
         width: 280.0,
         dragHandleHeight: 4.0,
-        enableDithering: true,  // Pixel theme uses dithering
+        enableDithering: true, // Pixel theme uses dithering
       ),
       tabsStyle: TabsStyle(
         textColors: StateColorSpec(
@@ -1361,7 +1381,8 @@ class PixelDesignTheme extends AppDesignTheme {
         expandedBackgroundColor: scheme.surfaceContainerHighest,
         headerTextColor: scheme.inverseSurface,
         expandIcon: Icons.expand_more,
-        animation: const shared.AnimationSpec(duration: Duration.zero, curve: Curves.linear),
+        animation: const shared.AnimationSpec(
+            duration: Duration.zero, curve: Curves.linear),
       ),
       carouselStyle: CarouselStyle(
         navButtonColors: StateColorSpec(
@@ -1371,7 +1392,8 @@ class PixelDesignTheme extends AppDesignTheme {
         ),
         previousIcon: Icons.arrow_back,
         nextIcon: Icons.arrow_forward,
-        animation: const shared.AnimationSpec(duration: Duration.zero, curve: Curves.linear),
+        animation: const shared.AnimationSpec(
+            duration: Duration.zero, curve: Curves.linear),
         useSnapScroll: true,
         navButtonSize: 64.0,
       ),
@@ -1402,7 +1424,8 @@ class PixelDesignTheme extends AppDesignTheme {
         glowRowOnHover: false,
         hoverRowBackground: black,
         hoverRowContentColor: scheme.surface,
-        modeTransition: const shared.AnimationSpec(duration: Duration.zero, curve: Curves.linear),
+        modeTransition: const shared.AnimationSpec(
+            duration: Duration.zero, curve: Curves.linear),
       ),
       topologySpec: _buildTopologySpec(scheme, isLight: false),
       slideActionStyle: SlideActionStyle(
@@ -1439,7 +1462,8 @@ class PixelDesignTheme extends AppDesignTheme {
         borderRadius: BorderRadius.circular(2.0),
         contentColor: black,
         iconSize: 24.0,
-        animation: const shared.AnimationSpec(duration: Duration.zero, curve: Curves.linear),
+        animation: const shared.AnimationSpec(
+            duration: Duration.zero, curve: Curves.linear),
       ),
       expandableFabStyle: ExpandableFabStyle(
         shape: BoxShape.rectangle,
@@ -1462,7 +1486,8 @@ class PixelDesignTheme extends AppDesignTheme {
         showTicks: true,
         strokeWidth: 16.0,
         enableGlow: false,
-        animation: const shared.AnimationSpec(duration: Duration.zero, curve: Curves.linear),
+        animation: const shared.AnimationSpec(
+            duration: Duration.zero, curve: Curves.linear),
       ),
       rangeInputStyle: RangeInputStyle(
         mergeContainers: false,
@@ -1475,19 +1500,22 @@ class PixelDesignTheme extends AppDesignTheme {
         cellShape: PinCellShape.box,
         fillOnInput: true,
         glowOnActive: false,
-        textStyle: appTextTheme.headlineMedium!.copyWith(color: scheme.onSurface),
+        textStyle:
+            appTextTheme.headlineMedium!.copyWith(color: scheme.onSurface),
         cellSpacing: 12.0,
         cellSize: 56.0,
       ),
       passwordInputStyle: PasswordInputStyle(
         validIcon: Icons.check_box,
         pendingIcon: Icons.check_box_outline_blank,
-        ruleTextStyle: appTextTheme.bodySmall!
-            .copyWith(color: black),
+        ruleTextStyle: appTextTheme.bodySmall!.copyWith(color: black),
         showRuleListBackground: false,
         validColor: black,
         pendingColor: black.withValues(alpha: 0.5),
       ),
+      styledTextStyle: _createStyledTextStyleForDark(scheme, appTextTheme),
+      textButtonStyle:
+          _createPixelTextButtonStyleForScheme(scheme, appTextTheme),
     );
   }
 
@@ -1591,7 +1619,8 @@ class PixelDesignTheme extends AppDesignTheme {
         dashPattern: null,
         glowColor: Colors.transparent,
         glowRadius: 0.0,
-        animation: const shared.AnimationSpec(duration: Duration.zero, curve: Curves.linear),
+        animation: const shared.AnimationSpec(
+            duration: Duration.zero, curve: Curves.linear),
       ),
       wifiStrongStyle: LinkStyle(
         color: scheme.primary,
@@ -1599,7 +1628,8 @@ class PixelDesignTheme extends AppDesignTheme {
         dashPattern: const [4.0, 2.0], // Shorter dashes for pixel feel
         glowColor: Colors.transparent,
         glowRadius: 0.0,
-        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 600), curve: Curves.linear),
+        animation: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 600), curve: Curves.linear),
       ),
       wifiMediumStyle: LinkStyle(
         color: scheme.tertiary,
@@ -1607,7 +1637,8 @@ class PixelDesignTheme extends AppDesignTheme {
         dashPattern: const [4.0, 2.0],
         glowColor: Colors.transparent,
         glowRadius: 0.0,
-        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 800), curve: Curves.linear),
+        animation: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 800), curve: Curves.linear),
       ),
       wifiWeakStyle: LinkStyle(
         color: errorColor,
@@ -1615,7 +1646,8 @@ class PixelDesignTheme extends AppDesignTheme {
         dashPattern: const [2.0, 2.0],
         glowColor: Colors.transparent,
         glowRadius: 0.0,
-        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 1000), curve: Curves.linear),
+        animation: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 1000), curve: Curves.linear),
       ),
       wifiUnknownStyle: LinkStyle(
         color: scheme.outline,
@@ -1623,7 +1655,8 @@ class PixelDesignTheme extends AppDesignTheme {
         dashPattern: const [2.0, 4.0],
         glowColor: Colors.transparent,
         glowRadius: 0.0,
-        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 800), curve: Curves.linear),
+        animation: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 800), curve: Curves.linear),
       ),
 
       // Layout - grid-aligned
@@ -1636,6 +1669,292 @@ class PixelDesignTheme extends AppDesignTheme {
       viewTransition: const shared.AnimationSpec(
         duration: Duration.zero,
         curve: Curves.linear,
+      ),
+    );
+  }
+
+  /// Creates StyledTextStyle for AppColorScheme (fromConfig factory)
+  static StyledTextStyle _createStyledTextStyle(
+    AppColorScheme colors,
+    TextTheme textTheme,
+  ) {
+    return StyledTextStyle(
+      baseTextStyle: textTheme.bodyMedium!.copyWith(
+        color: colors.onSurface,
+      ),
+      linkColors: StateColorSpec(
+        active: colors.primary,
+        inactive: colors.primary,
+        hover: colors.primary,
+        pressed: colors.primary,
+      ),
+      linkAnimation: const shared.AnimationSpec(
+        duration: Duration.zero, // Pixel theme instant snap
+        curve: Curves.linear,
+      ),
+      largeTextStyle: textTheme.titleMedium!.copyWith(
+        color: colors.onSurface,
+      ),
+      smallTextStyle: textTheme.bodySmall!.copyWith(
+        color: colors.onSurface,
+      ),
+      boldTextStyle: textTheme.labelLarge!.copyWith(
+        color: colors.onSurface,
+        fontWeight: FontWeight.bold,
+      ),
+      italicTextStyle: textTheme.bodyMedium!.copyWith(
+        color: colors.onSurface,
+        fontStyle: FontStyle.italic,
+      ),
+      underlineTextStyle: textTheme.bodyMedium!.copyWith(
+        color: colors.onSurface,
+        decoration: TextDecoration.underline,
+      ),
+      colorTextStyle: textTheme.bodyMedium!.copyWith(
+        color: colors.primary,
+      ),
+      linkDecoration: TextDecoration.underline,
+      linkDecorationThickness: 2.0, // Pixel theme thick underline
+    );
+  }
+
+  /// Creates StyledTextStyle for ColorScheme (light factory)
+  static StyledTextStyle _createStyledTextStyleForScheme(
+    ColorScheme scheme,
+    TextTheme textTheme,
+  ) {
+    return StyledTextStyle(
+      baseTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+      ),
+      linkColors: StateColorSpec(
+        active: scheme.primary,
+        inactive: scheme.primary,
+        hover: scheme.primary,
+        pressed: scheme.primary,
+      ),
+      linkAnimation: const shared.AnimationSpec(
+        duration: Duration.zero, // Pixel theme instant snap
+        curve: Curves.linear,
+      ),
+      largeTextStyle: textTheme.titleMedium!.copyWith(
+        color: scheme.onSurface,
+      ),
+      smallTextStyle: textTheme.bodySmall!.copyWith(
+        color: scheme.onSurface,
+      ),
+      boldTextStyle: textTheme.labelLarge!.copyWith(
+        color: scheme.onSurface,
+        fontWeight: FontWeight.bold,
+      ),
+      italicTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+        fontStyle: FontStyle.italic,
+      ),
+      underlineTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+        decoration: TextDecoration.underline,
+      ),
+      colorTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.primary,
+      ),
+      linkDecoration: TextDecoration.underline,
+      linkDecorationThickness: 2.0, // Pixel theme thick underline
+    );
+  }
+
+  /// Creates StyledTextStyle for dark theme
+  static StyledTextStyle _createStyledTextStyleForDark(
+    ColorScheme scheme,
+    TextTheme textTheme,
+  ) {
+    return StyledTextStyle(
+      baseTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+      ),
+      linkColors: StateColorSpec(
+        active: scheme.primary,
+        inactive: scheme.primary,
+        hover: scheme.primary,
+        pressed: scheme.primary,
+      ),
+      linkAnimation: const shared.AnimationSpec(
+        duration: Duration.zero, // Pixel theme instant snap
+        curve: Curves.linear,
+      ),
+      largeTextStyle: textTheme.titleMedium!.copyWith(
+        color: scheme.onSurface,
+      ),
+      smallTextStyle: textTheme.bodySmall!.copyWith(
+        color: scheme.onSurface,
+      ),
+      boldTextStyle: textTheme.labelLarge!.copyWith(
+        color: scheme.onSurface,
+        fontWeight: FontWeight.bold,
+      ),
+      italicTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+        fontStyle: FontStyle.italic,
+      ),
+      underlineTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+        decoration: TextDecoration.underline,
+      ),
+      colorTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.primary,
+      ),
+      linkDecoration: TextDecoration.underline,
+      linkDecorationThickness: 2.0, // Pixel theme thick underline
+    );
+  }
+
+  /// Creates TextButtonStyle for Pixel theme with AppColorScheme (fromConfig factory)
+  /// Pixel theme: Retro feel (2.0 radius), pixelated edges, dithered effects, instant animations
+  static TextButtonStyle _createPixelTextButtonStyle(
+    AppColorScheme colors,
+    TextTheme textTheme,
+  ) {
+    return TextButtonStyle(
+      enabledStyle: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 2.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary,
+      ),
+      disabledStyle: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 2.0,
+        blurStrength: 0.0,
+        contentColor: colors.onSurface.withValues(alpha: 0.38),
+      ),
+      hoverStyle: SurfaceStyle(
+        backgroundColor: colors.primary.withValues(alpha: 0.1),
+        borderColor: colors.highContrastBorder,
+        borderWidth: 2.0,
+        borderRadius: 2.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary,
+        shadows: [
+          BoxShadow(
+            color: colors.styleShadow.withValues(alpha: 0.3),
+            blurRadius: 0,
+            offset: const Offset(2, 2),
+          ),
+        ],
+      ),
+      pressedStyle: SurfaceStyle(
+        backgroundColor: colors.primary.withValues(alpha: 0.2),
+        borderColor: colors.highContrastBorder,
+        borderWidth: 2.0,
+        borderRadius: 2.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary,
+        shadows: [
+          BoxShadow(
+            color: colors.styleShadow.withValues(alpha: 0.5),
+            blurRadius: 0,
+            offset: const Offset(2, 2),
+          ),
+        ],
+      ),
+      enabledContentColor: colors.primary,
+      disabledContentColor: colors.onSurface.withValues(alpha: 0.38),
+      smallTextStyle: textTheme.labelMedium!.copyWith(
+        fontWeight: FontWeight.bold,
+        color: colors.primary,
+      ),
+      mediumTextStyle: textTheme.labelLarge!.copyWith(
+        fontWeight: FontWeight.bold,
+        color: colors.primary,
+      ),
+      largeTextStyle: textTheme.titleMedium!.copyWith(
+        fontWeight: FontWeight.bold,
+        color: colors.primary,
+      ),
+      interaction: const InteractionSpec(
+        pressedScale: 1.0,
+        pressedOpacity: 1.0,
+        hoverOpacity: 1.0,
+        pressedOffset: Offset(1, 1), // Subtle pixel offset for Pixel theme
+      ),
+    );
+  }
+
+  /// Creates TextButtonStyle for Pixel theme with ColorScheme (light/dark factories)
+  static TextButtonStyle _createPixelTextButtonStyleForScheme(
+    ColorScheme scheme,
+    TextTheme textTheme,
+  ) {
+    return TextButtonStyle(
+      enabledStyle: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 2.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+      ),
+      disabledStyle: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 2.0,
+        blurStrength: 0.0,
+        contentColor: scheme.onSurface.withValues(alpha: 0.38),
+      ),
+      hoverStyle: SurfaceStyle(
+        backgroundColor: scheme.primary.withValues(alpha: 0.1),
+        borderColor: scheme.onSurface,
+        borderWidth: 2.0,
+        borderRadius: 2.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+        shadows: [
+          BoxShadow(
+            color: scheme.onSurface.withValues(alpha: 0.3),
+            blurRadius: 0,
+            offset: const Offset(2, 2),
+          ),
+        ],
+      ),
+      pressedStyle: SurfaceStyle(
+        backgroundColor: scheme.primary.withValues(alpha: 0.2),
+        borderColor: scheme.onSurface,
+        borderWidth: 2.0,
+        borderRadius: 2.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+        shadows: [
+          BoxShadow(
+            color: scheme.onSurface.withValues(alpha: 0.5),
+            blurRadius: 0,
+            offset: const Offset(2, 2),
+          ),
+        ],
+      ),
+      enabledContentColor: scheme.primary,
+      disabledContentColor: scheme.onSurface.withValues(alpha: 0.38),
+      smallTextStyle: textTheme.labelMedium!.copyWith(
+        fontWeight: FontWeight.bold,
+        color: scheme.primary,
+      ),
+      mediumTextStyle: textTheme.labelLarge!.copyWith(
+        fontWeight: FontWeight.bold,
+        color: scheme.primary,
+      ),
+      largeTextStyle: textTheme.titleMedium!.copyWith(
+        fontWeight: FontWeight.bold,
+        color: scheme.primary,
+      ),
+      interaction: const InteractionSpec(
+        pressedScale: 1.0,
+        pressedOpacity: 1.0,
+        hoverOpacity: 1.0,
+        pressedOffset: Offset(1, 1), // Subtle pixel offset for Pixel theme
       ),
     );
   }

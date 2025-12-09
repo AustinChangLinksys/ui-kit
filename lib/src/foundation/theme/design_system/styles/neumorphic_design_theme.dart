@@ -5,6 +5,7 @@ import 'package:ui_kit_library/src/foundation/theme/design_system/specs/pin_inpu
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/range_input_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/shared/animation_spec.dart'
     as shared;
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/styled_text_style.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 import 'package:ui_kit_library/src/foundation/motion/neumorphic_motion.dart'; // Assuming NeumorphicMotion is created
 
@@ -527,18 +528,22 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         cellShape: PinCellShape.recess,
         fillOnInput: false,
         glowOnActive: true,
-        textStyle: appTextTheme.headlineMedium!.copyWith(color: colors.onSurface),
+        textStyle:
+            appTextTheme.headlineMedium!.copyWith(color: colors.onSurface),
         cellSpacing: 12.0,
         cellSize: 52.0,
       ),
       passwordInputStyle: PasswordInputStyle(
         validIcon: Icons.check_circle_outline,
         pendingIcon: Icons.radio_button_unchecked,
-        ruleTextStyle: appTextTheme.bodySmall!.copyWith(color: colors.onSurfaceVariant),
+        ruleTextStyle:
+            appTextTheme.bodySmall!.copyWith(color: colors.onSurfaceVariant),
         showRuleListBackground: false,
         validColor: colors.primary,
         pendingColor: colors.onSurfaceVariant,
       ),
+      styledTextStyle: _createNeumorphicStyledTextStyle(colors, appTextTheme),
+      textButtonStyle: _createNeumorphicTextButtonStyle(colors, appTextTheme),
     );
   }
 
@@ -732,6 +737,8 @@ class NeumorphicDesignTheme extends AppDesignTheme {
     required super.rangeInputStyle,
     required super.pinInputStyle,
     required super.passwordInputStyle,
+    required super.styledTextStyle,
+    required super.textButtonStyle,
   });
 
   // Default to Light, providing a default ColorScheme
@@ -1247,18 +1254,24 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         cellShape: PinCellShape.recess,
         fillOnInput: false,
         glowOnActive: true,
-        textStyle: appTextTheme.headlineMedium!.copyWith(color: scheme.onSurface),
+        textStyle:
+            appTextTheme.headlineMedium!.copyWith(color: scheme.onSurface),
         cellSpacing: 12.0,
         cellSize: 52.0,
       ),
       passwordInputStyle: PasswordInputStyle(
         validIcon: Icons.check_circle_outline,
         pendingIcon: Icons.radio_button_unchecked,
-        ruleTextStyle: appTextTheme.bodySmall!.copyWith(color: scheme.onSurfaceVariant),
+        ruleTextStyle:
+            appTextTheme.bodySmall!.copyWith(color: scheme.onSurfaceVariant),
         showRuleListBackground: false,
         validColor: scheme.primary,
         pendingColor: scheme.onSurfaceVariant,
       ),
+      styledTextStyle:
+          _createNeumorphicStyledTextStyleForScheme(scheme, appTextTheme),
+      textButtonStyle:
+          _createNeumorphicTextButtonStyleForScheme(scheme, appTextTheme),
     );
   }
 
@@ -1785,18 +1798,24 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         cellShape: PinCellShape.recess,
         fillOnInput: false,
         glowOnActive: true,
-        textStyle: appTextTheme.headlineMedium!.copyWith(color: scheme.onSurface),
+        textStyle:
+            appTextTheme.headlineMedium!.copyWith(color: scheme.onSurface),
         cellSpacing: 12.0,
         cellSize: 52.0,
       ),
       passwordInputStyle: PasswordInputStyle(
         validIcon: Icons.check_circle_outline,
         pendingIcon: Icons.radio_button_unchecked,
-        ruleTextStyle: appTextTheme.bodySmall!.copyWith(color: scheme.onSurfaceVariant),
+        ruleTextStyle:
+            appTextTheme.bodySmall!.copyWith(color: scheme.onSurfaceVariant),
         showRuleListBackground: false,
         validColor: scheme.primary,
         pendingColor: scheme.onSurfaceVariant,
       ),
+      styledTextStyle:
+          _createNeumorphicStyledTextStyleForDark(scheme, appTextTheme),
+      textButtonStyle:
+          _createNeumorphicTextButtonStyleForScheme(scheme, appTextTheme),
     );
   }
 
@@ -1964,6 +1983,377 @@ class NeumorphicDesignTheme extends AppDesignTheme {
       viewTransition: const shared.AnimationSpec(
         duration: Duration(milliseconds: 400),
         curve: Curves.easeInOut,
+      ),
+    );
+  }
+
+  /// Creates StyledTextStyle for Neumorphic theme with AppColorScheme (fromConfig factory)
+  /// Neumorphic theme: Soft shadows, gentle transitions, raised/pressed effects
+  static StyledTextStyle _createNeumorphicStyledTextStyle(
+    AppColorScheme colors,
+    TextTheme textTheme,
+  ) {
+    return StyledTextStyle(
+      baseTextStyle: textTheme.bodyMedium!.copyWith(
+        color: colors.onSurface,
+      ),
+      linkColors: StateColorSpec(
+        active: colors.primary,
+        inactive: colors.primary.withValues(alpha: 0.8),
+        hover: colors.primary.withValues(alpha: 0.9),
+        pressed: colors.primary,
+      ),
+      linkAnimation: const shared.AnimationSpec(
+        duration: Duration(
+            milliseconds: 400), // Neumorphic theme smooth gradual timing
+        curve: Curves.easeInOut,
+      ),
+      largeTextStyle: textTheme.titleMedium!.copyWith(
+        color: colors.onSurface,
+      ),
+      smallTextStyle: textTheme.bodySmall!.copyWith(
+        color: colors.onSurface.withValues(alpha: 0.8),
+      ),
+      boldTextStyle: textTheme.labelLarge!.copyWith(
+        color: colors.onSurface,
+        fontWeight: FontWeight.w600, // Moderately bold for Neumorphic
+      ),
+      italicTextStyle: textTheme.bodyMedium!.copyWith(
+        color: colors.onSurface,
+        fontStyle: FontStyle.italic,
+      ),
+      underlineTextStyle: textTheme.bodyMedium!.copyWith(
+        color: colors.onSurface,
+        decoration: TextDecoration.underline,
+        decorationThickness: 1.5, // Slightly thicker for soft shadow effect
+      ),
+      colorTextStyle: textTheme.bodyMedium!.copyWith(
+        color: colors.primary,
+      ),
+      linkDecoration: TextDecoration.none,
+      linkDecorationThickness: 0.0,
+      // Neumorphic theme special effect: soft text shadows
+      linkShadows: [
+        Shadow(
+          color: colors.styleShadow.withValues(alpha: 0.3),
+          offset: const Offset(1, 1),
+          blurRadius: 2.0,
+        ),
+        Shadow(
+          color: colors.glowColor.withValues(alpha: 0.5),
+          offset: const Offset(-1, -1),
+          blurRadius: 2.0,
+        ),
+      ],
+    );
+  }
+
+  /// Creates StyledTextStyle for Neumorphic theme with ColorScheme (light/dark factories)
+  static StyledTextStyle _createNeumorphicStyledTextStyleForScheme(
+    ColorScheme scheme,
+    TextTheme textTheme,
+  ) {
+    final isLight = scheme.brightness == Brightness.light;
+    return StyledTextStyle(
+      baseTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+      ),
+      linkColors: StateColorSpec(
+        active: scheme.primary,
+        inactive: scheme.primary.withValues(alpha: 0.8),
+        hover: scheme.primary.withValues(alpha: 0.9),
+        pressed: scheme.primary,
+      ),
+      linkAnimation: const shared.AnimationSpec(
+        duration: Duration(milliseconds: 400),
+        curve: Curves.easeInOut,
+      ),
+      largeTextStyle: textTheme.titleMedium!.copyWith(
+        color: scheme.onSurface,
+      ),
+      smallTextStyle: textTheme.bodySmall!.copyWith(
+        color: scheme.onSurface.withValues(alpha: 0.8),
+      ),
+      boldTextStyle: textTheme.labelLarge!.copyWith(
+        color: scheme.onSurface,
+        fontWeight: FontWeight.w600,
+      ),
+      italicTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+        fontStyle: FontStyle.italic,
+      ),
+      underlineTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+        decoration: TextDecoration.underline,
+        decorationThickness: 1.5,
+      ),
+      colorTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.primary,
+      ),
+      linkDecoration: TextDecoration.none,
+      linkDecorationThickness: 0.0,
+      // Neumorphic theme special effect: soft dual shadows (raised effect)
+      linkShadows: [
+        Shadow(
+          color: isLight
+              ? Colors.black.withValues(alpha: 0.2)
+              : Colors.black.withValues(alpha: 0.4),
+          offset: const Offset(1, 1),
+          blurRadius: 2.0,
+        ),
+        Shadow(
+          color: isLight
+              ? Colors.white.withValues(alpha: 0.8)
+              : scheme.surface.withValues(alpha: 0.6),
+          offset: const Offset(-1, -1),
+          blurRadius: 2.0,
+        ),
+      ],
+    );
+  }
+
+  /// Creates StyledTextStyle for Neumorphic theme dark mode
+  static StyledTextStyle _createNeumorphicStyledTextStyleForDark(
+    ColorScheme scheme,
+    TextTheme textTheme,
+  ) {
+    return StyledTextStyle(
+      baseTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+      ),
+      linkColors: StateColorSpec(
+        active: scheme.primary,
+        inactive: scheme.primary.withValues(alpha: 0.8),
+        hover: scheme.primary.withValues(alpha: 0.9),
+        pressed: scheme.primary,
+      ),
+      linkAnimation: const shared.AnimationSpec(
+        duration: Duration(milliseconds: 400),
+        curve: Curves.easeInOut,
+      ),
+      largeTextStyle: textTheme.titleMedium!.copyWith(
+        color: scheme.onSurface,
+      ),
+      smallTextStyle: textTheme.bodySmall!.copyWith(
+        color: scheme.onSurface.withValues(alpha: 0.8),
+      ),
+      boldTextStyle: textTheme.labelLarge!.copyWith(
+        color: scheme.onSurface,
+        fontWeight: FontWeight.w600,
+      ),
+      italicTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+        fontStyle: FontStyle.italic,
+      ),
+      underlineTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+        decoration: TextDecoration.underline,
+        decorationThickness: 1.5,
+      ),
+      colorTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.primary,
+      ),
+      linkDecoration: TextDecoration.none,
+      linkDecorationThickness: 0.0,
+      // Dark mode Neumorphic: stronger shadows for raised effect
+      linkShadows: [
+        Shadow(
+          color: scheme.shadow.withValues(alpha: 0.4),
+          offset: const Offset(1, 1),
+          blurRadius: 2.0,
+        ),
+        Shadow(
+          color: scheme.surfaceContainerHighest.withValues(alpha: 0.6),
+          offset: const Offset(-1, -1),
+          blurRadius: 2.0,
+        ),
+      ],
+    );
+  }
+
+  /// Creates TextButtonStyle for Neumorphic theme with AppColorScheme (fromConfig factory)
+  /// Neumorphic theme: Soft shadows, raised/pressed effects, subtle radius (12.0), dual shadow system
+  static TextButtonStyle _createNeumorphicTextButtonStyle(
+    AppColorScheme colors,
+    TextTheme textTheme,
+  ) {
+    final isLight = colors.surface.computeLuminance() > 0.5;
+    final lightShadow = Color.alphaBlend(
+        colors.glowColor.withValues(alpha: 0.6), colors.surface);
+    final darkShadow = colors.styleShadow;
+
+    return TextButtonStyle(
+      enabledStyle: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 12.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary,
+      ),
+      disabledStyle: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 12.0,
+        blurStrength: 0.0,
+        contentColor: colors.onSurface.withValues(alpha: 0.38),
+      ),
+      hoverStyle: SurfaceStyle(
+        backgroundColor: colors.styleBackground,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 12.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary,
+        shadows: [
+          BoxShadow(
+            color: lightShadow,
+            offset: const Offset(-2, -2),
+            blurRadius: 4,
+          ),
+          BoxShadow(
+            color: darkShadow,
+            offset: const Offset(2, 2),
+            blurRadius: 4,
+          ),
+        ],
+      ),
+      pressedStyle: SurfaceStyle(
+        backgroundColor: colors.styleBackground,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 12.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary,
+        shadows: [
+          BoxShadow(
+            color: darkShadow.withValues(alpha: isLight ? 0.3 : 0.5),
+            offset: const Offset(1, 1),
+            blurRadius: 2,
+          ),
+          BoxShadow(
+            color: lightShadow.withValues(alpha: isLight ? 0.4 : 0.2),
+            offset: const Offset(-1, -1),
+            blurRadius: 2,
+          ),
+        ],
+      ),
+      enabledContentColor: colors.primary,
+      disabledContentColor: colors.onSurface.withValues(alpha: 0.38),
+      smallTextStyle: textTheme.labelMedium!.copyWith(
+        fontWeight: FontWeight.w500,
+        color: colors.primary,
+      ),
+      mediumTextStyle: textTheme.labelLarge!.copyWith(
+        fontWeight: FontWeight.w500,
+        color: colors.primary,
+      ),
+      largeTextStyle: textTheme.titleMedium!.copyWith(
+        fontWeight: FontWeight.w500,
+        color: colors.primary,
+      ),
+      interaction: const InteractionSpec(
+        pressedScale: 0.98, // Slight scale for Neumorphic theme
+        pressedOpacity: 1.0,
+        hoverOpacity: 1.0,
+        pressedOffset: Offset.zero,
+      ),
+    );
+  }
+
+  /// Creates TextButtonStyle for Neumorphic theme with ColorScheme (light/dark factories)
+  static TextButtonStyle _createNeumorphicTextButtonStyleForScheme(
+    ColorScheme scheme,
+    TextTheme textTheme,
+  ) {
+    final isLight = scheme.brightness == Brightness.light;
+    final lightShadow = isLight
+        ? Color.alphaBlend(
+            scheme.outline.withValues(alpha: 0.5), scheme.surface)
+        : Color.alphaBlend(
+            scheme.outline.withValues(alpha: 0.1), scheme.surface);
+    final darkShadow = isLight
+        ? Color.alphaBlend(scheme.shadow.withValues(alpha: 0.2), scheme.surface)
+        : Color.alphaBlend(
+            scheme.shadow.withValues(alpha: 0.6), scheme.surface);
+
+    return TextButtonStyle(
+      enabledStyle: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 12.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+      ),
+      disabledStyle: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 12.0,
+        blurStrength: 0.0,
+        contentColor: scheme.onSurface.withValues(alpha: 0.38),
+      ),
+      hoverStyle: SurfaceStyle(
+        backgroundColor: scheme.surface,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 12.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+        shadows: [
+          BoxShadow(
+            color: lightShadow,
+            offset: const Offset(-2, -2),
+            blurRadius: 4,
+          ),
+          BoxShadow(
+            color: darkShadow,
+            offset: const Offset(2, 2),
+            blurRadius: 4,
+          ),
+        ],
+      ),
+      pressedStyle: SurfaceStyle(
+        backgroundColor: scheme.surface,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 12.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+        shadows: [
+          BoxShadow(
+            color: darkShadow.withValues(alpha: isLight ? 0.3 : 0.5),
+            offset: const Offset(1, 1),
+            blurRadius: 2,
+          ),
+          BoxShadow(
+            color: lightShadow.withValues(alpha: isLight ? 0.4 : 0.2),
+            offset: const Offset(-1, -1),
+            blurRadius: 2,
+          ),
+        ],
+      ),
+      enabledContentColor: scheme.primary,
+      disabledContentColor: scheme.onSurface.withValues(alpha: 0.38),
+      smallTextStyle: textTheme.labelMedium!.copyWith(
+        fontWeight: FontWeight.w500,
+        color: scheme.primary,
+      ),
+      mediumTextStyle: textTheme.labelLarge!.copyWith(
+        fontWeight: FontWeight.w500,
+        color: scheme.primary,
+      ),
+      largeTextStyle: textTheme.titleMedium!.copyWith(
+        fontWeight: FontWeight.w500,
+        color: scheme.primary,
+      ),
+      interaction: const InteractionSpec(
+        pressedScale: 0.98, // Slight scale for Neumorphic theme
+        pressedOpacity: 1.0,
+        hoverOpacity: 1.0,
+        pressedOffset: Offset.zero,
       ),
     );
   }

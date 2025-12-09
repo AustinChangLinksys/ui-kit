@@ -6,6 +6,7 @@ import 'package:ui_kit_library/src/foundation/theme/design_system/specs/pin_inpu
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/range_input_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/shared/animation_spec.dart'
     as shared;
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/styled_text_style.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
 class BrutalDesignTheme extends AppDesignTheme {
@@ -469,6 +470,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         validColor: colors.onSurface,
         pendingColor: colors.onSurface.withValues(alpha: 0.5),
       ),
+      styledTextStyle: _createBrutalStyledTextStyle(colors, appTextTheme),
+      textButtonStyle: _createBrutalTextButtonStyle(colors, appTextTheme),
     );
   }
 
@@ -513,6 +516,8 @@ class BrutalDesignTheme extends AppDesignTheme {
     required super.rangeInputStyle,
     required super.pinInputStyle,
     required super.passwordInputStyle,
+    required super.styledTextStyle,
+    required super.textButtonStyle,
   });
 
   factory BrutalDesignTheme.light([ColorScheme? scheme]) {
@@ -973,6 +978,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         validColor: scheme.onSurface,
         pendingColor: scheme.onSurface.withValues(alpha: 0.5),
       ),
+      styledTextStyle: _createBrutalStyledTextStyleForScheme(scheme, appTextTheme),
+      textButtonStyle: _createBrutalTextButtonStyleForScheme(scheme, appTextTheme),
     );
   }
 
@@ -1432,6 +1439,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         validColor: black,
         pendingColor: black.withValues(alpha: 0.5),
       ),
+      styledTextStyle: _createBrutalStyledTextStyleForDark(scheme, appTextTheme),
+      textButtonStyle: _createBrutalTextButtonStyleForScheme(scheme, appTextTheme),
     );
   }
 
@@ -1579,6 +1588,318 @@ class BrutalDesignTheme extends AppDesignTheme {
       viewTransition: const shared.AnimationSpec(
         duration: Duration(milliseconds: 200),
         curve: Curves.easeOut,
+      ),
+    );
+  }
+
+  /// Creates StyledTextStyle for Brutal theme with AppColorScheme (fromConfig factory)
+  /// Brutal theme: Bold borders, solid colors, high contrast
+  static StyledTextStyle _createBrutalStyledTextStyle(
+    AppColorScheme colors,
+    TextTheme textTheme,
+  ) {
+    return StyledTextStyle(
+      baseTextStyle: textTheme.bodyMedium!.copyWith(
+        color: colors.onSurface,
+        fontWeight: FontWeight.w500, // Slightly bolder for Brutal theme
+      ),
+      linkColors: StateColorSpec(
+        active: colors.onSurface,
+        inactive: colors.onSurface,
+        hover: colors.onSurface,
+        pressed: colors.onSurface,
+      ),
+      linkAnimation: const shared.AnimationSpec(
+        duration: Duration(milliseconds: 150), // Brutal theme snappy transitions
+        curve: Curves.easeOut,
+      ),
+      largeTextStyle: textTheme.titleMedium!.copyWith(
+        color: colors.onSurface,
+        fontWeight: FontWeight.bold, // Extra bold for large text
+      ),
+      smallTextStyle: textTheme.bodySmall!.copyWith(
+        color: colors.onSurface,
+        fontWeight: FontWeight.w600, // Bold small text for high contrast
+      ),
+      boldTextStyle: textTheme.labelLarge!.copyWith(
+        color: colors.onSurface,
+        fontWeight: FontWeight.w900, // Ultra bold
+      ),
+      italicTextStyle: textTheme.bodyMedium!.copyWith(
+        color: colors.onSurface,
+        fontStyle: FontStyle.italic,
+        fontWeight: FontWeight.w500,
+      ),
+      underlineTextStyle: textTheme.bodyMedium!.copyWith(
+        color: colors.onSurface,
+        decoration: TextDecoration.underline,
+        decorationThickness: 2.0, // Thick underline for Brutal theme
+        fontWeight: FontWeight.w500,
+      ),
+      colorTextStyle: textTheme.bodyMedium!.copyWith(
+        color: colors.primary,
+        fontWeight: FontWeight.w600,
+      ),
+      linkDecoration: TextDecoration.none,
+      linkDecorationThickness: 0.0,
+      // Brutal theme special effect: solid background color for links
+      linkBackgroundColor: colors.primary,
+    );
+  }
+
+  /// Creates StyledTextStyle for Brutal theme with ColorScheme (light factory)
+  static StyledTextStyle _createBrutalStyledTextStyleForScheme(
+    ColorScheme scheme,
+    TextTheme textTheme,
+  ) {
+    return StyledTextStyle(
+      baseTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+        fontWeight: FontWeight.w500,
+      ),
+      linkColors: StateColorSpec(
+        active: scheme.onSurface,
+        inactive: scheme.onSurface,
+        hover: scheme.onSurface,
+        pressed: scheme.onSurface,
+      ),
+      linkAnimation: const shared.AnimationSpec(
+        duration: Duration(milliseconds: 150),
+        curve: Curves.easeOut,
+      ),
+      largeTextStyle: textTheme.titleMedium!.copyWith(
+        color: scheme.onSurface,
+        fontWeight: FontWeight.bold,
+      ),
+      smallTextStyle: textTheme.bodySmall!.copyWith(
+        color: scheme.onSurface,
+        fontWeight: FontWeight.w600,
+      ),
+      boldTextStyle: textTheme.labelLarge!.copyWith(
+        color: scheme.onSurface,
+        fontWeight: FontWeight.w900,
+      ),
+      italicTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+        fontStyle: FontStyle.italic,
+        fontWeight: FontWeight.w500,
+      ),
+      underlineTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+        decoration: TextDecoration.underline,
+        decorationThickness: 2.0,
+        fontWeight: FontWeight.w500,
+      ),
+      colorTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.primary,
+        fontWeight: FontWeight.w600,
+      ),
+      linkDecoration: TextDecoration.none,
+      linkDecorationThickness: 0.0,
+      linkBackgroundColor: scheme.primary,
+    );
+  }
+
+  /// Creates StyledTextStyle for Brutal theme dark mode
+  static StyledTextStyle _createBrutalStyledTextStyleForDark(
+    ColorScheme scheme,
+    TextTheme textTheme,
+  ) {
+    return StyledTextStyle(
+      baseTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+        fontWeight: FontWeight.w500,
+      ),
+      linkColors: StateColorSpec(
+        active: scheme.onSurface,
+        inactive: scheme.onSurface,
+        hover: scheme.onSurface,
+        pressed: scheme.onSurface,
+      ),
+      linkAnimation: const shared.AnimationSpec(
+        duration: Duration(milliseconds: 150),
+        curve: Curves.easeOut,
+      ),
+      largeTextStyle: textTheme.titleMedium!.copyWith(
+        color: scheme.onSurface,
+        fontWeight: FontWeight.bold,
+      ),
+      smallTextStyle: textTheme.bodySmall!.copyWith(
+        color: scheme.onSurface,
+        fontWeight: FontWeight.w600,
+      ),
+      boldTextStyle: textTheme.labelLarge!.copyWith(
+        color: scheme.onSurface,
+        fontWeight: FontWeight.w900,
+      ),
+      italicTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+        fontStyle: FontStyle.italic,
+        fontWeight: FontWeight.w500,
+      ),
+      underlineTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+        decoration: TextDecoration.underline,
+        decorationThickness: 2.0,
+        fontWeight: FontWeight.w500,
+      ),
+      colorTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.primary,
+        fontWeight: FontWeight.w600,
+      ),
+      linkDecoration: TextDecoration.none,
+      linkDecorationThickness: 0.0,
+      linkBackgroundColor: scheme.primary,
+    );
+  }
+
+  /// Creates TextButtonStyle for Brutal theme with AppColorScheme (fromConfig factory)
+  /// Brutal theme: Sharp corners (0.0 radius), bold borders (3.0 width), high contrast colors, block shadows, no blur
+  static TextButtonStyle _createBrutalTextButtonStyle(
+    AppColorScheme colors,
+    TextTheme textTheme,
+  ) {
+    return TextButtonStyle(
+      enabledStyle: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 0.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary,
+      ),
+      disabledStyle: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 0.0,
+        blurStrength: 0.0,
+        contentColor: colors.onSurface.withValues(alpha: 0.38),
+      ),
+      hoverStyle: SurfaceStyle(
+        backgroundColor: colors.primary.withValues(alpha: 0.1),
+        borderColor: colors.highContrastBorder,
+        borderWidth: 2.0,
+        borderRadius: 0.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary,
+        shadows: [
+          BoxShadow(
+            color: colors.styleShadow,
+            blurRadius: 0,
+            offset: const Offset(2, 2),
+          ),
+        ],
+      ),
+      pressedStyle: SurfaceStyle(
+        backgroundColor: colors.primary.withValues(alpha: 0.2),
+        borderColor: colors.highContrastBorder,
+        borderWidth: 3.0,
+        borderRadius: 0.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary,
+        shadows: [
+          BoxShadow(
+            color: colors.styleShadow,
+            blurRadius: 0,
+            offset: const Offset(4, 4),
+          ),
+        ],
+      ),
+      enabledContentColor: colors.primary,
+      disabledContentColor: colors.onSurface.withValues(alpha: 0.38),
+      smallTextStyle: textTheme.labelMedium!.copyWith(
+        fontWeight: FontWeight.bold,
+        color: colors.primary,
+      ),
+      mediumTextStyle: textTheme.labelLarge!.copyWith(
+        fontWeight: FontWeight.bold,
+        color: colors.primary,
+      ),
+      largeTextStyle: textTheme.titleMedium!.copyWith(
+        fontWeight: FontWeight.bold,
+        color: colors.primary,
+      ),
+      interaction: const InteractionSpec(
+        pressedScale: 1.0,
+        pressedOpacity: 1.0,
+        hoverOpacity: 1.0,
+        pressedOffset: Offset(2, 2),
+      ),
+    );
+  }
+
+  /// Creates TextButtonStyle for Brutal theme with ColorScheme (light/dark factories)
+  static TextButtonStyle _createBrutalTextButtonStyleForScheme(
+    ColorScheme scheme,
+    TextTheme textTheme,
+  ) {
+    return TextButtonStyle(
+      enabledStyle: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 0.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+      ),
+      disabledStyle: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 0.0,
+        blurStrength: 0.0,
+        contentColor: scheme.onSurface.withValues(alpha: 0.38),
+      ),
+      hoverStyle: SurfaceStyle(
+        backgroundColor: scheme.primary.withValues(alpha: 0.1),
+        borderColor: scheme.onSurface,
+        borderWidth: 2.0,
+        borderRadius: 0.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+        shadows: [
+          BoxShadow(
+            color: scheme.onSurface,
+            blurRadius: 0,
+            offset: const Offset(2, 2),
+          ),
+        ],
+      ),
+      pressedStyle: SurfaceStyle(
+        backgroundColor: scheme.primary.withValues(alpha: 0.2),
+        borderColor: scheme.onSurface,
+        borderWidth: 3.0,
+        borderRadius: 0.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+        shadows: [
+          BoxShadow(
+            color: scheme.onSurface,
+            blurRadius: 0,
+            offset: const Offset(4, 4),
+          ),
+        ],
+      ),
+      enabledContentColor: scheme.primary,
+      disabledContentColor: scheme.onSurface.withValues(alpha: 0.38),
+      smallTextStyle: textTheme.labelMedium!.copyWith(
+        fontWeight: FontWeight.bold,
+        color: scheme.primary,
+      ),
+      mediumTextStyle: textTheme.labelLarge!.copyWith(
+        fontWeight: FontWeight.bold,
+        color: scheme.primary,
+      ),
+      largeTextStyle: textTheme.titleMedium!.copyWith(
+        fontWeight: FontWeight.bold,
+        color: scheme.primary,
+      ),
+      interaction: const InteractionSpec(
+        pressedScale: 1.0,
+        pressedOpacity: 1.0,
+        hoverOpacity: 1.0,
+        pressedOffset: Offset(2, 2),
       ),
     );
   }

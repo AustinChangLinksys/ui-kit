@@ -5,6 +5,7 @@ import 'package:ui_kit_library/src/foundation/theme/design_system/specs/pin_inpu
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/password_input_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/shared/animation_spec.dart'
     as shared;
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/styled_text_style.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
 class GlassDesignTheme extends AppDesignTheme {
@@ -530,6 +531,8 @@ class GlassDesignTheme extends AppDesignTheme {
         validColor: colors.signalStrong, // Neon green
         pendingColor: colors.onSurface.withValues(alpha: 0.5),
       ),
+      styledTextStyle: _createGlassStyledTextStyle(colors, appTextTheme),
+      textButtonStyle: _createGlassTextButtonStyle(colors, appTextTheme),
     );
   }
 
@@ -573,6 +576,8 @@ class GlassDesignTheme extends AppDesignTheme {
     required super.rangeInputStyle,
     required super.pinInputStyle,
     required super.passwordInputStyle,
+    required super.styledTextStyle,
+    required super.textButtonStyle,
   });
 
   // Light Mode (Liquid Water)
@@ -1101,6 +1106,8 @@ class GlassDesignTheme extends AppDesignTheme {
         validColor: scheme.primary,
         pendingColor: scheme.onSurface.withValues(alpha: 0.5),
       ),
+      styledTextStyle: _createGlassStyledTextStyleForScheme(scheme, appTextTheme),
+      textButtonStyle: _createGlassTextButtonStyleForScheme(scheme, appTextTheme),
     );
   }
 
@@ -1623,6 +1630,8 @@ class GlassDesignTheme extends AppDesignTheme {
         validColor: scheme.primary,
         pendingColor: scheme.onSurface.withValues(alpha: 0.5),
       ),
+      styledTextStyle: _createGlassStyledTextStyleForScheme(scheme, appTextTheme),
+      textButtonStyle: _createGlassTextButtonStyleForScheme(scheme, appTextTheme),
     );
   }
 
@@ -1797,6 +1806,247 @@ class GlassDesignTheme extends AppDesignTheme {
       viewTransition: const shared.AnimationSpec(
         duration: Duration(milliseconds: 500),
         curve: Curves.easeOutExpo,
+      ),
+    );
+  }
+
+  /// Creates StyledTextStyle for Glass theme with AppColorScheme (fromConfig factory)
+  static StyledTextStyle _createGlassStyledTextStyle(
+    AppColorScheme colors,
+    TextTheme textTheme,
+  ) {
+    return StyledTextStyle(
+      baseTextStyle: textTheme.bodyMedium!.copyWith(
+        color: colors.onSurface,
+      ),
+      linkColors: StateColorSpec(
+        active: colors.primary,
+        inactive: colors.primary.withValues(alpha: 0.7),
+        hover: colors.primary.withValues(alpha: 0.9),
+        pressed: colors.primary.withValues(alpha: 1.0),
+      ),
+      linkAnimation: const shared.AnimationSpec(
+        duration: Duration(milliseconds: 500), // Glass theme fluid transitions
+        curve: Curves.easeOutExpo,
+      ),
+      largeTextStyle: textTheme.titleMedium!.copyWith(
+        color: colors.onSurface,
+      ),
+      smallTextStyle: textTheme.bodySmall!.copyWith(
+        color: colors.onSurface.withValues(alpha: 0.7),
+      ),
+      boldTextStyle: textTheme.labelLarge!.copyWith(
+        color: colors.onSurface,
+        fontWeight: FontWeight.bold,
+      ),
+      italicTextStyle: textTheme.bodyMedium!.copyWith(
+        color: colors.onSurface,
+        fontStyle: FontStyle.italic,
+      ),
+      underlineTextStyle: textTheme.bodyMedium!.copyWith(
+        color: colors.onSurface,
+        decoration: TextDecoration.underline,
+      ),
+      colorTextStyle: textTheme.bodyMedium!.copyWith(
+        color: colors.primary,
+      ),
+      linkDecoration: TextDecoration.none,
+      linkDecorationThickness: 0.0,
+      // Glass theme special effect: glow shadows
+      linkShadows: [
+        Shadow(
+          color: colors.primary.withValues(alpha: 0.3),
+          blurRadius: 4.0,
+        ),
+      ],
+    );
+  }
+
+  /// Creates StyledTextStyle for Glass theme with ColorScheme (light/dark factories)
+  static StyledTextStyle _createGlassStyledTextStyleForScheme(
+    ColorScheme scheme,
+    TextTheme textTheme,
+  ) {
+    return StyledTextStyle(
+      baseTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+      ),
+      linkColors: StateColorSpec(
+        active: scheme.primary,
+        inactive: scheme.primary.withValues(alpha: 0.7),
+        hover: scheme.primary.withValues(alpha: 0.9),
+        pressed: scheme.primary.withValues(alpha: 1.0),
+      ),
+      linkAnimation: const shared.AnimationSpec(
+        duration: Duration(milliseconds: 500), // Glass theme fluid transitions
+        curve: Curves.easeOutExpo,
+      ),
+      largeTextStyle: textTheme.titleMedium!.copyWith(
+        color: scheme.onSurface,
+      ),
+      smallTextStyle: textTheme.bodySmall!.copyWith(
+        color: scheme.onSurface.withValues(alpha: 0.7),
+      ),
+      boldTextStyle: textTheme.labelLarge!.copyWith(
+        color: scheme.onSurface,
+        fontWeight: FontWeight.bold,
+      ),
+      italicTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+        fontStyle: FontStyle.italic,
+      ),
+      underlineTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.onSurface,
+        decoration: TextDecoration.underline,
+      ),
+      colorTextStyle: textTheme.bodyMedium!.copyWith(
+        color: scheme.primary,
+      ),
+      linkDecoration: TextDecoration.none,
+      linkDecorationThickness: 0.0,
+      // Glass theme special effect: glow shadows
+      linkShadows: [
+        Shadow(
+          color: scheme.primary.withValues(alpha: 0.3),
+          blurRadius: 4.0,
+        ),
+      ],
+    );
+  }
+
+  /// Creates TextButtonStyle for Glass theme with AppColorScheme (fromConfig factory)
+  /// Glass theme: Organic, fluid (24.0 radius), glowing effects, subtle scale interactions
+  static TextButtonStyle _createGlassTextButtonStyle(
+    AppColorScheme colors,
+    TextTheme textTheme,
+  ) {
+    return TextButtonStyle(
+      enabledStyle: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 24.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary,
+      ),
+      disabledStyle: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 24.0,
+        blurStrength: 0.0,
+        contentColor: colors.onSurface.withValues(alpha: 0.38),
+      ),
+      hoverStyle: SurfaceStyle(
+        backgroundColor: colors.primary.withValues(alpha: 0.08),
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 24.0,
+        blurStrength: 8.0,
+        contentColor: colors.primary,
+        shadows: [
+          BoxShadow(
+            color: colors.primary.withValues(alpha: 0.2),
+            blurRadius: 8.0,
+            spreadRadius: -2.0,
+          ),
+        ],
+      ),
+      pressedStyle: SurfaceStyle(
+        backgroundColor: colors.primary.withValues(alpha: 0.12),
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 24.0,
+        blurStrength: 4.0,
+        contentColor: colors.primary,
+      ),
+      enabledContentColor: colors.primary,
+      disabledContentColor: colors.onSurface.withValues(alpha: 0.38),
+      smallTextStyle: textTheme.labelMedium!.copyWith(
+        color: colors.primary,
+        fontWeight: FontWeight.w500,
+      ),
+      mediumTextStyle: textTheme.labelLarge!.copyWith(
+        color: colors.primary,
+        fontWeight: FontWeight.w500,
+      ),
+      largeTextStyle: textTheme.titleSmall!.copyWith(
+        color: colors.primary,
+        fontWeight: FontWeight.w500,
+      ),
+      interaction: const InteractionSpec(
+        pressedScale: 0.95,
+        pressedOpacity: 1.0,
+        hoverOpacity: 1.0,
+        pressedOffset: Offset.zero,
+      ),
+    );
+  }
+
+  /// Creates TextButtonStyle for Glass theme with ColorScheme (light/dark factories)
+  static TextButtonStyle _createGlassTextButtonStyleForScheme(
+    ColorScheme scheme,
+    TextTheme textTheme,
+  ) {
+    return TextButtonStyle(
+      enabledStyle: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 24.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+      ),
+      disabledStyle: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 24.0,
+        blurStrength: 0.0,
+        contentColor: scheme.onSurface.withValues(alpha: 0.38),
+      ),
+      hoverStyle: SurfaceStyle(
+        backgroundColor: scheme.primary.withValues(alpha: 0.08),
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 24.0,
+        blurStrength: 8.0,
+        contentColor: scheme.primary,
+        shadows: [
+          BoxShadow(
+            color: scheme.primary.withValues(alpha: 0.2),
+            blurRadius: 8.0,
+            spreadRadius: -2.0,
+          ),
+        ],
+      ),
+      pressedStyle: SurfaceStyle(
+        backgroundColor: scheme.primary.withValues(alpha: 0.12),
+        borderColor: Colors.transparent,
+        borderWidth: 0.0,
+        borderRadius: 24.0,
+        blurStrength: 4.0,
+        contentColor: scheme.primary,
+      ),
+      enabledContentColor: scheme.primary,
+      disabledContentColor: scheme.onSurface.withValues(alpha: 0.38),
+      smallTextStyle: textTheme.labelMedium!.copyWith(
+        color: scheme.primary,
+        fontWeight: FontWeight.w500,
+      ),
+      mediumTextStyle: textTheme.labelLarge!.copyWith(
+        color: scheme.primary,
+        fontWeight: FontWeight.w500,
+      ),
+      largeTextStyle: textTheme.titleSmall!.copyWith(
+        color: scheme.primary,
+        fontWeight: FontWeight.w500,
+      ),
+      interaction: const InteractionSpec(
+        pressedScale: 0.95,
+        pressedOpacity: 1.0,
+        hoverOpacity: 1.0,
+        pressedOffset: Offset.zero,
       ),
     );
   }

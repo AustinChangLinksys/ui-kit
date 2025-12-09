@@ -263,7 +263,7 @@ class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: MainAxisSize.max,
             children: [
               if (tab.icon != null) ...[
                 Icon(
@@ -273,10 +273,13 @@ class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
                 ),
                 const SizedBox(width: 8),
               ],
-              AppText(
-                tab.label,
-                color: _style.textColors.resolve(isActive: isSelected),
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+              Flexible(
+                child: AppText(
+                  tab.label,
+                  color: _style.textColors.resolve(isActive: isSelected),
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ],
           ),
@@ -304,7 +307,7 @@ class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: MainAxisSize.max,
         children: [
           if (tab.icon != null) ...[
             Icon(
@@ -314,10 +317,13 @@ class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
             ),
             const SizedBox(width: 8),
           ],
-          AppText(
-            tab.label,
-            color: _style.textColors.resolve(isActive: isSelected),
-            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+          Flexible(
+            child: AppText(
+              tab.label,
+              color: _style.textColors.resolve(isActive: isSelected),
+              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
         ],
       ),
@@ -330,7 +336,7 @@ class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: MainAxisSize.max,
         children: [
           if (tab.icon != null) ...[
             Icon(
@@ -340,10 +346,13 @@ class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
             ),
             const SizedBox(width: 8),
           ],
-          AppText(
-            tab.label,
-            color: _style.textColors.resolve(isActive: isSelected),
-            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+          Flexible(
+            child: AppText(
+              tab.label,
+              color: _style.textColors.resolve(isActive: isSelected),
+              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
         ],
       ),
