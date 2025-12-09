@@ -124,6 +124,7 @@ export 'src/molecules/selection/app_slider.dart';
 export 'src/molecules/status/app_tag.dart';
 export 'src/molecules/status/app_badge.dart';
 export 'src/molecules/status/app_avatar.dart';
+export 'src/molecules/typography/app_styled_text.dart';
 export 'src/molecules/inputs/app_text_field.dart';
 export 'src/molecules/forms/app_text_form_field.dart';
 export 'src/molecules/forms/app_dropdown.dart';

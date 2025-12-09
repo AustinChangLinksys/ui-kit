@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../atoms/icons/app_icon.dart';
+import '../../molecules/feedback/app_loader.dart';
 import '../../foundation/theme/design_system/app_design_theme.dart';
 import 'models/mesh_topology.dart';
 import 'nodes/pulse_node.dart' show NodeContentBuilder;
@@ -214,7 +216,7 @@ class AppTopology extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const CircularProgressIndicator(),
+          const AppLoader(),
           const SizedBox(height: 16),
           Text(
             'Loading topology...',
@@ -231,7 +233,7 @@ class AppTopology extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
+          AppIcon.font(
             Icons.device_hub,
             size: 64,
             color: Theme.of(context).colorScheme.outline,

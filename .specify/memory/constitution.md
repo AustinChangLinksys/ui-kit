@@ -2,8 +2,8 @@
 
 # 📜 Flutter UI Component Library Charter (ui\_kit)
 
-**Version**: 3.1.0
-**Effective Date**: 2025-12-08
+**Version**: 3.1.1
+**Effective Date**: 2025-12-09
 **Scope**: All contributors and maintainers of the UI Library
 
 -----
@@ -95,10 +95,11 @@ To clarify the scope of Section 3.3, defaults are categorized as follows:
 
 ### 4.1 The Single Source of Truth: AppColorScheme
 
-  * **Rule**: All color access within the system **MUST** occur exclusively through the `AppColorScheme` interface (which unifies Material Standard and App Semantic colors).
+  * **Rule**: All color access within the system **MUST** occur exclusively through the `AppColorScheme` interface (which unifies Material Standard and App Semantic colors) OR the synchronized Material `ColorScheme`.
   * **Constraint**:
       * ❌ **Strictly Prohibited**: Using hardcoded colors like `Colors.red` or `Colors.black` in widgets.
-      * ❌ **Strictly Prohibited**: Relying directly on Flutter's native `ColorScheme` for styling custom components (except for standard Material widgets). Always prefer `AppColorScheme` semantic properties.
+      * ✅ **Permitted**: Using Flutter's native `ColorScheme` (`Theme.of(context).colorScheme`) is allowed, as it is synchronized with `AppColorScheme`.
+      * ✅ **Preferred**: Use `AppColorScheme` when semantic precision (e.g., `styleBackground`, `signalStrong`) is required.
 
 ### 4.2 Semantic Layer Architecture
 
@@ -238,13 +239,25 @@ final width = theme.sheetStyle.width;
 
 #### 4.9.1 The Single Source of Truth: appTextTheme
 
-  * **Rule**: All text styling within Design Theme files **MUST** occur exclusively through the `appTextTheme` object defined in `app_typography.dart`.
+  * **Rule**: Text styling within Design Theme files **SHOULD** occur through the `appTextTheme` object defined in `app_typography.dart` or the standard `Theme.of(context).textTheme`.
   * **Constraint**:
       * ❌ **Strictly Prohibited**: Using hardcoded `TextStyle()` with manual `fontSize`, `fontWeight`, `fontFamily` in Design Theme files.
       * ❌ **Strictly Prohibited**: Defining inline text styles in component Spec definitions.
-  * **Practice**: Use `appTextTheme.<variant>!.copyWith(color: scheme.onSurface)` pattern.
+  * **Practice**: Use `appTextTheme.<variant>!.copyWith(color: scheme.onSurface)` or `Theme.of(context).textTheme.<variant>` pattern.
 
-#### 4.9.2 Typography Token Mapping
+#### 4.9.2 Theme Synchronization
+
+  * **Rule**: `appTextTheme` is automatically synchronized with Flutter's `Theme.of(context).textTheme` through `AppTheme.create()`.
+  * **Implementation**: `AppTheme.create()` applies `appTextTheme` directly to `ThemeData.textTheme` with color adjustments.
+  * **Implication**: Components may use **either** `appTextTheme` or `Theme.of(context).textTheme` - they reference the same typography system.
+  * **Equivalence**:
+    ```dart
+    // These are equivalent:
+    Theme.of(context).textTheme.bodySmall
+    appTextTheme.bodySmall
+    ```
+
+#### 4.9.3 Typography Token Mapping
 
 | Token | Size | Weight | Usage |
 |-------|------|--------|-------|
@@ -256,7 +269,7 @@ final width = theme.sheetStyle.width;
 | `bodyMedium` | 14px | w400 | Body text, table cells, breadcrumbs |
 | `bodySmall` | 12px | w400 | Captions |
 
-#### 4.9.3 Theme-Specific Typography Customization
+#### 4.9.4 Theme-Specific Typography Customization
 
   * **Rule**: Themes may customize typography via `.copyWith()` while preserving the base token.
   * **Examples**:
@@ -381,8 +394,30 @@ To clarify the scope of Section 6.1, containers are categorized as follows:
 
 ### 8.2 Formats
 
-  * **Icons**: Use **SVG** with color control via `IconTheme`.
-  * **Pixel Mode**: Icons must switch to Bitmap/Aliased versions or adapt via `AppIcon` logic.
+#### 8.2.1 Icon System Architecture
+
+  * **Primary**: Use **SVG** assets via `AppIcon(SvgGenImage)` for theme-adaptive styling.
+  * **Secondary**: Material Icons via `AppIcon.font(IconData)` are **permitted** for standard symbols.
+  * **Equivalence**: Both approaches support theme-based color control via `IconTheme`.
+
+#### 8.2.2 Icon Implementation Guidelines
+
+  * **SVG Preferred**: For custom icons, brand assets, or theme-specific variations.
+  * **Material Icons Acceptable**: For standard UI symbols (e.g., `Icons.close`, `Icons.expand_more`).
+  * **Pixel Mode**: Both SVG and font icons must adapt via `AppIcon` logic for pixelated rendering.
+
+#### 8.2.3 Usage Examples
+
+```dart
+// ✅ PREFERRED: SVG asset
+AppIcon(Assets.icons.close)
+
+// ✅ ACCEPTABLE: Material font icon
+AppIcon.font(Icons.close)
+
+// ❌ PROHIBITED: Direct Icon widget without theme integration
+Icon(Icons.close)
+```
 
 -----
 
@@ -436,6 +471,8 @@ To clarify the scope of Section 6.1, containers are categorized as follows:
 ### 13.1 Widgetbook
 
   * **Mandatory**: All public components must have a UseCase in Widgetbook with configurable Knobs.
+  * **File Naming Convention**: Widgetbook story files **MUST** use the suffix `.stories.dart` (e.g., `app_button.stories.dart`, `app_styled_text.stories.dart`).
+  * **Directory Structure**: Stories must be organized by atomic level: `widgetbook/lib/stories/{atoms|molecules|organisms}/`.
 
 ### 13.2 Golden Tests
 
@@ -628,6 +665,7 @@ Reviewers shall inspect code based on the following:
   * [ ] **Animation Composition**: Does the component use `AnimationSpec` from style instead of hardcoded `Duration`/`Curve`?
   * [ ] **StyleOverride**: Does the component respect `StyleOverride` ancestor for local overrides?
   * [ ] **Testing**: Do Golden Tests use the "Safe Mode" pattern?
+  * [ ] **Widgetbook Stories**: Do story files use `.stories.dart` suffix and correct directory structure?
   * [ ] **Typography**: Are `appTextTheme` tokens used instead of hardcoded `TextStyle()`?
   * [ ] **Typography Customization**: Do theme-specific text styles use `.copyWith()` on base tokens?
   * [ ] **Overlay Wrappers**: Do `showAppDialog`/`showAppBottomSheet` wrap content with Theme → Portal → Material?

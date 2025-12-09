@@ -2,8 +2,8 @@
 
 # 📜 Flutter UI Component Library Charter (ui\_kit)
 
-**Version**: 3.1.0
-**Effective Date**: 2025-12-08
+**Version**: 3.1.1
+**Effective Date**: 2025-12-09
 **Scope**: All contributors and maintainers of the UI Library
 
 -----
@@ -59,6 +59,28 @@ To maintain long-term maintainability and support multi-style switching, all dev
   * **Definition**: Components **MUST NOT** contain fallback values or default style methods.
   * **Fail Fast**: If a required `ThemeExtension` is missing, the component must explicitly throw an exception to force a configuration fix.
 
+### 3.3.1 Default Value Type Classification
+
+To clarify the scope of Section 3.3, defaults are categorized as follows:
+
+  * **Style Defaults** ❌ **PROHIBITED**: Any default values that affect visual appearance, theming, or styling.
+    ```dart
+    // ❌ VIOLATION: Style defaults
+    final Color color = widget.color ?? Colors.blue;
+    final BorderRadius radius = widget.radius ?? BorderRadius.circular(8);
+    static const TextStyle defaultTextStyle = TextStyle(fontSize: 14);
+    ```
+
+  * **API Behavior Defaults** ✅ **ALLOWED**: Default values that control component functional behavior, not appearance.
+    ```dart
+    // ✅ COMPLIANT: API behavior defaults
+    final bool scrollable = widget.scrollable ?? true;
+    final bool useSlivers = widget.useSlivers ?? true;
+    final bool useContentPadding = widget.useContentPadding ?? true;
+    ```
+
+  * **Rationale**: API behavior defaults enhance usability and follow Flutter ecosystem conventions, while style defaults violate the Inversion of Control principle by making visual decisions independently of the theme system.
+
 ### 3.4 Configuration Injection
 
   * **Definition**: The generation of the Theme and Color System must strictly adhere to the **"Configuration Priority"** principle.
@@ -73,10 +95,11 @@ To maintain long-term maintainability and support multi-style switching, all dev
 
 ### 4.1 The Single Source of Truth: AppColorScheme
 
-  * **Rule**: All color access within the system **MUST** occur exclusively through the `AppColorScheme` interface (which unifies Material Standard and App Semantic colors).
+  * **Rule**: All color access within the system **MUST** occur exclusively through the `AppColorScheme` interface (which unifies Material Standard and App Semantic colors) OR the synchronized Material `ColorScheme`.
   * **Constraint**:
       * ❌ **Strictly Prohibited**: Using hardcoded colors like `Colors.red` or `Colors.black` in widgets.
-      * ❌ **Strictly Prohibited**: Relying directly on Flutter's native `ColorScheme` for styling custom components (except for standard Material widgets). Always prefer `AppColorScheme` semantic properties.
+      * ✅ **Permitted**: Using Flutter's native `ColorScheme` (`Theme.of(context).colorScheme`) is allowed, as it is synchronized with `AppColorScheme`.
+      * ✅ **Preferred**: Use `AppColorScheme` when semantic precision (e.g., `styleBackground`, `signalStrong`) is required.
 
 ### 4.2 Semantic Layer Architecture
 
@@ -216,13 +239,25 @@ final width = theme.sheetStyle.width;
 
 #### 4.9.1 The Single Source of Truth: appTextTheme
 
-  * **Rule**: All text styling within Design Theme files **MUST** occur exclusively through the `appTextTheme` object defined in `app_typography.dart`.
+  * **Rule**: Text styling within Design Theme files **SHOULD** occur through the `appTextTheme` object defined in `app_typography.dart` or the standard `Theme.of(context).textTheme`.
   * **Constraint**:
       * ❌ **Strictly Prohibited**: Using hardcoded `TextStyle()` with manual `fontSize`, `fontWeight`, `fontFamily` in Design Theme files.
       * ❌ **Strictly Prohibited**: Defining inline text styles in component Spec definitions.
-  * **Practice**: Use `appTextTheme.<variant>!.copyWith(color: scheme.onSurface)` pattern.
+  * **Practice**: Use `appTextTheme.<variant>!.copyWith(color: scheme.onSurface)` or `Theme.of(context).textTheme.<variant>` pattern.
 
-#### 4.9.2 Typography Token Mapping
+#### 4.9.2 Theme Synchronization
+
+  * **Rule**: `appTextTheme` is automatically synchronized with Flutter's `Theme.of(context).textTheme` through `AppTheme.create()`.
+  * **Implementation**: `AppTheme.create()` applies `appTextTheme` directly to `ThemeData.textTheme` with color adjustments.
+  * **Implication**: Components may use **either** `appTextTheme` or `Theme.of(context).textTheme` - they reference the same typography system.
+  * **Equivalence**:
+    ```dart
+    // These are equivalent:
+    Theme.of(context).textTheme.bodySmall
+    appTextTheme.bodySmall
+    ```
+
+#### 4.9.3 Typography Token Mapping
 
 | Token | Size | Weight | Usage |
 |-------|------|--------|-------|
@@ -234,7 +269,7 @@ final width = theme.sheetStyle.width;
 | `bodyMedium` | 14px | w400 | Body text, table cells, breadcrumbs |
 | `bodySmall` | 12px | w400 | Captions |
 
-#### 4.9.3 Theme-Specific Typography Customization
+#### 4.9.4 Theme-Specific Typography Customization
 
   * **Rule**: Themes may customize typography via `.copyWith()` while preserving the base token.
   * **Examples**:
@@ -269,6 +304,51 @@ final width = theme.sheetStyle.width;
 
   * **Mandatory Usage**: All visual containers **MUST** compose `AppSurface` as the root or child node.
   * **No Native Containers**: Business components must not directly use `Container` + `BoxDecoration`.
+
+### 6.1.1 Container Type Classification
+
+To clarify the scope of Section 6.1, containers are categorized as follows:
+
+  * **Visual Containers** → **MUST use AppSurface**: Components that create visual surfaces, decorations, or styled presentations.
+    ```dart
+    // ❌ VIOLATION: Visual container using native decoration
+    Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [BoxShadow(...)],
+      ),
+      child: content,
+    )
+
+    // ✅ COMPLIANT: Visual container using AppSurface
+    AppSurface(
+      style: theme.cardStyle,
+      child: content,
+    )
+    ```
+
+  * **Structural Containers** → **MAY use System Widgets**: Components that provide layout logic, system integration, or architectural scaffolding without visual decoration.
+    ```dart
+    // ✅ COMPLIANT: Structural container for page layout
+    Scaffold(
+      backgroundColor: backgroundColor,
+      body: contentLayer,
+      bottomNavigationBar: bottomNavigationBar,
+      floatingActionButton: floatingActionButton,
+    )
+
+    // ✅ COMPLIANT: Layout management
+    Row(children: [...])
+    Column(children: [...])
+    SafeArea(child: content)
+    ```
+
+  * **Examples by Category**:
+    - **Visual**: Cards, Buttons, Chips, Badges, Dialogs, Sheets, Surfaces with styling
+    - **Structural**: Page layouts, Grid systems, Responsive wrappers, Navigation scaffolding
+
+  * **Rationale**: Visual containers require theme integration and consistent styling across design systems, while structural containers serve architectural purposes and may need to leverage Flutter's native layout and system integration capabilities.
 
 ### 6.2 Dumb Components
 
@@ -314,8 +394,30 @@ final width = theme.sheetStyle.width;
 
 ### 8.2 Formats
 
-  * **Icons**: Use **SVG** with color control via `IconTheme`.
-  * **Pixel Mode**: Icons must switch to Bitmap/Aliased versions or adapt via `AppIcon` logic.
+#### 8.2.1 Icon System Architecture
+
+  * **Primary**: Use **SVG** assets via `AppIcon(SvgGenImage)` for theme-adaptive styling.
+  * **Secondary**: Material Icons via `AppIcon.font(IconData)` are **permitted** for standard symbols.
+  * **Equivalence**: Both approaches support theme-based color control via `IconTheme`.
+
+#### 8.2.2 Icon Implementation Guidelines
+
+  * **SVG Preferred**: For custom icons, brand assets, or theme-specific variations.
+  * **Material Icons Acceptable**: For standard UI symbols (e.g., `Icons.close`, `Icons.expand_more`).
+  * **Pixel Mode**: Both SVG and font icons must adapt via `AppIcon` logic for pixelated rendering.
+
+#### 8.2.3 Usage Examples
+
+```dart
+// ✅ PREFERRED: SVG asset
+AppIcon(Assets.icons.close)
+
+// ✅ ACCEPTABLE: Material font icon
+AppIcon.font(Icons.close)
+
+// ❌ PROHIBITED: Direct Icon widget without theme integration
+Icon(Icons.close)
+```
 
 -----
 
@@ -369,6 +471,8 @@ final width = theme.sheetStyle.width;
 ### 13.1 Widgetbook
 
   * **Mandatory**: All public components must have a UseCase in Widgetbook with configurable Knobs.
+  * **File Naming Convention**: Widgetbook story files **MUST** use the suffix `.stories.dart` (e.g., `app_button.stories.dart`, `app_styled_text.stories.dart`).
+  * **Directory Structure**: Stories must be organized by atomic level: `widgetbook/lib/stories/{atoms|molecules|organisms}/`.
 
 ### 13.2 Golden Tests
 
@@ -561,6 +665,7 @@ Reviewers shall inspect code based on the following:
   * [ ] **Animation Composition**: Does the component use `AnimationSpec` from style instead of hardcoded `Duration`/`Curve`?
   * [ ] **StyleOverride**: Does the component respect `StyleOverride` ancestor for local overrides?
   * [ ] **Testing**: Do Golden Tests use the "Safe Mode" pattern?
+  * [ ] **Widgetbook Stories**: Do story files use `.stories.dart` suffix and correct directory structure?
   * [ ] **Typography**: Are `appTextTheme` tokens used instead of hardcoded `TextStyle()`?
   * [ ] **Typography Customization**: Do theme-specific text styles use `.copyWith()` on base tokens?
   * [ ] **Overlay Wrappers**: Do `showAppDialog`/`showAppBottomSheet` wrap content with Theme → Portal → Material?

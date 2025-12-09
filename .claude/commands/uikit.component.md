@@ -229,25 +229,98 @@ If style was created, also add:
 export 'src/foundation/theme/design_system/specs/{component_snake}_style.dart';
 ```
 
-### 7. Provide Next Steps
+### 7. Quality Assurance
 
-Output a summary:
+**IMPORTANT**: Perform automated quality checks on generated component:
+
+#### 7.1 Static Analysis
+```bash
+flutter analyze lib/src/{level}/{component_snake}/app_{component_snake}.dart
+```
+- **If errors found**: Fix immediately (unused variables, imports, etc.)
+- **If warnings found**: Address lint issues
+- **Re-run analysis** until clean
+
+#### 7.2 Golden Test Generation
+```bash
+flutter test test/{level}/{component_snake}/app_{component_snake}_golden_test.dart --update-goldens --tags golden
+```
+- **Generate golden images** for the new component
+- **Verify test passes** with new images
+- **Check visual output** matches expectations
+
+#### 7.3 AppDesignTheme Integration (if style spec created)
+
+**IMPORTANT**: If a style spec was generated, automatically integrate it into the theme system:
+
+##### 7.3.1 Add Style Property to AppDesignTheme
+Add the new style property to `lib/src/foundation/theme/design_system/app_design_theme.dart`:
+
+```dart
+// In AppDesignTheme class
+@override
+final {ComponentName}Style {componentName}Style;
+
+// In constructor
+const AppDesignTheme({
+  // existing parameters...
+  required this.{componentName}Style,
+  // ...
+});
+```
+
+##### 7.3.2 Configure Style in All 5 Theme Files
+For each theme file (`glass_design_theme.dart`, `flat_design_theme.dart`, `brutal_design_theme.dart`, `neumorphic_design_theme.dart`, `pixel_design_theme.dart`):
+
+```dart
+// Add to each theme's constructor call
+{componentName}Style: {ComponentName}Style(
+  // theme-specific configuration
+  animation: AnimationSpec.standard, // or theme-specific timing
+  // other properties...
+),
+```
+
+##### 7.3.3 Export Style Spec
+Add export to `lib/ui_kit.dart`:
+```dart
+export 'src/foundation/theme/design_system/specs/{component_snake}_style.dart';
+```
+
+#### 7.4 Build Validation (if style spec created)
+```bash
+dart run build_runner build --delete-conflicting-outputs
+```
+- **Generate .tailor.dart files** for any new style specs
+- **Verify no build errors**
+- **Confirm theme integration** compiles successfully
+
+### 8. Provide Summary Report
+
+Output a detailed summary:
 
 ```markdown
-## Component Generated: App{ComponentName}
+## ✅ Component Generated: App{ComponentName}
 
-### Files Created
-- [ ] `lib/src/{level}/{component_snake}/app_{component_snake}.dart`
-- [ ] `lib/src/foundation/theme/design_system/specs/{component_snake}_style.dart`
-- [ ] `test/{level}/{component_snake}/app_{component_snake}_golden_test.dart`
-- [ ] `widgetbook/lib/stories/{level}/{component_snake}_use_case.dart`
+### 📁 Files Created
+- ✅ `lib/src/{level}/{component_snake}/app_{component_snake}.dart`
+- ✅ `lib/src/foundation/theme/design_system/specs/{component_snake}_style.dart` (if needed)
+- ✅ `test/{level}/{component_snake}/app_{component_snake}_golden_test.dart`
+- ✅ `widgetbook/lib/stories/{level}/{component_snake}_use_case.dart`
+- ✅ Updated `lib/ui_kit.dart` exports
 
-### Next Steps
-1. Run `dart run build_runner build --delete-conflicting-outputs` (for @TailorMixin)
-2. Add style to `AppDesignTheme` in `app_design_theme.dart`
-3. Configure style in all 5 theme files (glass, flat, brutal, neumorphic, pixel)
-4. Run `/uikit.review {component_path}` to verify compliance
-5. Run `flutter test --update-goldens --tags golden` to generate golden images
+### 🔍 Quality Checks Completed
+- ✅ **Static Analysis**: No lint errors
+- ✅ **Golden Tests**: Images generated and passing
+- ✅ **Theme Integration**: Style added to AppDesignTheme (if style spec was created)
+- ✅ **Theme Configuration**: Style configured in all 5 theme files (if style spec was created)
+- ✅ **Build Validation**: No compilation errors
+
+### 🎯 Next Steps
+1. **Review component**: Test interactive features in Widgetbook
+2. **Constitution Review**: Run `/uikit.review {component_path}` for compliance verification (optional)
+
+### 📋 Component Ready for Use! 🎉
 ```
 
 ## Example Usage

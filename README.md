@@ -29,7 +29,7 @@ This project is structured using **Atomic Design** with strict architectural bou
 
 ## 🌟 Key Features (v2.0)
 
-* **Constitutional Compliance**: All components adhere to the **UI Kit Constitution (v3.1.0)**, ensuring zero internal defaults, proper theme integration, and consistent architectural patterns across the entire library.
+* **Constitutional Compliance**: All components adhere to the **UI Kit Constitution (v3.1.1)**, ensuring zero internal defaults, proper theme integration, and consistent architectural patterns across the entire library.
 * **App Unified Color System (v1.2)**: A comprehensive and reactive color management layer fully compatible with Material 3. It allows seamless configuration where changes to Material colors (e.g., Primary) automatically propagate to derived Style colors (e.g., Glow), while also supporting explicit style overrides.
 * **Multi-Paradigm Support**: Seamlessly switch between **Glass** (Liquid), **Brutal** (Mechanical), **Flat** (Standard), **Neumorphic** (Tactile), and **Pixel** (Retro) themes, now all powered by the Unified Color System.
 * **Theme-Aware Animation System**: All animations use `AnimationSpec` from the theme system, with theme-specific behaviors (e.g., Pixel mode instant snapping, Glass mode fluid transitions).
@@ -315,13 +315,15 @@ See existing theme files in `lib/src/foundation/theme/design_system/styles/` for
 
 ## ⚖️ Constitutional Compliance
 
-This UI Kit follows the **UI Kit Constitution (v3.1.0)**, a comprehensive set of architectural principles and coding standards that ensure:
+This UI Kit follows the **UI Kit Constitution (v3.1.1)**, a comprehensive set of architectural principles and coding standards that ensure:
 
 - **Zero Internal Defaults**: Components receive all styling from the theme system, never hardcoded values
 - **@TailorMixin Integration**: All theme extensions use automated generation via `theme_tailor`
 - **AnimationSpec Composition**: Animations use shared specifications instead of hardcoded durations
 - **AppSurface Architecture**: Visual containers use `AppSurface` rather than native Flutter containers
 - **Data-Driven Strategy**: Components render based on theme specs, not runtime type checks
+- **Theme Synchronization**: Typography system automatically syncs `appTextTheme` with Flutter's theme
+- **Icon System Integration**: Both SVG assets and Material Icons supported through `AppIcon` framework
 
 ### Constitution Reviews
 
@@ -339,9 +341,125 @@ Components undergo rigorous constitutional compliance reviews using the `/uikit.
 - **AppButton**: 100% compliant (fixed hardcoded sizing)
 - **AppIconButton**: 100% compliant (fixed hardcoded sizing and colors)
 - **AppTopology**: 100% compliant (integrated theme animation system)
+- **AppTag**: 100% compliant (added interaction feedback, improved theme integration)
 - **TopologyStyle**: 100% compliant (constitutional exemplar)
 
 ## 🛠 Development
+
+### Automated Component Generation
+
+The UI Kit includes a powerful `/uikit.component` command for automated, Constitution-compliant component generation. This tool creates complete component scaffolds with integrated quality assurance and theme system integration.
+
+#### Usage
+
+```bash
+# Generate a component with automatic atomic level detection
+/uikit.component AppTimePicker
+
+# Specify atomic level explicitly
+/uikit.component AppRating molecule
+
+# Provide detailed component description
+/uikit.component AppTreeView - A hierarchical tree view component
+```
+
+#### What Gets Generated
+
+The tool automatically creates:
+
+1. **Widget Implementation** (`lib/src/{level}/{component}/`)
+   - Constitution-compliant component code
+   - Theme-driven styling with zero internal defaults
+   - AppSurface integration for visual consistency
+
+2. **Style Specification** (if needed)
+   - `@TailorMixin` annotated theme extension
+   - Automatic integration with `AppDesignTheme`
+   - Configuration across all 5 visual themes
+
+3. **Golden Tests** (`test/{level}/{component}/`)
+   - Comprehensive visual regression tests
+   - 8-style matrix coverage (4 themes × 2 brightness)
+   - Alchemist test framework integration
+
+4. **Widgetbook Stories** (`widgetbook/lib/stories/{level}/`)
+   - Interactive component showcase
+   - Multiple use cases with knobs
+   - Theme adaptation demonstrations
+
+5. **Export Integration** (`lib/ui_kit.dart`)
+   - Automatic export statements
+   - Style spec exports (if created)
+
+#### Automated Quality Assurance
+
+The tool performs comprehensive quality checks:
+
+**Static Analysis**
+```bash
+flutter analyze lib/src/{level}/{component}/
+```
+- Automatically fixes lint errors and warnings
+- Ensures code quality standards
+- Validates import statements
+
+**Golden Test Generation**
+```bash
+flutter test test/{level}/{component}/ --update-goldens --tags golden
+```
+- Generates visual regression test images
+- Validates component rendering across all themes
+- Ensures theme consistency
+
+**Theme System Integration** (for components with style specs)
+- Adds style property to `AppDesignTheme` automatically
+- Configures style in all 5 theme files (`glass`, `brutal`, `flat`, `neumorphic`, `pixel`)
+- Runs build_runner to generate theme extension code
+- Validates compilation success
+
+#### Example Output
+
+```markdown
+## ✅ Component Generated: AppTimePicker
+
+### 📁 Files Created
+- ✅ lib/src/molecules/time_picker/app_time_picker.dart
+- ✅ lib/src/foundation/theme/design_system/specs/time_picker_style.dart
+- ✅ test/molecules/time_picker/app_time_picker_golden_test.dart
+- ✅ widgetbook/lib/stories/molecules/time_picker_use_case.dart
+- ✅ Updated lib/ui_kit.dart exports
+
+### 🔍 Quality Checks Completed
+- ✅ Static Analysis: No lint errors
+- ✅ Golden Tests: Images generated and passing
+- ✅ Theme Integration: Style added to AppDesignTheme
+- ✅ Theme Configuration: Style configured in all 5 theme files
+- ✅ Build Validation: No compilation errors
+
+### 🎯 Next Steps
+1. Review component: Test interactive features in Widgetbook
+2. Constitution Review: Run /uikit.review {component_path} (optional)
+```
+
+#### Atomic Design Classification
+
+The tool automatically determines component complexity:
+
+| Level | Characteristics | Style Needed | Examples |
+|-------|-----------------|--------------|----------|
+| **Atom** | Single purpose, no children | Rarely | AppGap, AppDivider |
+| **Molecule** | Composed of atoms, has slots | Usually | AppButton, AppTabs |
+| **Organism** | Complex, multiple molecules | Always | AppDialog, AppDataTable |
+
+#### Constitutional Compliance
+
+All generated components follow the **UI Kit Constitution (v3.1.1)**:
+
+- **Zero Internal Defaults** (3.3): All styling values from theme system
+- **AppSurface Integration** (6.1): Core renderer for visual consistency
+- **Dumb Component Pattern** (6.2): No business logic embedded
+- **Theme-Driven Styling** (3.1 IoC): Configuration injection pattern
+- **@TailorMixin Integration** (4.6): Automatic theme extension generation
 
 ### Code Generation
 
@@ -477,6 +595,7 @@ Below is the summary of components available in our system:
       - **AppTag**: Label component supporting interaction and deletion.
       - **AppAvatar**: Enforced circular avatar supporting image cropping and text fallback.
       - **AppTooltip**: Supports multi-directional positioning and rich content popovers.
+      - **AppStyledText**: Rich text with tag-based rendering supporting XML tags (`<b>Bold</b>`) and parametrized tags (`{{key:Display Text}}`) for internationalization and interactive elements.
   - **Layout**:
       - **AppListTile**: Standardized list row with slots for leading/trailing content.
       - **AppSlideAction**: Swipeable list item with theme-aware physics (Fluid/Snap).
@@ -548,9 +667,10 @@ Below is the summary of components available in our system:
 | **AppLoader** | Molecule | Loading indicator. | `progress` (0.0-1.0 or null), `size`, `color` |
 | **AppToast** | Molecule | Overlay notification. | `message`, `type` (success/error/info/warning), `duration`, `onDismiss` |
 | **AppBadge** | Molecule | Status indicator. | `label`, `color`, `child` (optional wrapper), `position` |
-| **AppTag** | Molecule | Interactive label/chip. | `label`, `icon`, `onDeleted`, `onTap`, `color` |
+| **AppTag** | Molecule | **100% Constitutional Compliance** - Interactive label/chip with theme-based feedback. | `label`, `onDeleted`, `onTap`, `color`, `isSelected` |
 | **AppAvatar** | Molecule | User profile image. | `image`, `initials`, `size`, `onTap` |
 | **AppTooltip** | Molecule | Info popover. | `message`, `child`, `direction`, `waitDuration` |
+| **AppStyledText** | Molecule | Rich text with tag-based rendering and interactive elements. | `text`, `onTapHandlers`, `baseStyle`, `textAlign`, `maxLines`, `overflow` |
 | **AppListTile** | Molecule | List row item. | `title`, `subtitle`, `leading`, `trailing`, `onTap`, `selected` |
 | **AppSlideAction** | Molecule | Swipeable list item. | `child`, `actions` (leading/trailing), `actionWidth` |
 | **AppCard** | Molecule | Container for grouped content. | `child`, `padding`, `margin`, `onTap`, `elevation` |

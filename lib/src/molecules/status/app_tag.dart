@@ -76,11 +76,11 @@ class AppTag extends StatelessWidget {
     }
 
     // 3. Shape specialization (Topology Override)
-    // Smart rounded corners: If the Theme has rounded corners (Glass/Flat), Tags use smaller rounded corners (8.0).
+    // Smart rounded corners: If the Theme has rounded corners (Glass/Flat), Tags use smaller rounded corners (50% of base).
     // If the Theme has sharp corners (Brutal), Tags retain sharp corners (0.0).
     if (baseStyle.borderRadius > 0) {
       effectiveStyle = effectiveStyle.copyWith(
-        borderRadius: 8.0,
+        borderRadius: baseStyle.borderRadius * 0.5,
       );
     }
 
@@ -116,11 +116,14 @@ class AppTag extends StatelessWidget {
             if (onDeleted != null) ...[
               SizedBox(width: 4.0 * theme.spacingFactor),
               GestureDetector(
-                onTap: onDeleted,
+                onTap: () async {
+                  await AppFeedback.onInteraction();
+                  onDeleted?.call();
+                },
                 behavior: HitTestBehavior.opaque, // Expand click area
                 child: Icon(
                   Icons.close,
-                  size: 14.0 * theme.spacingFactor,
+                  size: (Theme.of(context).textTheme.bodySmall?.fontSize ?? appTextTheme.bodySmall!.fontSize!) * theme.spacingFactor,
                   // Delete button color slightly lighter to distinguish hierarchy
                   color: effectiveStyle.contentColor.withValues(alpha: 0.6),
                 ),

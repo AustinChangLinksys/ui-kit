@@ -1,0 +1,282 @@
+description = "Generate Constitution-compliant golden tests following Safe Mode Protocol (Appendix B)."
+
+prompt = """
+---
+description: Generate Constitution-compliant golden tests following Safe Mode Protocol (Appendix B).
+---
+
+## User Input
+
+```text
+{{args}}
+```
+
+You **MUST** parse the user input for:
+- **Component path** (e.g., `lib/src/molecules/tabs/app_tabs.dart`)
+- **Test scenarios** (optional, will infer from component if not specified)
+
+If missing component path, ask the user.
+
+## Goal
+
+Generate a complete golden test file that follows Constitution Appendix B (Safe Mode Protocol) for visual regression testing across all 8 theme variants (5 themes × 2 brightness modes).
+
+## Operating Constraints
+
+**Constitution Appendix B Compliance**: All tests MUST follow Safe Mode Protocol.
+
+**Test Matrix**: Generate tests for all theme combinations automatically.
+
+**NO GUESSING POLICY**:
+- **NEVER** assume component parameters without reading the actual source file
+- **NEVER** generate test scenarios based on assumptions
+- **ALWAYS** read the component file first to extract actual parameters and states
+
+**AMBIGUITY RESOLUTION**:
+When encountering any of these situations, **STOP immediately and ask the user**:
+1. Component path is missing or file not found
+2. Multiple components match the pattern - ask which one
+3. Cannot determine required parameters from source code
+4. Test scenario requirements are unclear
+5. Component has complex state that's hard to test - ask for guidance
+6. Unsure about appropriate size constraints for the component type
+
+## Safe Mode Protocol (Constitution B.2)
+
+### 1. Explicit Constraints (Size Lock)
+
+Every test scenario MUST be wrapped in fixed-size container:
+
+| Component Type | Width | Height |
+|----------------|-------|--------|
+| Buttons/Inputs | 300 | 100 |
+| Cards | 300 | auto |
+| Lists/Tables | 400 | 300 |
+| Dialogs | 400 | auto |
+| Full Screens | 375 | 667 |
+
+### 2. Background Visibility
+
+Every scenario MUST have theme-appropriate background for:
+- Glass: Show translucency/blur
+- Neumorphic: Show shadow depth
+- Pixel: Show aliased borders
+
+### 3. Animation Freezing
+
+Default: `TickerMode(enabled: false)` to prevent infinite loops.
+
+## Execution Steps
+
+### 1. Analyze Component
+
+Read the target component file and extract:
+- Component name
+- Required parameters
+- Optional parameters with defaults
+- State variations (if StatefulWidget)
+
+### 2. Determine Test Scenarios
+
+Infer logical test scenarios:
+
+| Scenario Type | When to Include |
+|---------------|-----------------|
+| Default | Always |
+| Disabled | If `enabled` or `isDisabled` parameter exists |
+| Loading | If `isLoading` parameter exists |
+| Error | If `errorText` or `hasError` parameter exists |
+| Selected/Active | If `isSelected`, `isActive`, or `value` exists |
+| Variants | If `variant` enum parameter exists |
+| Sizes | If `size` parameter exists |
+
+### 3. Generate Test File
+
+Create `test/{level}/{component_snake}/app_{component_snake}_golden_test.dart`:
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:alchemist/alchemist.dart';
+import 'package:ui_kit_library/ui_kit.dart';
+
+import '../../test_utils/theme_matrix_builder.dart';
+import '../../test_utils/load_fonts.dart';
+
+void main() {
+  // Constitution B.1: MUST load real fonts (Ahem is prohibited)
+  setUpAll(() async {
+    await loadAppFonts();
+  });
+
+  group('App{ComponentName} Golden Tests', () {
+    // ============================================
+    // Default State
+    // ============================================
+    goldenTest(
+      'App{ComponentName} - Default',
+      fileName: 'app_{component_snake}_default',
+      builder: () => buildThemeMatrix(
+        name: 'Default',
+        // Constitution B.2.1: Explicit size constraints
+        width: 300.0,
+        height: 100.0,
+        // Constitution B.2.3: Animation freezing handled by buildThemeMatrix
+        child: const App{ComponentName}(
+          // Minimal required props
+        ),
+      ),
+    );
+
+    // ============================================
+    // Disabled State (if applicable)
+    // ============================================
+    goldenTest(
+      'App{ComponentName} - Disabled',
+      fileName: 'app_{component_snake}_disabled',
+      builder: () => buildThemeMatrix(
+        name: 'Disabled',
+        width: 300.0,
+        height: 100.0,
+        child: const App{ComponentName}(
+          enabled: false,
+        ),
+      ),
+    );
+
+    // ============================================
+    // Interactive States (if applicable)
+    // ============================================
+    goldenTest(
+      'App{ComponentName} - Selected',
+      fileName: 'app_{component_snake}_selected',
+      builder: () => buildThemeMatrix(
+        name: 'Selected',
+        width: 300.0,
+        height: 100.0,
+        child: const App{ComponentName}(
+          isSelected: true,
+        ),
+      ),
+    );
+
+    // ============================================
+    // Error State (if applicable)
+    // ============================================
+    goldenTest(
+      'App{ComponentName} - Error',
+      fileName: 'app_{component_snake}_error',
+      builder: () => buildThemeMatrix(
+        name: 'Error',
+        width: 300.0,
+        height: 100.0,
+        child: const App{ComponentName}(
+          errorText: 'Error message',
+        ),
+      ),
+    );
+
+    // ============================================
+    // Variant Tests (if applicable)
+    // ============================================
+    for (final variant in {ComponentVariant}.values) {
+      goldenTest(
+        'App{ComponentName} - Variant ${variant.name}',
+        fileName: 'app_{component_snake}_variant_${variant.name}',
+        builder: () => buildThemeMatrix(
+          name: variant.name,
+          width: 300.0,
+          height: 100.0,
+          child: App{ComponentName}(
+            variant: variant,
+          ),
+        ),
+      );
+    }
+  });
+}
+```
+
+### 4. Handle Special Cases
+
+#### Components with Overlays (Tooltips, Dialogs)
+
+Use State Injection (Constitution B.3):
+
+```dart
+goldenTest(
+  'AppTooltip - Visible',
+  fileName: 'app_tooltip_visible',
+  builder: () => buildThemeMatrix(
+    name: 'Visible',
+    width: 300.0,
+    height: 150.0,
+    child: const AppTooltip(
+      message: 'Tooltip content',
+      initiallyVisible: true,  // State injection
+      child: Text('Hover me'),
+    ),
+  ),
+);
+```
+
+#### Components with Animations
+
+For animated components, test both states:
+
+```dart
+// Static state (animation frozen)
+goldenTest(
+  'AppLoader - Static',
+  fileName: 'app_loader_static',
+  builder: () => buildThemeMatrix(
+    name: 'Static',
+    width: 100.0,
+    height: 100.0,
+    freezeAnimation: true,  // Explicit freeze
+    child: const AppLoader(),
+  ),
+);
+```
+
+### 5. Output Summary
+
+```markdown
+## Golden Test Generated
+
+**File**: `test/{level}/{component_snake}/app_{component_snake}_golden_test.dart`
+
+### Test Scenarios Created
+- [ ] Default
+- [ ] Disabled
+- [ ] Selected
+- [ ] Error
+- [ ] Variant: primary
+- [ ] Variant: secondary
+
+### Next Steps
+1. Run `flutter test test/{level}/{component_snake}/ --update-goldens --tags golden`
+2. Review generated images in `test/{level}/{component_snake}/goldens/`
+3. Commit golden files to version control
+
+### Commands
+```bash
+# Generate goldens
+flutter test --update-goldens --tags golden
+
+# Verify goldens
+flutter test --tags golden
+```
+```
+
+## Example Usage
+
+```
+/uikit.golden lib/src/molecules/tabs/app_tabs.dart
+/uikit.golden lib/src/molecules/button/app_button.dart --scenarios default,disabled,loading
+```
+
+## Context
+
+{{args}}
+"""
