@@ -532,7 +532,7 @@ class GlassDesignTheme extends AppDesignTheme {
         pendingColor: colors.onSurface.withValues(alpha: 0.5),
       ),
       styledTextStyle: _createGlassStyledTextStyle(colors, appTextTheme),
-      textButtonStyle: _createGlassTextButtonStyle(colors, appTextTheme),
+      buttonStyle: _createGlassAppButtonStyle(colors, appTextTheme),
     );
   }
 
@@ -577,7 +577,7 @@ class GlassDesignTheme extends AppDesignTheme {
     required super.pinInputStyle,
     required super.passwordInputStyle,
     required super.styledTextStyle,
-    required super.textButtonStyle,
+    required super.buttonStyle,
   });
 
   // Light Mode (Liquid Water)
@@ -1107,7 +1107,7 @@ class GlassDesignTheme extends AppDesignTheme {
         pendingColor: scheme.onSurface.withValues(alpha: 0.5),
       ),
       styledTextStyle: _createGlassStyledTextStyleForScheme(scheme, appTextTheme),
-      textButtonStyle: _createGlassTextButtonStyleForScheme(scheme, appTextTheme),
+      buttonStyle: _createGlassAppButtonStyleForScheme(scheme, appTextTheme),
     );
   }
 
@@ -1631,7 +1631,7 @@ class GlassDesignTheme extends AppDesignTheme {
         pendingColor: scheme.onSurface.withValues(alpha: 0.5),
       ),
       styledTextStyle: _createGlassStyledTextStyleForScheme(scheme, appTextTheme),
-      textButtonStyle: _createGlassTextButtonStyleForScheme(scheme, appTextTheme),
+      buttonStyle: _createGlassAppButtonStyleForScheme(scheme, appTextTheme),
     );
   }
 
@@ -1914,140 +1914,443 @@ class GlassDesignTheme extends AppDesignTheme {
     );
   }
 
-  /// Creates TextButtonStyle for Glass theme with AppColorScheme (fromConfig factory)
-  /// Glass theme: Organic, fluid (24.0 radius), glowing effects, subtle scale interactions
-  static TextButtonStyle _createGlassTextButtonStyle(
+  /// Creates unified AppButtonStyle for Glass theme with AppColorScheme
+  /// Glass characteristics: Curved borders (24.0 radius), blur effects, glow shadows,
+  /// translucent backgrounds, smooth animations, subtle scale interactions
+  static AppButtonStyle _createGlassAppButtonStyle(
     AppColorScheme colors,
     TextTheme textTheme,
   ) {
-    return TextButtonStyle(
-      enabledStyle: SurfaceStyle(
-        backgroundColor: Colors.transparent,
+    // Create glass-themed surface styles with curved borders and blur effects
+    final filledSurfaces = ButtonSurfaceStates(
+      enabled: SurfaceStyle(
+        backgroundColor: colors.primary.withValues(alpha: 0.9),
         borderColor: Colors.transparent,
-        borderWidth: 0.0,
-        borderRadius: 24.0,
-        blurStrength: 0.0,
-        contentColor: colors.primary,
-      ),
-      disabledStyle: SurfaceStyle(
-        backgroundColor: Colors.transparent,
-        borderColor: Colors.transparent,
-        borderWidth: 0.0,
-        borderRadius: 24.0,
-        blurStrength: 0.0,
-        contentColor: colors.onSurface.withValues(alpha: 0.38),
-      ),
-      hoverStyle: SurfaceStyle(
-        backgroundColor: colors.primary.withValues(alpha: 0.08),
-        borderColor: Colors.transparent,
-        borderWidth: 0.0,
-        borderRadius: 24.0,
-        blurStrength: 8.0,
-        contentColor: colors.primary,
+        borderWidth: 0,
+        borderRadius: 24.0, // Curved corners
+        blurStrength: 15.0, // Moderate blur for glass effect
+        contentColor: colors.onPrimary,
         shadows: [
           BoxShadow(
-            color: colors.primary.withValues(alpha: 0.2),
-            blurRadius: 8.0,
-            spreadRadius: -2.0,
+            color: colors.glowColor.withValues(alpha: 0.2),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
-      pressedStyle: SurfaceStyle(
-        backgroundColor: colors.primary.withValues(alpha: 0.12),
+      disabled: SurfaceStyle(
+        backgroundColor: colors.onSurface.withValues(alpha: 0.08),
         borderColor: Colors.transparent,
-        borderWidth: 0.0,
+        borderWidth: 0,
         borderRadius: 24.0,
-        blurStrength: 4.0,
+        blurStrength: 8.0,
+        contentColor: colors.onSurface.withValues(alpha: 0.38),
+      ),
+      hovered: SurfaceStyle(
+        backgroundColor: colors.primary.withValues(alpha: 0.95),
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 24.0,
+        blurStrength: 18.0, // Increased blur on hover
+        contentColor: colors.onPrimary,
+        shadows: [
+          BoxShadow(
+            color: colors.glowColor.withValues(alpha: 0.3),
+            blurRadius: 16,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      pressed: SurfaceStyle(
+        backgroundColor: colors.primary.withValues(alpha: 0.8),
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 24.0,
+        blurStrength: 12.0,
+        contentColor: colors.onPrimary,
+        shadows: [
+          BoxShadow(
+            color: colors.glowColor.withValues(alpha: 0.15),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+    );
+
+    final outlineSurfaces = ButtonSurfaceStates(
+      enabled: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: colors.primary.withValues(alpha: 0.7),
+        borderWidth: 1.5,
+        borderRadius: 24.0,
+        blurStrength: 8.0,
         contentColor: colors.primary,
       ),
-      enabledContentColor: colors.primary,
-      disabledContentColor: colors.onSurface.withValues(alpha: 0.38),
-      smallTextStyle: textTheme.labelMedium!.copyWith(
+      disabled: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: colors.primary.withValues(alpha: 0.24),
+        borderWidth: 1.5,
+        borderRadius: 24.0,
+        blurStrength: 4.0,
+        contentColor: colors.primary.withValues(alpha: 0.38),
+      ),
+      hovered: SurfaceStyle(
+        backgroundColor: colors.primary.withValues(alpha: 0.05),
+        borderColor: colors.primary.withValues(alpha: 0.8),
+        borderWidth: 1.5,
+        borderRadius: 24.0,
+        blurStrength: 12.0,
+        contentColor: colors.primary,
+        shadows: [
+          BoxShadow(
+            color: colors.glowColor.withValues(alpha: 0.1),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      pressed: SurfaceStyle(
+        backgroundColor: colors.primary.withValues(alpha: 0.12),
+        borderColor: colors.primary,
+        borderWidth: 1.5,
+        borderRadius: 24.0,
+        blurStrength: 6.0,
+        contentColor: colors.primary,
+      ),
+    );
+
+    final textSurfaces = ButtonSurfaceStates(
+      enabled: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 24.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary,
+      ),
+      disabled: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 24.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary.withValues(alpha: 0.38),
+      ),
+      hovered: SurfaceStyle(
+        backgroundColor: colors.primary.withValues(alpha: 0.05),
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 24.0,
+        blurStrength: 4.0, // Light blur on hover
+        contentColor: colors.primary,
+        shadows: [
+          BoxShadow(
+            color: colors.glowColor.withValues(alpha: 0.08),
+            blurRadius: 6,
+            offset: const Offset(0, 1),
+          ),
+        ],
+      ),
+      pressed: SurfaceStyle(
+        backgroundColor: colors.primary.withValues(alpha: 0.12),
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 24.0,
+        blurStrength: 2.0,
+        contentColor: colors.primary,
+      ),
+    );
+
+    // Create color specs
+    final filledContentColors = StateColorSpec(
+      active: colors.onPrimary,
+      inactive: colors.onPrimary.withValues(alpha: 0.8),
+      disabled: colors.onSurface.withValues(alpha: 0.38),
+      hover: colors.onPrimary,
+      pressed: colors.onPrimary,
+    );
+
+    final outlineContentColors = StateColorSpec(
+      active: colors.primary,
+      inactive: colors.primary.withValues(alpha: 0.8),
+      disabled: colors.primary.withValues(alpha: 0.38),
+      hover: colors.primary,
+      pressed: colors.primary,
+    );
+
+    final textContentColors = StateColorSpec(
+      active: colors.primary,
+      inactive: colors.primary.withValues(alpha: 0.8),
+      disabled: colors.primary.withValues(alpha: 0.38),
+      hover: colors.primary,
+      pressed: colors.primary,
+    );
+
+    // Create text styles with medium weight for glass theme
+    final textStyles = ButtonTextStyles(
+      small: textTheme.labelMedium!.copyWith(
+        fontWeight: FontWeight.w600,
         color: colors.primary,
-        fontWeight: FontWeight.w500,
       ),
-      mediumTextStyle: textTheme.labelLarge!.copyWith(
+      medium: textTheme.labelLarge!.copyWith(
+        fontWeight: FontWeight.w600,
         color: colors.primary,
-        fontWeight: FontWeight.w500,
       ),
-      largeTextStyle: textTheme.titleSmall!.copyWith(
+      large: textTheme.titleMedium!.copyWith(
+        fontWeight: FontWeight.w600,
         color: colors.primary,
-        fontWeight: FontWeight.w500,
       ),
-      interaction: const InteractionSpec(
-        pressedScale: 0.95,
-        pressedOpacity: 1.0,
-        hoverOpacity: 1.0,
-        pressedOffset: Offset.zero,
-      ),
+    );
+
+    // Create size spec with generous padding for glass aesthetic
+    const sizeSpec = ButtonSizeSpec(
+      smallHeight: 40.0,
+      mediumHeight: 56.0,
+      largeHeight: 72.0,
+      smallPadding: EdgeInsets.symmetric(horizontal: 24.0),
+      mediumPadding: EdgeInsets.symmetric(horizontal: 32.0),
+      largePadding: EdgeInsets.symmetric(horizontal: 40.0),
+      iconSpacing: 16.0, // More spacing for glass aesthetic
+    );
+
+    // Create interaction spec with smooth glass animations
+    const interaction = InteractionSpec(
+      pressedScale: 0.95, // Subtle scale for glass effect (0.05 reduction)
+      hoverOpacity: 0.9, // Slight opacity reduction on hover
+      pressedOpacity: 0.8, // More opacity reduction when pressed
+      pressedOffset: Offset.zero, // No offset for glass theme
+    );
+
+    return AppButtonStyle(
+      filledSurfaces: filledSurfaces,
+      filledContentColors: filledContentColors,
+      outlineSurfaces: outlineSurfaces,
+      outlineContentColors: outlineContentColors,
+      textSurfaces: textSurfaces,
+      textContentColors: textContentColors,
+      textStyles: textStyles,
+      sizeSpec: sizeSpec,
+      interaction: interaction,
     );
   }
 
-  /// Creates TextButtonStyle for Glass theme with ColorScheme (light/dark factories)
-  static TextButtonStyle _createGlassTextButtonStyleForScheme(
+  /// Creates unified AppButtonStyle for Glass theme with ColorScheme
+  static AppButtonStyle _createGlassAppButtonStyleForScheme(
     ColorScheme scheme,
     TextTheme textTheme,
   ) {
-    return TextButtonStyle(
-      enabledStyle: SurfaceStyle(
-        backgroundColor: Colors.transparent,
+    // Similar implementation but using ColorScheme instead of AppColorScheme
+    final filledSurfaces = ButtonSurfaceStates(
+      enabled: SurfaceStyle(
+        backgroundColor: scheme.primary.withValues(alpha: 0.9),
         borderColor: Colors.transparent,
-        borderWidth: 0.0,
+        borderWidth: 0,
         borderRadius: 24.0,
-        blurStrength: 0.0,
-        contentColor: scheme.primary,
-      ),
-      disabledStyle: SurfaceStyle(
-        backgroundColor: Colors.transparent,
-        borderColor: Colors.transparent,
-        borderWidth: 0.0,
-        borderRadius: 24.0,
-        blurStrength: 0.0,
-        contentColor: scheme.onSurface.withValues(alpha: 0.38),
-      ),
-      hoverStyle: SurfaceStyle(
-        backgroundColor: scheme.primary.withValues(alpha: 0.08),
-        borderColor: Colors.transparent,
-        borderWidth: 0.0,
-        borderRadius: 24.0,
-        blurStrength: 8.0,
-        contentColor: scheme.primary,
+        blurStrength: 15.0,
+        contentColor: scheme.onPrimary,
         shadows: [
           BoxShadow(
             color: scheme.primary.withValues(alpha: 0.2),
-            blurRadius: 8.0,
-            spreadRadius: -2.0,
+            blurRadius: 12,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
-      pressedStyle: SurfaceStyle(
-        backgroundColor: scheme.primary.withValues(alpha: 0.12),
+      disabled: SurfaceStyle(
+        backgroundColor: scheme.onSurface.withValues(alpha: 0.08),
         borderColor: Colors.transparent,
-        borderWidth: 0.0,
+        borderWidth: 0,
+        borderRadius: 24.0,
+        blurStrength: 8.0,
+        contentColor: scheme.onSurface.withValues(alpha: 0.38),
+      ),
+      hovered: SurfaceStyle(
+        backgroundColor: scheme.primary.withValues(alpha: 0.95),
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 24.0,
+        blurStrength: 18.0,
+        contentColor: scheme.onPrimary,
+        shadows: [
+          BoxShadow(
+            color: scheme.primary.withValues(alpha: 0.3),
+            blurRadius: 16,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      pressed: SurfaceStyle(
+        backgroundColor: scheme.primary.withValues(alpha: 0.8),
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 24.0,
+        blurStrength: 12.0,
+        contentColor: scheme.onPrimary,
+        shadows: [
+          BoxShadow(
+            color: scheme.primary.withValues(alpha: 0.15),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+    );
+
+    final outlineSurfaces = ButtonSurfaceStates(
+      enabled: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: scheme.primary.withValues(alpha: 0.7),
+        borderWidth: 1.5,
+        borderRadius: 24.0,
+        blurStrength: 8.0,
+        contentColor: scheme.primary,
+      ),
+      disabled: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: scheme.primary.withValues(alpha: 0.24),
+        borderWidth: 1.5,
+        borderRadius: 24.0,
+        blurStrength: 4.0,
+        contentColor: scheme.primary.withValues(alpha: 0.38),
+      ),
+      hovered: SurfaceStyle(
+        backgroundColor: scheme.primary.withValues(alpha: 0.05),
+        borderColor: scheme.primary.withValues(alpha: 0.8),
+        borderWidth: 1.5,
+        borderRadius: 24.0,
+        blurStrength: 12.0,
+        contentColor: scheme.primary,
+        shadows: [
+          BoxShadow(
+            color: scheme.primary.withValues(alpha: 0.1),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      pressed: SurfaceStyle(
+        backgroundColor: scheme.primary.withValues(alpha: 0.12),
+        borderColor: scheme.primary,
+        borderWidth: 1.5,
+        borderRadius: 24.0,
+        blurStrength: 6.0,
+        contentColor: scheme.primary,
+      ),
+    );
+
+    final textSurfaces = ButtonSurfaceStates(
+      enabled: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 24.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+      ),
+      disabled: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 24.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary.withValues(alpha: 0.38),
+      ),
+      hovered: SurfaceStyle(
+        backgroundColor: scheme.primary.withValues(alpha: 0.05),
+        borderColor: Colors.transparent,
+        borderWidth: 0,
         borderRadius: 24.0,
         blurStrength: 4.0,
         contentColor: scheme.primary,
+        shadows: [
+          BoxShadow(
+            color: scheme.primary.withValues(alpha: 0.08),
+            blurRadius: 6,
+            offset: const Offset(0, 1),
+          ),
+        ],
       ),
-      enabledContentColor: scheme.primary,
-      disabledContentColor: scheme.onSurface.withValues(alpha: 0.38),
-      smallTextStyle: textTheme.labelMedium!.copyWith(
+      pressed: SurfaceStyle(
+        backgroundColor: scheme.primary.withValues(alpha: 0.12),
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 24.0,
+        blurStrength: 2.0,
+        contentColor: scheme.primary,
+      ),
+    );
+
+    // Create color specs
+    final filledContentColors = StateColorSpec(
+      active: scheme.onPrimary,
+      inactive: scheme.onPrimary.withValues(alpha: 0.8),
+      disabled: scheme.onSurface.withValues(alpha: 0.38),
+      hover: scheme.onPrimary,
+      pressed: scheme.onPrimary,
+    );
+
+    final outlineContentColors = StateColorSpec(
+      active: scheme.primary,
+      inactive: scheme.primary.withValues(alpha: 0.8),
+      disabled: scheme.primary.withValues(alpha: 0.38),
+      hover: scheme.primary,
+      pressed: scheme.primary,
+    );
+
+    final textContentColors = StateColorSpec(
+      active: scheme.primary,
+      inactive: scheme.primary.withValues(alpha: 0.8),
+      disabled: scheme.primary.withValues(alpha: 0.38),
+      hover: scheme.primary,
+      pressed: scheme.primary,
+    );
+
+    // Create text styles
+    final textStyles = ButtonTextStyles(
+      small: textTheme.labelMedium!.copyWith(
+        fontWeight: FontWeight.w600,
         color: scheme.primary,
-        fontWeight: FontWeight.w500,
       ),
-      mediumTextStyle: textTheme.labelLarge!.copyWith(
+      medium: textTheme.labelLarge!.copyWith(
+        fontWeight: FontWeight.w600,
         color: scheme.primary,
-        fontWeight: FontWeight.w500,
       ),
-      largeTextStyle: textTheme.titleSmall!.copyWith(
+      large: textTheme.titleMedium!.copyWith(
+        fontWeight: FontWeight.w600,
         color: scheme.primary,
-        fontWeight: FontWeight.w500,
       ),
-      interaction: const InteractionSpec(
-        pressedScale: 0.95,
-        pressedOpacity: 1.0,
-        hoverOpacity: 1.0,
-        pressedOffset: Offset.zero,
-      ),
+    );
+
+    // Create size spec
+    const sizeSpec = ButtonSizeSpec(
+      smallHeight: 40.0,
+      mediumHeight: 56.0,
+      largeHeight: 72.0,
+      smallPadding: EdgeInsets.symmetric(horizontal: 24.0),
+      mediumPadding: EdgeInsets.symmetric(horizontal: 32.0),
+      largePadding: EdgeInsets.symmetric(horizontal: 40.0),
+      iconSpacing: 16.0,
+    );
+
+    // Create interaction spec
+    const interaction = InteractionSpec(
+      pressedScale: 0.95, // Subtle scale for glass effect (0.05 reduction)
+      hoverOpacity: 0.9, // Slight opacity reduction on hover
+      pressedOpacity: 0.8, // More opacity reduction when pressed
+      pressedOffset: Offset.zero, // No offset for glass theme
+    );
+
+    return AppButtonStyle(
+      filledSurfaces: filledSurfaces,
+      filledContentColors: filledContentColors,
+      outlineSurfaces: outlineSurfaces,
+      outlineContentColors: outlineContentColors,
+      textSurfaces: textSurfaces,
+      textContentColors: textContentColors,
+      textStyles: textStyles,
+      sizeSpec: sizeSpec,
+      interaction: interaction,
     );
   }
 }

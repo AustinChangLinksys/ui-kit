@@ -54,7 +54,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         contentColor: colors.onSurface,
       ),
       surfaceHighlight: SurfaceStyle(
-        backgroundColor: colors.error, // Brutal often uses error/warning colors for highlight or primary
+        backgroundColor: colors
+            .error, // Brutal often uses error/warning colors for highlight or primary
         borderColor: colors.highContrastBorder,
         borderWidth: 3.0,
         borderRadius: 4.0,
@@ -75,7 +76,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         ),
       ),
       surfaceSecondary: SurfaceStyle(
-        backgroundColor: colors.surfaceContainerHighest,  // Solid color for better contrast in Brutal
+        backgroundColor: colors
+            .surfaceContainerHighest, // Solid color for better contrast in Brutal
         borderColor: colors.highContrastBorder,
         borderWidth: 2.0,
         borderRadius: 0.0,
@@ -140,8 +142,8 @@ class BrutalDesignTheme extends AppDesignTheme {
           borderRadius: 0,
           shadows: const [],
           blurStrength: 0,
-          customBorder:
-              Border(bottom: BorderSide(color: colors.highContrastBorder, width: 3.0)),
+          customBorder: Border(
+              bottom: BorderSide(color: colors.highContrastBorder, width: 3.0)),
         ),
         filledStyle: SurfaceStyle(
           backgroundColor: colors.surfaceContainerHigh,
@@ -174,7 +176,9 @@ class BrutalDesignTheme extends AppDesignTheme {
         borderRadius: 0.0,
         shadows: [
           BoxShadow(
-              color: colors.styleShadow, offset: const Offset(4, 4), blurRadius: 0),
+              color: colors.styleShadow,
+              offset: const Offset(4, 4),
+              blurRadius: 0),
         ],
       ),
       toastStyle: ToastStyle(
@@ -308,7 +312,7 @@ class BrutalDesignTheme extends AppDesignTheme {
       iconStyle: AppIconStyle.vectorFilled,
       sheetStyle: const SheetStyle(
         overlay: OverlaySpec.standard,
-        borderRadius: 0.0,  // Brutal has sharp corners
+        borderRadius: 0.0, // Brutal has sharp corners
         width: 280.0,
         dragHandleHeight: 6.0,
         enableDithering: false,
@@ -346,7 +350,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         expandedBackgroundColor: colors.surfaceContainer,
         headerTextColor: colors.onSurface,
         expandIcon: Icons.expand_more,
-        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 150), curve: Curves.easeInOut),
+        animation: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 150), curve: Curves.easeInOut),
       ),
       carouselStyle: CarouselStyle(
         navButtonColors: StateColorSpec(
@@ -356,7 +361,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         ),
         previousIcon: Icons.arrow_back,
         nextIcon: Icons.arrow_forward,
-        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 150), curve: Curves.easeOut),
+        animation: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 150), curve: Curves.easeOut),
         useSnapScroll: false,
         navButtonSize: 48.0,
       ),
@@ -378,17 +384,24 @@ class BrutalDesignTheme extends AppDesignTheme {
         gridColor: colors.highContrastBorder,
         gridWidth: 3.0,
         showVerticalGrid: true,
-        cellPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
+        cellPadding:
+            const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
         rowHeight: 56.0,
-        headerTextStyle: appTextTheme.titleMedium!.copyWith(color: colors.onSurface),
-        cellTextStyle: appTextTheme.labelLarge!.copyWith(color: colors.onSurface),
+        headerTextStyle:
+            appTextTheme.titleMedium!.copyWith(color: colors.onSurface),
+        cellTextStyle:
+            appTextTheme.labelLarge!.copyWith(color: colors.onSurface),
         invertRowOnHover: false,
         glowRowOnHover: false,
         hoverRowBackground: colors.surfaceContainerHighest,
         hoverRowContentColor: null,
-        modeTransition: const shared.AnimationSpec(duration: Duration(milliseconds: 200), curve: Curves.easeInOut),
+        modeTransition: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 200), curve: Curves.easeInOut),
       ),
-      topologySpec: _buildTopologySpec(colors.toMaterialScheme(brightness: isLight ? Brightness.light : Brightness.dark), isLight: isLight),
+      topologySpec: _buildTopologySpec(
+          colors.toMaterialScheme(
+              brightness: isLight ? Brightness.light : Brightness.dark),
+          isLight: isLight),
       slideActionStyle: SlideActionStyle(
         standardStyle: SurfaceStyle(
           backgroundColor: colors.surfaceContainer,
@@ -423,7 +436,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         borderRadius: BorderRadius.zero, // Sharp corners
         contentColor: colors.onSurface,
         iconSize: 24.0,
-        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 400), curve: Curves.elasticOut),
+        animation: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 400), curve: Curves.elasticOut),
       ),
       expandableFabStyle: ExpandableFabStyle(
         shape: BoxShape.rectangle, // Or geometric mix
@@ -432,7 +446,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         overlay: OverlaySpec(
           scrimColor: colors.scrim.withValues(alpha: 0.5),
           blurStrength: 0.0,
-          animation: const shared.AnimationSpec(duration: Duration(milliseconds: 200), curve: Curves.easeOut),
+          animation: const shared.AnimationSpec(
+              duration: Duration(milliseconds: 200), curve: Curves.easeOut),
         ),
         showDitherPattern: false,
         glowEffect: false,
@@ -446,7 +461,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         showTicks: false,
         strokeWidth: 20.0,
         enableGlow: false,
-        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 100), curve: Curves.linear),
+        animation: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 100), curve: Curves.linear),
       ),
       rangeInputStyle: RangeInputStyle(
         mergeContainers: false,
@@ -458,20 +474,22 @@ class BrutalDesignTheme extends AppDesignTheme {
         cellShape: PinCellShape.box,
         fillOnInput: true,
         glowOnActive: false,
-        textStyle: appTextTheme.headlineMedium!.copyWith(color: colors.onSurface),
+        textStyle:
+            appTextTheme.headlineMedium!.copyWith(color: colors.onSurface),
         cellSpacing: 8.0,
         cellSize: 56.0,
       ),
       passwordInputStyle: PasswordInputStyle(
         validIcon: Icons.check_box,
         pendingIcon: Icons.check_box_outline_blank,
-        ruleTextStyle: appTextTheme.bodySmall!.copyWith(fontWeight: FontWeight.bold, color: colors.onSurface),
+        ruleTextStyle: appTextTheme.bodySmall!
+            .copyWith(fontWeight: FontWeight.bold, color: colors.onSurface),
         showRuleListBackground: false,
         validColor: colors.onSurface,
         pendingColor: colors.onSurface.withValues(alpha: 0.5),
       ),
       styledTextStyle: _createBrutalStyledTextStyle(colors, appTextTheme),
-      textButtonStyle: _createBrutalTextButtonStyle(colors, appTextTheme),
+      buttonStyle: _createBrutalAppButtonStyle(colors, appTextTheme),
     );
   }
 
@@ -517,8 +535,30 @@ class BrutalDesignTheme extends AppDesignTheme {
     required super.pinInputStyle,
     required super.passwordInputStyle,
     required super.styledTextStyle,
-    required super.textButtonStyle,
+    required super.buttonStyle,
   });
+
+  // Helper function to intensify colors for Brutal theme
+  static Color _intensifyColor(Color baseColor, {required bool isDark}) {
+    final hsl = HSLColor.fromColor(baseColor);
+    if (isDark) {
+      // For dark mode: increase saturation and lightness for more vibrant colors
+      return hsl.withSaturation((hsl.saturation * 1.4).clamp(0.0, 1.0))
+                .withLightness((hsl.lightness * 1.2).clamp(0.0, 1.0))
+                .toColor();
+    } else {
+      // For light mode: increase saturation and slightly decrease lightness for intensity
+      return hsl.withSaturation((hsl.saturation * 1.5).clamp(0.0, 1.0))
+                .withLightness((hsl.lightness * 0.8).clamp(0.0, 1.0))
+                .toColor();
+    }
+  }
+
+  // Helper function to get contrasting text color
+  static Color _getContrastingTextColor(Color backgroundColor) {
+    final luminance = backgroundColor.computeLuminance();
+    return luminance > 0.5 ? Colors.black : Colors.white;
+  }
 
   factory BrutalDesignTheme.light([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultLightScheme;
@@ -557,7 +597,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         contentColor: scheme.onPrimaryContainer,
       ),
       surfaceHighlight: SurfaceStyle(
-        backgroundColor: scheme.error, // Use ColorScheme's error
+        backgroundColor: _intensifyColor(scheme.primary, isDark: scheme.brightness == Brightness.dark), // Intensified primary for more brutal contrast
         borderColor: scheme.onSurface,
         borderWidth: 3.0,
         borderRadius: 4.0,
@@ -569,7 +609,7 @@ class BrutalDesignTheme extends AppDesignTheme {
           )
         ],
         blurStrength: 0.0,
-        contentColor: scheme.onError,
+        contentColor: _getContrastingTextColor(_intensifyColor(scheme.primary, isDark: scheme.brightness == Brightness.dark)),
         interaction: const InteractionSpec(
           pressedScale: 1.0,
           pressedOpacity: 1.0,
@@ -579,7 +619,7 @@ class BrutalDesignTheme extends AppDesignTheme {
       ),
       // Secondary (Tonal) Surface - Medium emphasis with mechanical aesthetic
       surfaceSecondary: SurfaceStyle(
-        backgroundColor: scheme.surfaceContainerHighest,  // Solid color for better contrast in Brutal
+        backgroundColor: _intensifyColor(scheme.secondary, isDark: scheme.brightness == Brightness.dark), // Intensified secondary for brutal contrast
         borderColor: scheme.onSurface,
         borderWidth: 2.0,
         borderRadius: 0.0,
@@ -591,7 +631,7 @@ class BrutalDesignTheme extends AppDesignTheme {
           )
         ],
         blurStrength: 0.0,
-        contentColor: scheme.onSurface,
+        contentColor: _getContrastingTextColor(_intensifyColor(scheme.secondary, isDark: scheme.brightness == Brightness.dark)),
       ),
       // Tertiary (Accent) Surface - Decorative with mechanical aesthetic
       surfaceTertiary: SurfaceStyle(
@@ -682,7 +722,9 @@ class BrutalDesignTheme extends AppDesignTheme {
         borderRadius: 0.0,
         shadows: [
           BoxShadow(
-              color: scheme.onSurface, offset: const Offset(4, 4), blurRadius: 0),
+              color: scheme.onSurface,
+              offset: const Offset(4, 4),
+              blurRadius: 0),
         ],
       ),
       toastStyle: ToastStyle(
@@ -816,7 +858,7 @@ class BrutalDesignTheme extends AppDesignTheme {
       iconStyle: AppIconStyle.vectorFilled,
       sheetStyle: const SheetStyle(
         overlay: OverlaySpec.standard,
-        borderRadius: 0.0,  // Brutal has sharp corners
+        borderRadius: 0.0, // Brutal has sharp corners
         width: 280.0,
         dragHandleHeight: 6.0,
         enableDithering: false,
@@ -854,7 +896,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         expandedBackgroundColor: scheme.surfaceContainer,
         headerTextColor: scheme.onSurface,
         expandIcon: Icons.expand_more,
-        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 150), curve: Curves.easeInOut),
+        animation: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 150), curve: Curves.easeInOut),
       ),
       carouselStyle: CarouselStyle(
         navButtonColors: StateColorSpec(
@@ -864,7 +907,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         ),
         previousIcon: Icons.arrow_back,
         nextIcon: Icons.arrow_forward,
-        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 150), curve: Curves.easeOut),
+        animation: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 150), curve: Curves.easeOut),
         useSnapScroll: false,
         navButtonSize: 48.0,
       ),
@@ -886,15 +930,19 @@ class BrutalDesignTheme extends AppDesignTheme {
         gridColor: scheme.onSurface,
         gridWidth: 3.0,
         showVerticalGrid: true,
-        cellPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
+        cellPadding:
+            const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
         rowHeight: 56.0,
-        headerTextStyle: appTextTheme.titleMedium!.copyWith(color: scheme.onSurface),
-        cellTextStyle: appTextTheme.labelLarge!.copyWith(color: scheme.onSurface),
+        headerTextStyle:
+            appTextTheme.titleMedium!.copyWith(color: scheme.onSurface),
+        cellTextStyle:
+            appTextTheme.labelLarge!.copyWith(color: scheme.onSurface),
         invertRowOnHover: false,
         glowRowOnHover: false,
         hoverRowBackground: scheme.surfaceContainerHighest,
         hoverRowContentColor: null,
-        modeTransition: const shared.AnimationSpec(duration: Duration(milliseconds: 200), curve: Curves.easeInOut),
+        modeTransition: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 200), curve: Curves.easeInOut),
       ),
       topologySpec: _buildTopologySpec(scheme, isLight: true),
       slideActionStyle: SlideActionStyle(
@@ -926,12 +974,13 @@ class BrutalDesignTheme extends AppDesignTheme {
             )
           ],
           blurStrength: 0.0,
-          contentColor: scheme.onError,
+          contentColor: _getContrastingTextColor(_intensifyColor(scheme.primary, isDark: scheme.brightness == Brightness.dark)),
         ),
         borderRadius: BorderRadius.zero,
         contentColor: scheme.onSurface,
         iconSize: 24.0,
-        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 400), curve: Curves.elasticOut),
+        animation: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 400), curve: Curves.elasticOut),
       ),
       expandableFabStyle: ExpandableFabStyle(
         shape: BoxShape.rectangle,
@@ -940,7 +989,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         overlay: OverlaySpec(
           scrimColor: scheme.scrim.withValues(alpha: 0.5),
           blurStrength: 0.0,
-          animation: const shared.AnimationSpec(duration: Duration(milliseconds: 200), curve: Curves.easeOut),
+          animation: const shared.AnimationSpec(
+              duration: Duration(milliseconds: 200), curve: Curves.easeOut),
         ),
         showDitherPattern: false,
         glowEffect: false,
@@ -954,7 +1004,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         showTicks: false,
         strokeWidth: 20.0,
         enableGlow: false,
-        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 100), curve: Curves.linear),
+        animation: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 100), curve: Curves.linear),
       ),
       rangeInputStyle: RangeInputStyle(
         mergeContainers: false,
@@ -966,20 +1017,23 @@ class BrutalDesignTheme extends AppDesignTheme {
         cellShape: PinCellShape.box,
         fillOnInput: true,
         glowOnActive: false,
-        textStyle: appTextTheme.headlineMedium!.copyWith(color: scheme.onSurface),
+        textStyle:
+            appTextTheme.headlineMedium!.copyWith(color: scheme.onSurface),
         cellSpacing: 8.0,
         cellSize: 56.0,
       ),
       passwordInputStyle: PasswordInputStyle(
         validIcon: Icons.check_box,
         pendingIcon: Icons.check_box_outline_blank,
-        ruleTextStyle: appTextTheme.bodySmall!.copyWith(fontWeight: FontWeight.bold, color: scheme.onSurface),
+        ruleTextStyle: appTextTheme.bodySmall!
+            .copyWith(fontWeight: FontWeight.bold, color: scheme.onSurface),
         showRuleListBackground: false,
         validColor: scheme.onSurface,
         pendingColor: scheme.onSurface.withValues(alpha: 0.5),
       ),
-      styledTextStyle: _createBrutalStyledTextStyleForScheme(scheme, appTextTheme),
-      textButtonStyle: _createBrutalTextButtonStyleForScheme(scheme, appTextTheme),
+      styledTextStyle:
+          _createBrutalStyledTextStyleForScheme(scheme, appTextTheme),
+      buttonStyle: _createBrutalAppButtonStyleForScheme(scheme, appTextTheme),
     );
   }
 
@@ -1022,7 +1076,7 @@ class BrutalDesignTheme extends AppDesignTheme {
         contentColor: scheme.onPrimaryContainer,
       ),
       surfaceHighlight: SurfaceStyle(
-        backgroundColor: scheme.error, // Use ColorScheme's error
+        backgroundColor: _intensifyColor(scheme.primary, isDark: scheme.brightness == Brightness.dark), // Intensified primary for more brutal contrast
         borderColor: scheme.onSurface,
         borderWidth: 3.0,
         borderRadius: 4.0,
@@ -1034,7 +1088,7 @@ class BrutalDesignTheme extends AppDesignTheme {
           )
         ],
         blurStrength: 0.0,
-        contentColor: scheme.onError,
+        contentColor: _getContrastingTextColor(_intensifyColor(scheme.primary, isDark: scheme.brightness == Brightness.dark)),
         interaction: const InteractionSpec(
           pressedScale: 1.0,
           pressedOpacity: 1.0,
@@ -1044,7 +1098,7 @@ class BrutalDesignTheme extends AppDesignTheme {
       ),
       // Secondary (Tonal) Surface - Medium emphasis with mechanical aesthetic (Dark mode)
       surfaceSecondary: SurfaceStyle(
-        backgroundColor: scheme.surfaceContainerHighest,  // Solid color for better contrast in Brutal
+        backgroundColor: _intensifyColor(scheme.secondary, isDark: scheme.brightness == Brightness.dark), // Intensified secondary for brutal contrast
         borderColor: scheme.outline,
         borderWidth: 2.0,
         borderRadius: 0.0,
@@ -1056,7 +1110,7 @@ class BrutalDesignTheme extends AppDesignTheme {
           )
         ],
         blurStrength: 0.0,
-        contentColor: scheme.onSurface,
+        contentColor: _getContrastingTextColor(_intensifyColor(scheme.secondary, isDark: scheme.brightness == Brightness.dark)),
       ),
       // Tertiary (Accent) Surface - Decorative with mechanical aesthetic (Dark mode)
       surfaceTertiary: SurfaceStyle(
@@ -1143,7 +1197,9 @@ class BrutalDesignTheme extends AppDesignTheme {
         borderRadius: 0.0,
         shadows: [
           BoxShadow(
-              color: scheme.onSurface, offset: const Offset(4, 4), blurRadius: 0),
+              color: scheme.onSurface,
+              offset: const Offset(4, 4),
+              blurRadius: 0),
         ],
       ),
       toastStyle: ToastStyle(
@@ -1277,7 +1333,7 @@ class BrutalDesignTheme extends AppDesignTheme {
       iconStyle: AppIconStyle.vectorFilled,
       sheetStyle: const SheetStyle(
         overlay: OverlaySpec.standard,
-        borderRadius: 0.0,  // Brutal has sharp corners
+        borderRadius: 0.0, // Brutal has sharp corners
         width: 280.0,
         dragHandleHeight: 6.0,
         enableDithering: false,
@@ -1315,7 +1371,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         expandedBackgroundColor: scheme.surfaceContainer,
         headerTextColor: scheme.onSurface,
         expandIcon: Icons.expand_more,
-        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 150), curve: Curves.easeInOut),
+        animation: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 150), curve: Curves.easeInOut),
       ),
       carouselStyle: CarouselStyle(
         navButtonColors: StateColorSpec(
@@ -1325,7 +1382,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         ),
         previousIcon: Icons.arrow_back,
         nextIcon: Icons.arrow_forward,
-        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 150), curve: Curves.easeOut),
+        animation: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 150), curve: Curves.easeOut),
         useSnapScroll: false,
         navButtonSize: 48.0,
       ),
@@ -1347,7 +1405,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         gridColor: black,
         gridWidth: 3.0,
         showVerticalGrid: true,
-        cellPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
+        cellPadding:
+            const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
         rowHeight: 56.0,
         headerTextStyle: appTextTheme.titleMedium!.copyWith(color: black),
         cellTextStyle: appTextTheme.labelLarge!.copyWith(color: black),
@@ -1355,7 +1414,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         glowRowOnHover: false,
         hoverRowBackground: scheme.surfaceContainerHighest,
         hoverRowContentColor: null,
-        modeTransition: const shared.AnimationSpec(duration: Duration(milliseconds: 200), curve: Curves.easeInOut),
+        modeTransition: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 200), curve: Curves.easeInOut),
       ),
       topologySpec: _buildTopologySpec(scheme, isLight: false),
       slideActionStyle: SlideActionStyle(
@@ -1387,12 +1447,13 @@ class BrutalDesignTheme extends AppDesignTheme {
             )
           ],
           blurStrength: 0.0,
-          contentColor: scheme.onError,
+          contentColor: _getContrastingTextColor(_intensifyColor(scheme.primary, isDark: scheme.brightness == Brightness.dark)),
         ),
         borderRadius: BorderRadius.zero,
         contentColor: black,
         iconSize: 24.0,
-        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 400), curve: Curves.elasticOut),
+        animation: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 400), curve: Curves.elasticOut),
       ),
       expandableFabStyle: ExpandableFabStyle(
         shape: BoxShape.rectangle,
@@ -1401,7 +1462,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         overlay: OverlaySpec(
           scrimColor: scheme.scrim.withValues(alpha: 0.5),
           blurStrength: 0.0,
-          animation: const shared.AnimationSpec(duration: Duration(milliseconds: 200), curve: Curves.easeOut),
+          animation: const shared.AnimationSpec(
+              duration: Duration(milliseconds: 200), curve: Curves.easeOut),
         ),
         showDitherPattern: false,
         glowEffect: false,
@@ -1415,7 +1477,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         showTicks: false,
         strokeWidth: 20.0,
         enableGlow: false,
-        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 100), curve: Curves.linear),
+        animation: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 100), curve: Curves.linear),
       ),
       rangeInputStyle: RangeInputStyle(
         mergeContainers: false,
@@ -1427,25 +1490,29 @@ class BrutalDesignTheme extends AppDesignTheme {
         cellShape: PinCellShape.box,
         fillOnInput: true,
         glowOnActive: false,
-        textStyle: appTextTheme.headlineMedium!.copyWith(color: scheme.onSurface),
+        textStyle:
+            appTextTheme.headlineMedium!.copyWith(color: scheme.onSurface),
         cellSpacing: 8.0,
         cellSize: 56.0,
       ),
       passwordInputStyle: PasswordInputStyle(
         validIcon: Icons.check_box,
         pendingIcon: Icons.check_box_outline_blank,
-        ruleTextStyle: appTextTheme.bodySmall!.copyWith(fontWeight: FontWeight.bold, color: black),
+        ruleTextStyle: appTextTheme.bodySmall!
+            .copyWith(fontWeight: FontWeight.bold, color: black),
         showRuleListBackground: false,
         validColor: black,
         pendingColor: black.withValues(alpha: 0.5),
       ),
-      styledTextStyle: _createBrutalStyledTextStyleForDark(scheme, appTextTheme),
-      textButtonStyle: _createBrutalTextButtonStyleForScheme(scheme, appTextTheme),
+      styledTextStyle:
+          _createBrutalStyledTextStyleForDark(scheme, appTextTheme),
+      buttonStyle: _createBrutalAppButtonStyleForScheme(scheme, appTextTheme),
     );
   }
 
   /// Builds topology spec for Brutal theme with mechanical, industrial aesthetic.
-  static TopologySpec _buildTopologySpec(ColorScheme scheme, {required bool isLight}) {
+  static TopologySpec _buildTopologySpec(ColorScheme scheme,
+      {required bool isLight}) {
     final borderColor = scheme.onSurface;
     final errorColor = scheme.error;
 
@@ -1543,7 +1610,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         dashPattern: null,
         glowColor: Colors.transparent,
         glowRadius: 0.0,
-        animation: const shared.AnimationSpec(duration: Duration.zero, curve: Curves.linear),
+        animation: const shared.AnimationSpec(
+            duration: Duration.zero, curve: Curves.linear),
       ),
       wifiStrongStyle: LinkStyle(
         color: scheme.tertiary,
@@ -1551,7 +1619,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         dashPattern: const [8.0, 4.0],
         glowColor: Colors.transparent,
         glowRadius: 0.0,
-        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 800), curve: Curves.linear),
+        animation: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 800), curve: Curves.linear),
       ),
       wifiMediumStyle: LinkStyle(
         color: scheme.secondary,
@@ -1559,7 +1628,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         dashPattern: const [6.0, 4.0],
         glowColor: Colors.transparent,
         glowRadius: 0.0,
-        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 1000), curve: Curves.linear),
+        animation: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 1000), curve: Curves.linear),
       ),
       wifiWeakStyle: LinkStyle(
         color: errorColor,
@@ -1567,7 +1637,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         dashPattern: const [4.0, 4.0],
         glowColor: Colors.transparent,
         glowRadius: 0.0,
-        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 1200), curve: Curves.linear),
+        animation: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 1200), curve: Curves.linear),
       ),
       wifiUnknownStyle: LinkStyle(
         color: scheme.outline,
@@ -1575,7 +1646,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         dashPattern: const [4.0, 6.0],
         glowColor: Colors.transparent,
         glowRadius: 0.0,
-        animation: const shared.AnimationSpec(duration: Duration(milliseconds: 1000), curve: Curves.linear),
+        animation: const shared.AnimationSpec(
+            duration: Duration(milliseconds: 1000), curve: Curves.linear),
       ),
 
       // Layout - grid-based
@@ -1610,7 +1682,8 @@ class BrutalDesignTheme extends AppDesignTheme {
         pressed: colors.onSurface,
       ),
       linkAnimation: const shared.AnimationSpec(
-        duration: Duration(milliseconds: 150), // Brutal theme snappy transitions
+        duration:
+            Duration(milliseconds: 150), // Brutal theme snappy transitions
         curve: Curves.easeOut,
       ),
       largeTextStyle: textTheme.titleMedium!.copyWith(
@@ -1753,33 +1826,146 @@ class BrutalDesignTheme extends AppDesignTheme {
     );
   }
 
-  /// Creates TextButtonStyle for Brutal theme with AppColorScheme (fromConfig factory)
-  /// Brutal theme: Sharp corners (0.0 radius), bold borders (3.0 width), high contrast colors, block shadows, no blur
-  static TextButtonStyle _createBrutalTextButtonStyle(
+  /// Creates unified AppButtonStyle for Brutal theme with AppColorScheme
+  /// Brutal characteristics: Sharp corners (0.0 radius), bold borders (3.0 width),
+  /// high contrast colors, block shadows with no blur, diagonal line textures
+  static AppButtonStyle _createBrutalAppButtonStyle(
     AppColorScheme colors,
     TextTheme textTheme,
   ) {
-    return TextButtonStyle(
-      enabledStyle: SurfaceStyle(
-        backgroundColor: Colors.transparent,
+    // Create brutal-themed surface styles with sharp edges and block shadows
+    final filledSurfaces = ButtonSurfaceStates(
+      enabled: SurfaceStyle(
+        backgroundColor: colors.primary,
         borderColor: Colors.transparent,
-        borderWidth: 0.0,
-        borderRadius: 0.0,
+        borderWidth: 0,
+        borderRadius: 0.0, // Sharp corners
         blurStrength: 0.0,
-        contentColor: colors.primary,
+        contentColor: colors.onPrimary,
+        shadows: [
+          BoxShadow(
+            color: colors.styleShadow,
+            blurRadius: 0, // No blur for block shadow
+            offset: const Offset(4, 4),
+          ),
+        ],
+        texture: AppTextureAssets.diagonalLines,
+        textureOpacity: 0.15,
       ),
-      disabledStyle: SurfaceStyle(
-        backgroundColor: Colors.transparent,
+      disabled: SurfaceStyle(
+        backgroundColor: colors.onSurface.withValues(alpha: 0.12),
         borderColor: Colors.transparent,
-        borderWidth: 0.0,
+        borderWidth: 0,
         borderRadius: 0.0,
         blurStrength: 0.0,
         contentColor: colors.onSurface.withValues(alpha: 0.38),
       ),
-      hoverStyle: SurfaceStyle(
-        backgroundColor: colors.primary.withValues(alpha: 0.1),
+      hovered: SurfaceStyle(
+        backgroundColor: colors.primary,
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 0.0,
+        blurStrength: 0.0,
+        contentColor: colors.onPrimary,
+        shadows: [
+          BoxShadow(
+            color: colors.styleShadow,
+            blurRadius: 0,
+            offset: const Offset(6, 6), // Larger shadow on hover
+          ),
+        ],
+        texture: AppTextureAssets.diagonalLines,
+        textureOpacity: 0.2,
+      ),
+      pressed: SurfaceStyle(
+        backgroundColor: colors.primary,
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 0.0,
+        blurStrength: 0.0,
+        contentColor: colors.onPrimary,
+        shadows: [
+          BoxShadow(
+            color: colors.styleShadow,
+            blurRadius: 0,
+            offset: const Offset(2, 2), // Smaller shadow when pressed
+          ),
+        ],
+        texture: AppTextureAssets.diagonalLines,
+        textureOpacity: 0.25,
+      ),
+    );
+
+    final outlineSurfaces = ButtonSurfaceStates(
+      enabled: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: colors.primary,
+        borderWidth: 3.0,
+        borderRadius: 0.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary,
+      ),
+      disabled: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: colors.primary.withValues(alpha: 0.38),
+        borderWidth: 3.0,
+        borderRadius: 0.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary.withValues(alpha: 0.38),
+      ),
+      hovered: SurfaceStyle(
+        backgroundColor: colors.primary.withValues(alpha: 0.08),
+        borderColor: colors.primary,
+        borderWidth: 4.0,
+        borderRadius: 0.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary,
+        shadows: [
+          BoxShadow(
+            color: colors.styleShadow,
+            blurRadius: 0,
+            offset: const Offset(3, 3),
+          ),
+        ],
+      ),
+      pressed: SurfaceStyle(
+        backgroundColor: colors.primary.withValues(alpha: 0.16),
+        borderColor: colors.primary,
+        borderWidth: 3.0,
+        borderRadius: 0.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary,
+        shadows: [
+          BoxShadow(
+            color: colors.styleShadow,
+            blurRadius: 0,
+            offset: const Offset(1, 1),
+          ),
+        ],
+      ),
+    );
+
+    final textSurfaces = ButtonSurfaceStates(
+      enabled: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 0.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary,
+      ),
+      disabled: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 0.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary.withValues(alpha: 0.38),
+      ),
+      hovered: SurfaceStyle(
+        backgroundColor: colors.primary.withValues(alpha: 0.08),
         borderColor: colors.highContrastBorder,
-        borderWidth: 2.0,
+        borderWidth: 2.0, // Show border on hover for brutal effect
         borderRadius: 0.0,
         blurStrength: 0.0,
         contentColor: colors.primary,
@@ -1791,8 +1977,8 @@ class BrutalDesignTheme extends AppDesignTheme {
           ),
         ],
       ),
-      pressedStyle: SurfaceStyle(
-        backgroundColor: colors.primary.withValues(alpha: 0.2),
+      pressed: SurfaceStyle(
+        backgroundColor: colors.primary.withValues(alpha: 0.16),
         borderColor: colors.highContrastBorder,
         borderWidth: 3.0,
         borderRadius: 0.0,
@@ -1806,53 +1992,211 @@ class BrutalDesignTheme extends AppDesignTheme {
           ),
         ],
       ),
-      enabledContentColor: colors.primary,
-      disabledContentColor: colors.onSurface.withValues(alpha: 0.38),
-      smallTextStyle: textTheme.labelMedium!.copyWith(
-        fontWeight: FontWeight.bold,
+    );
+
+    // Create color specs
+    final filledContentColors = StateColorSpec(
+      active: colors.onPrimary,
+      inactive: colors.onPrimary.withValues(alpha: 0.8),
+      disabled: colors.onSurface.withValues(alpha: 0.38),
+      hover: colors.onPrimary,
+      pressed: colors.onPrimary,
+    );
+
+    final outlineContentColors = StateColorSpec(
+      active: colors.primary,
+      inactive: colors.primary.withValues(alpha: 0.8),
+      disabled: colors.primary.withValues(alpha: 0.38),
+      hover: colors.primary,
+      pressed: colors.primary,
+    );
+
+    final textContentColors = StateColorSpec(
+      active: colors.primary,
+      inactive: colors.primary.withValues(alpha: 0.8),
+      disabled: colors.primary.withValues(alpha: 0.38),
+      hover: colors.primary,
+      pressed: colors.primary,
+    );
+
+    // Create text styles with bold weight for brutal theme
+    final textStyles = ButtonTextStyles(
+      small: textTheme.labelMedium!.copyWith(
+        fontWeight: FontWeight.w800, // Extra bold for brutal theme
         color: colors.primary,
       ),
-      mediumTextStyle: textTheme.labelLarge!.copyWith(
-        fontWeight: FontWeight.bold,
+      medium: textTheme.labelLarge!.copyWith(
+        fontWeight: FontWeight.w800,
         color: colors.primary,
       ),
-      largeTextStyle: textTheme.titleMedium!.copyWith(
-        fontWeight: FontWeight.bold,
+      large: textTheme.titleMedium!.copyWith(
+        fontWeight: FontWeight.w800,
         color: colors.primary,
       ),
-      interaction: const InteractionSpec(
-        pressedScale: 1.0,
-        pressedOpacity: 1.0,
-        hoverOpacity: 1.0,
-        pressedOffset: Offset(2, 2),
-      ),
+    );
+
+    // Create size spec with brutal proportions
+    const sizeSpec = ButtonSizeSpec(
+      smallHeight: 36.0, // Slightly taller for brutal impact
+      mediumHeight: 52.0,
+      largeHeight: 64.0,
+      smallPadding: EdgeInsets.symmetric(horizontal: 20.0),
+      mediumPadding: EdgeInsets.symmetric(horizontal: 28.0),
+      largePadding: EdgeInsets.symmetric(horizontal: 36.0),
+      iconSpacing: 12.0, // More spacing for brutal aesthetic
+    );
+
+    // Create interaction spec with brutal animations
+    const interaction = InteractionSpec(
+      pressedScale: 1.0, // No scale - brutal buttons don't shrink
+      hoverOpacity: 1.0, // No opacity changes - harsh and direct
+      pressedOpacity: 1.0, // No opacity changes
+      pressedOffset: Offset(2, 2), // Brutal offset effect when pressed
+    );
+
+    return AppButtonStyle(
+      filledSurfaces: filledSurfaces,
+      filledContentColors: filledContentColors,
+      outlineSurfaces: outlineSurfaces,
+      outlineContentColors: outlineContentColors,
+      textSurfaces: textSurfaces,
+      textContentColors: textContentColors,
+      textStyles: textStyles,
+      sizeSpec: sizeSpec,
+      interaction: interaction,
     );
   }
 
-  /// Creates TextButtonStyle for Brutal theme with ColorScheme (light/dark factories)
-  static TextButtonStyle _createBrutalTextButtonStyleForScheme(
+  /// Creates unified AppButtonStyle for Brutal theme with ColorScheme
+  static AppButtonStyle _createBrutalAppButtonStyleForScheme(
     ColorScheme scheme,
     TextTheme textTheme,
   ) {
-    return TextButtonStyle(
-      enabledStyle: SurfaceStyle(
-        backgroundColor: Colors.transparent,
+    // Similar implementation but using ColorScheme instead of AppColorScheme
+    final filledSurfaces = ButtonSurfaceStates(
+      enabled: SurfaceStyle(
+        backgroundColor: scheme.primary,
         borderColor: Colors.transparent,
-        borderWidth: 0.0,
+        borderWidth: 0,
         borderRadius: 0.0,
         blurStrength: 0.0,
-        contentColor: scheme.primary,
+        contentColor: scheme.onPrimary,
+        shadows: [
+          BoxShadow(
+            color: scheme.onSurface.withValues(alpha: 0.8),
+            blurRadius: 0,
+            offset: const Offset(4, 4),
+          ),
+        ],
       ),
-      disabledStyle: SurfaceStyle(
-        backgroundColor: Colors.transparent,
+      disabled: SurfaceStyle(
+        backgroundColor: scheme.onSurface.withValues(alpha: 0.12),
         borderColor: Colors.transparent,
-        borderWidth: 0.0,
+        borderWidth: 0,
         borderRadius: 0.0,
         blurStrength: 0.0,
         contentColor: scheme.onSurface.withValues(alpha: 0.38),
       ),
-      hoverStyle: SurfaceStyle(
-        backgroundColor: scheme.primary.withValues(alpha: 0.1),
+      hovered: SurfaceStyle(
+        backgroundColor: scheme.primary,
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 0.0,
+        blurStrength: 0.0,
+        contentColor: scheme.onPrimary,
+        shadows: [
+          BoxShadow(
+            color: scheme.onSurface.withValues(alpha: 0.8),
+            blurRadius: 0,
+            offset: const Offset(6, 6),
+          ),
+        ],
+      ),
+      pressed: SurfaceStyle(
+        backgroundColor: scheme.primary,
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 0.0,
+        blurStrength: 0.0,
+        contentColor: scheme.onPrimary,
+        shadows: [
+          BoxShadow(
+            color: scheme.onSurface.withValues(alpha: 0.8),
+            blurRadius: 0,
+            offset: const Offset(2, 2),
+          ),
+        ],
+      ),
+    );
+
+    final outlineSurfaces = ButtonSurfaceStates(
+      enabled: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: scheme.primary,
+        borderWidth: 3.0,
+        borderRadius: 0.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+      ),
+      disabled: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: scheme.primary.withValues(alpha: 0.38),
+        borderWidth: 3.0,
+        borderRadius: 0.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary.withValues(alpha: 0.38),
+      ),
+      hovered: SurfaceStyle(
+        backgroundColor: scheme.primary.withValues(alpha: 0.08),
+        borderColor: scheme.primary,
+        borderWidth: 4.0,
+        borderRadius: 0.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+        shadows: [
+          BoxShadow(
+            color: scheme.onSurface.withValues(alpha: 0.8),
+            blurRadius: 0,
+            offset: const Offset(3, 3),
+          ),
+        ],
+      ),
+      pressed: SurfaceStyle(
+        backgroundColor: scheme.primary.withValues(alpha: 0.16),
+        borderColor: scheme.primary,
+        borderWidth: 3.0,
+        borderRadius: 0.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+        shadows: [
+          BoxShadow(
+            color: scheme.onSurface.withValues(alpha: 0.8),
+            blurRadius: 0,
+            offset: const Offset(1, 1),
+          ),
+        ],
+      ),
+    );
+
+    final textSurfaces = ButtonSurfaceStates(
+      enabled: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 0.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+      ),
+      disabled: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 0.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary.withValues(alpha: 0.38),
+      ),
+      hovered: SurfaceStyle(
+        backgroundColor: scheme.primary.withValues(alpha: 0.08),
         borderColor: scheme.onSurface,
         borderWidth: 2.0,
         borderRadius: 0.0,
@@ -1860,14 +2204,14 @@ class BrutalDesignTheme extends AppDesignTheme {
         contentColor: scheme.primary,
         shadows: [
           BoxShadow(
-            color: scheme.onSurface,
+            color: scheme.onSurface.withValues(alpha: 0.8),
             blurRadius: 0,
             offset: const Offset(2, 2),
           ),
         ],
       ),
-      pressedStyle: SurfaceStyle(
-        backgroundColor: scheme.primary.withValues(alpha: 0.2),
+      pressed: SurfaceStyle(
+        backgroundColor: scheme.primary.withValues(alpha: 0.16),
         borderColor: scheme.onSurface,
         borderWidth: 3.0,
         borderRadius: 0.0,
@@ -1875,32 +2219,84 @@ class BrutalDesignTheme extends AppDesignTheme {
         contentColor: scheme.primary,
         shadows: [
           BoxShadow(
-            color: scheme.onSurface,
+            color: scheme.onSurface.withValues(alpha: 0.8),
             blurRadius: 0,
             offset: const Offset(4, 4),
           ),
         ],
       ),
-      enabledContentColor: scheme.primary,
-      disabledContentColor: scheme.onSurface.withValues(alpha: 0.38),
-      smallTextStyle: textTheme.labelMedium!.copyWith(
-        fontWeight: FontWeight.bold,
+    );
+
+    // Create color specs
+    final filledContentColors = StateColorSpec(
+      active: scheme.onPrimary,
+      inactive: scheme.onPrimary.withValues(alpha: 0.8),
+      disabled: scheme.onSurface.withValues(alpha: 0.38),
+      hover: scheme.onPrimary,
+      pressed: scheme.onPrimary,
+    );
+
+    final outlineContentColors = StateColorSpec(
+      active: scheme.primary,
+      inactive: scheme.primary.withValues(alpha: 0.8),
+      disabled: scheme.primary.withValues(alpha: 0.38),
+      hover: scheme.primary,
+      pressed: scheme.primary,
+    );
+
+    final textContentColors = StateColorSpec(
+      active: scheme.primary,
+      inactive: scheme.primary.withValues(alpha: 0.8),
+      disabled: scheme.primary.withValues(alpha: 0.38),
+      hover: scheme.primary,
+      pressed: scheme.primary,
+    );
+
+    // Create text styles with bold weight
+    final textStyles = ButtonTextStyles(
+      small: textTheme.labelMedium!.copyWith(
+        fontWeight: FontWeight.w800,
         color: scheme.primary,
       ),
-      mediumTextStyle: textTheme.labelLarge!.copyWith(
-        fontWeight: FontWeight.bold,
+      medium: textTheme.labelLarge!.copyWith(
+        fontWeight: FontWeight.w800,
         color: scheme.primary,
       ),
-      largeTextStyle: textTheme.titleMedium!.copyWith(
-        fontWeight: FontWeight.bold,
+      large: textTheme.titleMedium!.copyWith(
+        fontWeight: FontWeight.w800,
         color: scheme.primary,
       ),
-      interaction: const InteractionSpec(
-        pressedScale: 1.0,
-        pressedOpacity: 1.0,
-        hoverOpacity: 1.0,
-        pressedOffset: Offset(2, 2),
-      ),
+    );
+
+    // Create size spec
+    const sizeSpec = ButtonSizeSpec(
+      smallHeight: 36.0,
+      mediumHeight: 52.0,
+      largeHeight: 64.0,
+      smallPadding: EdgeInsets.symmetric(horizontal: 20.0),
+      mediumPadding: EdgeInsets.symmetric(horizontal: 28.0),
+      largePadding: EdgeInsets.symmetric(horizontal: 36.0),
+      iconSpacing: 12.0,
+    );
+
+    // Create interaction spec
+    const interaction = InteractionSpec(
+      pressedScale: 1.0, // No scale - brutal buttons don't shrink
+      hoverOpacity: 1.0, // No opacity changes - harsh and direct
+      pressedOpacity: 1.0, // No opacity changes
+      pressedOffset: Offset(2, 2), // Brutal offset effect when pressed
+    );
+
+    return AppButtonStyle(
+      filledSurfaces: filledSurfaces,
+      filledContentColors: filledContentColors,
+      outlineSurfaces: outlineSurfaces,
+      outlineContentColors: outlineContentColors,
+      textSurfaces: textSurfaces,
+      textContentColors: textContentColors,
+      textStyles: textStyles,
+      sizeSpec: sizeSpec,
+      interaction: interaction,
     );
   }
 }

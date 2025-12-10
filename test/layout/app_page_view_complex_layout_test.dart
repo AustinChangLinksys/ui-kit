@@ -13,24 +13,6 @@ void main() {
 
   group('AppPageView Complex Layout Tests', () {
 
-    // Helper method: Build info row - ultra compact
-    Widget buildInfoRow(String label, String value) {
-      return Padding(
-        padding: const EdgeInsets.only(bottom: 1.0),
-        child: Row(
-          children: [
-            Expanded(
-              child: AppText.caption(
-                '$label $value',
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
     // 輔助方法：建立網際網路狀態卡片
     Widget buildInternetStatusCard() {
       return AppCard(
@@ -112,71 +94,6 @@ void main() {
               ],
             ),
           ],
-        ),
-      );
-    }
-
-    // WiFi card - simplified
-    Widget buildWiFiCard(String band, String ssid, int deviceCount, bool isOn) {
-      return AppCard(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: AppText.caption(band, color: Colors.grey),
-                ),
-                AppSwitch(value: isOn, onChanged: (v) {}),
-              ],
-            ),
-            AppGap.sm(),
-            AppText.caption(ssid),
-            AppGap.sm(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: AppText.caption(
-                    '$deviceCount devices',
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                const Icon(Icons.qr_code, size: 14, color: Colors.white),
-              ],
-            ),
-          ],
-        ),
-      );
-    }
-
-    // Helper method: Build navigation item
-    Widget buildNavItem(String title, IconData icon, bool isActive) {
-      return Container(
-        margin: const EdgeInsets.symmetric(vertical: 2),
-        child: Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: isActive ? Colors.blue.withValues(alpha: 0.1) : Colors.transparent,
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: Row(
-            children: [
-              Icon(icon, size: 14,
-                   color: isActive ? Colors.blue : Colors.grey),
-              AppGap.xs(),
-              Expanded(
-                child: AppText.caption(
-                  title,
-                  color: isActive ? Colors.blue : Colors.white,
-                ),
-              ),
-              if (isActive)
-                const Icon(Icons.chevron_right,
-                           size: 12, color: Colors.blue),
-            ],
-          ),
         ),
       );
     }

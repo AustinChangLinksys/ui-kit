@@ -27,15 +27,16 @@ This project is structured using **Atomic Design** with strict architectural bou
     - **Theme-Aware Animations**: Components like `AppTopology` use `AnimationSpec` from themes
 - **Layout** (`lib/src/layout`): Responsive wrappers.
 
-## 🌟 Key Features (v2.0)
+## 🌟 Key Features (v2.1)
 
 * **Constitutional Compliance**: All components adhere to the **UI Kit Constitution (v3.1.1)**, ensuring zero internal defaults, proper theme integration, and consistent architectural patterns across the entire library.
+* **Enhanced Button System**: Primary/Secondary visual distinction with semantic variant colors. Brutal theme features intensified colors for maximum contrast. Pixel theme includes authentic retro arcade game aesthetics with 90-95% color saturation.
 * **App Unified Color System (v1.2)**: A comprehensive and reactive color management layer fully compatible with Material 3. It allows seamless configuration where changes to Material colors (e.g., Primary) automatically propagate to derived Style colors (e.g., Glow), while also supporting explicit style overrides.
-* **Multi-Paradigm Support**: Seamlessly switch between **Glass** (Liquid), **Brutal** (Mechanical), **Flat** (Standard), **Neumorphic** (Tactile), and **Pixel** (Retro) themes, now all powered by the Unified Color System.
+* **Multi-Paradigm Support**: Seamlessly switch between **Glass** (Liquid), **Brutal** (Mechanical), **Flat** (Standard), **Neumorphic** (Tactile), and **Pixel** (Retro) themes, now all powered by the Unified Color System with enhanced theme-specific color intensities.
 * **Theme-Aware Animation System**: All animations use `AnimationSpec` from the theme system, with theme-specific behaviors (e.g., Pixel mode instant snapping, Glass mode fluid transitions).
 * **Physics-Based Interaction**: Components inherit physical behaviors (Scale, Glow, Offset) from the active theme via `InteractionSpec`.
 * **Smart Layouts**: Spacing and margins automatically adapt to the theme's density using `spacingFactor`.
-* **Safe Mode Testing**: Automated Golden Tests covering the full 10-style matrix (5 themes × Light/Dark).
+* **Safe Mode Testing**: Automated Golden Tests covering the full 10-style matrix (5 themes × Light/Dark) with semantic test naming.
 
 ## 🚀 Getting Started
 
@@ -86,10 +87,10 @@ class MyApp extends StatelessWidget {
 | Theme | Light | Dark | Visual Style |
 |-------|-------|------|--------------|
 | **Glass** | `GlassDesignTheme.light()` | `GlassDesignTheme.dark()` | Glassmorphism with blur and translucency |
-| **Brutal** | `BrutalDesignTheme.light()` | `BrutalDesignTheme.dark()` | Neo-Brutalism with bold borders |
+| **Brutal** | `BrutalDesignTheme.light()` | `BrutalDesignTheme.dark()` | Neo-Brutalism with **intensified colors** and bold borders |
 | **Flat** | `FlatDesignTheme.light()` | `FlatDesignTheme.dark()` | Clean Material-style surfaces |
 | **Neumorphic** | `NeumorphicDesignTheme.light()` | `NeumorphicDesignTheme.dark()` | Soft shadows and embossed effects |
-| **Pixel** | `PixelDesignTheme.light()` | `PixelDesignTheme.dark()` | Retro 8-bit with instant animations |
+| **Pixel** | `PixelDesignTheme.light()` | `PixelDesignTheme.dark()` | Retro 8-bit with **90-95% color saturation** and instant animations |
 
 ### String-Based Theme Selection
 
@@ -509,6 +510,16 @@ To update golden files:
 flutter test --update-goldens --tags golden
 ```
 
+## 📋 What's New
+
+### Version 2.1.0 - Button System Enhancements
+- **Enhanced Visual Hierarchy**: Primary vs Secondary button distinction with semantic variant colors
+- **Improved Theme Authenticity**: Brutal theme with intensified colors, Pixel theme with 90-95% retro saturation
+- **Semantic Test Naming**: Golden tests renamed from technical to intuitive names
+- **100% Backwards Compatible**: All existing code continues to work
+
+See [CHANGELOG.md](./CHANGELOG.md) for detailed release notes and technical implementation details.
+
 ## 🎨 Surface Texture Support
 
 The UI Kit supports surface textures for enhanced visual depth and style. Textures are rendered as semi-transparent overlays on surface backgrounds.
@@ -648,7 +659,7 @@ Below is the summary of components available in our system:
 | **AppDivider** | Atom | Visual separator. | `direction` (horizontal/vertical), `thickness`, `color`, `indent`, `endIndent` |
 | **AppIcon** | Atom | Theme-aware icon renderer. | `icon`, `size`, `color`, `semanticLabel` |
 | **AppSkeleton** | Atom | Loading placeholder with theme animations. | `width`, `height`, `shape` (circle/rect), `style` |
-| **AppButton** | Molecule | **100% Constitutional Compliance** - Interactive button with theme-based sizing. | `onPressed`, `label`, `icon`, `variant` (primary/secondary/ghost), `size`, `isLoading`, `isDisabled` |
+| **AppButton** | Molecule | **100% Constitutional Compliance** - Interactive button with semantic variant colors and theme-based sizing. Enhanced with Primary/Secondary visual distinction. | `onPressed`, `label`, `icon`, `variant` (highlight/tonal/base), `styleVariant` (filled/outline/text), `size`, `isLoading`, `isDisabled` |
 | **AppIconButton** | Molecule | **100% Constitutional Compliance** - Icon-only button with theme-based sizing. | `onPressed`, `icon`, `variant`, `size`, `isLoading`, `tooltip` |
 | **AppTextFormField** | Molecule | Form field with validation. | `controller`, `validator`, `label`, `hint`, `obscureText`, `keyboardType`, `onChanged`, `enabled` |
 | **AppTextField** | Molecule | Basic text input. | `controller`, `label`, `hint`, `errorText`, `onChanged`, `enabled`, `prefix/suffixIcon` |

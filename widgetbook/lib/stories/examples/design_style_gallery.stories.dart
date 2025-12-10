@@ -218,7 +218,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           initials: 'AU',
                           size: 48,
                           imageUrl: 'https://i.pravatar.cc/150?img=12'),
-                      AppGap.md(),
+                      const SizedBox(width: 12),
                     ],
                     Expanded(
                       child: Column(
@@ -228,7 +228,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           Row(
                             children: [
                               AppText.caption('System Status: '),
-                              AppGap.xs(),
+                              const SizedBox(width: 4),
                               const AppBadge(
                                   label: 'Online', color: Colors.green),
                             ],
