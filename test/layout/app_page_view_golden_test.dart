@@ -1,11 +1,6 @@
 import 'package:alchemist/alchemist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ui_kit_library/src/layout/app_page_view.dart';
-import 'package:ui_kit_library/src/layout/models/page_app_bar_config.dart';
-import 'package:ui_kit_library/src/layout/models/page_bottom_bar_config.dart';
-import 'package:ui_kit_library/src/layout/models/page_menu_config.dart';
-import 'package:ui_kit_library/src/layout/models/page_menu_item.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 import '../test_utils/golden_test_matrix_factory.dart';
 import '../test_utils/font_loader.dart';
@@ -34,14 +29,14 @@ void main() {
               title: 'Enhanced Page',
               showBackButton: true,
               actions: [
-                IconButton(icon: Icon(Icons.settings), onPressed: () {}),
+                IconButton(icon: const Icon(Icons.settings), onPressed: () {}),
               ],
             ),
             child: (context, constraints) => Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Enhanced AppPageView'),
+                  const Text('Enhanced AppPageView'),
                   Text('Width: ${constraints.maxWidth.isFinite ? constraints.maxWidth.toInt() : 'Unlimited'}'),
                   Text('Height: ${constraints.maxHeight.isFinite ? constraints.maxHeight.toInt() : 'Unlimited'}'),
                 ],
@@ -59,7 +54,7 @@ void main() {
           width: 400,
           height: 600,
           child: AppPageView(
-            appBarConfig: PageAppBarConfig(
+            appBarConfig: const PageAppBarConfig(
               title: 'Edit Settings',
               showBackButton: true,
             ),
@@ -70,7 +65,7 @@ void main() {
               onNegativeTap: () {},
               isPositiveEnabled: true,
             ),
-            child: (context, constraints) => Padding(
+            child: (context, constraints) => const Padding(
               padding: EdgeInsets.all(16),
               child: Column(
                 children: [
@@ -113,7 +108,7 @@ void main() {
                     designThemeBuilder: (s) => GlassDesignTheme.light(s),
                   ),
                   child: AppPageView(
-                    appBarConfig: PageAppBarConfig(
+                    appBarConfig: const PageAppBarConfig(
                       title: 'Dashboard',
                       showBackButton: false,
                     ),
@@ -141,7 +136,7 @@ void main() {
                       showOnMobile: true,
                     ),
                     showGridOverlay: false, // Disable debug overlay for clean golden
-                    child: (context, constraints) => Center(
+                    child: (context, constraints) => const Center(
                       child: Card(
                         child: Padding(
                           padding: EdgeInsets.all(24),

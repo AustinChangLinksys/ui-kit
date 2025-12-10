@@ -51,6 +51,9 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
   SheetStyle get sheetStyle;
   StyledTextStyle get styledTextStyle;
   AppButtonStyle get buttonStyle;
+  PageLayoutStyle get pageLayoutStyle;
+  BottomBarStyle get bottomBarStyle;
+  AppMenuThemeStyle get pageMenuStyle;
 
   @override
   AppDesignTheme copyWith({
@@ -95,6 +98,9 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
     SheetStyle? sheetStyle,
     StyledTextStyle? styledTextStyle,
     AppButtonStyle? buttonStyle,
+    PageLayoutStyle? pageLayoutStyle,
+    BottomBarStyle? bottomBarStyle,
+    AppMenuThemeStyle? pageMenuStyle,
   }) {
     return AppDesignTheme(
       toggleStyle: toggleStyle ?? this.toggleStyle,
@@ -138,6 +144,9 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       sheetStyle: sheetStyle ?? this.sheetStyle,
       styledTextStyle: styledTextStyle ?? this.styledTextStyle,
       buttonStyle: buttonStyle ?? this.buttonStyle,
+      pageLayoutStyle: pageLayoutStyle ?? this.pageLayoutStyle,
+      bottomBarStyle: bottomBarStyle ?? this.bottomBarStyle,
+      pageMenuStyle: pageMenuStyle ?? this.pageMenuStyle,
     );
   }
 
@@ -188,6 +197,9 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       sheetStyle: sheetStyle.lerp(other.sheetStyle, t),
       styledTextStyle: styledTextStyle.lerp(other.styledTextStyle, t),
       buttonStyle: buttonStyle.lerp(other.buttonStyle, t),
+      pageLayoutStyle: pageLayoutStyle.lerp(other.pageLayoutStyle, t),
+      bottomBarStyle: bottomBarStyle.lerp(other.bottomBarStyle, t),
+      pageMenuStyle: pageMenuStyle.lerp(other.pageMenuStyle, t),
     );
   }
 
@@ -272,7 +284,13 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
             const DeepCollectionEquality()
                 .equals(styledTextStyle, other.styledTextStyle) &&
             const DeepCollectionEquality()
-                .equals(buttonStyle, other.buttonStyle));
+                .equals(buttonStyle, other.buttonStyle) &&
+            const DeepCollectionEquality()
+                .equals(pageLayoutStyle, other.pageLayoutStyle) &&
+            const DeepCollectionEquality()
+                .equals(bottomBarStyle, other.bottomBarStyle) &&
+            const DeepCollectionEquality()
+                .equals(pageMenuStyle, other.pageMenuStyle));
   }
 
   @override
@@ -320,6 +338,9 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       const DeepCollectionEquality().hash(sheetStyle),
       const DeepCollectionEquality().hash(styledTextStyle),
       const DeepCollectionEquality().hash(buttonStyle),
+      const DeepCollectionEquality().hash(pageLayoutStyle),
+      const DeepCollectionEquality().hash(bottomBarStyle),
+      const DeepCollectionEquality().hash(pageMenuStyle),
     ]);
   }
 }
@@ -391,4 +412,23 @@ extension AppDesignThemeBuildContextProps on BuildContext {
   /// TextButtonStyle classes with a single comprehensive system that handles
   /// all button types and variants consistently.
   AppButtonStyle get buttonStyle => appDesignTheme.buttonStyle;
+
+  /// Style specification for page layout components.
+  ///
+  /// Contains theme-driven styling for page containers including
+  /// padding, backgrounds, and responsive layout properties.
+  PageLayoutStyle get pageLayoutStyle => appDesignTheme.pageLayoutStyle;
+
+  /// Style specification for page bottom action bars.
+  ///
+  /// Contains theme-driven styling for bottom bars including
+  /// button styles, padding, elevation, and visual effects.
+  BottomBarStyle get bottomBarStyle => appDesignTheme.bottomBarStyle;
+
+  /// Style specification for page menu systems.
+  ///
+  /// Contains theme-driven styling for navigation menus including
+  /// colors, typography, spacing, and interaction states.
+  /// This complements the existing AppMenuStyle for page-specific menu layouts.
+  AppMenuThemeStyle get pageMenuStyle => appDesignTheme.pageMenuStyle;
 }

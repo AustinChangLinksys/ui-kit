@@ -412,6 +412,12 @@ final directories = <_widgetbook.WidgetbookNode>[
         name: 'AppPageView',
         useCases: [
           _widgetbook.WidgetbookUseCase(
+            name: 'Basic Page',
+            builder:
+                _widgetbook_workspace_stories_molecules_layout_app_page_view_stories
+                    .buildBasicPage,
+          ),
+          _widgetbook.WidgetbookUseCase(
             name: 'Desktop Dashboard (Fixed Header + Menu)',
             builder:
                 _widgetbook_workspace_stories_molecules_layout_app_page_view_stories
@@ -428,6 +434,36 @@ final directories = <_widgetbook.WidgetbookNode>[
             builder:
                 _widgetbook_workspace_stories_molecules_layout_app_page_view_stories
                     .buildMobileFeed,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Page with Bottom Bar',
+            builder:
+                _widgetbook_workspace_stories_molecules_layout_app_page_view_stories
+                    .buildPageWithBottomBar,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Page with Expandable FAB',
+            builder:
+                _widgetbook_workspace_stories_molecules_layout_app_page_view_stories
+                    .buildPageWithExpandableFAB,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Page with Menu',
+            builder:
+                _widgetbook_workspace_stories_molecules_layout_app_page_view_stories
+                    .buildPageWithMenu,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Page with Standard FAB',
+            builder:
+                _widgetbook_workspace_stories_molecules_layout_app_page_view_stories
+                    .buildPageWithStandardFAB,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Page with Tabs',
+            builder:
+                _widgetbook_workspace_stories_molecules_layout_app_page_view_stories
+                    .buildPageWithTabs,
           ),
         ],
       )

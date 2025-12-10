@@ -6,6 +6,9 @@ import 'package:ui_kit_library/src/foundation/theme/design_system/specs/range_in
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/shared/animation_spec.dart'
     as shared;
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/styled_text_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/page_layout_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/bottom_bar_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/menu_style.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 import 'package:ui_kit_library/src/foundation/motion/neumorphic_motion.dart';
 
@@ -258,28 +261,50 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         gutterDesktop: 40.0,
       ),
       appBarStyle: AppBarStyle(
-        containerStyle: SurfaceStyle(
-          backgroundColor: colors.styleBackground,
-          borderColor: Colors.transparent,
-          borderWidth: 0.0,
-          borderRadius: 0.0,
-          shadows: [
-            BoxShadow(
-                color: colors.glowColor,
-                offset: const Offset(-3, -3),
-                blurRadius: 6),
-            BoxShadow(
-                color: colors.styleShadow,
-                offset: const Offset(3, 3),
-                blurRadius: 6),
-          ],
-          blurStrength: 0.0,
-          contentColor: colors.onSurface,
+        backgroundColor: colors.styleBackground,
+        foregroundColor: colors.onSurface,
+        surfaceColor: colors.styleBackground,
+        shadowColor: colors.styleShadow,
+        elevation: 0.0,
+        height: 56.0,
+        titleTextStyle: TextStyle(
+          color: colors.onSurface,
+          fontSize: 20.0,
+          fontWeight: FontWeight.w600,
         ),
-        dividerStyle: DividerStyle(
-          color: colors.subtleBorder,
-          thickness: 1.0,
-          pattern: DividerPattern.solid,
+        actionIconSize: 24.0,
+        leadingIconSize: 24.0,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+        actionSpacing: 12.0,
+        borderRadius: BorderRadius.zero,
+        border: null,
+        centerTitle: false,
+        titleSpacing: 16.0,
+        collapsedHeight: 56.0,
+        expandedHeight: 200.0,
+        flexibleSpaceBlur: 0.0,
+        containerStyle: BoxDecoration(
+          color: colors.styleBackground,
+          boxShadow: [
+            BoxShadow(
+              color: colors.glowColor,
+              offset: const Offset(-3, -3),
+              blurRadius: 6,
+            ),
+            BoxShadow(
+              color: colors.styleShadow,
+              offset: const Offset(3, 3),
+              blurRadius: 6,
+            ),
+          ],
+        ),
+        dividerStyle: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: colors.subtleBorder,
+              width: 1.0,
+            ),
+          ),
         ),
       ),
       menuStyle: AppMenuStyle(
@@ -544,6 +569,18 @@ class NeumorphicDesignTheme extends AppDesignTheme {
       ),
       styledTextStyle: _createNeumorphicStyledTextStyle(colors, appTextTheme),
       buttonStyle: _createNeumorphicTextAppButtonStyleForScheme(colors.toMaterialScheme(brightness: Brightness.light), appTextTheme),
+      pageLayoutStyle: PageLayoutStyle.defaultStyle(
+        colorScheme: colors.toMaterialScheme(brightness: Brightness.light),
+        spacing: 20.0,
+      ),
+      bottomBarStyle: BottomBarStyle.defaultStyle(
+        colorScheme: colors.toMaterialScheme(brightness: Brightness.light),
+        textTheme: appTextTheme,
+      ),
+      pageMenuStyle: AppMenuThemeStyle.defaultStyle(
+        colorScheme: colors.toMaterialScheme(brightness: Brightness.light),
+        textTheme: appTextTheme,
+      ),
     );
   }
 
@@ -739,6 +776,9 @@ class NeumorphicDesignTheme extends AppDesignTheme {
     required super.passwordInputStyle,
     required super.styledTextStyle,
     required super.buttonStyle,
+    required super.pageLayoutStyle,
+    required super.bottomBarStyle,
+    required super.pageMenuStyle,
   });
 
   // Default to Light, providing a default ColorScheme
@@ -994,26 +1034,50 @@ class NeumorphicDesignTheme extends AppDesignTheme {
 
       // Phase 2: Graceful defaults (Neumorphic style)
       appBarStyle: AppBarStyle(
-        containerStyle: SurfaceStyle(
-          backgroundColor: lightBaseColor,
-          borderColor: Colors.transparent,
-          borderWidth: 0.0,
-          borderRadius: 0.0,
-          shadows: [
-            BoxShadow(
-                color: lightShadow,
-                offset: const Offset(-3, -3),
-                blurRadius: 6),
-            BoxShadow(
-                color: darkShadow, offset: const Offset(3, 3), blurRadius: 6),
-          ],
-          blurStrength: 0.0,
-          contentColor: scheme.onSurface,
+        backgroundColor: lightBaseColor,
+        foregroundColor: scheme.onSurface,
+        surfaceColor: lightBaseColor,
+        shadowColor: darkShadow,
+        elevation: 0.0,
+        height: 56.0,
+        titleTextStyle: TextStyle(
+          color: scheme.onSurface,
+          fontSize: 20.0,
+          fontWeight: FontWeight.w600,
         ),
-        dividerStyle: DividerStyle(
-          color: scheme.outlineVariant,
-          thickness: 1.0,
-          pattern: DividerPattern.solid,
+        actionIconSize: 24.0,
+        leadingIconSize: 24.0,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+        actionSpacing: 12.0,
+        borderRadius: BorderRadius.zero,
+        border: null,
+        centerTitle: false,
+        titleSpacing: 16.0,
+        collapsedHeight: 56.0,
+        expandedHeight: 200.0,
+        flexibleSpaceBlur: 0.0,
+        containerStyle: BoxDecoration(
+          color: lightBaseColor,
+          boxShadow: [
+            BoxShadow(
+              color: lightShadow,
+              offset: const Offset(-3, -3),
+              blurRadius: 6,
+            ),
+            BoxShadow(
+              color: darkShadow,
+              offset: const Offset(3, 3),
+              blurRadius: 6,
+            ),
+          ],
+        ),
+        dividerStyle: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: scheme.outlineVariant,
+              width: 1.0,
+            ),
+          ),
         ),
       ),
       menuStyle: AppMenuStyle(
@@ -1272,6 +1336,18 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           _createNeumorphicStyledTextStyleForScheme(scheme, appTextTheme),
       buttonStyle:
           _createNeumorphicTextAppButtonStyleForScheme(scheme, appTextTheme),
+      pageLayoutStyle: PageLayoutStyle.defaultStyle(
+        colorScheme: scheme,
+        spacing: 20.0,
+      ),
+      bottomBarStyle: BottomBarStyle.defaultStyle(
+        colorScheme: scheme,
+        textTheme: appTextTheme,
+      ),
+      pageMenuStyle: AppMenuThemeStyle.defaultStyle(
+        colorScheme: scheme,
+        textTheme: appTextTheme,
+      ),
     );
   }
 
@@ -1530,28 +1606,50 @@ class NeumorphicDesignTheme extends AppDesignTheme {
 
       // Phase 2: Graceful defaults (Neumorphic Dark)
       appBarStyle: AppBarStyle(
-        containerStyle: SurfaceStyle(
-          backgroundColor: darkBaseColor,
-          borderColor: Colors.transparent,
-          borderWidth: 0.0,
-          borderRadius: 0.0,
-          shadows: [
-            BoxShadow(
-                color: darkLightShadow,
-                offset: const Offset(-3, -3),
-                blurRadius: 6),
-            BoxShadow(
-                color: darkDarkShadow,
-                offset: const Offset(3, 3),
-                blurRadius: 6),
-          ],
-          blurStrength: 0.0,
-          contentColor: scheme.onSurface,
+        backgroundColor: darkBaseColor,
+        foregroundColor: scheme.onSurface,
+        surfaceColor: darkBaseColor,
+        shadowColor: darkDarkShadow,
+        elevation: 0.0,
+        height: 56.0,
+        titleTextStyle: TextStyle(
+          color: scheme.onSurface,
+          fontSize: 20.0,
+          fontWeight: FontWeight.w600,
         ),
-        dividerStyle: DividerStyle(
-          color: scheme.outlineVariant,
-          thickness: 1.0,
-          pattern: DividerPattern.solid,
+        actionIconSize: 24.0,
+        leadingIconSize: 24.0,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+        actionSpacing: 12.0,
+        borderRadius: BorderRadius.zero,
+        border: null,
+        centerTitle: false,
+        titleSpacing: 16.0,
+        collapsedHeight: 56.0,
+        expandedHeight: 200.0,
+        flexibleSpaceBlur: 0.0,
+        containerStyle: BoxDecoration(
+          color: darkBaseColor,
+          boxShadow: [
+            BoxShadow(
+              color: darkLightShadow,
+              offset: const Offset(-3, -3),
+              blurRadius: 6,
+            ),
+            BoxShadow(
+              color: darkDarkShadow,
+              offset: const Offset(3, 3),
+              blurRadius: 6,
+            ),
+          ],
+        ),
+        dividerStyle: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: scheme.outlineVariant,
+              width: 1.0,
+            ),
+          ),
         ),
       ),
       menuStyle: AppMenuStyle(
@@ -1816,6 +1914,18 @@ class NeumorphicDesignTheme extends AppDesignTheme {
           _createNeumorphicStyledTextStyleForDark(scheme, appTextTheme),
       buttonStyle:
           _createNeumorphicTextAppButtonStyleForScheme(scheme, appTextTheme),
+      pageLayoutStyle: PageLayoutStyle.defaultStyle(
+        colorScheme: scheme,
+        spacing: 20.0,
+      ),
+      bottomBarStyle: BottomBarStyle.defaultStyle(
+        colorScheme: scheme,
+        textTheme: appTextTheme,
+      ),
+      pageMenuStyle: AppMenuThemeStyle.defaultStyle(
+        colorScheme: scheme,
+        textTheme: appTextTheme,
+      ),
     );
   }
 

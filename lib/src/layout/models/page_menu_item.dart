@@ -1,6 +1,21 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
+/// Enum defining menu positioning options for responsive layout
+enum MenuPosition {
+  /// Menu appears on the left side of the content
+  left,
+
+  /// Menu appears on the right side of the content
+  right,
+
+  /// Menu appears at the top (mobile/tablet mode)
+  top,
+
+  /// Menu is hidden
+  none,
+}
+
 /// Configuration class for individual page menu items
 ///
 /// This class follows UI Kit constitutional compliance by using Equatable
@@ -41,6 +56,67 @@ class PageMenuItem extends Equatable {
         enabled = false,
         onTap = null,
         isDivider = true;
+
+  /// Factory constructor for navigation menu items
+  factory PageMenuItem.navigation({
+    required String label,
+    required IconData icon,
+    required VoidCallback onTap,
+    bool isSelected = false,
+  }) {
+    return PageMenuItem(
+      label: label,
+      icon: icon,
+      onTap: onTap,
+      isSelected: isSelected,
+      enabled: true,
+    );
+  }
+
+  /// Factory constructor for action menu items (usually appear in app bar)
+  factory PageMenuItem.action({
+    required String label,
+    required IconData icon,
+    required VoidCallback onTap,
+    bool enabled = true,
+  }) {
+    return PageMenuItem(
+      label: label,
+      icon: icon,
+      onTap: onTap,
+      enabled: enabled,
+      isSelected: false,
+    );
+  }
+
+  /// Factory constructor for settings menu items
+  factory PageMenuItem.settings({
+    required String label,
+    required VoidCallback onTap,
+    bool isSelected = false,
+  }) {
+    return PageMenuItem(
+      label: label,
+      icon: Icons.settings,
+      onTap: onTap,
+      isSelected: isSelected,
+      enabled: true,
+    );
+  }
+
+  /// Factory constructor for help/info menu items
+  factory PageMenuItem.help({
+    required String label,
+    required VoidCallback onTap,
+  }) {
+    return PageMenuItem(
+      label: label,
+      icon: Icons.help_outline,
+      onTap: onTap,
+      isSelected: false,
+      enabled: true,
+    );
+  }
 
   /// Creates a copy of this menu item with the given fields replaced
   PageMenuItem copyWith({

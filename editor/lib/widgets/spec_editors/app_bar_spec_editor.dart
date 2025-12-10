@@ -60,7 +60,47 @@ class _AppBarSpecEditorState extends State<AppBarSpecEditor> {
   }
 
   void _handleContainerStyleChanged(SurfaceStyle style) {
-    _updateStyle(_currentStyle.copyWith(containerStyle: style));
+    // Convert SurfaceStyle to BoxDecoration
+    final borderRadius = style.borderRadius > 0
+        ? BorderRadius.circular(style.borderRadius)
+        : BorderRadius.zero;
+
+    final border = style.borderWidth > 0
+        ? Border.all(color: style.borderColor, width: style.borderWidth)
+        : style.customBorder as Border?;
+
+    final boxDecoration = BoxDecoration(
+      color: style.backgroundColor,
+      borderRadius: borderRadius,
+      border: border,
+      boxShadow: style.shadows,
+    );
+    _updateStyle(_currentStyle.copyWith(containerStyle: boxDecoration));
+  }
+
+  SurfaceStyle _convertBoxDecorationToSurfaceStyle(BoxDecoration decoration) {
+    // Convert BoxDecoration back to SurfaceStyle for editing
+    final borderRadius = decoration.borderRadius is BorderRadius
+        ? (decoration.borderRadius as BorderRadius).topLeft.x
+        : 0.0;
+
+    final border = decoration.border;
+    double borderWidth = 0.0;
+    Color borderColor = Colors.transparent;
+
+    if (border is Border && border.top.width > 0) {
+      borderWidth = border.top.width;
+      borderColor = border.top.color;
+    }
+
+    return SurfaceStyle(
+      backgroundColor: decoration.color ?? Colors.transparent,
+      borderColor: borderColor,
+      borderWidth: borderWidth,
+      borderRadius: borderRadius,
+      shadows: decoration.boxShadow ?? [],
+      contentColor: Colors.black, // Default content color
+    );
   }
 
   @override
@@ -126,7 +166,7 @@ class _AppBarSpecEditorState extends State<AppBarSpecEditor> {
               const Gap(8),
               SurfaceStyleEditor(
                 title: 'AppBar Container',
-                initialStyle: _currentStyle.containerStyle,
+                initialStyle: _convertBoxDecorationToSurfaceStyle(_currentStyle.containerStyle),
                 onChanged: _handleContainerStyleChanged,
               ),
             ],

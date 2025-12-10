@@ -70,7 +70,7 @@ void main() {
                 icon: Icons.analytics,
                 onTap: () {},
               ),
-              PageMenuItem.divider(),
+              const PageMenuItem.divider(),
               PageMenuItem(
                 label: 'Settings',
                 icon: Icons.settings,
@@ -119,9 +119,9 @@ class TestWidget extends StatelessWidget {
   final PageMenuConfig config;
 
   const TestWidget({
-    Key? key,
+    super.key,
     required this.config,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +135,7 @@ class TestWidget extends StatelessWidget {
             AppText('Show on Desktop: ${config.showOnDesktop}'),
             AppText('Show on Mobile: ${config.showOnMobile}'),
             AppText('Large Menu: ${config.largeMenu}'),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             AppSurface(
               variant: SurfaceVariant.elevated,
               width: 250,
@@ -143,7 +143,7 @@ class TestWidget extends StatelessWidget {
                 children: [
                   if (config.title != null)
                     Padding(
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       child: AppText.titleMedium(config.title!),
                     ),
                   ...config.items.map((item) => AppListTile(

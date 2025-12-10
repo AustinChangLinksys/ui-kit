@@ -74,7 +74,6 @@ class AppUnifiedSliverBar extends StatelessWidget {
     }
 
     final appBarStyle = theme.appBarStyle;
-    final containerStyle = appBarStyle.containerStyle;
     final effectiveExpandedHeight =
         expandedHeight ?? appBarStyle.expandedHeight;
 
@@ -83,7 +82,7 @@ class AppUnifiedSliverBar extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-            color: containerStyle.contentColor,
+            color: appBarStyle.foregroundColor,
             fontSize: 20,
             fontWeight: FontWeight.w600,
           ),
@@ -92,7 +91,7 @@ class AppUnifiedSliverBar extends StatelessWidget {
     // Build actions with proper styling
     final effectiveActions = actions?.map((action) {
       return IconTheme(
-        data: IconThemeData(color: containerStyle.contentColor),
+        data: IconThemeData(color: appBarStyle.foregroundColor),
         child: action,
       );
     }).toList();
@@ -116,8 +115,8 @@ class AppUnifiedSliverBar extends StatelessWidget {
       snap: snap,
       expandedHeight: effectiveExpandedHeight,
       collapsedHeight: appBarStyle.collapsedHeight,
-      backgroundColor: containerStyle.backgroundColor,
-      foregroundColor: containerStyle.contentColor,
+      backgroundColor: appBarStyle.backgroundColor,
+      foregroundColor: appBarStyle.foregroundColor,
       elevation: 0,
       surfaceTintColor: Colors.transparent,
       flexibleSpace: effectiveFlexibleSpace,
@@ -166,7 +165,7 @@ class AppUnifiedSliverBar extends StatelessWidget {
                       sigmaY: blurStrength * (1 - progress * 0.5),
                     ),
                     child: Container(
-                      color: appBarStyle.containerStyle.backgroundColor
+                      color: appBarStyle.backgroundColor
                           .withValues(alpha: 0.3 + progress * 0.4),
                     ),
                   ),
@@ -182,9 +181,9 @@ class AppUnifiedSliverBar extends StatelessWidget {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        appBarStyle.containerStyle.backgroundColor
+                        appBarStyle.backgroundColor
                             .withValues(alpha: 0.0),
-                        appBarStyle.containerStyle.backgroundColor
+                        appBarStyle.backgroundColor
                             .withValues(alpha: 0.7),
                       ],
                     ),

@@ -4,15 +4,210 @@ import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 import 'package:ui_kit_library/ui_kit.dart';
 
 @widgetbook.UseCase(
+  name: 'Basic Page',
+  type: AppPageView,
+)
+Widget buildBasicPage(BuildContext context) {
+  return AppPageView.basic(
+    title: 'Basic Page',
+    child: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.home, size: 64),
+          AppGap.md(),
+          const Text('This is a basic page with just a title'),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Page with Bottom Bar',
+  type: AppPageView,
+)
+Widget buildPageWithBottomBar(BuildContext context) {
+  return AppPageView.withBottomBar(
+    title: 'Settings',
+    positiveLabel: 'Save Changes',
+    negativeLabel: 'Cancel',
+    onPositiveTap: () {},
+    onNegativeTap: () {},
+    child: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.settings, size: 64),
+          AppGap.md(),
+          const Text('Page with bottom action bar'),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Page with Menu',
+  type: AppPageView,
+)
+Widget buildPageWithMenu(BuildContext context) {
+  return AppPageView.withMenu(
+    title: 'Dashboard',
+    menuTitle: 'Navigation',
+    menuItems: [
+      PageMenuItem.navigation(
+        label: 'Overview',
+        icon: Icons.dashboard,
+        onTap: () {},
+        isSelected: true,
+      ),
+      PageMenuItem.navigation(
+        label: 'Analytics',
+        icon: Icons.analytics,
+        onTap: () {},
+      ),
+      PageMenuItem.navigation(
+        label: 'Reports',
+        icon: Icons.assessment,
+        onTap: () {},
+      ),
+      const PageMenuItem.divider(),
+      PageMenuItem.settings(
+        label: 'Settings',
+        onTap: () {},
+      ),
+      PageMenuItem.help(
+        label: 'Help & Support',
+        onTap: () {},
+      ),
+    ],
+    child: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.dashboard, size: 64),
+          AppGap.md(),
+          const Text('Dashboard with responsive menu'),
+          AppGap.sm(),
+          const Text('Desktop: Menu sidebar | Mobile: Menu in app bar'),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Page with Tabs',
+  type: AppPageView,
+)
+Widget buildPageWithTabs(BuildContext context) {
+  return const _PageWithTabsDemo();
+}
+
+class _PageWithTabsDemo extends StatefulWidget {
+  const _PageWithTabsDemo();
+
+  @override
+  State<_PageWithTabsDemo> createState() => _PageWithTabsDemoState();
+}
+
+class _PageWithTabsDemoState extends State<_PageWithTabsDemo> {
+  int _selectedTabIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppPageView(
+      appBarConfig: const PageAppBarConfig(
+        title: 'Settings',
+        showBackButton: false,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // 使用 AppTabs (正確的樣式)
+          AppTabs(
+            tabs: const [
+              TabItem(label: 'General', icon: Icons.settings),
+              TabItem(label: 'Privacy', icon: Icons.privacy_tip),
+              TabItem(label: 'Advanced', icon: Icons.tune),
+            ],
+            initialIndex: _selectedTabIndex,
+            displayMode: TabDisplayMode.underline,
+            onTabChanged: (index) {
+              setState(() {
+                _selectedTabIndex = index;
+              });
+            },
+          ),
+          AppGap.lg(),
+
+          // Tab 內容
+          SizedBox(
+            height: 400,
+            child: _buildTabContent(_selectedTabIndex),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTabContent(int index) {
+    switch (index) {
+      case 0:
+        return const Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.settings, size: 64),
+              SizedBox(height: 16),
+              Text('General Settings Content'),
+            ],
+          ),
+        );
+      case 1:
+        return const Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.privacy_tip, size: 64),
+              SizedBox(height: 16),
+              Text('Privacy Settings Content'),
+            ],
+          ),
+        );
+      case 2:
+        return const Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.tune, size: 64),
+              SizedBox(height: 16),
+              Text('Advanced Settings Content'),
+            ],
+          ),
+        );
+      default:
+        return const SizedBox.shrink();
+    }
+  }
+}
+
+@widgetbook.UseCase(
   name: 'Enterprise Complex Layouts',
   type: AppPageView,
 )
 Widget buildEnterpriseComplexLayouts(BuildContext context) {
-  return const _ComplexLayoutDemo();
+  final showBottomBar = context.knobs.boolean(label: 'Show Bottom Bar', initialValue: false);
+
+  return _ComplexLayoutDemo(showBottomBar: showBottomBar);
 }
 
 class _ComplexLayoutDemo extends StatefulWidget {
-  const _ComplexLayoutDemo();
+  const _ComplexLayoutDemo({required this.showBottomBar});
+
+  final bool showBottomBar;
 
   @override
   State<_ComplexLayoutDemo> createState() => _ComplexLayoutDemoState();
@@ -26,6 +221,52 @@ class _ComplexLayoutDemoState extends State<_ComplexLayoutDemo> {
     return AppPageView(
       useSlivers: true,
       useContentPadding: true,
+      appBarConfig: const PageAppBarConfig(
+        title: 'Enterprise Dashboard',
+        showBackButton: false,
+      ),
+      // 添加 Menu 支持
+      menuConfig: PageMenuConfig(
+        title: 'Dashboard Menu',
+        showOnDesktop: true,  // 明確啟用桌面菜單
+        showOnMobile: true,   // 明確啟用手機菜單
+        largeMenu: true,      // 使用大型菜單樣式
+        mobileMenuIcon: Icons.menu,
+        items: [
+          PageMenuItem.navigation(
+            label: 'Overview',
+            icon: Icons.dashboard,
+            onTap: () {},
+            isSelected: true,
+          ),
+          PageMenuItem.navigation(
+            label: 'Analytics',
+            icon: Icons.analytics,
+            onTap: () {},
+          ),
+          PageMenuItem.navigation(
+            label: 'Reports',
+            icon: Icons.assessment,
+            onTap: () {},
+          ),
+          const PageMenuItem.divider(),
+          PageMenuItem.settings(
+            label: 'Settings',
+            onTap: () {},
+          ),
+        ],
+      ),
+      // 添加 Bottom Bar 支持 (根據 knob 控制)
+      bottomBarConfig: widget.showBottomBar
+          ? PageBottomBarConfig(
+              positiveLabel: 'Save Changes',
+              negativeLabel: 'Reset',
+              onPositiveTap: () {},
+              onNegativeTap: () {},
+              isPositiveEnabled: true,
+              isNegativeEnabled: true,
+            )
+          : null,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -594,6 +835,72 @@ class _ComplexLayoutDemoState extends State<_ComplexLayoutDemo> {
       ),
     );
   }
+}
+
+@widgetbook.UseCase(
+  name: 'Page with Standard FAB',
+  type: AppPageView,
+)
+Widget buildPageWithStandardFAB(BuildContext context) {
+  return AppPageView.withFAB(
+    title: 'Add Items',
+    fabIcon: Icons.add,
+    onFABPressed: () {},
+    fabTooltip: 'Add new item',
+    child: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.list, size: 64),
+          AppGap.md(),
+          const Text('Page with standard FAB'),
+          AppGap.sm(),
+          const Text('FAB provides primary action'),
+        ],
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'Page with Expandable FAB',
+  type: AppPageView,
+)
+Widget buildPageWithExpandableFAB(BuildContext context) {
+  return AppPageView.withExpandableFAB(
+    title: 'Actions',
+    fabActions: [
+      FloatingActionButton(
+        heroTag: "edit",
+        onPressed: () {},
+        child: const Icon(Icons.edit),
+      ),
+      FloatingActionButton(
+        heroTag: "delete",
+        onPressed: () {},
+        child: const Icon(Icons.delete),
+      ),
+      FloatingActionButton(
+        heroTag: "share",
+        onPressed: () {},
+        child: const Icon(Icons.share),
+      ),
+    ],
+    fabIcon: Icons.more_horiz,
+    fabActiveIcon: Icons.close,
+    child: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.auto_awesome, size: 64),
+          AppGap.md(),
+          const Text('Page with expandable FAB'),
+          AppGap.sm(),
+          const Text('FAB expands to show multiple actions'),
+        ],
+      ),
+    ),
+  );
 }
 
 @widgetbook.UseCase(

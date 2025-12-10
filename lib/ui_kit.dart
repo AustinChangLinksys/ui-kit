@@ -175,3 +175,8 @@ export 'src/organisms/topology/links/link_renderer.dart';
 // Layout
 export 'src/layout/layout_extensions.dart';
 export 'src/layout/app_page_view.dart';
+export 'src/layout/models/page_menu_item.dart';
+export 'src/layout/models/page_app_bar_config.dart';
+export 'src/layout/models/page_menu_config.dart';
+export 'src/layout/models/page_bottom_bar_config.dart';
+export 'src/layout/models/page_fab_config.dart';

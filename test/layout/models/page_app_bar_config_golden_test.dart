@@ -26,7 +26,7 @@ void main() {
         name: 'PageAppBarConfig Basic',
         width: 400,
         height: 300,
-        child: TestWidget(
+        child: const TestWidget(
           config: PageAppBarConfig(
             title: 'Test Page',
             showBackButton: true,
@@ -48,11 +48,11 @@ void main() {
             showBackButton: true,
             actions: [
               IconButton(
-                icon: Icon(Icons.settings),
+                icon: const Icon(Icons.settings),
                 onPressed: () {},
               ),
               IconButton(
-                icon: Icon(Icons.more_vert),
+                icon: const Icon(Icons.more_vert),
                 onPressed: () {},
               ),
             ],
@@ -68,7 +68,7 @@ void main() {
         name: 'PageAppBarConfig Sliver',
         width: 400,
         height: 400,
-        child: TestWidget(
+        child: const TestWidget(
           config: PageAppBarConfig(
             title: 'Collapsible Page',
             showBackButton: true,
@@ -86,9 +86,9 @@ class TestWidget extends StatelessWidget {
   final PageAppBarConfig config;
 
   const TestWidget({
-    Key? key,
+    super.key,
     required this.config,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +103,7 @@ class TestWidget extends StatelessWidget {
         child: AppSurface(
           variant: SurfaceVariant.base,
           child: Padding(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

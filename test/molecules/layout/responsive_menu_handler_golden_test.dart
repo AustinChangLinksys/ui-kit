@@ -41,7 +41,7 @@ void main() {
                   icon: Icons.analytics,
                   onTap: () {},
                 ),
-                PageMenuItem.divider(),
+                const PageMenuItem.divider(),
                 PageMenuItem(
                   label: 'Settings',
                   icon: Icons.settings,
@@ -57,8 +57,8 @@ void main() {
               largeMenu: true,
             ),
             child: Container(
-              padding: EdgeInsets.all(24),
-              child: Column(
+              padding: const EdgeInsets.all(24),
+              child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -105,8 +105,8 @@ void main() {
               mobileMenuIcon: Icons.menu,
             ),
             child: Container(
-              padding: EdgeInsets.all(16),
-              child: Column(
+              padding: const EdgeInsets.all(16),
+              child: const Column(
                 children: [
                   Card(
                     child: Padding(
@@ -139,14 +139,14 @@ void main() {
           width: 400,
           height: 300,
           child: ResponsiveMenuHandler(
-            config: PageMenuConfig(
+            config: const PageMenuConfig(
               items: [], // Empty menu
               showOnDesktop: true,
               showOnMobile: true,
             ),
             child: Container(
-              padding: EdgeInsets.all(16),
-              child: Center(
+              padding: const EdgeInsets.all(16),
+              child: const Center(
                 child: Text('Content with empty menu config'),
               ),
             ),

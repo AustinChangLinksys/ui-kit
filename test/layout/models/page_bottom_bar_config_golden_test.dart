@@ -83,9 +83,9 @@ class TestWidget extends StatelessWidget {
   final PageBottomBarConfig config;
 
   const TestWidget({
-    Key? key,
+    super.key,
     required this.config,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +94,7 @@ class TestWidget extends StatelessWidget {
         child: AppSurface(
           variant: SurfaceVariant.base,
           child: Padding(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -109,7 +109,7 @@ class TestWidget extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: Container(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Row(
           children: [
             if (config.negativeLabel != null)
@@ -120,7 +120,7 @@ class TestWidget extends StatelessWidget {
                 ),
               ),
             if (config.negativeLabel != null && config.positiveLabel != null)
-              SizedBox(width: 16),
+              const SizedBox(width: 16),
             if (config.positiveLabel != null)
               Expanded(
                 child: AppButton.primary(

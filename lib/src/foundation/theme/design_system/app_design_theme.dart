@@ -32,6 +32,9 @@ import 'package:ui_kit_library/src/foundation/theme/design_system/specs/password
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/sheet_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/shared/animation_spec.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/styled_text_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/page_layout_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/bottom_bar_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/menu_style.dart';
 import 'specs/surface_style.dart';
 import 'specs/button_style.dart';
 
@@ -173,6 +176,28 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
   @override
   final AppButtonStyle buttonStyle;
 
+  /// Style specification for page layout components.
+  ///
+  /// Contains theme-driven styling for page containers including
+  /// padding, backgrounds, and responsive layout properties.
+  @override
+  final PageLayoutStyle pageLayoutStyle;
+
+  /// Style specification for page bottom action bars.
+  ///
+  /// Contains theme-driven styling for bottom bars including
+  /// button styles, padding, elevation, and visual effects.
+  @override
+  final BottomBarStyle bottomBarStyle;
+
+  /// Style specification for page menu systems.
+  ///
+  /// Contains theme-driven styling for navigation menus including
+  /// colors, typography, spacing, and interaction states.
+  /// This complements the existing AppMenuStyle for page-specific menu layouts.
+  @override
+  final AppMenuThemeStyle pageMenuStyle;
+
 
   const AppDesignTheme({
     required this.surfaceBase,
@@ -216,6 +241,9 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
     required this.sheetStyle,
     required this.styledTextStyle,
     required this.buttonStyle,
+    required this.pageLayoutStyle,
+    required this.bottomBarStyle,
+    required this.pageMenuStyle,
   });
 
   /// Helper method to easily access the theme from the context.

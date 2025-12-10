@@ -19,7 +19,7 @@ void main() {
     });
 
     test('creates instance with custom values', () {
-      final actions = [IconButton(icon: Icon(Icons.settings), onPressed: () {})];
+      final actions = [IconButton(icon: const Icon(Icons.settings), onPressed: () {})];
       final config = PageAppBarConfig(
         title: 'Test Page',
         showBackButton: true,
@@ -146,7 +146,7 @@ void main() {
     test('menuItems filters dividers', () {
       final config = PageMenuConfig(items: [
         PageMenuItem(label: 'Item 1', onTap: () {}),
-        PageMenuItem.divider(),
+        const PageMenuItem.divider(),
         PageMenuItem(label: 'Item 2', onTap: () {}),
       ]);
 
