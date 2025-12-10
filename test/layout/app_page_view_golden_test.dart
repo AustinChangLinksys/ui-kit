@@ -1,94 +1,167 @@
 import 'package:alchemist/alchemist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:ui_kit_library/src/layout/app_page_view.dart';
+import 'package:ui_kit_library/src/layout/models/page_app_bar_config.dart';
+import 'package:ui_kit_library/src/layout/models/page_bottom_bar_config.dart';
+import 'package:ui_kit_library/src/layout/models/page_menu_config.dart';
+import 'package:ui_kit_library/src/layout/models/page_menu_item.dart';
 import 'package:ui_kit_library/ui_kit.dart';
-
 import '../test_utils/golden_test_matrix_factory.dart';
 import '../test_utils/font_loader.dart';
 
+/// Golden tests for enhanced AppPageView component
+/// This test ensures the component renders correctly across all themes
 void main() {
   setUpAll(() async {
+    // Load real fonts for proper golden test rendering
     await loadAppFonts();
   });
 
-  group('AppPageView Golden Tests', () {
-    // Test 1: Basic Sliver Layout
-    goldenTest(
-      'AppPageView - Basic Sliver',
-      fileName: 'app_page_view_basic_sliver',
-      builder: () => buildThemeMatrix(
-        name: 'Basic Sliver',
-        width: 600,
-        height: 300,
-        child: const AppPageView(
-          useSlivers: true,
-          useContentPadding: true,
-          child: Center(
-            child: Text('Basic Sliver Content'),
-          ),
-        ),
-      ),
-    );
+  group('Enhanced AppPageView Golden Tests', () {
+    // Note: These tests will initially FAIL as enhanced AppPageView doesn't exist yet
+    // This is expected behavior following TDD approach
 
-    // Test 2: Box Layout Mode
     goldenTest(
-      'AppPageView - Box Layout',
-      fileName: 'app_page_view_box_layout',
+      'AppPageView - Basic Enhanced Page',
+      fileName: 'app_page_view_enhanced_basic',
       builder: () => buildThemeMatrix(
-        name: 'Box Layout',
-        width: 600,
-        height: 300,
-        child: const AppPageView(
-          useSlivers: false,
-          useContentPadding: true,
-          scrollable: false,
-          child: Center(
-            child: Text('Box Layout Content'),
-          ),
-        ),
-      ),
-    );
-
-    // Test 3: With Tabs Integration (No Expanded to avoid viewport issues)
-    goldenTest(
-      'AppPageView - With Tabs',
-      fileName: 'app_page_view_with_tabs',
-      builder: () => buildThemeMatrix(
-        name: 'With Tabs',
-        width: 600,
-        height: 400,
+        name: 'Enhanced AppPageView - Basic',
+        width: 400,
+        height: 600,
         child: AppPageView(
-          useSlivers: true,
-          useContentPadding: true,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              AppTabs(
-                tabs: const [
-                  TabItem(label: 'Tab 1'),
-                  TabItem(label: 'Tab 2'),
-                  TabItem(label: 'Tab 3'),
+            appBarConfig: PageAppBarConfig(
+              title: 'Enhanced Page',
+              showBackButton: true,
+              actions: [
+                IconButton(icon: Icon(Icons.settings), onPressed: () {}),
+              ],
+            ),
+            child: (context, constraints) => Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Enhanced AppPageView'),
+                  Text('Width: ${constraints.maxWidth.isFinite ? constraints.maxWidth.toInt() : 'Unlimited'}'),
+                  Text('Height: ${constraints.maxHeight.isFinite ? constraints.maxHeight.toInt() : 'Unlimited'}'),
                 ],
-                initialIndex: 0,
-                displayMode: TabDisplayMode.underline,
               ),
-              const SizedBox(height: 16),
-              Container(
-                height: 150,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFE3F2FD),
-                  border: Border.all(color: const Color(0xFF90CAF9)),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Center(
-                  child: Text('Tab Content Area'),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+      ),
+    );
+
+    goldenTest(
+      'AppPageView - With Bottom Action Bar',
+      fileName: 'app_page_view_with_bottom_bar',
+      builder: () => buildThemeMatrix(
+        name: 'Enhanced AppPageView - Bottom Bar',
+          width: 400,
+          height: 600,
+          child: AppPageView(
+            appBarConfig: PageAppBarConfig(
+              title: 'Edit Settings',
+              showBackButton: true,
+            ),
+            bottomBarConfig: PageBottomBarConfig(
+              positiveLabel: 'Save',
+              negativeLabel: 'Cancel',
+              onPositiveTap: () {},
+              onNegativeTap: () {},
+              isPositiveEnabled: true,
+            ),
+            child: (context, constraints) => Padding(
+              padding: EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Setting Name',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Setting Value',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+      ),
+    );
+
+    goldenTest(
+      'AppPageView - With Responsive Menu (Single Theme)',
+      fileName: 'app_page_view_with_menu_single',
+      builder: () => GoldenTestGroup(
+        columns: 1, // Single column to avoid width calculation issues
+        children: [
+          GoldenTestScenario(
+            name: 'Glass Light',
+            child: SizedBox(
+              width: 1600, // Fixed desktop width
+              height: 600,
+              child: ColoredBox(
+                color: Colors.white,
+                child: Theme(
+                  data: AppTheme.create(
+                    brightness: Brightness.light,
+                    designThemeBuilder: (s) => GlassDesignTheme.light(s),
+                  ),
+                  child: AppPageView(
+                    appBarConfig: PageAppBarConfig(
+                      title: 'Dashboard',
+                      showBackButton: false,
+                    ),
+                    menuConfig: PageMenuConfig(
+                      title: 'Navigation',
+                      items: [
+                        PageMenuItem(
+                          label: 'Dashboard',
+                          icon: Icons.dashboard,
+                          isSelected: true,
+                          onTap: () {},
+                        ),
+                        PageMenuItem(
+                          label: 'Analytics',
+                          icon: Icons.analytics,
+                          onTap: () {},
+                        ),
+                        PageMenuItem(
+                          label: 'Settings',
+                          icon: Icons.settings,
+                          onTap: () {},
+                        ),
+                      ],
+                      showOnDesktop: true,
+                      showOnMobile: true,
+                    ),
+                    showGridOverlay: false, // Disable debug overlay for clean golden
+                    child: (context, constraints) => Center(
+                      child: Card(
+                        child: Padding(
+                          padding: EdgeInsets.all(24),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.dashboard, size: 48),
+                              SizedBox(height: 16),
+                              Text('Dashboard Content'),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   });
