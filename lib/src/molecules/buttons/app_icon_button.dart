@@ -3,6 +3,7 @@ import 'package:ui_kit_library/src/atoms/loading/app_skeleton.dart';
 import 'package:ui_kit_library/src/atoms/surfaces/app_surface.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/app_design_theme.dart';
 import 'app_button.dart'; // Import AppButtonSize enum
+import 'enums/button_style_variant.dart';
 
 /// A square or circular icon button with semantic surface variant support.
 ///
@@ -44,17 +45,136 @@ class AppIconButton extends StatelessWidget {
     required this.icon,
     this.onTap,
     this.isLoading = false,
-    this.variant = SurfaceVariant.base, // Standardized naming
+    this.variant = SurfaceVariant.base, // Standardized naming (backward compatibility)
     this.size = AppButtonSize.medium, // Standardized sizing
+    this.styleVariant = ButtonStyleVariant.filled, // New unified style system
     this.tooltip,
     super.key,
   });
+
+  // Named constructors for common icon button patterns
+
+  /// Creates a primary icon button with highlight emphasis and filled style.
+  ///
+  /// Used for the most important icon actions such as primary navigation,
+  /// main action triggers, or critical operations.
+  const AppIconButton.primary({
+    required this.icon,
+    this.onTap,
+    this.isLoading = false,
+    this.size = AppButtonSize.medium,
+    this.tooltip,
+    super.key,
+  }) : variant = SurfaceVariant.highlight,
+       styleVariant = ButtonStyleVariant.filled;
+
+  /// Creates a secondary icon button with tonal emphasis and filled style.
+  ///
+  /// Used for important secondary actions that need visual weight but
+  /// shouldn't compete with primary actions.
+  const AppIconButton.secondary({
+    required this.icon,
+    this.onTap,
+    this.isLoading = false,
+    this.size = AppButtonSize.medium,
+    this.tooltip,
+    super.key,
+  }) : variant = SurfaceVariant.tonal,
+       styleVariant = ButtonStyleVariant.filled;
+
+  /// Creates an outline icon button with base emphasis.
+  ///
+  /// Used for secondary actions that need clear affordance but minimal
+  /// visual weight. Shows border but no background fill.
+  const AppIconButton.outline({
+    required this.icon,
+    this.onTap,
+    this.isLoading = false,
+    this.variant = SurfaceVariant.base,
+    this.size = AppButtonSize.medium,
+    this.tooltip,
+    super.key,
+  }) : styleVariant = ButtonStyleVariant.outline;
+
+  /// Creates a ghost (text-style) icon button with minimal visual presence.
+  ///
+  /// Used for low-priority actions or when the icon button should blend
+  /// into the background until interacted with.
+  const AppIconButton.ghost({
+    required this.icon,
+    this.onTap,
+    this.isLoading = false,
+    this.variant = SurfaceVariant.base,
+    this.size = AppButtonSize.medium,
+    this.tooltip,
+    super.key,
+  }) : styleVariant = ButtonStyleVariant.text;
+
+  /// Creates a toggle icon button that changes appearance based on active state.
+  ///
+  /// The [isActive] parameter controls the visual state: active buttons use
+  /// tonal emphasis while inactive buttons use base emphasis.
+  const AppIconButton.toggle({
+    required this.icon,
+    this.onTap,
+    this.isLoading = false,
+    this.size = AppButtonSize.medium,
+    this.tooltip,
+    required bool isActive,
+    super.key,
+  }) : variant = isActive ? SurfaceVariant.tonal : SurfaceVariant.base,
+       styleVariant = ButtonStyleVariant.filled;
+
+  /// Creates a danger icon button for destructive actions.
+  ///
+  /// Used for destructive operations like delete, remove, or cancel.
+  /// Uses accent emphasis to provide appropriate visual warning.
+  const AppIconButton.danger({
+    required this.icon,
+    this.onTap,
+    this.isLoading = false,
+    this.size = AppButtonSize.medium,
+    this.tooltip,
+    super.key,
+  }) : variant = SurfaceVariant.accent,
+       styleVariant = ButtonStyleVariant.filled;
+
+  /// Creates a small icon button for compact interfaces.
+  ///
+  /// Used in dense layouts or when multiple icon buttons need to coexist
+  /// in limited space.
+  const AppIconButton.small({
+    required this.icon,
+    this.onTap,
+    this.isLoading = false,
+    this.variant = SurfaceVariant.base,
+    this.styleVariant = ButtonStyleVariant.filled,
+    this.tooltip,
+    super.key,
+  }) : size = AppButtonSize.small;
+
+  /// Creates a large icon button for prominent interfaces.
+  ///
+  /// Used for primary actions in spacious layouts or when the icon button
+  /// is the main interface element.
+  const AppIconButton.large({
+    required this.icon,
+    this.onTap,
+    this.isLoading = false,
+    this.variant = SurfaceVariant.base,
+    this.styleVariant = ButtonStyleVariant.filled,
+    this.tooltip,
+    super.key,
+  }) : size = AppButtonSize.large;
 
   final Widget icon;
   final VoidCallback? onTap;
   final bool isLoading;
   final SurfaceVariant variant;
   final AppButtonSize size;
+  /// The visual style variant that determines button appearance (filled, outline, text).
+  /// Used by the unified ButtonStyle system for consistent theming.
+  final ButtonStyleVariant styleVariant;
   final String? tooltip;
 
   bool get _isEnabled => onTap != null && !isLoading;

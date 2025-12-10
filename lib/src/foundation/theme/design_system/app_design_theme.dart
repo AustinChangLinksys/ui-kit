@@ -32,8 +32,8 @@ import 'package:ui_kit_library/src/foundation/theme/design_system/specs/password
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/sheet_style.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/shared/animation_spec.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/styled_text_style.dart';
-import 'package:ui_kit_library/src/foundation/theme/design_system/specs/text_button_style.dart';
 import 'specs/surface_style.dart';
+import 'specs/button_style.dart';
 
 part 'app_design_theme.tailor.dart';
 
@@ -161,13 +161,18 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
   @override
   final StyledTextStyle styledTextStyle;
 
-  /// Style specification for AppTextButton component.
+  /// Style specification for AppButton component.
   ///
-  /// Contains theme-driven styling for text buttons including surface styles,
+  /// Contains theme-driven styling for buttons including surface styles,
   /// typography, and interaction specifications for different button states.
-  /// Follows Constitution 4.6 by composing SurfaceStyle and InteractionSpec.
+  /// Unified button style system supporting all variants (filled, outline, text).
+  ///
+  /// This replaces the previous separate ButtonStyle, IconButtonStyle, and
+  /// TextButtonStyle classes with a single comprehensive system that handles
+  /// all button types and variants consistently.
   @override
-  final TextButtonStyle textButtonStyle;
+  final AppButtonStyle buttonStyle;
+
 
   const AppDesignTheme({
     required this.surfaceBase,
@@ -210,7 +215,7 @@ class AppDesignTheme extends ThemeExtension<AppDesignTheme>
     required this.passwordInputStyle,
     required this.sheetStyle,
     required this.styledTextStyle,
-    required this.textButtonStyle,
+    required this.buttonStyle,
   });
 
   /// Helper method to easily access the theme from the context.

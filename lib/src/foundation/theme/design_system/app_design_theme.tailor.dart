@@ -50,7 +50,7 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
   PasswordInputStyle get passwordInputStyle;
   SheetStyle get sheetStyle;
   StyledTextStyle get styledTextStyle;
-  TextButtonStyle get textButtonStyle;
+  AppButtonStyle get buttonStyle;
 
   @override
   AppDesignTheme copyWith({
@@ -94,7 +94,7 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
     PasswordInputStyle? passwordInputStyle,
     SheetStyle? sheetStyle,
     StyledTextStyle? styledTextStyle,
-    TextButtonStyle? textButtonStyle,
+    AppButtonStyle? buttonStyle,
   }) {
     return AppDesignTheme(
       toggleStyle: toggleStyle ?? this.toggleStyle,
@@ -137,7 +137,7 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       passwordInputStyle: passwordInputStyle ?? this.passwordInputStyle,
       sheetStyle: sheetStyle ?? this.sheetStyle,
       styledTextStyle: styledTextStyle ?? this.styledTextStyle,
-      textButtonStyle: textButtonStyle ?? this.textButtonStyle,
+      buttonStyle: buttonStyle ?? this.buttonStyle,
     );
   }
 
@@ -187,7 +187,7 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       passwordInputStyle: passwordInputStyle.lerp(other.passwordInputStyle, t),
       sheetStyle: sheetStyle.lerp(other.sheetStyle, t),
       styledTextStyle: styledTextStyle.lerp(other.styledTextStyle, t),
-      textButtonStyle: textButtonStyle.lerp(other.textButtonStyle, t),
+      buttonStyle: buttonStyle.lerp(other.buttonStyle, t),
     );
   }
 
@@ -272,7 +272,7 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
             const DeepCollectionEquality()
                 .equals(styledTextStyle, other.styledTextStyle) &&
             const DeepCollectionEquality()
-                .equals(textButtonStyle, other.textButtonStyle));
+                .equals(buttonStyle, other.buttonStyle));
   }
 
   @override
@@ -319,7 +319,7 @@ mixin _$AppDesignThemeTailorMixin on ThemeExtension<AppDesignTheme> {
       const DeepCollectionEquality().hash(passwordInputStyle),
       const DeepCollectionEquality().hash(sheetStyle),
       const DeepCollectionEquality().hash(styledTextStyle),
-      const DeepCollectionEquality().hash(textButtonStyle),
+      const DeepCollectionEquality().hash(buttonStyle),
     ]);
   }
 }
@@ -381,10 +381,14 @@ extension AppDesignThemeBuildContextProps on BuildContext {
   /// Follows Constitution 4.6 by composing AnimationSpec and StateColorSpec.
   StyledTextStyle get styledTextStyle => appDesignTheme.styledTextStyle;
 
-  /// Style specification for AppTextButton component.
+  /// Style specification for AppButton component.
   ///
-  /// Contains theme-driven styling for text buttons including surface styles,
+  /// Contains theme-driven styling for buttons including surface styles,
   /// typography, and interaction specifications for different button states.
-  /// Follows Constitution 4.6 by composing SurfaceStyle and InteractionSpec.
-  TextButtonStyle get textButtonStyle => appDesignTheme.textButtonStyle;
+  /// Unified button style system supporting all variants (filled, outline, text).
+  ///
+  /// This replaces the previous separate ButtonStyle, IconButtonStyle, and
+  /// TextButtonStyle classes with a single comprehensive system that handles
+  /// all button types and variants consistently.
+  AppButtonStyle get buttonStyle => appDesignTheme.buttonStyle;
 }

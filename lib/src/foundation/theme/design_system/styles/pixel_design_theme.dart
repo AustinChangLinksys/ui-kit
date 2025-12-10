@@ -501,7 +501,7 @@ class PixelDesignTheme extends AppDesignTheme {
         pendingColor: colors.onSurface.withValues(alpha: 0.5),
       ),
       styledTextStyle: _createStyledTextStyle(colors, appTextTheme),
-      textButtonStyle: _createPixelTextButtonStyle(colors, appTextTheme),
+      buttonStyle: _createPixelAppButtonStyle(colors, appTextTheme),
     );
   }
 
@@ -547,8 +547,31 @@ class PixelDesignTheme extends AppDesignTheme {
     required super.pinInputStyle,
     required super.passwordInputStyle,
     required super.styledTextStyle,
-    required super.textButtonStyle,
+    required super.buttonStyle,
   });
+
+  // Helper function to create saturated retro colors for Pixel theme
+  static Color _retroSaturateColor(Color baseColor, {required bool isDark}) {
+    final hsl = HSLColor.fromColor(baseColor);
+    if (isDark) {
+      // For dark mode: maximum saturation with moderate lightness for retro glow effect
+      return hsl.withSaturation(0.95) // Almost maximum saturation
+                .withLightness((hsl.lightness * 1.3).clamp(0.3, 0.8)) // Bright but not blinding
+                .toColor();
+    } else {
+      // For light mode: high saturation with bold, punchy lightness - classic 8-bit colors
+      return hsl.withSaturation(0.9) // Very high saturation
+                .withLightness((hsl.lightness * 0.7).clamp(0.2, 0.7)) // Bold and punchy
+                .toColor();
+    }
+  }
+
+  // Helper function to get high contrast text for retro colors
+  static Color _getRetroTextColor(Color backgroundColor) {
+    final luminance = backgroundColor.computeLuminance();
+    // For retro theme, use pure black or white for maximum contrast
+    return luminance > 0.4 ? Colors.black : Colors.white;
+  }
 
   factory PixelDesignTheme.light([ColorScheme? scheme]) {
     scheme ??= AppTheme.defaultLightScheme;
@@ -588,7 +611,7 @@ class PixelDesignTheme extends AppDesignTheme {
         contentColor: scheme.onPrimaryContainer,
       ),
       surfaceHighlight: SurfaceStyle(
-        backgroundColor: scheme.error,
+        backgroundColor: _retroSaturateColor(scheme.primary, isDark: scheme.brightness == Brightness.dark), // Retro saturated primary
         borderColor: scheme.onSurface,
         borderWidth: 2.0,
         borderRadius: 2.0,
@@ -600,7 +623,7 @@ class PixelDesignTheme extends AppDesignTheme {
           )
         ],
         blurStrength: 0.0,
-        contentColor: scheme.onError,
+        contentColor: _getRetroTextColor(_retroSaturateColor(scheme.primary, isDark: scheme.brightness == Brightness.dark)),
         interaction: const InteractionSpec(
           pressedScale: 1.0,
           pressedOpacity: 1.0,
@@ -609,7 +632,7 @@ class PixelDesignTheme extends AppDesignTheme {
         ),
       ),
       surfaceSecondary: SurfaceStyle(
-        backgroundColor: scheme.secondaryContainer,
+        backgroundColor: _retroSaturateColor(scheme.secondary, isDark: scheme.brightness == Brightness.dark), // Retro saturated secondary
         borderColor: scheme.onSurface,
         borderWidth: 2.0,
         borderRadius: 2.0,
@@ -621,7 +644,7 @@ class PixelDesignTheme extends AppDesignTheme {
           )
         ],
         blurStrength: 0.0,
-        contentColor: scheme.onSecondaryContainer,
+        contentColor: _getRetroTextColor(_retroSaturateColor(scheme.secondary, isDark: scheme.brightness == Brightness.dark)),
       ),
       surfaceTertiary: SurfaceStyle(
         backgroundColor: scheme.tertiaryContainer,
@@ -963,7 +986,7 @@ class PixelDesignTheme extends AppDesignTheme {
           contentColor: scheme.onSurface,
         ),
         destructiveStyle: SurfaceStyle(
-          backgroundColor: scheme.error,
+          backgroundColor: _retroSaturateColor(scheme.primary, isDark: scheme.brightness == Brightness.dark), // Retro saturated primary
           borderColor: scheme.onSurface,
           borderWidth: 2.0,
           borderRadius: 0.0,
@@ -975,7 +998,7 @@ class PixelDesignTheme extends AppDesignTheme {
             )
           ],
           blurStrength: 0.0,
-          contentColor: scheme.onError,
+          contentColor: _getRetroTextColor(_retroSaturateColor(scheme.primary, isDark: scheme.brightness == Brightness.dark)),
         ),
         borderRadius: BorderRadius.circular(2.0),
         contentColor: scheme.onSurface,
@@ -1033,8 +1056,8 @@ class PixelDesignTheme extends AppDesignTheme {
         pendingColor: scheme.onSurface.withValues(alpha: 0.5),
       ),
       styledTextStyle: _createStyledTextStyleForScheme(scheme, appTextTheme),
-      textButtonStyle:
-          _createPixelTextButtonStyleForScheme(scheme, appTextTheme),
+      buttonStyle:
+          _createPixelTextAppButtonStyleForScheme(scheme, appTextTheme),
     );
   }
 
@@ -1077,7 +1100,7 @@ class PixelDesignTheme extends AppDesignTheme {
         contentColor: scheme.onPrimaryContainer,
       ),
       surfaceHighlight: SurfaceStyle(
-        backgroundColor: scheme.error,
+        backgroundColor: _retroSaturateColor(scheme.primary, isDark: scheme.brightness == Brightness.dark), // Retro saturated primary
         borderColor: black,
         borderWidth: 2.0,
         borderRadius: 2.0,
@@ -1089,7 +1112,7 @@ class PixelDesignTheme extends AppDesignTheme {
           )
         ],
         blurStrength: 0.0,
-        contentColor: scheme.onError,
+        contentColor: _getRetroTextColor(_retroSaturateColor(scheme.primary, isDark: scheme.brightness == Brightness.dark)),
         interaction: const InteractionSpec(
           pressedScale: 1.0,
           pressedOpacity: 1.0,
@@ -1098,7 +1121,7 @@ class PixelDesignTheme extends AppDesignTheme {
         ),
       ),
       surfaceSecondary: SurfaceStyle(
-        backgroundColor: scheme.secondaryContainer,
+        backgroundColor: _retroSaturateColor(scheme.secondary, isDark: scheme.brightness == Brightness.dark), // Retro saturated secondary
         borderColor: black,
         borderWidth: 2.0,
         borderRadius: 2.0,
@@ -1110,7 +1133,7 @@ class PixelDesignTheme extends AppDesignTheme {
           )
         ],
         blurStrength: 0.0,
-        contentColor: scheme.onSecondaryContainer,
+        contentColor: _getRetroTextColor(_retroSaturateColor(scheme.secondary, isDark: scheme.brightness == Brightness.dark)),
       ),
       surfaceTertiary: SurfaceStyle(
         backgroundColor: scheme.tertiaryContainer,
@@ -1445,7 +1468,7 @@ class PixelDesignTheme extends AppDesignTheme {
           contentColor: black,
         ),
         destructiveStyle: SurfaceStyle(
-          backgroundColor: scheme.error,
+          backgroundColor: _retroSaturateColor(scheme.primary, isDark: scheme.brightness == Brightness.dark), // Retro saturated primary
           borderColor: black,
           borderWidth: 2.0,
           borderRadius: 0.0,
@@ -1457,7 +1480,7 @@ class PixelDesignTheme extends AppDesignTheme {
             )
           ],
           blurStrength: 0.0,
-          contentColor: scheme.onError,
+          contentColor: _getRetroTextColor(_retroSaturateColor(scheme.primary, isDark: scheme.brightness == Brightness.dark)),
         ),
         borderRadius: BorderRadius.circular(2.0),
         contentColor: black,
@@ -1514,8 +1537,8 @@ class PixelDesignTheme extends AppDesignTheme {
         pendingColor: black.withValues(alpha: 0.5),
       ),
       styledTextStyle: _createStyledTextStyleForDark(scheme, appTextTheme),
-      textButtonStyle:
-          _createPixelTextButtonStyleForScheme(scheme, appTextTheme),
+      buttonStyle:
+          _createPixelTextAppButtonStyleForScheme(scheme, appTextTheme),
     );
   }
 
@@ -1560,7 +1583,7 @@ class PixelDesignTheme extends AppDesignTheme {
 
       // Extender styles - pixel squares
       extenderNormalStyle: NodeStyle(
-        backgroundColor: scheme.secondaryContainer,
+        backgroundColor: _retroSaturateColor(scheme.secondary, isDark: scheme.brightness == Brightness.dark), // Retro saturated secondary
         borderColor: borderColor,
         borderWidth: 2.0,
         borderRadius: 2.0,
@@ -1808,154 +1831,417 @@ class PixelDesignTheme extends AppDesignTheme {
     );
   }
 
-  /// Creates TextButtonStyle for Pixel theme with AppColorScheme (fromConfig factory)
+  /// Creates TextAppButtonStyle for Pixel theme with AppColorScheme (fromConfig factory)
   /// Pixel theme: Retro feel (2.0 radius), pixelated edges, dithered effects, instant animations
-  static TextButtonStyle _createPixelTextButtonStyle(
+  static AppButtonStyle _createPixelAppButtonStyle(
     AppColorScheme colors,
     TextTheme textTheme,
   ) {
-    return TextButtonStyle(
-      enabledStyle: SurfaceStyle(
-        backgroundColor: Colors.transparent,
+    // Pixel theme characteristics: sharp edges, high contrast, block shadows
+    final filledSurfaces = ButtonSurfaceStates(
+      enabled: SurfaceStyle(
+        backgroundColor: colors.primary,
         borderColor: Colors.transparent,
-        borderWidth: 0.0,
-        borderRadius: 2.0,
+        borderWidth: 0,
+        borderRadius: 2.0, // Sharp pixel corners
         blurStrength: 0.0,
-        contentColor: colors.primary,
+        contentColor: colors.onPrimary,
+        shadows: [
+          BoxShadow(
+            color: colors.styleShadow.withValues(alpha: 0.4),
+            blurRadius: 0, // Sharp shadow, no blur
+            offset: const Offset(2, 2), // Pixel offset
+          ),
+        ],
       ),
-      disabledStyle: SurfaceStyle(
-        backgroundColor: Colors.transparent,
+      disabled: SurfaceStyle(
+        backgroundColor: colors.onSurface.withValues(alpha: 0.12),
         borderColor: Colors.transparent,
-        borderWidth: 0.0,
+        borderWidth: 0,
         borderRadius: 2.0,
         blurStrength: 0.0,
         contentColor: colors.onSurface.withValues(alpha: 0.38),
       ),
-      hoverStyle: SurfaceStyle(
+      hovered: SurfaceStyle(
+        backgroundColor: colors.primary,
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 2.0,
+        blurStrength: 0.0,
+        contentColor: colors.onPrimary,
+        shadows: [
+          BoxShadow(
+            color: colors.styleShadow.withValues(alpha: 0.6),
+            blurRadius: 0, // Sharp shadow
+            offset: const Offset(3, 3), // Larger offset on hover
+          ),
+        ],
+      ),
+      pressed: SurfaceStyle(
+        backgroundColor: colors.primary,
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 2.0,
+        blurStrength: 0.0,
+        contentColor: colors.onPrimary,
+        shadows: [
+          BoxShadow(
+            color: colors.styleShadow.withValues(alpha: 0.2),
+            blurRadius: 0, // Sharp shadow
+            offset: const Offset(1, 1), // Smaller offset when pressed
+          ),
+        ],
+      ),
+    );
+
+    final outlineSurfaces = ButtonSurfaceStates(
+      enabled: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: colors.highContrastBorder,
+        borderWidth: 2.0,
+        borderRadius: 2.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary,
+      ),
+      disabled: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: colors.subtleBorder,
+        borderWidth: 2.0,
+        borderRadius: 2.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary.withValues(alpha: 0.38),
+      ),
+      hovered: SurfaceStyle(
         backgroundColor: colors.primary.withValues(alpha: 0.1),
-        borderColor: colors.highContrastBorder,
+        borderColor: colors.primary,
         borderWidth: 2.0,
         borderRadius: 2.0,
         blurStrength: 0.0,
         contentColor: colors.primary,
-        shadows: [
-          BoxShadow(
-            color: colors.styleShadow.withValues(alpha: 0.3),
-            blurRadius: 0,
-            offset: const Offset(2, 2),
-          ),
-        ],
       ),
-      pressedStyle: SurfaceStyle(
+      pressed: SurfaceStyle(
         backgroundColor: colors.primary.withValues(alpha: 0.2),
-        borderColor: colors.highContrastBorder,
+        borderColor: colors.primary,
         borderWidth: 2.0,
         borderRadius: 2.0,
         blurStrength: 0.0,
         contentColor: colors.primary,
-        shadows: [
-          BoxShadow(
-            color: colors.styleShadow.withValues(alpha: 0.5),
-            blurRadius: 0,
-            offset: const Offset(2, 2),
-          ),
-        ],
       ),
-      enabledContentColor: colors.primary,
-      disabledContentColor: colors.onSurface.withValues(alpha: 0.38),
-      smallTextStyle: textTheme.labelMedium!.copyWith(
+    );
+
+    final textSurfaces = ButtonSurfaceStates(
+      enabled: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 2.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary,
+      ),
+      disabled: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 2.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary.withValues(alpha: 0.38),
+      ),
+      hovered: SurfaceStyle(
+        backgroundColor: colors.primary.withValues(alpha: 0.1),
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 2.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary,
+      ),
+      pressed: SurfaceStyle(
+        backgroundColor: colors.primary.withValues(alpha: 0.2),
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 2.0,
+        blurStrength: 0.0,
+        contentColor: colors.primary,
+      ),
+    );
+
+    // Create color specs
+    final filledContentColors = StateColorSpec(
+      active: colors.onPrimary,
+      inactive: colors.onPrimary.withValues(alpha: 0.8),
+      disabled: colors.onSurface.withValues(alpha: 0.38),
+      hover: colors.onPrimary,
+      pressed: colors.onPrimary,
+    );
+
+    final outlineContentColors = StateColorSpec(
+      active: colors.primary,
+      inactive: colors.primary.withValues(alpha: 0.8),
+      disabled: colors.primary.withValues(alpha: 0.38),
+      hover: colors.primary,
+      pressed: colors.primary,
+    );
+
+    final textContentColors = StateColorSpec(
+      active: colors.primary,
+      inactive: colors.primary.withValues(alpha: 0.8),
+      disabled: colors.primary.withValues(alpha: 0.38),
+      hover: colors.primary,
+      pressed: colors.primary,
+    );
+
+    // Create text styles with bold weight for pixel theme
+    final textStyles = ButtonTextStyles(
+      small: textTheme.labelMedium!.copyWith(
+        fontWeight: FontWeight.bold, // Bold for pixel aesthetic
+        color: colors.primary,
+      ),
+      medium: textTheme.labelLarge!.copyWith(
         fontWeight: FontWeight.bold,
         color: colors.primary,
       ),
-      mediumTextStyle: textTheme.labelLarge!.copyWith(
+      large: textTheme.titleMedium!.copyWith(
         fontWeight: FontWeight.bold,
         color: colors.primary,
       ),
-      largeTextStyle: textTheme.titleMedium!.copyWith(
-        fontWeight: FontWeight.bold,
-        color: colors.primary,
-      ),
-      interaction: const InteractionSpec(
-        pressedScale: 1.0,
-        pressedOpacity: 1.0,
-        hoverOpacity: 1.0,
-        pressedOffset: Offset(1, 1), // Subtle pixel offset for Pixel theme
-      ),
+    );
+
+    // Create size spec with pixel proportions
+    const sizeSpec = ButtonSizeSpec(
+      smallHeight: 32.0,
+      mediumHeight: 48.0,
+      largeHeight: 56.0,
+      smallPadding: EdgeInsets.symmetric(horizontal: 16.0),
+      mediumPadding: EdgeInsets.symmetric(horizontal: 24.0),
+      largePadding: EdgeInsets.symmetric(horizontal: 32.0),
+      iconSpacing: 8.0,
+    );
+
+    // Create interaction spec with pixel animations - instant and sharp
+    const interaction = InteractionSpec(
+      pressedScale: 1.0, // No scale for pixel theme - sharp and instant
+      hoverOpacity: 1.0, // No opacity changes
+      pressedOpacity: 1.0, // No opacity changes
+      pressedOffset: Offset(1, 1), // Sharp pixel offset when pressed
+    );
+
+    return AppButtonStyle(
+      filledSurfaces: filledSurfaces,
+      filledContentColors: filledContentColors,
+      outlineSurfaces: outlineSurfaces,
+      outlineContentColors: outlineContentColors,
+      textSurfaces: textSurfaces,
+      textContentColors: textContentColors,
+      textStyles: textStyles,
+      sizeSpec: sizeSpec,
+      interaction: interaction,
     );
   }
 
-  /// Creates TextButtonStyle for Pixel theme with ColorScheme (light/dark factories)
-  static TextButtonStyle _createPixelTextButtonStyleForScheme(
+  /// Creates TextAppButtonStyle for Pixel theme with ColorScheme (light/dark factories)
+  static AppButtonStyle _createPixelTextAppButtonStyleForScheme(
     ColorScheme scheme,
     TextTheme textTheme,
   ) {
-    return TextButtonStyle(
-      enabledStyle: SurfaceStyle(
-        backgroundColor: Colors.transparent,
+    final isLight = scheme.brightness == Brightness.light;
+    final borderColor = isLight ? scheme.onSurface : scheme.outline;
+
+    // Create pixel-themed surface styles with sharp edges and block shadows
+    final filledSurfaces = ButtonSurfaceStates(
+      enabled: SurfaceStyle(
+        backgroundColor: scheme.primary,
         borderColor: Colors.transparent,
-        borderWidth: 0.0,
-        borderRadius: 2.0,
+        borderWidth: 0,
+        borderRadius: 2.0, // Sharp pixel corners
         blurStrength: 0.0,
-        contentColor: scheme.primary,
+        contentColor: scheme.onPrimary,
+        shadows: [
+          BoxShadow(
+            color: scheme.shadow.withValues(alpha: isLight ? 0.4 : 0.6),
+            blurRadius: 0, // Sharp shadow, no blur
+            offset: const Offset(2, 2),
+          ),
+        ],
       ),
-      disabledStyle: SurfaceStyle(
-        backgroundColor: Colors.transparent,
+      disabled: SurfaceStyle(
+        backgroundColor: scheme.onSurface.withValues(alpha: 0.12),
         borderColor: Colors.transparent,
-        borderWidth: 0.0,
+        borderWidth: 0,
         borderRadius: 2.0,
         blurStrength: 0.0,
         contentColor: scheme.onSurface.withValues(alpha: 0.38),
       ),
-      hoverStyle: SurfaceStyle(
+      hovered: SurfaceStyle(
+        backgroundColor: scheme.primary,
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 2.0,
+        blurStrength: 0.0,
+        contentColor: scheme.onPrimary,
+        shadows: [
+          BoxShadow(
+            color: scheme.shadow.withValues(alpha: isLight ? 0.6 : 0.8),
+            blurRadius: 0,
+            offset: const Offset(3, 3), // Larger offset on hover
+          ),
+        ],
+      ),
+      pressed: SurfaceStyle(
+        backgroundColor: scheme.primary,
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 2.0,
+        blurStrength: 0.0,
+        contentColor: scheme.onPrimary,
+        shadows: [
+          BoxShadow(
+            color: scheme.shadow.withValues(alpha: isLight ? 0.2 : 0.4),
+            blurRadius: 0,
+            offset: const Offset(1, 1), // Smaller offset when pressed
+          ),
+        ],
+      ),
+    );
+
+    final outlineSurfaces = ButtonSurfaceStates(
+      enabled: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: borderColor,
+        borderWidth: 2.0,
+        borderRadius: 2.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+      ),
+      disabled: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: borderColor.withValues(alpha: 0.38),
+        borderWidth: 2.0,
+        borderRadius: 2.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary.withValues(alpha: 0.38),
+      ),
+      hovered: SurfaceStyle(
         backgroundColor: scheme.primary.withValues(alpha: 0.1),
-        borderColor: scheme.onSurface,
+        borderColor: scheme.primary,
         borderWidth: 2.0,
         borderRadius: 2.0,
         blurStrength: 0.0,
         contentColor: scheme.primary,
-        shadows: [
-          BoxShadow(
-            color: scheme.onSurface.withValues(alpha: 0.3),
-            blurRadius: 0,
-            offset: const Offset(2, 2),
-          ),
-        ],
       ),
-      pressedStyle: SurfaceStyle(
+      pressed: SurfaceStyle(
         backgroundColor: scheme.primary.withValues(alpha: 0.2),
-        borderColor: scheme.onSurface,
+        borderColor: scheme.primary,
         borderWidth: 2.0,
         borderRadius: 2.0,
         blurStrength: 0.0,
         contentColor: scheme.primary,
-        shadows: [
-          BoxShadow(
-            color: scheme.onSurface.withValues(alpha: 0.5),
-            blurRadius: 0,
-            offset: const Offset(2, 2),
-          ),
-        ],
       ),
-      enabledContentColor: scheme.primary,
-      disabledContentColor: scheme.onSurface.withValues(alpha: 0.38),
-      smallTextStyle: textTheme.labelMedium!.copyWith(
+    );
+
+    final textSurfaces = ButtonSurfaceStates(
+      enabled: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 2.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+      ),
+      disabled: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 2.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary.withValues(alpha: 0.38),
+      ),
+      hovered: SurfaceStyle(
+        backgroundColor: scheme.primary.withValues(alpha: 0.1),
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 2.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+      ),
+      pressed: SurfaceStyle(
+        backgroundColor: scheme.primary.withValues(alpha: 0.2),
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 2.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+      ),
+    );
+
+    // Create color specs
+    final filledContentColors = StateColorSpec(
+      active: scheme.onPrimary,
+      inactive: scheme.onPrimary.withValues(alpha: 0.8),
+      disabled: scheme.onSurface.withValues(alpha: 0.38),
+      hover: scheme.onPrimary,
+      pressed: scheme.onPrimary,
+    );
+
+    final outlineContentColors = StateColorSpec(
+      active: scheme.primary,
+      inactive: scheme.primary.withValues(alpha: 0.8),
+      disabled: scheme.primary.withValues(alpha: 0.38),
+      hover: scheme.primary,
+      pressed: scheme.primary,
+    );
+
+    final textContentColors = StateColorSpec(
+      active: scheme.primary,
+      inactive: scheme.primary.withValues(alpha: 0.8),
+      disabled: scheme.primary.withValues(alpha: 0.38),
+      hover: scheme.primary,
+      pressed: scheme.primary,
+    );
+
+    // Create text styles with bold weight for pixel aesthetic
+    final textStyles = ButtonTextStyles(
+      small: textTheme.labelMedium!.copyWith(
         fontWeight: FontWeight.bold,
         color: scheme.primary,
       ),
-      mediumTextStyle: textTheme.labelLarge!.copyWith(
+      medium: textTheme.labelLarge!.copyWith(
         fontWeight: FontWeight.bold,
         color: scheme.primary,
       ),
-      largeTextStyle: textTheme.titleMedium!.copyWith(
+      large: textTheme.titleMedium!.copyWith(
         fontWeight: FontWeight.bold,
         color: scheme.primary,
       ),
-      interaction: const InteractionSpec(
-        pressedScale: 1.0,
-        pressedOpacity: 1.0,
-        hoverOpacity: 1.0,
-        pressedOffset: Offset(1, 1), // Subtle pixel offset for Pixel theme
-      ),
+    );
+
+    // Create size spec with pixel proportions
+    const sizeSpec = ButtonSizeSpec(
+      smallHeight: 32.0,
+      mediumHeight: 48.0,
+      largeHeight: 56.0,
+      smallPadding: EdgeInsets.symmetric(horizontal: 16.0),
+      mediumPadding: EdgeInsets.symmetric(horizontal: 24.0),
+      largePadding: EdgeInsets.symmetric(horizontal: 32.0),
+      iconSpacing: 8.0,
+    );
+
+    // Create interaction spec with pixel animations - sharp and instant
+    const interaction = InteractionSpec(
+      pressedScale: 1.0, // No scale for sharp pixel aesthetic
+      hoverOpacity: 1.0, // No opacity changes
+      pressedOpacity: 1.0, // No opacity changes
+      pressedOffset: Offset(1, 1), // Sharp pixel offset when pressed
+    );
+
+    return AppButtonStyle(
+      filledSurfaces: filledSurfaces,
+      filledContentColors: filledContentColors,
+      outlineSurfaces: outlineSurfaces,
+      outlineContentColors: outlineContentColors,
+      textSurfaces: textSurfaces,
+      textContentColors: textContentColors,
+      textStyles: textStyles,
+      sizeSpec: sizeSpec,
+      interaction: interaction,
     );
   }
 }

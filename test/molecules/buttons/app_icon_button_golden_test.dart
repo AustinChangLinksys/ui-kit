@@ -8,10 +8,10 @@ import '../../test_utils/golden_test_scenarios.dart';
 
 void main() {
   group('AppIconButton Golden Tests', () {
-    // Test 1: Base variant (default action button)
+    // Test 1: Tertiary variant (base action button)
     goldenTest(
-      'AppIconButton - Base Variant',
-      fileName: 'app_icon_button_base',
+      'AppIconButton - Tertiary Variant',
+      fileName: 'app_icon_button_tertiary',
       builder: () => GoldenTestGroup(
         columns: 4,
         children: kTestThemeMatrix.entries.map((entry) {
@@ -30,10 +30,10 @@ void main() {
       ),
     );
 
-    // Test 2: Tonal variant (toggle/selected states)
+    // Test 2: Secondary variant (tonal toggle/selected states)
     goldenTest(
-      'AppIconButton - Tonal Variant (Toggle)',
-      fileName: 'app_icon_button_tonal',
+      'AppIconButton - Secondary Variant (Toggle)',
+      fileName: 'app_icon_button_secondary',
       builder: () => GoldenTestGroup(
         columns: 4,
         children: kTestThemeMatrix.entries.map((entry) {
@@ -53,10 +53,10 @@ void main() {
       ),
     );
 
-    // Test 3: Highlight variant (critical actions)
+    // Test 3: Primary variant (highlight critical actions)
     goldenTest(
-      'AppIconButton - Highlight Variant',
-      fileName: 'app_icon_button_highlight',
+      'AppIconButton - Primary Variant',
+      fileName: 'app_icon_button_primary',
       builder: () => GoldenTestGroup(
         columns: 4,
         children: kTestThemeMatrix.entries.map((entry) {

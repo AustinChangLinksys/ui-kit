@@ -7,7 +7,7 @@ import 'package:ui_kit_library/src/foundation/theme/design_system/specs/shared/a
     as shared;
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/styled_text_style.dart';
 import 'package:ui_kit_library/ui_kit.dart';
-import 'package:ui_kit_library/src/foundation/motion/neumorphic_motion.dart'; // Assuming NeumorphicMotion is created
+import 'package:ui_kit_library/src/foundation/motion/neumorphic_motion.dart';
 
 class NeumorphicDesignTheme extends AppDesignTheme {
   // Factory 1: Create from Config (Lazy/Custom Mode)
@@ -543,7 +543,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         pendingColor: colors.onSurfaceVariant,
       ),
       styledTextStyle: _createNeumorphicStyledTextStyle(colors, appTextTheme),
-      textButtonStyle: _createNeumorphicTextButtonStyle(colors, appTextTheme),
+      buttonStyle: _createNeumorphicTextAppButtonStyleForScheme(colors.toMaterialScheme(brightness: Brightness.light), appTextTheme),
     );
   }
 
@@ -738,7 +738,7 @@ class NeumorphicDesignTheme extends AppDesignTheme {
     required super.pinInputStyle,
     required super.passwordInputStyle,
     required super.styledTextStyle,
-    required super.textButtonStyle,
+    required super.buttonStyle,
   });
 
   // Default to Light, providing a default ColorScheme
@@ -1270,8 +1270,8 @@ class NeumorphicDesignTheme extends AppDesignTheme {
       ),
       styledTextStyle:
           _createNeumorphicStyledTextStyleForScheme(scheme, appTextTheme),
-      textButtonStyle:
-          _createNeumorphicTextButtonStyleForScheme(scheme, appTextTheme),
+      buttonStyle:
+          _createNeumorphicTextAppButtonStyleForScheme(scheme, appTextTheme),
     );
   }
 
@@ -1814,8 +1814,8 @@ class NeumorphicDesignTheme extends AppDesignTheme {
       ),
       styledTextStyle:
           _createNeumorphicStyledTextStyleForDark(scheme, appTextTheme),
-      textButtonStyle:
-          _createNeumorphicTextButtonStyleForScheme(scheme, appTextTheme),
+      buttonStyle:
+          _createNeumorphicTextAppButtonStyleForScheme(scheme, appTextTheme),
     );
   }
 
@@ -2171,190 +2171,323 @@ class NeumorphicDesignTheme extends AppDesignTheme {
     );
   }
 
-  /// Creates TextButtonStyle for Neumorphic theme with AppColorScheme (fromConfig factory)
-  /// Neumorphic theme: Soft shadows, raised/pressed effects, subtle radius (12.0), dual shadow system
-  static TextButtonStyle _createNeumorphicTextButtonStyle(
-    AppColorScheme colors,
-    TextTheme textTheme,
-  ) {
-    final isLight = colors.surface.computeLuminance() > 0.5;
-    final lightShadow = Color.alphaBlend(
-        colors.glowColor.withValues(alpha: 0.6), colors.surface);
-    final darkShadow = colors.styleShadow;
-
-    return TextButtonStyle(
-      enabledStyle: SurfaceStyle(
-        backgroundColor: Colors.transparent,
-        borderColor: Colors.transparent,
-        borderWidth: 0.0,
-        borderRadius: 12.0,
-        blurStrength: 0.0,
-        contentColor: colors.primary,
-      ),
-      disabledStyle: SurfaceStyle(
-        backgroundColor: Colors.transparent,
-        borderColor: Colors.transparent,
-        borderWidth: 0.0,
-        borderRadius: 12.0,
-        blurStrength: 0.0,
-        contentColor: colors.onSurface.withValues(alpha: 0.38),
-      ),
-      hoverStyle: SurfaceStyle(
-        backgroundColor: colors.styleBackground,
-        borderColor: Colors.transparent,
-        borderWidth: 0.0,
-        borderRadius: 12.0,
-        blurStrength: 0.0,
-        contentColor: colors.primary,
-        shadows: [
-          BoxShadow(
-            color: lightShadow,
-            offset: const Offset(-2, -2),
-            blurRadius: 4,
-          ),
-          BoxShadow(
-            color: darkShadow,
-            offset: const Offset(2, 2),
-            blurRadius: 4,
-          ),
-        ],
-      ),
-      pressedStyle: SurfaceStyle(
-        backgroundColor: colors.styleBackground,
-        borderColor: Colors.transparent,
-        borderWidth: 0.0,
-        borderRadius: 12.0,
-        blurStrength: 0.0,
-        contentColor: colors.primary,
-        shadows: [
-          BoxShadow(
-            color: darkShadow.withValues(alpha: isLight ? 0.3 : 0.5),
-            offset: const Offset(1, 1),
-            blurRadius: 2,
-          ),
-          BoxShadow(
-            color: lightShadow.withValues(alpha: isLight ? 0.4 : 0.2),
-            offset: const Offset(-1, -1),
-            blurRadius: 2,
-          ),
-        ],
-      ),
-      enabledContentColor: colors.primary,
-      disabledContentColor: colors.onSurface.withValues(alpha: 0.38),
-      smallTextStyle: textTheme.labelMedium!.copyWith(
-        fontWeight: FontWeight.w500,
-        color: colors.primary,
-      ),
-      mediumTextStyle: textTheme.labelLarge!.copyWith(
-        fontWeight: FontWeight.w500,
-        color: colors.primary,
-      ),
-      largeTextStyle: textTheme.titleMedium!.copyWith(
-        fontWeight: FontWeight.w500,
-        color: colors.primary,
-      ),
-      interaction: const InteractionSpec(
-        pressedScale: 0.98, // Slight scale for Neumorphic theme
-        pressedOpacity: 1.0,
-        hoverOpacity: 1.0,
-        pressedOffset: Offset.zero,
-      ),
-    );
-  }
-
-  /// Creates TextButtonStyle for Neumorphic theme with ColorScheme (light/dark factories)
-  static TextButtonStyle _createNeumorphicTextButtonStyleForScheme(
+  /// Creates unified AppButtonStyle for Neumorphic theme with ColorScheme
+  static AppButtonStyle _createNeumorphicTextAppButtonStyleForScheme(
     ColorScheme scheme,
     TextTheme textTheme,
   ) {
     final isLight = scheme.brightness == Brightness.light;
-    final lightShadow = isLight
-        ? Color.alphaBlend(
-            scheme.outline.withValues(alpha: 0.5), scheme.surface)
-        : Color.alphaBlend(
-            scheme.outline.withValues(alpha: 0.1), scheme.surface);
-    final darkShadow = isLight
-        ? Color.alphaBlend(scheme.shadow.withValues(alpha: 0.2), scheme.surface)
-        : Color.alphaBlend(
-            scheme.shadow.withValues(alpha: 0.6), scheme.surface);
 
-    return TextButtonStyle(
-      enabledStyle: SurfaceStyle(
-        backgroundColor: Colors.transparent,
+    // Neumorphic dual shadow system
+    final lightShadow = isLight
+        ? Colors.white.withValues(alpha: 0.8)
+        : scheme.surface.withValues(alpha: 0.2);
+    final darkShadow = isLight
+        ? Colors.black.withValues(alpha: 0.2)
+        : scheme.shadow.withValues(alpha: 0.5);
+
+    // Create neumorphic-themed surface styles with soft dual shadows
+    final filledSurfaces = ButtonSurfaceStates(
+      enabled: SurfaceStyle(
+        backgroundColor: scheme.primary,
         borderColor: Colors.transparent,
-        borderWidth: 0.0,
-        borderRadius: 12.0,
+        borderWidth: 0,
+        borderRadius: 12.0, // Soft neumorphic corners
         blurStrength: 0.0,
-        contentColor: scheme.primary,
-      ),
-      disabledStyle: SurfaceStyle(
-        backgroundColor: Colors.transparent,
-        borderColor: Colors.transparent,
-        borderWidth: 0.0,
-        borderRadius: 12.0,
-        blurStrength: 0.0,
-        contentColor: scheme.onSurface.withValues(alpha: 0.38),
-      ),
-      hoverStyle: SurfaceStyle(
-        backgroundColor: scheme.surface,
-        borderColor: Colors.transparent,
-        borderWidth: 0.0,
-        borderRadius: 12.0,
-        blurStrength: 0.0,
-        contentColor: scheme.primary,
+        contentColor: scheme.onPrimary,
         shadows: [
           BoxShadow(
             color: lightShadow,
+            offset: const Offset(-4, -4),
+            blurRadius: 8,
+          ),
+          BoxShadow(
+            color: darkShadow,
+            offset: const Offset(4, 4),
+            blurRadius: 8,
+          ),
+        ],
+      ),
+      disabled: SurfaceStyle(
+        backgroundColor: scheme.onSurface.withValues(alpha: 0.12),
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 12.0,
+        blurStrength: 0.0,
+        contentColor: scheme.onSurface.withValues(alpha: 0.38),
+        shadows: [
+          BoxShadow(
+            color: lightShadow.withValues(alpha: 0.3),
             offset: const Offset(-2, -2),
             blurRadius: 4,
           ),
           BoxShadow(
-            color: darkShadow,
+            color: darkShadow.withValues(alpha: 0.3),
             offset: const Offset(2, 2),
             blurRadius: 4,
           ),
         ],
       ),
-      pressedStyle: SurfaceStyle(
-        backgroundColor: scheme.surface,
+      hovered: SurfaceStyle(
+        backgroundColor: scheme.primary,
         borderColor: Colors.transparent,
-        borderWidth: 0.0,
+        borderWidth: 0,
+        borderRadius: 12.0,
+        blurStrength: 0.0,
+        contentColor: scheme.onPrimary,
+        shadows: [
+          BoxShadow(
+            color: lightShadow,
+            offset: const Offset(-6, -6),
+            blurRadius: 12,
+          ),
+          BoxShadow(
+            color: darkShadow,
+            offset: const Offset(6, 6),
+            blurRadius: 12,
+          ),
+        ],
+      ),
+      pressed: SurfaceStyle(
+        backgroundColor: scheme.primary,
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 12.0,
+        blurStrength: 0.0,
+        contentColor: scheme.onPrimary,
+        shadows: [
+          // Pressed state: inset shadows (reversed light/dark)
+          BoxShadow(
+            color: darkShadow,
+            offset: const Offset(-2, -2),
+            blurRadius: 4,
+          ),
+          BoxShadow(
+            color: lightShadow.withValues(alpha: 0.6),
+            offset: const Offset(2, 2),
+            blurRadius: 4,
+          ),
+        ],
+      ),
+    );
+
+    final outlineSurfaces = ButtonSurfaceStates(
+      enabled: SurfaceStyle(
+        backgroundColor: scheme.surface,
+        borderColor: scheme.primary.withValues(alpha: 0.6),
+        borderWidth: 1.5,
         borderRadius: 12.0,
         blurStrength: 0.0,
         contentColor: scheme.primary,
         shadows: [
+          // Inset shadow for outline variant
           BoxShadow(
-            color: darkShadow.withValues(alpha: isLight ? 0.3 : 0.5),
-            offset: const Offset(1, 1),
+            color: darkShadow,
+            offset: const Offset(-2, -2),
+            blurRadius: 4,
+          ),
+          BoxShadow(
+            color: lightShadow.withValues(alpha: 0.7),
+            offset: const Offset(2, 2),
+            blurRadius: 4,
+          ),
+        ],
+      ),
+      disabled: SurfaceStyle(
+        backgroundColor: scheme.surface,
+        borderColor: scheme.primary.withValues(alpha: 0.25),
+        borderWidth: 1.5,
+        borderRadius: 12.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary.withValues(alpha: 0.38),
+        shadows: [
+          BoxShadow(
+            color: darkShadow.withValues(alpha: 0.3),
+            offset: const Offset(-1, -1),
             blurRadius: 2,
           ),
           BoxShadow(
-            color: lightShadow.withValues(alpha: isLight ? 0.4 : 0.2),
-            offset: const Offset(-1, -1),
+            color: lightShadow.withValues(alpha: 0.3),
+            offset: const Offset(1, 1),
             blurRadius: 2,
           ),
         ],
       ),
-      enabledContentColor: scheme.primary,
-      disabledContentColor: scheme.onSurface.withValues(alpha: 0.38),
-      smallTextStyle: textTheme.labelMedium!.copyWith(
+      hovered: SurfaceStyle(
+        backgroundColor: scheme.surface,
+        borderColor: scheme.primary.withValues(alpha: 0.7),
+        borderWidth: 1.5,
+        borderRadius: 12.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+        shadows: [
+          // More pronounced inset on hover
+          BoxShadow(
+            color: darkShadow,
+            offset: const Offset(-3, -3),
+            blurRadius: 6,
+          ),
+          BoxShadow(
+            color: lightShadow.withValues(alpha: 0.8),
+            offset: const Offset(3, 3),
+            blurRadius: 6,
+          ),
+        ],
+      ),
+      pressed: SurfaceStyle(
+        backgroundColor: scheme.surface,
+        borderColor: scheme.primary.withValues(alpha: 0.8),
+        borderWidth: 1.5,
+        borderRadius: 12.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+        shadows: [
+          // Deep inset when pressed
+          BoxShadow(
+            color: darkShadow.withValues(alpha: 0.8),
+            offset: const Offset(-4, -4),
+            blurRadius: 8,
+          ),
+          BoxShadow(
+            color: lightShadow.withValues(alpha: 0.5),
+            offset: const Offset(4, 4),
+            blurRadius: 8,
+          ),
+        ],
+      ),
+    );
+
+    final textSurfaces = ButtonSurfaceStates(
+      enabled: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 12.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+      ),
+      disabled: SurfaceStyle(
+        backgroundColor: Colors.transparent,
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 12.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary.withValues(alpha: 0.38),
+      ),
+      hovered: SurfaceStyle(
+        backgroundColor: scheme.surface,
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 12.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+        shadows: [
+          // Subtle raised effect on hover
+          BoxShadow(
+            color: lightShadow.withValues(alpha: 0.6),
+            offset: const Offset(-2, -2),
+            blurRadius: 4,
+          ),
+          BoxShadow(
+            color: darkShadow.withValues(alpha: 0.6),
+            offset: const Offset(2, 2),
+            blurRadius: 4,
+          ),
+        ],
+      ),
+      pressed: SurfaceStyle(
+        backgroundColor: scheme.surface,
+        borderColor: Colors.transparent,
+        borderWidth: 0,
+        borderRadius: 12.0,
+        blurStrength: 0.0,
+        contentColor: scheme.primary,
+        shadows: [
+          // Subtle inset on press
+          BoxShadow(
+            color: darkShadow.withValues(alpha: 0.4),
+            offset: const Offset(-1, -1),
+            blurRadius: 2,
+          ),
+          BoxShadow(
+            color: lightShadow.withValues(alpha: 0.4),
+            offset: const Offset(1, 1),
+            blurRadius: 2,
+          ),
+        ],
+      ),
+    );
+
+    // Create color specs
+    final filledContentColors = StateColorSpec(
+      active: scheme.onPrimary,
+      inactive: scheme.onPrimary.withValues(alpha: 0.8),
+      disabled: scheme.onSurface.withValues(alpha: 0.38),
+      hover: scheme.onPrimary,
+      pressed: scheme.onPrimary,
+    );
+
+    final outlineContentColors = StateColorSpec(
+      active: scheme.primary,
+      inactive: scheme.primary.withValues(alpha: 0.8),
+      disabled: scheme.primary.withValues(alpha: 0.38),
+      hover: scheme.primary,
+      pressed: scheme.primary,
+    );
+
+    final textContentColors = StateColorSpec(
+      active: scheme.primary,
+      inactive: scheme.primary.withValues(alpha: 0.8),
+      disabled: scheme.primary.withValues(alpha: 0.38),
+      hover: scheme.primary,
+      pressed: scheme.primary,
+    );
+
+    // Create text styles with soft weight for neumorphic theme
+    final textStyles = ButtonTextStyles(
+      small: textTheme.labelMedium!.copyWith(
         fontWeight: FontWeight.w500,
         color: scheme.primary,
       ),
-      mediumTextStyle: textTheme.labelLarge!.copyWith(
+      medium: textTheme.labelLarge!.copyWith(
         fontWeight: FontWeight.w500,
         color: scheme.primary,
       ),
-      largeTextStyle: textTheme.titleMedium!.copyWith(
-        fontWeight: FontWeight.w500,
+      large: textTheme.titleMedium!.copyWith(
+        fontWeight: FontWeight.w600, // Slightly bolder for large
         color: scheme.primary,
       ),
-      interaction: const InteractionSpec(
-        pressedScale: 0.98, // Slight scale for Neumorphic theme
-        pressedOpacity: 1.0,
-        hoverOpacity: 1.0,
-        pressedOffset: Offset.zero,
-      ),
+    );
+
+    // Create size spec with neumorphic proportions
+    const sizeSpec = ButtonSizeSpec(
+      smallHeight: 36.0, // Slightly taller for shadow visibility
+      mediumHeight: 52.0,
+      largeHeight: 60.0, // More height for shadow effect
+      smallPadding: EdgeInsets.symmetric(horizontal: 20.0),
+      mediumPadding: EdgeInsets.symmetric(horizontal: 28.0),
+      largePadding: EdgeInsets.symmetric(horizontal: 36.0),
+      iconSpacing: 12.0, // More space for soft aesthetic
+    );
+
+    // Create interaction spec with neumorphic animations
+    const interaction = InteractionSpec(
+      pressedScale: 0.98, // Subtle scale for soft press effect
+      hoverOpacity: 1.0, // No opacity changes - use shadows instead
+      pressedOpacity: 1.0, // No opacity changes
+      pressedOffset: Offset.zero, // No offset - use shadow changes instead
+    );
+
+    return AppButtonStyle(
+      filledSurfaces: filledSurfaces,
+      filledContentColors: filledContentColors,
+      outlineSurfaces: outlineSurfaces,
+      outlineContentColors: outlineContentColors,
+      textSurfaces: textSurfaces,
+      textContentColors: textContentColors,
+      textStyles: textStyles,
+      sizeSpec: sizeSpec,
+      interaction: interaction,
     );
   }
 }

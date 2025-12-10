@@ -103,8 +103,8 @@ import 'package:widgetbook_workspace/stories/molecules/status/app_tag.stories.da
     as _widgetbook_workspace_stories_molecules_status_app_tag_stories;
 import 'package:widgetbook_workspace/stories/molecules/table/app_data_table.stories.dart'
     as _widgetbook_workspace_stories_molecules_table_app_data_table_stories;
-import 'package:widgetbook_workspace/stories/molecules/text_button_use_case.dart'
-    as _widgetbook_workspace_stories_molecules_text_button_use_case;
+import 'package:widgetbook_workspace/stories/molecules/text_button.stories.dart'
+    as _widgetbook_workspace_stories_molecules_text_button_stories;
 import 'package:widgetbook_workspace/stories/molecules/toggles/app_switch.stories.dart'
     as _widgetbook_workspace_stories_molecules_toggles_app_switch_stories;
 import 'package:widgetbook_workspace/stories/molecules/typography/app_styled_text.stories.dart'
@@ -523,16 +523,46 @@ final directories = <_widgetbook.WidgetbookNode>[
             name: 'AppButton',
             useCases: [
               _widgetbook.WidgetbookUseCase(
+                name: 'All Sizes',
+                builder:
+                    _widgetbook_workspace_stories_molecules_text_button_stories
+                        .appTextButtonSizesUseCase,
+              ),
+              _widgetbook.WidgetbookUseCase(
                 name: 'All States (Static)',
                 builder:
                     _widgetbook_workspace_stories_molecules_buttons_app_buttons_stories
                         .buildAppButtonStates,
               ),
               _widgetbook.WidgetbookUseCase(
+                name: 'Default',
+                builder:
+                    _widgetbook_workspace_stories_molecules_text_button_stories
+                        .appTextButtonUseCase,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Interactive Demo',
+                builder:
+                    _widgetbook_workspace_stories_molecules_text_button_stories
+                        .appTextButtonInteractiveUseCase,
+              ),
+              _widgetbook.WidgetbookUseCase(
                 name: 'Interactive Playground',
                 builder:
                     _widgetbook_workspace_stories_molecules_buttons_app_buttons_stories
                         .buildInteractiveAppButton,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'States',
+                builder:
+                    _widgetbook_workspace_stories_molecules_text_button_stories
+                        .appTextButtonStatesUseCase,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'With Icons',
+                builder:
+                    _widgetbook_workspace_stories_molecules_text_button_stories
+                        .appTextButtonIconsUseCase,
               ),
             ],
           ),
@@ -1378,46 +1408,6 @@ final directories = <_widgetbook.WidgetbookNode>[
                 builder:
                     _widgetbook_workspace_stories_molecules_navigation_app_tabs_stories
                         .buildTabsWithContent,
-              ),
-            ],
-          )
-        ],
-      ),
-      _widgetbook.WidgetbookFolder(
-        name: 'text_button',
-        children: [
-          _widgetbook.WidgetbookComponent(
-            name: 'AppTextButton',
-            useCases: [
-              _widgetbook.WidgetbookUseCase(
-                name: 'All Sizes',
-                builder:
-                    _widgetbook_workspace_stories_molecules_text_button_use_case
-                        .appTextButtonSizesUseCase,
-              ),
-              _widgetbook.WidgetbookUseCase(
-                name: 'Default',
-                builder:
-                    _widgetbook_workspace_stories_molecules_text_button_use_case
-                        .appTextButtonUseCase,
-              ),
-              _widgetbook.WidgetbookUseCase(
-                name: 'Interactive Demo',
-                builder:
-                    _widgetbook_workspace_stories_molecules_text_button_use_case
-                        .appTextButtonInteractiveUseCase,
-              ),
-              _widgetbook.WidgetbookUseCase(
-                name: 'States',
-                builder:
-                    _widgetbook_workspace_stories_molecules_text_button_use_case
-                        .appTextButtonStatesUseCase,
-              ),
-              _widgetbook.WidgetbookUseCase(
-                name: 'With Icons',
-                builder:
-                    _widgetbook_workspace_stories_molecules_text_button_use_case
-                        .appTextButtonIconsUseCase,
               ),
             ],
           )
