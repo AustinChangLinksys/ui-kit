@@ -37,6 +37,9 @@ class AppPageView extends StatelessWidget {
   /// Configuration for the bottom action bar
   final PageBottomBarConfig? bottomBarConfig;
 
+  /// Custom bottom bar widget (takes priority over bottomBarConfig)
+  final Widget? customBottomBar;
+
   /// Configuration for the responsive menu system
   final PageMenuConfig? menuConfig;
 
@@ -109,6 +112,7 @@ class AppPageView extends StatelessWidget {
     this.sideMenu,
     this.appBarConfig,
     this.bottomBarConfig,
+    this.customBottomBar,
     this.menuConfig,
     this.menuPosition = MenuPosition.left,
     this.fabConfig,
@@ -477,7 +481,7 @@ class AppPageView extends StatelessWidget {
 
           final scaffold = Scaffold(
             backgroundColor: backgroundColor,
-            appBar: _buildAppBar(context),
+            appBar: useSlivers ? null : _buildAppBar(context), // Only use AppBar in Box mode
             body: contentLayer,
             bottomNavigationBar:
                 _buildBottomBar(context) ?? bottomNavigationBar,
@@ -702,6 +706,7 @@ class AppPageView extends StatelessWidget {
         titleWidget: config.title != null ? AppText(config.title!) : null,
         automaticallyImplyLeading: config.showBackButton,
         actions: actions.isNotEmpty ? actions : null,
+        centerTitle: false, // Default to left alignment
         // Note: AppUnifiedBar doesn't support toolbarHeight and sliver mode directly
         // This is a limitation that may need future enhancement
       );
@@ -712,6 +717,7 @@ class AppPageView extends StatelessWidget {
         titleWidget:
             menuConfig!.title != null ? AppText(menuConfig!.title!) : null,
         actions: actions,
+        centerTitle: false, // Default to left alignment
       );
     }
 
@@ -719,8 +725,13 @@ class AppPageView extends StatelessWidget {
   }
 
 
-  /// Build bottom action bar from configuration
+  /// Build bottom action bar from configuration with priority logic
+  /// Priority: customBottomBar > bottomBarConfig
   Widget? _buildBottomBar(BuildContext context) {
+    // Priority 1: Custom bottom bar widget
+    if (customBottomBar != null) return customBottomBar;
+
+    // Priority 2: Structured configuration
     if (bottomBarConfig == null) return null;
 
     final config = bottomBarConfig!;
@@ -760,14 +771,30 @@ class AppPageView extends StatelessWidget {
       BuildContext context, bool isDesktop, Widget contentWidget) {
     List<Widget> slivers = [];
 
+    // 1. Add header first (appears above AppBar)
     if (header != null) {
       slivers.add(header!);
     }
 
-    // 1. Start with the provided content widget (No padding yet)
+    // 2. Add AppBar as SliverAppBar if present
+    final appBar = _buildAppBar(context);
+    if (appBar != null) {
+      slivers.add(SliverAppBar(
+        toolbarHeight: appBar.preferredSize.height,
+        pinned: false,
+        floating: false,
+        flexibleSpace: appBar,
+        backgroundColor: backgroundColor,
+        automaticallyImplyLeading: false,
+        titleSpacing: 0,
+        elevation: 0,
+      ));
+    }
+
+    // 3. Start with the provided content widget (No padding yet)
     Widget contentBlock = contentWidget;
 
-    // 2. Combine with Menu if Desktop (Structure first)
+    // 4. Combine with Menu if Desktop (Structure first)
     // Structure: [Menu] [Gutter] [Content]
     // Only show sidebar menu if position is left
     if (isDesktop &&
@@ -778,7 +805,7 @@ class AppPageView extends StatelessWidget {
       contentBlock = _buildDesktopMenuLayout(context, contentBlock);
     }
 
-    // 3. Apply Padding to the WHOLE structure
+    // 5. Apply Padding to the WHOLE structure
     // This ensures Menu is also pushed by the page margin
     if (useContentPadding) {
       contentBlock = Padding(

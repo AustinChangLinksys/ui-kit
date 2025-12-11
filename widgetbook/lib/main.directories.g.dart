@@ -51,6 +51,8 @@ import 'package:widgetbook_workspace/stories/molecules/dialogs/app_dialog.storie
     as _widgetbook_workspace_stories_molecules_dialogs_app_dialog_stories;
 import 'package:widgetbook_workspace/stories/molecules/display/app_tooltip.stories.dart'
     as _widgetbook_workspace_stories_molecules_display_app_tooltip_stories;
+import 'package:widgetbook_workspace/stories/molecules/feedback/app_full_screen_loader.stories.dart'
+    as _widgetbook_workspace_stories_molecules_feedback_app_full_screen_loader_stories;
 import 'package:widgetbook_workspace/stories/molecules/feedback/app_loader.stories.dart'
     as _widgetbook_workspace_stories_molecules_feedback_app_loader_stories;
 import 'package:widgetbook_workspace/stories/molecules/feedback/app_toast.stories.dart'
@@ -804,6 +806,29 @@ final directories = <_widgetbook.WidgetbookNode>[
       _widgetbook.WidgetbookFolder(
         name: 'feedback',
         children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'AppFullScreenLoader',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Different Configurations',
+                builder:
+                    _widgetbook_workspace_stories_molecules_feedback_app_full_screen_loader_stories
+                        .buildFullScreenLoaderVariations,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Interactive Demo',
+                builder:
+                    _widgetbook_workspace_stories_molecules_feedback_app_full_screen_loader_stories
+                        .buildFullScreenLoaderDemo,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Static Preview',
+                builder:
+                    _widgetbook_workspace_stories_molecules_feedback_app_full_screen_loader_stories
+                        .buildFullScreenLoaderPreview,
+              ),
+            ],
+          ),
           _widgetbook.WidgetbookComponent(
             name: 'AppLoader',
             useCases: [

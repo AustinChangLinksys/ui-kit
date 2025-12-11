@@ -16,6 +16,7 @@ class AppTextField extends StatefulWidget {
     this.focusNode,
     this.hintText,
     this.onChanged,
+    this.onSubmitted,
     this.errorText,
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
@@ -31,6 +32,7 @@ class AppTextField extends StatefulWidget {
   final FocusNode? focusNode;
   final String? hintText;
   final ValueChanged<String>? onChanged;
+  final ValueChanged<String>? onSubmitted;
   final String? errorText;
   final bool obscureText;
   final TextInputType keyboardType;
@@ -150,6 +152,7 @@ class _AppTextFieldState extends State<AppTextField> {
                   controller: widget.controller,
                   focusNode: _focusNode,
                   onChanged: widget.onChanged,
+                  onSubmitted: widget.onSubmitted,
                   obscureText: widget.obscureText,
                   keyboardType: widget.keyboardType,
                   inputFormatters: widget.inputFormatters,

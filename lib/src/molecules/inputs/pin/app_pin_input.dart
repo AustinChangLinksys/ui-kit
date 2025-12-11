@@ -6,8 +6,11 @@ class AppPinInput extends StatefulWidget {
   final int length;
   final ValueChanged<String>? onCompleted;
   final ValueChanged<String>? onChanged;
+  final VoidCallback? onSubmitted;
   final bool obscureText;
   final bool autoFocus;
+  final bool stayOnLastField;
+  final TextEditingController? controller;
   final String? errorText;
 
   const AppPinInput({
@@ -15,8 +18,11 @@ class AppPinInput extends StatefulWidget {
     this.length = 6,
     this.onCompleted,
     this.onChanged,
+    this.onSubmitted,
     this.obscureText = false,
     this.autoFocus = false,
+    this.stayOnLastField = false,
+    this.controller,
     this.errorText,
   });
 
@@ -33,21 +39,40 @@ class _AppPinInputState extends State<AppPinInput>
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController();
+    _controller = widget.controller ?? TextEditingController();
     _focusNode = FocusNode();
     _cursorController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
     )..repeat(reverse: true);
 
+    // Add listeners to rebuild UI on changes
+    _controller.addListener(_onControllerChanged);
+    _focusNode.addListener(_onFocusChanged);
+
     if (widget.autoFocus) {
-      _focusNode.requestFocus();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _focusNode.requestFocus();
+      });
     }
+  }
+
+  void _onControllerChanged() {
+    setState(() {});
+  }
+
+  void _onFocusChanged() {
+    setState(() {});
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller.removeListener(_onControllerChanged);
+    _focusNode.removeListener(_onFocusChanged);
+    // Only dispose internal controller, not external one
+    if (widget.controller == null) {
+      _controller.dispose();
+    }
     _focusNode.dispose();
     _cursorController.dispose();
     super.dispose();
@@ -66,9 +91,16 @@ class _AppPinInputState extends State<AppPinInput>
     if (value.length == widget.length) {
       widget.onCompleted?.call(value);
       AppFeedback.onSuccess();
+
+      // If stayOnLastField is false, remove focus after completion
+      if (!widget.stayOnLastField) {
+        _focusNode.unfocus();
+      }
     } else {
       AppFeedback.onInteraction();
     }
+
+    // Trigger UI rebuild to show changes
     setState(() {});
   }
 
@@ -77,38 +109,14 @@ class _AppPinInputState extends State<AppPinInput>
     final theme = AppDesignTheme.of(context);
     final style = theme.pinInputStyle;
 
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        // Ghost Input (Hidden TextField)
-        Semantics(
-          label: 'PIN Input',
-          hint: 'Enter ${widget.length} digits',
-          textField: true,
-          child: Opacity(
-            opacity: 0.0,
-            child: TextField(
-              controller: _controller,
-              focusNode: _focusNode,
-              maxLength: widget.length,
-              keyboardType: TextInputType.number,
-              onChanged: _onChanged,
-              enableSuggestions: false,
-              autocorrect: false,
-              showCursor: false,
-              contextMenuBuilder: null, // Disable context menu
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                counterText: '',
-              ),
-            ),
-          ),
-        ),
-
-        // Visual Rendering
-        GestureDetector(
-          onTap: () => _focusNode.requestFocus(),
-          child: Row(
+    return GestureDetector(
+      onTap: () => _focusNode.requestFocus(),
+      behavior: HitTestBehavior.opaque,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          // Visual Rendering (Bottom Layer)
+          Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(widget.length, (index) {
@@ -119,8 +127,40 @@ class _AppPinInputState extends State<AppPinInput>
               );
             }),
           ),
-        ),
-      ],
+
+          // Ghost Input (Top Layer - Invisible but Functional)
+          Positioned.fill(
+            child: Semantics(
+              label: 'PIN Input',
+              hint: 'Enter ${widget.length} digits',
+              textField: true,
+              child: TextField(
+                controller: _controller,
+                focusNode: _focusNode,
+                maxLength: widget.length,
+                keyboardType: TextInputType.number,
+                onChanged: _onChanged,
+                onSubmitted: (_) => widget.onSubmitted?.call(),
+                enableSuggestions: false,
+                autocorrect: false,
+                showCursor: false,
+                contextMenuBuilder: null, // Disable context menu
+                style: const TextStyle(
+                  color: Colors.transparent, // Make text invisible
+                  fontSize: 1, // Minimal size
+                ),
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  counterText: '',
+                  contentPadding: EdgeInsets.zero,
+                  isDense: true,
+                  filled: false,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -130,8 +170,7 @@ class _AppPinInputState extends State<AppPinInput>
     final isActive = index == text.length && _focusNode.hasFocus;
     final char = isFilled ? text[index] : '';
     // Use '•' (bullet) for obscured text - available in most fonts
-    final displayChar =
-        widget.obscureText && isFilled ? '•' : char;
+    final displayChar = widget.obscureText && isFilled ? '•' : char;
 
     final hasError = widget.errorText != null;
 
@@ -148,7 +187,8 @@ class _AppPinInputState extends State<AppPinInput>
 
     // Text color should always be visible against the background
     // Use the style's textStyle.color which is set by the theme for proper contrast
-    final textColor = style.textStyle.color ?? theme.inputStyle.outlineStyle.contentColor;
+    final textColor =
+        style.textStyle.color ?? theme.inputStyle.outlineStyle.contentColor;
 
     // Determine border radius based on cell shape
     final borderRadius = switch (style.cellShape) {
@@ -176,7 +216,8 @@ class _AppPinInputState extends State<AppPinInput>
     }
 
     // For recess style, use a visible border if the theme has transparent border
-    final effectiveBorderColor = style.cellShape == PinCellShape.recess && borderColor == Colors.transparent
+    final effectiveBorderColor = style.cellShape == PinCellShape.recess &&
+            borderColor == Colors.transparent
         ? theme.surfaceBase.contentColor.withValues(alpha: 0.15)
         : borderColor;
 
