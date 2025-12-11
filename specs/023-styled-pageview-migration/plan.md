@@ -7,7 +7,7 @@
 
 ## Summary
 
-Complete 4-phase migration strategy to replace PrivacyGUI's StyledAppPageView with enhanced UI Kit AppPageView while maintaining 100% API compatibility. The strategy includes experimental testing approach with AppBar integration, bottom bar system, responsive menu system, tabs support, and Sliver mode enhancements, culminating in safe rollout system with automatic fallback mechanisms.
+Complete 4-phase migration strategy to replace PrivacyGUI's StyledAppPageView with enhanced UI Kit AppPageView while maintaining 100% API compatibility. The strategy includes experimental testing approach with AppBar integration, bottom bar system, responsive menu system, tabs support, and Sliver mode enhancements, followed by production-ready UiKitPageView implementation with native PrivacyGUI integration and complete cleanup of experimental components.
 
 ## Technical Context
 
@@ -18,8 +18,8 @@ Complete 4-phase migration strategy to replace PrivacyGUI's StyledAppPageView wi
 **Target Platform**: Flutter multi-platform (iOS, Android, Web, Desktop)
 **Project Type**: mobile/cross-platform library - UI Kit package structure
 **Performance Goals**: Equivalent render time and memory usage compared to baseline StyledAppPageView, 60 FPS on mid-range devices
-**Constraints**: 100% API compatibility requirement, 2-week production validation period, automatic fallback on component errors
-**Scale/Scope**: 8+ complex page components, 4 migration phases, 20 functional requirements, affects both UI Kit and PrivacyGUI projects
+**Constraints**: 100% API compatibility requirement, native PrivacyGUI integration without adapters, clean production architecture
+**Scale/Scope**: 8+ complex page components, 4 migration phases, 22 functional requirements, affects both UI Kit and PrivacyGUI projects
 
 ## Constitution Check
 
@@ -119,17 +119,21 @@ widgetbook/lib/stories/
 # PrivacyGUI Application (Secondary Project)
 ../belkin/privacyGUI/PrivacyGUI/lib/page/
 ├── components/
-│   └── experimental/
-│       ├── experimental_ui_kit_page_view.dart    # New: API-compatible wrapper
-│       ├── ui_kit_adapters.dart                  # New: Parameter conversion logic
-│       └── privacy_gui_wrappers.dart             # New: Domain-specific wrappers
-├── test_pages/
-│   └── ui_kit_migration_test_page.dart           # New: Testing validation page
-└── test_utils/
-    └── migration_analyzer.dart                   # New: Complexity analysis tool
+│   ├── experimental/
+│   │   ├── experimental_ui_kit_page_view.dart    # Temporary: API-compatible wrapper (Phase 2)
+│   │   ├── ui_kit_adapters.dart                  # Temporary: Parameter conversion logic (Phase 2)
+│   │   └── privacy_gui_wrappers.dart             # Temporary: Domain-specific wrappers (Phase 2)
+│   └── ui_kit_page_view.dart                     # New: Production UiKitPageView (Phase 3)
+└── foundation/
+    └── theme/
+        └── design_system/
+            └── specs/
+                ├── privacy_gui_page_style.dart   # New: PrivacyGUI page theme spec (Phase 3)
+                ├── connection_state_style.dart   # New: Connection state theme spec (Phase 3)
+                └── banner_style.dart             # New: Banner notification theme spec (Phase 3)
 ```
 
-**Structure Decision**: This is a dual-repository feature requiring coordinated development across UI Kit (primary) and PrivacyGUI (secondary) projects. The UI Kit receives enhanced capabilities while PrivacyGUI gets experimental integration components for safe migration testing.
+**Structure Decision**: This is a dual-repository feature requiring coordinated development across UI Kit (primary) and PrivacyGUI (secondary) projects. The UI Kit receives enhanced capabilities while PrivacyGUI gets experimental integration components for safe migration testing (Phase 2), followed by production UiKitPageView with native PrivacyGUI integration and theme specifications (Phase 3), and complete cleanup of experimental components (Phase 4).
 
 ## Complexity Tracking
 
@@ -166,8 +170,10 @@ widgetbook/lib/stories/
 1. Generate actionable tasks using `/speckit.tasks` command
 2. Begin UI Kit AppPageView enhancement implementation
 3. Create comprehensive test coverage for new features
-4. Implement PrivacyGUI experimental adapter layer
-5. Build migration validation tools and complexity analysis
-6. Deploy feature flag system for safe rollout
+4. Implement PrivacyGUI experimental adapter layer (temporary)
+5. Create production UiKitPageView with native PrivacyGUI integration
+6. Implement PrivacyGUI theme specifications using @TailorMixin
+7. Systematically migrate all StyledPageView usage to production UiKitPageView
+8. Clean up all experimental components and adapters
 
-**Architecture Foundation**: All design artifacts completed and validated against UI Kit constitutional requirements. Implementation can proceed with confidence in architectural decisions and component contracts.
+**Architecture Foundation**: All design artifacts completed and validated against UI Kit constitutional requirements. Implementation can proceed with confidence in architectural decisions and component contracts. The experimental components serve as validation prototypes and will be completely removed after production implementation.

@@ -49,45 +49,49 @@ PrivacyGUI developers need a drop-in replacement for StyledAppPageView that main
 
 ---
 
-### User Story 3 - Migration Validation Tools (Priority: P3)
+### User Story 3 - Production UiKitPageView (Priority: P1)
 
-Development teams need testing and analysis tools to validate migration success, compare old vs new implementations, and identify potential complexity issues before full deployment.
+PrivacyGUI developers need a clean, production-ready UiKitPageView component that completely replaces StyledPageView with native PrivacyGUI integration, eliminating the need for experimental adapters and providing a maintainable, long-term solution.
 
-**Why this priority**: These tools ensure migration quality and provide confidence in the migration process, but are not essential for core functionality.
+**Why this priority**: This represents the final production implementation that completely removes the dependency on StyledPageView and provides a clean, maintainable architecture without adapters.
 
-**Independent Test**: Can be tested by running the migration test page, switching between implementations, and generating complexity analysis reports for various page configurations.
+**Independent Test**: Can be tested by replacing ExperimentalUiKitPageView with the production UiKitPageView and verifying identical behavior with improved code structure and performance.
 
 **Acceptance Scenarios**:
 
-1. **Given** the migration test page, **When** switching between old and new implementations, **Then** users can visually compare behavior and verify functional equivalence
-2. **Given** different page complexity configurations, **When** using the migration analyzer, **Then** appropriate complexity scores and recommendations are generated
-3. **Given** test scenarios (basic, menu, tabs, complex), **When** running tests, **Then** both implementations behave identically across all scenarios
+1. **Given** a page using ExperimentalUiKitPageView, **When** replaced with production UiKitPageView, **Then** all functionality works identically but with cleaner code structure and no adapter layers
+2. **Given** PrivacyGUI-specific features like TopBar, connection state, and banners, **When** using production UiKitPageView, **Then** these features are natively integrated without wrapper components
+3. **Given** the production implementation, **When** examining the code, **Then** it contains no experimental prefixes, no adapter patterns, and follows clean architecture principles
 
 ---
 
-### User Story 4 - Safe Rollout System (Priority: P3)
+### User Story 4 - Complete Migration & Cleanup (Priority: P2)
 
-Development teams need a feature flag system to safely roll out the migrated components with page-level control and automatic fallback mechanisms to minimize deployment risks.
+PrivacyGUI development team needs systematic migration of existing StyledPageView usage to the production UiKitPageView with comprehensive cleanup of deprecated experimental code and documentation updates.
 
-**Why this priority**: Important for production safety but not required for core migration functionality.
+**Why this priority**: Essential for completing the migration and maintaining a clean, maintainable codebase without legacy experimental components.
 
-**Independent Test**: Can be tested by enabling/disabling feature flags and verifying that pages correctly switch between implementations with proper error handling.
+**Independent Test**: Can be tested by verifying that all StyledPageView imports are removed, ExperimentalUiKitPageView is completely cleaned up, and all pages use the production UiKitPageView.
 
 **Acceptance Scenarios**:
 
-1. **Given** feature flags configured for specific pages, **When** flags are enabled, **Then** those pages use the new implementation while others remain unchanged
-2. **Given** an error occurs in the new implementation, **When** the page renders, **Then** it automatically falls back to the old implementation and logs the error
-3. **Given** different environments (dev, staging, production), **When** feature flags are configured, **Then** appropriate migration levels are applied per environment
+1. **Given** the completed migration, **When** searching the codebase, **Then** no references to StyledPageView or ExperimentalUiKitPageView remain
+2. **Given** all migrated pages, **When** running the application, **Then** all functionality works correctly with improved performance and maintainability
+3. **Given** the final codebase, **When** reviewing the architecture, **Then** it contains only production-ready UiKitPageView with clean, documented APIs
 
 ---
 
 ### Edge Cases
 
-- What happens when a page configuration exceeds the maximum supported complexity (10+ complexity score)?
-- How does the system handle malformed or incompatible configuration parameters during conversion?
-- What occurs when UI Kit components are missing or unavailable during migration?
-- How does responsive menu behavior adapt when screen size changes during page interaction?
-- What happens when both old and new implementations are accidentally enabled simultaneously?
+**Theme Integration Failures**: When PrivacyGUI-specific theme extensions are missing, UiKitPageView falls back to UI Kit default styling and logs a warning, ensuring the page remains functional.
+
+**Configuration Errors**: Production UiKitPageView validates TopBar configurations at build time and displays helpful error messages for malformed parameters, preventing runtime crashes.
+
+**Version Synchronization**: When UI Kit components are updated but PrivacyGUI integration code is out of sync, the system provides clear deprecation warnings and maintains backward compatibility for one major version.
+
+**Dynamic Responsiveness**: Responsive menu behavior automatically adapts when screen size changes during page interaction, smoothly transitioning between desktop sidebar and mobile modal presentations.
+
+**Concurrent Usage Prevention**: Build-time analysis prevents both ExperimentalUiKitPageView and production UiKitPageView from being used in the same application, with clear migration guidance provided.
 
 ## Requirements *(mandatory)*
 
@@ -111,19 +115,21 @@ Development teams need a feature flag system to safely roll out the migrated com
 - **FR-011**: Configuration conversion MUST handle destructive action styling and maintain compatibility with existing parameter naming conventions
 - **FR-012**: System MUST integrate existing application features including overlay displays, header customization, and status labeling exactly as before
 
-#### Phase 3: Testing and Validation
+#### Phase 3: Production UiKitPageView
 
-- **FR-013**: Migration test tools MUST provide real-time visual and functional comparison between original and enhanced page implementations, validating both rendered output and interactive behavior
-- **FR-014**: System MUST support multiple test scenarios covering basic pages, menu-enabled pages, tabbed pages, and complex multi-feature pages
-- **FR-015**: Migration analyzer MUST calculate page complexity scores based on feature usage patterns and provide quantified assessment
-- **FR-016**: System MUST provide actionable migration recommendations based on complexity analysis with clear priority guidance
+- **FR-013**: Production UiKitPageView MUST natively integrate PrivacyGUI-specific features including TopBar, connection state handling, banner notifications, and scroll listeners without adapter layers
+- **FR-014**: Production component MUST support all StyledPageView factory constructors (login, dashboard, settings, etc.) with identical API signatures and behaviors
+- **FR-015**: System MUST implement PrivacyGUI theme integration using @TailorMixin specifications for PrivacyGuiPageStyle, ConnectionStateStyle, and BannerStyle
+- **FR-016**: Production component MUST provide clean, maintainable architecture with comprehensive parameter validation and helpful error messages
+- **FR-017**: System MUST support theme extensions integration across all 5 visual languages (Glass, Brutal, Flat, Neumorphic, Pixel) with proper dark/light mode support
 
-#### Phase 4: Safe Rollout
+#### Phase 4: Migration and Cleanup
 
-- **FR-017**: Feature control system MUST provide global and individual page migration controls with safe default settings
-- **FR-018**: System MUST support automatic fallback to original implementation when component rendering errors, exceptions, or crashes occur, with comprehensive error logging for diagnosis
-- **FR-019**: Page rendering MUST include error handling with comprehensive reporting for new implementations
-- **FR-020**: Feature controls MUST support runtime configuration through deployment and environment management
+- **FR-018**: Migration process MUST systematically replace all StyledPageView usage with production UiKitPageView while maintaining identical functionality
+- **FR-019**: System MUST remove all experimental components, adapters, and wrapper classes from the codebase after migration completion
+- **FR-020**: Final implementation MUST achieve performance parity or improvement compared to original StyledPageView implementation
+- **FR-021**: Codebase MUST contain comprehensive documentation for UiKitPageView usage patterns and migration guidance
+- **FR-022**: System MUST provide automated migration script for common StyledPageView usage patterns to reduce manual conversion effort
 
 ### Key Entities
 
@@ -131,28 +137,31 @@ Development teams need a feature flag system to safely roll out the migrated com
 - **Page Action Bar Configuration**: Represents bottom action area with primary/secondary actions, enable states, styling variations, and interaction behaviors
 - **Page Menu Configuration**: Represents responsive menu system with adaptive display modes, menu content structure, sizing preferences, and activation controls
 - **Menu Item Definition**: Represents individual menu entries with display text, visual indicators, interaction behaviors, and availability states
-- **Migration Assessment Report**: Analysis results containing complexity evaluation, identified implementation challenges, risk warnings, and recommended migration approach
-- **Feature Control Settings**: Migration control configuration with global defaults, individual page overrides, and environment-specific runtime behavior
+- **PrivacyGUI Page Style**: @TailorMixin theme specification for PrivacyGUI-specific styling including TopBar, connection state indicators, and banner notifications
+- **Production UiKitPageView**: Clean, production-ready page component with native PrivacyGUI integration and no adapter dependencies
 
 ## Success Criteria *(mandatory)*
 
 ### Measurable Outcomes
 
 - **SC-001**: UI Kit developers can create complete page layouts with AppBar, bottom bar, menus, and tabs using enhanced AppPageView in under 10 minutes
-- **SC-002**: 100% of existing StyledAppPageView usage can be replaced with ExperimentalUiKitPageView with zero functional regression, validated through 2-week production monitoring period
-- **SC-003**: Migration validation tools correctly identify visual and functional compatibility issues with 95% accuracy through combined rendered output comparison and behavior verification across different page configurations
-- **SC-004**: Feature flag system enables safe rollout with automatic fallback success rate of 99.9% when errors occur
+- **SC-002**: 100% of existing StyledAppPageView usage can be replaced with ExperimentalUiKitPageView with zero functional regression, validated through direct testing and comparison
+- **SC-003**: Production UiKitPageView provides identical functionality to ExperimentalUiKitPageView but with cleaner architecture and no adapter dependencies
+- **SC-004**: Production UiKitPageView achieves performance parity or improvement compared to original StyledPageView implementation
 - **SC-005**: Enhanced UI Kit components perform equivalently to original implementations with no measurable degradation in render time or memory usage compared to baseline measurements
-- **SC-006**: Migration complexity analysis provides actionable guidance with recommendation accuracy verified against actual migration effort
-- **SC-007**: Complete migration from PrivacyGUI StyledAppPageView to UI Kit reduces codebase complexity and eliminates privacy_widget dependency
+- **SC-006**: PrivacyGUI theme integration works seamlessly across all 5 visual languages (Glass, Brutal, Flat, Neumorphic, Pixel) with proper dark/light mode support
+- **SC-007**: Complete migration from PrivacyGUI StyledAppPageView to production UiKitPageView reduces codebase complexity and eliminates all experimental/adapter components
 - **SC-008**: All responsive layout behaviors work correctly across desktop (≥1200px), tablet (768-1199px), and mobile (<768px) viewports
+- **SC-009**: Final codebase contains zero references to StyledPageView or ExperimentalUiKitPageView after complete migration
+- **SC-010**: Production UiKitPageView provides comprehensive documentation and migration guidance for common usage patterns
 
 ## Assumptions
 
 - UI Kit project structure and build system can accommodate the enhanced page layout components
-- PrivacyGUI project can integrate experimental components without conflicts with existing dependencies
-- Development team has expertise in Flutter responsive design and component architecture
+- PrivacyGUI project can integrate experimental components and production UiKitPageView without conflicts with existing dependencies
+- Development team has expertise in Flutter responsive design, component architecture, and @TailorMixin theme systems
 - Sufficient testing resources are available for comprehensive validation across all supported device types
-- Feature flag infrastructure can be implemented within existing PrivacyGUI application architecture
+- PrivacyGUI theme extensions (ColorSchemeExt, TextSchemeExt) can be successfully integrated with UI Kit theme system
 - Migration timeline allows for proper validation of each phase before proceeding to the next phase
-- Phase 1 (UI Kit enhancement) must be completed before Phases 2-4 can begin, though Phases 2-4 can have overlapping development once Phase 1 foundation is established
+- Phase 1 (UI Kit enhancement) and Phase 2 (Experimental component) must be completed before Phase 3 (Production UiKitPageView) can begin
+- ExperimentalUiKitPageView serves as validation prototype and will be completely removed after production implementation is ready
