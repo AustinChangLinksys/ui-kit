@@ -79,6 +79,49 @@ class AppExpansionPanel extends StatefulWidget {
     super.key,
   });
 
+  /// Creates an expansion panel with a single item.
+  ///
+  /// Use [panel] to pass an [ExpansionPanelItem] directly, or use
+  /// [headerTitle] and [content] for convenience.
+  ///
+  /// **Usage Examples**:
+  /// ```dart
+  /// // Using ExpansionPanelItem directly
+  /// AppExpansionPanel.single(
+  ///   panel: ExpansionPanelItem(
+  ///     headerTitle: 'Settings',
+  ///     content: SettingsWidget(),
+  ///   ),
+  /// )
+  ///
+  /// // Using headerTitle and content directly
+  /// AppExpansionPanel.single(
+  ///   headerTitle: 'Settings',
+  ///   content: SettingsWidget(),
+  /// )
+  /// ```
+  AppExpansionPanel.single({
+    ExpansionPanelItem? panel,
+    String? headerTitle,
+    Widget? content,
+    bool initiallyExpanded = false,
+    this.onPanelToggled,
+    this.style,
+    super.key,
+  })  : assert(
+          panel != null || (headerTitle != null && content != null),
+          'Either panel or both headerTitle and content must be provided',
+        ),
+        panels = [
+          panel ??
+              ExpansionPanelItem(
+                headerTitle: headerTitle!,
+                content: content!,
+              ),
+        ],
+        initialExpandedIndices = initiallyExpanded ? {0} : const {},
+        allowMultipleOpen = true;
+
   @override
   State<AppExpansionPanel> createState() => _AppExpansionPanelState();
 }
@@ -184,12 +227,15 @@ class _AppExpansionPanelState extends State<AppExpansionPanel> {
                       color: style.headerTextColor,
                     ),
                   ),
-                  renderer.buildExpandIcon(
-                    style.expandIcon,
-                    style.headerTextColor,
-                    isExpanded,
-                    style.animationDuration,
-                  ).animate(target: isExpanded ? 1 : 0).rotate(
+                  renderer
+                      .buildExpandIcon(
+                        style.expandIcon,
+                        style.headerTextColor,
+                        isExpanded,
+                        style.animationDuration,
+                      )
+                      .animate(target: isExpanded ? 1 : 0)
+                      .rotate(
                         begin: 0,
                         end: 0.5,
                         duration: style.animationDuration,

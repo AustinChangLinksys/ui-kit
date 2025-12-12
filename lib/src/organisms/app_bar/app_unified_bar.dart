@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ui_kit_library/src/atoms/surfaces/app_surface.dart';
 import 'package:ui_kit_library/src/foundation/theme/design_system/app_design_theme.dart';
 
 /// A theme-aware AppBar that automatically adapts visual appearance
@@ -76,7 +75,7 @@ class AppUnifiedBar extends StatelessWidget implements PreferredSizeWidget {
       final bool canPop = parentRoute?.canPop ?? false;
       if (canPop) {
         effectiveLeading = IconButton(
-          icon: Icon(Icons.arrow_back, color: containerStyle.contentColor),
+          icon: Icon(Icons.arrow_back, color: appBarStyle.foregroundColor),
           onPressed: () => Navigator.maybePop(context),
           tooltip: MaterialLocalizations.of(context).backButtonTooltip,
         );
@@ -88,7 +87,7 @@ class AppUnifiedBar extends StatelessWidget implements PreferredSizeWidget {
         Text(
           title,
           style: TextStyle(
-            color: containerStyle.contentColor,
+            color: appBarStyle.foregroundColor,
             fontSize: 20,
             fontWeight: FontWeight.w600,
           ),
@@ -97,7 +96,7 @@ class AppUnifiedBar extends StatelessWidget implements PreferredSizeWidget {
     // Build actions with proper styling
     final effectiveActions = actions?.map((action) {
       return IconTheme(
-        data: IconThemeData(color: containerStyle.contentColor),
+        data: IconThemeData(color: appBarStyle.foregroundColor),
         child: action,
       );
     }).toList();
@@ -105,9 +104,9 @@ class AppUnifiedBar extends StatelessWidget implements PreferredSizeWidget {
     return Semantics(
       header: true,
       label: title,
-      child: AppSurface(
-        style: containerStyle.copyWith(
-          borderRadius: 0, // AppBar should have no radius
+      child: Container(
+        decoration: containerStyle.copyWith(
+          borderRadius: BorderRadius.zero, // AppBar should have no radius
         ),
         child: SafeArea(
           bottom: false,
@@ -144,11 +143,18 @@ class AppUnifiedBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-  Widget _buildDivider(BuildContext context, dividerStyle) {
-    // Simple divider using the style
+  Widget _buildDivider(BuildContext context, BoxDecoration? dividerStyle) {
+    if (dividerStyle == null) return const SizedBox.shrink();
+
+    // Extract border information from BoxDecoration
+    final border = dividerStyle.border;
+    final color = dividerStyle.color ??
+                 (border is Border ? border.top.color : Colors.grey);
+    final thickness = border is Border ? border.top.width : 1.0;
+
     return Container(
-      height: dividerStyle.thickness,
-      color: dividerStyle.color,
+      height: thickness,
+      color: color,
     );
   }
 }

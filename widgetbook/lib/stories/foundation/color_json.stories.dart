@@ -41,9 +41,10 @@ const defaultFullJson = """
   "styleBackground": "#E0E0E0",
   "styleShadow": "#888888",
   "glowColor": "#FFD700",
-  "signalStrong": "#00FF00",
-  "signalWeak": "#FF0000",
-  "signalGlow": "#00FF00",
+  "semanticSuccess": "#00FF00",
+  "semanticWarning": "#FFA500",
+  "semanticDanger": "#FF0000",
+  "semanticGlow": "#00FF00",
   "activeFillColor": "#FF5733",
   "activeContentColor": "#FFFFFF",
   "overlayColor": "#000000"
@@ -163,8 +164,12 @@ class _AppThemeConfigJsonViewerState extends State<AppThemeConfigJsonViewer> {
                       color: scheme.styleBackground, name: 'StyleBackground'),
                   ColorBox(color: scheme.styleShadow, name: 'StyleShadow'),
                   ColorBox(color: scheme.glowColor, name: 'GlowColor'),
-                  ColorBox(color: scheme.signalStrong, name: 'SignalStrong'),
-                  ColorBox(color: scheme.signalWeak, name: 'SignalWeak'),
+                  ColorBox(
+                      color: scheme.semanticSuccess, name: 'SemanticSuccess'),
+                  ColorBox(
+                      color: scheme.semanticWarning, name: 'SemanticWarning'),
+                  ColorBox(
+                      color: scheme.semanticDanger, name: 'SemanticDanger'),
                   ColorBox(
                       color: scheme.activeFillColor, name: 'ActiveFillColor'),
                 ],
@@ -198,8 +203,7 @@ class ColorBox extends StatelessWidget {
           name,
           textAlign: TextAlign.center,
           style: TextStyle(
-            color:
-                color.computeLuminance() > 0.5 ? Colors.black : Colors.white,
+            color: color.computeLuminance() > 0.5 ? Colors.black : Colors.white,
             fontSize: 10,
             fontWeight: FontWeight.bold,
           ),

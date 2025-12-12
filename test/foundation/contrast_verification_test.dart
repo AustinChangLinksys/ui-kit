@@ -57,8 +57,8 @@ void main() {
 
         verifyContrast(
           name: 'AppBar title on background',
-          foreground: appBarStyle.containerStyle.contentColor,
-          background: appBarStyle.containerStyle.backgroundColor,
+          foreground: appBarStyle.foregroundColor,
+          background: appBarStyle.backgroundColor,
         );
       });
 
@@ -68,8 +68,8 @@ void main() {
 
         verifyContrast(
           name: 'AppBar title on background',
-          foreground: appBarStyle.containerStyle.contentColor,
-          background: appBarStyle.containerStyle.backgroundColor,
+          foreground: appBarStyle.foregroundColor,
+          background: appBarStyle.backgroundColor,
         );
       });
 
@@ -131,8 +131,8 @@ void main() {
 
         verifyContrast(
           name: 'AppBar title on background',
-          foreground: appBarStyle.containerStyle.contentColor,
-          background: appBarStyle.containerStyle.backgroundColor,
+          foreground: appBarStyle.foregroundColor,
+          background: appBarStyle.backgroundColor,
           minimumRatio: kWcagAALargeText, // Allow 3:1 for glass translucent
         );
       });
@@ -143,8 +143,8 @@ void main() {
 
         verifyContrast(
           name: 'AppBar title on background',
-          foreground: appBarStyle.containerStyle.contentColor,
-          background: appBarStyle.containerStyle.backgroundColor,
+          foreground: appBarStyle.foregroundColor,
+          background: appBarStyle.backgroundColor,
           minimumRatio: kWcagAALargeText,
         );
       });
@@ -205,8 +205,8 @@ void main() {
 
         verifyContrast(
           name: 'AppBar title on background',
-          foreground: appBarStyle.containerStyle.contentColor,
-          background: appBarStyle.containerStyle.backgroundColor,
+          foreground: appBarStyle.foregroundColor,
+          background: appBarStyle.backgroundColor,
         );
       });
 
@@ -216,8 +216,8 @@ void main() {
 
         verifyContrast(
           name: 'AppBar title on background',
-          foreground: appBarStyle.containerStyle.contentColor,
-          background: appBarStyle.containerStyle.backgroundColor,
+          foreground: appBarStyle.foregroundColor,
+          background: appBarStyle.backgroundColor,
         );
       });
 
@@ -273,8 +273,8 @@ void main() {
 
         verifyContrast(
           name: 'AppBar title on background',
-          foreground: appBarStyle.containerStyle.contentColor,
-          background: appBarStyle.containerStyle.backgroundColor,
+          foreground: appBarStyle.foregroundColor,
+          background: appBarStyle.backgroundColor,
         );
       });
 
@@ -284,8 +284,8 @@ void main() {
 
         verifyContrast(
           name: 'AppBar title on background',
-          foreground: appBarStyle.containerStyle.contentColor,
-          background: appBarStyle.containerStyle.backgroundColor,
+          foreground: appBarStyle.foregroundColor,
+          background: appBarStyle.backgroundColor,
         );
       });
 
@@ -341,8 +341,8 @@ void main() {
 
         verifyContrast(
           name: 'AppBar title on background',
-          foreground: appBarStyle.containerStyle.contentColor,
-          background: appBarStyle.containerStyle.backgroundColor,
+          foreground: appBarStyle.foregroundColor,
+          background: appBarStyle.backgroundColor,
         );
       });
 
@@ -352,8 +352,8 @@ void main() {
 
         verifyContrast(
           name: 'AppBar title on background',
-          foreground: appBarStyle.containerStyle.contentColor,
-          background: appBarStyle.containerStyle.backgroundColor,
+          foreground: appBarStyle.foregroundColor,
+          background: appBarStyle.backgroundColor,
         );
       });
 

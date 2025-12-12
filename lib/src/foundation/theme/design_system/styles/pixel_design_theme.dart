@@ -7,6 +7,9 @@ import 'package:ui_kit_library/src/foundation/theme/design_system/specs/password
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/shared/animation_spec.dart'
     as shared;
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/styled_text_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/page_layout_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/bottom_bar_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/menu_style.dart';
 
 class PixelDesignTheme extends AppDesignTheme {
   // Factory 1: Create from Config
@@ -235,24 +238,46 @@ class PixelDesignTheme extends AppDesignTheme {
         gutterDesktop: 32.0,
       ),
       appBarStyle: AppBarStyle(
-        containerStyle: SurfaceStyle(
-          backgroundColor: colors.styleBackground,
-          borderColor: colors.highContrastBorder,
-          borderWidth: 2.0,
-          borderRadius: 0.0,
-          shadows: const [],
-          blurStrength: 0.0,
-          contentColor: colors.onSurface,
-        ),
-        dividerStyle: DividerStyle(
-          color: colors.highContrastBorder,
-          thickness: 2.0,
-          pattern: DividerPattern.dashed,
-        ),
+        backgroundColor: colors.styleBackground,
+        foregroundColor: colors.onSurface,
+        surfaceColor: colors.styleBackground,
+        shadowColor: colors.highContrastBorder,
+        elevation: 0.0,
         height: 56.0,
+        titleTextStyle: TextStyle(
+          color: colors.onSurface,
+          fontSize: 20.0,
+          fontWeight: FontWeight.bold,
+        ),
+        actionIconSize: 24.0,
+        leadingIconSize: 24.0,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+        actionSpacing: 12.0,
+        borderRadius: BorderRadius.zero,
+        border: Border.all(
+          color: colors.highContrastBorder,
+          width: 2.0,
+        ),
+        centerTitle: false,
+        titleSpacing: 16.0,
         collapsedHeight: 56.0,
         expandedHeight: 200.0,
         flexibleSpaceBlur: 0.0,
+        containerStyle: BoxDecoration(
+          color: colors.styleBackground,
+          border: Border.all(
+            color: colors.highContrastBorder,
+            width: 2.0,
+          ),
+        ),
+        dividerStyle: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: colors.highContrastBorder,
+              width: 2.0,
+            ),
+          ),
+        ),
       ),
       menuStyle: AppMenuStyle(
         containerStyle: SurfaceStyle(
@@ -502,6 +527,18 @@ class PixelDesignTheme extends AppDesignTheme {
       ),
       styledTextStyle: _createStyledTextStyle(colors, appTextTheme),
       buttonStyle: _createPixelAppButtonStyle(colors, appTextTheme),
+      pageLayoutStyle: PageLayoutStyle.defaultStyle(
+        colorScheme: colors.toMaterialScheme(brightness: Brightness.light),
+        spacing: 16.0,
+      ),
+      bottomBarStyle: BottomBarStyle.defaultStyle(
+        colorScheme: colors.toMaterialScheme(brightness: Brightness.light),
+        textTheme: appTextTheme,
+      ),
+      pageMenuStyle: AppMenuThemeStyle.defaultStyle(
+        colorScheme: colors.toMaterialScheme(brightness: Brightness.light),
+        textTheme: appTextTheme,
+      ),
     );
   }
 
@@ -548,6 +585,9 @@ class PixelDesignTheme extends AppDesignTheme {
     required super.passwordInputStyle,
     required super.styledTextStyle,
     required super.buttonStyle,
+    required super.pageLayoutStyle,
+    required super.bottomBarStyle,
+    required super.pageMenuStyle,
   });
 
   // Helper function to create saturated retro colors for Pixel theme
@@ -790,24 +830,46 @@ class PixelDesignTheme extends AppDesignTheme {
 
       // Phase 2: AppBar, Menu, Dialog styles (Pixel Light)
       appBarStyle: AppBarStyle(
-        containerStyle: SurfaceStyle(
-          backgroundColor: scheme.surface,
-          borderColor: scheme.onSurface,
-          borderWidth: 2.0,
-          borderRadius: 0.0,
-          shadows: const [],
-          blurStrength: 0.0,
-          contentColor: scheme.onSurface,
-        ),
-        dividerStyle: DividerStyle(
-          color: scheme.onSurface,
-          thickness: 2.0,
-          pattern: DividerPattern.dashed,
-        ),
+        backgroundColor: scheme.surface,
+        foregroundColor: scheme.onSurface,
+        surfaceColor: scheme.surface,
+        shadowColor: scheme.onSurface,
+        elevation: 0.0,
         height: 56.0,
+        titleTextStyle: TextStyle(
+          color: scheme.onSurface,
+          fontSize: 20.0,
+          fontWeight: FontWeight.bold,
+        ),
+        actionIconSize: 24.0,
+        leadingIconSize: 24.0,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+        actionSpacing: 12.0,
+        borderRadius: BorderRadius.zero,
+        border: Border.all(
+          color: scheme.onSurface,
+          width: 2.0,
+        ),
+        centerTitle: false,
+        titleSpacing: 16.0,
         collapsedHeight: 56.0,
         expandedHeight: 200.0,
         flexibleSpaceBlur: 0.0,
+        containerStyle: BoxDecoration(
+          color: scheme.surface,
+          border: Border.all(
+            color: scheme.onSurface,
+            width: 2.0,
+          ),
+        ),
+        dividerStyle: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: scheme.onSurface,
+              width: 2.0,
+            ),
+          ),
+        ),
       ),
       menuStyle: AppMenuStyle(
         containerStyle: SurfaceStyle(
@@ -1058,6 +1120,18 @@ class PixelDesignTheme extends AppDesignTheme {
       styledTextStyle: _createStyledTextStyleForScheme(scheme, appTextTheme),
       buttonStyle:
           _createPixelTextAppButtonStyleForScheme(scheme, appTextTheme),
+      pageLayoutStyle: PageLayoutStyle.defaultStyle(
+        colorScheme: scheme,
+        spacing: 16.0,
+      ),
+      bottomBarStyle: BottomBarStyle.defaultStyle(
+        colorScheme: scheme,
+        textTheme: appTextTheme,
+      ),
+      pageMenuStyle: AppMenuThemeStyle.defaultStyle(
+        colorScheme: scheme,
+        textTheme: appTextTheme,
+      ),
     );
   }
 
@@ -1275,24 +1349,46 @@ class PixelDesignTheme extends AppDesignTheme {
 
       // Phase 2: AppBar, Menu, Dialog styles (Pixel Dark)
       appBarStyle: AppBarStyle(
-        containerStyle: SurfaceStyle(
-          backgroundColor: scheme.surface,
-          borderColor: black,
-          borderWidth: 2.0,
-          borderRadius: 0.0,
-          shadows: const [],
-          blurStrength: 0.0,
-          contentColor: black,
-        ),
-        dividerStyle: DividerStyle(
-          color: black,
-          thickness: 2.0,
-          pattern: DividerPattern.dashed,
-        ),
+        backgroundColor: scheme.surface,
+        foregroundColor: scheme.onSurface,
+        surfaceColor: scheme.surface,
+        shadowColor: scheme.onSurface,
+        elevation: 0.0,
         height: 56.0,
+        titleTextStyle: TextStyle(
+          color: scheme.onSurface,
+          fontSize: 20.0,
+          fontWeight: FontWeight.bold,
+        ),
+        actionIconSize: 24.0,
+        leadingIconSize: 24.0,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+        actionSpacing: 12.0,
+        borderRadius: BorderRadius.zero,
+        border: Border.all(
+          color: scheme.onSurface,
+          width: 2.0,
+        ),
+        centerTitle: false,
+        titleSpacing: 16.0,
         collapsedHeight: 56.0,
         expandedHeight: 200.0,
         flexibleSpaceBlur: 0.0,
+        containerStyle: BoxDecoration(
+          color: scheme.surface,
+          border: Border.all(
+            color: scheme.onSurface,
+            width: 2.0,
+          ),
+        ),
+        dividerStyle: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: scheme.onSurface,
+              width: 2.0,
+            ),
+          ),
+        ),
       ),
       menuStyle: AppMenuStyle(
         containerStyle: SurfaceStyle(
@@ -1539,6 +1635,18 @@ class PixelDesignTheme extends AppDesignTheme {
       styledTextStyle: _createStyledTextStyleForDark(scheme, appTextTheme),
       buttonStyle:
           _createPixelTextAppButtonStyleForScheme(scheme, appTextTheme),
+      pageLayoutStyle: PageLayoutStyle.defaultStyle(
+        colorScheme: scheme,
+        spacing: 16.0,
+      ),
+      bottomBarStyle: BottomBarStyle.defaultStyle(
+        colorScheme: scheme,
+        textTheme: appTextTheme,
+      ),
+      pageMenuStyle: AppMenuThemeStyle.defaultStyle(
+        colorScheme: scheme,
+        textTheme: appTextTheme,
+      ),
     );
   }
 

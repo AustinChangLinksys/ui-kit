@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import '../color_utils.dart';
 import 'app_color_scheme.dart';
 import 'app_theme_config.dart';
 
@@ -39,7 +40,8 @@ class AppColorFactory {
 
       // Raw/Custom mode: Parse all fields directly
       // Fallback to a default base scheme (e.g. Neumorphic Light Blue) for missing fields
-      final fallback = generateNeumorphic(const AppThemeConfig(seedColor: Colors.blue));
+      final fallback =
+          generateNeumorphic(const AppThemeConfig(seedColor: Colors.blue));
 
       Color parse(String key, Color defaultValue) {
         final value = map[key];
@@ -62,34 +64,43 @@ class AppColorFactory {
         primary: parse('primary', fallback.primary),
         onPrimary: parse('onPrimary', fallback.onPrimary),
         primaryContainer: parse('primaryContainer', fallback.primaryContainer),
-        onPrimaryContainer: parse('onPrimaryContainer', fallback.onPrimaryContainer),
+        onPrimaryContainer:
+            parse('onPrimaryContainer', fallback.onPrimaryContainer),
         secondary: parse('secondary', fallback.secondary),
         onSecondary: parse('onSecondary', fallback.onSecondary),
-        secondaryContainer: parse('secondaryContainer', fallback.secondaryContainer),
-        onSecondaryContainer: parse('onSecondaryContainer', fallback.onSecondaryContainer),
+        secondaryContainer:
+            parse('secondaryContainer', fallback.secondaryContainer),
+        onSecondaryContainer:
+            parse('onSecondaryContainer', fallback.onSecondaryContainer),
         tertiary: parse('tertiary', fallback.tertiary),
         onTertiary: parse('onTertiary', fallback.onTertiary),
-        tertiaryContainer: parse('tertiaryContainer', fallback.tertiaryContainer),
-        onTertiaryContainer: parse('onTertiaryContainer', fallback.onTertiaryContainer),
+        tertiaryContainer:
+            parse('tertiaryContainer', fallback.tertiaryContainer),
+        onTertiaryContainer:
+            parse('onTertiaryContainer', fallback.onTertiaryContainer),
         error: parse('error', fallback.error),
         onError: parse('onError', fallback.onError),
         errorContainer: parse('errorContainer', fallback.errorContainer),
         onErrorContainer: parse('onErrorContainer', fallback.onErrorContainer),
-        
+
         // M3 Surface
         surface: parse('surface', fallback.surface),
         onSurface: parse('onSurface', fallback.onSurface),
         onSurfaceVariant: parse('onSurfaceVariant', fallback.onSurfaceVariant),
         surfaceTint: parse('surfaceTint', fallback.surfaceTint),
         surfaceContainer: parse('surfaceContainer', fallback.surfaceContainer),
-        surfaceContainerHigh: parse('surfaceContainerHigh', fallback.surfaceContainerHigh),
-        surfaceContainerHighest: parse('surfaceContainerHighest', fallback.surfaceContainerHighest),
-        surfaceContainerLow: parse('surfaceContainerLow', fallback.surfaceContainerLow),
-        surfaceContainerLowest: parse('surfaceContainerLowest', fallback.surfaceContainerLowest),
+        surfaceContainerHigh:
+            parse('surfaceContainerHigh', fallback.surfaceContainerHigh),
+        surfaceContainerHighest:
+            parse('surfaceContainerHighest', fallback.surfaceContainerHighest),
+        surfaceContainerLow:
+            parse('surfaceContainerLow', fallback.surfaceContainerLow),
+        surfaceContainerLowest:
+            parse('surfaceContainerLowest', fallback.surfaceContainerLowest),
         inverseSurface: parse('inverseSurface', fallback.inverseSurface),
         onInverseSurface: parse('onInverseSurface', fallback.onInverseSurface),
         inversePrimary: parse('inversePrimary', fallback.inversePrimary),
-        
+
         // M3 Utility
         outline: parse('outline', fallback.outline),
         outlineVariant: parse('outlineVariant', fallback.outlineVariant),
@@ -97,19 +108,26 @@ class AppColorFactory {
         scrim: parse('scrim', fallback.scrim),
 
         // Semantic
-        highContrastBorder: parse('highContrastBorder', fallback.highContrastBorder),
+        highContrastBorder:
+            parse('highContrastBorder', fallback.highContrastBorder),
         subtleBorder: parse('subtleBorder', fallback.subtleBorder),
         styleBackground: parse('styleBackground', fallback.styleBackground),
         styleShadow: parse('styleShadow', fallback.styleShadow),
         glowColor: parse('glowColor', fallback.glowColor),
-        signalStrong: parse('signalStrong', fallback.signalStrong),
-        signalWeak: parse('signalWeak', fallback.signalWeak),
-        signalGlow: parse('signalGlow', fallback.signalGlow),
+        semanticSuccess: parse('semanticSuccess', fallback.semanticSuccess),
+        onSemanticSuccess:
+            parse('onSemanticSuccess', fallback.onSemanticSuccess),
+        semanticWarning: parse('semanticWarning', fallback.semanticWarning),
+        onSemanticWarning:
+            parse('onSemanticWarning', fallback.onSemanticWarning),
+        semanticDanger: parse('semanticDanger', fallback.semanticDanger),
+        onSemanticDanger: parse('onSemanticDanger', fallback.onSemanticDanger),
+        semanticGlow: parse('semanticGlow', fallback.semanticGlow),
         activeFillColor: parse('activeFillColor', fallback.activeFillColor),
-        activeContentColor: parse('activeContentColor', fallback.activeContentColor),
+        activeContentColor:
+            parse('activeContentColor', fallback.activeContentColor),
         overlayColor: parse('overlayColor', fallback.overlayColor),
       );
-
     } catch (e) {
       debugPrint('Error parsing scheme JSON: $e');
       return generateNeumorphic(const AppThemeConfig(seedColor: Colors.blue));
@@ -151,9 +169,11 @@ class AppColorFactory {
       styleBackground: base.surface,
       styleShadow: styleShadow,
       glowColor: config.customGlowColor ?? glowColor,
-      signalStrong: config.customSignalStrong ?? calculatedSignalStrong,
-      signalWeak: config.customSignalWeak ?? base.error.withValues(alpha: 0.6),
-      signalGlow: (config.customSignalStrong ?? calculatedSignalStrong)
+      semanticSuccess: config.customSemanticSuccess ?? calculatedSignalStrong,
+      semanticWarning: Colors.orange,
+      semanticDanger:
+          config.customSemanticDanger ?? base.error.withValues(alpha: 0.6),
+      semanticGlow: (config.customSemanticSuccess ?? calculatedSignalStrong)
           .withValues(alpha: 0.1),
       activeFillColor: base.primary.withValues(alpha: 0.12),
       activeContentColor: base.primary,
@@ -174,10 +194,11 @@ class AppColorFactory {
       styleBackground: base.surface.withValues(alpha: 0.7),
       styleShadow: base.shadow.withValues(alpha: 0.2),
       glowColor: config.customGlowColor ?? base.primary.withValues(alpha: 0.3),
-      signalStrong: config.customSignalStrong ?? Colors.green,
-      signalWeak: config.customSignalWeak ?? Colors.orange,
-      signalGlow:
-          (config.customSignalStrong ?? Colors.green).withValues(alpha: 0.4),
+      semanticSuccess: config.customSemanticSuccess ?? Colors.green,
+      semanticWarning: config.customSemanticWarning ?? Colors.orange,
+      semanticDanger: config.customSemanticDanger ?? Colors.red,
+      semanticGlow:
+          (config.customSemanticSuccess ?? Colors.green).withValues(alpha: 0.4),
       activeFillColor: base.primary.withValues(alpha: 0.2),
       activeContentColor: base.primary,
       overlayColor:
@@ -201,9 +222,10 @@ class AppColorFactory {
       styleBackground: base.surface,
       styleShadow: styleShadow,
       glowColor: Colors.transparent,
-      signalStrong: config.customSignalStrong ?? Colors.green,
-      signalWeak: config.customSignalWeak ?? base.error,
-      signalGlow: Colors.transparent,
+      semanticSuccess: config.customSemanticSuccess ?? Colors.green,
+      semanticWarning: config.customSemanticWarning ?? Colors.orange,
+      semanticDanger: config.customSemanticDanger ?? base.error,
+      semanticGlow: Colors.transparent,
       activeFillColor: base.primary,
       activeContentColor: base.onPrimary,
       overlayColor:
@@ -221,9 +243,10 @@ class AppColorFactory {
       styleBackground: base.surface,
       styleShadow: Colors.transparent,
       glowColor: Colors.transparent,
-      signalStrong: config.customSignalStrong ?? Colors.green,
-      signalWeak: config.customSignalWeak ?? Colors.orange,
-      signalGlow: Colors.transparent,
+      semanticSuccess: config.customSemanticSuccess ?? Colors.green,
+      semanticWarning: config.customSemanticWarning ?? Colors.orange,
+      semanticDanger: config.customSemanticDanger ?? Colors.red,
+      semanticGlow: Colors.transparent,
       activeFillColor: base.primaryContainer,
       activeContentColor: base.onPrimaryContainer,
       overlayColor:
@@ -246,9 +269,10 @@ class AppColorFactory {
       styleBackground: base.surface,
       styleShadow: styleShadow,
       glowColor: Colors.transparent,
-      signalStrong: config.customSignalStrong ?? Colors.green,
-      signalWeak: config.customSignalWeak ?? Colors.orange,
-      signalGlow: Colors.transparent,
+      semanticSuccess: config.customSemanticSuccess ?? Colors.green,
+      semanticWarning: config.customSemanticWarning ?? Colors.orange,
+      semanticDanger: config.customSemanticDanger ?? Colors.red,
+      semanticGlow: Colors.transparent,
       activeFillColor: base.primary,
       activeContentColor: base.onPrimary,
       overlayColor:
@@ -277,13 +301,19 @@ class AppColorFactory {
     required Color styleBackground,
     required Color styleShadow,
     required Color glowColor,
-    required Color signalStrong,
-    required Color signalWeak,
-    required Color signalGlow,
+    required Color semanticSuccess,
+    required Color semanticWarning,
+    required Color semanticDanger,
+    required Color semanticGlow,
     required Color activeFillColor,
     required Color activeContentColor,
     required Color overlayColor,
   }) {
+    // Compute foreground colors for semantic status colors
+    final onSemanticSuccess = ColorUtils.computeContrastColor(semanticSuccess);
+    final onSemanticWarning = ColorUtils.computeContrastColor(semanticWarning);
+    final onSemanticDanger = ColorUtils.computeContrastColor(semanticDanger);
+
     return AppColorScheme(
       // Standard Mapping
       primary: base.primary,
@@ -325,9 +355,13 @@ class AppColorFactory {
       styleBackground: styleBackground,
       styleShadow: styleShadow,
       glowColor: glowColor,
-      signalStrong: signalStrong,
-      signalWeak: signalWeak,
-      signalGlow: signalGlow,
+      semanticSuccess: semanticSuccess,
+      onSemanticSuccess: onSemanticSuccess,
+      semanticWarning: semanticWarning,
+      onSemanticWarning: onSemanticWarning,
+      semanticDanger: semanticDanger,
+      onSemanticDanger: onSemanticDanger,
+      semanticGlow: semanticGlow,
       activeFillColor: activeFillColor,
       activeContentColor: activeContentColor,
       overlayColor: overlayColor,

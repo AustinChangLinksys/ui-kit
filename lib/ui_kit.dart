@@ -6,6 +6,7 @@ library ui_kit;
 // -----------------------------------------------------------------------------
 export 'src/foundation/theme/tokens/app_theme.dart';
 export 'src/foundation/theme/tokens/app_palette.dart';
+export 'src/foundation/theme/tokens/app_spacing.dart';
 
 export 'src/foundation/utils/app_validators.dart';
 export 'src/foundation/utils/app_formatters.dart';
@@ -76,12 +77,18 @@ export 'src/foundation/icons/app_icon_style.dart';
 
 export 'src/foundation/gen/assets.gen.dart';
 export 'src/foundation/icons/app_font_icons.dart';
-export 'src/atoms/images/theme_aware_svg.dart';
-export 'src/atoms/images/theme_aware_image.dart';
+export 'src/atoms/images/theme_aware_svg.dart'; // @deprecated - use AppSvg
+export 'src/atoms/images/theme_aware_image.dart'; // @deprecated - use AppImage
+
+// New unified image components
+export 'src/atoms/images/dark_mode_strategy.dart';
+export 'src/atoms/images/app_image.dart';
+export 'src/atoms/images/app_svg.dart';
 
 // --- NEW APP COLOR SYSTEM EXPORTS ---
 export 'src/foundation/theme/app_theme_config.dart';
 export 'src/foundation/theme/app_color_scheme.dart';
+export 'src/foundation/color_utils.dart';
 export 'src/foundation/theme/app_color_factory.dart';
 
 // -----------------------------------------------------------------------------
@@ -89,12 +96,13 @@ export 'src/foundation/theme/app_color_factory.dart';
 // Contains: buttons, icons, images, labels
 // -----------------------------------------------------------------------------
 export 'src/atoms/icons/app_icon.dart';
-export 'src/atoms/images/product_image.dart';
+export 'src/atoms/images/product_image.dart'; // @deprecated - use AppImage
 export 'src/atoms/loading/app_skeleton.dart';
 export 'src/atoms/surfaces/app_surface.dart';
 export 'src/atoms/typography/app_text.dart';
 export 'src/atoms/layout/app_gap.dart';
 export 'src/atoms/layout/app_divider.dart';
+
 // -----------------------------------------------------------------------------
 // Molecules (Molecular Components)
 // Contains: cards, list items
@@ -134,15 +142,16 @@ export 'src/molecules/typography/app_styled_text.dart';
 export 'src/molecules/inputs/app_text_field.dart';
 export 'src/molecules/forms/app_text_form_field.dart';
 export 'src/molecules/forms/app_dropdown.dart';
+export 'src/molecules/inputs/password/app_password_input.dart';
+export 'src/molecules/inputs/password/app_password_rule.dart';
 export 'src/molecules/inputs/network/app_ipv4_text_field.dart';
 export 'src/molecules/inputs/network/app_mac_address_text_field.dart';
 export 'src/molecules/inputs/network/app_ipv6_text_field.dart';
 export 'src/molecules/inputs/app_number_text_field.dart';
 export 'src/molecules/inputs/range/app_range_input.dart';
 export 'src/molecules/inputs/pin/app_pin_input.dart';
-export 'src/molecules/inputs/password/app_password_input.dart';
-export 'src/molecules/inputs/password/app_password_rule.dart';
 export 'src/molecules/feedback/app_loader.dart';
+export 'src/molecules/feedback/app_full_screen_loader.dart';
 export 'src/molecules/feedback/app_toast.dart';
 export 'src/molecules/layout/app_list_tile.dart';
 export 'src/molecules/display/app_tooltip.dart';
@@ -175,3 +184,17 @@ export 'src/organisms/topology/links/link_renderer.dart';
 // Layout
 export 'src/layout/layout_extensions.dart';
 export 'src/layout/app_page_view.dart';
+export 'src/layout/app_responsive_layout.dart';
+export 'src/layout/models/page_menu_item.dart';
+export 'src/layout/models/page_app_bar_config.dart';
+export 'src/layout/models/page_menu_config.dart';
+export 'src/layout/models/page_menu_view.dart';
+export 'src/layout/models/page_bottom_bar_config.dart';
+
+// -----------------------------------------------------------------------------
+// Generative UI (GenUI) Components
+// Contains: Chat interface and conversational UI components
+// -----------------------------------------------------------------------------
+// Note: GenUiChatView is available from the separate generative_ui package
+// import 'package:generative_ui/generative_ui.dart';
+// export 'package:generative_ui/generative_ui.dart' show GenUiChatView;

@@ -146,7 +146,7 @@ final themeJson = {
   'seedColor': '#6750A4',       // Hex color (6 or 8 digits)
   'primary': '#2196F3',         // Override Material primary
   'secondary': '#FF9800',       // Override Material secondary
-  'customSignalStrong': '#4CAF50', // Override signal colors
+  'customSemanticSuccess': '#4CAF50', // Override semantic colors
   'customGlowColor': '#E91E63',    // Override glow effect
 };
 
@@ -185,8 +185,9 @@ final theme = CustomDesignTheme.fromConfig(
   "tertiary": "#9C27B0",
   "surface": "#FAFAFA",
   "error": "#F44336",
-  "customSignalStrong": "#4CAF50",
-  "customSignalWeak": "#FFC107",
+  "customSemanticSuccess": "#4CAF50",
+  "customSemanticWarning": "#FFA500",
+  "customSemanticDanger": "#FF0000",
   "customOverlayColor": "#000000",
   "customGlowColor": "#E91E63",
   "customHighContrastBorder": "#212121"
@@ -205,8 +206,9 @@ final theme = CustomDesignTheme.fromConfig(
 | `tertiary` | `String\|int` | Override Material tertiary color |
 | `surface` | `String\|int` | Override surface color |
 | `error` | `String\|int` | Override error color |
-| `customSignalStrong` | `String\|int` | Override signal strong (success) color |
-| `customSignalWeak` | `String\|int` | Override signal weak (warning) color |
+| `customSemanticSuccess` | `String\|int` | Override semantic success (good state) color |
+| `customSemanticWarning` | `String\|int` | Override semantic warning (moderate state) color |
+| `customSemanticDanger` | `String\|int` | Override semantic danger (bad state) color |
 | `customOverlayColor` | `String\|int` | Override overlay/scrim color |
 | `customGlowColor` | `String\|int` | Override glow effect color |
 | `customHighContrastBorder` | `String\|int` | Override high contrast border color |

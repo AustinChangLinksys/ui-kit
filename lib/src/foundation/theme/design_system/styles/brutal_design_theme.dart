@@ -7,6 +7,9 @@ import 'package:ui_kit_library/src/foundation/theme/design_system/specs/range_in
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/shared/animation_spec.dart'
     as shared;
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/styled_text_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/page_layout_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/bottom_bar_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/menu_style.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
 class BrutalDesignTheme extends AppDesignTheme {
@@ -230,19 +233,45 @@ class BrutalDesignTheme extends AppDesignTheme {
         gutterDesktop: 40.0,
       ),
       appBarStyle: AppBarStyle(
-        containerStyle: SurfaceStyle(
-          backgroundColor: colors.styleBackground,
-          borderColor: colors.highContrastBorder,
-          borderWidth: 3.0,
-          borderRadius: 0.0,
-          shadows: const [],
-          blurStrength: 0.0,
-          contentColor: colors.onSurface,
+        backgroundColor: colors.styleBackground,
+        foregroundColor: colors.onSurface,
+        surfaceColor: colors.styleBackground,
+        shadowColor: colors.highContrastBorder,
+        elevation: 0.0,
+        height: 64.0,
+        titleTextStyle: TextStyle(
+          color: colors.onSurface,
+          fontSize: 24.0,
+          fontWeight: FontWeight.w900,
         ),
-        dividerStyle: DividerStyle(
+        actionIconSize: 28.0,
+        leadingIconSize: 28.0,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 24.0),
+        actionSpacing: 16.0,
+        borderRadius: BorderRadius.zero,
+        border: Border.all(
           color: colors.highContrastBorder,
-          thickness: 3.0,
-          pattern: DividerPattern.solid,
+          width: 3.0,
+        ),
+        centerTitle: false,
+        titleSpacing: 24.0,
+        collapsedHeight: 64.0,
+        expandedHeight: 128.0,
+        flexibleSpaceBlur: 0.0,
+        containerStyle: BoxDecoration(
+          color: colors.styleBackground,
+          border: Border.all(
+            color: colors.highContrastBorder,
+            width: 3.0,
+          ),
+        ),
+        dividerStyle: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: colors.highContrastBorder,
+              width: 3.0,
+            ),
+          ),
         ),
       ),
       menuStyle: AppMenuStyle(
@@ -490,6 +519,86 @@ class BrutalDesignTheme extends AppDesignTheme {
       ),
       styledTextStyle: _createBrutalStyledTextStyle(colors, appTextTheme),
       buttonStyle: _createBrutalAppButtonStyle(colors, appTextTheme),
+      pageLayoutStyle: PageLayoutStyle(
+        backgroundColor: colors.styleBackground,
+        surfaceColor: colors.styleBackground,
+        padding: const EdgeInsets.all(24.0),
+        contentPadding: const EdgeInsets.all(16.0),
+        safeAreaPadding: const EdgeInsets.all(8.0),
+        borderRadius: BorderRadius.zero,
+        elevation: 0.0,
+        shadowColor: colors.styleShadow,
+        maxContentWidth: 1200.0,
+        minContentHeight: null,
+        desktopBreakpoint: 1024.0,
+        tabletBreakpoint: 768.0,
+      ),
+      bottomBarStyle: BottomBarStyle(
+        backgroundColor: colors.styleBackground,
+        surfaceColor: colors.styleBackground,
+        shadowColor: colors.styleShadow,
+        borderColor: colors.highContrastBorder,
+        elevation: 0.0,
+        height: 80.0,
+        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+        buttonSpacing: 16.0,
+        borderRadius: BorderRadius.zero,
+        border: Border.all(color: colors.highContrastBorder, width: 3.0),
+        buttonHeight: 48.0,
+        buttonMinWidth: 120.0,
+        primaryButtonStyle: ElevatedButton.styleFrom(
+          backgroundColor: colors.primary,
+          foregroundColor: colors.onPrimary,
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        ),
+        secondaryButtonStyle: OutlinedButton.styleFrom(
+          foregroundColor: colors.primary,
+          side: BorderSide(color: colors.highContrastBorder, width: 3.0),
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        ),
+        destructiveButtonStyle: ElevatedButton.styleFrom(
+          backgroundColor: colors.error,
+          foregroundColor: colors.onError,
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        ),
+        disabledButtonStyle: ElevatedButton.styleFrom(
+          backgroundColor: colors.onSurface.withValues(alpha: 0.12),
+          foregroundColor: colors.onSurface.withValues(alpha: 0.38),
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        ),
+      ),
+      pageMenuStyle: AppMenuThemeStyle(
+        backgroundColor: colors.styleBackground,
+        surfaceColor: colors.styleBackground,
+        selectedColor: colors.primary,
+        hoverColor: colors.onSurface,
+        shadowColor: colors.styleShadow,
+        borderColor: colors.highContrastBorder,
+        elevation: 0.0,
+        borderRadius: BorderRadius.zero,
+        border: Border.all(color: colors.highContrastBorder, width: 3.0),
+        padding: const EdgeInsets.all(8.0),
+        itemPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+        itemSpacing: 2.0,
+        itemHeight: 48.0,
+        iconSize: 24.0,
+        titleTextStyle: appTextTheme.titleMedium!.copyWith(
+          color: colors.onSurface,
+          fontWeight: FontWeight.w800,
+        ),
+        itemTextStyle: appTextTheme.bodyMedium!.copyWith(
+          color: colors.onSurface,
+          fontWeight: FontWeight.w600,
+        ),
+        selectedItemTextStyle: appTextTheme.bodyMedium!.copyWith(
+          color: colors.onPrimary,
+          fontWeight: FontWeight.w800,
+        ),
+        maxWidth: 280.0,
+        minWidth: 200.0,
+        dividerColor: colors.highContrastBorder,
+        dividerThickness: 3.0,
+      ),
     );
   }
 
@@ -536,6 +645,9 @@ class BrutalDesignTheme extends AppDesignTheme {
     required super.passwordInputStyle,
     required super.styledTextStyle,
     required super.buttonStyle,
+    required super.pageLayoutStyle,
+    required super.bottomBarStyle,
+    required super.pageMenuStyle,
   });
 
   // Helper function to intensify colors for Brutal theme
@@ -778,19 +890,45 @@ class BrutalDesignTheme extends AppDesignTheme {
 
       // Phase 2: Graceful defaults (Brutal Light)
       appBarStyle: AppBarStyle(
-        containerStyle: SurfaceStyle(
-          backgroundColor: scheme.surface,
-          borderColor: scheme.onSurface,
-          borderWidth: 3.0,
-          borderRadius: 0.0,
-          shadows: const [],
-          blurStrength: 0.0,
-          contentColor: scheme.onSurface,
-        ),
-        dividerStyle: DividerStyle(
+        backgroundColor: scheme.surface,
+        foregroundColor: scheme.onSurface,
+        surfaceColor: scheme.surface,
+        shadowColor: scheme.onSurface,
+        elevation: 0.0,
+        height: 64.0,
+        titleTextStyle: TextStyle(
           color: scheme.onSurface,
-          thickness: 3.0,
-          pattern: DividerPattern.solid,
+          fontSize: 24.0,
+          fontWeight: FontWeight.w900,
+        ),
+        actionIconSize: 28.0,
+        leadingIconSize: 28.0,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 24.0),
+        actionSpacing: 16.0,
+        borderRadius: BorderRadius.zero,
+        border: Border.all(
+          color: scheme.onSurface,
+          width: 3.0,
+        ),
+        centerTitle: false,
+        titleSpacing: 24.0,
+        collapsedHeight: 64.0,
+        expandedHeight: 128.0,
+        flexibleSpaceBlur: 0.0,
+        containerStyle: BoxDecoration(
+          color: scheme.surface,
+          border: Border.all(
+            color: scheme.onSurface,
+            width: 3.0,
+          ),
+        ),
+        dividerStyle: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: scheme.onSurface,
+              width: 3.0,
+            ),
+          ),
         ),
       ),
       menuStyle: AppMenuStyle(
@@ -1034,6 +1172,18 @@ class BrutalDesignTheme extends AppDesignTheme {
       styledTextStyle:
           _createBrutalStyledTextStyleForScheme(scheme, appTextTheme),
       buttonStyle: _createBrutalAppButtonStyleForScheme(scheme, appTextTheme),
+      pageLayoutStyle: PageLayoutStyle.defaultStyle(
+        colorScheme: scheme,
+        spacing: 16.0,
+      ),
+      bottomBarStyle: BottomBarStyle.defaultStyle(
+        colorScheme: scheme,
+        textTheme: appTextTheme,
+      ),
+      pageMenuStyle: AppMenuThemeStyle.defaultStyle(
+        colorScheme: scheme,
+        textTheme: appTextTheme,
+      ),
     );
   }
 
@@ -1253,19 +1403,45 @@ class BrutalDesignTheme extends AppDesignTheme {
 
       // Phase 2: Graceful defaults (Brutal Dark)
       appBarStyle: AppBarStyle(
-        containerStyle: SurfaceStyle(
-          backgroundColor: scheme.surface,
-          borderColor: black,
-          borderWidth: 3.0,
-          borderRadius: 0.0,
-          shadows: const [],
-          blurStrength: 0.0,
-          contentColor: black,
+        backgroundColor: scheme.surface,
+        foregroundColor: scheme.onSurface,
+        surfaceColor: scheme.surface,
+        shadowColor: scheme.onSurface,
+        elevation: 0.0,
+        height: 64.0,
+        titleTextStyle: TextStyle(
+          color: scheme.onSurface,
+          fontSize: 24.0,
+          fontWeight: FontWeight.w900,
         ),
-        dividerStyle: DividerStyle(
-          color: black,
-          thickness: 3.0,
-          pattern: DividerPattern.solid,
+        actionIconSize: 28.0,
+        leadingIconSize: 28.0,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 24.0),
+        actionSpacing: 16.0,
+        borderRadius: BorderRadius.zero,
+        border: Border.all(
+          color: scheme.onSurface,
+          width: 3.0,
+        ),
+        centerTitle: false,
+        titleSpacing: 24.0,
+        collapsedHeight: 64.0,
+        expandedHeight: 128.0,
+        flexibleSpaceBlur: 0.0,
+        containerStyle: BoxDecoration(
+          color: scheme.surface,
+          border: Border.all(
+            color: scheme.onSurface,
+            width: 3.0,
+          ),
+        ),
+        dividerStyle: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: scheme.onSurface,
+              width: 3.0,
+            ),
+          ),
         ),
       ),
       menuStyle: AppMenuStyle(
@@ -1507,6 +1683,18 @@ class BrutalDesignTheme extends AppDesignTheme {
       styledTextStyle:
           _createBrutalStyledTextStyleForDark(scheme, appTextTheme),
       buttonStyle: _createBrutalAppButtonStyleForScheme(scheme, appTextTheme),
+      pageLayoutStyle: PageLayoutStyle.defaultStyle(
+        colorScheme: scheme,
+        spacing: 16.0,
+      ),
+      bottomBarStyle: BottomBarStyle.defaultStyle(
+        colorScheme: scheme,
+        textTheme: appTextTheme,
+      ),
+      pageMenuStyle: AppMenuThemeStyle.defaultStyle(
+        colorScheme: scheme,
+        textTheme: appTextTheme,
+      ),
     );
   }
 

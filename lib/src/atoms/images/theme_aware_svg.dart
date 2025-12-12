@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../foundation/gen/assets.gen.dart'; // Import flutter_gen
 
+/// Use [AppSvg.asset] with `darkVariant` parameter instead.
+@Deprecated('Use AppSvg.asset with darkVariant parameter instead')
 class ThemeAwareSvg extends StatelessWidget {
   final SvgGenImage lightSvg;
   final SvgGenImage darkSvg;

@@ -1,6 +1,6 @@
 name: ui_kit_library
 description: A high-cohesion, theme-driven UI component library.
-version: 1.0.1
+version: 1.1.5
 homepage: https://github.com/AustinChangLinksys/ui-kit
 environment:
   sdk: '>=3.2.0 <4.0.0'
@@ -39,6 +39,9 @@ dev_dependencies:
 flutter_gen:
   output: lib/src/foundation/gen/ # Output location
   line_length: 80
+  assets:
+    outputs:
+      package_parameter_enabled: true # Auto-include package: 'ui_kit_library'
   integrations:
     flutter_svg: true
     rive: true

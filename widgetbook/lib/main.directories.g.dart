@@ -11,6 +11,10 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:widgetbook/widgetbook.dart' as _widgetbook;
+import 'package:widgetbook_workspace/stories/atoms/app_image.stories.dart'
+    as _widgetbook_workspace_stories_atoms_app_image_stories;
+import 'package:widgetbook_workspace/stories/atoms/app_svg.stories.dart'
+    as _widgetbook_workspace_stories_atoms_app_svg_stories;
 import 'package:widgetbook_workspace/stories/atoms/assets.stories.dart'
     as _widgetbook_workspace_stories_atoms_assets_stories;
 import 'package:widgetbook_workspace/stories/atoms/icons/app_icon.stories.dart'
@@ -41,8 +45,22 @@ import 'package:widgetbook_workspace/stories/examples/mockup_page.stories.dart'
     as _widgetbook_workspace_stories_examples_mockup_page_stories;
 import 'package:widgetbook_workspace/stories/foundation/color_json.stories.dart'
     as _widgetbook_workspace_stories_foundation_color_json_stories;
+import 'package:widgetbook_workspace/stories/foundation/color_utils.stories.dart'
+    as _widgetbook_workspace_stories_foundation_color_utils_stories;
 import 'package:widgetbook_workspace/stories/foundation/effects/global_effects_overlay.stories.dart'
     as _widgetbook_workspace_stories_foundation_effects_global_effects_overlay_stories;
+import 'package:widgetbook_workspace/stories/layout/app_responsive_layout.stories.dart'
+    as _widgetbook_workspace_stories_layout_app_responsive_layout_stories;
+import 'package:widgetbook_workspace/stories/layout/page_view/content_api.stories.dart'
+    as _widgetbook_workspace_stories_layout_page_view_content_api_stories;
+import 'package:widgetbook_workspace/stories/layout/page_view/factories.stories.dart'
+    as _widgetbook_workspace_stories_layout_page_view_factories_stories;
+import 'package:widgetbook_workspace/stories/layout/page_view/menu_positions.stories.dart'
+    as _widgetbook_workspace_stories_layout_page_view_menu_positions_stories;
+import 'package:widgetbook_workspace/stories/layout/page_view/playground.stories.dart'
+    as _widgetbook_workspace_stories_layout_page_view_playground_stories;
+import 'package:widgetbook_workspace/stories/layout/page_view/slivers.stories.dart'
+    as _widgetbook_workspace_stories_layout_page_view_slivers_stories;
 import 'package:widgetbook_workspace/stories/molecules/buttons/app_buttons.stories.dart'
     as _widgetbook_workspace_stories_molecules_buttons_app_buttons_stories;
 import 'package:widgetbook_workspace/stories/molecules/cards/app_card.stories.dart'
@@ -51,6 +69,8 @@ import 'package:widgetbook_workspace/stories/molecules/dialogs/app_dialog.storie
     as _widgetbook_workspace_stories_molecules_dialogs_app_dialog_stories;
 import 'package:widgetbook_workspace/stories/molecules/display/app_tooltip.stories.dart'
     as _widgetbook_workspace_stories_molecules_display_app_tooltip_stories;
+import 'package:widgetbook_workspace/stories/molecules/feedback/app_full_screen_loader.stories.dart'
+    as _widgetbook_workspace_stories_molecules_feedback_app_full_screen_loader_stories;
 import 'package:widgetbook_workspace/stories/molecules/feedback/app_loader.stories.dart'
     as _widgetbook_workspace_stories_molecules_feedback_app_loader_stories;
 import 'package:widgetbook_workspace/stories/molecules/feedback/app_toast.stories.dart'
@@ -69,8 +89,6 @@ import 'package:widgetbook_workspace/stories/molecules/inputs/range_input.storie
     as _widgetbook_workspace_stories_molecules_inputs_range_input_stories;
 import 'package:widgetbook_workspace/stories/molecules/layout/app_list_tile.stories.dart'
     as _widgetbook_workspace_stories_molecules_layout_app_list_tile_stories;
-import 'package:widgetbook_workspace/stories/molecules/layout/app_page_view.stories.dart'
-    as _widgetbook_workspace_stories_molecules_layout_app_page_view_stories;
 import 'package:widgetbook_workspace/stories/molecules/menu/app_popup_menu.stories.dart'
     as _widgetbook_workspace_stories_molecules_menu_app_popup_menu_stories;
 import 'package:widgetbook_workspace/stories/molecules/navigation/app_bottom_sheet.stories.dart'
@@ -240,33 +258,33 @@ final directories = <_widgetbook.WidgetbookNode>[
         name: 'images',
         children: [
           _widgetbook.WidgetbookComponent(
-            name: 'ProductImage',
+            name: 'AppImage',
             useCases: [
               _widgetbook.WidgetbookUseCase(
-                name: 'Product Image (Dimming)',
-                builder: _widgetbook_workspace_stories_atoms_assets_stories
-                    .buildProductImage,
-              )
+                name: 'DarkModeStrategy Comparison',
+                builder: _widgetbook_workspace_stories_atoms_app_image_stories
+                    .buildDarkModeStrategyComparison,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Playground',
+                builder: _widgetbook_workspace_stories_atoms_app_image_stories
+                    .buildAppImagePlayground,
+              ),
             ],
           ),
           _widgetbook.WidgetbookComponent(
-            name: 'ThemeAwareImage',
+            name: 'AppSvg',
             useCases: [
               _widgetbook.WidgetbookUseCase(
-                name: 'Multi-colored PNG (Switching)',
-                builder: _widgetbook_workspace_stories_atoms_assets_stories
-                    .buildThemeAwareImage,
-              )
-            ],
-          ),
-          _widgetbook.WidgetbookComponent(
-            name: 'ThemeAwareSvg',
-            useCases: [
+                name: 'DarkModeStrategy Comparison',
+                builder: _widgetbook_workspace_stories_atoms_app_svg_stories
+                    .buildAppSvgStrategyComparison,
+              ),
               _widgetbook.WidgetbookUseCase(
-                name: 'Multi-colored SVG (Switching)',
-                builder: _widgetbook_workspace_stories_atoms_assets_stories
-                    .buildThemeAwareSvg,
-              )
+                name: 'Playground',
+                builder: _widgetbook_workspace_stories_atoms_app_svg_stories
+                    .buildAppSvgPlayground,
+              ),
             ],
           ),
         ],
@@ -387,6 +405,29 @@ final directories = <_widgetbook.WidgetbookNode>[
   _widgetbook.WidgetbookFolder(
     name: 'foundation',
     children: [
+      _widgetbook.WidgetbookComponent(
+        name: 'ColorUtils',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Auto Foreground Color',
+            builder:
+                _widgetbook_workspace_stories_foundation_color_utils_stories
+                    .buildColorUtilsAutoForeground,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Light/Dark Detection',
+            builder:
+                _widgetbook_workspace_stories_foundation_color_utils_stories
+                    .buildLightDarkDetection,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Semantic Colors Demo',
+            builder:
+                _widgetbook_workspace_stories_foundation_color_utils_stories
+                    .buildSemanticColorsDemo,
+          ),
+        ],
+      ),
       _widgetbook.WidgetbookFolder(
         name: 'effects',
         children: [
@@ -402,7 +443,7 @@ final directories = <_widgetbook.WidgetbookNode>[
             ],
           )
         ],
-      )
+      ),
     ],
   ),
   _widgetbook.WidgetbookFolder(
@@ -412,25 +453,162 @@ final directories = <_widgetbook.WidgetbookNode>[
         name: 'AppPageView',
         useCases: [
           _widgetbook.WidgetbookUseCase(
-            name: 'Desktop Dashboard (Fixed Header + Menu)',
+            name: 'Basic Slivers',
             builder:
-                _widgetbook_workspace_stories_molecules_layout_app_page_view_stories
-                    .buildDesktopDashboard,
+                _widgetbook_workspace_stories_layout_page_view_slivers_stories
+                    .buildBasicSlivers,
           ),
           _widgetbook.WidgetbookUseCase(
-            name: 'Enterprise Complex Layouts',
+            name: 'ChildBuilder (Constraint-Aware)',
             builder:
-                _widgetbook_workspace_stories_molecules_layout_app_page_view_stories
-                    .buildEnterpriseComplexLayouts,
+                _widgetbook_workspace_stories_layout_page_view_content_api_stories
+                    .buildChildBuilder,
           ),
           _widgetbook.WidgetbookUseCase(
-            name: 'Mobile Feed (Sliver Header)',
+            name: 'Coexistence - Desktop',
             builder:
-                _widgetbook_workspace_stories_molecules_layout_app_page_view_stories
-                    .buildMobileFeed,
+                _widgetbook_workspace_stories_layout_page_view_menu_positions_stories
+                    .buildCoexistenceDesktop,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Coexistence - Sidebar + Items',
+            builder:
+                _widgetbook_workspace_stories_layout_page_view_menu_positions_stories
+                    .buildCoexistenceSidebar,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'FAB + Custom MenuView',
+            builder:
+                _widgetbook_workspace_stories_layout_page_view_menu_positions_stories
+                    .buildFABMenuView,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'FAB - Expandable',
+            builder:
+                _widgetbook_workspace_stories_layout_page_view_menu_positions_stories
+                    .buildFABExpandable,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'FAB - Single Action',
+            builder:
+                _widgetbook_workspace_stories_layout_page_view_menu_positions_stories
+                    .buildFABSingle,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Header (Box Mode)',
+            builder:
+                _widgetbook_workspace_stories_layout_page_view_content_api_stories
+                    .buildHeaderBox,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Header (Sliver Mode)',
+            builder:
+                _widgetbook_workspace_stories_layout_page_view_content_api_stories
+                    .buildHeaderSliver,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Interactive Testing',
+            builder:
+                _widgetbook_workspace_stories_layout_page_view_playground_stories
+                    .buildPlayground,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Left Sidebar',
+            builder:
+                _widgetbook_workspace_stories_layout_page_view_menu_positions_stories
+                    .buildLeftSidebar,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Mixed Slivers',
+            builder:
+                _widgetbook_workspace_stories_layout_page_view_slivers_stories
+                    .buildMixedSlivers,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Pull to Refresh',
+            builder:
+                _widgetbook_workspace_stories_layout_page_view_slivers_stories
+                    .buildPullToRefresh,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Right Sidebar',
+            builder:
+                _widgetbook_workspace_stories_layout_page_view_menu_positions_stories
+                    .buildRightSidebar,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Sliver AppBar',
+            builder:
+                _widgetbook_workspace_stories_layout_page_view_slivers_stories
+                    .buildSliverAppBar,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Sliver Grid',
+            builder:
+                _widgetbook_workspace_stories_layout_page_view_slivers_stories
+                    .buildSliverGrid,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Static Child',
+            builder:
+                _widgetbook_workspace_stories_layout_page_view_content_api_stories
+                    .buildStaticChild,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Top Actions (AppBar)',
+            builder:
+                _widgetbook_workspace_stories_layout_page_view_menu_positions_stories
+                    .buildTopActions,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'basic()',
+            builder:
+                _widgetbook_workspace_stories_layout_page_view_factories_stories
+                    .buildBasic,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'withBottomBar()',
+            builder:
+                _widgetbook_workspace_stories_layout_page_view_factories_stories
+                    .buildWithBottomBar,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'withMenu()',
+            builder:
+                _widgetbook_workspace_stories_layout_page_view_factories_stories
+                    .buildWithMenu,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'withSlivers()',
+            builder:
+                _widgetbook_workspace_stories_layout_page_view_factories_stories
+                    .buildWithSlivers,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'withTabs()',
+            builder:
+                _widgetbook_workspace_stories_layout_page_view_factories_stories
+                    .buildWithTabs,
           ),
         ],
-      )
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'AppResponsiveLayout',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Default',
+            builder:
+                _widgetbook_workspace_stories_layout_app_responsive_layout_stories
+                    .appResponsiveLayoutUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Without Tablet (Fallback)',
+            builder:
+                _widgetbook_workspace_stories_layout_app_responsive_layout_stories
+                    .appResponsiveLayoutFallbackUseCase,
+          ),
+        ],
+      ),
     ],
   ),
   _widgetbook.WidgetbookFolder(
@@ -768,6 +946,29 @@ final directories = <_widgetbook.WidgetbookNode>[
       _widgetbook.WidgetbookFolder(
         name: 'feedback',
         children: [
+          _widgetbook.WidgetbookComponent(
+            name: 'AppFullScreenLoader',
+            useCases: [
+              _widgetbook.WidgetbookUseCase(
+                name: 'Different Configurations',
+                builder:
+                    _widgetbook_workspace_stories_molecules_feedback_app_full_screen_loader_stories
+                        .buildFullScreenLoaderVariations,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Interactive Demo',
+                builder:
+                    _widgetbook_workspace_stories_molecules_feedback_app_full_screen_loader_stories
+                        .buildFullScreenLoaderDemo,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Static Preview',
+                builder:
+                    _widgetbook_workspace_stories_molecules_feedback_app_full_screen_loader_stories
+                        .buildFullScreenLoaderPreview,
+              ),
+            ],
+          ),
           _widgetbook.WidgetbookComponent(
             name: 'AppLoader',
             useCases: [

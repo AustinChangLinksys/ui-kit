@@ -23,23 +23,24 @@ void main() {
       //    not the BLUE seed.
       //    (Exact calculation logic: isLight ? alphaBlend(base.outline, base.surface)
       //     but conceptually derived from base scheme which uses primary)
-      
+
       //    For now, we just assert it's not the default blue-based glow
       //    and matches expectation of being "reddish" or simply derived from the generated scheme.
       //    In implementation, glow uses outline, and outline is derived from seed/primary.
     });
     test('Explicit style override takes precedence over calculated value', () {
-      // Given: Config with explicit signalStrong override
+      // Given: Config with explicit semanticSuccess override
       const config = AppThemeConfig(
         seedColor: Colors.blue,
-        customSignalStrong: Colors.yellow, // Should override calculated green-blue
+        customSemanticSuccess:
+            Colors.yellow, // Should override calculated green-blue
       );
 
       // When: generated
       final scheme = AppColorFactory.generateNeumorphic(config);
 
       // Then:
-      expect(scheme.signalStrong, Colors.yellow);
+      expect(scheme.semanticSuccess, Colors.yellow);
     });
     test('High contrast border adapts to brightness', () {
       // Given: Dark mode config
@@ -58,20 +59,21 @@ void main() {
       // Let's check relative luminance or just that it follows the logic we implement.
       // For now, we can check it's NOT the same as a light mode version if we wanted,
       // or simply check the logic we are about to implement (e.g. it uses a specific override logic).
-      
+
       // Assuming implementation will pick a specific high contrast color or invert.
       // Let's wait for implementation details or assert on the property that will be implemented.
       // Spec: "Pixel 風格在 Dark Mode 下，highContrastBorder 需自動反轉為亮色"
       // Since we are implementing Neumorphic factory here, let's ensure the logic exists.
-      
+
       // Let's assert it is different from the light mode version for the same seed.
       const lightConfig = AppThemeConfig(
         brightness: Brightness.light,
         seedColor: Colors.blue,
       );
       final lightScheme = AppColorFactory.generateNeumorphic(lightConfig);
-      
-      expect(darkScheme.highContrastBorder != lightScheme.highContrastBorder, true);
+
+      expect(darkScheme.highContrastBorder != lightScheme.highContrastBorder,
+          true);
     });
     test('Can generate schemes for all design styles without error', () {
       const config = AppThemeConfig(seedColor: Colors.blue);
@@ -98,7 +100,7 @@ void main() {
       expect(scheme.surface, const Color(0xFFFFFFFF));
       expect(scheme.highContrastBorder, const Color(0xFF000000));
       // Check fallback for missing value (e.g. error color should be from default fallback)
-      expect(scheme.error, isNotNull); 
+      expect(scheme.error, isNotNull);
     });
 
     test('createSchemeFromJson supports style parameter', () {
@@ -112,7 +114,7 @@ void main() {
       ''';
 
       final scheme = AppColorFactory.createSchemeFromJson(jsonString);
-      
+
       // Brutal style has specific traits, e.g. transparent glow
       expect(scheme.glowColor, Colors.transparent);
     });

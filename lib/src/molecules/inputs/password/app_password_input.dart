@@ -6,22 +6,28 @@ class AppPasswordInput extends StatefulWidget {
   final TextEditingController? controller;
   final String? label;
   final String? hint;
+  final String? errorText;
   final List<AppPasswordRule>? rules;
   final String? rulesHeader;
   final bool showRulesOnlyOnError;
   final bool initiallyObscured;
   final ValueChanged<String>? onSubmitted;
+  final ValueChanged<String>? onChanged;
+  final bool enableShowHideToggle;
 
   const AppPasswordInput({
     super.key,
     this.controller,
     this.label,
     this.hint,
+    this.errorText,
     this.rules,
     this.rulesHeader,
     this.showRulesOnlyOnError = false,
     this.initiallyObscured = true,
     this.onSubmitted,
+    this.onChanged,
+    this.enableShowHideToggle = true,
   });
 
   @override
@@ -38,7 +44,6 @@ class _AppPasswordInputState extends State<AppPasswordInput> {
     super.initState();
     _controller = widget.controller ?? TextEditingController();
     _isObscured = widget.initiallyObscured;
-    _controller.addListener(_onTextChanged);
   }
 
   @override
@@ -47,19 +52,23 @@ class _AppPasswordInputState extends State<AppPasswordInput> {
     super.dispose();
   }
 
-  void _onTextChanged() {
-    if (!_hasStartedTyping && _controller.text.isNotEmpty) {
+  void _onTextChanged(String text) {
+    // Call the external onChanged callback first
+    widget.onChanged?.call(text);
+
+    // Handle internal state for validation rules display
+    if (!_hasStartedTyping && text.isNotEmpty) {
       setState(() {
         _hasStartedTyping = true;
       });
     } else {
       setState(() {}); // Rebuild to update validation rules
     }
-    
+
     // Check if all rules passed for feedback
     if (widget.rules != null && widget.rules!.isNotEmpty) {
-        final allPassed = widget.rules!.every((rule) => rule.validate(_controller.text));
-        if (allPassed && _controller.text.isNotEmpty) {
+        final allPassed = widget.rules!.every((rule) => rule.validate(text));
+        if (allPassed && text.isNotEmpty) {
              // Debounce or check if just became valid to avoid spamming
              // For now simplified:
              // AppFeedback.onSuccess(); // Too noisy on every keystroke if valid
@@ -85,21 +94,32 @@ class _AppPasswordInputState extends State<AppPasswordInput> {
       children: [
         if (widget.label != null) ...[
           Text(widget.label!, style: theme.typography.bodyFontFamily != null ? TextStyle(fontFamily: theme.typography.bodyFontFamily) : null), // Using basic Text for now or AppText if available
-          const SizedBox(height: 8),
+          AppGap.xs(),
         ],
         AppTextField(
           controller: _controller,
           hintText: widget.hint,
+          errorText: widget.errorText,
           obscureText: _isObscured,
-          suffixIcon: GestureDetector(
+          onChanged: _onTextChanged,
+          onSubmitted: widget.onSubmitted,
+          suffixIcon: widget.enableShowHideToggle ? GestureDetector(
             onTap: _toggleVisibility,
-            child: Icon(
+            child: AppIcon.font(
               _isObscured ? Icons.visibility : Icons.visibility_off,
               size: 20,
               color: theme.inputStyle.outlineStyle.contentColor.withValues(alpha: 0.6),
             ),
-          ),
+          ) : null,
         ),
+        // Error text display
+        if (widget.errorText != null) ...[
+          AppGap.xs(),
+          AppText.bodySmall(
+            widget.errorText!,
+            color: theme.inputStyle.errorModifier.borderColor,
+          ),
+        ],
         if (widget.rules != null && widget.rules!.isNotEmpty) ...[
           AppGap.sm(),
           if (widget.rulesHeader != null) ...[
@@ -147,7 +167,7 @@ class _AppPasswordInputState extends State<AppPasswordInput> {
       padding: const EdgeInsets.symmetric(vertical: 2.0),
       child: Row(
         children: [
-          Icon(icon, size: 14, color: color),
+          AppIcon.font(icon, size: 14, color: color),
           AppGap.xs(),
           Expanded(
             child: Text(

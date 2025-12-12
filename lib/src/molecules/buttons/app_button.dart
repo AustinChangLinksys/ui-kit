@@ -37,7 +37,8 @@ class AppButton extends StatelessWidget {
     this.onTap,
     this.icon,
     this.isLoading = false,
-    this.variant = SurfaceVariant.highlight, // Use standard naming variant (backward compatibility)
+    this.variant = SurfaceVariant
+        .highlight, // Use standard naming variant (backward compatibility)
     this.size = AppButtonSize.medium, // Add size control
     this.styleVariant = ButtonStyleVariant.filled, // New unified style system
     this.iconPosition = AppButtonIconPosition.leading, // Icon position control
@@ -58,8 +59,8 @@ class AppButton extends StatelessWidget {
     this.size = AppButtonSize.medium,
     this.iconPosition = AppButtonIconPosition.leading,
     super.key,
-  }) : variant = SurfaceVariant.highlight,
-       styleVariant = ButtonStyleVariant.filled;
+  })  : variant = SurfaceVariant.highlight,
+        styleVariant = ButtonStyleVariant.filled;
 
   /// Creates a primary outline button with highlight emphasis.
   ///
@@ -73,8 +74,8 @@ class AppButton extends StatelessWidget {
     this.size = AppButtonSize.medium,
     this.iconPosition = AppButtonIconPosition.leading,
     super.key,
-  }) : variant = SurfaceVariant.highlight,
-       styleVariant = ButtonStyleVariant.outline;
+  })  : variant = SurfaceVariant.highlight,
+        styleVariant = ButtonStyleVariant.outline;
 
   /// Creates a secondary filled button with tonal emphasis.
   ///
@@ -88,8 +89,8 @@ class AppButton extends StatelessWidget {
     this.size = AppButtonSize.medium,
     this.iconPosition = AppButtonIconPosition.leading,
     super.key,
-  }) : variant = SurfaceVariant.tonal,
-       styleVariant = ButtonStyleVariant.filled;
+  })  : variant = SurfaceVariant.tonal,
+        styleVariant = ButtonStyleVariant.filled;
 
   /// Creates a secondary outline button with tonal emphasis.
   ///
@@ -103,8 +104,8 @@ class AppButton extends StatelessWidget {
     this.size = AppButtonSize.medium,
     this.iconPosition = AppButtonIconPosition.leading,
     super.key,
-  }) : variant = SurfaceVariant.tonal,
-       styleVariant = ButtonStyleVariant.outline;
+  })  : variant = SurfaceVariant.tonal,
+        styleVariant = ButtonStyleVariant.outline;
 
   /// Creates a tertiary filled button with base emphasis.
   ///
@@ -117,8 +118,8 @@ class AppButton extends StatelessWidget {
     this.size = AppButtonSize.medium,
     this.iconPosition = AppButtonIconPosition.leading,
     super.key,
-  }) : variant = SurfaceVariant.base,
-       styleVariant = ButtonStyleVariant.filled;
+  })  : variant = SurfaceVariant.base,
+        styleVariant = ButtonStyleVariant.filled;
 
   /// Creates a text-only button with base emphasis.
   ///
@@ -132,8 +133,8 @@ class AppButton extends StatelessWidget {
     this.size = AppButtonSize.medium,
     this.iconPosition = AppButtonIconPosition.leading,
     super.key,
-  }) : variant = SurfaceVariant.base,
-       styleVariant = ButtonStyleVariant.text;
+  })  : variant = SurfaceVariant.base,
+        styleVariant = ButtonStyleVariant.text;
 
   /// Creates a danger filled button with accent emphasis.
   ///
@@ -147,8 +148,8 @@ class AppButton extends StatelessWidget {
     this.size = AppButtonSize.medium,
     this.iconPosition = AppButtonIconPosition.leading,
     super.key,
-  }) : variant = SurfaceVariant.accent,
-       styleVariant = ButtonStyleVariant.filled;
+  })  : variant = SurfaceVariant.accent,
+        styleVariant = ButtonStyleVariant.filled;
 
   /// Creates a danger outline button with accent emphasis.
   ///
@@ -162,8 +163,8 @@ class AppButton extends StatelessWidget {
     this.size = AppButtonSize.medium,
     this.iconPosition = AppButtonIconPosition.leading,
     super.key,
-  }) : variant = SurfaceVariant.accent,
-       styleVariant = ButtonStyleVariant.outline;
+  })  : variant = SurfaceVariant.accent,
+        styleVariant = ButtonStyleVariant.outline;
 
   /// Creates a small button with the specified style variant.
   ///
@@ -199,15 +200,18 @@ class AppButton extends StatelessWidget {
   final VoidCallback? onTap;
   final Widget? icon;
   final bool isLoading;
+
   /// The semantic variant that controls button styling across all design themes.
   /// - `highlight`: Primary CTA (default)
   /// - `tonal`: Secondary action
   /// - `base`: Low priority action
   final SurfaceVariant variant;
   final AppButtonSize size;
+
   /// The visual style variant that determines button appearance (filled, outline, text).
   /// Used by the unified ButtonStyle system for consistent theming.
   final ButtonStyleVariant styleVariant;
+
   /// Controls the position of icons relative to button text.
   final AppButtonIconPosition iconPosition;
 
@@ -221,8 +225,10 @@ class AppButton extends StatelessWidget {
 
     // 1. Determine height and padding based on Size Enum (DDS)
     // Constitution 3.3 compliance: Use theme buttonHeight instead of hardcoded values
-    final double height = _resolveHeight(size, theme.buttonHeight) * theme.spacingFactor;
-    final double paddingX = _resolvePadding(size, theme.buttonHeight) * theme.spacingFactor;
+    final double height =
+        _resolveHeight(size, theme.buttonHeight) * theme.spacingFactor;
+    final double paddingX =
+        _resolvePadding(size, theme.buttonHeight) * theme.spacingFactor;
 
     // 2. Resolve button surface style based on styleVariant and state
     final buttonSurfaces = _getButtonSurfaces(theme.buttonStyle);
@@ -233,11 +239,14 @@ class AppButton extends StatelessWidget {
     );
 
     // 3. Apply semantic variant colors to the base style
-    final surfaceStyle = _applySemanticVariantColors(baseSurfaceStyle, theme, context);
+    final surfaceStyle =
+        _applySemanticVariantColors(baseSurfaceStyle, theme, context);
 
     // 4. Handle Disabled state (Opacity)
     return Opacity(
-      opacity: _isEnabled ? 1.0 : 1.0, // No opacity, let button styles handle disabled state
+      opacity: _isEnabled
+          ? 1.0
+          : 1.0, // No opacity, let button styles handle disabled state
       child: AppSurface(
         // 5. Use resolved button surface style instead of variant
         style: surfaceStyle,
@@ -248,7 +257,8 @@ class AppButton extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: paddingX),
 
         child: Row(
-          mainAxisSize: MainAxisSize.min, // Shrink-wrap to prevent unbounded constraints
+          mainAxisSize:
+              MainAxisSize.min, // Shrink-wrap to prevent unbounded constraints
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (isLoading)
@@ -337,42 +347,59 @@ class AppButton extends StatelessWidget {
   /// This method takes the base button surface style (from filled/outline/text)
   /// and adapts the colors based on the semantic variant (highlight/tonal/base)
   /// to create visual distinction between Primary and Secondary buttons.
+  ///
+  /// For text and outline buttons, we use ColorScheme colors directly:
+  /// - highlight → primary
+  /// - tonal → secondary
+  /// - accent → tertiary
+  /// - base/elevated → onSurface
   SurfaceStyle _applySemanticVariantColors(
     SurfaceStyle baseStyle,
     AppDesignTheme theme,
     BuildContext context,
   ) {
-    final materialTheme = Theme.of(context);
+    // Get ColorScheme for text/outline button content colors
+    final colorScheme = Theme.of(context).colorScheme;
 
     // Get the appropriate surface style based on semantic variant
     late final SurfaceStyle targetSurface;
     switch (variant) {
       case SurfaceVariant.highlight:
-        // Primary buttons use surfaceHighlight colors
         targetSurface = theme.surfaceHighlight;
         break;
       case SurfaceVariant.tonal:
-        // Secondary buttons use surfaceSecondary colors
         targetSurface = theme.surfaceSecondary;
         break;
       case SurfaceVariant.base:
-        // Tertiary buttons use surfaceBase colors
         targetSurface = theme.surfaceBase;
         break;
       case SurfaceVariant.elevated:
-        // Elevated buttons use surfaceElevated colors
         targetSurface = theme.surfaceElevated;
         break;
       case SurfaceVariant.accent:
-        // Accent buttons use surfaceTertiary colors (accent maps to tertiary)
         targetSurface = theme.surfaceTertiary;
         break;
     }
 
-    // For outline and text buttons, we need to adapt the colors differently
+    // Resolve content color for non-filled styles using ColorScheme
+    Color resolveSchemeColor() {
+      switch (variant) {
+        case SurfaceVariant.highlight:
+          return colorScheme.primary;
+        case SurfaceVariant.tonal:
+          return colorScheme.secondary;
+        case SurfaceVariant.accent:
+          return colorScheme.tertiary;
+        case SurfaceVariant.base:
+        case SurfaceVariant.elevated:
+          return colorScheme.onSurface;
+      }
+    }
+
     switch (styleVariant) {
       case ButtonStyleVariant.filled:
-        // For filled buttons, use the target surface colors directly
+        // For filled buttons, use the surface colors directly
+        // backgroundColor = primary/secondary/etc, contentColor = onPrimary/onSecondary/etc
         return baseStyle.copyWith(
           backgroundColor: targetSurface.backgroundColor,
           borderColor: targetSurface.borderColor,
@@ -380,29 +407,32 @@ class AppButton extends StatelessWidget {
         );
 
       case ButtonStyleVariant.outline:
-        // For outline buttons, use border and text colors from target surface
-        // but keep transparent background unless target has special background
+        // For outline buttons:
+        // - Border and content use the brand color (primary/secondary)
+        // - Background is transparent or very subtle tint
+        final schemeColor = resolveSchemeColor();
         Color? adaptedBackgroundColor;
-        if (targetSurface.backgroundColor != null &&
-            targetSurface.backgroundColor!.alpha > 0.05) {
-          // If target has a significant background color, use a very light version
-          adaptedBackgroundColor = targetSurface.backgroundColor!.withValues(alpha: 0.05);
+        if (targetSurface.backgroundColor.a > 0.05) {
+          adaptedBackgroundColor =
+              targetSurface.backgroundColor.withValues(alpha: 0.05);
         } else {
           adaptedBackgroundColor = baseStyle.backgroundColor;
         }
 
         return baseStyle.copyWith(
           backgroundColor: adaptedBackgroundColor,
-          borderColor: targetSurface.contentColor ?? materialTheme.colorScheme.primary,
-          contentColor: targetSurface.contentColor ?? materialTheme.colorScheme.primary,
+          borderColor: schemeColor,
+          contentColor: schemeColor,
         );
 
       case ButtonStyleVariant.text:
-        // For text buttons, use content colors from target surface
-        // but keep transparent background and borders
+        // For text buttons:
+        // - Content uses the brand color directly (primary/secondary)
+        // - No background or border
+        final schemeColor = resolveSchemeColor();
+
         return baseStyle.copyWith(
-          contentColor: targetSurface.contentColor ?? materialTheme.colorScheme.primary,
-          // Keep transparent background and borders for text buttons
+          contentColor: schemeColor,
           backgroundColor: baseStyle.backgroundColor,
           borderColor: baseStyle.borderColor,
         );

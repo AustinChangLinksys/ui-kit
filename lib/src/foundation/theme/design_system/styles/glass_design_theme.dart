@@ -6,6 +6,9 @@ import 'package:ui_kit_library/src/foundation/theme/design_system/specs/password
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/shared/animation_spec.dart'
     as shared;
 import 'package:ui_kit_library/src/foundation/theme/design_system/specs/styled_text_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/page_layout_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/bottom_bar_style.dart';
+import 'package:ui_kit_library/src/foundation/theme/design_system/specs/menu_style.dart';
 import 'package:ui_kit_library/ui_kit.dart';
 
 class GlassDesignTheme extends AppDesignTheme {
@@ -261,25 +264,46 @@ class GlassDesignTheme extends AppDesignTheme {
         gutterDesktop: 32.0,
       ),
       appBarStyle: AppBarStyle(
-        containerStyle: SurfaceStyle(
-          backgroundColor: colors.styleBackground,
-          borderColor: colors.subtleBorder,
-          borderWidth: 1.0,
-          borderRadius: 0.0,
-          shadows: const [],
-          blurStrength: 25.0,
-          contentColor: colors.onSurface,
-        ),
-        dividerStyle: DividerStyle(
-          color: colors.subtleBorder.withValues(alpha: 0.5),
-          thickness: 1.0,
-          pattern: DividerPattern.solid,
-          glowStrength: 4.0,
-        ),
+        backgroundColor: colors.styleBackground,
+        foregroundColor: colors.onSurface,
+        surfaceColor: colors.styleBackground,
+        shadowColor: colors.subtleBorder,
+        elevation: 0.0,
         height: 56.0,
+        titleTextStyle: TextStyle(
+          color: colors.onSurface,
+          fontSize: 20.0,
+          fontWeight: FontWeight.w500,
+        ),
+        actionIconSize: 24.0,
+        leadingIconSize: 24.0,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+        actionSpacing: 12.0,
+        borderRadius: BorderRadius.zero,
+        border: Border.all(
+          color: colors.subtleBorder,
+          width: 1.0,
+        ),
+        centerTitle: false,
+        titleSpacing: 16.0,
         collapsedHeight: 56.0,
         expandedHeight: 200.0,
         flexibleSpaceBlur: 25.0,
+        containerStyle: BoxDecoration(
+          color: colors.styleBackground,
+          border: Border.all(
+            color: colors.subtleBorder,
+            width: 1.0,
+          ),
+        ),
+        dividerStyle: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: colors.subtleBorder.withValues(alpha: 0.5),
+              width: 1.0,
+            ),
+          ),
+        ),
       ),
       menuStyle: AppMenuStyle(
         containerStyle: SurfaceStyle(
@@ -498,7 +522,7 @@ class GlassDesignTheme extends AppDesignTheme {
         type: GaugeRenderType.gradient, // Neon gradient
         cap: GaugeCapType.comet, // Comet tail
         trackColor: colors.outline.withValues(alpha: 0.1),
-        indicatorColor: colors.signalStrong,
+        indicatorColor: colors.semanticSuccess,
         showTicks: false,
         strokeWidth: 16.0,
         enableGlow: true, // Neon glow
@@ -510,15 +534,15 @@ class GlassDesignTheme extends AppDesignTheme {
       rangeInputStyle: RangeInputStyle(
         mergeContainers: false, // Separated boxes
         customSeparator: null, // Glowing beam handled by renderer
-        activeBorderColor: colors.signalStrong, // Neon glow
+        activeBorderColor: colors.semanticSuccess, // Neon glow
         spacing: 8.0,
       ),
       pinInputStyle: PinInputStyle(
         cellShape: PinCellShape.circle, // Orb
         fillOnInput: false,
         glowOnActive: true, // Pulse
-        textStyle:
-            appTextTheme.headlineMedium!.copyWith(color: colors.signalStrong),
+        textStyle: appTextTheme.headlineMedium!
+            .copyWith(color: colors.semanticSuccess),
         cellSpacing: 12.0,
         cellSize: 56.0,
       ),
@@ -528,11 +552,23 @@ class GlassDesignTheme extends AppDesignTheme {
         ruleTextStyle: appTextTheme.bodySmall!
             .copyWith(color: colors.onSurface.withValues(alpha: 0.7)),
         showRuleListBackground: true, // Glass panel
-        validColor: colors.signalStrong, // Neon green
+        validColor: colors.semanticSuccess, // Neon green
         pendingColor: colors.onSurface.withValues(alpha: 0.5),
       ),
       styledTextStyle: _createGlassStyledTextStyle(colors, appTextTheme),
       buttonStyle: _createGlassAppButtonStyle(colors, appTextTheme),
+      pageLayoutStyle: PageLayoutStyle.defaultStyle(
+        colorScheme: colors.toMaterialScheme(brightness: Brightness.light),
+        spacing: 32.0,
+      ),
+      bottomBarStyle: BottomBarStyle.defaultStyle(
+        colorScheme: colors.toMaterialScheme(brightness: Brightness.light),
+        textTheme: appTextTheme,
+      ),
+      pageMenuStyle: AppMenuThemeStyle.defaultStyle(
+        colorScheme: colors.toMaterialScheme(brightness: Brightness.light),
+        textTheme: appTextTheme,
+      ),
     );
   }
 
@@ -578,6 +614,9 @@ class GlassDesignTheme extends AppDesignTheme {
     required super.passwordInputStyle,
     required super.styledTextStyle,
     required super.buttonStyle,
+    required super.pageLayoutStyle,
+    required super.bottomBarStyle,
+    required super.pageMenuStyle,
   });
 
   // Light Mode (Liquid Water)
@@ -588,7 +627,7 @@ class GlassDesignTheme extends AppDesignTheme {
     return GlassDesignTheme._(
       surfaceBase: SurfaceStyle(
         backgroundColor: glassBaseColor,
-        borderColor: scheme.outline.withValues(alpha: 0.5),
+        borderColor: scheme.outline.withValues(alpha: 0.8),
         borderWidth: 1.5,
         borderRadius: 24.0,
         shadows: [
@@ -839,25 +878,46 @@ class GlassDesignTheme extends AppDesignTheme {
 
       // Phase 2: AppBar, Menu, Dialog styles (Glass Light)
       appBarStyle: AppBarStyle(
-        containerStyle: SurfaceStyle(
-          backgroundColor: scheme.surface.withValues(alpha: 0.6),
-          borderColor: scheme.outline.withValues(alpha: 0.3),
-          borderWidth: 1.0,
-          borderRadius: 0.0,
-          shadows: const [],
-          blurStrength: 25.0,
-          contentColor: scheme.onSurface,
-        ),
-        dividerStyle: DividerStyle(
-          color: scheme.outline.withValues(alpha: 0.2),
-          thickness: 1.0,
-          pattern: DividerPattern.solid,
-          glowStrength: 4.0,
-        ),
+        backgroundColor: scheme.surface.withValues(alpha: 0.6),
+        foregroundColor: scheme.onSurface,
+        surfaceColor: scheme.surface.withValues(alpha: 0.6),
+        shadowColor: scheme.outline.withValues(alpha: 0.3),
+        elevation: 0.0,
         height: 56.0,
+        titleTextStyle: TextStyle(
+          color: scheme.onSurface,
+          fontSize: 20.0,
+          fontWeight: FontWeight.w500,
+        ),
+        actionIconSize: 24.0,
+        leadingIconSize: 24.0,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+        actionSpacing: 12.0,
+        borderRadius: BorderRadius.zero,
+        border: Border.all(
+          color: scheme.outline.withValues(alpha: 0.3),
+          width: 1.0,
+        ),
+        centerTitle: false,
+        titleSpacing: 16.0,
         collapsedHeight: 56.0,
         expandedHeight: 200.0,
         flexibleSpaceBlur: 25.0,
+        containerStyle: BoxDecoration(
+          color: scheme.surface.withValues(alpha: 0.6),
+          border: Border.all(
+            color: scheme.outline.withValues(alpha: 0.3),
+            width: 1.0,
+          ),
+        ),
+        dividerStyle: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: scheme.outline.withValues(alpha: 0.2),
+              width: 1.0,
+            ),
+          ),
+        ),
       ),
       menuStyle: AppMenuStyle(
         containerStyle: SurfaceStyle(
@@ -1073,7 +1133,7 @@ class GlassDesignTheme extends AppDesignTheme {
       gaugeStyle: GaugeStyle(
         type: GaugeRenderType.gradient,
         cap: GaugeCapType.comet,
-        trackColor: scheme.outline.withValues(alpha: 0.1),
+        trackColor: scheme.outline.withValues(alpha: 0.2),
         indicatorColor: scheme.primary,
         showTicks: false,
         strokeWidth: 16.0,
@@ -1106,8 +1166,21 @@ class GlassDesignTheme extends AppDesignTheme {
         validColor: scheme.primary,
         pendingColor: scheme.onSurface.withValues(alpha: 0.5),
       ),
-      styledTextStyle: _createGlassStyledTextStyleForScheme(scheme, appTextTheme),
+      styledTextStyle:
+          _createGlassStyledTextStyleForScheme(scheme, appTextTheme),
       buttonStyle: _createGlassAppButtonStyleForScheme(scheme, appTextTheme),
+      pageLayoutStyle: PageLayoutStyle.defaultStyle(
+        colorScheme: scheme,
+        spacing: 32.0,
+      ),
+      bottomBarStyle: BottomBarStyle.defaultStyle(
+        colorScheme: scheme,
+        textTheme: appTextTheme,
+      ),
+      pageMenuStyle: AppMenuThemeStyle.defaultStyle(
+        colorScheme: scheme,
+        textTheme: appTextTheme,
+      ),
     );
   }
 
@@ -1366,25 +1439,46 @@ class GlassDesignTheme extends AppDesignTheme {
 
       // Phase 2: AppBar, Menu, Dialog styles (Glass Dark)
       appBarStyle: AppBarStyle(
-        containerStyle: SurfaceStyle(
-          backgroundColor: scheme.shadow.withValues(alpha: 0.4),
-          borderColor: scheme.outline.withValues(alpha: 0.2),
-          borderWidth: 1.0,
-          borderRadius: 0.0,
-          shadows: const [],
-          blurStrength: 25.0,
-          contentColor: scheme.onSurface,
-        ),
-        dividerStyle: DividerStyle(
-          color: scheme.outline.withValues(alpha: 0.15),
-          thickness: 1.0,
-          pattern: DividerPattern.solid,
-          glowStrength: 4.0,
-        ),
+        backgroundColor: scheme.shadow.withValues(alpha: 0.4),
+        foregroundColor: scheme.onSurface,
+        surfaceColor: scheme.shadow.withValues(alpha: 0.4),
+        shadowColor: scheme.outline.withValues(alpha: 0.2),
+        elevation: 0.0,
         height: 56.0,
+        titleTextStyle: TextStyle(
+          color: scheme.onSurface,
+          fontSize: 20.0,
+          fontWeight: FontWeight.w500,
+        ),
+        actionIconSize: 24.0,
+        leadingIconSize: 24.0,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+        actionSpacing: 12.0,
+        borderRadius: BorderRadius.zero,
+        border: Border.all(
+          color: scheme.outline.withValues(alpha: 0.2),
+          width: 1.0,
+        ),
+        centerTitle: false,
+        titleSpacing: 16.0,
         collapsedHeight: 56.0,
         expandedHeight: 200.0,
         flexibleSpaceBlur: 25.0,
+        containerStyle: BoxDecoration(
+          color: scheme.shadow.withValues(alpha: 0.4),
+          border: Border.all(
+            color: scheme.outline.withValues(alpha: 0.2),
+            width: 1.0,
+          ),
+        ),
+        dividerStyle: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: scheme.outline.withValues(alpha: 0.15),
+              width: 1.0,
+            ),
+          ),
+        ),
       ),
       menuStyle: AppMenuStyle(
         containerStyle: SurfaceStyle(
@@ -1630,8 +1724,21 @@ class GlassDesignTheme extends AppDesignTheme {
         validColor: scheme.primary,
         pendingColor: scheme.onSurface.withValues(alpha: 0.5),
       ),
-      styledTextStyle: _createGlassStyledTextStyleForScheme(scheme, appTextTheme),
+      styledTextStyle:
+          _createGlassStyledTextStyleForScheme(scheme, appTextTheme),
       buttonStyle: _createGlassAppButtonStyleForScheme(scheme, appTextTheme),
+      pageLayoutStyle: PageLayoutStyle.defaultStyle(
+        colorScheme: scheme,
+        spacing: 32.0,
+      ),
+      bottomBarStyle: BottomBarStyle.defaultStyle(
+        colorScheme: scheme,
+        textTheme: appTextTheme,
+      ),
+      pageMenuStyle: AppMenuThemeStyle.defaultStyle(
+        colorScheme: scheme,
+        textTheme: appTextTheme,
+      ),
     );
   }
 
