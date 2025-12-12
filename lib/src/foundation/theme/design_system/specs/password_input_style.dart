@@ -4,17 +4,18 @@ import 'package:theme_tailor_annotation/theme_tailor_annotation.dart';
 part 'password_input_style.tailor.dart';
 
 @TailorMixin()
-class PasswordInputStyle extends ThemeExtension<PasswordInputStyle> with _$PasswordInputStyleTailorMixin {
+class PasswordInputStyle extends ThemeExtension<PasswordInputStyle>
+    with _$PasswordInputStyleTailorMixin {
   @override
-  final IconData validIcon;     // Check / [x]
+  final IconData validIcon; // Check / [x]
   @override
-  final IconData pendingIcon;   // Circle / [ ]
+  final IconData pendingIcon; // Circle / [ ]
   @override
   final TextStyle ruleTextStyle;
   @override
   final bool showRuleListBackground; // Glass (Pane)
   @override
-  final Color validColor;       // signalStrong
+  final Color validColor; // semanticSuccess
   @override
   final Color pendingColor;
 

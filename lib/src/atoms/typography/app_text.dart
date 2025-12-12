@@ -440,11 +440,17 @@ class AppText extends StatelessWidget {
     // Use Extension to parse base style
     final baseStyle = variant.resolve(context);
 
+    // Resolve color priority:
+    // 1. Explicit color passed to widget
+    // 2. Inherited color from DefaultTextStyle (e.g. set by AppSurface)
+    // 3. Fallback to base style color or SurfaceBase default
+    final inheritedColor = DefaultTextStyle.of(context).style.color;
+    final effectiveColor =
+        color ?? inheritedColor ?? theme.surfaceBase.contentColor;
+
     // Overlay color and fine-tune
     final effectiveStyle = baseStyle.copyWith(
-      color: color ??
-          theme.surfaceBase
-              .contentColor, // Default to current Surface content color
+      color: effectiveColor,
       fontWeight: fontWeight,
       height: height,
     );

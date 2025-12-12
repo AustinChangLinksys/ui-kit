@@ -47,9 +47,13 @@ mixin _$AppColorSchemeTailorMixin on ThemeExtension<AppColorScheme> {
   Color get styleBackground;
   Color get styleShadow;
   Color get glowColor;
-  Color get signalStrong;
-  Color get signalWeak;
-  Color get signalGlow;
+  Color get semanticSuccess;
+  Color get onSemanticSuccess;
+  Color get semanticWarning;
+  Color get onSemanticWarning;
+  Color get semanticDanger;
+  Color get onSemanticDanger;
+  Color get semanticGlow;
   Color get activeFillColor;
   Color get activeContentColor;
   Color get overlayColor;
@@ -93,9 +97,13 @@ mixin _$AppColorSchemeTailorMixin on ThemeExtension<AppColorScheme> {
     Color? styleBackground,
     Color? styleShadow,
     Color? glowColor,
-    Color? signalStrong,
-    Color? signalWeak,
-    Color? signalGlow,
+    Color? semanticSuccess,
+    Color? onSemanticSuccess,
+    Color? semanticWarning,
+    Color? onSemanticWarning,
+    Color? semanticDanger,
+    Color? onSemanticDanger,
+    Color? semanticGlow,
     Color? activeFillColor,
     Color? activeContentColor,
     Color? overlayColor,
@@ -140,9 +148,13 @@ mixin _$AppColorSchemeTailorMixin on ThemeExtension<AppColorScheme> {
       styleBackground: styleBackground ?? this.styleBackground,
       styleShadow: styleShadow ?? this.styleShadow,
       glowColor: glowColor ?? this.glowColor,
-      signalStrong: signalStrong ?? this.signalStrong,
-      signalWeak: signalWeak ?? this.signalWeak,
-      signalGlow: signalGlow ?? this.signalGlow,
+      semanticSuccess: semanticSuccess ?? this.semanticSuccess,
+      onSemanticSuccess: onSemanticSuccess ?? this.onSemanticSuccess,
+      semanticWarning: semanticWarning ?? this.semanticWarning,
+      onSemanticWarning: onSemanticWarning ?? this.onSemanticWarning,
+      semanticDanger: semanticDanger ?? this.semanticDanger,
+      onSemanticDanger: onSemanticDanger ?? this.onSemanticDanger,
+      semanticGlow: semanticGlow ?? this.semanticGlow,
       activeFillColor: activeFillColor ?? this.activeFillColor,
       activeContentColor: activeContentColor ?? this.activeContentColor,
       overlayColor: overlayColor ?? this.overlayColor,
@@ -206,9 +218,16 @@ mixin _$AppColorSchemeTailorMixin on ThemeExtension<AppColorScheme> {
       styleBackground: Color.lerp(styleBackground, other.styleBackground, t)!,
       styleShadow: Color.lerp(styleShadow, other.styleShadow, t)!,
       glowColor: Color.lerp(glowColor, other.glowColor, t)!,
-      signalStrong: Color.lerp(signalStrong, other.signalStrong, t)!,
-      signalWeak: Color.lerp(signalWeak, other.signalWeak, t)!,
-      signalGlow: Color.lerp(signalGlow, other.signalGlow, t)!,
+      semanticSuccess: Color.lerp(semanticSuccess, other.semanticSuccess, t)!,
+      onSemanticSuccess:
+          Color.lerp(onSemanticSuccess, other.onSemanticSuccess, t)!,
+      semanticWarning: Color.lerp(semanticWarning, other.semanticWarning, t)!,
+      onSemanticWarning:
+          Color.lerp(onSemanticWarning, other.onSemanticWarning, t)!,
+      semanticDanger: Color.lerp(semanticDanger, other.semanticDanger, t)!,
+      onSemanticDanger:
+          Color.lerp(onSemanticDanger, other.onSemanticDanger, t)!,
+      semanticGlow: Color.lerp(semanticGlow, other.semanticGlow, t)!,
       activeFillColor: Color.lerp(activeFillColor, other.activeFillColor, t)!,
       activeContentColor:
           Color.lerp(activeContentColor, other.activeContentColor, t)!,
@@ -284,11 +303,19 @@ mixin _$AppColorSchemeTailorMixin on ThemeExtension<AppColorScheme> {
                 .equals(styleShadow, other.styleShadow) &&
             const DeepCollectionEquality().equals(glowColor, other.glowColor) &&
             const DeepCollectionEquality()
-                .equals(signalStrong, other.signalStrong) &&
+                .equals(semanticSuccess, other.semanticSuccess) &&
             const DeepCollectionEquality()
-                .equals(signalWeak, other.signalWeak) &&
+                .equals(onSemanticSuccess, other.onSemanticSuccess) &&
             const DeepCollectionEquality()
-                .equals(signalGlow, other.signalGlow) &&
+                .equals(semanticWarning, other.semanticWarning) &&
+            const DeepCollectionEquality()
+                .equals(onSemanticWarning, other.onSemanticWarning) &&
+            const DeepCollectionEquality()
+                .equals(semanticDanger, other.semanticDanger) &&
+            const DeepCollectionEquality()
+                .equals(onSemanticDanger, other.onSemanticDanger) &&
+            const DeepCollectionEquality()
+                .equals(semanticGlow, other.semanticGlow) &&
             const DeepCollectionEquality()
                 .equals(activeFillColor, other.activeFillColor) &&
             const DeepCollectionEquality()
@@ -338,9 +365,13 @@ mixin _$AppColorSchemeTailorMixin on ThemeExtension<AppColorScheme> {
       const DeepCollectionEquality().hash(styleBackground),
       const DeepCollectionEquality().hash(styleShadow),
       const DeepCollectionEquality().hash(glowColor),
-      const DeepCollectionEquality().hash(signalStrong),
-      const DeepCollectionEquality().hash(signalWeak),
-      const DeepCollectionEquality().hash(signalGlow),
+      const DeepCollectionEquality().hash(semanticSuccess),
+      const DeepCollectionEquality().hash(onSemanticSuccess),
+      const DeepCollectionEquality().hash(semanticWarning),
+      const DeepCollectionEquality().hash(onSemanticWarning),
+      const DeepCollectionEquality().hash(semanticDanger),
+      const DeepCollectionEquality().hash(onSemanticDanger),
+      const DeepCollectionEquality().hash(semanticGlow),
       const DeepCollectionEquality().hash(activeFillColor),
       const DeepCollectionEquality().hash(activeContentColor),
       const DeepCollectionEquality().hash(overlayColor),
@@ -388,9 +419,13 @@ extension AppColorSchemeBuildContextProps on BuildContext {
   Color get styleBackground => appColorScheme.styleBackground;
   Color get styleShadow => appColorScheme.styleShadow;
   Color get glowColor => appColorScheme.glowColor;
-  Color get signalStrong => appColorScheme.signalStrong;
-  Color get signalWeak => appColorScheme.signalWeak;
-  Color get signalGlow => appColorScheme.signalGlow;
+  Color get semanticSuccess => appColorScheme.semanticSuccess;
+  Color get onSemanticSuccess => appColorScheme.onSemanticSuccess;
+  Color get semanticWarning => appColorScheme.semanticWarning;
+  Color get onSemanticWarning => appColorScheme.onSemanticWarning;
+  Color get semanticDanger => appColorScheme.semanticDanger;
+  Color get onSemanticDanger => appColorScheme.onSemanticDanger;
+  Color get semanticGlow => appColorScheme.semanticGlow;
   Color get activeFillColor => appColorScheme.activeFillColor;
   Color get activeContentColor => appColorScheme.activeContentColor;
   Color get overlayColor => appColorScheme.overlayColor;

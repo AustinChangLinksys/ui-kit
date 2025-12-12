@@ -11,6 +11,10 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:widgetbook/widgetbook.dart' as _widgetbook;
+import 'package:widgetbook_workspace/stories/atoms/app_image.stories.dart'
+    as _widgetbook_workspace_stories_atoms_app_image_stories;
+import 'package:widgetbook_workspace/stories/atoms/app_svg.stories.dart'
+    as _widgetbook_workspace_stories_atoms_app_svg_stories;
 import 'package:widgetbook_workspace/stories/atoms/assets.stories.dart'
     as _widgetbook_workspace_stories_atoms_assets_stories;
 import 'package:widgetbook_workspace/stories/atoms/icons/app_icon.stories.dart'
@@ -41,8 +45,12 @@ import 'package:widgetbook_workspace/stories/examples/mockup_page.stories.dart'
     as _widgetbook_workspace_stories_examples_mockup_page_stories;
 import 'package:widgetbook_workspace/stories/foundation/color_json.stories.dart'
     as _widgetbook_workspace_stories_foundation_color_json_stories;
+import 'package:widgetbook_workspace/stories/foundation/color_utils.stories.dart'
+    as _widgetbook_workspace_stories_foundation_color_utils_stories;
 import 'package:widgetbook_workspace/stories/foundation/effects/global_effects_overlay.stories.dart'
     as _widgetbook_workspace_stories_foundation_effects_global_effects_overlay_stories;
+import 'package:widgetbook_workspace/stories/layout/app_responsive_layout.stories.dart'
+    as _widgetbook_workspace_stories_layout_app_responsive_layout_stories;
 import 'package:widgetbook_workspace/stories/molecules/buttons/app_buttons.stories.dart'
     as _widgetbook_workspace_stories_molecules_buttons_app_buttons_stories;
 import 'package:widgetbook_workspace/stories/molecules/cards/app_card.stories.dart'
@@ -242,33 +250,33 @@ final directories = <_widgetbook.WidgetbookNode>[
         name: 'images',
         children: [
           _widgetbook.WidgetbookComponent(
-            name: 'ProductImage',
+            name: 'AppImage',
             useCases: [
               _widgetbook.WidgetbookUseCase(
-                name: 'Product Image (Dimming)',
-                builder: _widgetbook_workspace_stories_atoms_assets_stories
-                    .buildProductImage,
-              )
+                name: 'DarkModeStrategy Comparison',
+                builder: _widgetbook_workspace_stories_atoms_app_image_stories
+                    .buildDarkModeStrategyComparison,
+              ),
+              _widgetbook.WidgetbookUseCase(
+                name: 'Playground',
+                builder: _widgetbook_workspace_stories_atoms_app_image_stories
+                    .buildAppImagePlayground,
+              ),
             ],
           ),
           _widgetbook.WidgetbookComponent(
-            name: 'ThemeAwareImage',
+            name: 'AppSvg',
             useCases: [
               _widgetbook.WidgetbookUseCase(
-                name: 'Multi-colored PNG (Switching)',
-                builder: _widgetbook_workspace_stories_atoms_assets_stories
-                    .buildThemeAwareImage,
-              )
-            ],
-          ),
-          _widgetbook.WidgetbookComponent(
-            name: 'ThemeAwareSvg',
-            useCases: [
+                name: 'DarkModeStrategy Comparison',
+                builder: _widgetbook_workspace_stories_atoms_app_svg_stories
+                    .buildAppSvgStrategyComparison,
+              ),
               _widgetbook.WidgetbookUseCase(
-                name: 'Multi-colored SVG (Switching)',
-                builder: _widgetbook_workspace_stories_atoms_assets_stories
-                    .buildThemeAwareSvg,
-              )
+                name: 'Playground',
+                builder: _widgetbook_workspace_stories_atoms_app_svg_stories
+                    .buildAppSvgPlayground,
+              ),
             ],
           ),
         ],
@@ -389,6 +397,29 @@ final directories = <_widgetbook.WidgetbookNode>[
   _widgetbook.WidgetbookFolder(
     name: 'foundation',
     children: [
+      _widgetbook.WidgetbookComponent(
+        name: 'ColorUtils',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Auto Foreground Color',
+            builder:
+                _widgetbook_workspace_stories_foundation_color_utils_stories
+                    .buildColorUtilsAutoForeground,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Light/Dark Detection',
+            builder:
+                _widgetbook_workspace_stories_foundation_color_utils_stories
+                    .buildLightDarkDetection,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Semantic Colors Demo',
+            builder:
+                _widgetbook_workspace_stories_foundation_color_utils_stories
+                    .buildSemanticColorsDemo,
+          ),
+        ],
+      ),
       _widgetbook.WidgetbookFolder(
         name: 'effects',
         children: [
@@ -404,7 +435,7 @@ final directories = <_widgetbook.WidgetbookNode>[
             ],
           )
         ],
-      )
+      ),
     ],
   ),
   _widgetbook.WidgetbookFolder(
@@ -468,7 +499,24 @@ final directories = <_widgetbook.WidgetbookNode>[
                     .buildPageWithTabs,
           ),
         ],
-      )
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'AppResponsiveLayout',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Default',
+            builder:
+                _widgetbook_workspace_stories_layout_app_responsive_layout_stories
+                    .appResponsiveLayoutUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Without Tablet (Fallback)',
+            builder:
+                _widgetbook_workspace_stories_layout_app_responsive_layout_stories
+                    .appResponsiveLayoutFallbackUseCase,
+          ),
+        ],
+      ),
     ],
   ),
   _widgetbook.WidgetbookFolder(

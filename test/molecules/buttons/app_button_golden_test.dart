@@ -13,8 +13,7 @@ void main() {
     await loadAppFonts();
   });
 
-  group('AppButton Golden Tests', () {
-
+  group('AppButton Filled Variants Golden Tests', () {
     // Test 1: Primary Action (Highlight Variant)
     goldenTest(
       'AppButton - Primary',
@@ -63,7 +62,22 @@ void main() {
       ),
     );
 
-    // Test 4: Loading State
+    // Test 4: Danger Action (Accent Variant)
+    goldenTest(
+      'AppButton.danger - Danger',
+      fileName: 'app_button_danger',
+      builder: () => buildThemeMatrix(
+        name: 'Danger',
+        width: 300,
+        height: 100,
+        child: AppButton.danger(
+          label: 'Delete',
+          onTap: () {},
+        ),
+      ),
+    );
+
+    // Test 5: Loading State
     goldenTest(
       'AppButton - Loading',
       fileName: 'app_button_loading',
@@ -71,8 +85,6 @@ void main() {
         name: 'Loading',
         width: 300,
         height: 100,
-        // Matrix factory internally calls buildSafeScenario with disableAnimation: true
-        // Animations are frozen automatically to prevent timeout
         child: AppButton(
           label: 'Loading',
           isLoading: true,
@@ -81,7 +93,7 @@ void main() {
       ),
     );
 
-    // Test 5: Disabled State
+    // Test 6: Disabled State
     goldenTest(
       'AppButton - Disabled',
       fileName: 'app_button_disabled',
@@ -92,6 +104,67 @@ void main() {
         child: const AppButton(
           label: 'Disabled',
           onTap: null,
+        ),
+      ),
+    );
+  });
+
+  group('AppButton Size Variants Golden Tests', () {
+    // Test: All Sizes Comparison
+    goldenTest(
+      'AppButton - Sizes',
+      fileName: 'app_button_sizes',
+      builder: () => buildThemeMatrix(
+        name: 'Sizes',
+        width: 350,
+        height: 250,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            AppButton.small(
+              label: 'Small',
+              onTap: () {},
+            ),
+            AppButton(
+              label: 'Medium',
+              size: AppButtonSize.medium,
+              onTap: () {},
+            ),
+            AppButton.large(
+              label: 'Large',
+              onTap: () {},
+            ),
+          ],
+        ),
+      ),
+    );
+  });
+
+  group('AppButton Icon Variants Golden Tests', () {
+    // Test: Filled Button with Icons
+    goldenTest(
+      'AppButton - With Icons',
+      fileName: 'app_button_filled_icons',
+      builder: () => buildThemeMatrix(
+        name: 'Filled Icons',
+        width: 400,
+        height: 180,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            AppButton.primary(
+              label: 'Leading Icon',
+              icon: const Icon(Icons.check),
+              iconPosition: AppButtonIconPosition.leading,
+              onTap: () {},
+            ),
+            AppButton.secondary(
+              label: 'Trailing Icon',
+              icon: const Icon(Icons.arrow_forward),
+              iconPosition: AppButtonIconPosition.trailing,
+              onTap: () {},
+            ),
+          ],
         ),
       ),
     );
@@ -143,7 +216,23 @@ void main() {
       ),
     );
 
-    // Test 4: Outline Button Disabled State
+    // Test 4: Outline Button Loading State
+    goldenTest(
+      'AppButton.primaryOutline - Loading',
+      fileName: 'app_button_outline_loading',
+      builder: () => buildThemeMatrix(
+        name: 'Outline Loading',
+        width: 300,
+        height: 100,
+        child: AppButton.primaryOutline(
+          label: 'Loading',
+          isLoading: true,
+          onTap: () {},
+        ),
+      ),
+    );
+
+    // Test 5: Outline Button Disabled State
     goldenTest(
       'AppButton.primaryOutline - Disabled',
       fileName: 'app_button_outline_disabled',
@@ -158,7 +247,7 @@ void main() {
       ),
     );
 
-    // Test 5: Outline Button with Icons
+    // Test 6: Outline Button with Icons
     goldenTest(
       'AppButton.outline - With Icons',
       fileName: 'app_button_outline_icons',
@@ -187,8 +276,8 @@ void main() {
     );
   });
 
-  group('AppButton.text() Golden Tests', () {
-    // Test 1: Text Button Enabled State
+  group('AppButton Text Variants Golden Tests', () {
+    // Test 1: Text Button Enabled State (Base variant)
     goldenTest(
       'AppButton.text - Enabled',
       fileName: 'app_text_button_enabled',
@@ -203,7 +292,47 @@ void main() {
       ),
     );
 
-    // Test 2: Text Button Disabled State
+    // Test 2: Text Button with different SurfaceVariants
+    goldenTest(
+      'AppButton.text - Variant Combinations',
+      fileName: 'app_text_button_variants',
+      builder: () => buildThemeMatrix(
+        name: 'Text Variants',
+        width: 400,
+        height: 350,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            AppButton(
+              label: 'Primary Text',
+              styleVariant: ButtonStyleVariant.text,
+              variant: SurfaceVariant.highlight,
+              onTap: () {},
+            ),
+            AppButton(
+              label: 'Secondary Text',
+              styleVariant: ButtonStyleVariant.text,
+              variant: SurfaceVariant.tonal,
+              onTap: () {},
+            ),
+            AppButton(
+              label: 'Tertiary Text',
+              styleVariant: ButtonStyleVariant.text,
+              variant: SurfaceVariant.base,
+              onTap: () {},
+            ),
+            AppButton(
+              label: 'Danger Text',
+              styleVariant: ButtonStyleVariant.text,
+              variant: SurfaceVariant.accent,
+              onTap: () {},
+            ),
+          ],
+        ),
+      ),
+    );
+
+    // Test 3: Text Button Disabled State
     goldenTest(
       'AppButton.text - Disabled',
       fileName: 'app_text_button_disabled',
@@ -218,7 +347,7 @@ void main() {
       ),
     );
 
-    // Test 3: Text Button Loading State
+    // Test 4: Text Button Loading State
     goldenTest(
       'AppButton.text - Loading',
       fileName: 'app_text_button_loading',
@@ -234,7 +363,7 @@ void main() {
       ),
     );
 
-    // Test 4: Text Button Different Sizes
+    // Test 5: Text Button Different Sizes
     goldenTest(
       'AppButton.text - Sizes',
       fileName: 'app_text_button_sizes',
@@ -265,7 +394,7 @@ void main() {
       ),
     );
 
-    // Test 5: Text Button With Icons
+    // Test 6: Text Button With Icons
     goldenTest(
       'AppButton.text - With Icons',
       fileName: 'app_text_button_icons',

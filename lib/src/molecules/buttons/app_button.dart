@@ -347,41 +347,59 @@ class AppButton extends StatelessWidget {
   /// This method takes the base button surface style (from filled/outline/text)
   /// and adapts the colors based on the semantic variant (highlight/tonal/base)
   /// to create visual distinction between Primary and Secondary buttons.
+  ///
+  /// For text and outline buttons, we use ColorScheme colors directly:
+  /// - highlight → primary
+  /// - tonal → secondary
+  /// - accent → tertiary
+  /// - base/elevated → onSurface
   SurfaceStyle _applySemanticVariantColors(
     SurfaceStyle baseStyle,
     AppDesignTheme theme,
     BuildContext context,
   ) {
+    // Get ColorScheme for text/outline button content colors
+    final colorScheme = Theme.of(context).colorScheme;
 
     // Get the appropriate surface style based on semantic variant
     late final SurfaceStyle targetSurface;
     switch (variant) {
       case SurfaceVariant.highlight:
-        // Primary buttons use surfaceHighlight colors
         targetSurface = theme.surfaceHighlight;
         break;
       case SurfaceVariant.tonal:
-        // Secondary buttons use surfaceSecondary colors
         targetSurface = theme.surfaceSecondary;
         break;
       case SurfaceVariant.base:
-        // Tertiary buttons use surfaceBase colors
         targetSurface = theme.surfaceBase;
         break;
       case SurfaceVariant.elevated:
-        // Elevated buttons use surfaceElevated colors
         targetSurface = theme.surfaceElevated;
         break;
       case SurfaceVariant.accent:
-        // Accent buttons use surfaceTertiary colors (accent maps to tertiary)
         targetSurface = theme.surfaceTertiary;
         break;
     }
 
-    // For outline and text buttons, we need to adapt the colors differently
+    // Resolve content color for non-filled styles using ColorScheme
+    Color resolveSchemeColor() {
+      switch (variant) {
+        case SurfaceVariant.highlight:
+          return colorScheme.primary;
+        case SurfaceVariant.tonal:
+          return colorScheme.secondary;
+        case SurfaceVariant.accent:
+          return colorScheme.tertiary;
+        case SurfaceVariant.base:
+        case SurfaceVariant.elevated:
+          return colorScheme.onSurface;
+      }
+    }
+
     switch (styleVariant) {
       case ButtonStyleVariant.filled:
-        // For filled buttons, use the target surface colors directly
+        // For filled buttons, use the surface colors directly
+        // backgroundColor = primary/secondary/etc, contentColor = onPrimary/onSecondary/etc
         return baseStyle.copyWith(
           backgroundColor: targetSurface.backgroundColor,
           borderColor: targetSurface.borderColor,
@@ -389,11 +407,12 @@ class AppButton extends StatelessWidget {
         );
 
       case ButtonStyleVariant.outline:
-        // For outline buttons, use border and text colors from target surface
-        // but keep transparent background unless target has special background
+        // For outline buttons:
+        // - Border and content use the brand color (primary/secondary)
+        // - Background is transparent or very subtle tint
+        final schemeColor = resolveSchemeColor();
         Color? adaptedBackgroundColor;
         if (targetSurface.backgroundColor.a > 0.05) {
-          // If target has a significant background color, use a very light version
           adaptedBackgroundColor =
               targetSurface.backgroundColor.withValues(alpha: 0.05);
         } else {
@@ -402,16 +421,18 @@ class AppButton extends StatelessWidget {
 
         return baseStyle.copyWith(
           backgroundColor: adaptedBackgroundColor,
-          borderColor: targetSurface.contentColor,
-          contentColor: targetSurface.contentColor,
+          borderColor: schemeColor,
+          contentColor: schemeColor,
         );
 
       case ButtonStyleVariant.text:
-        // For text buttons, use content colors from target surface
-        // but keep transparent background and borders
+        // For text buttons:
+        // - Content uses the brand color directly (primary/secondary)
+        // - No background or border
+        final schemeColor = resolveSchemeColor();
+
         return baseStyle.copyWith(
-          contentColor: targetSurface.contentColor,
-          // Keep transparent background and borders for text buttons
+          contentColor: schemeColor,
           backgroundColor: baseStyle.backgroundColor,
           borderColor: baseStyle.borderColor,
         );

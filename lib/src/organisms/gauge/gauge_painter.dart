@@ -67,7 +67,8 @@ class GaugePainter extends CustomPainter {
       ..style = PaintingStyle.stroke;
 
     if (style.type == GaugeRenderType.segmented && style.showTicks) {
-      _drawSegmentedArc(canvas, center, radius, startAngle, sweepAngle, trackPaint);
+      _drawSegmentedArc(
+          canvas, center, radius, startAngle, sweepAngle, trackPaint);
     } else {
       canvas.drawArc(
         Rect.fromCircle(center: center, radius: radius),
@@ -128,7 +129,8 @@ class GaugePainter extends CustomPainter {
       // For non-gradient types, the color is already set above
 
       if (style.type == GaugeRenderType.segmented && style.showTicks) {
-        _drawSegmentedArc(canvas, center, radius, startAngle, indicatorSweepAngle, indicatorPaint);
+        _drawSegmentedArc(canvas, center, radius, startAngle,
+            indicatorSweepAngle, indicatorPaint);
       } else {
         canvas.drawArc(
           Rect.fromCircle(center: center, radius: radius),
@@ -141,7 +143,8 @@ class GaugePainter extends CustomPainter {
 
       // 5. Draw comet tail effect (for Glass theme)
       if (style.cap == GaugeCapType.comet && style.enableGlow) {
-        _drawCometTail(canvas, center, outsideIndicatorRadius, startAngle, indicatorSweepAngle);
+        _drawCometTail(canvas, center, outsideIndicatorRadius, startAngle,
+            indicatorSweepAngle);
       }
 
       // 6. Draw bead cap (circular tip at end of arc)
@@ -199,7 +202,8 @@ class GaugePainter extends CustomPainter {
     double indicatorSweepAngle,
   ) {
     const cometLength = 2 * math.pi * 0.333;
-    final cometStartAngle = startAngle + indicatorSweepAngle - (cometLength / 2);
+    final cometStartAngle =
+        startAngle + indicatorSweepAngle - (cometLength / 2);
 
     final cometPaint = Paint()
       ..shader = SweepGradient(
@@ -211,8 +215,9 @@ class GaugePainter extends CustomPainter {
           Colors.white.withValues(alpha: 0.1),
         ],
         stops: const [0.0, 0.3, 0.5, 0.7, 1.0],
-        startAngle: cometStartAngle,
-        endAngle: cometStartAngle + cometLength,
+        startAngle: 0.0,
+        endAngle: cometLength,
+        transform: GradientRotation(cometStartAngle),
       ).createShader(Rect.fromCircle(center: center, radius: radius))
       ..strokeWidth = 4.0
       ..strokeCap = StrokeCap.round

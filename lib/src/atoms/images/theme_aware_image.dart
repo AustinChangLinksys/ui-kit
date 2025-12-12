@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../foundation/gen/assets.gen.dart'; // Import flutter_gen
 
+/// Use [AppImage.asset] with `darkVariant` parameter instead.
+@Deprecated('Use AppImage.asset with darkVariant parameter instead')
 class ThemeAwareImage extends StatelessWidget {
   final AssetGenImage lightImage;
   final AssetGenImage darkImage;

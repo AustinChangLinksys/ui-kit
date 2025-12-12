@@ -11,7 +11,6 @@ export 'src/foundation/theme/tokens/app_spacing.dart';
 export 'src/foundation/utils/app_validators.dart';
 export 'src/foundation/utils/app_formatters.dart';
 
-
 export 'src/foundation/theme/app_typography.dart';
 export 'src/foundation/design_system.dart';
 
@@ -78,12 +77,18 @@ export 'src/foundation/icons/app_icon_style.dart';
 
 export 'src/foundation/gen/assets.gen.dart';
 export 'src/foundation/icons/app_font_icons.dart';
-export 'src/atoms/images/theme_aware_svg.dart';
-export 'src/atoms/images/theme_aware_image.dart';
+export 'src/atoms/images/theme_aware_svg.dart'; // @deprecated - use AppSvg
+export 'src/atoms/images/theme_aware_image.dart'; // @deprecated - use AppImage
+
+// New unified image components
+export 'src/atoms/images/dark_mode_strategy.dart';
+export 'src/atoms/images/app_image.dart';
+export 'src/atoms/images/app_svg.dart';
 
 // --- NEW APP COLOR SYSTEM EXPORTS ---
 export 'src/foundation/theme/app_theme_config.dart';
 export 'src/foundation/theme/app_color_scheme.dart';
+export 'src/foundation/color_utils.dart';
 export 'src/foundation/theme/app_color_factory.dart';
 
 // -----------------------------------------------------------------------------
@@ -91,7 +96,7 @@ export 'src/foundation/theme/app_color_factory.dart';
 // Contains: buttons, icons, images, labels
 // -----------------------------------------------------------------------------
 export 'src/atoms/icons/app_icon.dart';
-export 'src/atoms/images/product_image.dart';
+export 'src/atoms/images/product_image.dart'; // @deprecated - use AppImage
 export 'src/atoms/loading/app_skeleton.dart';
 export 'src/atoms/surfaces/app_surface.dart';
 export 'src/atoms/typography/app_text.dart';

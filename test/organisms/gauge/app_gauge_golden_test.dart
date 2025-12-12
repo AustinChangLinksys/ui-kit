@@ -73,5 +73,24 @@ void main() {
         ),
       ),
     );
+
+    goldenTest(
+      'AppGauge - High Value (Boundary Check)',
+      fileName: 'app_gauge_high_value',
+      builder: () => buildThemeMatrix(
+        name: 'High Value',
+        width: 300.0,
+        height: 300.0,
+        child: AppGauge(
+          value: 99,
+          size: 240,
+          markers: const [0, 50, 100],
+          centerBuilder: (context, value) => AppText.headlineMedium(
+            '${value.toInt()}',
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+        ),
+      ),
+    );
   });
 }

@@ -522,7 +522,7 @@ class GlassDesignTheme extends AppDesignTheme {
         type: GaugeRenderType.gradient, // Neon gradient
         cap: GaugeCapType.comet, // Comet tail
         trackColor: colors.outline.withValues(alpha: 0.1),
-        indicatorColor: colors.signalStrong,
+        indicatorColor: colors.semanticSuccess,
         showTicks: false,
         strokeWidth: 16.0,
         enableGlow: true, // Neon glow
@@ -534,15 +534,15 @@ class GlassDesignTheme extends AppDesignTheme {
       rangeInputStyle: RangeInputStyle(
         mergeContainers: false, // Separated boxes
         customSeparator: null, // Glowing beam handled by renderer
-        activeBorderColor: colors.signalStrong, // Neon glow
+        activeBorderColor: colors.semanticSuccess, // Neon glow
         spacing: 8.0,
       ),
       pinInputStyle: PinInputStyle(
         cellShape: PinCellShape.circle, // Orb
         fillOnInput: false,
         glowOnActive: true, // Pulse
-        textStyle:
-            appTextTheme.headlineMedium!.copyWith(color: colors.signalStrong),
+        textStyle: appTextTheme.headlineMedium!
+            .copyWith(color: colors.semanticSuccess),
         cellSpacing: 12.0,
         cellSize: 56.0,
       ),
@@ -552,7 +552,7 @@ class GlassDesignTheme extends AppDesignTheme {
         ruleTextStyle: appTextTheme.bodySmall!
             .copyWith(color: colors.onSurface.withValues(alpha: 0.7)),
         showRuleListBackground: true, // Glass panel
-        validColor: colors.signalStrong, // Neon green
+        validColor: colors.semanticSuccess, // Neon green
         pendingColor: colors.onSurface.withValues(alpha: 0.5),
       ),
       styledTextStyle: _createGlassStyledTextStyle(colors, appTextTheme),
@@ -627,7 +627,7 @@ class GlassDesignTheme extends AppDesignTheme {
     return GlassDesignTheme._(
       surfaceBase: SurfaceStyle(
         backgroundColor: glassBaseColor,
-        borderColor: scheme.outline.withValues(alpha: 0.5),
+        borderColor: scheme.outline.withValues(alpha: 0.8),
         borderWidth: 1.5,
         borderRadius: 24.0,
         shadows: [
@@ -1133,7 +1133,7 @@ class GlassDesignTheme extends AppDesignTheme {
       gaugeStyle: GaugeStyle(
         type: GaugeRenderType.gradient,
         cap: GaugeCapType.comet,
-        trackColor: scheme.outline.withValues(alpha: 0.1),
+        trackColor: scheme.outline.withValues(alpha: 0.2),
         indicatorColor: scheme.primary,
         showTicks: false,
         strokeWidth: 16.0,
@@ -1166,7 +1166,8 @@ class GlassDesignTheme extends AppDesignTheme {
         validColor: scheme.primary,
         pendingColor: scheme.onSurface.withValues(alpha: 0.5),
       ),
-      styledTextStyle: _createGlassStyledTextStyleForScheme(scheme, appTextTheme),
+      styledTextStyle:
+          _createGlassStyledTextStyleForScheme(scheme, appTextTheme),
       buttonStyle: _createGlassAppButtonStyleForScheme(scheme, appTextTheme),
       pageLayoutStyle: PageLayoutStyle.defaultStyle(
         colorScheme: scheme,
@@ -1723,7 +1724,8 @@ class GlassDesignTheme extends AppDesignTheme {
         validColor: scheme.primary,
         pendingColor: scheme.onSurface.withValues(alpha: 0.5),
       ),
-      styledTextStyle: _createGlassStyledTextStyleForScheme(scheme, appTextTheme),
+      styledTextStyle:
+          _createGlassStyledTextStyleForScheme(scheme, appTextTheme),
       buttonStyle: _createGlassAppButtonStyleForScheme(scheme, appTextTheme),
       pageLayoutStyle: PageLayoutStyle.defaultStyle(
         colorScheme: scheme,

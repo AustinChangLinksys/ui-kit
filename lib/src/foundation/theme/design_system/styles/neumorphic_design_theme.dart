@@ -568,7 +568,8 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         pendingColor: colors.onSurfaceVariant,
       ),
       styledTextStyle: _createNeumorphicStyledTextStyle(colors, appTextTheme),
-      buttonStyle: _createNeumorphicTextAppButtonStyleForScheme(colors.toMaterialScheme(brightness: Brightness.light), appTextTheme),
+      buttonStyle: _createNeumorphicTextAppButtonStyleForScheme(
+          colors.toMaterialScheme(brightness: Brightness.light), appTextTheme),
       pageLayoutStyle: PageLayoutStyle.defaultStyle(
         colorScheme: colors.toMaterialScheme(brightness: Brightness.light),
         spacing: 20.0,
@@ -678,10 +679,10 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         ),
       ),
       wifiStrongStyle: LinkStyle(
-        color: colors.signalStrong,
+        color: colors.semanticSuccess,
         width: 2.0,
         dashPattern: const [6.0, 3.0],
-        glowColor: colors.signalGlow,
+        glowColor: colors.semanticGlow,
         glowRadius: 3.0,
         animation: const shared.AnimationSpec(
           duration: Duration(milliseconds: 1800),
@@ -700,10 +701,10 @@ class NeumorphicDesignTheme extends AppDesignTheme {
         ),
       ),
       wifiWeakStyle: LinkStyle(
-        color: colors.signalWeak,
+        color: colors.semanticDanger,
         width: 1.5,
         dashPattern: const [4.0, 3.0],
-        glowColor: colors.signalWeak.withValues(alpha: 0.15),
+        glowColor: colors.semanticDanger.withValues(alpha: 0.15),
         glowRadius: 2.0,
         animation: const shared.AnimationSpec(
           duration: Duration(milliseconds: 2600),

@@ -12,8 +12,9 @@ class AppThemeConfig {
   final Color? error;
 
   // --- 2. Style Overrides (High Priority) ---
-  final Color? customSignalStrong;
-  final Color? customSignalWeak;
+  final Color? customSemanticSuccess;
+  final Color? customSemanticWarning;
+  final Color? customSemanticDanger;
   final Color? customOverlayColor;
   final Color? customGlowColor;
   final Color? customHighContrastBorder;
@@ -29,8 +30,9 @@ class AppThemeConfig {
     this.tertiary,
     this.surface,
     this.error,
-    this.customSignalStrong,
-    this.customSignalWeak,
+    this.customSemanticSuccess,
+    this.customSemanticWarning,
+    this.customSemanticDanger,
     this.customOverlayColor,
     this.customGlowColor,
     this.customHighContrastBorder,
@@ -53,15 +55,17 @@ class AppThemeConfig {
     }
 
     return AppThemeConfig(
-      brightness: json['brightness'] == 'dark' ? Brightness.dark : Brightness.light,
+      brightness:
+          json['brightness'] == 'dark' ? Brightness.dark : Brightness.light,
       seedColor: parseColor(json['seedColor']),
       primary: parseColor(json['primary']),
       secondary: parseColor(json['secondary']),
       tertiary: parseColor(json['tertiary']),
       surface: parseColor(json['surface']),
       error: parseColor(json['error']),
-      customSignalStrong: parseColor(json['customSignalStrong']),
-      customSignalWeak: parseColor(json['customSignalWeak']),
+      customSemanticSuccess: parseColor(json['customSemanticSuccess']),
+      customSemanticWarning: parseColor(json['customSemanticWarning']),
+      customSemanticDanger: parseColor(json['customSemanticDanger']),
       customOverlayColor: parseColor(json['customOverlayColor']),
       customGlowColor: parseColor(json['customGlowColor']),
       customHighContrastBorder: parseColor(json['customHighContrastBorder']),

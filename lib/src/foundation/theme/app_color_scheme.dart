@@ -100,13 +100,21 @@ class AppColorScheme extends ThemeExtension<AppColorScheme>
   @override
   final Color glowColor;
 
-  // Signal & Data
+  // Semantic Status Colors
   @override
-  final Color signalStrong;
+  final Color semanticSuccess; // 🟢 Good state (background)
   @override
-  final Color signalWeak;
+  final Color onSemanticSuccess; // 🟢 Good state (foreground)
   @override
-  final Color signalGlow;
+  final Color semanticWarning; // 🟡 Moderate state (background)
+  @override
+  final Color onSemanticWarning; // 🟡 Moderate state (foreground)
+  @override
+  final Color semanticDanger; // 🔴 Bad state (background)
+  @override
+  final Color onSemanticDanger; // 🔴 Bad state (foreground)
+  @override
+  final Color semanticGlow; // Glow for positive states
 
   // State
   @override
@@ -156,9 +164,13 @@ class AppColorScheme extends ThemeExtension<AppColorScheme>
     required this.styleBackground,
     required this.styleShadow,
     required this.glowColor,
-    required this.signalStrong,
-    required this.signalWeak,
-    required this.signalGlow,
+    required this.semanticSuccess,
+    required this.onSemanticSuccess,
+    required this.semanticWarning,
+    required this.onSemanticWarning,
+    required this.semanticDanger,
+    required this.onSemanticDanger,
+    required this.semanticGlow,
     required this.activeFillColor,
     required this.activeContentColor,
     required this.overlayColor,
