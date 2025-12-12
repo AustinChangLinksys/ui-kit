@@ -26,11 +26,6 @@ class ResponsiveMenuHandler extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isDesktop = context.isDesktop;
 
-    // Determine if menu should be shown on current platform
-    if (!config.shouldShowOnPlatform(isDesktop: isDesktop)) {
-      return child;
-    }
-
     // If no menu items, just return the child
     if (!config.hasItems) {
       return child;

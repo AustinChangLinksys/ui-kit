@@ -6,57 +6,50 @@ import 'page_menu_item.dart';
 ///
 /// This class follows UI Kit constitutional compliance by using Equatable
 /// for value equality and providing immutable configuration options.
+///
+/// Use [menuPosition] on AppPageView to control where menu items appear.
+/// The system automatically handles responsive behavior based on screen size.
 class PageMenuConfig extends Equatable {
-  /// Optional title for the menu (typically shown on desktop)
+  /// Optional title for the menu (typically shown on desktop sidebar)
   final String? title;
 
   /// List of menu items to display
   final List<PageMenuItem> items;
 
-  /// Whether to show this menu on desktop layouts
-  final bool showOnDesktop;
-
-  /// Whether to show this menu on mobile layouts
-  final bool showOnMobile;
-
   /// Whether to use large menu styling (desktop sidebar)
   final bool largeMenu;
 
-  /// Icon to use for mobile menu trigger button
-  final IconData? mobileMenuIcon;
+  /// Icon to use for the main trigger button (especially for FAB mode)
+  /// Also serves as a fallback for mobile menu trigger if needed
+  final IconData? icon;
+
+  /// Custom location for the Floating Action Button
+  final FloatingActionButtonLocation? fabLocation;
 
   /// Creates a new PageMenuConfig instance
   const PageMenuConfig({
     this.title,
     this.items = const [],
-    this.showOnDesktop = false,
-    this.showOnMobile = false,
     this.largeMenu = false,
-    this.mobileMenuIcon,
+    this.icon,
+    this.fabLocation,
   });
 
   /// Creates a copy of this config with the given fields replaced
   PageMenuConfig copyWith({
     String? title,
     List<PageMenuItem>? items,
-    bool? showOnDesktop,
-    bool? showOnMobile,
     bool? largeMenu,
-    IconData? mobileMenuIcon,
+    IconData? icon,
+    FloatingActionButtonLocation? fabLocation,
   }) {
     return PageMenuConfig(
       title: title ?? this.title,
       items: items ?? this.items,
-      showOnDesktop: showOnDesktop ?? this.showOnDesktop,
-      showOnMobile: showOnMobile ?? this.showOnMobile,
       largeMenu: largeMenu ?? this.largeMenu,
-      mobileMenuIcon: mobileMenuIcon ?? this.mobileMenuIcon,
+      icon: icon ?? this.icon,
+      fabLocation: fabLocation ?? this.fabLocation,
     );
-  }
-
-  /// Whether this menu should be shown based on responsive context
-  bool shouldShowOnPlatform({required bool isDesktop}) {
-    return isDesktop ? showOnDesktop : showOnMobile;
   }
 
   /// Whether this menu has any items to display
@@ -70,10 +63,9 @@ class PageMenuConfig extends Equatable {
   List<Object?> get props => [
         title,
         items,
-        showOnDesktop,
-        showOnMobile,
         largeMenu,
-        mobileMenuIcon,
+        icon,
+        fabLocation,
       ];
 
   @override

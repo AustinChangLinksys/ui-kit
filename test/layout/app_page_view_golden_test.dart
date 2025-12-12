@@ -25,24 +25,23 @@ void main() {
         width: 400,
         height: 600,
         child: AppPageView(
-            appBarConfig: PageAppBarConfig(
-              title: 'Enhanced Page',
-              showBackButton: true,
-              actions: [
-                IconButton(icon: const Icon(Icons.settings), onPressed: () {}),
+          appBarConfig: const PageAppBarConfig(
+            title: 'Enhanced Page',
+            showBackButton: true,
+          ),
+          child: (context, constraints) => Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Enhanced AppPageView'),
+                Text(
+                    'Width: ${constraints.maxWidth.isFinite ? constraints.maxWidth.toInt() : 'Unlimited'}'),
+                Text(
+                    'Height: ${constraints.maxHeight.isFinite ? constraints.maxHeight.toInt() : 'Unlimited'}'),
               ],
             ),
-            child: (context, constraints) => Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Enhanced AppPageView'),
-                  Text('Width: ${constraints.maxWidth.isFinite ? constraints.maxWidth.toInt() : 'Unlimited'}'),
-                  Text('Height: ${constraints.maxHeight.isFinite ? constraints.maxHeight.toInt() : 'Unlimited'}'),
-                ],
-              ),
-            ),
           ),
+        ),
       ),
     );
 
@@ -51,41 +50,41 @@ void main() {
       fileName: 'app_page_view_with_bottom_bar',
       builder: () => buildThemeMatrix(
         name: 'Enhanced AppPageView - Bottom Bar',
-          width: 400,
-          height: 600,
-          child: AppPageView(
-            appBarConfig: const PageAppBarConfig(
-              title: 'Edit Settings',
-              showBackButton: true,
-            ),
-            bottomBarConfig: PageBottomBarConfig(
-              positiveLabel: 'Save',
-              negativeLabel: 'Cancel',
-              onPositiveTap: () {},
-              onNegativeTap: () {},
-              isPositiveEnabled: true,
-            ),
-            child: (context, constraints) => const Padding(
-              padding: EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Setting Name',
-                      border: OutlineInputBorder(),
-                    ),
+        width: 400,
+        height: 600,
+        child: AppPageView(
+          appBarConfig: const PageAppBarConfig(
+            title: 'Edit Settings',
+            showBackButton: true,
+          ),
+          bottomBarConfig: PageBottomBarConfig(
+            positiveLabel: 'Save',
+            negativeLabel: 'Cancel',
+            onPositiveTap: () {},
+            onNegativeTap: () {},
+            isPositiveEnabled: true,
+          ),
+          child: (context, constraints) => const Padding(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              children: [
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Setting Name',
+                    border: OutlineInputBorder(),
                   ),
-                  SizedBox(height: 16),
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Setting Value',
-                      border: OutlineInputBorder(),
-                    ),
+                ),
+                SizedBox(height: 16),
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Setting Value',
+                    border: OutlineInputBorder(),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
+        ),
       ),
     );
 
@@ -132,10 +131,9 @@ void main() {
                           onTap: () {},
                         ),
                       ],
-                      showOnDesktop: true,
-                      showOnMobile: true,
                     ),
-                    showGridOverlay: false, // Disable debug overlay for clean golden
+                    showGridOverlay:
+                        false, // Disable debug overlay for clean golden
                     child: (context, constraints) => const Center(
                       child: Card(
                         child: Padding(

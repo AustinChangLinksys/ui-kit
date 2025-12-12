@@ -5,7 +5,7 @@ import 'grid_debug_overlay.dart'; // Ensure correct path
 import 'models/page_app_bar_config.dart';
 import 'models/page_bottom_bar_config.dart';
 import 'models/page_menu_config.dart';
-import 'models/page_fab_config.dart';
+import 'models/page_menu_view.dart';
 import '../atoms/typography/app_text.dart';
 import '../molecules/layout/app_list_tile.dart';
 import '../molecules/buttons/app_button.dart';
@@ -14,9 +14,12 @@ import '../molecules/cards/app_card.dart';
 import '../atoms/icons/app_icon.dart';
 import '../molecules/buttons/app_icon_button.dart';
 import '../atoms/layout/app_divider.dart';
-import '../organisms/app_bar/app_unified_bar.dart';
+import '../organisms/app_bar/app_unified_bar.dart'; // Restore import
 import '../atoms/layout/app_gap.dart';
-import '../organisms/expandable_fab/app_expandable_fab.dart';
+import '../foundation/theme/design_system/app_design_theme.dart';
+import '../organisms/expandable_fab/app_expandable_fab.dart'; // Add import
+import '../molecules/menu/app_popup_menu.dart';
+import '../molecules/menu/app_popup_menu_item.dart';
 
 /// A standardized page container integrating a responsive Grid System,
 /// Desktop Side Menu, and dual Sliver/Box layout modes.
@@ -27,9 +30,6 @@ class AppPageView extends StatelessWidget {
 
   /// Page Header.
   final Widget? header;
-
-  /// Side Menu (Desktop Only) - legacy support.
-  final Widget? sideMenu;
 
   /// Configuration for the app bar
   final PageAppBarConfig? appBarConfig;
@@ -46,8 +46,9 @@ class AppPageView extends StatelessWidget {
   /// Position of the menu for responsive layout
   final MenuPosition menuPosition;
 
-  /// Configuration for the floating action button
-  final PageFabConfig? fabConfig;
+  /// Optional custom menu view panel configuration
+  /// Displayed in sidebar (Desktop) or via BottomSheet trigger (Mobile)
+  final PageMenuView? menuView;
 
   /// Whether to use CustomScrollView (Sliver) layout logic.
   final bool useSlivers;
@@ -101,21 +102,17 @@ class AppPageView extends StatelessWidget {
   // --- Scaffold related properties ---
   final Widget? bottomNavigationBar;
   final Widget? bottomSheet;
-  final Widget? floatingActionButton;
-  final FloatingActionButtonLocation? floatingActionButtonLocation;
-  final FloatingActionButtonAnimator? floatingActionButtonAnimator;
 
   const AppPageView({
     super.key,
     required this.child,
     this.header,
-    this.sideMenu,
     this.appBarConfig,
     this.bottomBarConfig,
     this.customBottomBar,
     this.menuConfig,
     this.menuPosition = MenuPosition.left,
-    this.fabConfig,
+    this.menuView,
     this.useSlivers = true,
     this.backgroundColor,
     this.scrollable = true,
@@ -134,9 +131,6 @@ class AppPageView extends StatelessWidget {
     this.selectedTabTextStyle,
     this.bottomNavigationBar,
     this.bottomSheet,
-    this.floatingActionButton,
-    this.floatingActionButtonLocation,
-    this.floatingActionButtonAnimator,
   });
 
   /// T044: Basic page factory constructor with minimal configuration
@@ -156,7 +150,6 @@ class AppPageView extends StatelessWidget {
     required dynamic child,
     bool scrollable = true,
     bool showBackButton = false,
-    List<Widget>? actions,
   }) {
     return AppPageView(
       key: key,
@@ -165,7 +158,6 @@ class AppPageView extends StatelessWidget {
       appBarConfig: PageAppBarConfig(
         title: title,
         showBackButton: showBackButton,
-        actions: actions,
       ),
     );
   }
@@ -191,7 +183,6 @@ class AppPageView extends StatelessWidget {
     required dynamic child,
     bool scrollable = true,
     bool showBackButton = true,
-    List<Widget>? actions,
     required String positiveLabel,
     required VoidCallback onPositiveTap,
     String? negativeLabel,
@@ -207,7 +198,6 @@ class AppPageView extends StatelessWidget {
       appBarConfig: PageAppBarConfig(
         title: title,
         showBackButton: showBackButton,
-        actions: actions,
       ),
       bottomBarConfig: PageBottomBarConfig(
         positiveLabel: positiveLabel,
@@ -251,13 +241,11 @@ class AppPageView extends StatelessWidget {
     required dynamic child,
     bool scrollable = true,
     bool showBackButton = false,
-    List<Widget>? actions,
     required String menuTitle,
     required List<PageMenuItem> menuItems,
     bool largeMenu = false,
-    bool showOnDesktop = true,
-    bool showOnMobile = true,
-    IconData? mobileMenuIcon,
+    IconData? menuIcon,
+    PageMenuView? menuView,
     MenuPosition menuPosition = MenuPosition.left,
   }) {
     return AppPageView(
@@ -267,15 +255,13 @@ class AppPageView extends StatelessWidget {
       appBarConfig: PageAppBarConfig(
         title: title,
         showBackButton: showBackButton,
-        actions: actions,
       ),
+      menuView: menuView,
       menuConfig: PageMenuConfig(
         title: menuTitle,
         items: menuItems,
         largeMenu: largeMenu,
-        showOnDesktop: showOnDesktop,
-        showOnMobile: showOnMobile,
-        mobileMenuIcon: mobileMenuIcon,
+        icon: menuIcon,
       ),
       menuPosition: menuPosition,
     );
@@ -309,7 +295,6 @@ class AppPageView extends StatelessWidget {
     TabController? tabController,
     bool scrollable = true,
     bool showBackButton = false,
-    List<Widget>? actions,
     bool showTabIndicator = true,
     Color? tabIndicatorColor,
     TextStyle? tabTextStyle,
@@ -324,7 +309,6 @@ class AppPageView extends StatelessWidget {
       appBarConfig: PageAppBarConfig(
         title: title,
         showBackButton: showBackButton,
-        actions: actions,
       ),
       tabs: tabs,
       tabViews: tabViews,
@@ -337,113 +321,8 @@ class AppPageView extends StatelessWidget {
     );
   }
 
-  /// T048: Page with expandable FAB factory constructor
-  ///
-  /// Creates a page with an expandable floating action button that reveals satellite actions.
-  ///
-  /// Example:
-  /// ```dart
-  /// AppPageView.withExpandableFAB(
-  ///   title: 'Actions',
-  ///   child: MyContent(),
-  ///   fabActions: [
-  ///     FloatingActionButton(
-  ///       heroTag: "edit",
-  ///       onPressed: () => _editItem(),
-  ///       child: const Icon(Icons.edit),
-  ///     ),
-  ///     FloatingActionButton(
-  ///       heroTag: "delete",
-  ///       onPressed: () => _deleteItem(),
-  ///       child: const Icon(Icons.delete),
-  ///     ),
-  ///   ],
-  /// )
-  /// ```
-  factory AppPageView.withExpandableFAB({
-    Key? key,
-    required String title,
-    required dynamic child,
-    required List<Widget> fabActions,
-    bool scrollable = true,
-    bool showBackButton = false,
-    List<Widget>? actions,
-    IconData? fabIcon,
-    IconData? fabActiveIcon,
-    bool fabInitiallyOpen = false,
-    VoidCallback? onFABToggle,
-    FloatingActionButtonLocation? fabLocation,
-  }) {
-    return AppPageView(
-      key: key,
-      child: child,
-      scrollable: scrollable,
-      appBarConfig: PageAppBarConfig(
-        title: title,
-        showBackButton: showBackButton,
-        actions: actions,
-      ),
-      fabConfig: PageFabConfig.expandable(
-        children: fabActions,
-        icon: fabIcon,
-        activeIcon: fabActiveIcon,
-        initiallyOpen: fabInitiallyOpen,
-        onToggle: onFABToggle,
-        location: fabLocation,
-      ),
-    );
-  }
-
-  /// T049: Page with standard FAB factory constructor
-  ///
-  /// Creates a page with a standard floating action button for a single primary action.
-  ///
-  /// Example:
-  /// ```dart
-  /// AppPageView.withFAB(
-  ///   title: 'Add Item',
-  ///   child: MyContent(),
-  ///   fabIcon: Icons.add,
-  ///   onFABPressed: () => _addItem(),
-  /// )
-  /// ```
-  factory AppPageView.withFAB({
-    Key? key,
-    required String title,
-    required dynamic child,
-    required IconData fabIcon,
-    required VoidCallback onFABPressed,
-    bool scrollable = true,
-    bool showBackButton = false,
-    List<Widget>? actions,
-    String? fabTooltip,
-    FloatingActionButtonLocation? fabLocation,
-    bool mini = false,
-  }) {
-    return AppPageView(
-      key: key,
-      child: child,
-      scrollable: scrollable,
-      appBarConfig: PageAppBarConfig(
-        title: title,
-        showBackButton: showBackButton,
-        actions: actions,
-      ),
-      fabConfig: mini
-          ? PageFabConfig.mini(
-              icon: fabIcon,
-              onPressed: onFABPressed,
-              tooltip: fabTooltip,
-              location: fabLocation,
-            )
-          : PageFabConfig.standard(
-              icon: fabIcon,
-              onPressed: onFABPressed,
-              tooltip: fabTooltip,
-              location: fabLocation,
-            ),
-    );
-  }
+  // T048: Page with expandable FAB factory constructor REMOVED
+  // T049: Page with standard FAB factory constructor REMOVED
 
   @override
   Widget build(BuildContext context) {
@@ -481,44 +360,47 @@ class AppPageView extends StatelessWidget {
 
           final scaffold = Scaffold(
             backgroundColor: backgroundColor,
-            appBar: useSlivers ? null : _buildAppBar(context), // Only use AppBar in Box mode
+            appBar: useSlivers
+                ? null
+                : _buildAppBar(context), // Only use AppBar in Box mode
             body: contentLayer,
             bottomNavigationBar:
                 _buildBottomBar(context) ?? bottomNavigationBar,
             bottomSheet: bottomSheet,
             floatingActionButton: _buildFAB(context),
-            floatingActionButtonLocation: _getFABLocation(),
-            floatingActionButtonAnimator: _getFABAnimator(),
+            floatingActionButtonLocation: menuConfig?.fabLocation,
           );
 
-          if (!showGridOverlay) return scaffold;
+          if (!showGridOverlay) return AppExpandableFabScope(child: scaffold);
 
-          return Stack(
-            children: [
-              scaffold,
-              Positioned.fill(
-                child: IgnorePointer(
-                  child: SafeArea(
-                    left: enableSafeArea.left,
-                    top: enableSafeArea.top,
-                    right: enableSafeArea.right,
-                    bottom: enableSafeArea.bottom,
-                    child: Padding(
-                      // Ensure Overlay padding matches the content padding
-                      padding: EdgeInsets.symmetric(
-                        horizontal:
-                            useContentPadding ? innerContext.pageMargin : 0.0,
-                      ),
-                      child: GridDebugOverlay(
-                        visible: true,
-                        useMargins: false,
-                        child: Container(),
+          return AppExpandableFabScope(
+            child: Stack(
+              children: [
+                scaffold,
+                Positioned.fill(
+                  child: IgnorePointer(
+                    child: SafeArea(
+                      left: enableSafeArea.left,
+                      top: enableSafeArea.top,
+                      right: enableSafeArea.right,
+                      bottom: enableSafeArea.bottom,
+                      child: Padding(
+                        // Ensure Overlay padding matches the content padding
+                        padding: EdgeInsets.symmetric(
+                          horizontal:
+                              useContentPadding ? innerContext.pageMargin : 0.0,
+                        ),
+                        child: GridDebugOverlay(
+                          visible: true,
+                          useMargins: false,
+                          child: Container(),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         },
       ),
@@ -632,28 +514,72 @@ class AppPageView extends StatelessWidget {
     if (appBarConfig == null && menuConfig == null) return null;
 
     final bool isDesktop = context.isDesktop;
-    final bool hasMobileMenu = menuConfig != null &&
-        menuConfig!.shouldShowOnPlatform(isDesktop: false) &&
-        menuConfig!.hasItems;
-    final bool hasDesktopAppBarMenu = menuConfig != null &&
-        menuConfig!.shouldShowOnPlatform(isDesktop: true) &&
+
+    // Check if FAB mode (actions go to FAB, not AppBar)
+    final bool isFabMode = menuPosition == MenuPosition.fab;
+
+    // Check if sidebar mode (left/right) - on desktop, items go to sidebar
+    final bool isSidebarMode =
+        menuPosition == MenuPosition.left || menuPosition == MenuPosition.right;
+
+    // On Desktop with sidebar mode, only show AppBar if appBarConfig exists
+    // Items are displayed in the sidebar, not AppBar
+    if (isDesktop && isSidebarMode && appBarConfig == null) {
+      return null; // No AppBar needed - items are in sidebar
+    }
+
+    final bool hasMobileMenu =
+        !isFabMode && menuConfig != null && menuConfig!.hasItems;
+
+    // Scenario B Mobile: menuView only (no items) on left/right position
+    final bool hasMobileMenuView = !isFabMode &&
+        menuView != null &&
+        (menuPosition == MenuPosition.left ||
+            menuPosition == MenuPosition.right);
+
+    // Only show menu items in AppBar for Top position on Desktop
+    final bool hasDesktopAppBarMenu = !isFabMode &&
+        menuConfig != null &&
         menuConfig!.hasItems &&
-        (menuPosition == MenuPosition.right || menuPosition == MenuPosition.top);
+        menuPosition == MenuPosition.top;
+
+    // Scenario C Desktop: menuView in sidebar, items in AppBar
+    final bool isDesktopScenarioC = isDesktop &&
+        menuConfig != null &&
+        menuConfig!.hasItems &&
+        menuView != null &&
+        (menuPosition == MenuPosition.left ||
+            menuPosition == MenuPosition.right);
+
+    // In Top mode, we always want to show items in AppBar
+    final bool isTopMenu =
+        menuConfig != null && menuPosition == MenuPosition.top;
 
     // Build actions list
     List<Widget> actions = [];
 
-    // Add original actions from appBarConfig
-    if (appBarConfig?.actions != null) {
-      actions.addAll(appBarConfig!.actions!);
+    // Add menuView trigger for Scenario B Mobile ONLY (no items, just menuView)
+    // Scenario C Mobile (items + menuView) is handled in the hasMobileMenu block below
+    if (!isDesktop && hasMobileMenuView && !hasMobileMenu) {
+      actions.add(AppIconButton.secondary(
+        icon: AppIcon.font(menuView!.icon),
+        tooltip: menuView!.label,
+        onTap: () {
+          showModalBottomSheet(
+            context: context,
+            builder: (c) => menuView!.content,
+          );
+        },
+      ));
     }
 
-    // Add menu action if needed (mobile menu OR desktop app bar menu)
-    if ((!isDesktop && hasMobileMenu) || (isDesktop && hasDesktopAppBarMenu)) {
-      final menuItems = menuConfig!.items.where((item) => !item.isDivider).toList();
+    // Scenario C Desktop: Show items in AppBar (menuView is in sidebar)
+    if (isDesktopScenarioC) {
+      final menuItems =
+          menuConfig!.items.where((item) => !item.isDivider).toList();
 
+      // Show items directly as actions (2 or fewer) or as popup (3+)
       if (menuItems.length <= 2) {
-        // 2 items or fewer: show directly in actions
         for (final item in menuItems) {
           if (item.enabled) {
             actions.add(
@@ -666,35 +592,89 @@ class AppPageView extends StatelessWidget {
           }
         }
       } else {
-        // 3+ items: show as popup menu
+        // 3+ items: show as themed popup menu
         actions.add(
-          PopupMenuButton<String>(
-            icon: Icon(menuConfig!.mobileMenuIcon ?? Icons.more_vert),
-            itemBuilder: (context) => menuItems
-                .map((item) => PopupMenuItem<String>(
+          AppPopupMenu<String>(
+            icon: menuConfig!.icon ?? Icons.more_vert,
+            items: menuItems
+                .map((item) => AppPopupMenuItem<String>(
                       value: item.label,
+                      label: item.label,
+                      icon: item.icon,
                       enabled: item.enabled,
-                      child: Row(
-                        children: [
-                          if (item.icon != null) ...[
-                            Icon(item.icon!, size: 20),
-                            const SizedBox(width: 12),
-                          ],
-                          Text(item.label),
-                        ],
-                      ),
                     ))
                 .toList(),
             onSelected: (value) {
-              // Find the selected item and execute its callback
-              final selectedItem = menuItems
-                  .firstWhere((item) => item.label == value);
+              final selectedItem =
+                  menuItems.firstWhere((item) => item.label == value);
               if (selectedItem.enabled && selectedItem.onTap != null) {
                 selectedItem.onTap!();
               }
             },
           ),
         );
+      }
+    }
+
+    // Add menu action if needed (mobile menu OR desktop top menu)
+    if ((!isDesktop && hasMobileMenu) || (isDesktop && hasDesktopAppBarMenu)) {
+      // 1. Custom Menu View Trigger (if applicable)
+      if (menuView != null && (isTopMenu || !isDesktop)) {
+        final triggerIcon = menuView!.icon;
+        actions.add(AppIconButton.secondary(
+          icon: AppIcon.font(triggerIcon),
+          onTap: () {
+            showModalBottomSheet(
+              context: context,
+              builder: (c) => menuView!.content,
+            );
+          },
+        ));
+      }
+
+      // 2. Menu Config Items
+      if (menuConfig != null && menuConfig!.hasItems) {
+        final menuItems =
+            menuConfig!.items.where((item) => !item.isDivider).toList();
+
+        // Standard AppBar Menu Logic
+        if (menuItems.length <= 2) {
+          // 2 items or fewer: show directly in actions
+          for (final item in menuItems) {
+            if (item.enabled) {
+              actions.add(
+                AppIconButton.secondary(
+                  icon: AppIcon.font(item.icon ?? Icons.circle),
+                  tooltip: item.label,
+                  onTap: item.onTap,
+                ),
+              );
+            }
+          }
+        } else {
+          // 3+ items: show as themed popup menu
+          actions.add(
+            AppPopupMenu<String>(
+              icon: menuConfig!.icon ?? Icons.more_vert,
+              items: menuItems
+                  .map((item) => AppPopupMenuItem<String>(
+                        value: item.label,
+                        label: item.label,
+                        icon: item.icon,
+                        enabled: item.enabled,
+                      ))
+                  .toList(),
+              onSelected: (value) {
+                // Find the selected item and execute its callback
+                final selectedItem =
+                    menuItems.firstWhere((item) => item.label == value);
+                if (selectedItem.enabled && selectedItem.onTap != null) {
+                  selectedItem.onTap!();
+                }
+              },
+            ),
+          );
+        }
       }
     }
 
@@ -707,8 +687,6 @@ class AppPageView extends StatelessWidget {
         automaticallyImplyLeading: config.showBackButton,
         actions: actions.isNotEmpty ? actions : null,
         centerTitle: false, // Default to left alignment
-        // Note: AppUnifiedBar doesn't support toolbarHeight and sliver mode directly
-        // This is a limitation that may need future enhancement
       );
     } else if (hasMobileMenu && !isDesktop) {
       // Simple app bar with just menu action
@@ -723,7 +701,6 @@ class AppPageView extends StatelessWidget {
 
     return null;
   }
-
 
   /// Build bottom action bar from configuration with priority logic
   /// Priority: customBottomBar > bottomBarConfig
@@ -796,12 +773,20 @@ class AppPageView extends StatelessWidget {
 
     // 4. Combine with Menu if Desktop (Structure first)
     // Structure: [Menu] [Gutter] [Content]
-    // Only show sidebar menu if position is left
-    if (isDesktop &&
-        menuConfig != null &&
-        menuConfig!.shouldShowOnPlatform(isDesktop: true) &&
-        menuConfig!.hasItems &&
-        menuPosition == MenuPosition.left) {
+    // Show sidebar when:
+    // - Scenario A: position left/right with items
+    // - Scenario B: position left/right with menuView (no items)
+    // - Scenario C+fab: position fab with menuView
+    final bool shouldShowSidebar = isDesktop &&
+        ((menuConfig != null &&
+                menuConfig!.hasItems &&
+                (menuPosition == MenuPosition.left ||
+                    menuPosition == MenuPosition.right)) ||
+            (menuView != null &&
+                (menuPosition == MenuPosition.left ||
+                    menuPosition == MenuPosition.right ||
+                    menuPosition == MenuPosition.fab)));
+    if (shouldShowSidebar) {
       contentBlock = _buildDesktopMenuLayout(context, contentBlock);
     }
 
@@ -863,12 +848,20 @@ class AppPageView extends StatelessWidget {
 
     // 2. Compose Menu + Content
     Widget finalBody;
-    // Only show sidebar menu if position is left
-    if (isDesktop &&
-        menuConfig != null &&
-        menuConfig!.shouldShowOnPlatform(isDesktop: true) &&
-        menuConfig!.hasItems &&
-        menuPosition == MenuPosition.left) {
+    // Show sidebar when:
+    // - Scenario A: position left/right with items
+    // - Scenario B: position left/right with menuView (no items)
+    // - Scenario C+fab: position fab with menuView
+    final bool shouldShowSidebar = isDesktop &&
+        ((menuConfig != null &&
+                menuConfig!.hasItems &&
+                (menuPosition == MenuPosition.left ||
+                    menuPosition == MenuPosition.right)) ||
+            (menuView != null &&
+                (menuPosition == MenuPosition.left ||
+                    menuPosition == MenuPosition.right ||
+                    menuPosition == MenuPosition.fab)));
+    if (shouldShowSidebar) {
       finalBody = _buildDesktopMenuLayout(context, mainContent);
     } else {
       finalBody = mainContent;
@@ -903,27 +896,62 @@ class AppPageView extends StatelessWidget {
 
   // Helper: Desktop Menu Layout (based on PrivacyGUI StyledPageView)
   Widget _buildDesktopMenuLayout(BuildContext context, Widget contentWidget) {
-    // Calculate menu width without page margins since they're applied at the parent level
-    final int menuColumn = menuConfig!.largeMenu ? 4 : 3;
-    final double menuWidth = context.colWidth(menuColumn,
-        useMargins: false); // Standard menu: 3 columns
+    // Determine column span
+    final int menuColumn = menuConfig?.largeMenu == true ? 4 : 3;
+    final int contentColumn = 12 - menuColumn;
+
+    // Build menu widget based on what should go in the sidebar
+    // - If menuView exists: show menuView in sidebar (items go to AppBar)
+    // - If only items: show items in sidebar
+    Widget menuWidget;
+    final hasItems = menuConfig != null && menuConfig!.hasItems;
+    final hasMenuView = menuView != null;
+
+    if (hasMenuView) {
+      // menuView goes to sidebar, items will be in AppBar
+      menuWidget = menuView!.content;
+    } else if (hasItems) {
+      // Only items, show in sidebar
+      menuWidget = AppCard(
+        child: _buildMenuContent(context),
+      );
+    } else {
+      // Fallback (shouldn't happen normally)
+      menuWidget = const SizedBox.shrink();
+    }
+
+    // Determine order based on position
+    final bool isRightSidebar = menuPosition == MenuPosition.right;
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Menu Card Container
-        SizedBox(
-          width: menuWidth,
-          child: AppCard(
-            child: _buildMenuContent(context),
-          ),
-        ),
-        AppGap.gutter(),
-        // Main Content (remaining columns)
-        Expanded(
-          child: contentWidget,
-        ),
-      ],
+      children: isRightSidebar
+          ? [
+              // Content first for right sidebar
+              Expanded(
+                flex: contentColumn,
+                child: contentWidget,
+              ),
+              AppGap.gutter(),
+              // Menu on right
+              Expanded(
+                flex: menuColumn,
+                child: menuWidget,
+              ),
+            ]
+          : [
+              // Menu first for left sidebar (default)
+              Expanded(
+                flex: menuColumn,
+                child: menuWidget,
+              ),
+              AppGap.gutter(),
+              // Content on right
+              Expanded(
+                flex: contentColumn,
+                child: contentWidget,
+              ),
+            ],
     );
   }
 
@@ -963,56 +991,84 @@ class AppPageView extends StatelessWidget {
 
   /// Build the floating action button from configuration
   Widget? _buildFAB(BuildContext context) {
-    // Use fabConfig if provided, otherwise fall back to legacy FAB properties
-    if (fabConfig != null) {
-      final config = fabConfig!;
+    // Unified FAB Logic: Derived from MenuConfig
+    // 1. Check if we should render FAB based on position
+    if (menuPosition == MenuPosition.fab) {
+      if (menuConfig == null && menuView == null) return null;
 
-      if (!config.enabled) return null;
+      final bool isDesktop = context.isDesktop;
+      // On Desktop with menuView: menuView is in sidebar, items go to FAB
+      // On Mobile with menuView: show items + menuView as expandable FAB items
+      final bool menuViewInSidebar = isDesktop && menuView != null;
 
-      switch (config.type) {
-        case PageFabType.standard:
-          return FloatingActionButton(
-            onPressed: config.onPressed,
-            tooltip: config.tooltip,
-            heroTag: config.heroTag,
-            child: Icon(config.icon),
+      // Default icon for FAB (don't use menuView.icon on Mobile)
+      final triggerIcon = menuConfig?.icon ?? Icons.menu;
+
+      final theme = Theme.of(context).extension<AppDesignTheme>();
+
+      // Build FAB children list
+      List<Widget> fabChildren = [];
+
+      // Add menu items as FAB children
+      if (menuConfig != null && menuConfig!.hasItems) {
+        final items = menuConfig!.menuItems;
+        for (final item in items) {
+          fabChildren.add(
+            FloatingActionButton.small(
+              heroTag: null,
+              onPressed: item.enabled ? item.onTap : null,
+              tooltip: item.label,
+              backgroundColor: theme?.surfaceSecondary.backgroundColor,
+              foregroundColor: theme?.surfaceSecondary.contentColor,
+              child: item.icon != null ? Icon(item.icon) : null,
+            ),
           );
-
-        case PageFabType.mini:
-          return FloatingActionButton.small(
-            onPressed: config.onPressed,
-            tooltip: config.tooltip,
-            heroTag: config.heroTag,
-            child: Icon(config.icon),
-          );
-
-        case PageFabType.expandable:
-          return AppExpandableFab(
-            icon: config.icon != null ? Icon(config.icon) : null,
-            activeIcon: config.activeIcon != null ? Icon(config.activeIcon) : null,
-            initiallyOpen: config.initiallyOpen,
-            onToggle: config.onToggle,
-            children: config.children ?? [],
-          );
-
-        case PageFabType.custom:
-          // For custom type, we would need to pass the widget somehow
-          // This is a placeholder - custom widgets would need to be handled differently
-          return null;
+        }
       }
+
+      // Add menuView as a FAB child (on mobile only, desktop has sidebar)
+      if (menuView != null && !menuViewInSidebar) {
+        fabChildren.add(
+          FloatingActionButton.small(
+            heroTag: null,
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (c) => menuView!.content,
+              );
+            },
+            tooltip: menuView!.label,
+            backgroundColor: theme?.surfaceSecondary.backgroundColor,
+            foregroundColor: theme?.surfaceSecondary.contentColor,
+            child: Icon(menuView!.icon),
+          ),
+        );
+      }
+
+      // Render based on children count
+      if (fabChildren.length > 1) {
+        // Multiple items → AppExpandableFab
+        return AppExpandableFab(
+          icon: Icon(triggerIcon),
+          activeIcon: const Icon(Icons.close),
+          children: fabChildren,
+        );
+      } else if (fabChildren.length == 1) {
+        // Single item → Standard FAB (execute first item's action)
+        final singleChild = fabChildren.first as FloatingActionButton;
+        return FloatingActionButton(
+          elevation: 0,
+          backgroundColor: theme?.surfaceHighlight.backgroundColor,
+          foregroundColor: theme?.surfaceHighlight.contentColor,
+          shape: const CircleBorder(),
+          onPressed: singleChild.onPressed,
+          child: singleChild.child,
+        );
+      }
+
+      return null;
     }
 
-    // Fall back to legacy floatingActionButton property
-    return floatingActionButton;
-  }
-
-  /// Get the FAB location from configuration
-  FloatingActionButtonLocation? _getFABLocation() {
-    return fabConfig?.location ?? floatingActionButtonLocation;
-  }
-
-  /// Get the FAB animator from configuration
-  FloatingActionButtonAnimator? _getFABAnimator() {
-    return fabConfig?.animator ?? floatingActionButtonAnimator;
+    return null;
   }
 }

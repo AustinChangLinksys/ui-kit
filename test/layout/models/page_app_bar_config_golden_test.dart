@@ -36,26 +36,16 @@ void main() {
     );
 
     goldenTest(
-      'PageAppBarConfig - With Actions',
-      fileName: 'page_app_bar_config_with_actions',
+      'PageAppBarConfig - Minimal Configuration',
+      fileName: 'page_app_bar_config_minimal',
       builder: () => buildThemeMatrix(
-        name: 'PageAppBarConfig With Actions',
+        name: 'PageAppBarConfig Minimal',
         width: 400,
         height: 300,
-        child: TestWidget(
+        child: const TestWidget(
           config: PageAppBarConfig(
-            title: 'Test Page',
-            showBackButton: true,
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.settings),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: const Icon(Icons.more_vert),
-                onPressed: () {},
-              ),
-            ],
+            title: 'Minimal Page',
+            showBackButton: false,
           ),
         ),
       ),
@@ -96,7 +86,6 @@ class TestWidget extends StatelessWidget {
       appBar: AppBar(
         title: AppText(config.title ?? 'No Title'),
         automaticallyImplyLeading: config.showBackButton,
-        actions: config.actions,
         toolbarHeight: config.toolbarHeight,
       ),
       body: Center(
@@ -111,7 +100,6 @@ class TestWidget extends StatelessWidget {
                 AppText('Show Back Button: ${config.showBackButton}'),
                 AppText('Enable Sliver: ${config.enableSliver}'),
                 AppText('Toolbar Height: ${config.toolbarHeight}'),
-                AppText('Actions Count: ${config.actions?.length ?? 0}'),
               ],
             ),
           ),

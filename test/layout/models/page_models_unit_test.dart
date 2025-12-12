@@ -13,24 +13,20 @@ void main() {
 
       expect(config.title, isNull);
       expect(config.showBackButton, false);
-      expect(config.actions, isNull);
       expect(config.enableSliver, false);
       expect(config.toolbarHeight, isNull);
     });
 
     test('creates instance with custom values', () {
-      final actions = [IconButton(icon: const Icon(Icons.settings), onPressed: () {})];
-      final config = PageAppBarConfig(
+      const config = PageAppBarConfig(
         title: 'Test Page',
         showBackButton: true,
-        actions: actions,
         enableSliver: true,
         toolbarHeight: 120,
       );
 
       expect(config.title, 'Test Page');
       expect(config.showBackButton, true);
-      expect(config.actions, actions);
       expect(config.enableSliver, true);
       expect(config.toolbarHeight, 120);
     });
@@ -117,20 +113,8 @@ void main() {
 
       expect(config.title, isNull);
       expect(config.items, isEmpty);
-      expect(config.showOnDesktop, false);
-      expect(config.showOnMobile, false);
       expect(config.largeMenu, false);
-      expect(config.mobileMenuIcon, isNull);
-    });
-
-    test('shouldShowOnPlatform works correctly', () {
-      const desktopConfig = PageMenuConfig(showOnDesktop: true);
-      const mobileConfig = PageMenuConfig(showOnMobile: true);
-
-      expect(desktopConfig.shouldShowOnPlatform(isDesktop: true), true);
-      expect(desktopConfig.shouldShowOnPlatform(isDesktop: false), false);
-      expect(mobileConfig.shouldShowOnPlatform(isDesktop: true), false);
-      expect(mobileConfig.shouldShowOnPlatform(isDesktop: false), true);
+      expect(config.icon, isNull);
     });
 
     test('hasItems works correctly', () {

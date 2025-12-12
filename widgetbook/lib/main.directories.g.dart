@@ -81,6 +81,8 @@ import 'package:widgetbook_workspace/stories/molecules/layout/app_list_tile.stor
     as _widgetbook_workspace_stories_molecules_layout_app_list_tile_stories;
 import 'package:widgetbook_workspace/stories/molecules/layout/app_page_view.stories.dart'
     as _widgetbook_workspace_stories_molecules_layout_app_page_view_stories;
+import 'package:widgetbook_workspace/stories/molecules/layout/app_page_view_menu.stories.dart'
+    as _widgetbook_workspace_stories_molecules_layout_app_page_view_menu_stories;
 import 'package:widgetbook_workspace/stories/molecules/menu/app_popup_menu.stories.dart'
     as _widgetbook_workspace_stories_molecules_menu_app_popup_menu_stories;
 import 'package:widgetbook_workspace/stories/molecules/navigation/app_bottom_sheet.stories.dart'
@@ -451,6 +453,18 @@ final directories = <_widgetbook.WidgetbookNode>[
                     .buildBasicPage,
           ),
           _widgetbook.WidgetbookUseCase(
+            name: 'Coexistence - Desktop (Sidebar + FAB)',
+            builder:
+                _widgetbook_workspace_stories_molecules_layout_app_page_view_menu_stories
+                    .buildCoexistenceDesktop,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Coexistence - Sidebar + Items',
+            builder:
+                _widgetbook_workspace_stories_molecules_layout_app_page_view_menu_stories
+                    .buildCoexistenceSidebarAppbar,
+          ),
+          _widgetbook.WidgetbookUseCase(
             name: 'Desktop Dashboard (Fixed Header + Menu)',
             builder:
                 _widgetbook_workspace_stories_molecules_layout_app_page_view_stories
@@ -463,10 +477,34 @@ final directories = <_widgetbook.WidgetbookNode>[
                     .buildEnterpriseComplexLayouts,
           ),
           _widgetbook.WidgetbookUseCase(
+            name: 'FAB - Custom MenuView',
+            builder:
+                _widgetbook_workspace_stories_molecules_layout_app_page_view_menu_stories
+                    .buildFabMenuView,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'FAB - Expandable (Multiple Actions)',
+            builder:
+                _widgetbook_workspace_stories_molecules_layout_app_page_view_menu_stories
+                    .buildFabExpandable,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'FAB - Single Action',
+            builder:
+                _widgetbook_workspace_stories_molecules_layout_app_page_view_menu_stories
+                    .buildFabSingle,
+          ),
+          _widgetbook.WidgetbookUseCase(
             name: 'Mobile Feed (Sliver Header)',
             builder:
                 _widgetbook_workspace_stories_molecules_layout_app_page_view_stories
                     .buildMobileFeed,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Only MenuView - Custom Sidebar',
+            builder:
+                _widgetbook_workspace_stories_molecules_layout_app_page_view_menu_stories
+                    .buildOnlyMenuView,
           ),
           _widgetbook.WidgetbookUseCase(
             name: 'Page with Bottom Bar',
@@ -475,28 +513,40 @@ final directories = <_widgetbook.WidgetbookNode>[
                     .buildPageWithBottomBar,
           ),
           _widgetbook.WidgetbookUseCase(
-            name: 'Page with Expandable FAB',
-            builder:
-                _widgetbook_workspace_stories_molecules_layout_app_page_view_stories
-                    .buildPageWithExpandableFAB,
-          ),
-          _widgetbook.WidgetbookUseCase(
             name: 'Page with Menu',
             builder:
                 _widgetbook_workspace_stories_molecules_layout_app_page_view_stories
                     .buildPageWithMenu,
           ),
           _widgetbook.WidgetbookUseCase(
-            name: 'Page with Standard FAB',
-            builder:
-                _widgetbook_workspace_stories_molecules_layout_app_page_view_stories
-                    .buildPageWithStandardFAB,
-          ),
-          _widgetbook.WidgetbookUseCase(
             name: 'Page with Tabs',
             builder:
                 _widgetbook_workspace_stories_molecules_layout_app_page_view_stories
                     .buildPageWithTabs,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Playground - Interactive Testing',
+            builder:
+                _widgetbook_workspace_stories_molecules_layout_app_page_view_menu_stories
+                    .buildPlayground,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Sidebar - Left Position',
+            builder:
+                _widgetbook_workspace_stories_molecules_layout_app_page_view_menu_stories
+                    .buildSidebarLeft,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Sidebar - Right Position',
+            builder:
+                _widgetbook_workspace_stories_molecules_layout_app_page_view_menu_stories
+                    .buildSidebarRight,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Top Position - AppBar Actions',
+            builder:
+                _widgetbook_workspace_stories_molecules_layout_app_page_view_menu_stories
+                    .buildTopActions,
           ),
         ],
       ),

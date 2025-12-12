@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 /// Configuration class for page app bar display and behavior
 ///
@@ -12,9 +11,6 @@ class PageAppBarConfig extends Equatable {
   /// Whether to show the back button in the app bar
   final bool showBackButton;
 
-  /// Custom actions to display in the app bar
-  final List<Widget>? actions;
-
   /// Whether to enable sliver behavior for collapsible app bar
   final bool enableSliver;
 
@@ -25,7 +21,6 @@ class PageAppBarConfig extends Equatable {
   const PageAppBarConfig({
     this.title,
     this.showBackButton = false,
-    this.actions,
     this.enableSliver = false,
     this.toolbarHeight,
   });
@@ -34,14 +29,12 @@ class PageAppBarConfig extends Equatable {
   PageAppBarConfig copyWith({
     String? title,
     bool? showBackButton,
-    List<Widget>? actions,
     bool? enableSliver,
     double? toolbarHeight,
   }) {
     return PageAppBarConfig(
       title: title ?? this.title,
       showBackButton: showBackButton ?? this.showBackButton,
-      actions: actions ?? this.actions,
       enableSliver: enableSliver ?? this.enableSliver,
       toolbarHeight: toolbarHeight ?? this.toolbarHeight,
     );
@@ -51,7 +44,6 @@ class PageAppBarConfig extends Equatable {
   List<Object?> get props => [
         title,
         showBackButton,
-        actions,
         enableSliver,
         toolbarHeight,
       ];

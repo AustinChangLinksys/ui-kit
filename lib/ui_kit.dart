@@ -188,8 +188,8 @@ export 'src/layout/app_responsive_layout.dart';
 export 'src/layout/models/page_menu_item.dart';
 export 'src/layout/models/page_app_bar_config.dart';
 export 'src/layout/models/page_menu_config.dart';
+export 'src/layout/models/page_menu_view.dart';
 export 'src/layout/models/page_bottom_bar_config.dart';
-export 'src/layout/models/page_fab_config.dart';
 
 // -----------------------------------------------------------------------------
 // Generative UI (GenUI) Components

@@ -12,6 +12,9 @@ enum MenuPosition {
   /// Menu appears at the top (mobile/tablet mode)
   top,
 
+  /// Menu appears as a Floating Action Button
+  fab,
+
   /// Menu is hidden
   none,
 }

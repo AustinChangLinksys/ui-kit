@@ -199,7 +199,8 @@ class _PageWithTabsDemoState extends State<_PageWithTabsDemo> {
   type: AppPageView,
 )
 Widget buildEnterpriseComplexLayouts(BuildContext context) {
-  final showBottomBar = context.knobs.boolean(label: 'Show Bottom Bar', initialValue: false);
+  final showBottomBar =
+      context.knobs.boolean(label: 'Show Bottom Bar', initialValue: false);
 
   return _ComplexLayoutDemo(showBottomBar: showBottomBar);
 }
@@ -228,10 +229,8 @@ class _ComplexLayoutDemoState extends State<_ComplexLayoutDemo> {
       // 添加 Menu 支持
       menuConfig: PageMenuConfig(
         title: 'Dashboard Menu',
-        showOnDesktop: true,  // 明確啟用桌面菜單
-        showOnMobile: true,   // 明確啟用手機菜單
-        largeMenu: true,      // 使用大型菜單樣式
-        mobileMenuIcon: Icons.menu,
+        largeMenu: true, // 使用大型菜單樣式
+        icon: Icons.menu,
         items: [
           PageMenuItem.navigation(
             label: 'Overview',
@@ -322,12 +321,17 @@ class _ComplexLayoutDemoState extends State<_ComplexLayoutDemo> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Enterprise Dashboard', style: Theme.of(context).textTheme.headlineMedium),
+            Text('Enterprise Dashboard',
+                style: Theme.of(context).textTheme.headlineMedium),
             Row(
               children: [
                 const Icon(Icons.calendar_today, size: 16, color: Colors.grey),
                 const SizedBox(width: 8),
-                Text('9:17 AM Dec 1, 2025', style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey)),
+                Text('9:17 AM Dec 1, 2025',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(color: Colors.grey)),
               ],
             ),
           ],
@@ -390,11 +394,13 @@ class _ComplexLayoutDemoState extends State<_ComplexLayoutDemo> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text('Network Configuration', style: Theme.of(context).textTheme.headlineMedium),
+        Text('Network Configuration',
+            style: Theme.of(context).textTheme.headlineMedium),
         const SizedBox(height: 24),
 
         // IPv4 Configuration Section
-        Text('IPv4 Configuration', style: Theme.of(context).textTheme.titleMedium),
+        Text('IPv4 Configuration',
+            style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 16),
         const AppTextField(
           hintText: '192.168.1.1',
@@ -406,7 +412,8 @@ class _ComplexLayoutDemoState extends State<_ComplexLayoutDemo> {
         const SizedBox(height: 24),
 
         // MAC Address Section
-        Text('MAC Address Filter', style: Theme.of(context).textTheme.titleMedium),
+        Text('MAC Address Filter',
+            style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 16),
         const AppTextField(
           hintText: 'AA:BB:CC:DD:EE:FF',
@@ -418,7 +425,8 @@ class _ComplexLayoutDemoState extends State<_ComplexLayoutDemo> {
         const SizedBox(height: 24),
 
         // IPv6 Configuration Section
-        Text('IPv6 Configuration', style: Theme.of(context).textTheme.titleMedium),
+        Text('IPv6 Configuration',
+            style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 16),
         const AppTextField(
           hintText: '2001:db8::1',
@@ -462,13 +470,18 @@ class _ComplexLayoutDemoState extends State<_ComplexLayoutDemo> {
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surfaceContainerLow,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2)),
+            border: Border.all(
+                color: Theme.of(context)
+                    .colorScheme
+                    .outline
+                    .withValues(alpha: 0.2)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('System Menu', style: Theme.of(context).textTheme.titleMedium),
+              Text('System Menu',
+                  style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(height: 16),
 
               // Search field
@@ -500,14 +513,27 @@ class _ComplexLayoutDemoState extends State<_ComplexLayoutDemo> {
                   children: [
                     Row(
                       children: [
-                        const Icon(Icons.check_circle, color: Colors.green, size: 16),
+                        const Icon(Icons.check_circle,
+                            color: Colors.green, size: 16),
                         const SizedBox(width: 8),
-                        Text('System Status: Normal', style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.green)),
+                        Text('System Status: Normal',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(color: Colors.green)),
                       ],
                     ),
                     const SizedBox(height: 4),
-                    Text('Uptime: 15 days 3 hours', style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey)),
-                    Text('Memory Usage: 67%', style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey)),
+                    Text('Uptime: 15 days 3 hours',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall
+                            ?.copyWith(color: Colors.grey)),
+                    Text('Memory Usage: 67%',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall
+                            ?.copyWith(color: Colors.grey)),
                   ],
                 ),
               ),
@@ -531,7 +557,8 @@ class _ComplexLayoutDemoState extends State<_ComplexLayoutDemo> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Advanced System Configuration', style: Theme.of(context).textTheme.headlineMedium),
+              Text('Advanced System Configuration',
+                  style: Theme.of(context).textTheme.headlineMedium),
               const SizedBox(height: 24),
 
               // Configuration sections
@@ -569,24 +596,33 @@ class _ComplexLayoutDemoState extends State<_ComplexLayoutDemo> {
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: isActive ? Theme.of(context).colorScheme.primaryContainer : Colors.transparent,
+          color: isActive
+              ? Theme.of(context).colorScheme.primaryContainer
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Row(
           children: [
-            Icon(icon, size: 20, color: isActive ? Theme.of(context).colorScheme.primary : Colors.grey),
+            Icon(icon,
+                size: 20,
+                color: isActive
+                    ? Theme.of(context).colorScheme.primary
+                    : Colors.grey),
             const SizedBox(width: 12),
             Expanded(
               child: Text(
                 title,
                 style: TextStyle(
-                  color: isActive ? Theme.of(context).colorScheme.primary : Theme.of(context).textTheme.bodyMedium?.color,
+                  color: isActive
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).textTheme.bodyMedium?.color,
                   fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
                 ),
               ),
             ),
             if (isActive)
-              Icon(Icons.chevron_right, size: 16, color: Theme.of(context).colorScheme.primary),
+              Icon(Icons.chevron_right,
+                  size: 16, color: Theme.of(context).colorScheme.primary),
           ],
         ),
       ),
@@ -605,7 +641,11 @@ class _ComplexLayoutDemoState extends State<_ComplexLayoutDemo> {
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surfaceContainerLow,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2)),
+            border: Border.all(
+                color: Theme.of(context)
+                    .colorScheme
+                    .outline
+                    .withValues(alpha: 0.2)),
           ),
           child: Column(children: items),
         ),
@@ -634,7 +674,9 @@ class _ComplexLayoutDemoState extends State<_ComplexLayoutDemo> {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surfaceContainerLow,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2)),
+        border: Border.all(
+            color:
+                Theme.of(context).colorScheme.outline.withValues(alpha: 0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -643,11 +685,16 @@ class _ComplexLayoutDemoState extends State<_ComplexLayoutDemo> {
             children: [
               const Icon(Icons.circle, color: Colors.green, size: 12),
               const SizedBox(width: 8),
-              Text('Internet Online', style: Theme.of(context).textTheme.titleMedium),
+              Text('Internet Online',
+                  style: Theme.of(context).textTheme.titleMedium),
             ],
           ),
           const SizedBox(height: 8),
-          Text('Chunghwa Telecom • Hsinchu, HSQ', style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey)),
+          Text('Chunghwa Telecom • Hsinchu, HSQ',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(color: Colors.grey)),
           const SizedBox(height: 16),
 
           // Device info
@@ -668,15 +715,21 @@ class _ComplexLayoutDemoState extends State<_ComplexLayoutDemo> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Linksys00107', style: Theme.of(context).textTheme.titleSmall),
+                    Text('Linksys00107',
+                        style: Theme.of(context).textTheme.titleSmall),
                     const SizedBox(height: 4),
                     _buildInfoRow('Connection:', 'Wired'),
                     _buildInfoRow('Model:', 'LN16'),
                     _buildInfoRow('Serial#:', '65G10M2CE00107'),
                     Row(
                       children: [
-                        Text('FW: ', style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey)),
-                        Text('1.0.10.216621', style: Theme.of(context).textTheme.bodyMedium),
+                        Text('FW: ',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(color: Colors.grey)),
+                        Text('1.0.10.216621',
+                            style: Theme.of(context).textTheme.bodyMedium),
                         const SizedBox(width: 4),
                         const Icon(Icons.check, color: Colors.green, size: 16),
                       ],
@@ -698,12 +751,15 @@ class _ComplexLayoutDemoState extends State<_ComplexLayoutDemo> {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surfaceContainerLow,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2)),
+        border: Border.all(
+            color:
+                Theme.of(context).colorScheme.outline.withValues(alpha: 0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('System Metrics', style: Theme.of(context).textTheme.titleMedium),
+          Text('System Metrics',
+              style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 16),
           _buildMetricRow('CPU Usage', '42%', Colors.blue),
           _buildMetricRow('Memory', '67%', Colors.orange),
@@ -721,18 +777,25 @@ class _ComplexLayoutDemoState extends State<_ComplexLayoutDemo> {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surfaceContainerLow,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2)),
+        border: Border.all(
+            color:
+                Theme.of(context).colorScheme.outline.withValues(alpha: 0.2)),
       ),
       child: Column(
         children: [
           const Icon(Icons.speed, size: 40, color: Colors.greenAccent),
           const SizedBox(height: 8),
-          Text('1Gbps', style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.white)),
+          Text('1Gbps',
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineMedium
+                  ?.copyWith(color: Colors.white)),
           Text('Connected Speed', style: Theme.of(context).textTheme.bodySmall),
           const SizedBox(height: 16),
           const Divider(),
           const SizedBox(height: 8),
-          Text('Start Speed Test', style: Theme.of(context).textTheme.titleSmall),
+          Text('Start Speed Test',
+              style: Theme.of(context).textTheme.titleSmall),
           const SizedBox(height: 8),
           Row(
             children: [
@@ -765,7 +828,9 @@ class _ComplexLayoutDemoState extends State<_ComplexLayoutDemo> {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surfaceContainerLow,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2)),
+        border: Border.all(
+            color:
+                Theme.of(context).colorScheme.outline.withValues(alpha: 0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -773,7 +838,11 @@ class _ComplexLayoutDemoState extends State<_ComplexLayoutDemo> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(band, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey)),
+              Text(band,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(color: Colors.grey)),
               AppSwitch(value: isOn, onChanged: (v) {}),
             ],
           ),
@@ -806,7 +875,13 @@ class _ComplexLayoutDemoState extends State<_ComplexLayoutDemo> {
       padding: const EdgeInsets.only(bottom: 2.0),
       child: Row(
         children: [
-          SizedBox(width: 80, child: Text(label, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey))),
+          SizedBox(
+              width: 80,
+              child: Text(label,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(color: Colors.grey))),
           Text(value, style: Theme.of(context).textTheme.bodyMedium),
         ],
       ),
@@ -830,86 +905,29 @@ class _ComplexLayoutDemoState extends State<_ComplexLayoutDemo> {
               Text(label, style: Theme.of(context).textTheme.bodyMedium),
             ],
           ),
-          Text(value, style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold)),
+          Text(value,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(fontWeight: FontWeight.bold)),
         ],
       ),
     );
   }
 }
 
-@widgetbook.UseCase(
-  name: 'Page with Standard FAB',
-  type: AppPageView,
-)
-Widget buildPageWithStandardFAB(BuildContext context) {
-  return AppPageView.withFAB(
-    title: 'Add Items',
-    fabIcon: Icons.add,
-    onFABPressed: () {},
-    fabTooltip: 'Add new item',
-    child: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(Icons.list, size: 64),
-          AppGap.md(),
-          const Text('Page with standard FAB'),
-          AppGap.sm(),
-          const Text('FAB provides primary action'),
-        ],
-      ),
-    ),
-  );
-}
-
-@widgetbook.UseCase(
-  name: 'Page with Expandable FAB',
-  type: AppPageView,
-)
-Widget buildPageWithExpandableFAB(BuildContext context) {
-  return AppPageView.withExpandableFAB(
-    title: 'Actions',
-    fabActions: [
-      FloatingActionButton(
-        heroTag: "edit",
-        onPressed: () {},
-        child: const Icon(Icons.edit),
-      ),
-      FloatingActionButton(
-        heroTag: "delete",
-        onPressed: () {},
-        child: const Icon(Icons.delete),
-      ),
-      FloatingActionButton(
-        heroTag: "share",
-        onPressed: () {},
-        child: const Icon(Icons.share),
-      ),
-    ],
-    fabIcon: Icons.more_horiz,
-    fabActiveIcon: Icons.close,
-    child: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(Icons.auto_awesome, size: 64),
-          AppGap.md(),
-          const Text('Page with expandable FAB'),
-          AppGap.sm(),
-          const Text('FAB expands to show multiple actions'),
-        ],
-      ),
-    ),
-  );
-}
+// ============================================================
+// Note: Menu Position and FAB stories have been moved to
+// app_page_view_menu.stories.dart for better organization.
+// ============================================================
 
 @widgetbook.UseCase(
   name: 'Desktop Dashboard (Fixed Header + Menu)',
   type: AppPageView,
 )
 Widget buildDesktopDashboard(BuildContext context) {
-
-  final showOverlay = context.knobs.boolean(label: 'Show Grid Overlay', initialValue: true);
+  final showOverlay =
+      context.knobs.boolean(label: 'Show Grid Overlay', initialValue: true);
 
   return AppPageView(
     useSlivers: false,
@@ -922,35 +940,47 @@ Widget buildDesktopDashboard(BuildContext context) {
       color: Theme.of(context).colorScheme.primaryContainer,
       padding: const EdgeInsets.symmetric(horizontal: 24),
       alignment: Alignment.centerLeft,
-      child: Text('Dashboard Header', style: Theme.of(context).textTheme.titleLarge),
+      child: Text('Dashboard Header',
+          style: Theme.of(context).textTheme.titleLarge),
     ),
 
-    sideMenu: Container(
-      color: Theme.of(context).colorScheme.surfaceContainerLow,
-      padding: const EdgeInsets.all(16),
-      child: const Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _MenuLink(icon: Icons.home, label: 'Home', active: true),
-          _MenuLink(icon: Icons.analytics, label: 'Analytics'),
-          _MenuLink(icon: Icons.people, label: 'Users'),
-          Spacer(),
-          _MenuLink(icon: Icons.settings, label: 'Settings'),
-        ],
+    menuView: PageMenuView(
+      icon: Icons.menu,
+      label: 'Navigation',
+      content: Container(
+        color: Theme.of(context).colorScheme.surfaceContainerLow,
+        padding: const EdgeInsets.all(16),
+        child: const Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _MenuLink(icon: Icons.home, label: 'Home', active: true),
+            _MenuLink(icon: Icons.analytics, label: 'Analytics'),
+            _MenuLink(icon: Icons.people, label: 'Users'),
+            Spacer(),
+            _MenuLink(icon: Icons.settings, label: 'Settings'),
+          ],
+        ),
       ),
     ),
+    menuPosition: MenuPosition.left,
 
     // Content (8 Cols)
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 24),
-        Text('Main Content Area', style: Theme.of(context).textTheme.headlineMedium),
+        Text('Main Content Area',
+            style: Theme.of(context).textTheme.headlineMedium),
         const SizedBox(height: 16),
-        ...List.generate(10, (index) => Card(
-          margin: const EdgeInsets.only(bottom: 12),
-          child: Container(height: 100, alignment: Alignment.center, child: Text('Chart Widget $index')),
-        )),
+        ...List.generate(
+            10,
+            (index) => Card(
+                  margin: const EdgeInsets.only(bottom: 12),
+                  child: Container(
+                      height: 100,
+                      alignment: Alignment.center,
+                      child: Text('Chart Widget $index')),
+                )),
       ],
     ),
   );
@@ -960,7 +990,8 @@ class _MenuLink extends StatelessWidget {
   final IconData icon;
   final String label;
   final bool active;
-  const _MenuLink({required this.icon, required this.label, this.active = false});
+  const _MenuLink(
+      {required this.icon, required this.label, this.active = false});
 
   @override
   Widget build(BuildContext context) {
@@ -968,17 +999,24 @@ class _MenuLink extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 8),
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
       decoration: BoxDecoration(
-        color: active ? Theme.of(context).colorScheme.primaryContainer : Colors.transparent,
+        color: active
+            ? Theme.of(context).colorScheme.primaryContainer
+            : Colors.transparent,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
         children: [
-          Icon(icon, size: 20, color: active ? Theme.of(context).colorScheme.primary : Colors.grey),
+          Icon(icon,
+              size: 20,
+              color:
+                  active ? Theme.of(context).colorScheme.primary : Colors.grey),
           const SizedBox(width: 12),
-          Text(label, style: TextStyle(
-            color: active ? Theme.of(context).colorScheme.primary : Colors.grey[700],
-            fontWeight: active ? FontWeight.bold : FontWeight.normal
-          )),
+          Text(label,
+              style: TextStyle(
+                  color: active
+                      ? Theme.of(context).colorScheme.primary
+                      : Colors.grey[700],
+                  fontWeight: active ? FontWeight.bold : FontWeight.normal)),
         ],
       ),
     );
@@ -990,12 +1028,13 @@ class _MenuLink extends StatelessWidget {
   type: AppPageView,
 )
 Widget buildMobileFeed(BuildContext context) {
-  final showOverlay = context.knobs.boolean(label: 'Show Grid Overlay', initialValue: true);
+  final showOverlay =
+      context.knobs.boolean(label: 'Show Grid Overlay', initialValue: true);
 
   return AppPageView(
     useSlivers: true,
     showGridOverlay: showOverlay,
-    
+
     // Header (Sliver)
     header: SliverAppBar(
       pinned: true,
@@ -1007,15 +1046,15 @@ Widget buildMobileFeed(BuildContext context) {
       ),
     ),
 
-    sideMenu: null,
-
     // Content (Full Width)
     child: Column(
-      children: List.generate(20, (index) => ListTile(
-        title: Text('Feed Item #$index'),
-        subtitle: const Text('Matches standard mobile behavior'),
-        leading: const CircleAvatar(child: Icon(Icons.person)),
-      )),
+      children: List.generate(
+          20,
+          (index) => ListTile(
+                title: Text('Feed Item #$index'),
+                subtitle: const Text('Matches standard mobile behavior'),
+                leading: const CircleAvatar(child: Icon(Icons.person)),
+              )),
     ),
   );
 }

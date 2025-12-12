@@ -23,54 +23,53 @@ void main() {
       'ResponsiveMenuHandler - Desktop Sidebar',
       fileName: 'responsive_menu_handler_desktop',
       builder: () => buildThemeMatrix(
-          name: 'ResponsiveMenuHandler - Desktop',
-          width: 1400, // Desktop breakpoint is 1200px
-          height: 600,
-          child: ResponsiveMenuHandler(
-            config: PageMenuConfig(
-              title: 'Navigation',
-              items: [
-                PageMenuItem(
-                  label: 'Dashboard',
-                  icon: Icons.dashboard,
-                  isSelected: true,
-                  onTap: () {},
-                ),
-                PageMenuItem(
-                  label: 'Analytics',
-                  icon: Icons.analytics,
-                  onTap: () {},
-                ),
-                const PageMenuItem.divider(),
-                PageMenuItem(
-                  label: 'Settings',
-                  icon: Icons.settings,
-                  onTap: () {},
-                ),
-                PageMenuItem(
-                  label: 'Logout',
-                  icon: Icons.logout,
-                  onTap: () {},
-                ),
-              ],
-              showOnDesktop: true,
-              largeMenu: true,
-            ),
-            child: Container(
-              padding: const EdgeInsets.all(24),
-              child: const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Main Content Area',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 16),
-                  Text('This is the main content area next to the sidebar menu.'),
-                ],
+        name: 'ResponsiveMenuHandler - Desktop',
+        width: 1400, // Desktop breakpoint is 1200px
+        height: 600,
+        child: ResponsiveMenuHandler(
+          config: PageMenuConfig(
+            title: 'Navigation',
+            items: [
+              PageMenuItem(
+                label: 'Dashboard',
+                icon: Icons.dashboard,
+                isSelected: true,
+                onTap: () {},
               ),
+              PageMenuItem(
+                label: 'Analytics',
+                icon: Icons.analytics,
+                onTap: () {},
+              ),
+              const PageMenuItem.divider(),
+              PageMenuItem(
+                label: 'Settings',
+                icon: Icons.settings,
+                onTap: () {},
+              ),
+              PageMenuItem(
+                label: 'Logout',
+                icon: Icons.logout,
+                onTap: () {},
+              ),
+            ],
+            largeMenu: true,
+          ),
+          child: Container(
+            padding: const EdgeInsets.all(24),
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Main Content Area',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 16),
+                Text('This is the main content area next to the sidebar menu.'),
+              ],
             ),
           ),
+        ),
       ),
     );
 
@@ -78,56 +77,57 @@ void main() {
       'ResponsiveMenuHandler - Mobile Trigger',
       fileName: 'responsive_menu_handler_mobile',
       builder: () => buildThemeMatrix(
-          name: 'ResponsiveMenuHandler - Mobile',
-          width: 400,
-          height: 600,
-          child: ResponsiveMenuHandler(
-            config: PageMenuConfig(
-              title: 'Menu',
-              items: [
-                PageMenuItem(
-                  label: 'Home',
-                  icon: Icons.home,
-                  onTap: () {},
-                ),
-                PageMenuItem(
-                  label: 'Search',
-                  icon: Icons.search,
-                  onTap: () {},
-                ),
-                PageMenuItem(
-                  label: 'Profile',
-                  icon: Icons.person,
-                  onTap: () {},
-                ),
-              ],
-              showOnMobile: true,
-              mobileMenuIcon: Icons.menu,
-            ),
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              child: const Column(
-                children: [
-                  Card(
-                    child: Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Mobile Layout',
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(height: 8),
-                          Text('Menu trigger should be visible in mobile layout.'),
-                        ],
-                      ),
+        name: 'ResponsiveMenuHandler - Mobile',
+        width: 400,
+        height: 600,
+        child: ResponsiveMenuHandler(
+          config: PageMenuConfig(
+            title: 'Menu',
+            items: [
+              PageMenuItem(
+                label: 'Home',
+                icon: Icons.home,
+                onTap: () {},
+              ),
+              PageMenuItem(
+                label: 'Search',
+                icon: Icons.search,
+                onTap: () {},
+              ),
+              PageMenuItem(
+                label: 'Profile',
+                icon: Icons.person,
+                onTap: () {},
+              ),
+            ],
+            icon: Icons.menu,
+          ),
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            child: const Column(
+              children: [
+                Card(
+                  child: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Mobile Layout',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                            'Menu trigger should be visible in mobile layout.'),
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
+        ),
       ),
     );
 
@@ -135,22 +135,20 @@ void main() {
       'ResponsiveMenuHandler - Empty Menu',
       fileName: 'responsive_menu_handler_empty',
       builder: () => buildThemeMatrix(
-          name: 'ResponsiveMenuHandler - Empty',
-          width: 400,
-          height: 300,
-          child: ResponsiveMenuHandler(
-            config: const PageMenuConfig(
-              items: [], // Empty menu
-              showOnDesktop: true,
-              showOnMobile: true,
-            ),
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              child: const Center(
-                child: Text('Content with empty menu config'),
-              ),
+        name: 'ResponsiveMenuHandler - Empty',
+        width: 400,
+        height: 300,
+        child: ResponsiveMenuHandler(
+          config: const PageMenuConfig(
+            items: [], // Empty menu
+          ),
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            child: const Center(
+              child: Text('Content with empty menu config'),
             ),
           ),
+        ),
       ),
     );
   });
