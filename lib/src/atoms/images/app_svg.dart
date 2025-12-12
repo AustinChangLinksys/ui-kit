@@ -109,7 +109,6 @@ class AppSvg extends StatelessWidget with DarkModeAdaptation {
           width: width,
           height: height,
           fit: fit,
-          package: 'ui_kit_library',
         );
       },
       hasVariant: darkVariant != null,

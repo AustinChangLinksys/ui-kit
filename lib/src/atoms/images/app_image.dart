@@ -112,8 +112,8 @@ class AppImage extends StatelessWidget with DarkModeAdaptation {
     Key? key,
   }) {
     return AppImage._(
-      imageProvider: image.provider(package: 'ui_kit_library'),
-      darkImageProvider: darkVariant?.provider(package: 'ui_kit_library'),
+      imageProvider: image.provider(),
+      darkImageProvider: darkVariant?.provider(),
       darkStrategy: darkStrategy,
       darkColorFilter: darkColorFilter,
       width: width,

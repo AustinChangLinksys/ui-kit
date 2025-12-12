@@ -36,9 +36,9 @@ void main() {
             AppGap.sm(),
             const AppDivider(),
             AppGap.sm(),
-            AppListTile(
+            const AppListTile(
               title: AppText('Settings', color: Colors.white),
-              leading: const Icon(Icons.settings, color: Colors.white),
+              leading: Icon(Icons.settings, color: Colors.white),
             ),
           ],
         ),

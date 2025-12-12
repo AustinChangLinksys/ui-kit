@@ -63,7 +63,6 @@ class AppIcon extends StatelessWidget {
       Widget iconWidget = _svg!.svg(
         width: size,
         height: size,
-        package: 'ui_kit_library',
         colorFilter: ColorFilter.mode(
           iconColor,
           BlendMode.srcIn,

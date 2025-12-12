@@ -22,20 +22,31 @@ GoldenTestScenario buildSafeScenario({
 }) {
   return GoldenTestScenario(
     name: name,
-    child: SizedBox(
-      width: width,
-      height: height,
-      child: ColoredBox(
-        color: theme.scaffoldBackgroundColor,
-        child: Theme(
-          data: theme,
-          // Portal required for flutter_portal based components (AppTooltip, AppDropdown)
-          child: Portal(
-            child: Builder(
-              builder: (context) => Center(
-                child: TickerMode(
-                  enabled: !disableAnimation,
-                  child: child,
+    child: MediaQuery(
+      data: MediaQueryData(
+        size: Size(width, height),
+        // Set reasonable defaults for other properties
+        devicePixelRatio: 1.0,
+        textScaler: TextScaler.noScaling,
+        padding: EdgeInsets.zero,
+        viewInsets: EdgeInsets.zero,
+        viewPadding: EdgeInsets.zero,
+      ),
+      child: SizedBox(
+        width: width,
+        height: height,
+        child: ColoredBox(
+          color: theme.scaffoldBackgroundColor,
+          child: Theme(
+            data: theme,
+            // Portal required for flutter_portal based components (AppTooltip, AppDropdown)
+            child: Portal(
+              child: Builder(
+                builder: (context) => Center(
+                  child: TickerMode(
+                    enabled: !disableAnimation,
+                    child: child,
+                  ),
                 ),
               ),
             ),
